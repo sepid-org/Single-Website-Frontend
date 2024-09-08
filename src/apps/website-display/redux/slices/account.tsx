@@ -2,7 +2,6 @@ import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { Apis } from '../apis';
 import { createAsyncThunkApi } from '../apis/cerateApiAsyncThunk';
 import {
-  accountCRUDUrl,
   changePasswordUrl,
   verificationCodeUrl,
 } from '../constants/urls';
