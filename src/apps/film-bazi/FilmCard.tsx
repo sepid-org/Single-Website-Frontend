@@ -25,7 +25,8 @@ const FilmCard: React.FC<FilmCardPropsType> = ({
   const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
 
   const handleOpenDialog = () => {
-    getDiscountCode({ filmId: film.id, cityId: getCityByName(userProfile?.city)?.id });
+    // getDiscountCode({ filmId: film.id, cityId: getCityByName(userProfile?.city)?.id });
+    setIsDialogOpen(true);
   };
 
   useEffect(() => {
@@ -81,7 +82,10 @@ const FilmCard: React.FC<FilmCardPropsType> = ({
         open={isDialogOpen}
         onClose={handleCloseDialog}
         filmName={film.name}
-        discountCode={discountCode}
+        discountCode={{
+          code: 'fk3ssf43f',
+          usageCount: 12,
+        }}
       />
     </Fragment>
   );
