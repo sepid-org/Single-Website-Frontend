@@ -3,11 +3,11 @@ import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSM
 import EditableNormalState from './EditableNormalState';
 import EditableBoardState from './EditableBoardState';
 
-type EditStatePropsType = {
+type EditableFSMStatePropsType = {
   fsmStateId: string;
 }
 
-const EditState: FC<EditStatePropsType> = ({
+const EditableFSMState: FC<EditableFSMStatePropsType> = ({
   fsmStateId,
 }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
@@ -21,4 +21,4 @@ const EditState: FC<EditStatePropsType> = ({
 
 }
 
-export default EditState;
+export default EditableFSMState;
