@@ -5,24 +5,24 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import reduxStore from 'apps/website-display/redux/store';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import GetWebsiteApiWrapper from 'commons/utils/GetWebsiteApiWrapper';
+import InitialApiCaller from 'commons/utils/InitialApiCalls';
 
 const rootContent =
   process.env.REACT_APP_GOOGLE_CLIENT_ID ?
     <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <Provider store={reduxStore}>
-          <GetWebsiteApiWrapper>
+          <InitialApiCaller>
             <App />
-          </GetWebsiteApiWrapper>
+          </InitialApiCaller>
         </Provider>
       </BrowserRouter>
     </GoogleOAuthProvider> :
     <BrowserRouter>
       <Provider store={reduxStore}>
-        <GetWebsiteApiWrapper>
+        <InitialApiCaller>
           <App />
-        </GetWebsiteApiWrapper>
+        </InitialApiCaller>
       </Provider>
     </BrowserRouter>
 
