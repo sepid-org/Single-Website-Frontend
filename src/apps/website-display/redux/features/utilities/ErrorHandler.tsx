@@ -21,7 +21,6 @@ const handleError = ({
   if (error.data?.code) {
     if (['user_not_found', 'token_not_valid'].includes(error.data.code)) {
       dispatch({ type: 'account/logout' });
-      toast.error('نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید.');
       return;
     }
 
@@ -48,10 +47,7 @@ const handleError = ({
       return;
   }
 
-  if (errorMessage) {
-    toast.error(errorMessage);
-    return;
-  }
+  toast.error(errorMessage);
 };
 
 

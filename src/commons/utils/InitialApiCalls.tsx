@@ -1,7 +1,8 @@
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import React from 'react';
 
-const GetWebsiteApiWrapper = ({ children }) => {
+
+const InitialApiCalls = ({ children }) => {
   const { isError, isLoading } = useGetWebsiteQuery();
 
   if (isLoading) {
@@ -15,4 +16,4 @@ const GetWebsiteApiWrapper = ({ children }) => {
   return children;
 };
 
-export default GetWebsiteApiWrapper;
+export default InitialApiCalls;

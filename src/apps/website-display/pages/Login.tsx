@@ -56,6 +56,8 @@ const LoginPage: FC<LoginPagePropsType> = ({
     login(data);
   };
 
+  const isUserTokenExpired = window.location.href.includes('token-expiration');
+
   return (
     <Container
       sx={{
@@ -69,9 +71,13 @@ const LoginPage: FC<LoginPagePropsType> = ({
         alignItems={'center'}
         width={400}>
 
+        {isUserTokenExpired &&
+          <Typography align='center' variant='h5' color={'error'}>{'نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید.'}</Typography>
+        }
         <Box pb={2}>
           <WebsiteLogo size='large' />
         </Box>
+
 
         <Stack
           width={'100%'}

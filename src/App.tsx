@@ -8,12 +8,10 @@ import { ThemeProvider } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
 import { connect } from 'react-redux';
 import { IntlProvider } from 'react-redux-multilingual';
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import createEmotionCache from 'commons/configs/CreateEmotionCache'
 import selectTheme from 'commons/configs/themes';
-import { resetRedirectAction } from 'apps/website-display/redux/slices/redirect';
 import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Root from 'commons/routes';
 import translations from 'commons/translations';
@@ -21,19 +19,12 @@ import LinearLoading from 'commons/components/atoms/LinearLoading';
 import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/ThirdPartySlice';
 import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPartyApps';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
-import { useCheckAuthenticationQuery } from 'apps/website-display/redux/features/user/UserSlice';
 import GlobalStyles from 'commons/configs/styles/GlobalStyles';
 
 const App = ({
   dir,
-  redirectTo,
-  resetRedirect,
   loading,
-  accessToken,
 }) => {
-  const navigate = useNavigate();
-  // check token expiration:
-  useCheckAuthenticationQuery(null, { skip: !accessToken });
   const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const { data: thirdPartiesTokens } = useGetThirdPartiesQuery()
 
@@ -42,13 +33,6 @@ const App = ({
       initSupportingThirdPartyApps(thirdPartiesTokens);
     }
   }, [thirdPartiesTokens])
-
-  useEffect(() => {
-    if (redirectTo !== null) {
-      navigate(redirectTo);
-      resetRedirect();
-    }
-  }, [redirectTo]);
 
   useEffect(() => {
     document.body.dir = dir;
@@ -109,15 +93,10 @@ const App = ({
 
 const mapStateToProps = (state) => ({
   dir: state.Intl.locale === 'fa' ? 'rtl' : 'ltr',
-  redirectTo: state.redirect.redirectTo,
-  forceRedirect: state.redirect.force,
   loading:
     state.account.isFetching ||
     state.programs.isFetching ||
     state.currentState.isFetching,
-  accessToken: state.account?.accessToken,
 });
 
-export default connect(mapStateToProps, {
-  resetRedirect: resetRedirectAction,
-})(App);
+export default connect(mapStateToProps)(App);
