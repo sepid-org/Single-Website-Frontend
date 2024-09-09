@@ -47,3 +47,12 @@ export interface CanvasProps {
   onMouseUp: (e: React.MouseEvent<HTMLCanvasElement>) => void;
   onWheel: (e: React.WheelEvent<HTMLCanvasElement>) => void;
 }
+
+export interface ChatMessage {
+  text: string;
+  sender: 'user' | 'system';
+}
+
+export interface ChatbotProps {
+  isOpen: boolean;
+}

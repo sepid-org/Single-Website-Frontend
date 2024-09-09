@@ -1,9 +1,14 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Canvas } from './components/Canvas';
 import { createMasses, centerCameraOnAllMasses, isPointInMass, zoomToMass, GRID_SIZE } from './utils/gridUtils';
-import { Camera, DragState, MovingItem, CategoryMass } from './types';
+import { Camera, DragState, MovingItem, CategoryMass, ChatMessage } from './types';
 import { categories } from './data/categories';
 import { INITIAL_CAMERA_X, INITIAL_CAMERA_Y, INITIAL_CAMERA_ZOOM, MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, ZOOM_THRESHOLD } from './data/constants';
+import { Box, TextField, Button, List, ListItem, ListItemText, Typography, Fab, Slide } from '@mui/material';
+import ChatIcon from '@mui/icons-material/Chat';
+import CloseIcon from '@mui/icons-material/Close';
+import Chatbot from './components/ChatBot';
+
 
 
 const App: React.FC = () => {
@@ -11,6 +16,7 @@ const App: React.FC = () => {
   const [camera, setCamera] = useState<Camera>({ x: INITIAL_CAMERA_X, y: INITIAL_CAMERA_Y, zoom: INITIAL_CAMERA_ZOOM });
   const [dragState, setDragState] = useState<DragState>({ isDragging: false, isMovingItem: false, lastMouseX: 0, lastMouseY: 0 });
   const [movingItem, setMovingItem] = useState<MovingItem>({ key: null, offsetX: 0, offsetY: 0 });
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -119,17 +125,37 @@ const App: React.FC = () => {
     }));
   }, [camera]);
 
+  const toggleChat = () => {
+    setIsChatOpen(prev => !prev);
+  };
+
   return (
-    <Canvas
-      ref={canvasRef}
-      masses={masses}
-      camera={camera}
-      movingItem={movingItem}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onWheel={handleWheel}
-    />
+    <Box sx={{ position: 'relative', width: '100vw', height: '100vh' }}>
+      <Canvas
+        ref={canvasRef}
+        masses={masses}
+        camera={camera}
+        movingItem={movingItem}
+        onMouseDown={handleMouseDown}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onWheel={handleWheel}
+      />
+      <Fab
+        color="primary"
+        aria-label="toggle chat"
+        onClick={toggleChat}
+        sx={{
+          position: 'absolute',
+          bottom: 16,
+          right: isChatOpen ? 316 : 16,
+          transition: 'right 0.3s ease-in-out',
+        }}
+      >
+        {isChatOpen ? <CloseIcon /> : <ChatIcon />}
+      </Fab>
+      <Chatbot isOpen={isChatOpen} />
+    </Box>
   );
 };
 
