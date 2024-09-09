@@ -25,7 +25,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen }) => {
   };
 
   return (
-    <Slide direction="left" in={isOpen} mountOnEnter unmountOnExit>
+    <Slide direction="right" in={isOpen} mountOnEnter unmountOnExit>
       <Box
         sx={{
           position: 'absolute',
