@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Canvas } from './components/Canvas';
-import { createMasses, centerCameraOnAllMasses, isPointInMass, zoomToMass } from './utils/gridUtils';
+import { createMasses, centerCameraOnAllMasses, isPointInMass, zoomToMass, GRID_SIZE } from './utils/gridUtils';
 import { Camera, DragState, MovingItem, CategoryMass } from './types';
 import { categories } from './data/categories';
+import { MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, ZOOM_THRESHOLD } from './data/constants';
+
+
 
 const App: React.FC = () => {
   const [masses, setMasses] = useState<CategoryMass[]>([]);
@@ -19,58 +22,65 @@ const App: React.FC = () => {
     setCamera(newCamera);
   }, []);
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     const { zoom, x: cameraX, y: cameraY } = camera;
-    if (zoom < 0.5) {
-      const mouseX = e.clientX / zoom + cameraX;
-      const mouseY = e.clientY / zoom + cameraY;
+    const mouseX = e.clientX / zoom + cameraX;
+    const mouseY = e.clientY / zoom + cameraY;
+
+    if (zoom < ZOOM_THRESHOLD) {
       const clickedMass = masses.find(categoryMass => isPointInMass(mouseX, mouseY, categoryMass.mass));
       if (clickedMass) {
-        const newCamera = zoomToMass(clickedMass.mass, window.innerWidth, window.innerHeight);
-        setCamera(newCamera);
+        setCamera(zoomToMass(clickedMass.mass, window.innerWidth, window.innerHeight));
       }
     } else {
-      const gridX = Math.floor((e.clientX / zoom + cameraX) / 40);
-      const gridY = Math.floor((e.clientY / zoom + cameraY) / 40);
+      const gridX = Math.floor(mouseX / GRID_SIZE);
+      const gridY = Math.floor(mouseY / GRID_SIZE);
       const key = `${gridX},${gridY}`;
       const clickedItem = masses.some(categoryMass =>
         categoryMass.mass.some(item => item.x === gridX && item.y === gridY)
       );
+
+      setDragState(prev => ({
+        ...prev,
+        isDragging: !clickedItem,
+        isMovingItem: clickedItem,
+        lastMouseX: e.clientX,
+        lastMouseY: e.clientY
+      }));
+
       if (clickedItem) {
-        setDragState(prev => ({ ...prev, isMovingItem: true }));
         setMovingItem({
           key,
-          offsetX: (e.clientX / zoom + cameraX) % 40,
-          offsetY: (e.clientY / zoom + cameraY) % 40
+          offsetX: mouseX % GRID_SIZE,
+          offsetY: mouseY % GRID_SIZE
         });
-      } else {
-        setDragState(prev => ({ ...prev, isDragging: true }));
       }
     }
-    setDragState(prev => ({ ...prev, lastMouseX: e.clientX, lastMouseY: e.clientY }));
-  };
+  }, [camera, masses]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     const { isDragging, isMovingItem, lastMouseX, lastMouseY } = dragState;
+    const dx = e.clientX - lastMouseX;
+    const dy = e.clientY - lastMouseY;
+
     if (isDragging) {
-      const dx = e.clientX - lastMouseX;
-      const dy = e.clientY - lastMouseY;
       setCamera(prev => ({ ...prev, x: prev.x - dx / prev.zoom, y: prev.y - dy / prev.zoom }));
     } else if (isMovingItem) {
       setMovingItem(prev => ({
         ...prev,
-        offsetX: prev.offsetX + (e.clientX - lastMouseX) / camera.zoom,
-        offsetY: prev.offsetY + (e.clientY - lastMouseY) / camera.zoom
+        offsetX: prev.offsetX + dx / camera.zoom,
+        offsetY: prev.offsetY + dy / camera.zoom
       }));
     }
-    setDragState(prev => ({ ...prev, lastMouseX: e.clientX, lastMouseY: e.clientY }));
-  };
 
-  const handleMouseUp = () => {
+    setDragState(prev => ({ ...prev, lastMouseX: e.clientX, lastMouseY: e.clientY }));
+  }, [dragState, camera.zoom]);
+
+  const handleMouseUp = useCallback(() => {
     if (dragState.isMovingItem && movingItem.key) {
       const [oldX, oldY] = movingItem.key.split(',').map(Number);
-      const newX = Math.floor((oldX * 40 + movingItem.offsetX) / 40);
-      const newY = Math.floor((oldY * 40 + movingItem.offsetY) / 40);
+      const newX = Math.floor((oldX * GRID_SIZE + movingItem.offsetX) / GRID_SIZE);
+      const newY = Math.floor((oldY * GRID_SIZE + movingItem.offsetY) / GRID_SIZE);
       const newKey = `${newX},${newY}`;
 
       if (newKey !== movingItem.key) {
@@ -84,27 +94,28 @@ const App: React.FC = () => {
         })));
       }
     }
+
     setDragState(prev => ({ ...prev, isDragging: false, isMovingItem: false }));
     setMovingItem({ key: null, offsetX: 0, offsetY: 0 });
-  };
+  }, [dragState.isMovingItem, movingItem]);
 
-  const handleWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
-    // Removed e.preventDefault();
-    const zoomSpeed = 0.1;
+  const handleWheel = useCallback((e: React.WheelEvent<HTMLCanvasElement>) => {
     const zoomPoint = {
       x: e.clientX / camera.zoom + camera.x,
       y: e.clientY / camera.zoom + camera.y
     };
 
-    let newZoom = e.deltaY < 0 ? camera.zoom * (1 + zoomSpeed) : camera.zoom / (1 + zoomSpeed);
-    newZoom = Math.max(0.1, Math.min(newZoom, 2));
+    const newZoom = Math.max(MIN_ZOOM, Math.min(
+      e.deltaY < 0 ? camera.zoom * (1 + ZOOM_SPEED) : camera.zoom / (1 + ZOOM_SPEED),
+      MAX_ZOOM
+    ));
 
     setCamera(prev => ({
       zoom: newZoom,
       x: zoomPoint.x - e.clientX / newZoom,
       y: zoomPoint.y - e.clientY / newZoom
     }));
-  };
+  }, [camera]);
 
   return (
     <Canvas

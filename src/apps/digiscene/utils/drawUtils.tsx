@@ -1,6 +1,6 @@
+import { BOX_ZOOM_THRESHOLD, GRID_SIZE } from '../data/constants';
 import { Camera, MovingItem, CategoryMass, Mass } from '../types';
 
-const GRID_SIZE = 40;
 
 export const drawGrid = (ctx: CanvasRenderingContext2D, camera: Camera): void => {
   const { width, height } = ctx.canvas;
@@ -40,7 +40,7 @@ export const drawMasses = (
       return; // Skip drawing if the mass is not visible
     }
 
-    if (camera.zoom < 0.5) {
+    if (camera.zoom < BOX_ZOOM_THRESHOLD) {
       drawBox(ctx, categoryMass, index, left, top, right - left, bottom - top);
     } else {
       drawImages(ctx, categoryMass.mass, camera, movingItem);
