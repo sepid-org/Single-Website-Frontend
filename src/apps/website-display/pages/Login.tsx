@@ -7,9 +7,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
@@ -19,23 +18,12 @@ import { toast } from 'react-toastify';
 type LoginPagePropsType = {};
 
 const LoginPage: FC<LoginPagePropsType> = ({ }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
   const [data, setData] = useState({
     password: '',
     username: '',
   });
   const { data: website } = useGetWebsiteQuery();
-  const [login, { isLoading, isSuccess }] = useLoginMutation();
-  const accessToken = useSelector((state: any) => state.account.accessToken);
-
-  useEffect(() => {
-    if (accessToken) {
-      const previousLocation = location.state?.from?.pathname
-      const destinationLocation = previousLocation || '/programs/';
-      navigate(destinationLocation, { replace: true });
-    }
-  }, [accessToken])
+  const [login, { isLoading }] = useLoginMutation();
 
   const collectData = (event) => {
     setData({
@@ -53,13 +41,6 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
   };
 
   const isUserTokenExpired = window.location.href.includes('token-expiration');
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate('/');
-      toast.success('خوش برگشتی');
-    }
-  }, [isSuccess])
 
   return (
     <Container

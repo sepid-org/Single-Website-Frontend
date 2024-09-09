@@ -16,7 +16,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
     phoneNumber: '',
     verificationCode: '',
   });
-  const [changePassword, { isLoading: isChangePasswordLoading, isSuccess: isChangePasswordSuccess }] = useChangeUserPasswordMutation();
+  const [changePassword, { isLoading, isSuccess }] = useChangeUserPasswordMutation();
 
   const collectData = (event) => {
     setData({
@@ -39,11 +39,11 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
   };
 
   useEffect(() => {
-    if (isChangePasswordSuccess) {
+    if (isSuccess) {
       toast.success('گذر‌واژه‌ی شما با موفقیت تغییر یافت.')
       navigate('/login/');
     }
-  }, [isChangePasswordSuccess])
+  }, [isSuccess])
 
   return (
     <Container
@@ -112,7 +112,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
               onClick={doChangePassword}
               variant="contained"
               color="primary"
-              disabled={isChangePasswordLoading}
+              disabled={isLoading}
               fullWidth>
               تغییر
             </Button>

@@ -23,6 +23,7 @@ import Correction from 'apps/website-display/pages/Correction';
 import EditArticle from 'apps/website-display/pages/EditArticle';
 import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
 import ProfilePage from 'apps/website-display/pages/Profile';
+import AnonymousRoute from './AnonymousRoute';
 
 const Root = () => {
 
@@ -30,14 +31,17 @@ const Root = () => {
     <Routes>
 
       <Route path="/" element={<Navigate to={'/programs/'} />} />
-      <Route path="/login/" element={<Login />} />
-      <Route path="/token-expiration/" element={<Login />} />
-      <Route path="/reset-password/" element={<ResetPassword />} />
-      <Route path="/create-account/" element={<CreateAccount />} />
       <Route path="/articles/" element={<Articles />} />
       <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
       <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
+
+      <Route path="/" element={<AnonymousRoute />}>
+        <Route path="/login/" element={<Login />} />
+        <Route path="/token-expiration/" element={<Login />} />
+        <Route path="/reset-password/" element={<ResetPassword />} />
+        <Route path="/create-account/" element={<CreateAccount />} />
+      </Route>
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/edit-article/:articleId/" element={<EditArticle />} />

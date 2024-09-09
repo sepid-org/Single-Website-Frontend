@@ -14,7 +14,7 @@ const UserInfo = ({ }) => {
         <Avatar /> :
         <Stack direction={'row'} spacing={1}>
           <DashboardButton variant='outlined' label='ورود' to={'/login/'} onClick={null} />
-          <DashboardButton variant='contained' label='عضویت' to={'/create-account/'} onClick={null} />
+          <DashboardButton variant='contained' label='ثبت‌نام' to={'/create-account/'} onClick={null} />
         </Stack>
       }
     </Stack>

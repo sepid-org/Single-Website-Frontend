@@ -1,9 +1,10 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const PrivateRoute = ({ accessToken }) => {
+const PrivateRoute = ({ }) => {
   const location = useLocation();
+  const accessToken = useSelector((state: any) => state.account.accessToken);
 
   if (!accessToken) {
     return <Navigate state={{ from: location }} to={'/login/'} />
@@ -11,8 +12,4 @@ const PrivateRoute = ({ accessToken }) => {
   return <Outlet />
 };
 
-const mapStateToProps = (state) => ({
-  accessToken: state.account.accessToken,
-});
-
-export default connect(mapStateToProps)(PrivateRoute);
+export default PrivateRoute;
