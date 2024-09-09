@@ -31,7 +31,7 @@ export const categories: Category[] = [
     ]
   },
   {
-    "name": "لوازم ماهیگیری",
+    "name": "لوازم ماهی‌گیری",
     "products": [
       {
         "name": "چرخ ماهیگیری هان لانگ کد CB240",

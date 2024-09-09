@@ -1,4 +1,4 @@
-import { FONT_FAMILY, FONT_SIZE_BASE, FONT_SIZE_MIN, GRID_COLOR, MIN_ZOOM_FOR_IMAGES } from '../data/constants';
+import { FONT_FAMILY, FONT_SIZE_BASE, FONT_SIZE_MIN, GRID_COLOR, MIN_ZOOM_FOR_IMAGES, TEXT_PADDING } from '../data/constants';
 import { Camera, MovingItem, CategoryMass, Mass } from '../types';
 import { GRID_SIZE } from './gridUtils';
 
@@ -38,6 +38,7 @@ const getBoundingBox = (mass: Mass) => {
   }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
 };
 
+
 const drawBox = (
   ctx: CanvasRenderingContext2D,
   categoryMass: CategoryMass,
@@ -51,12 +52,54 @@ const drawBox = (
   ctx.fillRect(left, top, width, height);
 
   ctx.fillStyle = 'black';
-  const fontSize = Math.max(FONT_SIZE_MIN, FONT_SIZE_BASE * ctx.canvas.width / 1000);
+  let fontSize = Math.max(FONT_SIZE_MIN, FONT_SIZE_BASE * ctx.canvas.width / 1000);
   ctx.font = `${fontSize}px ${FONT_FAMILY}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  ctx.fillText(categoryMass.category.name, left + width / 2, top + height / 2);
+
+  const text = categoryMass.category.name;
+  const maxWidth = width - 2 * TEXT_PADDING;
+  const maxHeight = height - 2 * TEXT_PADDING;
+
+  // Function to wrap text
+  const wrapText = (text: string, maxWidth: number): string[] => {
+    const words = text.split(' ');
+    const lines: string[] = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      const word = words[i];
+      const width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+        currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  };
+
+  // Wrap text and measure total height
+  let lines = wrapText(text, maxWidth);
+  let totalHeight = lines.length * fontSize;
+
+  // Scale down font size if text is too big
+  while (totalHeight > maxHeight && fontSize > FONT_SIZE_MIN) {
+    fontSize--;
+    ctx.font = `${fontSize}px ${FONT_FAMILY}`;
+    lines = wrapText(text, maxWidth);
+    totalHeight = lines.length * fontSize;
+  }
+
+  // Draw each line of text
+  const startY = top + height / 2 - (totalHeight / 2) + fontSize / 2;
+  lines.forEach((line, i) => {
+    ctx.fillText(line, left + width / 2, startY + i * fontSize);
+  });
 };
+
 
 const drawImage = (
   ctx: CanvasRenderingContext2D,
