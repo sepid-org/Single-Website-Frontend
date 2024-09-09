@@ -24,6 +24,7 @@ import EditArticle from 'apps/website-display/pages/EditArticle';
 import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from './AnonymousRoute';
+import App from 'apps/digiscene/App';
 
 const Root = () => {
 
@@ -35,6 +36,8 @@ const Root = () => {
       <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
       <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
+
+      <Route path="/digiscene/" element={<App />} />
 
       <Route path="/" element={<AnonymousRoute />}>
         <Route path="/login/" element={<Login />} />
