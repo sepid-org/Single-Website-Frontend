@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserSlice } from 'apps/website-display/redux/features/user/UserSlice';
 import { UserInfoType } from 'commons/types/profile';
+import { toast } from 'react-toastify';
 
 interface AccountState {
   id: string;
@@ -31,7 +32,10 @@ const AccountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    logout: () => initialState,
+    logout: () => {
+      toast.info('خدا به همراهت...');
+      return initialState;
+    },
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
