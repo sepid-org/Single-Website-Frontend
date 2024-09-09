@@ -53,11 +53,35 @@ export const categories: Category[] = [
         "name": "چرخ ماهیگیری هان لانگ کد CB240",
         "image": "https://dkstatics-public.digikala.com/digikala-products/112784025.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
       },
+      {
+        "name": "چرخ ماهیگیری هان لانگ کد CB240",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/112784025.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
+      {
+        "name": "چرخ ماهیگیری هان لانگ کد CB240",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/112784025.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
+      {
+        "name": "چرخ ماهیگیری هان لانگ کد CB240",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/112784025.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
     ]
   },
   {
     "name": "دمپایی زنانه",
     "products": [
+      {
+        "name": "دمپایی زنانه کد CB23H",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/121028068.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
+      {
+        "name": "دمپایی زنانه کد CB23H",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/121028068.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
+      {
+        "name": "دمپایی زنانه کد CB23H",
+        "image": "https://dkstatics-public.digikala.com/digikala-products/121028068.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"
+      },
       {
         "name": "دمپایی زنانه کد CB23H",
         "image": "https://dkstatics-public.digikala.com/digikala-products/121028068.jpg?x-oss-process=image/resize,m_lfit,h_115,w_115/quality,q_60"

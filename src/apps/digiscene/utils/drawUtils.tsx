@@ -1,62 +1,41 @@
-import { BOX_ZOOM_THRESHOLD, GRID_SIZE } from '../data/constants';
+import { FONT_FAMILY, FONT_SIZE_BASE, FONT_SIZE_MIN, GRID_COLOR, MIN_ZOOM_FOR_IMAGES } from '../data/constants';
 import { Camera, MovingItem, CategoryMass, Mass } from '../types';
+import { GRID_SIZE } from './gridUtils';
 
-
-export const drawGrid = (ctx: CanvasRenderingContext2D, camera: Camera): void => {
+const drawGrid = (ctx: CanvasRenderingContext2D, camera: Camera): void => {
   const { width, height } = ctx.canvas;
-  const startX = Math.floor(camera.x / GRID_SIZE) * GRID_SIZE - camera.x % GRID_SIZE;
-  const startY = Math.floor(camera.y / GRID_SIZE) * GRID_SIZE - camera.y % GRID_SIZE;
-  const endX = startX + width / camera.zoom + GRID_SIZE;
-  const endY = startY + height / camera.zoom + GRID_SIZE;
+  const { x: cameraX, y: cameraY, zoom } = camera;
 
-  ctx.strokeStyle = '#ddd';
+  const startX = Math.floor(cameraX / GRID_SIZE) * GRID_SIZE - cameraX % GRID_SIZE;
+  const startY = Math.floor(cameraY / GRID_SIZE) * GRID_SIZE - cameraY % GRID_SIZE;
+  const endX = startX + width / zoom + GRID_SIZE;
+  const endY = startY + height / zoom + GRID_SIZE;
+
+  ctx.strokeStyle = GRID_COLOR;
   ctx.beginPath();
+
   for (let x = startX; x <= endX; x += GRID_SIZE) {
-    ctx.moveTo((x - camera.x) * camera.zoom, 0);
-    ctx.lineTo((x - camera.x) * camera.zoom, height);
+    const screenX = (x - cameraX) * zoom;
+    ctx.moveTo(screenX, 0);
+    ctx.lineTo(screenX, height);
   }
+
   for (let y = startY; y <= endY; y += GRID_SIZE) {
-    ctx.moveTo(0, (y - camera.y) * camera.zoom);
-    ctx.lineTo(width, (y - camera.y) * camera.zoom);
+    const screenY = (y - cameraY) * zoom;
+    ctx.moveTo(0, screenY);
+    ctx.lineTo(width, screenY);
   }
+
   ctx.stroke();
 };
 
-export const drawMasses = (
-  ctx: CanvasRenderingContext2D,
-  masses: CategoryMass[],
-  camera: Camera,
-  movingItem: MovingItem
-): void => {
-  const { width, height } = ctx.canvas;
-  masses.forEach((categoryMass, index) => {
-    const { minX, minY, maxX, maxY } = getBoundingBox(categoryMass.mass);
-    const left = (minX * GRID_SIZE - camera.x) * camera.zoom;
-    const top = (minY * GRID_SIZE - camera.y) * camera.zoom;
-    const right = ((maxX + 1) * GRID_SIZE - camera.x) * camera.zoom;
-    const bottom = ((maxY + 1) * GRID_SIZE - camera.y) * camera.zoom;
-
-    if (right < 0 || left > width || bottom < 0 || top > height) {
-      return; // Skip drawing if the mass is not visible
-    }
-
-    if (camera.zoom < BOX_ZOOM_THRESHOLD) {
-      drawBox(ctx, categoryMass, index, left, top, right - left, bottom - top);
-    } else {
-      drawImages(ctx, categoryMass.mass, camera, movingItem);
-    }
-  });
-};
-
 const getBoundingBox = (mass: Mass) => {
-  let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
-  mass.forEach(item => {
-    minX = Math.min(minX, item.x);
-    maxX = Math.max(maxX, item.x);
-    minY = Math.min(minY, item.y);
-    maxY = Math.max(maxY, item.y);
-  });
-  return { minX, minY, maxX, maxY };
+  return mass.reduce((box, item) => ({
+    minX: Math.min(box.minX, item.x),
+    maxX: Math.max(box.maxX, item.x),
+    minY: Math.min(box.minY, item.y),
+    maxY: Math.max(box.maxY, item.y),
+  }), { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity });
 };
 
 const drawBox = (
@@ -71,50 +50,83 @@ const drawBox = (
   ctx.fillStyle = `hsl(${index * 60}, 70%, 60%)`;
   ctx.fillRect(left, top, width, height);
 
-  // Draw category name
   ctx.fillStyle = 'black';
-  ctx.font = `${Math.max(12, 20 * ctx.canvas.width / 1000)}px Arial`;
+  const fontSize = Math.max(FONT_SIZE_MIN, FONT_SIZE_BASE * ctx.canvas.width / 1000);
+  ctx.font = `${fontSize}px ${FONT_FAMILY}`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.fillText(categoryMass.category.name, left + width / 2, top + height / 2);
 };
 
-const drawImages = (
+const drawImage = (
   ctx: CanvasRenderingContext2D,
-  mass: Mass,
+  x: number,
+  y: number,
+  size: number,
+  imageSrc: string,
+  alpha: number = 1
+) => {
+  const img = new Image();
+  img.src = imageSrc;
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(img, x, y, size, size);
+  ctx.globalAlpha = 1;
+};
+
+const drawMasses = (
+  ctx: CanvasRenderingContext2D,
+  masses: CategoryMass[],
   camera: Camera,
   movingItem: MovingItem
 ): void => {
-  mass.forEach(item => {
-    const x = (item.x * GRID_SIZE - camera.x) * camera.zoom;
-    const y = (item.y * GRID_SIZE - camera.y) * camera.zoom;
-    const size = GRID_SIZE * camera.zoom;
+  const { width, height } = ctx.canvas;
+  const { x: cameraX, y: cameraY, zoom } = camera;
 
-    if (x < -size || y < -size || x > ctx.canvas.width || y > ctx.canvas.height) {
-      return; // Skip drawing if the item is not visible
+  masses.forEach((categoryMass, index) => {
+    const { minX, minY, maxX, maxY } = getBoundingBox(categoryMass.mass);
+    const left = (minX * GRID_SIZE - cameraX) * zoom;
+    const top = (minY * GRID_SIZE - cameraY) * zoom;
+    const right = ((maxX + 1) * GRID_SIZE - cameraX) * zoom;
+    const bottom = ((maxY + 1) * GRID_SIZE - cameraY) * zoom;
+
+    if (right < 0 || left > width || bottom < 0 || top > height) {
+      return; // Skip drawing if the mass is not visible
     }
 
-    const key = `${item.x},${item.y}`;
-    if (key !== movingItem.key) {
-      const img = new Image();
-      img.src = item.product.image;
-      ctx.drawImage(img, x, y, size, size);
+    if (zoom < MIN_ZOOM_FOR_IMAGES) {
+      drawBox(ctx, categoryMass, index, left, top, right - left, bottom - top);
+    } else {
+      categoryMass.mass.forEach(item => {
+        const x = (item.x * GRID_SIZE - cameraX) * zoom;
+        const y = (item.y * GRID_SIZE - cameraY) * zoom;
+        const size = GRID_SIZE * zoom;
+
+        if (x < -size || y < -size || x > width || y > height) {
+          return; // Skip drawing if the item is not visible
+        }
+
+        const key = `${item.x},${item.y}`;
+        if (key !== movingItem.key) {
+          drawImage(ctx, x, y, size, item.product.image);
+        }
+      });
+
+      if (movingItem.key) {
+        const [x, y] = movingItem.key.split(',').map(Number);
+        const movingProduct = categoryMass.mass.find(item => item.x === x && item.y === y);
+        if (movingProduct) {
+          drawImage(
+            ctx,
+            (x * GRID_SIZE - cameraX + movingItem.offsetX) * zoom,
+            (y * GRID_SIZE - cameraY + movingItem.offsetY) * zoom,
+            GRID_SIZE * zoom,
+            movingProduct.product.image,
+            0.6
+          );
+        }
+      }
     }
   });
-
-  if (movingItem.key) {
-    const [x, y] = movingItem.key.split(',').map(Number);
-    const movingProduct = mass.find(item => item.x === x && item.y === y);
-    if (movingProduct) {
-      const img = new Image();
-      img.src = movingProduct.product.image;
-      ctx.globalAlpha = 0.6;
-      ctx.drawImage(img,
-        (x * GRID_SIZE - camera.x + movingItem.offsetX) * camera.zoom,
-        (y * GRID_SIZE - camera.y + movingItem.offsetY) * camera.zoom,
-        GRID_SIZE * camera.zoom,
-        GRID_SIZE * camera.zoom);
-      ctx.globalAlpha = 1;
-    }
-  }
 };
+
+export { drawGrid, drawMasses };

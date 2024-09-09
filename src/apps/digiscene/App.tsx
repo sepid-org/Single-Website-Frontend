@@ -3,13 +3,12 @@ import { Canvas } from './components/Canvas';
 import { createMasses, centerCameraOnAllMasses, isPointInMass, zoomToMass, GRID_SIZE } from './utils/gridUtils';
 import { Camera, DragState, MovingItem, CategoryMass } from './types';
 import { categories } from './data/categories';
-import { MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, ZOOM_THRESHOLD } from './data/constants';
-
+import { INITIAL_CAMERA_X, INITIAL_CAMERA_Y, INITIAL_CAMERA_ZOOM, MAX_ZOOM, MIN_ZOOM, ZOOM_SPEED, ZOOM_THRESHOLD } from './data/constants';
 
 
 const App: React.FC = () => {
   const [masses, setMasses] = useState<CategoryMass[]>([]);
-  const [camera, setCamera] = useState<Camera>({ x: 0, y: 0, zoom: 1 });
+  const [camera, setCamera] = useState<Camera>({ x: INITIAL_CAMERA_X, y: INITIAL_CAMERA_Y, zoom: INITIAL_CAMERA_ZOOM });
   const [dragState, setDragState] = useState<DragState>({ isDragging: false, isMovingItem: false, lastMouseX: 0, lastMouseY: 0 });
   const [movingItem, setMovingItem] = useState<MovingItem>({ key: null, offsetX: 0, offsetY: 0 });
 
@@ -19,7 +18,10 @@ const App: React.FC = () => {
     const newMasses = createMasses(categories);
     setMasses(newMasses);
     const newCamera = centerCameraOnAllMasses(newMasses, window.innerWidth, window.innerHeight);
-    setCamera(newCamera);
+    setCamera({
+      ...newCamera,
+      x: newCamera.x - 120
+    });
   }, []);
 
   const handleMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {

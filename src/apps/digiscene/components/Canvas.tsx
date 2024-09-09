@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { drawGrid, drawMasses } from '../utils/drawUtils';
 import { CanvasProps } from '../types';
 
@@ -13,35 +13,58 @@ export const Canvas = React.forwardRef<HTMLCanvasElement, CanvasProps>(({
 }, ref) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  useEffect(() => {
+  const render = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const render = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGrid(ctx, camera);
-      drawMasses(ctx, masses, camera, movingItem);
-      requestAnimationFrame(render);
-    };
-    render();
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawGrid(ctx, camera);
+    drawMasses(ctx, masses, camera, movingItem);
+  }, [masses, camera, movingItem]);
 
-    // Add non-passive wheel event listener
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      onWheel(e as unknown as React.WheelEvent<HTMLCanvasElement>);
+  useEffect(() => {
+    let animationFrameId: number;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      render();
+    });
+
+    resizeObserver.observe(canvas);
+
+    const renderLoop = () => {
+      render();
+      animationFrameId = requestAnimationFrame(renderLoop);
     };
+    renderLoop();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      resizeObserver.disconnect();
+    };
+  }, [render]);
+
+  const handleWheel = useCallback((e: WheelEvent) => {
+    e.preventDefault();
+    onWheel(e as unknown as React.WheelEvent<HTMLCanvasElement>);
+  }, [onWheel]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
     canvas.addEventListener('wheel', handleWheel, { passive: false });
 
-    // Cleanup function
     return () => {
       canvas.removeEventListener('wheel', handleWheel);
     };
-  }, [masses, camera, movingItem, onWheel]);
+  }, [handleWheel]);
 
   return (
     <canvas
@@ -57,3 +80,5 @@ export const Canvas = React.forwardRef<HTMLCanvasElement, CanvasProps>(({
     />
   );
 });
+
+Canvas.displayName = 'Canvas';
