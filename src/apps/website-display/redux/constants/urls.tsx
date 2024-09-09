@@ -1,7 +1,5 @@
 // account
 export const refreshTokenUrl = 'auth/accounts/refresh/';
-export const changePasswordUrl = 'auth/accounts/change_pass/';
-export const verificationCodeUrl = 'auth/accounts/verification_code/';
 
 // Article
 export const articlesUrl = ({ pageNumber, articleId }) => articleId ? `fsm/article/${articleId}` : `fsm/article/?page=${pageNumber}`;

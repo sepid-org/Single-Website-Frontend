@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useChangePhoneNumberMutation } from 'apps/website-display/redux/features/user/UserSlice';
 
@@ -24,27 +23,19 @@ const ChangePhoneNumberDialog: FC<ChangePhoneNumberDialogPropsType> = ({
     phoneNumber: '',
     verificationCode: '',
   }
-  const [data, _setData] = useState(initialData);
-
-  const setData = (event) => {
-    _setData({
-      ...data,
-      [event.target.name]: event.target.value,
-    });
-  };
-
-  const [loginWithGoogle, result] = useChangePhoneNumberMutation();
+  const [data, setData] = useState(initialData);
+  const [changePhoneNumber, result] = useChangePhoneNumberMutation();
 
   useEffect(() => {
     if (result.isSuccess) {
       toast.success('شماره تلفن همراه با موفقیت تغییر کرد.')
-      _setData(initialData);
+      setData(initialData);
       handleClose();
     }
   }, [result])
 
   const onClick = () => {
-    loginWithGoogle({ phone_number: data.phoneNumber, code: data.verificationCode });
+    changePhoneNumber({ phone_number: data.phoneNumber, code: data.verificationCode });
   }
 
   return (
@@ -52,7 +43,7 @@ const ChangePhoneNumberDialog: FC<ChangePhoneNumberDialogPropsType> = ({
       <DialogTitle>{'تغییر شماره تلفن همراه'}</DialogTitle>
       <DialogContent sx={{ paddingTop: '8px !important' }}>
         <VerifyPhoneNumber
-          verifyType='on-change-phone-number'
+          verificationType='change-user-phone-number'
           data={data}
           setData={setData}
         />

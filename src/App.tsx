@@ -6,7 +6,7 @@ import React, { Fragment, useEffect } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-redux-multilingual';
 import { Helmet } from "react-helmet";
 
@@ -15,16 +15,14 @@ import selectTheme from 'commons/configs/themes';
 import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Root from 'commons/routes';
 import translations from 'commons/translations';
-import LinearLoading from 'commons/components/atoms/LinearLoading';
 import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/ThirdPartySlice';
 import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPartyApps';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
 import GlobalStyles from 'commons/configs/styles/GlobalStyles';
 
-const App = ({
-  dir,
-  loading,
-}) => {
+const App = ({ }) => {
+  const locale = useSelector((state: any) => state.Intl.locale);
+  const dir = locale === 'fa' ? 'rtl' : 'ltr';
   const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const { data: thirdPartiesTokens } = useGetThirdPartiesQuery()
 
@@ -36,7 +34,7 @@ const App = ({
 
   useEffect(() => {
     document.body.dir = dir;
-  }, [dir]);
+  }, [locale]);
 
   return (
     <Fragment>
@@ -81,7 +79,6 @@ const App = ({
               draggable={false}
             />
             <ConfettiContainer />
-            <LinearLoading loading={loading} />
             <CssBaseline />
             <Root />
           </ThemeProvider>
@@ -91,12 +88,4 @@ const App = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  dir: state.Intl.locale === 'fa' ? 'rtl' : 'ltr',
-  loading:
-    state.account.isFetching ||
-    state.programs.isFetching ||
-    state.currentState.isFetching,
-});
-
-export default connect(mapStateToProps)(App);
+export default App;

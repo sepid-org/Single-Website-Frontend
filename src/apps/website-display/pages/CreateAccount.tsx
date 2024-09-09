@@ -9,25 +9,21 @@ import {
   Box,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useCreateAccountMutation } from '../redux/features/user/UserSlice';
+import { useGetWebsiteQuery } from '../redux/features/WebsiteSlice';
 
-type CreateAccountPropsType = {
-  isFetching: boolean;
-  accessToken: string;
-}
+type CreateAccountPropsType = {}
 
-const CreateAccount: FC<CreateAccountPropsType> = ({
-  isFetching,
-  accessToken,
-}) => {
+const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
   const navigate = useNavigate();
-  const [createAccount] = useCreateAccountMutation();
-
-  const [data, _setData] = useState({
+  const [createAccount, { isLoading }] = useCreateAccountMutation();
+  const { data: website } = useGetWebsiteQuery();
+  const accessToken = useSelector((state: any) => state.account.accessToken);
+  const [data, setData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -39,11 +35,12 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
   useEffect(() => {
     if (accessToken) {
       navigate('/programs/');
+      toast.success(`به ${website.display_name} خوش آمدید!`)
     }
   }, [navigate, accessToken])
 
-  const setData = (event) => {
-    _setData({
+  const collectData = (event) => {
+    setData({
       ...data,
       [event.target.name]: event.target.value,
     });
@@ -105,7 +102,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
+              onChange={collectData}
               value={data.firstName}
               name="firstName"
               label="نام"
@@ -116,7 +113,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
+              onChange={collectData}
               value={data.lastName}
               name="lastName"
               label="نام خانوادگی"
@@ -125,19 +122,16 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             />
 
             <VerifyPhoneNumber
-              data={{
-                phoneNumber: data.phoneNumber,
-                verificationCode: data.verificationCode
-              }}
+              data={data}
               setData={setData}
-              verifyType='on-create-user-account'
+              verificationType='create-user-account'
             />
 
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
-              label="گذرواژه"
+              onChange={collectData}
+              label="گذر‌واژه"
               name="password"
               inputProps={{ className: 'ltr-input' }}
               type="password"
@@ -147,8 +141,8 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
-              label="تکرار گذرواژه"
+              onChange={collectData}
+              label="تکرار گذر‌واژه"
               inputProps={{ className: 'ltr-input' }}
               name="confirmationPassword"
               type="password"
@@ -159,7 +153,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
               onClick={handleCreatingAccount}
               variant="contained"
               color="primary"
-              disabled={isFetching}
+              disabled={isLoading}
               fullWidth>
               ثبت
             </Button>
@@ -178,9 +172,4 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
   )
 }
 
-const mapStateToProps = (state) => ({
-  accessToken: state.account.accessToken,
-  isFetching: state.account.isFetching,
-});
-
-export default connect(mapStateToProps, {})(CreateAccount);
+export default CreateAccount;

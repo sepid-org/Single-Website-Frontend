@@ -1,7 +1,7 @@
 import { Button, Icon, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { logoutAction } from 'apps/website-display/redux/slices/account';
+import { logoutAction } from 'apps/website-display/redux/slices/Account';
 
 function LogoutButton({ }) {
   const dispatch = useDispatch();

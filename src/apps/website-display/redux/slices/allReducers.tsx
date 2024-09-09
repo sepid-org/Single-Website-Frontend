@@ -1,4 +1,4 @@
-import { accountReducer } from './account';
+import { AccountReducer } from './Account';
 import { currentStateReducer } from './currentState';
 import { programsReducer } from './programs';
 import { translatorReducer } from './translator';
@@ -12,10 +12,10 @@ import { GlobalReducer } from './Global';
 import { websocketReducer } from './websocket';
 
 const allReducers = {
+  account: AccountReducer,
   websocket: websocketReducer,
   global: GlobalReducer,
   website: WebsiteReducer,
-  account: accountReducer,
   currentState: currentStateReducer,
   whiteboard: whiteboardReducer,
   programs: programsReducer,
