@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Card, CardContent, Typography, TextField, Button } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetWidgetPositionsByPaperQuery, useSaveWidgetPositionsMutation } from 'apps/website-display/redux/features/widget/WidgetPositionSlice';
-import { WidgetPositionType, WidgetType } from 'commons/types/widgets/widget';
+import { useGetPositionsByPaperQuery } from 'apps/website-display/redux/features/object/PositionSlice';
+import { PositionType, WidgetType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
 import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
@@ -11,9 +10,8 @@ import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
 const BoardFSMState = ({ fsmStateId }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
-  const [widgetsWithPositions, setWidgetsWithPositions] = useState<(WidgetType & WidgetPositionType)[]>([]);
-  const { data: widgetPositions } = useGetWidgetPositionsByPaperQuery({ paperId: fsmStateId });
-  const [savePositions] = useSaveWidgetPositionsMutation();
+  const [widgetsWithPositions, setWidgetsWithPositions] = useState<(WidgetType & PositionType)[]>([]);
+  const { data: widgetPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
 
   useEffect(() => {
     if (!paper || !widgetPositions) return;

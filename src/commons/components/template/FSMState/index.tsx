@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import BoardFSMState from './template/BoardFSMState';
+import BoardFSMState from './BoardFSMState';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType;
 
