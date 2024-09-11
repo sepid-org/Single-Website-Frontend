@@ -10,7 +10,6 @@ import { Save as SaveIcon, Delete as DeleteIcon, Edit as EditIcon } from '@mui/i
 import React, { useState, FC, Fragment, useEffect } from 'react';
 import { useParams } from 'react-router';
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
-import CreateWidgetDialog from 'commons/components/organisms/dialogs/CreateWidgetDialog';
 import { EditPaper } from '../Paper';
 import EditHints from '../EditHints';
 import { useDeleteFSMStateMutation, useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
@@ -24,8 +23,6 @@ const EditableNormalState: FC<EditableNormalStatePropsType> = ({
   fsmStateId,
 }) => {
   const { fsmId } = useParams()
-  const [openCreateProblemDialog, setOpenCreateProblemDialog] = useState(false);
-  const [openCreateContentDialog, setOpenCreateContentDialog] = useState(false);
   const [openDeleteWidgetDialog, setOpenDeleteWidgetDialog] = useState(false);
   const [isEditingStateName, setIsEditingStateName] = useState(false);
   const [name, setName] = useState<string>(null);
@@ -113,18 +110,6 @@ const EditableNormalState: FC<EditableNormalStatePropsType> = ({
         <Divider />
         <EditHints paperId={fsmStateId} hints={fsmState?.hints} type='state' referenceId={fsmStateId} />
       </Stack >
-      <CreateWidgetDialog
-        showProblems={true}
-        showContent={false}
-        paperId={fsmStateId}
-        open={openCreateProblemDialog}
-        handleClose={() => setOpenCreateProblemDialog(false)}
-      />
-      <CreateWidgetDialog
-        paperId={fsmStateId}
-        open={openCreateContentDialog}
-        handleClose={() => setOpenCreateContentDialog(false)}
-      />
       <AreYouSure
         open={openDeleteWidgetDialog}
         handleClose={() => setOpenDeleteWidgetDialog(false)}

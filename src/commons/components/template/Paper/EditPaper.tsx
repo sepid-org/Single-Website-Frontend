@@ -1,12 +1,11 @@
-import { Button, Stack } from '@mui/material';
-import { Add as AddIcon } from '@mui/icons-material';
-import React, { useState, FC, Fragment } from 'react';
+import { Stack } from '@mui/material';
+import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
-import CreateWidgetDialog from 'commons/components/organisms/dialogs/CreateWidgetDialog';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
+import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 
 type EditPaperPropsType = {
   paperId: string;
@@ -18,7 +17,6 @@ const EditPaper: FC<EditPaperPropsType> = ({
   mode = 'all',
 }) => {
   const t = useTranslate();
-  const [openCreateWidgetDialog, setOpenCreateWidgetDialog] = useState(false);
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
   let widgets: WidgetType[];
@@ -50,22 +48,8 @@ const EditPaper: FC<EditPaperPropsType> = ({
             ))}
           </Fragment>
         }
-        <Button
-          color="primary"
-          variant="contained"
-          fullWidth
-          onClick={() => setOpenCreateWidgetDialog(true)}
-          startIcon={<AddIcon />}>
-          {t('createWidget')}
-        </Button>
+        <CreateWidgetButton mode={mode} paperId={paperId} />
       </Stack>
-      <CreateWidgetDialog
-        showProblems={mode === 'problems' || mode === 'all'}
-        showContent={mode === 'contents' || mode === 'all'}
-        paperId={paperId}
-        open={openCreateWidgetDialog}
-        handleClose={() => setOpenCreateWidgetDialog(false)}
-      />
     </Fragment>
   );
 }

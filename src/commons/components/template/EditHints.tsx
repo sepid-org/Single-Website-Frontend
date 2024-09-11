@@ -25,7 +25,6 @@ const EditHints: FC<EditHintsPropsType> = ({
   paperId,
 }) => {
   const t = useTranslate();
-  const [hintId, setHintId] = useState<string>(null);
   const [deleteDialogId, setDeleteDialogId] = useState<string>(null);
   const [createHint] = useCreateFSMStateHintMutation();
   const [deleteHint] = useDeleteFSMStateHintMutation();
@@ -69,11 +68,6 @@ const EditHints: FC<EditHintsPropsType> = ({
         onClick={() => type === 'state' ? createHint({ fsmStateId: referenceId }) : createWidgetHint({ paperId, widgetId: referenceId })}>
         {t('createHelp')}
       </Button>
-      <CreateWidgetDialog
-        paperId={hintId}
-        open={!!hintId}
-        handleClose={() => setHintId(null)}
-      />
       <AreYouSure
         open={!!deleteDialogId}
         handleClose={() => setDeleteDialogId(null)}
