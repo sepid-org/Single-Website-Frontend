@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import BoardFSMState from './BoardFSMState';
+import Layout from '../Layout';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType;
 
@@ -13,7 +14,10 @@ const FSMState: FC<FSMStatePropsType> = (props) => {
   }
 
   if (props.type === 'workshop') {
-    return <WorkshopFSMState {...props} />
+    return (
+      <Layout appbarMode={props.isMentor ? 'MENTOR_FSM' : 'FSM'}>
+        <WorkshopFSMState {...props} />
+      </Layout>)
   }
 }
 

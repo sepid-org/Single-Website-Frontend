@@ -10,6 +10,7 @@ import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSM
 
 export type WorkshopFSMStatePropsType = {
   type: 'workshop'; // | 'exam' | 'form' | 'game' | 'roadmap';
+  isMentor: boolean;
   stateId: string;
   playerId: string;
 }

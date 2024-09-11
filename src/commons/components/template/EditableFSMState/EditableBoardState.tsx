@@ -66,10 +66,8 @@ const EditableBoardState = ({ fsmStateId }) => {
     })
   }
 
-  console.log(widgetsWithPositions)
-
   return (
-    <div style={{ width: 800, height: '100vh', background: '#f0f0f0', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ width: 1600, height: 900, background: '#f0f0f0', position: 'relative', overflow: 'hidden' }}>
       <Button onClick={handleSavePositions}>
         {'ذخیره'}
       </Button>

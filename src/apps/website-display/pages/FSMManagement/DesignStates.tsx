@@ -3,17 +3,20 @@ import {
   Stack,
   Skeleton,
   Typography,
+  Button,
 } from '@mui/material';
 import { useParams } from 'react-router';
 import StatesMenu from 'commons/components/organisms/StatesMenu';
 import EditableFSMState from 'commons/components/template/EditableFSMState';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import EditableStateDialog from 'commons/components/organisms/dialogs/EditableStateDialog';
 
 type DesignStatesPropsType = {}
 
 const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [stateIndex, setStateIndex] = useState(0);
+  const [isEditableFSMStateDialogOpen, setIsEditableFSMStateDialogOpen] = useState(false);
   const { data: fsmStates = [], isLoading, isSuccess } = useGetFSMStatesQuery({ fsmId });
 
   useEffect(() => {
@@ -34,11 +37,19 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
       {(isLoading) ?
         <Skeleton variant="rounded" width={'100%'} height={600} /> :
         ((fsmStates[finalStateIndex]?.id) ?
-          <EditableFSMState fsmStateId={fsmStates[finalStateIndex].id} /> :
+          <Button onClick={() => setIsEditableFSMStateDialogOpen(true)}>
+            {'ویرایش گام'}
+          </Button> :
           <Typography variant='h2'>
             {'گامی وجود ندارد.'}
           </Typography>)
       }
+      <EditableStateDialog
+        open={isEditableFSMStateDialogOpen}
+        onClose={() => setIsEditableFSMStateDialogOpen(false)}
+      >
+        <EditableFSMState fsmStateId={fsmStates[finalStateIndex]?.id} />
+      </EditableStateDialog>
     </Stack>
   );
 };
