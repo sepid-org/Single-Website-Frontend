@@ -31,10 +31,6 @@ const Root = () => {
     <Routes>
 
       <Route path="/" element={<Navigate to={'/programs/'} />} />
-      <Route path="/login/" element={<Login />} />
-      <Route path="/token-expiration/" element={<Login />} />
-      <Route path="/reset-password/" element={<ResetPassword />} />
-      <Route path="/create-account/" element={<CreateAccount />} />
       <Route path="/articles/" element={<Articles />} />
       <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
