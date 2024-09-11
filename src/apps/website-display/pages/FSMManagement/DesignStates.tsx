@@ -4,12 +4,12 @@ import {
   Skeleton,
   Typography,
   Button,
+  Dialog,
 } from '@mui/material';
 import { useParams } from 'react-router';
 import StatesMenu from 'commons/components/organisms/StatesMenu';
 import EditableFSMState from 'commons/components/template/EditableFSMState';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
-import EditableStateDialog from 'commons/components/organisms/dialogs/EditableStateDialog';
 
 type DesignStatesPropsType = {}
 
@@ -44,12 +44,14 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
             {'گامی وجود ندارد.'}
           </Typography>)
       }
-      <EditableStateDialog
+      <Dialog
+        fullWidth={fsmStates[finalStateIndex]?.template === 'board'}
+        maxWidth={fsmStates[finalStateIndex]?.template === 'board' ? false : 'lg'}
         open={isEditableFSMStateDialogOpen}
         onClose={() => setIsEditableFSMStateDialogOpen(false)}
       >
         <EditableFSMState fsmStateId={fsmStates[finalStateIndex]?.id} />
-      </EditableStateDialog>
+      </Dialog>
     </Stack>
   );
 };

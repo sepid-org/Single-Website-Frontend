@@ -1,4 +1,4 @@
-import { FSMEdgeType, FSMStateType } from 'commons/types/models';
+import { FSMEdgeType } from 'commons/types/models';
 import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMEdgeInputType = {

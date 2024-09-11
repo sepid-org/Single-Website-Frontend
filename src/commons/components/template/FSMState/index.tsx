@@ -1,16 +1,16 @@
 import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import BoardFSMState from './BoardFSMState';
+import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
 import Layout from '../Layout';
 
-type FSMStatePropsType = WorkshopFSMStatePropsType;
+type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 
 const FSMState: FC<FSMStatePropsType> = (props) => {
   const { data: state } = useGetFSMStateQuery({ fsmStateId: props.stateId })
 
   if (state?.template === 'board') {
-    return <BoardFSMState fsmStateId={props.stateId} />
+    return <BoardFSMState {...props} />
   }
 
   if (props.type === 'workshop') {

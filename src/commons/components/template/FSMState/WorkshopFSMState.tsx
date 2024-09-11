@@ -9,7 +9,7 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 export type WorkshopFSMStatePropsType = {
-  type: 'workshop'; // | 'exam' | 'form' | 'game' | 'roadmap';
+  type: 'workshop' | 'game';
   isMentor: boolean;
   stateId: string;
   playerId: string;
