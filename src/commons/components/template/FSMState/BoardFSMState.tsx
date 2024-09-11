@@ -10,7 +10,6 @@ import { Box, Stack } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 
 export type BoardFSMStatePropsType = {
-  type: 'workshop' | 'game';
   isMentor: boolean;
   stateId: string;
   playerId: string;

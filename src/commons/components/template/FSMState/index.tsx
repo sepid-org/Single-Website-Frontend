@@ -13,7 +13,7 @@ const FSMState: FC<FSMStatePropsType> = (props) => {
     return <BoardFSMState {...props} />
   }
 
-  if (props.type === 'workshop') {
+  if (state?.template === 'normal') {
     return (
       <Layout appbarMode={props.isMentor ? 'MENTOR_FSM' : 'FSM'}>
         <WorkshopFSMState {...props} />

@@ -137,7 +137,7 @@ const FSM: FC<FSMPagePropsType> = ({
           <title>{fsm.name}</title>
         </Helmet>
       }
-      <FSMState type='workshop' stateId={(player.current_state as any)} isMentor={isMentor} playerId={player.id} />
+      <FSMState stateId={(player.current_state as any)} isMentor={isMentor} playerId={player.id} />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
         <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
       }
