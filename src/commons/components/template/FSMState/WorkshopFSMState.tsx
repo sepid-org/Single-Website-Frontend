@@ -16,7 +16,7 @@ export type WorkshopFSMStatePropsType = {
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) => {
-  const { data: paper } = useGetPaperQuery({ paperId: stateId }, { skip: !stateId });
+  const { data: paper } = useGetPaperQuery({ paperId: stateId });
   const { data: state } = useGetFSMStateQuery({ fsmStateId: stateId })
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
