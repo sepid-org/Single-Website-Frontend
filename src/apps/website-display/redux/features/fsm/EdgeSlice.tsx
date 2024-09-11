@@ -1,9 +1,9 @@
-import { FSMEdgeType, FSMStateType } from 'commons/types/models';
+import { FSMEdgeType } from 'commons/types/models';
 import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMEdgeInputType = {
   fsmEdgeId: string;
-} & FSMStateType;
+} & Partial<FSMEdgeType>;
 
 type UpdateFSMEdgeOutputType = FSMEdgeType;
 

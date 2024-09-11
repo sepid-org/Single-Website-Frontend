@@ -9,13 +9,13 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 export type WorkshopFSMStatePropsType = {
-  type: 'workshop'; // | 'exam' | 'form' | 'game' | 'roadmap';
+  isMentor: boolean;
   stateId: string;
   playerId: string;
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) => {
-  const { data: paper } = useGetPaperQuery({ paperId: stateId }, { skip: !stateId });
+  const { data: paper } = useGetPaperQuery({ paperId: stateId });
   const { data: state } = useGetFSMStateQuery({ fsmStateId: stateId })
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
