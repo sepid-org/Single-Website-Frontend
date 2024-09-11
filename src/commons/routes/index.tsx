@@ -23,15 +23,12 @@ import Correction from 'apps/website-display/pages/Correction';
 import EditArticle from 'apps/website-display/pages/EditArticle';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
-import StateEditor from 'apps/website-display/pages/StateEditor';
 import AnonymousRoute from './AnonymousRoute';
 
 const Root = () => {
 
   return (
     <Routes>
-
-      <Route path="/state-editor/" element={<StateEditor />} />
 
       <Route path="/" element={<Navigate to={'/programs/'} />} />
       <Route path="/login/" element={<Login />} />
