@@ -94,7 +94,7 @@ const dictionary = {
       history: 'سابقه',
       watch: 'مشاهده',
       username: 'نام‌کاربری',
-      password: 'گذرواژه',
+      password: 'گذر‌واژه',
       createArticle: 'ساخت مقاله جدید',
       articleName: 'نام مقاله',
       workshopName: 'نام کارگاه',

@@ -8,26 +8,17 @@ import {
   Typography,
   Box,
 } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useCreateAccountMutation } from '../redux/features/user/UserSlice';
 
-type CreateAccountPropsType = {
-  isFetching: boolean;
-  accessToken: string;
-}
+type CreateAccountPropsType = {}
 
-const CreateAccount: FC<CreateAccountPropsType> = ({
-  isFetching,
-  accessToken,
-}) => {
-  const navigate = useNavigate();
-  const [createAccount] = useCreateAccountMutation();
-
-  const [data, _setData] = useState({
+const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
+  const [createAccount, { isLoading }] = useCreateAccountMutation();
+  const [data, setData] = useState({
     firstName: '',
     lastName: '',
     phoneNumber: '',
@@ -36,14 +27,8 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
     verificationCode: '',
   });
 
-  useEffect(() => {
-    if (accessToken) {
-      navigate('/programs/');
-    }
-  }, [navigate, accessToken])
-
-  const setData = (event) => {
-    _setData({
+  const collectData = (event) => {
+    setData({
       ...data,
       [event.target.name]: event.target.value,
     });
@@ -105,7 +90,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
+              onChange={collectData}
               value={data.firstName}
               name="firstName"
               label="نام"
@@ -116,7 +101,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
+              onChange={collectData}
               value={data.lastName}
               name="lastName"
               label="نام خانوادگی"
@@ -125,19 +110,16 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             />
 
             <VerifyPhoneNumber
-              data={{
-                phoneNumber: data.phoneNumber,
-                verificationCode: data.verificationCode
-              }}
+              data={data}
               setData={setData}
-              verifyType='on-create-user-account'
+              verificationType='create-user-account'
             />
 
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
-              label="گذرواژه"
+              onChange={collectData}
+              label="گذر‌واژه"
               name="password"
               inputProps={{ className: 'ltr-input' }}
               type="password"
@@ -147,8 +129,8 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
             <TextField
               variant="outlined"
               fullWidth
-              onChange={setData}
-              label="تکرار گذرواژه"
+              onChange={collectData}
+              label="تکرار گذر‌واژه"
               inputProps={{ className: 'ltr-input' }}
               name="confirmationPassword"
               type="password"
@@ -159,7 +141,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
               onClick={handleCreatingAccount}
               variant="contained"
               color="primary"
-              disabled={isFetching}
+              disabled={isLoading}
               fullWidth>
               ثبت
             </Button>
@@ -178,9 +160,4 @@ const CreateAccount: FC<CreateAccountPropsType> = ({
   )
 }
 
-const mapStateToProps = (state) => ({
-  accessToken: state.account.accessToken,
-  isFetching: state.account.isFetching,
-});
-
-export default connect(mapStateToProps, {})(CreateAccount);
+export default CreateAccount;

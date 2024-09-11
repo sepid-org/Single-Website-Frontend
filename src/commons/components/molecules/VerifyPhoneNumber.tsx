@@ -3,36 +3,32 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import React, { FC, Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
-import {
-  getVerificationCodeAction,
-} from 'apps/website-display/redux/slices/account';
 import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
+import { useGetVerificationCodeMutation } from 'apps/website-display/redux/features/user/UserSlice';
+
+type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
 
 type VerifyPhoneNumberPropsType = {
-  getVerificationCode: any;
   data: {
     phoneNumber: string;
     verificationCode: string;
   };
   setData: any;
-  verifyType: 'on-create-user-account' | 'on-change-phone-number';
+  verificationType: VerificationCodeType
 }
 
-type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
-
 const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
-  getVerificationCode,
   data,
   setData,
-  verifyType,
+  verificationType,
 }) => {
   const [isButtonDisabled, setIsButtonDisable] = useState(false);
   const { data: website } = useGetWebsiteQuery();
+  const [getVerificationCode, { isLoading: isGetVerificationCodeLoading, isSuccess: isGetVerificationCodeSuccess }] = useGetVerificationCodeMutation();
 
   const handleGettingVerificationCode = () => {
     if (!isPhoneNumber(data.phoneNumber)) {
@@ -46,14 +42,31 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
     setIsButtonDisable(true);
     getVerificationCode({
       phoneNumber: data.phoneNumber,
-      codeType: verifyType === 'on-create-user-account' ? 'create-user-account' : 'change-user-phone-number',
-      partyDisplayName: website.display_name,
+      codeType: verificationType,
+      websiteDisplayName: website.display_name,
     }).then(() => {
       setTimeout(() => {
         setIsButtonDisable(false);
       }, 60000);
     });
   };
+
+  useEffect(() => {
+    if (isGetVerificationCodeLoading) {
+      toast.success('کد تایید فرستاده شد! این کد بعد از ۵ دقیقه منقضی می‌شود');
+    }
+  }, [isGetVerificationCodeLoading])
+
+  useEffect(() => {
+    if (isGetVerificationCodeSuccess) {
+      setTimeout(
+        () => {
+          setIsButtonDisable(true);
+        },
+        process.env.NODE_ENV === 'production' ? 60000 : 1000
+      );
+    }
+  }, [isGetVerificationCodeSuccess])
 
   return (
     <Stack spacing={1}>
@@ -62,7 +75,10 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
         fullWidth
         onChange={(e) => {
           if (isNumber(e.target.value)) {
-            setData(e);
+            setData({
+              ...data,
+              phoneNumber: e.target.value,
+            });
           }
         }}
         value={data.phoneNumber}
@@ -80,7 +96,10 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
           fullWidth
           onChange={(e) => {
             if (isNumber(e.target.value)) {
-              setData(e);
+              setData({
+                ...data,
+                verificationCode: e.target.value,
+              });
             }
           }}
           value={data.verificationCode}
@@ -108,6 +127,4 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   );
 };
 
-export default connect(null, {
-  getVerificationCode: getVerificationCodeAction,
-})(VerifyPhoneNumber);
+export default VerifyPhoneNumber;

@@ -7,41 +7,25 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
+import { toast } from 'react-toastify';
 
-type LoginPagePropsType = {
-  isFetching: boolean;
-  accessToken: string;
-};
+type LoginPagePropsType = {};
 
-const LoginPage: FC<LoginPagePropsType> = ({
-  isFetching,
-  accessToken,
-}) => {
-  const navigate = useNavigate();
-  const location = useLocation();
+const LoginPage: FC<LoginPagePropsType> = ({ }) => {
   const [data, setData] = useState({
     password: '',
     username: '',
   });
   const { data: website } = useGetWebsiteQuery();
-  const [login, result] = useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
-  useEffect(() => {
-    if (accessToken) {
-      const previousLocation = location.state?.from?.pathname
-      const destinationLocation = previousLocation || '/programs/';
-      navigate(destinationLocation, { replace: true });
-    }
-  }, [accessToken])
-
-  const putData = (event) => {
+  const collectData = (event) => {
     setData({
       ...data,
       [event.target.name]: event.target.value,
@@ -108,7 +92,7 @@ const LoginPage: FC<LoginPagePropsType> = ({
                 autoComplete="on"
                 variant="outlined"
                 fullWidth
-                onChange={putData}
+                onChange={collectData}
                 value={data.username}
                 name="username"
                 label="شماره تلفن همراه، ایمیل یا نام کاربری"
@@ -121,8 +105,8 @@ const LoginPage: FC<LoginPagePropsType> = ({
                 autoComplete="on"
                 variant="outlined"
                 fullWidth
-                onChange={putData}
-                label="گذرواژه"
+                onChange={collectData}
+                label="گذر‌واژه"
                 name="password"
                 inputProps={{ className: 'ltr-input' }}
                 type="password"
@@ -130,7 +114,7 @@ const LoginPage: FC<LoginPagePropsType> = ({
                 helperText={
                   <Typography align='right' mt={0.5}>
                     <Link style={{ textDecoration: 'none' }} to={'/reset-password/'}>
-                      {'فراموشی گذرواژه'}
+                      {'فراموشی گذر‌واژه'}
                     </Link>
                   </Typography>
                 }
@@ -141,7 +125,7 @@ const LoginPage: FC<LoginPagePropsType> = ({
                 onClick={regularLogin}
                 variant="contained"
                 color="primary"
-                disabled={isFetching}
+                disabled={isLoading}
                 fullWidth>
                 بزن بریم
               </Button>
@@ -163,10 +147,4 @@ const LoginPage: FC<LoginPagePropsType> = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  accessToken: state.account.accessToken,
-  isFetching: state.account.isFetching,
-});
-
-export default connect(mapStateToProps, {
-})(LoginPage);
+export default LoginPage;

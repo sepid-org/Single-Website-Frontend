@@ -17,51 +17,51 @@ const cities: CityType[] = [
 const persianFilms = [
   {
     id: 1,
-    name: "جدایی نادر از سیمین",
+    name: "لوپتو",
     releasedCities: [1, 2, 3, 4],
-    image: "https://cdn.zoomg.ir/2018/11/8effe66e-d3c9-4294-9172-71231be990b6.jpg",
-    director: { first_name: "اصغر", last_name: "فرهادی" },
-    description: "داستان زوجی که در آستانه جدایی هستند و با چالش‌های اخلاقی و قانونی روبرو می‌شوند."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/Loopeto.jpg",
+    director: { first_name: "عباس", last_name: "عسکری" },
+    description: "داستان روباتی به نام لوپتو که در کارخانه اسباب‌بازی‌سازی زندگی می‌کند و ماجراجویی‌هایش با دوستانش."
   },
   {
     id: 2,
-    name: "درباره الی",
+    name: "فیلشاه",
     releasedCities: [1, 5, 6, 7],
-    image: "https://ensafnews.com/wp-content/uploads/2019/10/Webp.net-resizeimage-2019-10-22T220146.946.jpg",
-    director: { first_name: "اصغر", last_name: "فرهادی" },
-    description: "گروهی از دوستان برای تعطیلات به شمال می‌روند، اما ناپدید شدن یکی از آنها همه چیز را تغییر می‌دهد."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/Filshah.jpg",
+    director: { first_name: "هادی", last_name: "محمدیان" },
+    description: "ماجرای فیل جوانی به نام شادفیل که قصد دارد به کاروان فیل‌ها در جنگل بپیوندد و با چالش‌های مختلفی روبرو می‌شود."
   },
   {
     id: 3,
-    name: "بچه‌های آسمان",
+    name: "بنیامین",
     releasedCities: [1, 4, 2, 3],
-    image: "https://borna.news/files/fa/news/1399/6/16/1764549_606.jpg",
-    director: { first_name: "مجید", last_name: "مجیدی" },
-    description: "داستان برادر و خواهری که مجبور می‌شوند یک جفت کفش را به اشتراک بگذارند."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/benjamin.png",
+    director: { first_name: "محسن", last_name: "عنایتی" },
+    description: "داستان پسر نوجوانی به نام بنیامین که در تلاش است تا پدرش را از اعتیاد نجات دهد و با مشکلات زندگی مبارزه کند."
   },
   {
     id: 4,
-    name: "رنگ خدا",
+    name: "پهلوانان",
     releasedCities: [1, 8, 9, 10],
-    image: "https://cinemacinema.ir/wp-content/uploads/2018/05/cinemacinema_ir-196-300x180.jpg",
-    director: { first_name: "مجید", last_name: "مجیدی" },
-    description: "داستان پسر نابینایی که با پدرش به روستای مادربزرگش می‌رود و با طبیعت ارتباط برقرار می‌کند."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/Pahlevanan.jpeg",
+    director: { first_name: "سید مسعود", last_name: "صفوی" },
+    description: "مجموعه انیمیشنی درباره پهلوانان افسانه‌ای ایران که با دیوها و نیروهای اهریمنی مبارزه می‌کنند."
   },
   {
     id: 5,
-    name: "فروشنده",
+    name: "شکرستان",
     releasedCities: [1, 2, 3, 5],
-    image: "https://cdn.zoomg.ir/2016/9/f12a58b6-7959-4e4b-ba74-977ebe2e3684.jpg",
-    director: { first_name: "اصغر", last_name: "فرهادی" },
-    description: "زوجی که در حال اجرای نمایش «مرگ فروشنده» هستند، با حادثه‌ای روبرو می‌شوند که زندگی‌شان را تغییر می‌دهد."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/Shekarestan.jpg",
+    director: { first_name: "سعید", last_name: "ضامنی" },
+    description: "مجموعه انیمیشن طنز که در شهری خیالی به نام شکرستان می‌گذرد و ماجراهای جالب و آموزنده‌ای را روایت می‌کند."
   },
   {
     id: 6,
-    name: "ماهی‌ها عاشق می‌شوند",
+    name: "بچه زرنگ",
     releasedCities: [1, 4, 6, 11],
-    image: "https://www.filimo.com/shot/wp-content/uploads/2023/07/Mahihaa_02.jpg",
-    director: { first_name: "علی", last_name: "رفیعی" },
-    description: "داستان عشق و آشپزی در شمال ایران، جایی که یک رستوران خانوادگی میزبان اتفاقات غیرمنتظره می‌شود."
+    image: "https://kamva-minio-storage.darkube.app/sepid/projects/Bache-Zerang.jpg",
+    director: { first_name: "بهرام", last_name: "عظیمی" },
+    description: "داستان پسر باهوشی به نام علی که با استفاده از هوش و خلاقیتش، مشکلات خانواده و دوستانش را حل می‌کند."
   }
 ];
 

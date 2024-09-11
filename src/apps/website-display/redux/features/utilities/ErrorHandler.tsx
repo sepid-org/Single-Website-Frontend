@@ -20,6 +20,7 @@ const handleError = ({
 
   if (error.data?.code) {
     if (['user_not_found', 'token_not_valid'].includes(error.data.code)) {
+      window.location.href = '/token-expiration/';
       dispatch({ type: 'account/logout' });
       return;
     }

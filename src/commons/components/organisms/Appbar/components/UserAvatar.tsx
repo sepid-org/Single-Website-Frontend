@@ -3,7 +3,7 @@ import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { stringToColor } from 'commons/utils/stringToColor';
-import { logoutAction } from 'apps/website-display/redux/slices/account';
+import { logoutAction } from 'apps/website-display/redux/slices/Account';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
