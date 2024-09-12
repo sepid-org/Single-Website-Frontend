@@ -180,24 +180,13 @@ export type UploadedFile = { link: string, name: string, id: string }
 
 export type LogoType = {
   mobile_image: string;
-  desctop_image: string;
+  desktop_image: string;
 }
 
 export type PartyType = {
   displayName: string;
   logo: LogoType;
 };
-
-export type MessageType = {
-  id: number;
-  reply_to?: MessageType;
-  sender: PartyType;
-  recipient: PartyType;
-  title: string;
-  content: string; // todo: change content to Widget
-  seen: boolean;
-  received_datetime: any;
-}
 
 export type InstituteType = {
   id: string;

@@ -7,9 +7,9 @@ import {
 } from '@mui/material';
 import React, { FC } from 'react';
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
-import { MessageType } from 'commons/types/models';
 import NotificationListItem from 'commons/components/molecules/listItems/NotificationListItem';
 import { Link } from 'react-router-dom';
+import { MessageType } from 'apps/chat/types/models';
 
 type NotificationsListPropsType = {
   notifications: MessageType[];
@@ -59,11 +59,11 @@ const NotificationsList: FC<NotificationsListPropsType> = ({
         <Stack alignItems={'center'} justifyContent={'center'} padding={2} spacing={1}>
           <NotificationsNoneIcon sx={{ fontSize: 54 }} />
           <Typography textAlign={'center'} fontSize={18} fontWeight={400}>
-            {'اعلان خوانده‌نشده‌ای نداری 🤝'}
+            {'اعلان خوانده‌نشده‌ای ندارید🤝'}
           </Typography>
-          {/* <Typography component={Link} to={'/notifications/'} variant='button' color={'secondary'}>
+          <Typography component={Link} to={'/notifications/'} variant='button' color={'secondary'}>
             {'مشاهده‌ی همه‌ی اعلان‌ها'}
-          </Typography> */}
+          </Typography>
         </Stack>
       }
     </MenuList>

@@ -9,7 +9,7 @@ import { assessmentReducer } from './assessment';
 import { AnswerReducer } from './Answer';
 import { WebsiteReducer } from './Website';
 import { GlobalReducer } from './Global';
-import { websocketReducer } from './websocket';
+import { websocketReducer } from 'apps/chat/redux/websocket';
 
 const allReducers = {
   account: AccountReducer,

@@ -1,7 +1,6 @@
 import { Stack } from '@mui/material';
-import React, { Fragment } from 'react';
-import { connect, useSelector } from 'react-redux';
-import NotificationButton from './NotificationButton';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import Avatar from './UserAvatar';
 import DashboardButton from './DashboardButton';
 

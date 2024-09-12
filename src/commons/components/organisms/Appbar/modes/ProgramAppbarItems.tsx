@@ -1,7 +1,7 @@
 import React from 'react';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import DashboardButton from '../components/DashboardButton';
-import NotificationButton from '../components/NotificationButton';
+import NotificationButton from '../../../../../apps/chat/components/atoms/NotificationButton';
 
 const ProgramAppbarItems = ({ }) => {
   const websiteLogo = <WebsiteLogo />

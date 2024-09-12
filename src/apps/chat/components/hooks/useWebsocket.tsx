@@ -1,7 +1,7 @@
 import { IMS_URL } from 'commons/configs/Constants';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { connect, disconnect, receiveMessage } from 'apps/website-display/redux/slices/websocket';
+import { connect, disconnect, receiveMessage } from 'apps/chat/redux/websocket';
 
 const useWebSocket = ({ room }) => {
   const url = `${IMS_URL}${room}`;

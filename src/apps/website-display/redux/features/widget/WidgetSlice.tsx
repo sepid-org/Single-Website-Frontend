@@ -15,9 +15,12 @@ type UpdateWidgetInputType = {
 
 type GetWidgetOutputType = WidgetType;
 
+type GetWidgetsByIdsInputType = {
+  ids: string[];
+}
+
 export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
   endpoints: builder => ({
-
     createWidget: builder.mutation<void, CreateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetType, paperId, ...props }) => ({
@@ -61,6 +64,23 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
       }),
     }),
 
+    getWidgetsByIds: builder.query<GetWidgetOutputType[], GetWidgetsByIdsInputType>({
+      query: (args) => ({
+        url: '/fsm/widget/get_widgets_by_ids/',
+        method: 'POST',
+        body: args,
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.map(({ id }) => ({ type: 'widget' as const, id })),
+            { type: 'widget', id: 'LIST' },
+          ]
+          : [{ type: 'widget', id: 'LIST' }],
+      transformResponse: (response: any[]): GetWidgetOutputType[] => {
+        return response;
+      },
+    }),
   })
 });
 
@@ -69,4 +89,5 @@ export const {
   useUpdateWidgetMutation,
   useGetWidgetQuery,
   useDeleteWidgetMutation,
+  useGetWidgetsByIdsQuery,
 } = WidgetSlice;
