@@ -39,6 +39,7 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
         method: 'POST',
         body: {
           ...body,
+          widgets: [],
           reference: fsmStateId,
         },
       }),
@@ -67,6 +68,7 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
         method: 'POST',
         body: {
           ...body,
+          widgets: [],
           reference: widgetId,
         },
       }),
