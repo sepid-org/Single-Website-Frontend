@@ -10,6 +10,7 @@ import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import NotificationListItem from 'commons/components/molecules/listItems/NotificationListItem';
 import { Link } from 'react-router-dom';
 import { MessageType } from 'apps/chat/types/models';
+import { useGetWidgetsByIdsQuery } from 'apps/website-display/redux/features/widget/WidgetSlice';
 
 type NotificationsListPropsType = {
   notifications: MessageType[];
@@ -18,6 +19,8 @@ type NotificationsListPropsType = {
 const NotificationsList: FC<NotificationsListPropsType> = ({
   notifications
 }) => {
+
+  // const { data } = useGetWidgetsByIdsQuery({ ids: ['200', '201'] });
 
   const seeAllNotifications = () => {
     // todo

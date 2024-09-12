@@ -11,3 +11,7 @@ export type MessageType = {
   received_datetime: any;
   sent_datetime: string;
 }
+
+export type NotificationType = MessageType & {
+
+}

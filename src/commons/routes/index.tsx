@@ -24,6 +24,7 @@ import EditArticle from 'apps/website-display/pages/EditArticle';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
 import AnonymousRoute from './AnonymousRoute';
+import Notifications from 'apps/chat/pages/Notifications';
 
 const Root = () => {
 
@@ -44,6 +45,7 @@ const Root = () => {
       </Route>
 
       <Route path="/" element={<PrivateRoute />}>
+        <Route path="/notifications/" element={<Notifications />} />
         <Route path="/edit-article/:articleId/" element={<EditArticle />} />
         <Route
           path="/message/payment/success/:paymentId?/"
