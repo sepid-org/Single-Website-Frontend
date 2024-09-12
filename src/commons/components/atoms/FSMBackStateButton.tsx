@@ -16,7 +16,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
   inwardEdges = [],
   playerId,
 }) => {
-  const { isMentor, teamId } = useContext(StatePageContext);
+  const { isMentor } = useContext(StatePageContext);
   const [goBackward, goBackwardResult] = useGoBackwardMutation();
   const [mentorMoveBackward, mentorMoveBackwardResult] = useMentorMoveBackwardMutation();
 
@@ -34,7 +34,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
     } else {
       if (backEdge.is_back_enabled) {
         goBackward({
-          playerId: playerId,
+          playerId,
         });
       }
     }

@@ -13,9 +13,7 @@ function ChangeStateDialog({ open, handleClose, edges, changeState }) {
 
   return (
     <Dialog disableScrollLock open={open} onClose={handleClose}>
-      <DialogTitle>
-        <Typography variant="h3">{t('chooseNextState')}</Typography>
-      </DialogTitle>
+      <DialogTitle variant='h3'>{t('chooseNextState')}</DialogTitle>
       <List>
         {edges.slice().sort((e1, e2) => e1.head.name < e2.head.name ? 1 : -1).map((edge) => (
           <ListItemButton

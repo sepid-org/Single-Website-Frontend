@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo, Fragment, FC } from 'react';
+import React, { useState, useEffect, useRef, useMemo, Fragment, FC, useCallback } from 'react';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetPositionsByPaperQuery } from 'apps/website-display/redux/features/object/PositionSlice';
@@ -15,11 +15,11 @@ export type BoardFSMStatePropsType = {
   playerId: string;
 }
 
-const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId }) => {
+const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId: stateId });
   const { data: paper } = useGetPaperQuery({ paperId: stateId }, { skip: !stateId });
-  const [widgetsWithPositions, setWidgetsWithPositions] = useState<(WidgetType & PositionType)[]>([]);
-  const { data: widgetPositions } = useGetPositionsByPaperQuery({ paperId: stateId });
+  const [positions, setPositions] = useState<PositionType[]>([]);
+  const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId: stateId });
   const boardRef = useRef(null);
   const containerRef = useRef(null);
   const appbarRef = useRef(null);
@@ -28,60 +28,86 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId }) => {
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
 
   useEffect(() => {
-    if (!paper || !widgetPositions) return;
-    const widgets = paper.widgets;
-    const mergeWidgetsAndPositions = () => {
-      return widgets.map(widget => {
-        const position = widgetPositions.find(pos => pos.widget === widget.id) || {
-          x: Math.random() * 400,
-          y: Math.random() * 400,
-          width: 200,
-          height: 200
-        };
-        return {
-          ...widget,
-          ...position
-        };
-      });
-    };
+    if (initialPositions) {
+      setPositions(initialPositions);
+    }
+  }, [initialPositions]);
 
-    const merged = mergeWidgetsAndPositions();
-    setWidgetsWithPositions(merged);
-  }, [paper, widgetPositions]);
+  const handleResize = useCallback(() => {
+    if (boardRef.current && containerRef.current) {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      let appbarHeight = 0;
+      if (appbarRef.current) {
+        appbarHeight = appbarRef.current.offsetHeight;
+      }
+      const scale = (windowHeight - appbarHeight) / BOARD_HEIGHT;
+
+      const scaledWidth = BOARD_WIDTH * scale;
+      const scaledHeight = BOARD_HEIGHT * scale;
+
+      const isScrollNeeded = scaledWidth > windowWidth;
+      setIsScrollNeeded(isScrollNeeded);
+
+      boardRef.current.style.height = `${scaledHeight}px`;
+      boardRef.current.style.width = `${scaledWidth}px`;
+      boardRef.current.style.transform = `scale(${scale})`;
+      boardRef.current.style.transformOrigin = 'top left';
+
+      containerRef.current.style.overflowX = isScrollNeeded ? 'auto' : 'hidden';
+      containerRef.current.style.overflowY = 'hidden';
+      containerRef.current.style.height = `${windowHeight - appbarHeight}px`;
+    }
+  }, [boardRef, containerRef, appbarRef]);
+
+  const handleResizeThrottled = useCallback(() => {
+    window.requestAnimationFrame(handleResize);
+  }, [handleResize]);
 
   useEffect(() => {
-    const handleResize = () => {
-      if (boardRef.current && containerRef.current) {
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
-        let appbarHeight = 0;
-        if (appbarRef.current) {
-          appbarHeight = appbarRef.current.offsetHeight;
-        }
-        const scale = (windowHeight - appbarHeight) / BOARD_HEIGHT;
+    const resizeObserver = new ResizeObserver(handleResize);
 
-        const scaledWidth = BOARD_WIDTH * scale;
-        const scaledHeight = BOARD_HEIGHT * scale;
+    if (containerRef.current) {
+      resizeObserver.observe(containerRef.current);
+    }
+    window.addEventListener('resize', handleResizeThrottled);
 
-        const isScrollNeeded = scaledWidth > windowWidth;
-        setIsScrollNeeded(isScrollNeeded);
-
-        boardRef.current.style.height = `${scaledHeight}px`;
-        boardRef.current.style.width = `${scaledWidth}px`;
-        boardRef.current.style.transform = `scale(${scale})`;
-        boardRef.current.style.transformOrigin = 'top left';
-
-        containerRef.current.style.overflowX = isScrollNeeded ? 'auto' : 'hidden';
-        containerRef.current.style.overflowY = 'hidden';
-        containerRef.current.style.height = `${windowHeight - appbarHeight}px`;
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        handleResizeThrottled();
       }
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [widgetsWithPositions]);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
-  const widgets = useMemo(() =>
+    return () => {
+      window.removeEventListener('resize', handleResizeThrottled);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      resizeObserver.disconnect();
+    };
+  }, [handleResizeThrottled]);
+
+  const widgetsWithPositions = useMemo(() => {
+    if (!paper || !positions) return [];
+    const widgets = paper.widgets;
+    return widgets.map(widget => {
+      const position = positions.find(pos => pos.widget === widget.id) || {
+        x: Math.round(Math.random() * 400),
+        y: Math.round(Math.random() * 400),
+        width: 200,
+        height: 200
+      };
+      return {
+        ...widget,
+        ...position
+      };
+    });
+  }, [paper?.widgets, positions]);
+
+  useEffect(() => {
+    handleResizeThrottled();
+  }, [widgetsWithPositions])
+
+  const widgetsComponents = useMemo(() =>
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
@@ -121,9 +147,12 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId }) => {
           height: 100,
         }}
       >
-        <FSMBackStateButton playerId='' inwardEdges={fsmState.inward_edges} />
+        <FSMBackStateButton playerId={playerId} inwardEdges={fsmState.inward_edges} />
       </div>
-    </div>, [widgetsWithPositions])
+    </div>,
+    [widgetsWithPositions, fsmState])
+
+  console.log("slama")
 
   return (
     <Fragment>
@@ -134,13 +163,13 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId }) => {
       }
       {isScrollNeeded ?
         <div ref={containerRef} >
-          {widgets}
+          {widgetsComponents}
         </div> :
         <Stack
           alignItems={'center'}
           justifyContent={'center'}
           ref={containerRef}>
-          {widgets}
+          {widgetsComponents}
         </Stack>
       }
     </Fragment>

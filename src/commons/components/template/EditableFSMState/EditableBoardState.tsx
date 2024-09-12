@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import { PositionType, WidgetType } from 'commons/types/widgets/widget';
+import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetPositionsByPaperQuery, useSavePositionsMutation } from 'apps/website-display/redux/features/object/PositionSlice';
-import { Box, Button, Checkbox, Divider, FormControl, FormControlLabel, InputLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Checkbox, Divider, FormControlLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { FSMStateType } from 'commons/types/models';
 import { toast } from 'react-toastify';
@@ -16,8 +16,8 @@ const EditableBoardState = ({ fsmStateId }) => {
   const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
-  const [widgetsWithPositions, setWidgetsWithPositions] = useState<(WidgetType & PositionType)[]>([]);
-  const { data: widgetPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
+  const [positions, setPositions] = useState<PositionType[]>([]);
+  const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
   const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
   const [savePositions, { isSuccess: isSavePositionsSuccess, isError: isSavePositionsError }] = useSavePositionsMutation();
 
@@ -28,53 +28,43 @@ const EditableBoardState = ({ fsmStateId }) => {
   }, [initialFsmState]);
 
   useEffect(() => {
-    if (!paper || !widgetPositions) return;
-    const widgets = paper.widgets;
-    const mergeWidgetsAndPositions = () => {
-      return widgets.map(widget => {
-        const position = widgetPositions.find(pos => pos.widget === widget.id) || {
-          x: Math.round(Math.random() * 400),
-          y: Math.round(Math.random() * 400),
-          width: 200,
-          height: 200
-        };
-        return {
-          ...widget,
-          ...position
-        };
-      });
-    };
+    if (initialPositions) {
+      setPositions(initialPositions);
+    }
+  }, [initialPositions])
 
-    const merged = mergeWidgetsAndPositions();
-    setWidgetsWithPositions(merged);
-  }, [paper, widgetPositions]);
-
-  const handleDragStop = (id, d) => {
-    setWidgetsWithPositions(prevComponents =>
-      prevComponents.map(comp =>
-        comp.id === id ? { ...comp, x: Math.round(d.x), y: Math.round(d.y) } : comp
+  const handleDragStop = useCallback((id, d) => {
+    setPositions((prevPositions) =>
+      prevPositions.map((position) =>
+        position.widget === id ? { ...position, x: Math.round(d.x), y: Math.round(d.y) } : position
       )
     );
-  };
+  }, []);
 
-  const handleResize = (id, ref, position) => {
-    setWidgetsWithPositions(prevComponents =>
-      prevComponents.map(comp =>
-        comp.id === id
-          ? { ...comp, width: Math.round(ref.offsetWidth), height: Math.round(ref.offsetHeight), x: Math.round(position.x), y: Math.round(position.y) }
-          : comp
+  const handleResize = useCallback((id, ref, position) => {
+    setPositions((prevPositions) =>
+      prevPositions.map((position) =>
+        position.widget === id
+          ? {
+            ...position,
+            width: Math.round(ref.offsetWidth),
+            height: Math.round(ref.offsetHeight),
+            x: Math.round(position.x),
+            y: Math.round(position.y),
+          }
+          : position
       )
     );
-  };
+  }, []);
 
   const handleUpdateFSMState = () => {
     savePositions({
-      positions: widgetsWithPositions.map(widgetWithPosition => ({
-        widget: widgetWithPosition.id,
-        x: widgetWithPosition.x,
-        y: widgetWithPosition.y,
-        width: widgetWithPosition.width,
-        height: widgetWithPosition.height,
+      positions: positions.map(positions => ({
+        widget: positions.widget,
+        x: positions.x,
+        y: positions.y,
+        width: positions.width,
+        height: positions.height,
       }))
     })
     updateFSMState({
@@ -93,7 +83,24 @@ const EditableBoardState = ({ fsmStateId }) => {
     if (isSavePositionsError && isUpdateFSMStateError) {
       toast.error('مشکلی در ثبت تغییرات وجود داشت.');
     }
-  }, [isUpdateFSMStateSuccess, isSavePositionsSuccess])
+  }, [isSavePositionsError, isUpdateFSMStateError])
+
+  const widgetsWithPositions = useMemo(() => {
+    if (!paper || !positions) return [];
+    const widgets = paper.widgets;
+    return widgets.map(widget => {
+      const position = positions.find(pos => pos.widget === widget.id) || {
+        x: Math.round(Math.random() * 400),
+        y: Math.round(Math.random() * 400),
+        width: 200,
+        height: 200
+      };
+      return {
+        ...widget,
+        ...position
+      };
+    });
+  }, [paper?.widgets, positions]);
 
   if (isMobile) {
     return (
@@ -106,7 +113,7 @@ const EditableBoardState = ({ fsmStateId }) => {
   }
 
   return (
-    <Stack sx={{ overflow: 'hidden', }}>
+    <Stack sx={{ overflow: 'hidden', userSelect: 'none' }}>
       <Stack padding={1} justifyContent={'space-between'} direction={'row'}>
         <Stack direction={'row'} spacing={1}>
           <CreateWidgetButton paperId={fsmStateId} />
@@ -146,7 +153,7 @@ const EditableBoardState = ({ fsmStateId }) => {
               style={{ border: 'solid' }}
               bounds="parent"
               onDragStop={(e, d) => handleDragStop(widget.id, d)}
-              onResize={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
+              onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
             >
               <div style={{ width: '100%', height: '100%', position: 'relative' }}>
