@@ -7,7 +7,7 @@ const PrivateRoute = ({ }) => {
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
   if (!accessToken) {
-    return <Navigate state={{ from: location }} to={'/token-expiration/'} />
+    return <Navigate state={{ from: location }} to={'/'} />
   }
   return <Outlet />
 };

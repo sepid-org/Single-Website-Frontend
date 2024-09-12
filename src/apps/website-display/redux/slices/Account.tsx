@@ -33,7 +33,7 @@ const AccountSlice = createSlice({
   initialState,
   reducers: {
     logout: () => {
-      toast.info('خدا به همراهت...');
+      toast.info('خدا به همراهتان👋');
       return initialState;
     },
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {

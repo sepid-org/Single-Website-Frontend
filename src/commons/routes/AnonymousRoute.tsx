@@ -9,7 +9,7 @@ const AnonymousRoute = ({ }) => {
 
   useEffect(() => {
     if (accessToken) {
-      toast.success(`خوش آمدی!`)
+      toast.success(`خوش آمدید!`)
     }
   }, [accessToken])
 
