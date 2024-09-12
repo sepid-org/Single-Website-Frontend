@@ -3,13 +3,7 @@ import handleError from './ErrorHandler';
 
 const CustomBaseQuery = ({ baseUrl }) =>
   async (args, api, extraOptions) => {
-
-    const state: any = api.getState();
-    const website = state.website?.website?.name;
-    if (args?.body) {
-      args.body['website'] = website;
-    }
-
+    
     const result = await fetchBaseQuery({
       baseUrl,
       prepareHeaders: (headers, { getState, endpoint }) => {
