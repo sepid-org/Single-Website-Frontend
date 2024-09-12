@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Apis } from '../apis';
-import { createAsyncThunkApi } from '../apis/cerateApiAsyncThunk';
+import { Apis } from 'commons/redux/utilities';
+import { createAsyncThunkApi } from 'commons/redux/utilities/cerateApiAsyncThunk';
 import {
   articlesUrl,
 } from '../constants/urls';

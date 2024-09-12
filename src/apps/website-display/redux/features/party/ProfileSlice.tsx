@@ -1,7 +1,7 @@
 import { SchoolStudentshipType, UserInfoType } from 'commons/types/profile';
 import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
 import { WebsiteType } from 'commons/types/global';
-import { MWS_URL } from 'commons/configs/Constants';
+import { WMS_URL } from 'commons/configs/Constants';
 import jsonToFormData from 'commons/utils/jsonToFromDate';
 
 type GetUserProfileInputType = {
@@ -63,7 +63,7 @@ export const ProfileSlice = ManageContentServiceApi.injectEndpoints({
       query: ({ }) => {
         return ({
           // todo: get website profile summary
-          url: `${MWS_URL}api/website/get-website/`,
+          url: `${WMS_URL}api/website/get-website/`,
           method: 'GET',
         })
       },

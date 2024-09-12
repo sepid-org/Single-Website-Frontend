@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { persianMessages } from 'apps/website-display/redux/apis/messages';
+import { persianMessages } from 'commons/redux/utilities/messages';
 
 type HandleErrorPropsType = {
   error: any;

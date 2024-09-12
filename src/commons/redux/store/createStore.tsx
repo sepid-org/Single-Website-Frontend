@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { ManagePartyServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
 import { ManageContentServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
 import { ManageWebsiteServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
-import rootReducer from 'apps/website-display/redux/rootReducer';
+import rootReducer from '../rootReducer';
 
 const createStore = (preloadedState) => {
   return configureStore({
