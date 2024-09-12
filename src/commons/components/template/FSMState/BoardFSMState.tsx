@@ -152,8 +152,6 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId
     </div>,
     [widgetsWithPositions, fsmState])
 
-  console.log("slama")
-
   return (
     <Fragment>
       {fsmState.show_appbar &&
