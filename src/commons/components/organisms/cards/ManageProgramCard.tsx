@@ -6,7 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ProgramType } from 'commons/types/models';
 
 type ProgramButtonPropsType = {
@@ -41,7 +41,6 @@ type ManageProgramCardPropsType = {
 const ManageProgramCard: FC<ManageProgramCardPropsType> = ({
   program
 }) => {
-  const { programSlug } = useParams();
 
   return (
     <Card
@@ -90,7 +89,7 @@ const ManageProgramCard: FC<ManageProgramCardPropsType> = ({
                 {program.name}
               </Typography>
             </Stack>
-            <ProgramButton to={`/program/${programSlug}/manage/`} text={'ویرایش دوره'} />
+            <ProgramButton to={`/program/${program.slug}/manage/`} text={'ویرایش دوره'} />
           </Stack>
         </Grid>
       </Grid>
