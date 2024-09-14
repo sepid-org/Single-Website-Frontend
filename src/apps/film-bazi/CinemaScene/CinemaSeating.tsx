@@ -124,7 +124,7 @@ const CinemaSeating = () => {
         <DialogTitle>انتخاب صندلی</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            شما صندلی شماره {selectedSeat} را انتخاب کرده‌اید. آیا مایل به رزرو این صندلی هستید؟
+            شما صندلی شماره {selectedSeat} را انتخاب کرده‌اید. آیا مایل به انتخاب این صندلی هستید؟
           </DialogContentText>
         </DialogContent>
         <DialogActions>

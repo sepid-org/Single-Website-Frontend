@@ -24,7 +24,7 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
     createWidget: builder.mutation<void, CreateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetType, paperId, ...props }) => ({
-        url: `/fsm/widget/`,
+        url: `/widgets/widget/`,
         method: 'POST',
         body: {
           widget_type: widgetType,
@@ -37,7 +37,7 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
     updateWidget: builder.mutation<void, UpdateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetType, widgetId, paperId, ...props }) => ({
-        url: `/fsm/widget/${widgetId}/`,
+        url: `/widgets/widget/${widgetId}/`,
         method: 'PATCH',
         body: {
           widget_id: widgetId,
@@ -50,7 +50,7 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
 
     getWidget: builder.query<GetWidgetOutputType, { widgetId: string }>({
       providesTags: (result, error, item) => [{ type: 'widget', id: item.widgetId }],
-      query: ({ widgetId }) => `fsm/widget/${widgetId}/`,
+      query: ({ widgetId }) => `widgets/widget/${widgetId}/`,
       transformResponse: (response: any): GetWidgetOutputType => {
         return response;
       },
@@ -59,14 +59,14 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
     deleteWidget: builder.mutation<void, { widgetId: string, paperId: string }>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetId }) => ({
-        url: `/fsm/widget/${widgetId}/`,
+        url: `/widgets/widget/${widgetId}/`,
         method: 'DELETE',
       }),
     }),
 
     getWidgetsByIds: builder.query<GetWidgetOutputType[], GetWidgetsByIdsInputType>({
       query: (args) => ({
-        url: '/fsm/widget/get_widgets_by_ids/',
+        url: '/widgets/widget/get_widgets_by_ids/',
         method: 'POST',
         body: args,
       }),
