@@ -3,7 +3,7 @@ import React from 'react';
 import {Position, getBezierPath, EdgeProps, useInternalNode} from '@xyflow/react';
 
 
-export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd, style }) => {
+export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd }) => {
     const sourceNode = useInternalNode(source);
     const targetNode = useInternalNode(target);
   

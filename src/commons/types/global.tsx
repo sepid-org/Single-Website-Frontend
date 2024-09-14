@@ -132,5 +132,9 @@ export interface CourseMapNodeInfo{
 }
 
 export interface CourseViewMapNodeInfo extends CourseMapNodeInfo{
-  positionInMap: "currentNode" | "seen" | "notSeen"
+  data: {
+    label: string, 
+    isFirstNode: boolean,
+    positionInMap: "currentNode" | "seen" | "notSeen"
+  }
 }

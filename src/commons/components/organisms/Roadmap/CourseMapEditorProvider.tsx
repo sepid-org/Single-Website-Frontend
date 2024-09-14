@@ -4,7 +4,7 @@ import { Button, Container, Grid } from '@mui/material';
 import '@xyflow/react/dist/style.css';
 import AddIcon from '@mui/icons-material/Add';
 //import CreateFSMDialog from '../dialogs/CreateFSMDialog';
-import { MarkerType, useViewport } from '@xyflow/react';
+import { MarkerType } from '@xyflow/react';
 import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowProvider, useReactFlow} from '@xyflow/react';
 import { CourseMapNodeInfo } from 'commons/types/global';
 import StateNodeEditMode from 'commons/components/molecules/StateNodeEditMode';

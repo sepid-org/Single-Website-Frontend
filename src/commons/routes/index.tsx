@@ -24,6 +24,7 @@ import EditArticle from 'apps/website-display/pages/EditArticle';
 import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import CourseMapEditor from 'commons/components/organisms/Roadmap/CourseMapEditorProvider';
+import CourseMapViewMode from 'commons/components/organisms/Roadmap/CourseMapViewMode';
 
 const Root = () => {
 
@@ -39,6 +40,7 @@ const Root = () => {
       <Route path="/programs/" element={<Programs />} />
       <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
       <Route path="/map" element={<CourseMapEditor />} />
+      <Route path="/viewMap" element={<CourseMapViewMode />} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/edit-article/:articleId/" element={<EditArticle />} />
