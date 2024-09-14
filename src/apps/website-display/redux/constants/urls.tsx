@@ -27,9 +27,9 @@ export const getPlayerFromTeamUrl = ({ id }) => `/fsm/fsm/${id}/get_player_from_
 
 // response
 // answer
-export const clearQuestionAnswerUrl = `/response/answers/clear_question_answer/`;
-export const answerCRUDUrl = ({ answerId }) => answerId ? `response/answers/${answerId}/` : 'response/answers/';
-export const sendWidgetAnswerUrl = `/response/answers/submit_answer/`;
+export const clearQuestionAnswerUrl = `/responses/answers/clear_question_answer/`;
+export const answerCRUDUrl = ({ answerId }) => answerId ? `responses/answers/${answerId}/` : 'responses/answers/';
+export const sendWidgetAnswerUrl = `/responses/answers/submit_answer/`;
 
 
 // assessment:

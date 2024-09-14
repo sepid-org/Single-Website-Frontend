@@ -25,7 +25,7 @@ export const ReportSlice = ManageContentServiceApi.injectEndpoints({
     getFormRespondentsInfoFile: builder.mutation<GetFormRespondentsInfoOutputType, GetFormRespondentsInfoInputType>({
       invalidatesTags: ['programs'],
       query: ({ formId }) => ({
-        url: `/report/form-respondents-info/`,
+        url: `/reports/form-respondents-info/`,
         method: 'POST',
         body: {
           form_id: formId
@@ -36,7 +36,7 @@ export const ReportSlice = ManageContentServiceApi.injectEndpoints({
     getFormRespondentsAnswersFile: builder.mutation<GetFormRespondentsAnswersOutputType, GetFormRespondentsAnswersInputType>({
       invalidatesTags: ['programs'],
       query: ({ formId }) => ({
-        url: `/report/form-respondents-answers/`,
+        url: `/reports/form-respondents-answers/`,
         method: 'POST',
         body: {
           form_id: formId
@@ -47,7 +47,7 @@ export const ReportSlice = ManageContentServiceApi.injectEndpoints({
     getProgramMerchandisesPurchasesFile: builder.mutation<GetProgramMerchandisesPurchasesOutputType, GetProgramMerchandisesPurchasesInputType>({
       invalidatesTags: ['programs'],
       query: ({ programSlug }) => ({
-        url: `/report/program-merchandises-purchases/`,
+        url: `/reports/program-merchandises-purchases/`,
         method: 'POST',
         body: {
           program_id: programSlug
