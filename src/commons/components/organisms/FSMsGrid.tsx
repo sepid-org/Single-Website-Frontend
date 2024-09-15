@@ -1,13 +1,14 @@
 import { Box, Grid, Pagination, Stack } from '@mui/material';
 import React, { FC, useState } from 'react';
 
-import FSMCard from 'commons/components/organisms/cards/FSMCard';
+import VerticalFSMCard from 'commons/components/organisms/cards/VerticalFSMCard';
 import useWidth from 'commons/utils/UseWidth';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { useParams } from 'react-router-dom';
 import { useGetProgramFSMsUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import HorizontalFSMCard from './cards/HorizontalFSMCard';
 
 type FSMsGridPropsType = {}
 
@@ -27,7 +28,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
       <Grid container spacing={2}>
         {[...Array(numberOfSkeleton)].map((e, i) => (
           <Grid item key={i} xs={12} sm={6} lg={4}>
-            <FSMCard isLoading={true} fsm={null} />
+            <VerticalFSMCard isLoading={true} fsm={null} />
           </Grid>
         ))}
       </Grid>
@@ -41,14 +42,24 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
         <Stack>
           <Grid container spacing={2}>
             {tmpArr.map((fsm) => (
-              <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
-                <FSMCard
-                  fsm={fsm}
-                  userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
-                />
-              </Grid>
+              <>
+                {fsm.card_type === 'vertical1' ?
+                  <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
+                    <VerticalFSMCard
+                      fsm={fsm}
+                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    />
+                  </Grid> :
+                  <Grid item key={fsm.id} xs={12}>
+                    <HorizontalFSMCard
+                      fsm={fsm}
+                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    />
+                  </Grid>
+                }
+              </>
             ))}
-          </Grid>
+          </Grid >
         </Stack>
         <Pagination
           variant="outlined"
