@@ -1,4 +1,4 @@
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
@@ -24,18 +24,18 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
         </Helmet>
       }
       <Layout appbarMode='PROGRAM'>
-        <Stack width={'100%'} direction={{ xs: 'column', sm: 'row' }} alignItems='flex-start' spacing={2}>
-          <Box width={{ xs: '100%', sm: '25%', md: '20%' }} position={{ xs: null, sm: 'sticky' }} top={16}>
+        <Grid container spacing={4}>
+          <Grid item xs={12} sm={3}>
             <ProgramPageSidebar />
-          </Box>
-          <Stack width={{ xs: '100%', sm: '75%', md: '80%' }} spacing={2}>
+          </Grid>
+          <Grid item xs={12} sm={9}>
             {/* <Banner banners={pageMetadata?.banners} /> */}
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'کارگاه‌ها'}
             </Typography>
             <FSMsGrid />
-          </Stack>
-        </Stack>
+          </Grid>
+        </Grid>
       </Layout>
     </Fragment>
   );
