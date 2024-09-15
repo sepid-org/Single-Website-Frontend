@@ -86,8 +86,8 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
           )}
           <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-              <Stack direction="row" alignItems="center" spacing={1}>
-                <Typography variant="h5" component="h2" noWrap sx={{ maxWidth: '70%' }}>
+              <Stack direction="row" alignItems="center">
+                <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '140px', md: '160px' } }}>
                   {fsm.name}
                 </Typography>
                 {userPermissions?.is_mentor && (
@@ -112,9 +112,9 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
                 />
               </Stack>
             </Stack>
-            <Typography 
-              variant="body2" 
-              color="textSecondary" 
+            <Typography
+              variant="body2"
+              color="textSecondary"
               sx={{
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
