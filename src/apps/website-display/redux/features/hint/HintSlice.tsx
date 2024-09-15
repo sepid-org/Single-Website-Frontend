@@ -64,7 +64,7 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
       // todo: it should invalidate 'widget' not 'paper'
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetId, ...body }) => ({
-        url: `/fsm/widget-hint/`,
+        url: `/widgets/widget-hint/`,
         method: 'POST',
         body: {
           ...body,
@@ -81,7 +81,7 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
       // todo: it should invalidate 'widget' not 'paper'
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ hintId }) => ({
-        url: `/fsm/widget-hint/${hintId}/`,
+        url: `/widgets/widget-hint/${hintId}/`,
         method: 'DELETE',
       }),
       transformResponse: (response: any): DeleteWidgetHintOutputType => {
