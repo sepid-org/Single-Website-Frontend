@@ -1,14 +1,14 @@
 import { Box, Grid, Pagination, Stack } from '@mui/material';
 import React, { FC, useState } from 'react';
 
-import VerticalFSMCard from 'commons/components/organisms/cards/VerticalFSMCard';
+import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import useWidth from 'commons/utils/UseWidth';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { useParams } from 'react-router-dom';
 import { useGetProgramFSMsUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import HorizontalFSMCard from './cards/HorizontalFSMCard';
+import FSMHorizontalCard from './cards/FSMHorizontalCard';
 
 type FSMsGridPropsType = {}
 
@@ -51,7 +51,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
                     />
                   </Grid> :
                   <Grid item key={fsm.id} xs={12}>
-                    <HorizontalFSMCard
+                    <FSMHorizontalCard
                       fsm={fsm}
                       userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
                     />

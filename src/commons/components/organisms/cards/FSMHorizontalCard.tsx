@@ -6,7 +6,7 @@ import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import { useEnterFSMMutation } from 'apps/website-display/redux/features/program/PlayerSlice';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 
-const HorizontalFSMCard = ({ fsm, isLoading = false, userPermissions }) => {
+const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const [openPassword, setOpenPassword] = useState(false);
@@ -116,4 +116,4 @@ const HorizontalFSMCard = ({ fsm, isLoading = false, userPermissions }) => {
   );
 };
 
-export default HorizontalFSMCard;
+export default FSMHorizontalCard;

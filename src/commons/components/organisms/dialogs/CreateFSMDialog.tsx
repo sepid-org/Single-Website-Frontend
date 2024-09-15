@@ -11,7 +11,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
 
-import VerticalFSMCard from 'commons/components/organisms/cards/VerticalFSMCard';
+import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { toast } from 'react-toastify';
 import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';

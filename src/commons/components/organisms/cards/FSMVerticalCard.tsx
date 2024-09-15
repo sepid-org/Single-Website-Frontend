@@ -25,7 +25,7 @@ type VerticalFSMCardPropsType = {
   userPermissions?: FSMUserPermissions;
 }
 
-export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
+export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   fsm,
   isLoading = false,
   userPermissions,
@@ -147,4 +147,4 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
   );
 };
 
-export default VerticalFSMCard;
+export default FSMVerticalCard;
