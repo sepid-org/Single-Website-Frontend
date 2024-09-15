@@ -57,7 +57,7 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        height: 400, // Set a fixed height for consistency
+        height: 380, // Set a fixed height for consistency
         cursor: fsm?.is_active ? 'pointer' : 'default',
         opacity: fsm?.is_active ? 1 : 0.6,
         transition: 'opacity 0.3s, box-shadow 0.3s',
@@ -84,7 +84,14 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
               title={fsm.name}
             />
           )}
-          <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+          <CardContent sx={{
+            flexGrow: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            height: 140, // Fixed height for content area
+            padding: 2,
+            '&:last-child': { paddingBottom: 2 }, // Override MUI's default padding
+          }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
               <Stack direction="row" alignItems="center">
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '140px', md: '160px' } }}>
@@ -96,6 +103,7 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
                       component={Link}
                       to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`}
                       onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
+                      size="small"
                     >
                       <ModeEditTwoToneIcon />
                     </IconButton>
@@ -121,6 +129,7 @@ export const VerticalFSMCard: FC<VerticalFSMCardPropsType> = ({
                 display: '-webkit-box',
                 WebkitLineClamp: 3,
                 WebkitBoxOrient: 'vertical',
+                flexGrow: 1,
                 mb: 1,
               }}
             >
