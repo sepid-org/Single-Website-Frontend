@@ -122,6 +122,7 @@ export type FSMType = ContentType & {
   is_visible: boolean;
   order_in_program: number;
   card_type: 'vertical1' | 'horizontal1';
+  show_roadmap: boolean;
 };
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';

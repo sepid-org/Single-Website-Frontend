@@ -7,6 +7,8 @@ import FSMStateRoadMap from 'commons/components/organisms/FSMStateRoadMap';
 import FSMStateHelpButton from 'commons/components/molecules/FSMStateHelpButton';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useParams } from 'react-router-dom';
 
 export type WorkshopFSMStatePropsType = {
   isMentor: boolean;
@@ -15,8 +17,11 @@ export type WorkshopFSMStatePropsType = {
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) => {
+  const { fsmId } = useParams();
   const { data: paper } = useGetPaperQuery({ paperId: stateId });
   const { data: state } = useGetFSMStateQuery({ fsmStateId: stateId })
+  const { data: fsm } = useGetFSMQuery({ fsmId });
+
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
   const hints = [...(state?.hints || [])];
@@ -80,8 +85,8 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
                 </Grid>
               </Stack>
             </Stack>
-            {state &&
-              <FSMStateRoadMap currentNodeName={state?.name} playerId={playerId} />
+            {(state && fsm.show_roadmap) &&
+              < FSMStateRoadMap currentNodeName={state?.name} playerId={playerId} />
             }
             {notQuestions.length === 0 &&
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
