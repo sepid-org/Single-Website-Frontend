@@ -97,13 +97,13 @@ const Widget: FC<WidgetPropsType> = ({
   const Cover = useMemo(() =>
     coveredWithPaper
       ? ({ children }) =>
-        <Paper elevation={2} sx={{ padding: 1, width: '100%', height: '100%' }}>
+        <Paper elevation={2} sx={{ padding: 1, width: '100%', height: '100%', position: 'relative' }}>
           {children}
         </Paper>
       : ({ children }) =>
-        <Fragment>
+        <Box position={'relative'}>
           {children}
-        </Fragment>
+        </Box>
     , [coveredWithPaper])
 
   return (
