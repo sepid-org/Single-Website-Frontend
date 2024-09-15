@@ -39,6 +39,8 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
     cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
     is_active: true,
     is_visible: true,
+    card_type: 'vertical1',
+    show_roadmap: true,
   });
   const [createFSM, result] = useCreateFSMMutation();
 
