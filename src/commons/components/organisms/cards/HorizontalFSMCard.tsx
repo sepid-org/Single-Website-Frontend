@@ -61,12 +61,12 @@ const HorizontalFSMCard = ({ fsm, isLoading = false, userPermissions }) => {
         <CardContent sx={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', overflow: 'hidden', p: { xs: 1, sm: 2 } }}>
           <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
             <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography component="h2" variant="h3" noWrap sx={{ maxWidth: { xs: '120px', sm: '200px', md: '250px' } }}>
+              <Typography component="h2" variant="h3" noWrap sx={{ maxWidth: { xs: '160px', sm: '240px', md: '320px' } }}>
                 {fsm.name}
               </Typography>
               {userPermissions?.is_mentor && (
                 <Tooltip title="ورود به بخش همیاران" arrow>
-                  <IconButton component={Link} to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`}>
+                  <IconButton component={Link} to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`} size='small'>
                     <ModeEditTwoToneIcon />
                   </IconButton>
                 </Tooltip>
