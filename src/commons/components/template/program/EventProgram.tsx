@@ -24,8 +24,8 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
         </Helmet>
       }
       <Layout appbarMode='PROGRAM'>
-        <Grid container spacing={4}>
-          <Grid item xs={12} sm={3}>
+        <Grid container spacing={4} alignItems='flex-start'>
+          <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
             <ProgramPageSidebar />
           </Grid>
           <Grid item xs={12} sm={9}>
