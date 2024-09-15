@@ -103,7 +103,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
             onClick={fsm?.has_entrance_lock ? () => setOpenPassword(true) : handleEnterFSM}
             startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
           >
-            بزن بریم!
+            ورود به کارگاه
           </Button>
         </Box>
       </Box>

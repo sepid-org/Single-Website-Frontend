@@ -127,7 +127,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 color="primary"
                 disabled={isLoading}
                 fullWidth>
-                بزن بریم
+                ورود
               </Button>
               {(website?.has_login_with_google && process.env.REACT_APP_GOOGLE_CLIENT_ID) &&
                 <GoogleLogin />
