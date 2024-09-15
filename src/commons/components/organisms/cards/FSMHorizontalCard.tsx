@@ -59,25 +59,17 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
       )}
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, overflow: 'hidden' }}>
         <CardContent sx={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', overflow: 'hidden', p: { xs: 1, sm: 2 } }}>
-          <Stack direction="row" justifyContent="space-between" alignItems='start' mb={1}>
-            <Stack direction="row" alignItems="center" spacing={1}>
-              <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '240px', md: '320px' } }}>
-                {fsm.name}
-              </Typography>
-              {userPermissions?.is_mentor && (
-                <Tooltip title="ورود به بخش همیاران" arrow>
-                  <IconButton component={Link} to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`} size='small'>
-                    <ModeEditTwoToneIcon />
-                  </IconButton>
-                </Tooltip>
-              )}
-            </Stack>
-
-            <Stack direction="row" alignItems="center" spacing={0.4}>
-              {fsm?.fsm_p_type === 'Team' ?
-                <Chip variant='outlined' icon={<Group fontSize="small" />} label={'تیمی'} size="small" /> :
-                <Chip variant='outlined' icon={<Person fontSize="small" />} label={'فردی'} size="small" />}
-            </Stack>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '240px', md: '320px' } }}>
+              {fsm.name}
+            </Typography>
+            {userPermissions?.is_mentor && (
+              <Tooltip title="ورود به بخش همیاران" arrow>
+                <IconButton component={Link} to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`} size='small'>
+                  <ModeEditTwoToneIcon />
+                </IconButton>
+              </Tooltip>
+            )}
           </Stack>
           <Typography
             variant="body2"
@@ -88,12 +80,18 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
               display: '-webkit-box',
               WebkitLineClamp: { xs: 2, sm: 3 },
               WebkitBoxOrient: 'vertical',
-              mb: 1,
+              flexGrow: 1,
               fontSize: { xs: '0.75rem', sm: '0.875rem' }
             }}
           >
             {fsm.description}
           </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            {fsm?.fsm_p_type === 'Team' ?
+              <Chip variant='outlined' icon={<Group fontSize="small" />} label={'تیمی'} size="small" /> :
+              <Chip variant='outlined' icon={<Person fontSize="small" />} label={'فردی'} size="small" />
+            }
+          </Stack>
         </CardContent>
         <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, mt: 'auto' }}>
           <Button
@@ -102,6 +100,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
             disabled={!fsm?.is_active}
             onClick={fsm?.has_entrance_lock ? () => setOpenPassword(true) : handleEnterFSM}
             startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
+            size={isDesktop ? 'medium' : 'small'}
           >
             ورود به کارگاه
           </Button>

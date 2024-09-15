@@ -84,14 +84,15 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
               title={fsm.name}
             />
           )}
-          <CardContent sx={{
-            flexGrow: 1,
-            display: 'flex',
-            flexDirection: 'column',
-            height: 140, // Fixed height for content area
-            padding: 2,
-            '&:last-child': { paddingBottom: 2 }, // Override MUI's default padding
-          }}>
+          <CardContent
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              height: 160, // Fixed height for content area
+              padding: 2,
+              '&:last-child': { paddingBottom: 2 }, // Override MUI's default padding
+            }}>
             <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
               <Stack direction="row" alignItems="center">
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '140px', md: '160px' } }}>
@@ -110,15 +111,6 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                   </Tooltip>
                 )}
               </Stack>
-              <Stack direction="row" alignItems="center" spacing={0.5}>
-                {fsm?.has_entrance_lock && <Lock fontSize="small" />}
-                <Chip
-                  icon={fsm?.fsm_p_type === 'Team' ? <Group /> : <Person />}
-                  label={fsm?.fsm_p_type === 'Team' ? 'تیمی' : 'فردی'}
-                  size="small"
-                  variant="outlined"
-                />
-              </Stack>
             </Stack>
             <Typography
               variant="body2"
@@ -130,11 +122,19 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                 WebkitLineClamp: 3,
                 WebkitBoxOrient: 'vertical',
                 flexGrow: 1,
-                mb: 1,
               }}
             >
               {fsm.description}
             </Typography>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              {fsm?.has_entrance_lock && <Lock fontSize="small" />}
+              <Chip
+                icon={fsm?.fsm_p_type === 'Team' ? <Group /> : <Person />}
+                label={fsm?.fsm_p_type === 'Team' ? 'تیمی' : 'فردی'}
+                size="small"
+                variant="outlined"
+              />
+            </Stack>
           </CardContent>
         </Fragment>
       )}
