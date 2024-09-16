@@ -132,7 +132,7 @@ const dictionary = {
       algorithm: 'الگوریتم',
       codingTheory: 'نظریه کد‌گذاری',
       chooseNextState: 'کجا بریم؟',
-      next: 'بعدی',
+      next: 'گام بعد',
       submit: 'ثبت',
       answer: 'پاسخ',
       submitAnswer: 'ثبت پاسخ',

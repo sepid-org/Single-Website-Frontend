@@ -47,7 +47,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
       variant="outlined"
       color="primary"
       onClick={handleClick}>
-      قبلی
+      {'گام قبل'}
     </Button>
   );
 }
