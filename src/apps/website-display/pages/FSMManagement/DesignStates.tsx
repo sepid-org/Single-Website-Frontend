@@ -45,8 +45,8 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
           </Typography>)
       }
       <Dialog
-        fullWidth={fsmStates[finalStateIndex]?.template === 'board'}
-        maxWidth={fsmStates[finalStateIndex]?.template === 'board' ? false : 'lg'}
+        fullWidth={true}
+        maxWidth={fsmStates[finalStateIndex]?.template === 'board' ? false : 'sm'}
         open={isEditableFSMStateDialogOpen}
         onClose={() => setIsEditableFSMStateDialogOpen(false)}
       >

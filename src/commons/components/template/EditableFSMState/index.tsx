@@ -15,7 +15,7 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
 
   if (fsmState?.template === 'normal') {
     return (
-      <Box padding={2} width={600}>
+      <Box padding={2}>
         <EditableNormalState fsmStateId={fsmStateId} />
       </Box>
     )
