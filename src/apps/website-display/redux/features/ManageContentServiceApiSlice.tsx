@@ -7,10 +7,8 @@ export const ManageContentServiceApi = createApi({
   tagTypes: [
     'program',
     'programs',
-    'program-user-permissions',
     'fsm',
     'fsms',
-    'fsms-user-permissions',
     'program-admins',
     'fsm-states',
     'fsm-state',
@@ -38,6 +36,7 @@ export const ManageContentServiceApi = createApi({
     'my-invitations',
     'team-invitations',
     'Position',
+    'user-specific-data',
   ],
   baseQuery: CustomBaseQuery({ baseUrl: CMS_URL + 'api/' }),
   endpoints: build => ({

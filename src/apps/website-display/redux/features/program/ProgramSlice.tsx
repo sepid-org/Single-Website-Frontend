@@ -92,7 +92,7 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getProgramUserPermissions: builder.query<GetProgramUserPermissionsOutputType, GetProgramUserPermissionsInputType>({
-      providesTags: ['program-user-permissions'],
+      providesTags: ['user-specific-data'],
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_permissions/`,
       transformResponse: (response: any): GetProgramUserPermissionsOutputType => {
         return response;
@@ -100,7 +100,7 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getProgramFSMsUserPermissions: builder.query<GetProgramFSMsUserPermissionsOutputType, GetProgramFSMsUserPermissionsInputType>({
-      providesTags: ['fsms-user-permissions'],
+      providesTags: ['user-specific-data'],
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_fsms_user_permissions/`,
       transformResponse: (response: any): GetProgramFSMsUserPermissionsOutputType => {
         return response;

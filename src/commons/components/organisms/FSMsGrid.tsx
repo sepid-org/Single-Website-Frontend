@@ -1,5 +1,5 @@
 import { Box, Grid, Pagination, Stack } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 
 import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import useWidth from 'commons/utils/UseWidth';
@@ -36,29 +36,32 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
   }
 
   if (visibleFSMS.length > 0) {
-    let tmpArr = [...visibleFSMS].filter(fsm => fsm.is_visible).sort((fsm1, fsm2) => fsm2.order_in_program - fsm1.order_in_program)
+    let sortedFSMs = [...visibleFSMS].filter(fsm => fsm.is_visible).sort((fsm1, fsm2) => fsm2.order_in_program - fsm1.order_in_program)
     return (
       <Stack spacing={2}>
         <Stack>
           <Grid container spacing={2}>
-            {tmpArr.map((fsm) => (
-              <>
-                {fsm.card_type === 'vertical1' ?
+            {sortedFSMs.map((fsm) => {
+              if (fsm.card_type === 'vertical1') {
+                return (
                   <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
                     <VerticalFSMCard
                       fsm={fsm}
                       userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
                     />
-                  </Grid> :
+                  </Grid>
+                )
+              } else {
+                return (
                   <Grid item key={fsm.id} xs={12}>
                     <FSMHorizontalCard
                       fsm={fsm}
                       userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
                     />
                   </Grid>
-                }
-              </>
-            ))}
+                )
+              }
+            })}
           </Grid >
         </Stack>
         <Pagination
@@ -69,7 +72,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
           page={pageNumber}
           onChange={(e, value) => setPageNumber(value)}
         />
-      </Stack>
+      </Stack >
     );
   }
 

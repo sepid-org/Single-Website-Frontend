@@ -10,7 +10,8 @@ export const WebsiteSlice = ManageWebsiteServiceApi.injectEndpoints({
     getWebsite: builder.query<WebsiteType, void>({
       query: () => `website/get-website/`,
     }),
-    getPermission: builder.query<WebsitePermissionsType, void>({
+    getWebsitePermission: builder.query<WebsitePermissionsType, void>({
+      providesTags: ['user-specific-data'],
       query: () => `website/permissions/`,
       transformResponse: (response: any): WebsitePermissionsType => {
         return {
@@ -26,6 +27,6 @@ export const WebsiteSlice = ManageWebsiteServiceApi.injectEndpoints({
 
 export const {
   useGetWebsiteQuery,
-  useGetPermissionQuery,
+  useGetWebsitePermissionQuery,
   useGetPageMetadataQuery,
 } = WebsiteSlice;

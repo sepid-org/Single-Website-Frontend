@@ -7,7 +7,7 @@ import { logoutAction } from 'apps/website-display/redux/slices/Account';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useGetPermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetWebsitePermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type UserAvatarPropsType = {
   name: string;
@@ -26,7 +26,7 @@ const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => 
     setAnchorEl(null);
   };
 
-  const { data: websitePermissions } = useGetPermissionQuery();
+  const { data: websitePermissions } = useGetWebsitePermissionQuery();
 
   return (
     <Fragment>

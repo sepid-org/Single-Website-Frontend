@@ -1,4 +1,5 @@
 import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { createInvalidationCallback } from '../ManageWebsiteServiceApiSlice';
 
 type CreateAccountInputType = {
   phoneNumber: string;
@@ -90,6 +91,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
       transformResponse: (response: any): CreateAccountOutputType => {
         return response;
       },
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
@@ -103,6 +105,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     loginGoogleUser: builder.mutation<LoginGoogleUserOutputType, LoginGoogleUserInputType>({
+      invalidatesTags: [],
       query: (body) => ({
         url: 'auth/accounts/login-with-google/',
         method: 'POST',
@@ -111,6 +114,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
       transformResponse: (response: any): LoginGoogleUserOutputType => {
         return response;
       },
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
@@ -128,6 +132,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     changeUserPassword: builder.mutation<ChangeUserPasswordOutputType, ChangeUserPasswordInputType>({
