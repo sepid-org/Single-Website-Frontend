@@ -23,7 +23,6 @@ export const createInvalidationCallback = (tags) => {
       dispatch(ContentManagementServiceApi.util.invalidateTags(tags));
       dispatch(WebsiteManagementServiceApi.util.invalidateTags(tags));
     } catch (error) {
-      console.error('Failed to invalidate tags:', error);
       // Additional error handling if needed
     }
   };
