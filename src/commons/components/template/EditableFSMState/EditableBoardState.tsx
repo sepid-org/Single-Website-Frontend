@@ -16,7 +16,7 @@ const EditableBoardState = ({ fsmStateId }) => {
   const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
-  const [positions, setPositions] = useState<PositionType[]>([]);
+  const [positions, setPositions] = useState<PositionType[]>(null);
   const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
   const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
   const [savePositions, { isSuccess: isSavePositionsSuccess, isError: isSavePositionsError }] = useSavePositionsMutation();
@@ -139,8 +139,8 @@ const EditableBoardState = ({ fsmStateId }) => {
           {'ذخیره'}
         </Button>
       </Stack>
-      <Box sx={{ width: '100%', height: '100%', overflow: 'auto', position: 'relative' }}>
-        <div style={{ width: 1600, height: 900, background: '#f0f0f0' }}>
+      <Box sx={{ overflow: 'auto' }}>
+        <div style={{ width: 1600, height: 900, background: '#f0f0f0', position: 'relative' }}>
           {widgetsWithPositions?.map((widget) => (
             <Rnd
               key={widget.id}
