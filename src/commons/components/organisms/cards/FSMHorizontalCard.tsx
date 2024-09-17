@@ -59,8 +59,8 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
       )}
       <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1, overflow: 'hidden' }}>
         <CardContent sx={{ flex: '1 0 auto', display: 'flex', flexDirection: 'column', overflow: 'hidden', p: { xs: 1, sm: 2 } }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '240px', md: '320px' } }}>
+          <Stack direction="row" alignItems="center" width={'100%'}>
+            <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
               {fsm.name}
             </Typography>
             {userPermissions?.is_mentor && (

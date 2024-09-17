@@ -93,12 +93,12 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
               padding: 2,
               '&:last-child': { paddingBottom: 2 }, // Override MUI's default padding
             }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" mb={1}>
-              <Stack direction="row" alignItems="center">
-                <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: { xs: '160px', sm: '140px', md: '160px' } }}>
+            <Stack direction="row" justifyContent="space-between" alignItems="center">
+              <Stack direction="row" alignItems="center" width={'100%'}>
+                <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
                   {fsm.name}
                 </Typography>
-                {userPermissions?.is_mentor && (
+                {userPermissions?.is_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
                       component={Link}
@@ -109,7 +109,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                       <ModeEditTwoToneIcon />
                     </IconButton>
                   </Tooltip>
-                )}
+                }
               </Stack>
             </Stack>
             <Typography
