@@ -1,5 +1,5 @@
 import { EdgeType, FSMStateType, FSMType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
   fsmId: string;
@@ -39,7 +39,7 @@ type GetFSMEdgesOutputType = EdgeType[];
 
 
 
-export const FSMSlice = ManageContentServiceApi.injectEndpoints({
+export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSM: builder.mutation<CreateFSMOutputType, CreateFSMInputType>({
       invalidatesTags: ['fsms'],

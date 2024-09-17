@@ -1,9 +1,9 @@
 import { FSMStateType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetFSMStateOutputType = FSMStateType;
 
-export const PaperSlice = ManageContentServiceApi.injectEndpoints({
+export const PaperSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getPaper: builder.query<GetFSMStateOutputType, { paperId: string }>({
       providesTags: (result) => [{ type: 'paper', id: result?.id }],

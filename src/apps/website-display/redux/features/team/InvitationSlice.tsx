@@ -1,5 +1,5 @@
 import { InvitationType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetTeamInvitationsInputType = {
   teamId: string;
@@ -34,7 +34,7 @@ type RespondInvitationInputType = {
 type RespondInvitationOutputType = void;
 
 
-export const InvitationSlice = ManageContentServiceApi.injectEndpoints({
+export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getTeamInvitations: builder.query<GetTeamInvitationsOutputType, GetTeamInvitationsInputType>({

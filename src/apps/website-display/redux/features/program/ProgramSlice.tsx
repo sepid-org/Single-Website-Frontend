@@ -1,5 +1,5 @@
 import { FSMUserPermissions, ProgramType, ProgramUserPermissions } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetProgramsInputType = {
   pageNumber?: number;
@@ -45,7 +45,7 @@ type CreateProgramOutputType = {
 
 }
 
-export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
+export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     createProgram: builder.mutation<CreateProgramOutputType, CreateProgramInputType>({

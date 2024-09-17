@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { ManagePartyServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
-import { ManageContentServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
-import { ManageWebsiteServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
+import { PartyManagementServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
+import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
 import rootReducer from '../rootReducer';
 
 const createStore = (preloadedState) => {
@@ -11,9 +11,9 @@ const createStore = (preloadedState) => {
       getDefaultMiddleware({
         serializableCheck: false,
       })
-        .concat(ManagePartyServiceApi.middleware)
-        .concat(ManageContentServiceApi.middleware)
-        .concat(ManageWebsiteServiceApi.middleware),
+        .concat(PartyManagementServiceApi.middleware)
+        .concat(ContentManagementServiceApi.middleware)
+        .concat(WebsiteManagementServiceApi.middleware),
     devTools: process.env.NODE_ENV === 'development',
     preloadedState,
   });

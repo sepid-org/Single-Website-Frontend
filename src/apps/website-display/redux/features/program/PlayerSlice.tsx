@@ -1,5 +1,5 @@
 import { FSMStateType, PlayerType, UserPublicInfoType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GoForwardInputType = {
   edgeId: string;
@@ -45,7 +45,7 @@ type GetCurrentUserFSMPlayerInputType = {
 
 type GetCurrentUserFSMPlayerOutputType = PlayerType;
 
-export const PlayerSlice = ManageContentServiceApi.injectEndpoints({
+export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     goForward: builder.mutation<GoForwardOutputType, GoForwardInputType>({

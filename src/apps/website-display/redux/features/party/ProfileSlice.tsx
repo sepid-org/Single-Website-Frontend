@@ -1,5 +1,5 @@
 import { SchoolStudentshipType, UserInfoType } from 'commons/types/profile';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { WebsiteType } from 'commons/types/global';
 import { WMS_URL } from 'commons/configs/Constants';
 import jsonToFormData from 'commons/utils/jsonToFromDate';
@@ -22,7 +22,7 @@ type GetWebsiteProfileInputType = {}
 
 type GetWebsiteProfileOutputType = Partial<WebsiteType>;
 
-export const ProfileSlice = ManageContentServiceApi.injectEndpoints({
+export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getUserProfile: builder.query<GetUserProfileOutputType, GetUserProfileInputType>({
       providesTags: ['user-profile'],

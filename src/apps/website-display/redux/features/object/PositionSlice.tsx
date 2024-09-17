@@ -1,6 +1,6 @@
-import { ManageContentServiceApi } from "../ManageContentServiceApiSlice";
+import { ContentManagementServiceApi } from "../ManageContentServiceApiSlice";
 
-export const PositionSlice = ManageContentServiceApi.injectEndpoints({
+export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     getPositionsByPaper: builder.query({
       query: ({ paperId }) => `/fsm/positions/by-paper/${paperId}/`,

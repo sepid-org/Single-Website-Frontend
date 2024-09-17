@@ -1,5 +1,5 @@
 import { AnswerType, RegistrationFormType, RegistrationReceiptType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 // todo: should be based on form type
 type GetFormOutputType = RegistrationFormType;
@@ -22,7 +22,7 @@ type UpdateFormInputType = Partial<RegistrationFormType>
 
 type UpdateFormOutputType = any;
 
-export const FormSlice = ManageContentServiceApi.injectEndpoints({
+export const FormSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getForm: builder.query<GetFormOutputType, { formId: string }>({
       providesTags: (result) => [{ type: 'form', id: result?.id }],

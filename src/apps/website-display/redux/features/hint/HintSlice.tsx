@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { HintType } from 'commons/types/global';
 
 type DeleteFSMStateHintInputType = {
@@ -29,7 +29,7 @@ type DeleteWidgetHintInputType = {
 
 type DeleteWidgetHintOutputType = any;
 
-export const HintSlice = ManageContentServiceApi.injectEndpoints({
+export const HintSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     createFSMStateHint: builder.mutation<CreateFSMStateHintOutputType, CreateFSMStateHintInputType>({

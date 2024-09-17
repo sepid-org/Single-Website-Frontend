@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { InstituteType, SchoolType } from 'commons/types/models';
 
 type GetInstitutesInputType = {
@@ -12,7 +12,7 @@ type CreateInstituteInputType = InstituteType;
 
 type CreateInstituteOutputType = InstituteType;
 
-export const ProfileSlice = ManageContentServiceApi.injectEndpoints({
+export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getSchools: builder.query<GetInstitutesOutputType, GetInstitutesInputType>({
       providesTags: ['institutes', 'schools'],

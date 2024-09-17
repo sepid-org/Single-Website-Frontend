@@ -1,7 +1,7 @@
 import { RegistrationReceiptType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-export const ReceiptSlice = ManageContentServiceApi.injectEndpoints({
+export const ReceiptSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getReceipt: builder.query<RegistrationReceiptType, { receiptId: string }>({
       providesTags: (result) => [{ type: 'receipt', id: result?.id }],

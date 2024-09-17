@@ -1,11 +1,11 @@
 import { WebsiteType, PageMetadataType } from 'commons/types/global';
-import { ManageWebsiteServiceApi } from './ManageWebsiteServiceApiSlice'
+import { WebsiteManagementServiceApi } from './ManageWebsiteServiceApiSlice'
 
 type WebsitePermissionsType = {
   isAdmin: boolean;
 }
 
-export const WebsiteSlice = ManageWebsiteServiceApi.injectEndpoints({
+export const WebsiteSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getWebsite: builder.query<WebsiteType, void>({
       query: () => `website/get-website/`,

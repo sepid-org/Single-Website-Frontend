@@ -1,5 +1,5 @@
 import { DiscountCodeType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type CreateDiscountCodeInputType = Partial<DiscountCodeType>
 
@@ -17,7 +17,7 @@ type GetProgramDiscountCodesInputType = {
 
 type GetProgramDiscountCodesOutputType = DiscountCodeType[];
 
-export const MerchandiseSlice = ManageContentServiceApi.injectEndpoints({
+export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createDiscountCode: builder.mutation<CreateDiscountCodeOutputType, CreateDiscountCodeInputType>({
       invalidatesTags: ['discount-codes'],

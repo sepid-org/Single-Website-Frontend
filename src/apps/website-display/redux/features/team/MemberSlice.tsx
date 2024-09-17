@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type AddUserToTeamInputType = {
   teamId: string;
@@ -21,7 +21,7 @@ type MakeUserTeamHeadInputType = {
 
 type MakeUserTeamHeadOutputType = void;
 
-export const MemberSlice = ManageContentServiceApi.injectEndpoints({
+export const MemberSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     addUserToTeam: builder.mutation<AddUserToTeamOutputType, AddUserToTeamInputType>({
       invalidatesTags: (result, error, item) => {

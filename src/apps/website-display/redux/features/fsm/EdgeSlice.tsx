@@ -1,5 +1,5 @@
 import { FSMEdgeType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMEdgeInputType = {
   fsmEdgeId: string;
@@ -18,7 +18,7 @@ type CreateFSMEdgeOutputType = {
 
 }
 
-export const EdgeSlice = ManageContentServiceApi.injectEndpoints({
+export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSMEdge: builder.mutation<CreateFSMEdgeOutputType, CreateFSMEdgeInputType>({
       invalidatesTags: ['fsm-edges', 'fsm-state'],

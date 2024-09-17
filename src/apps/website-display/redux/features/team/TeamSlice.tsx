@@ -1,5 +1,5 @@
 import { TeamType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 
 type GetProgramTeamsInputType = {
@@ -38,7 +38,7 @@ type DeleteTeamInputType = {
 
 type DeleteTeamOutputType = void;
 
-export const TeamSlice = ManageContentServiceApi.injectEndpoints({
+export const TeamSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getTeam: builder.query<GetTeamOutputType, GetTeamInputType>({

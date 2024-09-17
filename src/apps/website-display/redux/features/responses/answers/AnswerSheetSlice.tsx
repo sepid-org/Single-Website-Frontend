@@ -1,5 +1,5 @@
 import { UserInfoType } from 'commons/types/profile';
-import { ManageContentServiceApi } from '../../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../../ManageContentServiceApiSlice';
 import { AnswerType } from 'commons/types/models';
 
 type GetAnswerSheetAnswersInputType = {
@@ -14,7 +14,7 @@ type GetQuestionAnswersInputType = {
 
 type GetQuestionAnswersOutputType = AnswerType[];
 
-export const AnswerSheetSlice = ManageContentServiceApi.injectEndpoints({
+export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getAnswerSheetAnswers: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
       providesTags: ['user-profile'],

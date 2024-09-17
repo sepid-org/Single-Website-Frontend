@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { ArticleType } from 'commons/types/redux/article';
 
 type GetArticleOutputType = ArticleType;
@@ -12,7 +12,7 @@ type GetArticlesOutputType = {
   articles: ArticleType[];
 }
 
-export const ArticleSlice = ManageContentServiceApi.injectEndpoints({
+export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getArticle: builder.query<GetArticleOutputType, { articleId: string }>({
       providesTags: (result, error, item) => {

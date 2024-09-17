@@ -2,7 +2,7 @@ import { createApi } from '@reduxjs/toolkit/query/react'
 import CustomBaseQuery from '../../../../commons/redux/utilities/CustomBaseQuery';
 import { CMS_URL } from 'commons/configs/Constants';
 
-export const ManageContentServiceApi = createApi({
+export const ContentManagementServiceApi = createApi({
   reducerPath: 'manage-content-service',
   tagTypes: [
     'program',

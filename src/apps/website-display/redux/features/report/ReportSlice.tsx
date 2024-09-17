@@ -1,5 +1,5 @@
 import { FileType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetFormRespondentsInfoInputType = {
   formId: string;
@@ -19,7 +19,7 @@ type GetProgramMerchandisesPurchasesInputType = {
 
 type GetProgramMerchandisesPurchasesOutputType = FileType;
 
-export const ReportSlice = ManageContentServiceApi.injectEndpoints({
+export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getFormRespondentsInfoFile: builder.mutation<GetFormRespondentsInfoOutputType, GetFormRespondentsInfoInputType>({

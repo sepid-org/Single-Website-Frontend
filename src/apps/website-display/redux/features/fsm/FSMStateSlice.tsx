@@ -1,5 +1,5 @@
 import { FSMStateType, FSMType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMStateInputType = {
   fsmStateId: string;
@@ -18,7 +18,7 @@ type CreateFSMStateOutputType = {
 type GetFSMStateOutputType = FSMStateType;
 
 
-export const FSMStateSlice = ManageContentServiceApi.injectEndpoints({
+export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSMState: builder.mutation<CreateFSMStateOutputType, CreateFSMStateInputType>({
       invalidatesTags: ['fsm-states'],

@@ -1,14 +1,14 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import allReducers from 'apps/website-display/redux/slices/allReducers';
-import { ManagePartyServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
-import { ManageContentServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
-import { ManageWebsiteServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
+import { PartyManagementServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
+import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
 
 const appReducer = combineReducers({
   ...allReducers,
-  [ManagePartyServiceApi.reducerPath]: ManagePartyServiceApi.reducer,
-  [ManageContentServiceApi.reducerPath]: ManageContentServiceApi.reducer,
-  [ManageWebsiteServiceApi.reducerPath]: ManageWebsiteServiceApi.reducer,
+  [PartyManagementServiceApi.reducerPath]: PartyManagementServiceApi.reducer,
+  [ContentManagementServiceApi.reducerPath]: ContentManagementServiceApi.reducer,
+  [WebsiteManagementServiceApi.reducerPath]: WebsiteManagementServiceApi.reducer,
 });
 
 export default appReducer;

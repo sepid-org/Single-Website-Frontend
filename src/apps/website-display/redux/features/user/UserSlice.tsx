@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { createInvalidationCallback } from '../ManageWebsiteServiceApiSlice';
 
 type CreateAccountInputType = {
@@ -74,7 +74,7 @@ type GetVerificationCodeInputType = {
 
 type GetVerificationCodeOutputType = void;
 
-export const UserSlice = ManageContentServiceApi.injectEndpoints({
+export const UserSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({

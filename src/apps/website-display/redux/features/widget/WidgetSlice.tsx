@@ -1,5 +1,5 @@
 import { WidgetTypes } from 'commons/components/organisms/Widget';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
 
 type CreateWidgetInputType = {
@@ -19,7 +19,7 @@ type GetWidgetsByIdsInputType = {
   ids: string[];
 }
 
-export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
+export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createWidget: builder.mutation<void, CreateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],

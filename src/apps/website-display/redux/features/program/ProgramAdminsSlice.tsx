@@ -1,5 +1,5 @@
 import { UserPublicInfoType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type ProgramInputType = {
   programSlug: string;
@@ -25,7 +25,7 @@ type RemoveAdminFromProgramOutputType = {
 
 }
 
-export const ProgramAdminsSlice = ManageContentServiceApi.injectEndpoints({
+export const ProgramAdminsSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getProgramAdmins: builder.query<GetProgramAdminsOutputType, ProgramInputType>({
