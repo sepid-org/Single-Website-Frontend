@@ -111,8 +111,16 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 inputProps={{ className: 'ltr-input' }}
                 type="password"
                 inputMode='text'
+                FormHelperTextProps={{
+                  sx: {
+                    marginRight: 0,
+                    marginLeft: 'auto',
+                    marginTop: 0.5,
+                    textAlign: 'right',
+                  }
+                }}
                 helperText={
-                  <Typography align='right' mt={0.5}>
+                  <Typography component="span">
                     <Link style={{ textDecoration: 'none' }} to={'/reset-password/'}>
                       {'فراموشی گذر‌واژه'}
                     </Link>
