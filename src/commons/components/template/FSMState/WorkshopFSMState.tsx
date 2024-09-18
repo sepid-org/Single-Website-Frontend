@@ -80,7 +80,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
                     <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton outwardEdges={outward_edges} />
+                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
                   </Grid>
                 </Grid>
               </Stack>
@@ -95,7 +95,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
                     <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton outwardEdges={outward_edges} />
+                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
                   </Grid>
                 </Grid>
               </Stack>
@@ -114,7 +114,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
                     <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton outwardEdges={outward_edges} />
+                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
                   </Grid>
                 </Grid>
               </Stack>

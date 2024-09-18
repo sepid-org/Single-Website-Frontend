@@ -1,4 +1,4 @@
-import { FSMStateType, FSMType } from 'commons/types/models';
+import { FSMStateType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMStateInputType = {

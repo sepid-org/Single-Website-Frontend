@@ -164,6 +164,7 @@ export type FSMStateType = PaperType & {
   outward_edges: EdgeType[];
   template: StateTemplateTypes;
   show_appbar: boolean;
+  is_end: boolean;
 };
 export type FSMEdgeType = any;
 export type Answer = any

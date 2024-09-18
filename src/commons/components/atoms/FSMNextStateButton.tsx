@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { FC, Fragment, useContext, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { StatePageContext } from 'apps/website-display/pages/FSM';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
@@ -11,28 +11,48 @@ import {
   useMentorMoveForwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
 import { EdgeType } from 'commons/types/models';
+import { toast } from 'react-toastify';
 
 type FSMNextStateButtonPropsType = {
   outwardEdges: EdgeType[]
+  isEnd?: boolean;
 }
 
 const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
   outwardEdges = [],
+  isEnd,
 }) => {
   const t = useTranslate();
+  const navigate = useNavigate();
+  const { programSlug } = useParams();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);
   const { isMentor } = useContext(StatePageContext);
   const [goForward, goForwardResult] = useGoForwardMutation();
   const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
 
+  const handleFinishingFSM = () => {
+    toast.success('شما با موفقیت کارگاه را به پایان رساندید🎉')
+    navigate(`/program/${programSlug}/`)
+  }
+
+  if (isEnd) {
+    return (
+      <Button
+        fullWidth
+        variant="contained"
+        color="primary"
+        onClick={handleFinishingFSM}>
+        {'اتمام کارگاه'}
+      </Button>
+    )
+  }
 
   const edges = isMentor
     ? outwardEdges
     : outwardEdges.filter((edge) => edge.is_visible);
   // const edges = outwardEdges;
 
-  const navigate = useNavigate();
 
   const changeState = (edge) => {
     if (isMentor) {
