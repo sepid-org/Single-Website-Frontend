@@ -27,12 +27,9 @@ import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-type TicketsTabPropsType = {
-}
+type TicketsTabPropsType = {}
 
-const Tickets: FC<TicketsTabPropsType> = ({
-
-}) => {
+const Tickets: FC<TicketsTabPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const [isCreateMerchandiseDialogOpen, setCreateMerchandiseDialogOpen] = useState(false);

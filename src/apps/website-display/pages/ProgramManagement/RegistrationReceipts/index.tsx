@@ -12,19 +12,20 @@ import { useGetFormRespondentsAnswersFileMutation } from 'apps/website-display/r
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { MEDIA_BASE_URL } from 'commons/configs/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
+import { useParams } from 'react-router-dom';
+import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-type RegistrationReceiptsPropsType = {
-  registrationFormId: string;
-}
+type RegistrationReceiptsPropsType = {}
 
-const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({
-  registrationFormId,
-}) => {
-
+const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
+  const { programSlug } = useParams();
+  const { data: program } = useGetProgramQuery({ programSlug });
   const [getFormRespondentsAnswersFile, result] = useGetFormRespondentsAnswersFileMutation();
 
   const downloadExcelExport = () => {
-    getFormRespondentsAnswersFile({ formId: registrationFormId })
+    if (program) {
+      getFormRespondentsAnswersFile({ formId: program.registration_form })
+    }
   }
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({
             {'خروجی اکسل'}
           </Button>
         </Stack>
-        <RegistrationReceiptsTable registrationFormId={registrationFormId} />
+        <RegistrationReceiptsTable registrationFormId={program?.registration_form} />
       </Stack>
     </Stack>
   );

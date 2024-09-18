@@ -5,15 +5,15 @@ import FormInfo from 'commons/components/organisms/forms/FormInfo';
 import { useGetFormQuery, useUpdateFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
 import { toast } from 'react-toastify';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
+import { useParams } from 'react-router-dom';
+import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-type RegistrationPropsType = {
-  registrationFormId: any;
-}
+type RegistrationPropsType = {}
 
-const Registration: FC<RegistrationPropsType> = ({
-  registrationFormId,
-}) => {
-  const { data: registrationForm, isSuccess } = useGetFormQuery({ formId: registrationFormId }, { skip: !Boolean(registrationFormId) });
+const Registration: FC<RegistrationPropsType> = ({ }) => {
+  const { programSlug } = useParams();
+  const { data: program } = useGetProgramQuery({ programSlug });
+  const { data: registrationForm, isSuccess } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program) });
   const [form, setForm] = useState(registrationForm)
   const [updateForm, result] = useUpdateFormMutation();
 
@@ -55,7 +55,7 @@ const Registration: FC<RegistrationPropsType> = ({
         <Typography variant='h2' gutterBottom>
           {'فرم ثبت‌نام'}
         </Typography>
-        <EditPaper paperId={registrationFormId} />
+        <EditPaper paperId={program?.registration_form} />
       </Stack>
     </Stack>
   );

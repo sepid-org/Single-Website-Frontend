@@ -16,13 +16,9 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 
-type StatisticsTabPropsType = {
+type StatisticsTabPropsType = {}
 
-}
-
-const StatisticsTab: FC<StatisticsTabPropsType> = ({
-
-}) => {
+const StatisticsTab: FC<StatisticsTabPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
   const { data: website } = useGetWebsiteQuery();
