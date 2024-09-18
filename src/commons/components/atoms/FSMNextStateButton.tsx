@@ -36,7 +36,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         variant="contained"
         color="primary"
         onClick={finishFSM}>
-        {'پایان کارگاه'}
+        {'اتمام کارگاه'}
       </Button>
     )
   }
