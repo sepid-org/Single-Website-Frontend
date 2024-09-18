@@ -32,7 +32,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
   const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
 
   const handleFinishingFSM = () => {
-    toast.success('شما با موفقیت کارگاه را به پایان رساندید🎉')
+    // toast.success('شما با موفقیت کارگاه را به پایان رساندید🎉')
     navigate(`/program/${programSlug}/`)
   }
 
@@ -43,7 +43,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         variant="contained"
         color="primary"
         onClick={handleFinishingFSM}>
-        {'اتمام کارگاه'}
+        {'پایان کارگاه'}
       </Button>
     )
   }
