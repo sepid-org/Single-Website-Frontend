@@ -56,7 +56,7 @@ const Root = () => {
           element={<FailedPayment />}
         />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
-        <Route path="/setting/:section?/" element={<Setting />} />
+        <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />
         <Route path="/program/:programSlug/fsm/:fsmId/" element={<FSM />} />
         <Route
@@ -70,12 +70,12 @@ const Root = () => {
         <Route path="/program/:programSlug/" element={<Program />} />
 
         {/* only website admins can visit: */}
-        <Route path="/website/manage/:section?/" element={<WebsiteManagement />} />
+        <Route path="/website/manage/" element={<WebsiteManagement />} />
 
         {/* only mentors can visit: */}
-        <Route path="/program/:programSlug/manage/:section?/" element={<ProgramManagement />} />
+        <Route path="/program/:programSlug/manage/" element={<ProgramManagement />} />
         <Route path="/program/:programSlug/fsm/:fsmId/manage/correction/:answerId/" element={<Correction />} />
-        <Route path="/program/:programSlug/fsm/:fsmId/manage/:section?/" element={<FSMManagement />} />
+        <Route path="/program/:programSlug/fsm/:fsmId/manage/" element={<FSMManagement />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

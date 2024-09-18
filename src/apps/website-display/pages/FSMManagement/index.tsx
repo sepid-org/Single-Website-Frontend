@@ -33,38 +33,38 @@ import FSMManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/F
 
 const initialTabs: DashboardTabType[] = [
   {
-    name: 'info',
+    slug: 'info',
     label: 'اطلاعات کلی',
     icon: InfoIcon,
     component: Info,
   },
   {
-    name: 'states',
+    slug: 'states',
     label: 'گام‌ها',
     icon: DesignServicesIcon,
     component: DesignStates,
   },
   {
-    name: 'edges',
+    slug: 'edges',
     label: 'یال‌ها',
     icon: TimelineIcon,
     component: Edges,
   },
   {
-    name: 'mentors',
+    slug: 'mentors',
     label: 'همیارها',
     icon: PersonIcon,
     component: Mentors,
   },
   {
-    name: 'correction',
+    slug: 'correction',
     label: 'تصحیح',
     icon: BorderColorIcon,
     component: GoToAnswer,
-    isActive: false,
+    disabled: false,
   },
   {
-    name: 'statistics',
+    slug: 'statistics',
     label: 'آمار',
     icon: BarChartIcon,
     component: Statistics,
@@ -97,7 +97,7 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
       [
         ...initialTabs,
         {
-          name: 'requests',
+          slug: 'requests',
           label: 'درخواست‌ها',
           icon: QuestionAnswerIcon,
           component: TeamRequests,
@@ -106,14 +106,14 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
         [
           ...initialTabs,
           {
-            name: 'requests',
+            slug: 'requests',
             label: 'درخواست‌ها',
             icon: QuestionAnswerIcon,
             component: IndividualRequests,
           },
         ] : initialTabs : initialTabs
 
-  const currentTab = tabs.find(tab => tab.name === section) || tabs[0];
+  const currentTab = tabs.find(tab => tab.slug === section) || tabs[0];
   if (!currentTab) return null;
   const TabComponent = <currentTab.component />;
 
@@ -135,11 +135,11 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
               {tabs.map((tab, index) => (
                 <Button
                   key={index}
-                  disabled={tab.isActive === false}
+                  disabled={tab.disabled === false}
                   onClick={() => {
-                    navigate(`/program/${programSlug}/fsm/${fsmId}/manage/${tabs[index].name}/`)
+                    navigate(`/program/${programSlug}/fsm/${fsmId}/manage/${tabs[index].slug}/`)
                   }}
-                  variant={currentTab.name === tab.name ? 'contained' : 'outlined'}
+                  variant={currentTab.slug === tab.slug ? 'contained' : 'outlined'}
                   startIcon={tab.icon && <tab.icon />}>
                   {tab.label}
                 </Button>

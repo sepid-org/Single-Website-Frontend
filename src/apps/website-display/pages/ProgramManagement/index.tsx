@@ -29,56 +29,56 @@ import ProgramManagementBreadcrumbs from 'commons/components/organisms/breadcrum
 
 const tabs: DashboardTabType[] = [
   {
-    name: 'info',
+    slug: 'info',
     label: 'اطلاعات کلی',
     icon: InfoIcon,
     component: Info,
   },
   {
-    name: 'registration-form',
+    slug: 'registration-form',
     label: 'فرایند ثبت‌نام',
     icon: ArticleIcon,
     component: Registration,
   },
   {
-    name: 'tickets',
+    slug: 'tickets',
     label: 'بلیط‌ها',
     icon: PaymentsIcon,
     component: Tickets,
   },
   {
-    name: 'registration-receipts',
+    slug: 'registration-receipts',
     label: 'شرکت‌کنندگان',
     icon: PeopleIcon,
     component: RegistrationReceipts,
   },
   {
-    name: 'certificates',
+    slug: 'certificates',
     label: 'گواهی‌ها',
     icon: WorkspacePremiumIcon,
     component: Certificates,
-    isActive: false,
+    disabled: false,
   },
   {
-    name: 'mentors',
+    slug: 'mentors',
     label: 'مدیران',
     icon: PersonIcon,
     component: Admins,
   },
   {
-    name: 'teams',
+    slug: 'teams',
     label: 'تیم‌ها',
     icon: GroupsIcon,
     component: Teams,
   },
   {
-    name: 'fsms',
+    slug: 'fsms',
     label: 'کارگاه‌ها',
     icon: ClassIcon,
     component: FSMs,
   },
   {
-    name: 'statistics',
+    slug: 'statistics',
     label: 'آمارها',
     icon: BarChartIcon,
     component: StatisticsTab,
@@ -99,7 +99,7 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
     }
   }, [section])
 
-  const currentTab = tabs.find(tab => tab.name === section) || tabs[0];
+  const currentTab = tabs.find(tab => tab.slug === section) || tabs[0];
   if (!currentTab || !program) return null;
   // todo: it is not necessary to pass registrationFormId to other tabs components
   const TabComponent = <currentTab.component registrationFormId={program.registration_form} />;
@@ -121,12 +121,12 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
             <ButtonGroup variant="outlined" orientation="vertical" color="primary" fullWidth>
               {tabs.map((tab, index) => (
                 <Button
-                  disabled={tab.isActive === false}
+                  disabled={tab.disabled === false}
                   key={index}
                   onClick={() => {
-                    navigate(`/program/${programSlug}/manage/${tabs[index].name}/`)
+                    navigate(`/program/${programSlug}/manage/${tabs[index].slug}/`)
                   }}
-                  variant={tab.name === section ? 'contained' : 'outlined'}
+                  variant={tab.slug === section ? 'contained' : 'outlined'}
                   startIcon={tab.icon && <tab.icon />}>
                   {tab.label}
                 </Button>
