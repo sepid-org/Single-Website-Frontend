@@ -10,21 +10,18 @@ let tabs: DashboardTabType[] = [
   {
     slug: 'user',
     label: 'اطلاعات فردی',
-    icon: '',
     component: UserSetting,
     disabled: false,
   },
   {
     slug: 'school',
     label: 'اطلاعات دانش‌آموزی',
-    icon: '',
     component: SchoolSetting,
     disabled: false,
   },
   {
     slug: 'university',
     label: 'اطلاعات دانشجویی',
-    icon: '',
     component: UniversitySetting,
     disabled: true,
   },

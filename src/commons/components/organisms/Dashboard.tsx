@@ -1,4 +1,4 @@
-import { Grid, Tab, Tabs } from '@mui/material';
+import { Grid, Button, ButtonGroup } from '@mui/material';
 import React, { FC } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { DashboardTabType } from 'commons/types/global';
@@ -17,10 +17,8 @@ const Dashboard: FC<DashboardPropsType> = ({
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTabSlug = searchParams.get('tab') || tabs[0].slug;
 
-  const handleTabChange = (event, newValue) => {
-    if (tabs[newValue]) {
-      setSearchParams({ tab: tabs[newValue].slug });
-    }
+  const handleTabChange = (newValue: string) => {
+    setSearchParams({ tab: newValue });
   };
 
   const handleReturnClick = () => {
@@ -32,39 +30,33 @@ const Dashboard: FC<DashboardPropsType> = ({
   return (
     <Grid container alignItems={'start'} spacing={2}>
       <Grid item xs={12} sm={3}>
-        <Tabs
+        <ButtonGroup
           orientation="vertical"
-          variant="fullWidth"
-          value={tabs.indexOf(currentTab)}
-          onChange={handleTabChange}
-          sx={{
-            minWidth: '150px', // Adjust tab width
-            '& .MuiTab-root': {
-              minHeight: 45, // Adjust tab height
-              fontSize: '1rem', // Adjust font size
-              padding: '12px 24px', // Adjust padding
-            }
-          }}
+          fullWidth
         >
-          {tabs.map((tab, index) => (
-            <Tab
-              icon={<tab.icon />}
-              iconPosition="start"
+          {tabs.map((tab) => (
+            <Button
+              key={tab.slug}
+              onClick={() => handleTabChange(tab.slug)}
+              startIcon={tab.icon && <tab.icon />}
               disabled={tab.disabled}
-              key={index}
-              label={tab.label}
-            />
+              variant={tab.slug === currentTabSlug ? 'contained' : 'outlined'}
+            >
+              {tab.label}
+            </Button>
           ))}
-          {returnDirection && (
-            <Tab
-              label={'بازگشت'}
-              icon={<ExitToAppIcon />}
-              iconPosition="start"
-              value={false}
-              onClick={handleReturnClick}
-            />
-          )}
-        </Tabs>
+        </ButtonGroup>
+        {returnDirection && (
+          <Button
+            sx={{ marginTop: 2 }}
+            fullWidth
+            onClick={handleReturnClick}
+            startIcon={<ExitToAppIcon />}
+            variant="outlined"
+          >
+            {'بازگشت'}
+          </Button>
+        )}
       </Grid>
       <Grid item xs={12} sm={9}>
         <currentTab.component {...currentTab.componentProps} />

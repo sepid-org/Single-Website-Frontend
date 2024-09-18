@@ -3,7 +3,7 @@ import { BannerType } from "./redux/WebSiteAppearance";
 export type DashboardTabType = {
   slug: string;
   label: string;
-  icon: any;
+  icon?: any;
   disabled?: boolean;
   component: any;
   componentProps?: any;
