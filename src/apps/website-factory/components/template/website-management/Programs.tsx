@@ -5,9 +5,7 @@ import {
 } from '@mui/material';
 import { Pagination } from '@mui/material';
 import React, { useState, Fragment, FC } from 'react';
-import { connect } from 'react-redux';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
-import { addMentorToWorkshopAction } from 'apps/website-display/redux/slices/programs';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetProgramsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import ManageProgramCard from 'commons/components/organisms/cards/ManageProgramCard';
@@ -89,11 +87,5 @@ const ProgramsTab: FC<ProgramsTabPropsType> = ({
     </Fragment>
   );
 }
-const mapStateToProps = (state) => ({
-  fsmsCount: state.programs.workshopsCount,
-  allProgramFsms: state.programs.workshops,
-});
 
-export default connect(mapStateToProps, {
-  addMentorToWorkshop: addMentorToWorkshopAction,
-})(ProgramsTab);
+export default ProgramsTab;
