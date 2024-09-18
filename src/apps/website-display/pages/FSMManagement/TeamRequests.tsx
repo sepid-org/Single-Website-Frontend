@@ -14,6 +14,7 @@ import {
 import TeamsTab from './TeamsTab';
 import { TeamType } from 'commons/types/models';
 import { useGetProgramTeamsQuery } from 'apps/website-display/redux/features/team/TeamSlice';
+import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 
 const Teams: FC<TeamPropsType> = ({
   teamsRequests,
@@ -21,12 +22,12 @@ const Teams: FC<TeamPropsType> = ({
   createRequestMentor = undefined,
   removeRequestMentor = undefined,
 }) => {
-  const { fsmId, programSlug } = useParams();
+  const { fsmId } = useParams();
   const subscriptionRef = useRef(null);
   const [starredTeams, setStarredTeams] = useState([])
   const [value, setValue] = useState(0);
-  const { data: programTeams } = useGetProgramTeamsQuery({ programSlug })
-
+  const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { data: programTeams } = useGetProgramTeamsQuery({ programSlug: fsm.program_slug })
 
   useEffect(() => {
     const subscribe = async () => {
@@ -53,7 +54,6 @@ const Teams: FC<TeamPropsType> = ({
       subscriptionRef.current?.unsubscribe();
     };
   }, []);
-
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);

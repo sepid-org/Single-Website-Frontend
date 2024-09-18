@@ -116,7 +116,7 @@ export type FSMType = ContentType & {
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
-  program: string;
+  program_slug: string;
   cover_page: string;
   is_active: boolean;
   is_visible: boolean;

@@ -65,7 +65,7 @@ const initialTabs: DashboardTabType[] = [
 type FSMManagementPropsType = {}
 
 const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
-  const { fsmId, programSlug } = useParams();
+  const { fsmId } = useParams();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const tabs: DashboardTabType[] =
@@ -100,7 +100,7 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
           <FSMManagementBreadcrumbs />
         </Grid>
         <Grid item xs={12}>
-          <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
+          <Dashboard tabs={tabs} returnDirection={fsm && `/program/${fsm.program_slug}/`} />
         </Grid>
       </Grid>
     </Layout>

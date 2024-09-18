@@ -12,7 +12,7 @@ import isNumber from 'commons/utils/validators/isNumber';
 
 const GoToAnswer = () => {
   const navigate = useNavigate();
-  const { programSlug, fsmId } = useParams();
+  const { fsmId } = useParams();
   const [answerId, setAnswerId] = useState<string>('');
 
   return (
@@ -35,7 +35,7 @@ const GoToAnswer = () => {
                   <TextField fullWidth label='شناسه' value={answerId} onChange={(e) => isNumber(e.target.value) && setAnswerId(e.target.value)} />
                 </Grid>
                 <Grid item xs={12}>
-                  <Button variant='contained' fullWidth onClick={() => { navigate(`/program/${programSlug}/fsm/${fsmId}/manage/correction/${answerId}/`) }}>
+                  <Button variant='contained' fullWidth onClick={() => { navigate(`/fsm/${fsmId}/manage/correction/${answerId}/`) }}>
                     {'ثبت'}
                   </Button>
                 </Grid>

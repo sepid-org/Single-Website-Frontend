@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 const MentorFSMCard = ({
@@ -17,7 +17,6 @@ const MentorFSMCard = ({
   cover_page,
   description,
 }) => {
-  const { programSlug } = useParams();
 
   return (
     <Card
@@ -63,7 +62,7 @@ const MentorFSMCard = ({
       <CardActions>
         <Button
           variant="contained" fullWidth color="primary"
-          component={Link} to={`/program/${programSlug}/fsm/${id}/manage/`}>
+          component={Link} to={`/fsm/${id}/manage/`}>
           {'ویرایش کارگاه'}
         </Button>
       </CardActions>

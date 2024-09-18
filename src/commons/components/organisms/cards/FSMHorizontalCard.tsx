@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { useNavigate, useParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Tooltip, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
@@ -8,7 +8,6 @@ import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFS
 
 const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
   const navigate = useNavigate();
-  const { programSlug } = useParams();
   const [openPassword, setOpenPassword] = useState(false);
   const [enterFSM, result] = useEnterFSMMutation();
   const theme = useTheme();
@@ -17,7 +16,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
 
   useEffect(() => {
     if (result.isSuccess) {
-      navigate(`fsm/${fsm.id}/`);
+      navigate(`/fsm/${fsm.id}/`);
     }
   }, [result, navigate, fsm.id]);
 
@@ -65,7 +64,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
             </Typography>
             {userPermissions?.is_mentor && (
               <Tooltip title="ورود به بخش همیاران" arrow>
-                <IconButton component={Link} to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`} size='small'>
+                <IconButton component={Link} to={`/fsm/${fsm?.id}/manage/`} size='small'>
                   <ModeEditTwoToneIcon />
                 </IconButton>
               </Tooltip>

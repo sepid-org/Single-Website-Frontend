@@ -38,9 +38,9 @@ const LargeLink = styled(RouterLink)(({ theme }) => ({
 }));
 
 const FSMManagementBreadcrumbs = () => {
-  const { programSlug, fsmId } = useParams();
-  const { data: program } = useGetProgramQuery({ programSlug: programSlug });
+  const { fsmId } = useParams();
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { data: program } = useGetProgramQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
 
   return (
     <StyledPaper elevation={0}>

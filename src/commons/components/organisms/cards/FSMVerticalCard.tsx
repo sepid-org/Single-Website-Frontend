@@ -4,7 +4,6 @@ import {
   CardMedia,
   Typography,
   Stack,
-  Box,
   IconButton,
   Tooltip,
   Skeleton,
@@ -13,7 +12,7 @@ import {
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import React, { useState, Fragment, FC, useEffect } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, FSMUserPermissions } from 'commons/types/models';
@@ -31,13 +30,12 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   userPermissions,
 }) => {
   const navigate = useNavigate();
-  const { programSlug } = useParams();
   const [openPassword, setOpenPassword] = useState(false);
   const [enterFSM, result] = useEnterFSMMutation();
 
   useEffect(() => {
     if (result.isSuccess)
-      navigate(`fsm/${fsm.id}/`)
+      navigate(`/fsm/${fsm.id}/`)
   }, [result])
 
   const handleCardClick = () => {
@@ -102,7 +100,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
                       component={Link}
-                      to={`/program/${programSlug}/fsm/${fsm?.id}/manage/`}
+                      to={`/fsm/${fsm?.id}/manage/`}
                       onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
                       size="small"
                     >

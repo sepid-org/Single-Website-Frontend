@@ -10,13 +10,13 @@ import { announceMentorDeparture } from 'apps/website-display/parse/mentorsInRoo
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 
 const MentorFSMAppbarItems = ({ mentorId }) => {
-  const { programSlug, fsmId } = useParams();
+  const { fsmId } = useParams();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const search = useLocation().search;
   let teamId = new URLSearchParams(search).get('teamId');
   const chatRoomButton = <ChatRoomButton />;
-  const backToProgramButton = <DashboardButton onClick={() => { announceMentorDeparture(teamId, mentorId) }} label={'بازگشت'} to={`/program/${programSlug}/fsm/${fsmId}/manage/requests/`} />;
+  const backToRequestsTabButton = <DashboardButton onClick={() => { announceMentorDeparture(teamId, mentorId) }} label={'بازگشت'} to={`/fsm/${fsmId}/manage/requests/`} />;
   const whiteboardButton = <WhiteboardButton />;
   const teamAvatar = <TeamAvatar />;
   const userAvatar = <UserAvatar />;
@@ -34,13 +34,13 @@ const MentorFSMAppbarItems = ({ mentorId }) => {
   }
   desktopRightItems.push([chatRoomButton]);
   desktopLeftItems.push([whiteboardButton,]);
-  desktopLeftItems.push([backToProgramButton]);
+  desktopLeftItems.push([backToRequestsTabButton]);
 
 
   mobileRightItems.push([chatRoomButton]);
   mobileRightItems.push([whiteboardButton,]);
 
-  mobileLeftItems.push(backToProgramButton);
+  mobileLeftItems.push(backToRequestsTabButton);
 
   return {
     desktopLeftItems,
