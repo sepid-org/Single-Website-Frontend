@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FilmBaziBackendURL } from './consts';
-import { FilmType } from '../types';
+import { FilmType } from 'apps/film-bazi/types';
 
 const useFilmsByCity = ({ cityId }: { cityId: number }) => {
   const [films, setFilms] = useState<FilmType[]>([]);

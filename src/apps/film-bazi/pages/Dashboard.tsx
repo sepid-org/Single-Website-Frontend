@@ -1,22 +1,24 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Layout from 'commons/components/template/Layout';
 import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import FilmCard from './FilmCard';
-import Scoreboard from './Scoreboard';
-import CinemaScene from './CinemaScene';
-import useFilmsByCity from './apis/useFilmsByCity';
+import FilmCard from '../components/FilmCard';
+import Scoreboard from '../components/Scoreboard';
+import CinemaScene from '../components/CinemaScene';
 import { useSelector } from 'react-redux';
 import { useGetUserProfileQuery } from 'apps/website-display/redux/features/party/ProfileSlice';
 import { getCityByName } from 'commons/utils/iran';
-import { persianFilms } from './SampleFilms';
+import { persianFilms } from '../components/SampleFilms';
+import useFilmsByCity from '../hooks/useFilmsByCity';
+import useLocalNavigate from '../hooks/useLocalNavigate';
 
-type FilmBaziCampaignPropsType = {}
+type DashboardPropsType = {}
 
-const FilmBaziCampaign: FC<FilmBaziCampaignPropsType> = ({ }) => {
+const Dashboard: FC<DashboardPropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const userInfo = useSelector((state: any) => state.account.userInfo);
   const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
@@ -38,7 +40,10 @@ const FilmBaziCampaign: FC<FilmBaziCampaignPropsType> = ({ }) => {
             <ProgramPageSidebar
               otherButtons={[
                 <Scoreboard />,
-                <CinemaScene />
+                <CinemaScene />,
+                <Button variant="contained" color="info" onClick={() => { localNavigate(`/user-profile/`) }}>
+                  {'پروفایل'}
+                </Button>
               ]}
             />
           </Box>
@@ -63,4 +68,4 @@ const FilmBaziCampaign: FC<FilmBaziCampaignPropsType> = ({ }) => {
   );
 }
 
-export default FilmBaziCampaign;
+export default Dashboard;

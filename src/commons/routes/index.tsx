@@ -67,7 +67,7 @@ const Root = () => {
           path="/program/:programSlug/team-setting/"
           element={<TeamSetting />}
         />
-        <Route path="/program/:programSlug/" element={<Program />} />
+        <Route path="/program/:programSlug/*" element={<Program />} />
 
         {/* only website admins can visit: */}
         <Route path="/website/manage/" element={<WebsiteManagement />} />

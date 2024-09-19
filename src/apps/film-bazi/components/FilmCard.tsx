@@ -5,12 +5,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActions } from '@mui/material';
 import DiscountDialog from './DIscounCodeDialog';
-import { FilmType } from './types';
-import useGetDiscountCode from './apis/useGetDiscountCode';
+import { FilmType } from '../types';
 import { useSelector } from 'react-redux';
 import { useGetUserProfileQuery } from 'apps/website-display/redux/features/party/ProfileSlice';
 import { getCityByName } from 'commons/utils/iran';
 import { toast } from 'react-toastify';
+import useGetDiscountCode from '../hooks/useGetDiscountCode';
 
 type FilmCardPropsType = {
   film: FilmType;
