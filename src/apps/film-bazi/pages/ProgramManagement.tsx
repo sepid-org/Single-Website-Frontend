@@ -50,14 +50,7 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
 
   return (
     <Layout appbarMode='GENERAL'>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12} marginTop={-1}>
-          <ProgramManagementBreadcrumbs />
-        </Grid>
-        <Grid item xs={12}>
-          <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
-        </Grid>
-      </Grid>
+      <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
     </Layout>
   );
 };
