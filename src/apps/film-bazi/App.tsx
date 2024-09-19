@@ -2,7 +2,7 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import UserProfile from './pages/UserProfile';
-import AdminProfile from './pages/AdminProfile';
+import ProgramManagement from './pages/ProgramManagement';
 
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
     <Routes>
       <Route path="/" element={<Dashboard />} />
       <Route path="user-profile" element={<UserProfile />} />
-      <Route path="admin-profile" element={<AdminProfile />} />
+      <Route path="admin-dashboard" element={<ProgramManagement />} />
     </Routes>
   );
 };

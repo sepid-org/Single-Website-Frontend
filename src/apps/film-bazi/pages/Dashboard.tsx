@@ -1,10 +1,9 @@
 import { Box, Button, Grid, Stack, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Layout from 'commons/components/template/Layout';
-import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
-import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FilmCard from '../components/FilmCard';
 import Scoreboard from '../components/Scoreboard';
 import CinemaScene from '../components/CinemaScene';
@@ -14,6 +13,7 @@ import { getCityByName } from 'commons/utils/iran';
 import { persianFilms } from '../components/SampleFilms';
 import useFilmsByCity from '../hooks/useFilmsByCity';
 import useLocalNavigate from '../hooks/useLocalNavigate';
+import DashboardSidebar from '../components/DashboardSidebar';
 
 type DashboardPropsType = {}
 
@@ -22,6 +22,7 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const userInfo = useSelector((state: any) => state.account.userInfo);
   const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
+  const { data: programPermissions } = useGetProgramUserPermissionsQuery({ programSlug });
 
   const { data: program } = useGetProgramQuery({ programSlug });
   // const { films } = useFilmsByCity({cityId: getCityByName(userProfile?.city)?.id});
@@ -37,18 +38,28 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
       <Layout appbarMode='PROGRAM'>
         <Stack width={'100%'} direction={{ xs: 'column', sm: 'row' }} alignItems='flex-start' spacing={2}>
           <Box width={{ xs: '100%', sm: '25%', md: '20%' }} position={{ xs: null, sm: 'sticky' }} top={16}>
-            <ProgramPageSidebar
-              otherButtons={[
+            <DashboardSidebar
+              buttons={[
                 <Scoreboard />,
                 <CinemaScene />,
                 <Button variant="contained" color="info" onClick={() => { localNavigate(`/user-profile/`) }}>
                   {'پروفایل'}
-                </Button>
+                </Button>,
+                <>
+                  {programPermissions?.is_manager &&
+                    <Button
+                      variant="contained"
+                      color='info'
+                      fullWidth
+                      onClick={() => localNavigate(`/admin-dashboard/`)}>
+                      {'مدیریت دوره'}
+                    </Button>
+                  }
+                </>,
               ]}
             />
           </Box>
           <Stack width={{ xs: '100%', sm: '75%', md: '80%' }} spacing={2}>
-            {/* <Banner banners={pageMetadata?.banners} /> */}
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'فیلم‌های شهر شما'}
             </Typography>
