@@ -1,24 +1,76 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { Button, CardActions } from '@mui/material';
-import DiscountDialog from './DIscounCodeDialog';
+import { Card, CardMedia, Typography, Box, Button, Stack } from '@mui/material';
+import { styled } from '@mui/system';
 import { FilmType } from '../types';
+import useGetDiscountCode from '../hooks/useGetDiscountCode';
 import { useSelector } from 'react-redux';
 import { useGetUserProfileQuery } from 'apps/website-display/redux/features/party/ProfileSlice';
-import { getCityByName } from 'commons/utils/iran';
 import { toast } from 'react-toastify';
-import useGetDiscountCode from '../hooks/useGetDiscountCode';
+import DiscountDialog from './DiscountCodeDialog';
 
-type FilmCardPropsType = {
-  film: FilmType;
-}
+const HoverCard = styled(Card)(() => ({
+  borderRadius: '24px !important',
+  position: 'relative',
+  overflow: 'hidden',
+  width: '100%',
+  height: '100%',
+}));
 
-const FilmCard: React.FC<FilmCardPropsType> = ({
-  film,
-}) => {
+const HoverContent = styled(Box)(({ theme }) => ({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0,
+  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #000000 96%)',
+  color: 'white',
+  padding: theme.spacing(2),
+  opacity: 0,
+  transition: 'opacity 0.3s ease-in-out',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
+
+
+const StyledButton = styled(Button)(() => ({
+  width: '200px',
+  height: '76px',
+  padding: '0',
+  borderImageSlice: 1,
+  borderImageSource: 'linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)',
+  overflow: 'hidden',
+  position: 'absolute',
+
+  // Add this style to ensure the button is correctly rounded even with border image
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    borderRadius: '12px', // Apply border radius here
+    padding: '1px', // Padding between border and inner content
+    background: 'linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)', // Border gradient
+    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+    maskComposite: 'exclude',
+  },
+}));
+
+const ButtonContent = styled(Box)(() => ({
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontFamily: 'IRANSansX, iranyekan',
+  fontSize: '24px',
+  fontWeight: 700,
+  lineHeight: '36px',
+  textAlign: 'center',
+  color: '#FFCD20',
+}));
+
+const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
+  const [isCardHovered, setIsCardHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { getDiscountCode, discountCode, loading, error } = useGetDiscountCode();
   const userInfo = useSelector((state: any) => state.account.userInfo);
@@ -48,36 +100,40 @@ const FilmCard: React.FC<FilmCardPropsType> = ({
 
   return (
     <Fragment>
-      <Card sx={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        maxWidth: 345,
-        boxShadow: 3
-      }}>
+      <HoverCard onMouseEnter={() => { setIsCardHovered(true) }} onMouseLeave={() => { setIsCardHovered(false) }}>
         <CardMedia
           component="img"
-          height="300"
           image={film.image}
           alt={film.name}
+          sx={{
+            height: '100%',
+            objectFit: 'cover',
+          }}
         />
-        <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', paddingBottom: 1 }}>
-          <Typography gutterBottom variant="h5" component="div">
-            {film.name}
-          </Typography>
-          <Typography variant="subtitle1" color="text.secondary" gutterBottom>
-            فیلمی از {`${film.director.first_name} ${film.director.last_name}`}
-          </Typography>
-          <Typography variant="body2" color="text.secondary" paragraph>
-            {film.description}
-          </Typography>
-        </CardContent>
-        <CardActions>
-          <Button disabled={loading} variant='contained' fullWidth color="primary" onClick={handleOpenDialog}>
-            {'دریافت کد تخفیف'}
-          </Button>
-        </CardActions>
-      </Card>
+        <HoverContent className="hoverContent" sx={{ opacity: isCardHovered || isDialogOpen ? 1 : 0 }}>
+          <Stack sx={{
+            padding: 2,
+            width: '100%',
+            position: 'absolute',
+            bottom: 0,
+          }}>
+            <Typography variant="h5" gutterBottom color={'#26B7B4'} fontWeight={700} fontSize={20}>
+              {film.name}
+            </Typography>
+            <Typography variant="body2" gutterBottom color={'#FFCD20'} fontSize={14} marginBottom={1}>
+              {`کارگردان: ${film.director.first_name} ${film.director.last_name}`}
+            </Typography>
+            <Typography variant="body2">
+              {film.description}
+            </Typography>
+          </Stack>
+          <StyledButton onClick={handleOpenDialog}>
+            <ButtonContent>
+              {'دریافت کد تخفیف'}
+            </ButtonContent>
+          </StyledButton>
+        </HoverContent>
+      </HoverCard>
       <DiscountDialog
         open={isDialogOpen}
         onClose={handleCloseDialog}

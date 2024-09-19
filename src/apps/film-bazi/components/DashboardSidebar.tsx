@@ -22,12 +22,9 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
   if (!program) return null;
 
   return (
-    <Stack justifyContent={'space-between'} spacing={2}>
-      <Stack spacing={1} sx={{ userSelect: 'none' }}>
-        <img src={program.cover_page} alt='program-cover-page' width={'100%'} style={{ borderRadius: 8 }} />
-        <Typography textAlign={'center'} component="h1" fontWeight={700} fontSize={32} gutterBottom>
-          {program.name}
-        </Typography>
+    <Stack justifyContent={'space-between'} spacing={2} width={220}>
+      <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
+        <img src={program.cover_page} alt='program-cover-page' width={200} style={{ borderRadius: 8 }} />
       </Stack>
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>

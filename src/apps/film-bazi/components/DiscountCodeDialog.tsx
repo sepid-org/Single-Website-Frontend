@@ -37,9 +37,6 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
         <Typography variant="h3" component="div" sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
           {discountCode.code}
         </Typography>
-        <Typography variant="h5" component="div" sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
-          {`تا حالا 🤩${toPersianNumber(discountCode.usageCount)} نفر از کد تخفیف شما استفاده کرده‌اند.`}
-        </Typography>
       </DialogContent>
       <DialogActions>
         <Button variant='outlined' onClick={onClose} color="primary">

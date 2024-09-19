@@ -1,10 +1,9 @@
-import { Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import Layout from 'commons/components/template/Layout';
 import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import FilmCard from '../components/FilmCard';
 import Scoreboard from '../components/Scoreboard';
 import CinemaScene from '../components/CinemaScene';
 import { useSelector } from 'react-redux';
@@ -14,6 +13,8 @@ import { persianFilms } from '../components/SampleFilms';
 import useFilmsByCity from '../hooks/useFilmsByCity';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import DashboardSidebar from '../components/DashboardSidebar';
+import AppBarComponent from '../components/Appbar';
+import FilmCard from '../components/FilmCard';
 
 type DashboardPropsType = {}
 
@@ -35,9 +36,18 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
           <title>{program.name}</title>
         </Helmet>
       }
-      <Layout appbarMode='PROGRAM'>
-        <Stack width={'100%'} direction={{ xs: 'column', sm: 'row' }} alignItems='flex-start' spacing={2}>
-          <Box width={{ xs: '100%', sm: '25%', md: '20%' }} position={{ xs: null, sm: 'sticky' }} top={16}>
+      <AppBarComponent />
+      <Container maxWidth='lg'
+        sx={{
+          display: 'flex',
+          paddingTop: 4,
+          paddingBottom: 2,
+          justifyContent: 'center',
+          marginRight: 'auto !important',
+          marginLeft: 'auto !important',
+        }}>
+        <Grid container justifyContent={'center'} alignItems={'start'} spacing={{ xs: 4, md: 0 }}>
+          <Grid container item xs={11} sm={3} justifyContent={'center'} alignItems={'center'}>
             <DashboardSidebar
               buttons={[
                 <Scoreboard />,
@@ -58,11 +68,8 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
                 </>,
               ]}
             />
-          </Box>
-          <Stack width={{ xs: '100%', sm: '75%', md: '80%' }} spacing={2}>
-            <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
-              {'فیلم‌های شهر شما'}
-            </Typography>
+          </Grid>
+          <Grid item xs={11} sm={9}>
             <Stack>
               <Grid container spacing={2}>
                 {films.map((film) => (
@@ -72,9 +79,9 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
                 ))}
               </Grid>
             </Stack>
-          </Stack>
-        </Stack>
-      </Layout>
+          </Grid>
+        </Grid>
+      </Container>
     </Fragment>
   );
 }

@@ -3,17 +3,21 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import UserProfile from './pages/UserProfile';
 import ProgramManagement from './pages/ProgramManagement';
-
+import { COLOR1 } from './constants';
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="user-profile" element={<UserProfile />} />
-      <Route path="admin-dashboard" element={<ProgramManagement />} />
-    </Routes>
+    <div style={{
+      backgroundColor: COLOR1,
+      minHeight: '100vh',  // This ensures the color covers the full height of the viewport
+    }}>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="user-profile" element={<UserProfile />} />
+        <Route path="admin-dashboard" element={<ProgramManagement />} />
+      </Routes>
+    </div>
   );
 };
-
 
 export default App;
