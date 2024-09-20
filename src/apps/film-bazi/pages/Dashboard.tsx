@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import DashboardSidebar from '../components/organisms/DashboardSidebar';
-import AppBarComponent from '../components/Appbar';
-import FilmCard from '../components/FilmCard';
+import AppBarComponent from '../components/organisms/Appbar';
+import FilmCard from '../components/organisms/FilmCard';
 import { persianFilms } from '../constants/SampleFilms';
 
 type DashboardPropsType = {}

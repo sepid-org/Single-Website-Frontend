@@ -1,10 +1,8 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Card, CardMedia, Typography, Box, Button, Stack } from '@mui/material';
 import { styled } from '@mui/system';
-import { FilmType } from '../types';
-import useGetDiscountCode from '../hooks/useGetDiscountCode';
-import { useSelector } from 'react-redux';
-import { useGetUserProfileQuery } from 'apps/website-display/redux/features/party/ProfileSlice';
+import { FilmType } from '../../types';
+import useGetDiscountCode from '../../hooks/useGetDiscountCode';
 import { toast } from 'react-toastify';
 import DiscountDialog from './DiscountCodeDialog';
 
@@ -73,8 +71,6 @@ const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const { getDiscountCode, discountCode, loading, error } = useGetDiscountCode();
-  const userInfo = useSelector((state: any) => state.account.userInfo);
-  const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
 
   const handleOpenDialog = () => {
     // getDiscountCode({ filmId: film.id, cityId: getCityByName(userProfile?.city)?.id });
