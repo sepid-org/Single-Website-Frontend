@@ -191,7 +191,6 @@ function a11yProps(index: number) {
 
 type TeamPropsType = {
   teamsRequests: string[],
-  programTeams: TeamType[],
   getRequestMentor: Function,
   createRequestMentor: Function,
   removeRequestMentor: Function,

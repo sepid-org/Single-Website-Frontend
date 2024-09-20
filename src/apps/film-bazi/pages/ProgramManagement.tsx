@@ -21,25 +21,25 @@ const tabs: DashboardTabType[] = [
     slug: 'info',
     label: 'اطلاعات کلی',
     icon: InfoIcon,
-    component: Info,
+    component: <Info />,
   },
   {
     slug: 'registration-form',
     label: 'فرایند ثبت‌نام',
     icon: ArticleIcon,
-    component: Registration,
+    component: <Registration />,
   },
   {
     slug: 'registration-receipts',
     label: 'شرکت‌کنندگان',
     icon: PeopleIcon,
-    component: RegistrationReceipts,
+    component: <RegistrationReceipts />,
   },
   {
     slug: 'mentors',
     label: 'مدیران',
     icon: PersonIcon,
-    component: Admins,
+    component: <Admins />,
   },
 ];
 

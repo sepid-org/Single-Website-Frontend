@@ -27,38 +27,38 @@ const initialTabs: DashboardTabType[] = [
     slug: 'info',
     label: 'اطلاعات کلی',
     icon: InfoIcon,
-    component: Info,
+    component: <Info />,
   },
   {
     slug: 'states',
     label: 'گام‌ها',
     icon: DesignServicesIcon,
-    component: DesignStates,
+    component: <DesignStates />,
   },
   {
     slug: 'edges',
     label: 'یال‌ها',
     icon: TimelineIcon,
-    component: Edges,
+    component: <Edges />,
   },
   {
     slug: 'mentors',
     label: 'همیارها',
     icon: PersonIcon,
-    component: Mentors,
+    component: <Mentors />,
   },
   {
     slug: 'correction',
     label: 'تصحیح',
     icon: BorderColorIcon,
-    component: GoToAnswer,
+    component: <GoToAnswer />,
     disabled: false,
   },
   {
     slug: 'statistics',
     label: 'آمار',
     icon: BarChartIcon,
-    component: Statistics,
+    component: <Statistics />,
   },
 ]
 
@@ -77,7 +77,7 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
             slug: 'requests',
             label: 'درخواست‌ها',
             icon: QuestionAnswerIcon,
-            component: TeamRequests,
+            component: <TeamRequests />,
           },
         ] :
         (fsm.fsm_p_type == 'Individual') ?
@@ -87,7 +87,7 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
               slug: 'requests',
               label: 'درخواست‌ها',
               icon: QuestionAnswerIcon,
-              component: IndividualRequests,
+              component: <IndividualRequests />,
             },
           ] :
           initialTabs :

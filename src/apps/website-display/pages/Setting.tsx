@@ -10,19 +10,19 @@ let tabs: DashboardTabType[] = [
   {
     slug: 'user',
     label: 'اطلاعات فردی',
-    component: UserSetting,
+    component: <UserSetting />,
     disabled: false,
   },
   {
     slug: 'school',
     label: 'اطلاعات دانش‌آموزی',
-    component: SchoolSetting,
+    component: <SchoolSetting />,
     disabled: false,
   },
   {
     slug: 'university',
     label: 'اطلاعات دانشجویی',
-    component: UniversitySetting,
+    component: <UniversitySetting />,
     disabled: true,
   },
 ];
