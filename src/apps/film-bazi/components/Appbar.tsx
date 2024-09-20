@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, styled } from '@mui/material';
+import AccountBadge from './atoms/buttons/AccountBadge';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0px 4px 4px 0px #00000040',
@@ -8,7 +9,6 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
   width: '100%',
   height: '105px',
   padding: '32px 80px',
-  gap: '10px',
   borderWidth: '1px 0px 0px 0px',
   opacity: 1, // Note: Changed from 0 to 1 for visibility
   position: 'static', // To allow custom width
@@ -25,7 +25,7 @@ const AppBarComponent = () => {
   return (
     <CustomAppBar position="static">
       <CustomToolbar>
-      
+        <AccountBadge />
       </CustomToolbar>
     </CustomAppBar>
   );

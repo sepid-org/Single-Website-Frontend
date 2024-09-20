@@ -6,19 +6,28 @@ import SchoolSetting from 'commons/components/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/components/template/Setting/UniversitySetting';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { useParams } from 'react-router-dom';
+import { Paper } from '@mui/material';
+
+const paperWrappedComponent = (component) => {
+  return (
+    <Paper sx={{ padding: 2 }}>
+      {component}
+    </Paper>
+  )
+}
 
 let tabs: DashboardTabType[] = [
   {
     slug: 'user',
     label: 'مشخصات',
-    component: UserSetting,
+    component: paperWrappedComponent(<UserSetting />),
     disabled: false,
   },
 ];
 
-type UserProfilePropsType = {}
+type ProfilePropsType = {}
 
-const UserProfile: FC<UserProfilePropsType> = ({ }) => {
+const Profile: FC<ProfilePropsType> = ({ }) => {
   const { programSlug } = useParams();
 
   return (
@@ -28,4 +37,4 @@ const UserProfile: FC<UserProfilePropsType> = ({ }) => {
   );
 };
 
-export default UserProfile;
+export default Profile;

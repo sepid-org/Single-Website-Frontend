@@ -59,7 +59,7 @@ const Dashboard: FC<DashboardPropsType> = ({
         )}
       </Grid>
       <Grid item xs={12} sm={9}>
-        <currentTab.component {...currentTab.componentProps} />
+        {currentTab.component}
       </Grid>
     </Grid>
   );

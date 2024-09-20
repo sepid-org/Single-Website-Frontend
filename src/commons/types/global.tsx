@@ -6,7 +6,6 @@ export type DashboardTabType = {
   icon?: any;
   disabled?: boolean;
   component: any;
-  componentProps?: any;
 }
 
 export type directionType = 'rtl' | 'ltr';
