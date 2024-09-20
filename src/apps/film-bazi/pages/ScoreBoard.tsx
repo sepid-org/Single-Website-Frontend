@@ -1,62 +1,15 @@
-/*import { Box, Container, Typography } from "@mui/material";
-import starIcon from "./Vector 1.svg";
-import React from "react";
-
-export default function ScoreBoard(){
-
-    return(
-        <Container
-            sx = {{
-                backgroundColor: "#17132D",
-                width: "100vw",
-                height: "100vh",
-
-            }}
-        >
-            <ScoreRecord name={"فاطمه احمدزاده"} score={"۱۲"}/>
-        </Container>
-    );
-}
-
-function ScoreRecord({name, score}){
-    return(
-        <Container
-            sx = {{
-                height: "Hug (60px)px",
-                padding: "16px",
-                gap: "12px",
-                borderRadius: "32px",
-                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
-                display: "flex",
-                flexDirection: "row",
-            }}
-        >
-            <Container
-            >
-                <Box 
-                    component="img"
-                    src={starIcon}
-                />
-                <Typography>{score}</Typography>
-            </Container>
-            <Container>
-                <Typography>{name}</Typography>
-            </Container>
-        </Container>
-    );
-}*/
-
-
-
 import React from 'react';
 import goldenStarIcon from "./Vector 1.svg";
+import backgroundImg from "./background.png";
 import starIcon from "./Vector.svg";
+import middleLight from "./Vector 3.svg";
+import leftLight from "./Vector 2.svg";
 import {
     Box,
     Typography,
     Paper,
     Grid,
-    CircularProgress
+    Container
 } from '@mui/material';
       
       
@@ -81,54 +34,57 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
     return (
         <Box
             sx={{
-                backgroundColor: '#17132D',
+                /*backgroundImage: 'url(${backgroundImg})',
+                backgroundSize: "cover",
+                backgroundPosition: "center",*/
                 minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: 3,
+                backgroundColor: "#17132D"
             }}
         >
+            
             <Box 
                 sx={{ 
-                    textAlign: 'center', 
-                    marginBottom: 4 
+                    textAlign: 'center'
                 }}
             >
                 <Grid container spacing={2}>
-                <Grid item xs={4}>
-                    < WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
+                    <Grid item xs={4}>
+                        < WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
+                    </Grid>
                 </Grid>
-                <Grid item xs={4}>
-                    <WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
-                </Grid>
-                <Grid item xs={4}>
-                    <WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
-                </Grid>
-              </Grid>
             </Box>
-      
-            
             <Box sx={{ width: '100%', maxWidth: 600 }}>
-              {allScores.map(record => (
-                <ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
-              ))}
+                {allScores.map(record => (
+                    <ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
+                ))}
             </Box>
-          </Box>
-        );
-      };
+        </Box>
+    );
+};
       
 const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
     const conditionalHeight = rank === 1 ? "198px" : rank === 2 ? "120px" : "58px";
+    const conditionalMargin = rank === 1 ? "0px" : rank === 2 ? "78px" : "140px"; 
+    const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : "#853414";
+    const conditionalRectaangleColor = rank === 1 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 205, 32, 0.3) 100%)" : rank === 2 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(185, 230, 30, 0.3) 100%)" : "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(235, 92, 36, 0.3) 100%);";
+
     return (
-        <Paper 
+        <Container 
             sx={{ 
                 padding: 2,  
                 display: 'flex', 
                 flexDirection: 'column', 
-                alignItems: 'center',
-                backgroundColor: "transparent" 
+                alignItems: 'center'
             }}
         >
             <Box 
@@ -138,12 +94,12 @@ const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
                     gap: "0px",
                     border: "1.5px", 
                     borderRadius: '50%', 
-                    //conditional background color 
-                    backgroundColor: '#FFA95A', 
+                    backgroundColor: conditionalColor,
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
                     marginBottom: 2,
+                    marginTop: conditionalMargin,
                 }}
             >
                 <Box 
@@ -165,8 +121,7 @@ const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
                     lineHeight: "24px",
                     letterSpacing: "0.02em",
                     textAlign: "right",
-                    //conditional color 
-                    color: "white"
+                    color: conditionalColor
                 }}
             >
                 {name}
@@ -178,8 +133,7 @@ const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
                     fontWeight: "600",
                     lineHeight: "24px",
                     textAlign: "center",
-                    //conditional color
-                    color: "white"
+                    color: conditionalColor
                 }}
             >
                 {score}
@@ -187,14 +141,13 @@ const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
             <Box 
                 sx={{ 
                     width: "135.67px",
-                    //conditional height
                     height: conditionalHeight,
                     borderRadius: "10px 10px 0px 0px",
-                    //conditional background color
-                    backgroundColor: "gold"
+                    background: conditionalRectaangleColor
+
                 }} 
             />
-        </Paper>
+        </Container>
     );  
 };
       
@@ -206,7 +159,7 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                 alignItems: 'center', 
                 marginBottom: 1, 
             }}
-            >
+        >
             <Box
                 sx={{
                     marginRight: "12px",
@@ -232,87 +185,87 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                 {rank}
             </Typography>
         </Box>
-          <Paper 
-            sx={{ 
-                display: 'flex', 
-                alignItems: 'center', 
-                justifyContent: 'space-between',
-                marginBottom: 1, 
-                borderRadius: "32px",
-                height: "60px",
-                width: "619px",
-                padding: "16px",
-                gap: "12px",
-                background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
-            }}
-        >
-            <Typography 
-                variant="body1" 
-                sx={{ 
-                    flexGrow: 1, 
-                    paddingLeft: 1,
-                    fontSize: "18px",
-                    fontWeight: "400",
-                    lineHeight: "27px",
-                    letterSpacing: "0.02em",
-                    color: "white"
-                }}
-            >
-                {name}
-            </Typography>
-            <Box 
+            <Paper 
                 sx={{ 
                     display: 'flex', 
-                    alignItems: 'center' 
+                    alignItems: 'center', 
+                    justifyContent: 'space-between',
+                    marginBottom: 1, 
+                    borderRadius: "32px",
+                    height: "60px",
+                    width: "619px",
+                    padding: "16px",
+                    gap: "12px",
+                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
                 }}
             >
                 <Typography 
-                    sx={{
+                    variant="body1" 
+                    sx={{ 
+                        flexGrow: 1, 
+                        paddingLeft: 1,
                         fontSize: "18px",
                         fontWeight: "400",
                         lineHeight: "27px",
                         letterSpacing: "0.02em",
-                        color: "white",
-                        marginRight: "5px"
+                        color: "white"
                     }}
-                    variant="body1"
                 >
-                    {score}
+                    {name}
                 </Typography>
                 <Box 
-                    component="img"
-                    src={goldenStarIcon}
-                    sx={{
-                        width: "28px",
-                        height: "28px"
+                    sx={{ 
+                        display: 'flex', 
+                        alignItems: 'center' 
                     }}
-                />
-            </Box>
-          </Paper>
-          </Box>
-        );
-      };
+                >
+                    <Typography 
+                        sx={{
+                            fontSize: "18px",
+                            fontWeight: "400",
+                            lineHeight: "27px",
+                            letterSpacing: "0.02em",
+                            color: "white",
+                            marginRight: "5px"
+                        }}
+                        variant="body1"
+                    >
+                        {score}
+                    </Typography>
+                    <Box 
+                        component="img"
+                        src={goldenStarIcon}
+                        sx={{
+                            width: "28px",
+                            height: "28px"
+                        }}
+                    />
+                </Box>
+            </Paper>
+        </Box>
+    );
+};
       
       // Example Usage
-      const App: React.FC = () => {
-        const winners = [
-          { name: 'فاطمه', score: "100" , rank: 1},
-          { name: 'احمد', score: "90", rank: 2 },
-          { name: 'زهرا', score: "80" , rank:3},
-        ];
+const App: React.FC = () => {
+    const winners = [
+        { name: 'فاطمه', score: "100" , rank: 1},
+        { name: 'احمد', score: "90", rank: 2 },
+        { name: 'زهرا', score: "80" , rank:3},
+    ];
       
-        const allScores = [
-          { rank: 1, name: 'فاطمه', score: "۱۰۰" },
+    const allScores = [
+        { rank: 1, name: 'فاطمه', score: "۱۰۰" },
           { rank: 2, name: 'احمد', score: "۹۰" },
           { rank: 3, name: 'زهرا', score: "۸۰" },
           { rank: 4, name: 'علی', score: "۷۰" },
           { rank: 5, name: 'قلی', score: "۶۰" },
-        ];
+    ];
       
-        return (
-          <CompetitionScores winners={winners} allScores={allScores} />
-        );
-      };
+    return (
+        <CompetitionScores winners={winners} allScores={allScores} />
+    );
+};
       
-      export default App;
+export default App;
       
