@@ -1,3 +1,3 @@
 export const FilmBaziBackendURL = process.env.NODE_ENV === 'production'
-  ? 'https://filmbazi-backend.darkube.app/'
+  ? 'https://api.filmbazi.ir/'
   : 'http://localhost:12000/';

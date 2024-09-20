@@ -3,10 +3,10 @@ import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { persianFilms } from '../components/constants/SampleFilms';
 import DashboardSidebar from '../components/organisms/DashboardSidebar';
 import AppBarComponent from '../components/Appbar';
 import FilmCard from '../components/FilmCard';
+import { persianFilms } from '../constants/SampleFilms';
 
 type DashboardPropsType = {}
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmBaziBackendURL } from './consts';
+import { FilmBaziBackendURL } from '../constants/Urls';
 
 interface DiscountCodeResponse {
   code: string;
