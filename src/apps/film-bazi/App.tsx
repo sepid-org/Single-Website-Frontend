@@ -4,6 +4,7 @@ import Dashboard from './pages/Dashboard';
 import UserProfile from './pages/UserProfile';
 import ProgramManagement from './pages/ProgramManagement';
 import { COLOR1 } from './constants';
+import SeatsGame from './pages/SeatsGame';
 
 const App = () => {
   return (
@@ -13,7 +14,8 @@ const App = () => {
     }}>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="user-profile" element={<UserProfile />} />
+        <Route path="profile" element={<UserProfile />} />
+        <Route path="seats-game" element={<SeatsGame />} />
         <Route path="admin-dashboard" element={<ProgramManagement />} />
       </Routes>
     </div>

@@ -11,7 +11,6 @@ export type CityType = {
 export type FilmType = {
   id: number;
   name: string;
-  releasedCities: number[] | CityType[];
   image: string;
   director: ArtistType;
   description: string;
