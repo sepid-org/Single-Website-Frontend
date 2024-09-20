@@ -66,6 +66,13 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
                     </Button>
                   }
                 </>,
+                   <Button
+                   variant="contained"
+                   color='info'
+                   fullWidth
+                   onClick={() => localNavigate(`/scoreboard/`)}>
+                   {'جدول امتیازات'}
+                 </Button>
               ]}
             />
           </Grid>
