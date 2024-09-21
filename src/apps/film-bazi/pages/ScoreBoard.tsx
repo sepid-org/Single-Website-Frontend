@@ -40,17 +40,23 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
             
             <Box 
                 sx={{ 
-                    textAlign: 'center',
+                    textAlign: 'center'
                 }}
             >
-                <Grid container spacing={2}>
-                    <Grid item xs={4}>
+                <Grid  
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}
+                >
+                    <Grid>
                         < WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid>
                         <WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid>
                         <WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
                     </Grid>
                 </Grid>
@@ -77,11 +83,11 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
 
     return (
         <Container 
-            sx={{ 
-                padding: 2,  
+            sx={{  
                 display: 'flex', 
                 flexDirection: 'column', 
-                alignItems: 'center'
+                alignItems: 'center',
+                width: "30%"
             }}
         >
             <Box 
@@ -137,11 +143,13 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
             </Typography>
             <Box 
                 sx={{ 
-                    width: "135.67px",
+                    width:{
+                        md: "135.67px",
+                        xs: "100px"
+                    },
                     height: conditionalHeight,
                     borderRadius: "10px 10px 0px 0px",
                     background: conditionalRectaangleColor
-
                 }} 
             />
         </Container>
