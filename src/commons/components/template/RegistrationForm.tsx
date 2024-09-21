@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import ProgramInfo from 'commons/components/organisms/ProgramInfo';
-import useCollectWidgetsAnswers from 'commons/components/hooks/useCollectWidgetsAnswers';
+import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import Paper from './Paper';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';

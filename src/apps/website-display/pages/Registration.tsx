@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import Stepper from 'commons/components/organisms/Stepper';
 import Layout from 'commons/components/template/Layout';
-import useRegistrationSteps from 'commons/components/hooks/useRegistrationSteps';
+import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 type RegistrationProcessPropsType = {}

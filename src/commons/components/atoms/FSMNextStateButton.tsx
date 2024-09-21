@@ -10,7 +10,7 @@ import {
   useMentorMoveForwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
 import { EdgeType } from 'commons/types/models';
-import useFinishFSM from 'commons/components/hooks/useFinishFSM';
+import useFinishFSM from 'commons/hooks/useFinishFSM';
 
 type FSMNextStateButtonPropsType = {
   outwardEdges: EdgeType[]

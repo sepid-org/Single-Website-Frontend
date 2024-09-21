@@ -4,7 +4,7 @@ import { WidgetModes } from 'commons/components/organisms/Widget';
 import Widget from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { AnswerType } from 'commons/types/models';
-import { GetAnswerCollectorType } from 'commons/components/hooks/useCollectWidgetsAnswers';
+import { GetAnswerCollectorType } from 'commons/hooks/useCollectWidgetsAnswers';
 import { WidgetType } from 'commons/types/widgets/widget';
 
 export type FormPaperPropsType = {
