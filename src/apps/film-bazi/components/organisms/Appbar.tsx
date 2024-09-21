@@ -64,7 +64,7 @@ const AppBarComponent = () => {
               </IconButton>
             ) : (
               <Stack direction={'row-reverse'} spacing={2}>
-                <Button startIcon={<NotificationIcon />} onClick={() => localNavigate('/notifications/')}>
+                <Button startIcon={<NotificationIcon />} onClick={() => localNavigate('/')}>
                   <Typography fontWeight={700} fontSize={18} color={'white'}>
                     {'اطلاعیه‌ها'}
                   </Typography>
