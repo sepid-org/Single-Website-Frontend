@@ -12,7 +12,7 @@ import {
   getScoresAndCommentsAction,
   setScoreAction,
 } from 'apps/website-display/redux/slices/assessment';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import ScoringColumn from './ScoringColumn';
 import { useGetWidgetQuery } from 'apps/website-display/redux/features/widget/WidgetSlice';
 

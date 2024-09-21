@@ -4,11 +4,11 @@ import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 import React, { FC, Fragment } from 'react';
 
-import Info from 'commons/components/template/program/management/Info';
-import Registration from 'commons/components/template/program/management/Registration';
-import RegistrationReceipts from 'commons/components/template/program/management/RegistrationReceipts';
+import Info from 'commons/template/program/management/Info';
+import Registration from 'commons/template/program/management/Registration';
+import RegistrationReceipts from 'commons/template/program/management/RegistrationReceipts';
 import { DashboardTabType } from 'commons/types/global';
-import Admins from 'commons/components/template/program/management/Admins';
+import Admins from 'commons/template/program/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';

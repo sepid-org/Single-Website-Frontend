@@ -1,7 +1,7 @@
 import { Divider, Grid, Typography, Stack } from '@mui/material';
 import React from 'react';
 import ProgramCard from 'commons/components/organisms/cards/ProgramCard';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import { ProgramType } from 'commons/types/models';
 import ProgramCardSkeleton from 'commons/components/organisms/cards/ProgramCardSkeleton';
 import Banner from 'commons/components/molecules/Banner';

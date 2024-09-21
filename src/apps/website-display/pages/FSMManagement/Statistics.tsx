@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import MetabaseDashboard from 'commons/components/template/MetabaseDashboard';
+import MetabaseDashboard from 'commons/template/MetabaseDashboard';
 
 const Statistics = () => {
   const { fsmId } = useParams();

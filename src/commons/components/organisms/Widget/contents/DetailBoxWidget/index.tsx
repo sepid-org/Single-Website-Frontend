@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 
 import TinyPreview from 'commons/components/organisms/TinyMCE/ReactTiny/Preview';
 import DetailBoxEditDialog from './EditDialog';
-import Paper from 'commons/components/template/Paper';
+import Paper from 'commons/template/Paper';
 import { Box, Collapse, IconButton, Stack } from '@mui/material';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 

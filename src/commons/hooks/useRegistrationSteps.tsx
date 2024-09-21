@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
-import RegistrationForm from 'commons/components/template/RegistrationForm';
-import RegistrationStatus from 'commons/components/template/RegistrationStatus';
-import Payment from 'commons/components/template/Payment';
+import RegistrationForm from 'commons/template/RegistrationForm';
+import RegistrationStatus from 'commons/template/RegistrationStatus';
+import Payment from 'commons/template/Payment';
 import { RegistrationStepNameType, RegistrationStepType } from 'commons/types/global';
 import { ProgramType } from 'commons/types/models';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
-import UserSetting from 'commons/components/template/Setting/UserSetting';
-import SchoolSetting from 'commons/components/template/Setting/SchoolSetting';
-import UniversitySetting from 'commons/components/template/Setting/UniversitySetting';
+import UserSetting from 'commons/template/Setting/UserSetting';
+import SchoolSetting from 'commons/template/Setting/SchoolSetting';
+import UniversitySetting from 'commons/template/Setting/UniversitySetting';
 
 type propsType = {
   program: ProgramType;

@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 import MentorStaticsFSMCard from 'commons/components/organisms/cards/MentorStaticsFSMCard';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import MetabaseDashboard from 'commons/components/template/MetabaseDashboard';
+import MetabaseDashboard from 'commons/template/MetabaseDashboard';
 import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';

@@ -4,14 +4,14 @@ import { useParams, useLocation } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import { initParseServer } from 'apps/website-display/parse/init';
-import FSMState from 'commons/components/template/FSMState';
+import FSMState from 'commons/template/FSMState';
 import { createTeamState, getChangeTeamStateSubscription, getTeamState } from '../parse/team';
 import {
   changeOpenChatRoomAction,
 } from 'apps/website-display/redux/slices/currentState';
 import { addMentorToRoom, updateMentorTime } from 'apps/website-display/parse/mentorsInRoom';
 import DraggableChatRoom from 'commons/components/organisms/DraggableMeeting';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import { TeamType } from 'commons/types/models';
 import { toast } from 'react-toastify';
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';

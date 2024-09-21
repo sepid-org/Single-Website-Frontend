@@ -8,7 +8,7 @@ import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import InfoIcon from '@mui/icons-material/Info';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BarChartIcon from '@mui/icons-material/BarChart';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import DesignStates from './DesignStates';
 import Edges from './Edges';
 import Statistics from './Statistics';

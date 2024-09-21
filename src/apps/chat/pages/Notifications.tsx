@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import {
   List,
   ListItem,

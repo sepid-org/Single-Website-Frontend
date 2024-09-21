@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, Grid, Typography } from '
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import Paper from 'commons/components/template/Paper';
+import Paper from 'commons/template/Paper';
 
 function HelpDialog({ open, handleClose, helps }) {
   const t = useTranslate();

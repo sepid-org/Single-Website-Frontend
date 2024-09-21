@@ -19,10 +19,10 @@ import {
   validateRegistrationReceiptAction,
 } from 'apps/website-display/redux/slices/programs'
 import { faSeri } from 'commons/utils/translateNumber';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import { toast } from 'react-toastify';
 import { useGetReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
-import AnswerSheet from 'commons/components/template/AnswerSheet';
+import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 
 type RegistrationReceiptPropsType = {

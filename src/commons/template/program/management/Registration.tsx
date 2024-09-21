@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { EditPaper } from 'commons/components/template/Paper';
+import { EditPaper } from 'commons/template/Paper';
 import { Button, Divider, Stack, Typography } from '@mui/material';
 import FormInfo from 'commons/components/organisms/forms/FormInfo';
 import { useGetFormQuery, useUpdateFormMutation } from 'apps/website-display/redux/features/form/FormSlice';

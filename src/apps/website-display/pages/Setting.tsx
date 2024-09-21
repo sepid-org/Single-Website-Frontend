@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import { DashboardTabType } from 'commons/types/global';
-import UserSetting from 'commons/components/template/Setting/UserSetting';
-import SchoolSetting from 'commons/components/template/Setting/SchoolSetting';
-import UniversitySetting from 'commons/components/template/Setting/UniversitySetting';
+import UserSetting from 'commons/template/Setting/UserSetting';
+import SchoolSetting from 'commons/template/Setting/SchoolSetting';
+import UniversitySetting from 'commons/template/Setting/UniversitySetting';
 import Dashboard from 'commons/components/organisms/Dashboard';
 
 let tabs: DashboardTabType[] = [

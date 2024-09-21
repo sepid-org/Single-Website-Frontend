@@ -5,7 +5,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import ExtensionIcon from '@mui/icons-material/Extension';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import WebsiteInfoTab from '../components/template/website-management/Info';
 import ProgramsTab from '../components/template/website-management/Programs';
 import StatisticsTab from '../components/template/website-management/Statistics';

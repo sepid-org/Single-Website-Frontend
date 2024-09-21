@@ -3,7 +3,7 @@ import React, { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import Stepper from 'commons/components/organisms/Stepper';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 

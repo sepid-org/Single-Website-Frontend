@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useParams } from 'react-router';
 import StatesMenu from 'commons/components/organisms/StatesMenu';
-import EditableFSMState from 'commons/components/template/EditableFSMState';
+import EditableFSMState from 'commons/template/EditableFSMState';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 
 type DesignStatesPropsType = {}

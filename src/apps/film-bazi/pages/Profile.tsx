@@ -1,6 +1,6 @@
 import React, { FC, Fragment } from 'react';
 import { DashboardTabType } from 'commons/types/global';
-import UserSetting from 'commons/components/template/Setting/UserSetting';
+import UserSetting from 'commons/template/Setting/UserSetting';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container, Paper } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';

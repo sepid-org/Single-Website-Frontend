@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React, { Fragment, useState } from 'react';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
-import { EditPaper } from 'commons/components/template/Paper';
+import { EditPaper } from 'commons/template/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 

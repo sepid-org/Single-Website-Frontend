@@ -23,13 +23,13 @@ import React, { FC, Fragment, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import MakeInvitation from 'commons/components/organisms/dialogs/MakeInvitation';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 import RespondInvitation from 'commons/components/molecules/RespondInvitation';
 import { toast } from 'react-toastify';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import ProgramTeamSettingBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramTeamSetting';
-import ProgramPageWrapper from 'commons/components/template/program/ProgramPageWrapper';
+import ProgramPageWrapper from 'commons/template/program/ProgramPageWrapper';
 import { useCreateAndJoinTeamMutation, useDeleteTeamMutation, useGetTeamQuery } from '../redux/features/team/TeamSlice';
 import { useDeleteInvitationMutation, useGetMyInvitationsQuery, useGetTeamInvitationsQuery, useInviteMemberMutation } from '../redux/features/team/InvitationSlice';
 

@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import { connect } from 'react-redux';
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
 import { getAllArticlesAction } from '../redux/slices/article';
-import Layout from 'commons/components/template/Layout';
+import Layout from 'commons/template/Layout';
 
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
