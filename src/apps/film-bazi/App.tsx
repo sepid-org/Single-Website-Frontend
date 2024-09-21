@@ -10,6 +10,7 @@ import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import ResetPassword from './pages/ResetPassword';
 import CreateAccount from './pages/CreateAccount';
+import ScoreBoard from './pages/ScoreBoard';
 import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from './styles/Theme';
 
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="profile" element={<Profile />} />
             <Route path="seats-game" element={<SeatsGame />} />
             <Route path="admin-dashboard" element={<ProgramManagement />} />
+            <Route path="scoreboard" element={<ScoreBoard />} />
           </Route>
 
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
