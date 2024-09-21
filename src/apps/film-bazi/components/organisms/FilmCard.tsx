@@ -5,6 +5,7 @@ import { FilmType } from '../../types';
 import useGetDiscountCode from '../../hooks/useGetDiscountCode';
 import { toast } from 'react-toastify';
 import DiscountDialog from './DiscountCodeDialog';
+import { Golden, Orange, Yellow } from 'apps/film-bazi/constants/colors';
 
 const HoverCard = styled(Card)(() => ({
   borderRadius: '24px !important',
@@ -36,7 +37,7 @@ const StyledButton = styled(Button)(() => ({
   height: '76px',
   padding: '0',
   borderImageSlice: 1,
-  borderImageSource: 'linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)',
+  borderImageSource: `linear-gradient(180deg, ${Golden} 0%, ${Orange} 100%)`,
   overflow: 'hidden',
   position: 'absolute',
 
@@ -50,7 +51,7 @@ const StyledButton = styled(Button)(() => ({
     bottom: 0,
     borderRadius: '12px', // Apply border radius here
     padding: '1px', // Padding between border and inner content
-    background: 'linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)', // Border gradient
+    background: `linear-gradient(180deg, ${Golden} 0%, ${Orange} 100%)`, // Border gradient
     WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
     maskComposite: 'exclude',
   },
@@ -64,7 +65,7 @@ const ButtonContent = styled(Box)(() => ({
   fontWeight: 700,
   lineHeight: '36px',
   textAlign: 'center',
-  color: '#FFCD20',
+  color: Yellow,
 }));
 
 const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
@@ -116,7 +117,7 @@ const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
             <Typography variant="h5" gutterBottom color={'#26B7B4'} fontWeight={700} fontSize={20}>
               {film.name}
             </Typography>
-            <Typography variant="body2" gutterBottom color={'#FFCD20'} fontSize={14} marginBottom={1}>
+            <Typography variant="body2" gutterBottom color={Yellow} fontSize={14} marginBottom={1}>
               {`کارگردان: ${film.director.first_name} ${film.director.last_name}`}
             </Typography>
             <Typography variant="body2">

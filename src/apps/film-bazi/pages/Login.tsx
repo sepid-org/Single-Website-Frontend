@@ -9,11 +9,9 @@ import {
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { toast } from 'react-toastify';
+import { DarkSecondary } from '../constants/colors';
 
 type LoginPagePropsType = {};
 
@@ -22,7 +20,6 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     password: '',
     username: '',
   });
-  const { data: website } = useGetWebsiteQuery();
   const [login, { isLoading }] = useLoginMutation();
 
   const collectData = (event) => {
@@ -44,31 +41,37 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
 
   return (
     <Container
+      maxWidth={false}
       sx={{
         minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-      }}>
+        backgroundImage: 'url("/images/filmbazi/desktop.jpg")',
+        backgroundPosition: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <Stack
-        spacing={5}
+        spacing={4}
         alignItems={'center'}
-        width={400}>
+        width={440}>
 
         {isUserTokenExpired &&
           <Typography align='center' variant='h5' color={'error'}>{'نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید.'}</Typography>
         }
-        <Box pb={2}>
-          <WebsiteLogo size='large' />
-        </Box>
-
 
         <Stack
           width={'100%'}
           component={Paper}
           spacing={4}
-          padding={2}
+          padding={4}
           alignItems={'center'}>
+
+          <Box>
+            <WebsiteLogo size='large' />
+          </Box>
 
           <Typography
             paddingBottom={2}
@@ -121,7 +124,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 }}
                 helperText={
                   <Typography component="span">
-                    <Link style={{ textDecoration: 'none' }} to={'/reset-password/'}>
+                    <Link style={{ textDecoration: 'none' }} to={'/program/filmbazi/reset-password/'}>
                       {'فراموشی گذر‌واژه'}
                     </Link>
                   </Typography>
@@ -134,18 +137,18 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 variant="contained"
                 color="primary"
                 disabled={isLoading}
+                size='large'
                 fullWidth>
-                ورود
+                <Typography fontWeight={700} color={DarkSecondary}>
+                  {'ورود'}
+                </Typography>
               </Button>
-              {(website?.has_login_with_google && process.env.REACT_APP_GOOGLE_CLIENT_ID) &&
-                <GoogleLogin />
-              }
             </Stack>
           </Stack>
 
           <Typography align='center'>
             {'حساب کاربری ندارید؟'}
-            <Link style={{ textDecoration: 'none', marginRight: 4, fontWeight: 800, color: '#1361A4' }} to={'/create-account/'}>
+            <Link style={{ textDecoration: 'none', marginRight: 4, fontWeight: 800, color: '#1361A4' }} to={'/program/filmbazi/create-account/'}>
               {'ثبت‌نام'}
             </Link>
           </Typography>

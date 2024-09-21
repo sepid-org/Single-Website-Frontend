@@ -54,7 +54,7 @@ const AccountBadge = () => {
         sx={{ width: 35, height: 35 }}
       />
 
-      <Typography fontWeight={700} fontSize={16} color="white" paddingLeft={1}>
+      <Typography fontWeight={700} fontSize={16} paddingLeft={1}>
         {fullName}
       </Typography>
 

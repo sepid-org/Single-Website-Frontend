@@ -29,7 +29,7 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
 
   return (
     <Dialog open={open} onClose={onClose} disableScrollLock>
-      <DialogTitle>{`کد تخفیف فیلم "${filmName}"`}</DialogTitle>
+      <DialogTitle>{`کد تخفیف فیلم ${filmName}`}</DialogTitle>
       <DialogContent>
         <DialogContentText>
           {`از کد تخفیف زیر برای دعوت دوستان خود به تماشای فیلم ${filmName} استفاده کنید.`}

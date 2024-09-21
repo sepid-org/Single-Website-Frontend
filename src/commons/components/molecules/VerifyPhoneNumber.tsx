@@ -36,7 +36,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
       return;
     }
     if (!website) {
-      toast.error('نام آکادمی معتبر نیست.');
+      toast.error('نام سایت معتبر نیست.');
       return;
     }
     setIsButtonDisable(true);
@@ -83,7 +83,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
         }}
         value={data.phoneNumber}
         name="phoneNumber"
-        label="شماره تلفن همراه"
+        label="شماره جدید تلفن همراه"
         placeholder='09...'
         inputProps={{ className: 'ltr-input' }}
         type="tel"

@@ -38,12 +38,12 @@ const AppBarComponent = () => {
   const DrawerContent = (
     <Stack spacing={2} padding={2}>
       <Button startIcon={<NotificationIcon />} onClick={() => localNavigate('/')}>
-        <Typography fontWeight={700} fontSize={18} color={'black'}>
+        <Typography fontWeight={700} fontSize={18}>
           {'اطلاعیه‌ها'}
         </Typography>
       </Button>
       <Button startIcon={<HomeIcon />} onClick={() => localNavigate('/')}>
-        <Typography fontWeight={700} fontSize={18} color={'black'}>
+        <Typography fontWeight={700} fontSize={18}>
           {'خانه'}
         </Typography>
       </Button>
@@ -51,7 +51,7 @@ const AppBarComponent = () => {
   );
 
   return (
-    <CustomAppBar position="static">
+    <CustomAppBar position="static" sx={{ borderRadius: 0 }}>
       <CustomToolbar>
         <Container maxWidth="lg">
           <Stack width={'100%'} direction={'row'} justifyContent={'space-between'}>
@@ -80,7 +80,7 @@ const AppBarComponent = () => {
         </Container>
       </CustomToolbar>
 
-      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)} PaperProps={{ sx: { borderRadius: '0px !important' } }}>
         {DrawerContent}
       </Drawer>
     </CustomAppBar>

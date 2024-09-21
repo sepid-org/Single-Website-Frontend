@@ -5,19 +5,11 @@ import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container, Paper } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 
-const paperWrappedComponent = (component) => {
-  return (
-    <Paper sx={{ padding: 2 }}>
-      {component}
-    </Paper>
-  )
-}
-
 let tabs: DashboardTabType[] = [
   {
     slug: 'user',
     label: 'مشخصات',
-    component: paperWrappedComponent(<UserSetting />),
+    component: <UserSetting />,
     disabled: false,
   },
 ];

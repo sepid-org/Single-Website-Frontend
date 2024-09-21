@@ -15,7 +15,7 @@ const StyledButton = styled(Button)({
 const DashboardButton = ({ label = 'کلیک کن', icon = null, onClick = () => { } }) => {
   return (
     <StyledButton startIcon={icon} onClick={onClick}>
-      <Typography fontWeight={700} fontSize={16} color={'white'}>
+      <Typography fontWeight={700} fontSize={16}>
         {label}
       </Typography>
     </StyledButton>

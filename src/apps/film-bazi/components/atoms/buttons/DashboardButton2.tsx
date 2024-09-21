@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import { DarkSecondary } from 'apps/film-bazi/constants/colors';
 
 const StyledButton = styled(Button)({
   background: 'linear-gradient(180deg, #26B7B4 100%, #1986A5 100%)',
@@ -15,7 +16,7 @@ const StyledButton = styled(Button)({
 const DashboardButton2 = ({ label = 'کلیک کن', icon = null, onClick = () => { } }) => {
   return (
     <StyledButton startIcon={icon} onClick={onClick}>
-      <Typography fontWeight={700} fontSize={16} color={'#17132D'}>
+      <Typography fontWeight={700} fontSize={16} color={DarkSecondary}>
         {label}
       </Typography>
     </StyledButton>
