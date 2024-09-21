@@ -38,7 +38,7 @@ const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({
   }, [registrationReceipt])
 
   useEffect(() => {
-    if (!program.is_public && !isAuthenticated) {
+    if (program && !program?.is_public && !isAuthenticated) {
       navigate('/login/');
     }
   }, [program, isAuthenticated, navigate]);
@@ -50,7 +50,6 @@ const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({
   if (!registrationReceipt?.is_participating) {
     return null;
   }
-
 
   if (!program) {
     return (
