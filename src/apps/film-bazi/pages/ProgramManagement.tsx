@@ -2,9 +2,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
-
 import React, { FC, Fragment } from 'react';
-import { useParams } from 'react-router-dom';
 
 import Info from 'commons/components/template/program/management/Info';
 import Registration from 'commons/components/template/program/management/Registration';
@@ -45,7 +43,6 @@ const tabs: DashboardTabType[] = [
 type ProgramManagementPropsType = {}
 
 const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
-  const { programSlug } = useParams();
 
   return (
     <Fragment>
@@ -59,7 +56,7 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
           marginRight: 'auto !important',
           marginLeft: 'auto !important',
         }}>
-        <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
+        <Dashboard tabs={tabs} returnDirection={`/program/filmbazi/`} />
       </Container>
     </Fragment>
   );

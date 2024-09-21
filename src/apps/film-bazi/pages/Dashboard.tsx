@@ -12,7 +12,6 @@ type DashboardPropsType = {}
 
 const Dashboard: FC<DashboardPropsType> = ({ }) => {
   const { programSlug } = useParams();
-
   const { data: program } = useGetProgramQuery({ programSlug });
   // const { films } = useFilmsByCity({cityId: getCityByName(userProfile?.city)?.id});
   const films = persianFilms;

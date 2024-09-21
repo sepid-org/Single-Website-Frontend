@@ -3,14 +3,16 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 
-type ProgramPageTemplatePropsType = {
+type ProgramPageWrapperPropsType = {
   children: any;
 }
 
-const ProgramPageTemplate: FC<ProgramPageTemplatePropsType> = ({
+const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({
   children,
 }) => {
+  const { isAuthenticated } = useUserAuthentication();
   const { programSlug } = useParams();
   const navigate = useNavigate();
   const { data: program } = useGetProgramQuery({ programSlug });
@@ -18,7 +20,14 @@ const ProgramPageTemplate: FC<ProgramPageTemplatePropsType> = ({
     data: registrationReceipt,
     isSuccess: isGettingRegistrationReceiptSuccess,
     isFetching: isGettingRegistrationReceiptFetching,
-  } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
+  } = useGetMyReceiptQuery(
+    {
+      formId: program?.registration_form
+    },
+    {
+      skip: !Boolean(program?.registration_form) || !program || program?.is_public || !isAuthenticated,
+    }
+  );
 
   useEffect(() => {
     if (isGettingRegistrationReceiptSuccess) {
@@ -28,9 +37,20 @@ const ProgramPageTemplate: FC<ProgramPageTemplatePropsType> = ({
     }
   }, [registrationReceipt])
 
+  useEffect(() => {
+    if (!program.is_public && !isAuthenticated) {
+      navigate('/login/');
+    }
+  }, [program, isAuthenticated, navigate]);
+
+  if (program?.is_public) {
+    return children
+  }
+
   if (!registrationReceipt?.is_participating) {
     return null;
   }
+
 
   if (!program) {
     return (
@@ -41,4 +61,4 @@ const ProgramPageTemplate: FC<ProgramPageTemplatePropsType> = ({
   return children;
 }
 
-export default ProgramPageTemplate;
+export default ProgramPageWrapper;

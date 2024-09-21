@@ -53,6 +53,7 @@ export type ProgramType = {
   registration_till: string | null;
   start_date: string | null;
   team_size: number;
+  is_public: boolean;
 }
 
 export type AnswerSheetType = 'RegistrationReceipt' | 'StateAnswerSheet';

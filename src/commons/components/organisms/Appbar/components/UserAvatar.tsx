@@ -55,7 +55,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
           </Stack>
         </MenuItem>
         {websitePermissions?.isAdmin &&
-          <MenuItem onClick={() => navigate(`/website/manage/`)}>
+          <MenuItem onClick={() => navigate(`/management/`)}>
             <Stack direction='row' spacing={1} alignItems={'center'}>
               <SettingsIcon />
               <Typography>

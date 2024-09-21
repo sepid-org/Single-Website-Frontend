@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const AnonymousRoute = ({ }) => {
+const AnonymousRoute = ({ base = '/' }) => {
   const location = useLocation();
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
@@ -14,7 +14,7 @@ const AnonymousRoute = ({ }) => {
   }, [accessToken])
 
   const previousLocation = location.state?.from?.pathname
-  const destinationLocation = previousLocation || '/';
+  const destinationLocation = previousLocation || base;
 
   if (accessToken) {
     return <Navigate state={{ from: location }} to={destinationLocation} />

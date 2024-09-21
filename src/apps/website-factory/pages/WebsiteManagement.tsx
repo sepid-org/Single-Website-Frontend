@@ -20,50 +20,46 @@ const tabs: DashboardTabType[] = [
     slug: 'info',
     label: 'اطلاعات کلی',
     icon: InfoIcon,
-    component: WebsiteInfoTab,
+    component: <WebsiteInfoTab />,
   },
   {
     slug: 'programs',
     label: 'دوره‌ها',
     icon: ClassIcon,
-    component: ProgramsTab,
+    component: <ProgramsTab />,
   },
   {
     slug: 'articles',
     label: 'مقاله‌ها',
     icon: ClassIcon,
-    component: ArticlesTab,
+    component: <ArticlesTab />,
   },
   {
     slug: 'third-parties',
     label: 'افزونه‌ها',
     icon: ExtensionIcon,
-    component: ThirdPartiesTab,
+    component: <ThirdPartiesTab />,
     disabled: true,
   },
   {
     slug: 'appearance',
     label: 'تنظیمات ظاهری',
     icon: VisibilityIcon,
-    component: AppearanceTab,
+    component: <AppearanceTab />,
     disabled: true,
   },
   {
     slug: 'statistics',
     label: 'آمارها',
     icon: BarChartIcon,
-    component: StatisticsTab,
+    component: <StatisticsTab />,
     disabled: true,
   },
 ];
 
-type WebsiteManagementPropsType = {
+type WebsiteManagementPropsType = {}
 
-}
-
-const WebsiteManagement: FC<WebsiteManagementPropsType> = ({
-
-}) => {
+const WebsiteManagement: FC<WebsiteManagementPropsType> = ({ }) => {
 
   return (
     <Layout appbarMode='WEBSITE'>
@@ -71,6 +67,5 @@ const WebsiteManagement: FC<WebsiteManagementPropsType> = ({
     </Layout>
   );
 };
-
 
 export default WebsiteManagement;

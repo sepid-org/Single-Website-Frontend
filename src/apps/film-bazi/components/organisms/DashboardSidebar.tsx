@@ -8,7 +8,6 @@ import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/webs
 import YourScore from '../atoms/buttons/YourScore';
 import DashboardButton from '../atoms/buttons/DashboardButton';
 import RankingIcon from '../atoms/icons/RankingIcon';
-import ShareIcon from '../atoms/icons/ShareIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
