@@ -55,11 +55,16 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
                     </Grid>
                 </Grid>
             </Box>
-            <Box sx={{ width: '100%', maxWidth: 600 }}>
+            <Grid 
+                sx={{ 
+                    width: '100%',
+                }}
+                container
+            >
                 {allScores.map(record => (
                     <ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
                 ))}
-            </Box>
+            </Grid>
         </Box>
     );
 };
@@ -145,96 +150,112 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
       
 const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
     return (
-        <Box 
+        <Grid 
+            item
+            xs={12} 
             sx={{ 
                 display: 'flex', 
                 alignItems: 'center', 
+                justifyContent: "center",
                 marginBottom: 1, 
             }}
         >
-            <Box
+            <Grid 
+                container
                 sx={{
-                    marginRight: "12px",
-                    minWidth: "60px",
-                    width: "60px",
-                    height: "60px",
-                    position: 'relative',
-                    borderRadius: "100px",
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
+                    display: "flex",
+                    justifyContent: "center"
                 }}
             >
-            <Typography
-                variant="body1"
-                sx={{
-                    position: 'absolute',
-                    left: '50%',
-                    top: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    color: 'white',
-                    fontWeight: 'bold',
-                }}
-            >
-                {toPersianNumber(rank)}
-            </Typography>
-        </Box>
-            <Box 
-                sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'space-between',
-                    marginBottom: 1, 
-                    borderRadius: "32px",
-                    height: "60px",
-                    width: "619px",
-                    padding: "16px",
-                    gap: "12px",
-                    background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
-                }}
-            >
-                <Typography 
-                    variant="body1" 
-                    sx={{ 
-                        flexGrow: 1, 
-                        paddingLeft: 1,
-                        fontSize: "18px",
-                        fontWeight: "400",
-                        lineHeight: "27px",
-                        letterSpacing: "0.02em",
-                        color: "white"
+                <Grid
+                    sx={{
+                        marginRight: "12px",
+                        minWidth: "60px",
+                        width: "60px",
+                        height: "60px",
+                        position: 'relative',
+                        borderRadius: "100px",
+                        background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
                     }}
+                    item
                 >
-                    {name}
-                </Typography>
-                <Box 
+                    <Typography
+                        variant="body1"
+                        sx={{
+                            position: 'absolute',
+                            left: '50%',
+                            top: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            color: 'white',
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        {toPersianNumber(rank)}
+                    </Typography>
+                </Grid>
+                <Grid
                     sx={{ 
                         display: 'flex', 
-                        alignItems: 'center' 
+                        alignItems: 'center', 
+                        justifyContent: 'space-between',
+                        marginBottom: 1, 
+                        borderRadius: "32px",
+                        height: "60px",
+                        width: "619px",
+                        padding: "16px",
+                        gap: "12px",
+                        background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
                     }}
+                    item
+                    xs={6}
                 >
                     <Typography 
-                        sx={{
+                        variant="body1" 
+                        sx={{ 
+                            flexGrow: 1, 
+                            paddingLeft: 1,
                             fontSize: "18px",
                             fontWeight: "400",
                             lineHeight: "27px",
                             letterSpacing: "0.02em",
                             color: "white",
-                            marginRight: "5px"
+                            marginLeft: "10px"
                         }}
-                        variant="body1"
                     >
-                        {toPersianNumber(score)}
+                        {name}
                     </Typography>
                     <Box 
-                        component="img"
-                        src={goldenStarIcon}
-                        sx={{
-                            width: "28px",
-                            height: "28px"
+                        sx={{ 
+                            display: 'flex', 
+                            alignItems: 'center' 
                         }}
-                    />
-                </Box>
-            </Box>
-        </Box>
+                    >
+                        <Typography 
+                            sx={{
+                                fontSize: "18px",
+                                fontWeight: "400",
+                                lineHeight: "27px",
+                                letterSpacing: "0.02em",
+                                color: "white",
+                                marginRight: "8px"
+                            }}
+                            variant="body1"
+                        >
+                            {toPersianNumber(score)}
+                        </Typography>
+                        <Box 
+                            component="img"
+                            src={goldenStarIcon}
+                            sx={{
+                                width: "28px",
+                                height: "28px",
+                                marginRight: "10px"
+                            }}
+                        />
+                    </Box>
+                </Grid>
+            </Grid>
+        </Grid>
     );
 };
       
