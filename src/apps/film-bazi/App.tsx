@@ -13,6 +13,7 @@ import CreateAccount from './pages/CreateAccount';
 import ScoreBoard from './pages/ScoreBoard';
 import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from './styles/Theme';
+import MovieScreeningRequest from './pages/MovieScreeningRequest';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
     }}>
       <ThemeProvider theme={customTheme}>
         <Routes>
+          <Route path="movie-screening-request" element={<MovieScreeningRequest />} />
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
             <Route path="/" element={<Dashboard />} />
