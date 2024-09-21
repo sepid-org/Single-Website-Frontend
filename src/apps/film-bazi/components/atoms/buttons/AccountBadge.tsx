@@ -4,11 +4,13 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useSelector } from "react-redux";
 import { useGetUserProfileQuery } from "apps/website-display/redux/features/party/ProfileSlice";
 import useLocalNavigate from "apps/film-bazi/hooks/useLocalNavigate";
+import useUserProfile from "commons/hooks/useUserProfile";
+import useLogout from "commons/hooks/useLogout";
 
 const AccountBadge = () => {
   const localNavigate = useLocalNavigate();
-  const userInfo = useSelector((state: any) => state.account.userInfo);
-  const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
+  const { profile_picture: profilePicture, fullName } = useUserProfile();
+  const { logout } = useLogout();
 
   // State to manage the menu
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -33,7 +35,7 @@ const AccountBadge = () => {
 
   const handleLogoutClick = () => {
     // Logic for logging out
-    // todo: add a useLogout for whole the platform (with a property called 'destination')
+    logout();
     handleMenuClose();
   };
 
@@ -47,13 +49,13 @@ const AccountBadge = () => {
       }}
     >
       <Avatar
-        src={userProfile?.profile_picture}
-        alt={`${userProfile?.first_name} ${userProfile?.last_name}`}
+        src={profilePicture}
+        alt={fullName}
         sx={{ width: 35, height: 35 }}
       />
 
       <Typography fontWeight={700} fontSize={16} color="white" paddingLeft={1}>
-        {`${userProfile?.first_name} ${userProfile?.last_name}`}
+        {fullName}
       </Typography>
 
       {/* Icon button for opening the menu */}

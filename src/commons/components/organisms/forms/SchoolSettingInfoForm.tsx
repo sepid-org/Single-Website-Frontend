@@ -9,21 +9,15 @@ import {
   Autocomplete,
   TextField,
   Typography,
-  Stack,
 } from '@mui/material';
 import React, { FC, Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddInstitute from 'commons/components/organisms/dialogs/AddInstitute';
 import Iran from 'commons/utils/iran';
-import {
-  useGetUserProfileQuery,
-} from 'apps/website-display/redux/features/party/ProfileSlice';
 import { useGetSchoolsQuery } from 'apps/website-display/redux/features/party/InstituteSlice';
 import { SchoolStudentshipType } from 'commons/types/profile';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
-import UploadFile from 'commons/components/molecules/UploadFile';
-import { Link } from 'react-router-dom';
+import useUserProfile from 'commons/hooks/useUserProfile';
 
 const GRADES = [
   { value: 1, name: 'اول' },
@@ -50,8 +44,7 @@ const SchoolSettingInfoForm: FC<SchoolSettingInfoFormPropsType> = ({
   setData,
 }) => {
   const [isAddInstituteDialogOpen, setIsAddInstituteDialogOpen] = useState(false);
-  const userInfo = useSelector((state: any) => state.account.userInfo);
-  const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
+  const userProfile = useUserProfile();
   const userCityTitle = Iran.Cities.find(city => userProfile?.city == city.title)?.title;
   const { data: schools } = useGetSchoolsQuery({ city: userCityTitle, gender_type: userProfile.gender }, { skip: !userCityTitle || !userProfile.gender });
 

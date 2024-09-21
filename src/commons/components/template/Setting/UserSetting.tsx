@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import { useGetUserProfileQuery, useUpdateUserProfileMutation } from 'apps/website-display/redux/features/party/ProfileSlice';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
+import useUserProfile from 'commons/hooks/useUserProfile';
 
 type UserSettingPropsType = {
   onSuccessfulSubmission?: any;
@@ -26,18 +27,14 @@ const UserSetting: FC<UserSettingPropsType> = ({
   isInForm,
 }) => {
   const [updateUserProfile, updateUserProfileResult] = useUpdateUserProfileMutation();
-  const initialUserInfo = useSelector((state: any) => state.account.userInfo);
-  const [userInfo, setUserInfo] = useState(initialUserInfo);
-  const { data: userProfile } = useGetUserProfileQuery({ userId: initialUserInfo.id });
+  const _userProfile = useUserProfile();
+  const [userProfile, setUserProfile] = useState(_userProfile);
 
   useEffect(() => {
-    if (userProfile) {
-      setUserInfo({
-        ...userInfo,
-        ...userProfile,
-      });
+    if (_userProfile) {
+      setUserProfile(_userProfile);
     }
-  }, [userProfile])
+  }, [_userProfile])
 
   useEffect(() => {
     if (updateUserProfileResult?.isSuccess) {
@@ -46,17 +43,17 @@ const UserSetting: FC<UserSettingPropsType> = ({
     }
   }, [updateUserProfileResult])
 
-  if (!userInfo || !userProfile) return null;
+  if (!userProfile) return null;
 
   const submitUserInfo = () => {
-    if (!hasUserCompletedPrimaryInformation(userInfo)) {
+    if (!hasUserCompletedPrimaryInformation(userProfile)) {
       toast.error('لطفاً همه‌ی اطلاعات خواسته‌شده را وارد کنید');
       return;
     }
 
     updateUserProfile({
-      userId: userInfo.id,
-      ...userInfo,
+      userId: userProfile.id,
+      ...userProfile,
     });
   }
 
@@ -67,7 +64,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
           <Typography variant="h2" gutterBottom>اطلاعات فردی</Typography>
           {!isInForm &&
             <Button
-              disabled={deepEqual(userProfile, userInfo)}
+              disabled={deepEqual(userProfile, userProfile)}
               onClick={submitUserInfo}
               variant="contained"
               color="secondary">
@@ -77,7 +74,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <UserSettingInfoForm data={userInfo} setData={setUserInfo} />
+        <UserSettingInfoForm data={userProfile} setData={setUserProfile} />
       </Grid>
       {isInForm &&
         <Grid item xs={12}>

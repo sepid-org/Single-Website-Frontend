@@ -32,10 +32,7 @@ const AccountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    logout: () => {
-      toast.info('خدا به همراهتان👋');
-      return initialState;
-    },
+    logout: () => initialState,
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
