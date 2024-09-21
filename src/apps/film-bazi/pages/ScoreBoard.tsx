@@ -2,6 +2,7 @@ import React from 'react';
 import goldenStarIcon from "../assets/filledStarIcon.svg";
 import backgroundImg from "../assets/background.png";
 import starIcon from "../assets/starIcon.svg";
+import { toPersianNumber } from 'commons/utils/translateNumber';
 import {
     Box,
     Typography,
@@ -9,22 +10,15 @@ import {
     Grid,
     Container
 } from '@mui/material';
-      
-      
-interface Winner {
-    name: string;
-    score: string;
-    rank: number;
-}
-      
+          
 interface ScoreRecord {
     rank: number;
     name: string;
-    score: string;
+    score: number;
 }
       
 interface CompetitionScoresProps {
-    winners: Winner[];
+    winners: ScoreRecord[];
     allScores: ScoreRecord[];
 }
       
@@ -70,7 +64,7 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
     );
 };
       
-const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
+const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
     const conditionalHeight = rank === 1 ? "198px" : rank === 2 ? "120px" : "58px";
     const conditionalMargin = rank === 1 ? "0px" : rank === 2 ? "78px" : "140px"; 
     const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : "#853414";
@@ -134,7 +128,7 @@ const WinnerCard: React.FC<Winner> = ({ name, score, rank }) => {
                     color: conditionalColor
                 }}
             >
-                {score}
+                {toPersianNumber(score)}
             </Typography>
             <Box 
                 sx={{ 
@@ -180,7 +174,7 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                     fontWeight: 'bold',
                 }}
             >
-                {rank}
+                {toPersianNumber(rank)}
             </Typography>
         </Box>
             <Box 
@@ -228,7 +222,7 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                         }}
                         variant="body1"
                     >
-                        {score}
+                        {toPersianNumber(score)}
                     </Typography>
                     <Box 
                         component="img"
@@ -244,20 +238,20 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
     );
 };
       
-      // Example Usage
+      
 const App: React.FC = () => {
     const winners = [
-        { name: 'فاطمه', score: "100" , rank: 1},
-        { name: 'احمد', score: "90", rank: 2 },
-        { name: 'زهرا', score: "80" , rank:3},
+        { name: 'فاطمه', score: 100 , rank: 1},
+        { name: 'احمد', score: 90, rank: 2 },
+        { name: 'زهرا', score: 80 , rank:3},
     ];
       
     const allScores = [
-        { rank: 1, name: 'فاطمه', score: "۱۰۰" },
-          { rank: 2, name: 'احمد', score: "۹۰" },
-          { rank: 3, name: 'زهرا', score: "۸۰" },
-          { rank: 4, name: 'علی', score: "۷۰" },
-          { rank: 5, name: 'قلی', score: "۶۰" },
+        { rank: 1, name: 'فاطمه', score: 100 },
+          { rank: 2, name: 'احمد', score: 90 },
+          { rank: 3, name: 'زهرا', score: 80 },
+          { rank: 4, name: 'علی', score: 70 },
+          { rank: 5, name: 'قلی', score: 60 },
     ];
       
     return (
@@ -266,4 +260,3 @@ const App: React.FC = () => {
 };
       
 export default App;
-      
