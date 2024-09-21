@@ -1,9 +1,7 @@
 import React from 'react';
-import goldenStarIcon from "./Vector 1.svg";
-import backgroundImg from "./background.png";
-import starIcon from "./Vector.svg";
-import middleLight from "./Vector 3.svg";
-import leftLight from "./Vector 2.svg";
+import goldenStarIcon from "../assets/filledStarIcon.svg";
+import backgroundImg from "../assets/background.png";
+import starIcon from "../assets/starIcon.svg";
 import {
     Box,
     Typography,
@@ -34,21 +32,21 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
     return (
         <Box
             sx={{
-                /*backgroundImage: 'url(${backgroundImg})',
+                backgroundImage: `url(${backgroundImg})`,
                 backgroundSize: "cover",
-                backgroundPosition: "center",*/
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
                 minHeight: '100vh',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: "#17132D"
+                justifyContent: 'center'
             }}
         >
             
             <Box 
                 sx={{ 
-                    textAlign: 'center'
+                    textAlign: 'center',
                 }}
             >
                 <Grid container spacing={2}>
@@ -185,7 +183,7 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                 {rank}
             </Typography>
         </Box>
-            <Paper 
+            <Box 
                 sx={{ 
                     display: 'flex', 
                     alignItems: 'center', 
@@ -241,7 +239,7 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
                         }}
                     />
                 </Box>
-            </Paper>
+            </Box>
         </Box>
     );
 };
