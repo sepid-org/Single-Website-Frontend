@@ -5,9 +5,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useGetUserProfileQuery, useUpdateUserProfileMutation } from 'apps/website-display/redux/features/party/ProfileSlice';
+import { useUpdateUserProfileMutation } from 'apps/website-display/redux/features/party/ProfileSlice';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
 import useUserProfile from 'commons/hooks/useUserProfile';
@@ -27,14 +26,14 @@ const UserSetting: FC<UserSettingPropsType> = ({
   isInForm,
 }) => {
   const [updateUserProfile, updateUserProfileResult] = useUpdateUserProfileMutation();
-  const _userProfile = useUserProfile();
-  const [userProfile, setUserProfile] = useState(_userProfile);
+  const { isFetching, isSuccess, data: initialUserProfile } = useUserProfile();
+  const [userProfile, setUserProfile] = useState(initialUserProfile);
 
   useEffect(() => {
-    if (_userProfile) {
-      setUserProfile(_userProfile);
+    if (!isFetching && isSuccess) {
+      setUserProfile(initialUserProfile);
     }
-  }, [_userProfile])
+  }, [isFetching])
 
   useEffect(() => {
     if (updateUserProfileResult?.isSuccess) {
@@ -64,7 +63,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
           <Typography variant="h2" gutterBottom>اطلاعات فردی</Typography>
           {!isInForm &&
             <Button
-              disabled={deepEqual(userProfile, userProfile)}
+              disabled={deepEqual(initialUserProfile, userProfile)}
               onClick={submitUserInfo}
               variant="contained"
               color="secondary">

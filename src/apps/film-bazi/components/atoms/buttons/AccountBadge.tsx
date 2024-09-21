@@ -9,7 +9,7 @@ import useLogout from "commons/hooks/useLogout";
 
 const AccountBadge = () => {
   const localNavigate = useLocalNavigate();
-  const { profile_picture: profilePicture, fullName } = useUserProfile();
+  const { data: { profile_picture: profilePicture, fullName } } = useUserProfile();
   const { logout } = useLogout();
 
   // State to manage the menu

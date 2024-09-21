@@ -6,10 +6,8 @@ import {
   Stack,
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import {
-  useGetUserProfileQuery,
   useUpdateSchoolStudentshipMutation,
 } from 'apps/website-display/redux/features/party/ProfileSlice';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
@@ -32,15 +30,15 @@ const SchoolSetting: FC<SchoolSettingPropsType> = ({
   onSuccessfulSubmission,
   isInForm,
 }) => {
-  const userProfile = useUserProfile();
+  const { isFetching, isSuccess, data: userProfile } = useUserProfile();
   const [schoolStudentship, setSchoolStudentship] = useState<{ id: string; school: SchoolType; grade: number; }>(userProfile.school_studentship);
   const [updateSchoolStudentship, updateUserStudentshipResult] = useUpdateSchoolStudentshipMutation();
 
   useEffect(() => {
-    if (userProfile?.school_studentship) {
+    if (!isFetching && isSuccess && userProfile?.school_studentship) {
       setSchoolStudentship(userProfile.school_studentship)
     }
-  }, [userProfile])
+  }, [isFetching])
 
   useEffect(() => {
     if (updateUserStudentshipResult?.isSuccess) {

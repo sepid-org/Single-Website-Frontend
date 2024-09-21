@@ -3,12 +3,24 @@ import { useGetUserProfileQuery } from "apps/website-display/redux/features/part
 
 const useUserProfile = () => {
   const userInfo = useSelector((state: any) => state.account.userInfo);
-  const { data: userProfile } = useGetUserProfileQuery({ userId: userInfo.id });
-  const fullName = `${userProfile?.first_name} ${userProfile?.last_name}`;
+  const {
+    data,
+    isSuccess,
+    isError,
+    isLoading,
+    isFetching,
+  } = useGetUserProfileQuery({ userId: userInfo.id });
+  const fullName = `${data?.first_name} ${data?.last_name}`;
 
   return {
-    fullName,
-    ...userProfile
+    isSuccess,
+    isError,
+    isLoading,
+    isFetching,
+    data: {
+      ...data,
+      fullName,
+    },
   };
 }
 

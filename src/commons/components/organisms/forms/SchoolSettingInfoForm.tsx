@@ -44,7 +44,7 @@ const SchoolSettingInfoForm: FC<SchoolSettingInfoFormPropsType> = ({
   setData,
 }) => {
   const [isAddInstituteDialogOpen, setIsAddInstituteDialogOpen] = useState(false);
-  const userProfile = useUserProfile();
+  const { data: userProfile } = useUserProfile();
   const userCityTitle = Iran.Cities.find(city => userProfile?.city == city.title)?.title;
   const { data: schools } = useGetSchoolsQuery({ city: userCityTitle, gender_type: userProfile.gender }, { skip: !userCityTitle || !userProfile.gender });
 
