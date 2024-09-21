@@ -3,18 +3,17 @@ import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 
-import Layout from 'commons/components/template/Layout';
 import Info from 'commons/components/template/program/management/Info';
 import Registration from 'commons/components/template/program/management/Registration';
 import RegistrationReceipts from 'commons/components/template/program/management/RegistrationReceipts';
 import { DashboardTabType } from 'commons/types/global';
 import Admins from 'commons/components/template/program/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
-import ProgramManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramManagement';
-import { Grid } from '@mui/material';
+import { Container } from '@mui/material';
+import AppBarComponent from '../components/organisms/Appbar';
 
 const tabs: DashboardTabType[] = [
   {
@@ -49,9 +48,20 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
   const { programSlug } = useParams();
 
   return (
-    <Layout appbarMode='GENERAL'>
-      <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
-    </Layout>
+    <Fragment>
+      <AppBarComponent />
+      <Container maxWidth='lg'
+        sx={{
+          display: 'flex',
+          paddingTop: 4,
+          paddingBottom: 2,
+          justifyContent: 'center',
+          marginRight: 'auto !important',
+          marginLeft: 'auto !important',
+        }}>
+        <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
+      </Container>
+    </Fragment>
   );
 };
 

@@ -1,12 +1,10 @@
-import React, { FC } from 'react';
-import Layout from 'commons/components/template/Layout';
+import React, { FC, Fragment } from 'react';
 import { DashboardTabType } from 'commons/types/global';
 import UserSetting from 'commons/components/template/Setting/UserSetting';
-import SchoolSetting from 'commons/components/template/Setting/SchoolSetting';
-import UniversitySetting from 'commons/components/template/Setting/UniversitySetting';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { useParams } from 'react-router-dom';
-import { Paper } from '@mui/material';
+import { Container, Paper } from '@mui/material';
+import AppBarComponent from '../components/organisms/Appbar';
 
 const paperWrappedComponent = (component) => {
   return (
@@ -31,9 +29,20 @@ const Profile: FC<ProfilePropsType> = ({ }) => {
   const { programSlug } = useParams();
 
   return (
-    <Layout appbarMode={'DASHBOARD'}>
-      <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
-    </Layout>
+    <Fragment>
+      <AppBarComponent />
+      <Container maxWidth='lg'
+        sx={{
+          display: 'flex',
+          paddingTop: 4,
+          paddingBottom: 2,
+          justifyContent: 'center',
+          marginRight: 'auto !important',
+          marginLeft: 'auto !important',
+        }}>
+        <Dashboard tabs={tabs} returnDirection={`/program/${programSlug}/`} />
+      </Container>
+    </Fragment>
   );
 };
 
