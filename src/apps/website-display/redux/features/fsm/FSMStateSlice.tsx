@@ -69,7 +69,7 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
           return ([{ type: 'fsm-state', id: result.id }]);
         }
       },
-      query: ({ fsmStateId }) => `fsm/state/${fsmStateId}/`,
+      query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/`,
       transformResponse: (response: any): GetFSMStateOutputType => {
         return response;
       },

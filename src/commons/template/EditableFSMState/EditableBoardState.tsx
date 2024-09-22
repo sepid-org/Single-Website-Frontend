@@ -4,7 +4,7 @@ import { useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-dis
 import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetPositionsByPaperQuery, useSavePositionsMutation } from 'apps/website-display/redux/features/object/PositionSlice';
+import { useGetPositionsByPaperQuery, useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/PositionSlice';
 import { Box, Button, Checkbox, Divider, FormControlLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { FSMStateType } from 'commons/types/models';
@@ -19,7 +19,7 @@ const EditableBoardState = ({ fsmStateId }) => {
   const [positions, setPositions] = useState<PositionType[]>(null);
   const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
   const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
-  const [savePositions, { isSuccess: isSavePositionsSuccess, isError: isSavePositionsError }] = useSavePositionsMutation();
+  const [updatePositions, { isSuccess: isUpdatePositionsSuccess, isError: isUpdatePositionsError }] = useUpdatePositionsMutation();
 
   useEffect(() => {
     if (initialFsmState) {
@@ -28,10 +28,29 @@ const EditableBoardState = ({ fsmStateId }) => {
   }, [initialFsmState]);
 
   useEffect(() => {
-    if (initialPositions) {
-      setPositions(initialPositions);
+    const widgets = paper?.widgets;
+    if (initialPositions && widgets) {
+      // Check if any widget has no position, and if so, assign a random one
+      const updatedPositions = widgets.map((widget) => {
+        const widgetPosition = initialPositions.find(pos => pos.widget === widget.id);
+
+        if (widgetPosition) {
+          return widgetPosition;
+        } else {
+          // Add a random position if no position found for this widget
+          return {
+            x: Math.round(Math.random() * 400),
+            y: Math.round(Math.random() * 400),
+            width: 200,
+            height: 200,
+            widget: widget.id,
+          };
+        }
+      });
+
+      setPositions(updatedPositions);
     }
-  }, [initialPositions])
+  }, [initialPositions, paper]);
 
   const handleDragStop = useCallback((id, d) => {
     setPositions((prevPositions) =>
@@ -58,7 +77,7 @@ const EditableBoardState = ({ fsmStateId }) => {
   }, []);
 
   const handleUpdateFSMState = () => {
-    savePositions({
+    updatePositions({
       positions: positions.map(positions => ({
         widget: positions.widget,
         x: positions.x,
@@ -74,16 +93,16 @@ const EditableBoardState = ({ fsmStateId }) => {
   }
 
   useEffect(() => {
-    if (isUpdateFSMStateSuccess && isSavePositionsSuccess) {
+    if (isUpdateFSMStateSuccess && isUpdatePositionsSuccess) {
       toast.success('تغییرات با موفقیت ثبت شدند.');
     }
-  }, [isUpdateFSMStateSuccess, isSavePositionsSuccess])
+  }, [isUpdateFSMStateSuccess, isUpdatePositionsSuccess])
 
   useEffect(() => {
-    if (isSavePositionsError && isUpdateFSMStateError) {
+    if (isUpdatePositionsError && isUpdateFSMStateError) {
       toast.error('مشکلی در ثبت تغییرات وجود داشت.');
     }
-  }, [isSavePositionsError, isUpdateFSMStateError])
+  }, [isUpdatePositionsError, isUpdateFSMStateError])
 
   const widgetsWithPositions = useMemo(() => {
     if (!paper || !positions) return [];

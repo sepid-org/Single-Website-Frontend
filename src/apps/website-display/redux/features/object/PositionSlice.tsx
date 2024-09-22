@@ -13,7 +13,7 @@ export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
           : [{ type: 'Position', id: 'LIST' }],
     }),
 
-    savePositions: builder.mutation({
+    updatePositions: builder.mutation({
       query: ({ positions }) => ({
         url: '/fsm/positions/save-positions/',
         method: 'POST',
@@ -26,5 +26,5 @@ export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
 
 export const {
   useGetPositionsByPaperQuery,
-  useSavePositionsMutation,
+  useUpdatePositionsMutation,
 } = PositionSlice;

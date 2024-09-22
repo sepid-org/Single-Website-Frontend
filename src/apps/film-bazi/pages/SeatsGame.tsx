@@ -1,11 +1,53 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
+import { Box, Container } from '@mui/material';
+import AppBarComponent from '../components/organisms/Appbar';
+import BoardPaper from 'commons/template/Paper/BoardPaper';
 
 type SeatsGamePropsType = {}
 
 const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
+  const paperId = '210';
+  const appbarRef = useRef<HTMLDivElement>(null);
+  const [containerHeight, setContainerHeight] = useState<number>(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      let calculatedHeight = window.innerHeight;
+      if (appbarRef.current) {
+        calculatedHeight -= appbarRef.current.offsetHeight;
+      }
+      setContainerHeight(calculatedHeight);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
-    <>seats game</>
+    <Fragment>
+      <Box ref={appbarRef}>
+        <AppBarComponent />
+      </Box>
+      <Container maxWidth='lg'
+        sx={{
+          display: 'flex',
+          paddingTop: 4,
+          paddingBottom: 2,
+          justifyContent: 'center',
+          marginRight: 'auto !important',
+          marginLeft: 'auto !important',
+        }}>
+        {containerHeight > 0 &&
+          <BoardPaper
+            containerHeight={containerHeight}
+            paperId={paperId}
+          />
+        }
+      </Container>
+    </Fragment>
   );
 };
 

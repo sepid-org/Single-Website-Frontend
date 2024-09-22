@@ -30,4 +30,4 @@ export type WidgetType = {
   widget_type: WidgetTypes;
   hints: HintType[];
   is_hidden: boolean;
-} & PositionType;
+}

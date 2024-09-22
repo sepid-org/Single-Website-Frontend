@@ -29,18 +29,6 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
   const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
   const { finishFSM } = useFinishFSM();
 
-  if (isEnd) {
-    return (
-      <Button
-        fullWidth
-        variant="contained"
-        color="primary"
-        onClick={finishFSM}>
-        {'اتمام کارگاه'}
-      </Button>
-    )
-  }
-
   const edges = isMentor
     ? outwardEdges
     : outwardEdges.filter((edge) => edge.is_visible);
@@ -69,8 +57,19 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
     }
   };
 
-  if (outwardEdges.length === 0) {
-    return (null)
+  if (edges.length === 0) {
+    if (isEnd) {
+      return (
+        <Button
+          fullWidth
+          variant="contained"
+          color="primary"
+          onClick={finishFSM}>
+          {'اتمام کارگاه'}
+        </Button>
+      )
+    }
+    return null;
   }
 
   return (
