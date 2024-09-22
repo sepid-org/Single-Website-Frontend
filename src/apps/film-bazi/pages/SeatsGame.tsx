@@ -6,7 +6,7 @@ import BoardPaper from 'commons/template/Paper/BoardPaper';
 type SeatsGamePropsType = {}
 
 const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = '210';
+  const paperId = '2748';
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
@@ -31,11 +31,11 @@ const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
       <Box ref={appbarRef}>
         <AppBarComponent />
       </Box>
-      <Container maxWidth='lg'
+      <Container
+        maxWidth={false}
         sx={{
           display: 'flex',
-          paddingTop: 4,
-          paddingBottom: 2,
+          padding: 0,
           justifyContent: 'center',
           marginRight: 'auto !important',
           marginLeft: 'auto !important',
