@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useEffect } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Button, Container, Paper, Stack, Typography } from '@mui/material';
 import FormPaper from 'commons/template/Paper/Form';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
@@ -11,6 +11,7 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 type MovieScreeningRequestPropsType = {}
 
 const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
+  const [isUserSubmittedForm, setIsUserSubmittedForm] = useState(false);
   const localNavigate = useLocalNavigate();
   const navigate = useNavigate();
   const { programSlug } = useParams();
@@ -20,11 +21,12 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
   const [submitRegistrationForm, submitRegistrationFormResult] = useSubmitFormMutation();
 
   const submit = () => {
-    submitRegistrationForm({
-      answer_sheet_type: 'RegistrationReceipt',
-      formId,
-      answers,
-    });
+    setIsUserSubmittedForm(true);
+    // submitRegistrationForm({
+    //   answer_sheet_type: 'RegistrationReceipt',
+    //   formId,
+    //   answers,
+    // });
   };
 
   useEffect(() => {
@@ -54,18 +56,29 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
               {'درخواست اکران فیلم'}
             </Typography>
           </Stack>
-          <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
-            <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
-          </Stack>
-          <Button size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
-            <Typography fontWeight={700} fontSize={18}>
-              {'ثبت درخواست'}
-            </Typography>
-          </Button>
+          {isUserSubmittedForm ?
+            <Paper sx={{ padding: 2, marginTop: 4 }}>
+              <Typography textAlign={'center'} fontWeight={700} fontSize={18}>
+                {'درخواست شما با موفقیت ثبت شد. پس از بررسی اطلاعات با شما تماس خواهیم گرفت😊'}
+              </Typography>
+            </Paper>
+            :
+            <Fragment>
+              <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
+                <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
+              </Stack>
+              <Button size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
+                <Typography fontWeight={700} fontSize={18}>
+                  {'ثبت درخواست'}
+                </Typography>
+              </Button>
+            </Fragment>
+          }
         </Stack>
       </Container>
     </Fragment>
   );
+
 };
 
 export default MovieScreeningRequest;
