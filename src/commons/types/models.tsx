@@ -102,9 +102,13 @@ type AudienceTypes = 'Student' | 'Academic' | 'All';
 type FSMLearningTypes = 'Supervised' | 'Unsupervised';
 type FSMPTypes = 'Individual' | 'Team' | 'Hybrid';
 
-type a = FSMStateType;
-
 export type ContentType = {
+  title: string;
+  create_at: string;
+  updated_at: string;
+  attributes: any[];
+  is_private: boolean;
+  order: number;
   has_entrance_lock?: boolean;
 }
 
@@ -121,7 +125,6 @@ export type FSMType = ContentType & {
   cover_page: string;
   is_active: boolean;
   is_visible: boolean;
-  order_in_program: number;
   card_type: 'vertical1' | 'horizontal1';
   show_roadmap: boolean;
 };

@@ -96,10 +96,10 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
       <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
-          value={data.order_in_program}
+          value={data.order}
           variant='outlined'
           label={'اولویت نمایش'}
-          name='order_in_program'
+          name='order'
           onChange={putData}
           helperText={'کارگاه با اولویت نمایش بزرگ‌تر، زودتر در صفحه‌ی اصلی دوره نمایش داده می‌شود.'}
         />

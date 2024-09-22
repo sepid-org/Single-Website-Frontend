@@ -36,12 +36,11 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
   }
 
   if (visibleFSMS.length > 0) {
-    let sortedFSMs = [...visibleFSMS].filter(fsm => fsm.is_visible).sort((fsm1, fsm2) => fsm2.order_in_program - fsm1.order_in_program)
     return (
       <Stack spacing={2}>
         <Stack>
           <Grid container spacing={2}>
-            {sortedFSMs.map((fsm) => {
+            {visibleFSMS.map((fsm) => {
               if (fsm.card_type === 'vertical1') {
                 return (
                   <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
