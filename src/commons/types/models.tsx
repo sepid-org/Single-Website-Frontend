@@ -1,6 +1,6 @@
 import { HintType } from "./global";
 import { SchoolStudentshipType, UserInfoType } from "./profile";
-import { WidgetType } from "./widgets/widget";
+import { PositionType, WidgetType } from "./widgets/widget";
 
 export type PlayerRequestType = any;
 
@@ -306,4 +306,11 @@ export type ProgramUserPermissions = {
 export type FSMUserPermissions = {
   fsm_id: string;
   is_mentor: boolean;
+}
+
+
+export type ObjectType = {
+  widget?: number;
+  position?: PositionType;
+  id: number;
 }

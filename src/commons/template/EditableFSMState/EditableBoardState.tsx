@@ -4,7 +4,7 @@ import { useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-dis
 import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetPositionsByPaperQuery, useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/PositionSlice';
+import { useGetObjectsByPaperQuery, useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { Box, Button, Checkbox, Divider, FormControlLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { FSMStateType } from 'commons/types/models';
@@ -17,7 +17,7 @@ const EditableBoardState = ({ fsmStateId }) => {
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
   const [positions, setPositions] = useState<PositionType[]>(null);
-  const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId: fsmStateId });
+  const { data: objects } = useGetObjectsByPaperQuery({ paperId: fsmStateId });
   const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
   const [updatePositions, { isSuccess: isUpdatePositionsSuccess, isError: isUpdatePositionsError }] = useUpdatePositionsMutation();
 
@@ -29,10 +29,10 @@ const EditableBoardState = ({ fsmStateId }) => {
 
   useEffect(() => {
     const widgets = paper?.widgets;
-    if (initialPositions && widgets) {
+    if (objects && widgets) {
       // Check if any widget has no position, and if so, assign a random one
       const updatedPositions = widgets.map((widget) => {
-        const widgetPosition = initialPositions.find(pos => pos.widget === widget.id);
+        const widgetPosition = objects.find(object => object.widget === widget.id)?.position;
 
         if (widgetPosition) {
           return widgetPosition;
@@ -50,7 +50,7 @@ const EditableBoardState = ({ fsmStateId }) => {
 
       setPositions(updatedPositions);
     }
-  }, [initialPositions, paper]);
+  }, [objects, paper]);
 
   const handleDragStop = useCallback((id, d) => {
     setPositions((prevPositions) =>

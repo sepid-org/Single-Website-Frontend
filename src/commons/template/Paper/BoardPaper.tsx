@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment, FC, useCallback } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetPositionsByPaperQuery } from 'apps/website-display/redux/features/object/PositionSlice';
+import { useGetObjectsByPaperQuery } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { Stack } from '@mui/material';
+import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 
 export type BoardPaperPropsType = {
   paperId: string;
@@ -13,7 +14,7 @@ export type BoardPaperPropsType = {
 
 const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.innerWidth, containerHeight = window.innerHeight }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
-  const { data: initialPositions } = useGetPositionsByPaperQuery({ paperId });
+  const { data: objects } = useGetObjectsByPaperQuery({ paperId });
   const [positions, setPositions] = useState<PositionType[]>([]);
   const boardRef = useRef(null);
   const containerRef = useRef(null);
@@ -23,10 +24,10 @@ const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
 
   useEffect(() => {
-    if (initialPositions) {
-      setPositions(initialPositions);
+    if (objects) {
+      setPositions(objects.map(object => object.position));
     }
-  }, [initialPositions]);
+  }, [objects]);
 
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
@@ -83,12 +84,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.
     if (!paper || !positions) return [];
     const widgets = paper.widgets;
     return widgets.map(widget => {
-      const position = positions.find(pos => pos.widget === widget.id) || {
-        x: Math.round(Math.random() * 400),
-        y: Math.round(Math.random() * 400),
-        width: 200,
-        height: 200
-      };
+      const position = positions.find(position => position.widget === widget.id);
       return {
         ...widget,
         ...position
@@ -104,23 +100,29 @@ const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
-      {widgetsWithPositions.map((widget) => (
-        <div
-          key={widget.id}
-          style={{
-            position: 'absolute',
-            left: widget.x,
-            top: widget.y,
-            width: widget.width,
-            height: widget.height,
-          }}
-        >
-          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+      {widgetsWithPositions.map((widget) => {
+        const object = objects?.find(object => object.widget === widget.id);
+        if (!object) return null;
+        return (
+          <div
+            key={widget.id}
+            style={{
+              position: 'absolute',
+              left: widget.x,
+              top: widget.y,
+              width: widget.width,
+              height: widget.height,
+            }}
+          >
+            <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+              <ObjectWrapper object={{ ...object, onClick: () => { console.log(widget.id) } }}>
+                <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+              </ObjectWrapper>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>,
+        );
+      })}
+    </div >,
     [widgetsWithPositions])
 
   return (
