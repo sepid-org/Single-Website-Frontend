@@ -1,11 +1,11 @@
 import { Button, TextField, Container, Paper, Typography, Stack, Box } from '@mui/material';
-import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import React, { useState, FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useChangeUserPasswordMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import { DarkSecondary } from '../constants/colors';
+import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 
 type ResetPasswordPropsType = {}
 
@@ -73,7 +73,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <WebsiteLogo size='large' />
+            <ProgramLogo size='large' />
           </Box>
 
           <Stack width={'100%'} spacing={1.5}>

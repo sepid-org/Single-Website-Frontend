@@ -10,8 +10,8 @@ import {
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
-import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { DarkSecondary } from '../constants/colors';
+import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 
 type LoginPagePropsType = {};
 
@@ -70,7 +70,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <WebsiteLogo size='large' />
+            <ProgramLogo size='large' />
           </Box>
 
           <Typography

@@ -11,9 +11,9 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
-import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useCreateAccountMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { DarkSecondary } from '../constants/colors';
+import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 
 type CreateAccountPropsType = {}
 
@@ -76,7 +76,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <WebsiteLogo size='large' />
+            <ProgramLogo size='large' />
           </Box>
 
           <Stack
