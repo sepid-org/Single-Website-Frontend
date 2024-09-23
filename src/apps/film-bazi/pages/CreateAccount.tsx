@@ -76,7 +76,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <ProgramLogo size='large' />
+            <ProgramLogo size='large' destination='http://filmbazi.ir/' />
           </Box>
 
           <Stack

@@ -6,6 +6,7 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 
 type ProgramLogoPropsType = {
   size?: 'small' | 'normal' | 'large';
+  destination?: string;
 }
 
 const sizes = {
@@ -29,17 +30,18 @@ const sizes = {
   },
 }
 
-const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small' }) => {
-  const logoSize = sizes[size];
+const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small', destination: inputDestination }) => {
   const { programSlug } = useParams();
   const { data: program, isSuccess } = useGetProgramQuery({ programSlug: programSlug });
+  const logoSize = sizes[size];
+  const destination = inputDestination || `/program/${programSlug}/`;
 
   if (!isSuccess) {
     return <Skeleton variant="circular" width={logoSize.width} height={logoSize.height} />
   }
 
   return (
-    <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to={`/program/${programSlug}/`}>
+    <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to={destination}>
       <img alt="website-logo" unselectable="on" src={program.cover_page} style={{ maxWidth: logoSize.maxWidth, maxHeight: logoSize.maxHeight }} />
     </IconButton>
   );

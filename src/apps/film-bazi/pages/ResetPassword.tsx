@@ -73,7 +73,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <ProgramLogo size='large' />
+            <ProgramLogo size='large' destination='http://filmbazi.ir/' />
           </Box>
 
           <Stack width={'100%'} spacing={1.5}>

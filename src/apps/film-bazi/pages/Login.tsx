@@ -70,7 +70,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
           alignItems={'center'}>
 
           <Box>
-            <ProgramLogo size='large' />
+            <ProgramLogo size='large' destination='http://filmbazi.ir/' />
           </Box>
 
           <Typography
