@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Button, Container, Paper, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Paper, Stack, Typography } from '@mui/material';
 import FormPaper from 'commons/template/Paper/Form';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -51,11 +51,17 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
         }}>
         <Stack width={'100%'}>
           <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-            <img src={program.cover_page} alt='program-cover-page' width={200} style={{ borderRadius: 8 }} />
-            <Typography variant='h2'>
-              {'درخواست اکران فیلم'}
-            </Typography>
+            <Box
+              component="img"
+              src={program.cover_page}
+              alt="program-cover-page"
+              width={200}
+              sx={{ borderRadius: 1, cursor: 'pointer' }}
+              onClick={() => window.open('http://filmbazi.ir/')}
+            />
+            <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
           </Stack>
+
           {isUserSubmittedForm ?
             <Paper sx={{ padding: 2, marginTop: 4 }}>
               <Typography textAlign={'center'} fontWeight={700} fontSize={18}>

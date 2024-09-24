@@ -6,7 +6,7 @@ import BoardPaper from 'commons/template/Paper/BoardPaper';
 type SeatsGamePropsType = {}
 
 const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = '210';
+  const paperId = '2496';
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
