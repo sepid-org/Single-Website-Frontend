@@ -7,14 +7,14 @@ import DashboardSidebar from '../components/organisms/DashboardSidebar';
 import AppBarComponent from '../components/organisms/Appbar';
 import FilmCard from '../components/organisms/FilmCard';
 import { persianFilms } from '../constants/SampleFilms';
+import useGetFilms from '../hooks/useGetFilms';
 
 type DashboardPropsType = {}
 
 const Dashboard: FC<DashboardPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  // const { films } = useFilmsByCity({cityId: getCityByName(userProfile?.city)?.id});
-  const films = persianFilms;
+  const { films } = useGetFilms();
 
   return (
     <Fragment>

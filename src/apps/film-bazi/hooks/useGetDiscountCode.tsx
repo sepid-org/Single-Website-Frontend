@@ -1,13 +1,10 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FilmBaziBackendURL } from '../constants/Urls';
-
-interface DiscountCodeResponse {
-  code: string;
-}
+import { DiscountCodeType } from '../types';
 
 const useGetDiscountCode = () => {
-  const [discountCode, setDiscountCode] = useState<string | null>(null);
+  const [discountCode, setDiscountCode] = useState<DiscountCodeType>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -15,10 +12,9 @@ const useGetDiscountCode = () => {
 
   type GetDiscountCodePropsType = {
     filmId: number;
-    cityId: number;
   }
 
-  const getDiscountCode = async ({ filmId, cityId }: GetDiscountCodePropsType) => {
+  const getDiscountCode = async ({ filmId }: GetDiscountCodePropsType) => {
     setLoading(true);
     setError(null);
 
@@ -28,17 +24,17 @@ const useGetDiscountCode = () => {
         headers.append('Authorization', `JWT ${accessToken}`);
       }
 
-      const response = await fetch(`${FilmBaziBackendURL}films/discount-codes/get_discount_code?film=${filmId}&city=${cityId}`, {
+      const response = await fetch(`${FilmBaziBackendURL}films/discount-codes/get_discount_code/?film=${filmId}`, {
         headers: headers,
       });
 
-      const data: Partial<DiscountCodeResponse> = await response.json();
+      const data: DiscountCodeType = await response.json();
 
       if (!response.ok) {
         throw new Error(data['error'] || 'Failed to fetch discount code');
       }
 
-      setDiscountCode(data.code);
+      setDiscountCode(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
     } finally {

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { FilmType } from 'apps/film-bazi/types';
 import { FilmBaziBackendURL } from '../constants/Urls';
 
-const useFilmsByCity = ({ cityId }: { cityId: number }) => {
+const useGetFilms = () => {
   const [films, setFilms] = useState<FilmType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ const useFilmsByCity = ({ cityId }: { cityId: number }) => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziBackendURL}films/films/by_city/?city_id=${cityId}`, {
+        const response = await fetch(`${FilmBaziBackendURL}films/films/`, {
           headers: headers,
         });
         if (!response.ok) {
@@ -32,12 +32,12 @@ const useFilmsByCity = ({ cityId }: { cityId: number }) => {
         setLoading(false);
       }
     };
-    if (cityId && accessToken) {
+    if (accessToken) {
       fetchFilms();
     }
-  }, [cityId, accessToken]);
+  }, [accessToken]);
 
   return { films, loading, error };
 };
 
-export default useFilmsByCity;
+export default useGetFilms;

@@ -71,21 +71,10 @@ const ButtonContent = styled(Box)(() => ({
 const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const { getDiscountCode, discountCode, loading, error } = useGetDiscountCode();
 
   const handleOpenDialog = () => {
-    // getDiscountCode({ filmId: film.id, cityId: getCityByName(userProfile?.city)?.id });
     setIsDialogOpen(true);
   };
-
-  useEffect(() => {
-    if (error) {
-      toast.error(error);
-    }
-    if (discountCode) {
-      setIsDialogOpen(true);
-    }
-  }, [loading])
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);
@@ -134,11 +123,7 @@ const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
       <DiscountDialog
         open={isDialogOpen}
         onClose={handleCloseDialog}
-        filmName={film.name}
-        discountCode={{
-          code: 'fk3ssf43f',
-          usageCount: 12,
-        }}
+        film={film}
       />
     </Fragment>
   );

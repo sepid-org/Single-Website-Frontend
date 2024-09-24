@@ -15,3 +15,8 @@ export type FilmType = {
   director: ArtistType;
   description: string;
 }
+
+export type DiscountCodeType = {
+  code: string;
+  usageCount: number;
+}
