@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Card, CardMedia, Typography, Box, Button, Stack } from '@mui/material';
+import React, { Fragment, useState } from 'react';
+import { Card, CardMedia, Typography, Box, Button, Stack, Skeleton } from '@mui/material';
 import { styled } from '@mui/system';
 import { FilmType } from '../../types';
-import useGetDiscountCode from '../../hooks/useGetDiscountCode';
-import { toast } from 'react-toastify';
 import DiscountDialog from './DiscountCodeDialog';
 import { Golden, Orange, Yellow } from 'apps/film-bazi/constants/colors';
 
@@ -13,6 +11,7 @@ const HoverCard = styled(Card)(() => ({
   overflow: 'hidden',
   width: '100%',
   height: '100%',
+  aspectRatio: '2 / 3', // Adjust this ratio to match your typical card aspect ratio
 }));
 
 const HoverContent = styled(Box)(({ theme }) => ({
@@ -31,7 +30,6 @@ const HoverContent = styled(Box)(({ theme }) => ({
   alignItems: 'center',
 }));
 
-
 const StyledButton = styled(Button)(() => ({
   width: '200px',
   height: '76px',
@@ -40,8 +38,6 @@ const StyledButton = styled(Button)(() => ({
   borderImageSource: `linear-gradient(180deg, ${Golden} 0%, ${Orange} 100%)`,
   overflow: 'hidden',
   position: 'absolute',
-
-  // Add this style to ensure the button is correctly rounded even with border image
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -49,9 +45,9 @@ const StyledButton = styled(Button)(() => ({
     left: 0,
     right: 0,
     bottom: 0,
-    borderRadius: '12px', // Apply border radius here
-    padding: '1px', // Padding between border and inner content
-    background: `linear-gradient(180deg, ${Golden} 0%, ${Orange} 100%)`, // Border gradient
+    borderRadius: '12px',
+    padding: '1px',
+    background: `linear-gradient(180deg, ${Golden} 0%, ${Orange} 100%)`,
     WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
     maskComposite: 'exclude',
   },
@@ -68,7 +64,7 @@ const ButtonContent = styled(Box)(() => ({
   color: Yellow,
 }));
 
-const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
+const FilmCard: React.FC<{ film: FilmType | null }> = ({ film }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -81,12 +77,28 @@ const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
   };
 
   if (!film) {
-    return null;
+    return (
+      <HoverCard>
+        <Skeleton
+          variant="rectangular"
+          width="100%"
+          height="100%"
+          animation="wave"
+          sx={{
+            borderRadius: '24px',
+            transform: 'scale(1, 1)', // This ensures the Skeleton respects the HoverCard's dimensions
+          }}
+        />
+      </HoverCard>
+    );
   }
 
   return (
     <Fragment>
-      <HoverCard onMouseEnter={() => { setIsCardHovered(true) }} onMouseLeave={() => { setIsCardHovered(false) }}>
+      <HoverCard
+        onMouseEnter={() => setIsCardHovered(true)}
+        onMouseLeave={() => setIsCardHovered(false)}
+      >
         <CardMedia
           component="img"
           image={film.image}
