@@ -49,8 +49,8 @@ export type ProgramType = {
   initial_participants_count: number;
   final_participants_count: number;
   registration_form: string;
-  registration_since: string | null;
-  registration_till: string | null;
+  registration_start_date: string | null;
+  registration_end_date: string | null;
   start_date: string | null;
   team_size: number;
   is_public: boolean;
