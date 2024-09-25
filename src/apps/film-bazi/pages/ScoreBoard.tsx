@@ -1,13 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { useState } from 'react';
 import goldenStarIcon from "../assets/filledStarIcon.svg";
 import backgroundImg from "../assets/background.png";
 import starIcon from "../assets/starIcon.svg";
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import {
-	Box,
-	Typography,
-	Grid,
-	Container
+    Box,
+    Typography,
+    Paper,
+    Grid,
+    Container,
+    Button
 } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 
@@ -23,46 +27,87 @@ interface CompetitionScoresProps {
 }
 
 const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScores }) => {
-	return (
-		<Box
-			sx={{
-				width: '100%',
-				backgroundImage: `url(${backgroundImg})`,
-				backgroundSize: "cover",
-				backgroundPosition: "center",
-				backgroundRepeat: "no-repeat",
-				minHeight: '100vh',
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-				justifyContent: 'center'
-			}}
-		>
-
-			<Box
+    const [scorePage, setScorePage] = useState(1);
+    return (
+        <Box
+            sx={{
+                backgroundImage: `url(${backgroundImg})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundAttachment: "fixed",
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            
+            <Box 
+                sx={{ 
+                    textAlign: 'center'
+                }}
+            >
+                <Grid  
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center"
+                    }}
+                >
+                    <Grid>
+                        < WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
+                    </Grid>
+                    <Grid>
+                        <WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
+                    </Grid>
+                    <Grid>
+                        <WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
+                    </Grid>
+                </Grid>
+            </Box>
+            <Grid 
+                sx={{ 
+                    width: '100%',
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+					flexDirection: "column"
+                }}
+                container
+            >
+                {allScores.slice((scorePage - 1) * 5, Math.min(scorePage * 5, allScores.length)).map(record => (
+                    <ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
+                ))}
+            </Grid>
+			<Grid
 				sx={{
-					textAlign: 'center',
+					display: "flex",
+					flexDirection: "row",
+					marginTop: "5px"
 				}}
+				padding={2}
 			>
-				<Grid width={'100%'} container spacing={2}>
-					<Grid item xs={4}>
-						< WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
-					</Grid>
-					<Grid item xs={4}>
-						<WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
-					</Grid>
-					<Grid item xs={4}>
-						<WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
-					</Grid>
-				</Grid>
-			</Box>
-			<Box sx={{ width: '100%', maxWidth: 600 }}>
-				{allScores.map(record => (
-					<ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
-				))}
-			</Box>
-		</Box>
-	);
+				{scorePage < (Math.ceil(allScores.length / 5)) &&
+				<Button 
+					onClick={() => setScorePage(scorePage + 1)}
+				>
+					<ArrowForwardIosIcon />
+					صفحه‌ی بعد
+				</Button>
+				}
+				{scorePage > 1 && 
+				<Button 
+					onClick={() => setScorePage(scorePage - 1)}
+				>
+					صفحه‌ی قبل
+					<ArrowBackIosIcon />	
+				</Button>
+				}
+			</Grid>
+        </Box>
+    );
 };
 
 const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
@@ -133,7 +178,10 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
 			</Typography>
 			<Box
 				sx={{
-					width: "135.67px",
+					width:{
+						md: "135.67px",
+						xs: "110px"
+					},
 					height: conditionalHeight,
 					borderRadius: "10px 10px 0px 0px",
 					background: conditionalRectaangleColor
@@ -186,7 +234,10 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
 					marginBottom: 1,
 					borderRadius: "32px",
 					height: "60px",
-					width: "619px",
+					width: {
+						md:"619px",
+						xs: "400px"
+					},
 					padding: "16px",
 					gap: "12px",
 					background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
@@ -241,35 +292,38 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
 
 
 const App: React.FC = () => {
-	const winners = [
-		{ name: 'فاطمه', score: 100, rank: 1 },
-		{ name: 'احمد', score: 90, rank: 2 },
-		{ name: 'زهرا', score: 80, rank: 3 },
-	];
-
-	const allScores = [
-		{ rank: 1, name: 'فاطمه', score: 100 },
-		{ rank: 2, name: 'احمد', score: 90 },
-		{ rank: 3, name: 'زهرا', score: 80 },
-		{ rank: 4, name: 'علی', score: 70 },
-		{ rank: 5, name: 'قلی', score: 60 },
-	];
-
-	return (
-		<Fragment>
-			<AppBarComponent />
-			<Container maxWidth={false}
-				sx={{
-					display: 'flex',
-					paddingBottom: 2,
-					justifyContent: 'center',
-					marginRight: 'auto !important',
-					marginLeft: 'auto !important',
-				}}>
-				<CompetitionScores winners={winners} allScores={allScores} />
-			</Container>
-		</Fragment>
-	);
+    const winners = [
+        { name: 'فاطمه', score: 100 , rank: 1},
+        { name: 'احمد', score: 90, rank: 2 },
+        { name: 'زهرا', score: 80 , rank:3},
+    ];
+      
+    const allScores = [
+        { rank: 1, name: 'فاطمه', score: 100 },
+          { rank: 2, name: 'احمد', score: 90 },
+          { rank: 3, name: 'زهرا', score: 80 },
+          { rank: 4, name: 'علی', score: 70 },
+          { rank: 5, name: 'قلی', score: 60 },
+          { rank: 6, name: 'فاطمه', score: 70 },
+          { rank: 7, name: 'احمد', score: 70 },
+          { rank: 8, name: 'زهرا', score: 70 },
+          { rank: 9, name: 'علی', score: 70 },
+          { rank: 10, name: 'قلی', score: 60 },
+          { rank: 11, name: 'فاطمه', score: 70 },
+          { rank: 12, name: 'احمد', score: 70 },
+          { rank: 13, name: 'زهرا', score: 70 },
+          { rank: 14, name: 'علی', score: 70 },
+          { rank: 15, name: 'قلی', score: 60 },
+          { rank: 16, name: 'فاطمه', score: 70 },
+          { rank: 17, name: 'احمد', score: 70 },
+          { rank: 18, name: 'زهرا', score: 70 },
+          { rank: 19, name: 'علی', score: 70 },
+          { rank: 20, name: 'قلی', score: 60 },
+    ];
+      
+    return (
+        <CompetitionScores winners={winners} allScores={allScores} />
+    );
 };
 
 export default App;
