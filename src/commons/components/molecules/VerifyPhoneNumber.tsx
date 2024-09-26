@@ -52,13 +52,8 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   };
 
   useEffect(() => {
-    if (isGetVerificationCodeLoading) {
-      toast.success('کد تایید فرستاده شد! این کد بعد از ۵ دقیقه منقضی می‌شود');
-    }
-  }, [isGetVerificationCodeLoading])
-
-  useEffect(() => {
     if (isGetVerificationCodeSuccess) {
+      toast.success('کد تایید فرستاده شد! این کد بعد از ۵ دقیقه منقضی می‌شود');
       setTimeout(
         () => {
           setIsButtonDisable(true);
@@ -66,7 +61,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
         process.env.NODE_ENV === 'production' ? 60000 : 1000
       );
     }
-  }, [isGetVerificationCodeSuccess])
+  }, [isGetVerificationCodeLoading])
 
   return (
     <Stack spacing={1}>
