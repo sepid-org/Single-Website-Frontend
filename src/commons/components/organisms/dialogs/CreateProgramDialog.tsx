@@ -54,8 +54,6 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
     if (result.isSuccess) {
       toast.success('دوره با موفقیت ساخته شد.');
       handleClose(false);
-    } else if (result.isError) {
-      toast.error('مشکلی در ساخت دوره وجود داشت.')
     }
   }, [result])
 
