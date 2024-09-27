@@ -84,17 +84,8 @@ const App: React.FC = () => {
 
 	return (
 		<Fragment>
-			<AppBarComponent />
-				<Container maxWidth={false}
-					sx={{
-						display: 'flex',
-						paddingBottom: 2,
-						justifyContent: 'center',
-						marginRight: 'auto !important',
-						marginLeft: 'auto !important',
-					}}>
-					<CompetitionScores winners={winners} allScores={allScores} />
-				</Container>
+			<AppBarComponent />	
+			<CompetitionScores winners={winners} allScores={allScores} />
 		</Fragment>
 	);
 };
@@ -119,7 +110,6 @@ function CompetitionScores({ winners, allScores }){
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                //justifyContent: 'center'
             }}
         >
             
@@ -276,7 +266,7 @@ const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank =
                         height: "60px",
                         position: 'relative',
                         borderRadius: "100px",
-                        //background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
+                        background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
                    		backgroundColor: conditionalColor
 				    }}
                     item
