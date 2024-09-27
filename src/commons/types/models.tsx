@@ -131,10 +131,15 @@ export type FSMType = ContentType & {
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
-export type RegistrationFormType = {
+export type FormType = {
+  audience_type: AudienceTypes;
+  start_date: string;
+  end_date: string;
+}
+
+export type RegistrationFormType = FormType & {
   accepting_status: AcceptingStatusTypes;
   gender_partition_status: GenderPartitionType;
-  audience_type: AudienceTypes;
   certificate_templates: any;
   certificates_ready: boolean;
   conditions: any;
@@ -148,8 +153,6 @@ export type RegistrationFormType = {
   max_grade: number;
   min_grade: number;
   paper_type: PaperTypes;
-  since: string;
-  till: string;
   widgets: WidgetType[];
 }
 export type Article = any

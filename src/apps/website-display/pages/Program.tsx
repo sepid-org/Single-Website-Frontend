@@ -13,8 +13,7 @@ const Program: FC<ProgramPropsType> = ({ }) => {
 
   return (
     <ProgramPageWrapper>
-      {program?.slug === 'filmbazi' && <FilmBaziApp />}
-      {program?.type === 'Event' && <EventProgram />}
+      {program?.slug === 'filmbazi' ? <FilmBaziApp /> : <EventProgram />}
     </ProgramPageWrapper>
   )
 }

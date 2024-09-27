@@ -18,25 +18,20 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const formId = program.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
-  const [submitRegistrationForm, submitRegistrationFormResult] = useSubmitFormMutation();
+  const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
 
   const submit = () => {
-    setIsUserSubmittedForm(true);
-    // submitRegistrationForm({
-    //   answer_sheet_type: 'RegistrationReceipt',
-    //   formId,
-    //   answers,
-    // });
+    submitForm({
+      formId,
+      answers,
+    });
   };
 
   useEffect(() => {
-    if (submitRegistrationFormResult?.isSuccess) {
-      toast.success('فرم با موفقیت تکمیل شد.')
+    if (isSuccess) {
+      setIsUserSubmittedForm(true);
     }
-    if (submitRegistrationFormResult?.isError) {
-
-    }
-  }, [submitRegistrationFormResult])
+  }, [isLoading])
 
   return (
     <Fragment>
@@ -73,7 +68,7 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
               <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
                 <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
               </Stack>
-              <Button size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
+              <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
                 <Typography fontWeight={700} fontSize={18}>
                   {'ثبت درخواست'}
                 </Typography>
