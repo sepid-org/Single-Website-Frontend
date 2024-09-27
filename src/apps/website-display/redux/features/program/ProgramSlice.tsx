@@ -1,5 +1,6 @@
 import { FSMUserPermissions, ProgramType, ProgramUserPermissions } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetProgramsInputType = {
   pageNumber?: number;
@@ -84,7 +85,9 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getProgram: builder.query<GetProgramOutputType, GetProgramInputType>({
-      providesTags: ['program'],
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'program', id: item.programSlug }]
+      ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/`,
       transformResponse: (response: any): GetProgramOutputType => {
         return response;
@@ -92,7 +95,12 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getProgramUserPermissions: builder.query<GetProgramUserPermissionsOutputType, GetProgramUserPermissionsInputType>({
-      providesTags: ['user-specific-data'],
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [
+          'user-specific-data',
+          { type: 'program', id: item.programSlug }
+        ]
+      ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_permissions/`,
       transformResponse: (response: any): GetProgramUserPermissionsOutputType => {
         return response;
@@ -100,7 +108,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getProgramFSMsUserPermissions: builder.query<GetProgramFSMsUserPermissionsOutputType, GetProgramFSMsUserPermissionsInputType>({
-      providesTags: ['user-specific-data'],
+      providesTags: ['fsms', 'user-specific-data'],
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_fsms_user_permissions/`,
       transformResponse: (response: any): GetProgramFSMsUserPermissionsOutputType => {
         return response;

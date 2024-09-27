@@ -1,5 +1,5 @@
+import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
-import { createInvalidationCallback } from '../ManageWebsiteServiceApiSlice';
 
 type CreateAccountInputType = {
   phoneNumber: string;

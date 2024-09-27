@@ -37,7 +37,7 @@ const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
             <AddNewThingButton label={'افزودن کارگاه جدید'} onClick={() => setOpenCreateFSMDialog(true)} />
           </Stack>
           <Stack spacing={2}>
-            {(!isLoading && fsmsData.fsms.length > 0) &&
+            {(!isLoading && fsmsData?.fsms?.length > 0) &&
               <Pagination
                 variant="outlined"
                 color="primary"
@@ -65,7 +65,7 @@ const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
                 ))}
               </Grid>
             </Stack>
-            {(!isLoading && fsmsData.fsms.length == 0) &&
+            {(!isLoading && fsmsData?.fsms?.length == 0) &&
               <NoDataFound variant={3} />
             }
           </Stack>
