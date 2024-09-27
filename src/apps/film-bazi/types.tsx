@@ -20,3 +20,43 @@ export type DiscountCodeType = {
   code: string;
   usageCount: number;
 }
+
+type UUID = string; // UUIDField can be represented as a string
+type Decimal = string; // DecimalField can be represented as a string for precision handling
+type URL = string; // URLField can be represented as a string
+type DateTime = string; // DateTimeField can be represented as a string in ISO format
+
+export interface CurrencyType {
+  id: number; // Django adds an id field to all models automatically
+  title: string;
+  name: string;
+  logo: URL;
+  description?: string | null; // Field is nullable
+}
+
+export interface TransactionType {
+  id: number;
+  uuid: UUID;
+  party?: UUID | null; // Field is nullable
+  created_at: DateTime;
+  transaction_type: 'withdraw' | 'deposit';
+}
+
+export interface CurrencyAmountType {
+  id: number;
+  transaction: TransactionType;
+  currency: CurrencyType;
+  amount: Decimal;
+}
+
+export interface BalanceType {
+  id: number;
+  party: UUID;
+  currency: CurrencyType;
+  amount: Decimal;
+  last_updated: DateTime;
+}
+
+export type BalancesType = {
+  [key: string]: number;
+};
