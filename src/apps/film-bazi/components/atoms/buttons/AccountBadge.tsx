@@ -33,7 +33,7 @@ const AccountBadge = () => {
     handleMenuClose();
   };
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <Stack direction="row" alignItems="center" sx={{ paddingY: 1, borderRadius: 2 }}>
         <Skeleton variant="circular" width={35} height={35} />
