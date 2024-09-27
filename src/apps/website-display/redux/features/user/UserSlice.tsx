@@ -77,6 +77,7 @@ type GetVerificationCodeOutputType = void;
 export const UserSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
         method: 'POST',
@@ -105,7 +106,7 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     loginGoogleUser: builder.mutation<LoginGoogleUserOutputType, LoginGoogleUserInputType>({
-      invalidatesTags: [],
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: (body) => ({
         url: 'auth/accounts/login-with-google/',
         method: 'POST',
@@ -126,7 +127,7 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     login: builder.mutation<LoginOutputType, LoginInput>({
-      invalidatesTags: ['player', 'receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: (body) => ({
         url: 'auth/accounts/login/',
         method: 'POST',

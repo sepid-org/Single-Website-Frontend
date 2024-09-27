@@ -113,7 +113,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     registerUserInProgram: builder.mutation<any, { registrationFormId: string, username: string }>({
-      invalidatesTags: ['receipts'],
+      invalidatesTags: ['registration-receipt'],
       query: ({ registrationFormId, username }) => ({
         url: `fsm/registration_form_admin/${registrationFormId}/register_user_in_program/`,
         method: 'POST',

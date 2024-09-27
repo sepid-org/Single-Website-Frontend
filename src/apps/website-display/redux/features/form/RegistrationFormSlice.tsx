@@ -16,7 +16,7 @@ type GetFormAnswerSheetOutputType = {
 export const RegistrationFormSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getRegistrationFormAnswerSheets: builder.query<GetFormAnswerSheetOutputType, { formId: string, pageNumber: string }>({
-      providesTags: ['receipts'],
+      providesTags: ['registration-receipts'],
       query: ({ formId, pageNumber }) => `fsm/registration/${formId}/receipts/?page=${pageNumber}`,
       transformResponse: (response: any): GetFormAnswerSheetOutputType => {
         return response;
@@ -26,7 +26,10 @@ export const RegistrationFormSlice = ContentManagementServiceApi.injectEndpoints
     submitRegistrationForm: builder.mutation<SubmitRegistrationFormOutputType, SubmitRegistrationFormInputType>({
       invalidatesTags: (result, error, item) => {
         if (!error) {
-          return ([{ type: 'receipt', id: result.id }]);
+          return ([
+            { type: 'registration-receipt', id: result.id },
+            { type: 'form', id: item.formId },
+          ]);
         }
       },
       query: ({ formId, ...body }) => ({

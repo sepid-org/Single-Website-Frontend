@@ -71,7 +71,7 @@ export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     respondInvitation: builder.mutation<RespondInvitationOutputType, RespondInvitationInputType>({
-      invalidatesTags: ['team-invitations', 'my-invitations', 'receipt'],
+      invalidatesTags: ['team-invitations', 'my-invitations', 'registration-receipt'],
       query: ({ invitationId, ...body }) => ({
         url: `fsm/invitations/${invitationId}/respond/`,
         method: 'POST',

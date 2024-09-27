@@ -34,7 +34,13 @@ export const FormSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     submitForm: builder.mutation<SubmitFormOutputType, SubmitFormInputType>({
-      invalidatesTags: (result, error, item) => [{ type: 'receipt', id: item.formId }],
+      invalidatesTags: (result, error, item) => {
+        if (!error) {
+          return [
+            { type: 'answer-sheet', id: result.id },
+          ]
+        }
+      },
       query: ({ formId, ...body }) => ({
         url: `fsm/form/${formId}/submit/`,
         method: 'POST',
