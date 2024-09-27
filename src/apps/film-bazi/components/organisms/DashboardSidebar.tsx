@@ -5,14 +5,13 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import ProgramContactInfo from 'commons/components/molecules/ProgramContactInfo';
 import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import YourScore from '../atoms/buttons/YourScore';
+import MyScoreBadge from '../atoms/buttons/MyScoreBadge';
 import DashboardButton from '../atoms/buttons/DashboardButton';
 import RankingIcon from '../atoms/icons/RankingIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
 import HomeIcon from '../atoms/icons/HomeIcon';
-import useGetUserBalances from 'apps/film-bazi/hooks/useGetUserBalances';
 
 type DashboardSidebarPropsType = {}
 
@@ -21,7 +20,6 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: programPermissions } = useGetProgramUserPermissionsQuery({ programSlug });
-  const { balances } = useGetUserBalances();
 
   if (!program) return null;
 
@@ -32,7 +30,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       </Stack>
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
-        <YourScore score={balances['filmbazi-coin'] || 0} />
+        <MyScoreBadge />
         <DashboardButton2 label='صندلی بازی' icon={<CupIcon />} onClick={() => { localNavigate(`/seats-game/`) }} />
         <DashboardButton2 label='پروفایل' icon={<HomeIcon />} onClick={() => { localNavigate(`/profile/`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />

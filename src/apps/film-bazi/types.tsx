@@ -18,7 +18,13 @@ export type FilmType = {
 
 export type DiscountCodeType = {
   code: string;
+  usage_count: number;
+  max_uses: number;
+  percentage: number;
+  film: FilmType;
   usageCount: number;
+  start_date: string;
+  end_date: string;
 }
 
 type UUID = string; // UUIDField can be represented as a string
