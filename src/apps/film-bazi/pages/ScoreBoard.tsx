@@ -10,16 +10,12 @@ import {
 	Container
 } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
-
-interface ScoreRecord {
-	rank: number;
-	name: string;
-	score: number;
-}
+import useGetScoreBoard from '../hooks/useGetScoreBoard';
+import { ScoreBoardItemType } from '../types';
 
 interface CompetitionScoresProps {
-	winners: ScoreRecord[];
-	allScores: ScoreRecord[];
+	winners: ScoreBoardItemType[];
+	allScores: ScoreBoardItemType[];
 }
 
 const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScores }) => {
@@ -65,11 +61,11 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
 	);
 };
 
-const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
+const WinnerCard: React.FC<ScoreBoardItemType> = ({ name, score, rank }) => {
 	const conditionalHeight = rank === 1 ? "198px" : rank === 2 ? "120px" : "58px";
 	const conditionalMargin = rank === 1 ? "0px" : rank === 2 ? "78px" : "140px";
 	const conditionalColor = rank === 1 ? "#d9c66a" : rank === 2 ? "#686868" : "#853414";
-	const conditionalRectaangleColor = rank === 1 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 205, 32, 0.3) 100%)" : rank === 2 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(185, 230, 30, 0.3) 100%)" : "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(235, 92, 36, 0.3) 100%);";
+	const conditionalRectangleColor = rank === 1 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 205, 32, 0.3) 100%)" : rank === 2 ? "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(185, 230, 30, 0.3) 100%)" : "linear-gradient(360deg, rgba(255, 255, 255, 0.03) 0%, rgba(235, 92, 36, 0.3) 100%);";
 
 	return (
 		<Container
@@ -136,7 +132,7 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
 					width: "135.67px",
 					height: conditionalHeight,
 					borderRadius: "10px 10px 0px 0px",
-					background: conditionalRectaangleColor
+					background: conditionalRectangleColor
 
 				}}
 			/>
@@ -144,7 +140,7 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
 	);
 };
 
-const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
+const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score }) => {
 	return (
 		<Box
 			sx={{
@@ -241,6 +237,8 @@ const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
 
 
 const App: React.FC = () => {
+	const { scoreBoard } = useGetScoreBoard();
+
 	const winners = [
 		{ name: 'فاطمه', score: 100, rank: 1 },
 		{ name: 'احمد', score: 90, rank: 2 },
