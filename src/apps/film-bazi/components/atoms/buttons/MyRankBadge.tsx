@@ -3,11 +3,11 @@ import React from "react"
 import StarIcon from "../icons/StarIcon"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
-import useGetUserBalances from "apps/film-bazi/hooks/useGetUserBalances"
 import CustomBadge from "../CustomBadge"
+import useGetMyRank from "apps/film-bazi/hooks/useGetMyRank"
 
 const MyRankBadge = ({ }) => {
-  const rank = 13;
+  const { rank } = useGetMyRank();
 
   return (
     <CustomBadge>
@@ -16,7 +16,7 @@ const MyRankBadge = ({ }) => {
       </Typography>
       <Stack direction={'row'} spacing={0.5}>
         <Typography fontWeight={600} fontSize={16} color={Golden}>
-          {toPersianNumber(rank)}
+          {toPersianNumber(rank?.rank || '-')}
         </Typography>
         <StarIcon />
       </Stack>
