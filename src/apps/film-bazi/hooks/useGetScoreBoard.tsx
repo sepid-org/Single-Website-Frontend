@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmBaziBackendURL } from '../constants/Urls';
+import { FilmBaziApiUrl } from '../constants/Urls';
 import { ScoreBoardItemType } from '../types';
 
 const useGetScoreBoard = (currencyName = 'filmbazi-coin') => {
@@ -18,7 +18,7 @@ const useGetScoreBoard = (currencyName = 'filmbazi-coin') => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziBackendURL}scores/currency-scoreboard/?currency_name=${currencyName}`, {
+        const response = await fetch(`${FilmBaziApiUrl}scores/currency-scoreboard/?currency_name=${currencyName}`, {
           headers: headers,
         });
         if (!response.ok) {

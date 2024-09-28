@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FilmType } from 'apps/film-bazi/types';
-import { FilmBaziBackendURL } from '../constants/Urls';
+import { FilmBaziApiUrl } from '../constants/Urls';
 
 const useGetFilms = () => {
   const [films, setFilms] = useState<FilmType[]>([]);
@@ -18,7 +18,7 @@ const useGetFilms = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziBackendURL}films/films/`, {
+        const response = await fetch(`${FilmBaziApiUrl}films/films/`, {
           headers: headers,
         });
         if (!response.ok) {

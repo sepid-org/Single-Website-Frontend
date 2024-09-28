@@ -1,3 +1,1 @@
-export const FilmBaziBackendURL = process.env.NODE_ENV === 'production'
-  ? 'https://api.filmbazi.ir/'
-  : 'http://localhost:12000/';
+export const FilmBaziApiUrl = process.env.REACT_APP_FILMBAZI_API_URL || 'http://localhost:12000/';
