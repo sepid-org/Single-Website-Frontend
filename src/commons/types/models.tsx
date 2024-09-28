@@ -286,6 +286,8 @@ export type EdgeType = {
 export type CurrencyType = any;
 
 
+/////////////// ATTRIBUTES ///////////////
+
 export type Attribute = {
 
 }
@@ -311,9 +313,14 @@ export type FSMUserPermissions = {
   is_mentor: boolean;
 }
 
+ 
+/////////////// OBJECT ///////////////
 
 export type ObjectType = {
-  widget?: number;
-  position?: PositionType;
   id: number;
+  name?: string;
+  title: string;
+  position?: PositionType;
+
+  widget?: number;
 }
