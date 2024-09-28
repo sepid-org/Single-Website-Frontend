@@ -67,8 +67,7 @@ const AccountBadge = () => {
             alt={fullName}
             sx={{ width: 35, height: 35 }}
           />
-
-          <Typography fontWeight={700} fontSize={16} paddingLeft={1}>
+          <Typography fontWeight={700} fontSize={16} paddingLeft={1} noWrap sx={{ maxWidth: { xs: 120, sm: 160, md: '100%' } }}>
             {fullName}
           </Typography>
           {isMenuOpen ?
