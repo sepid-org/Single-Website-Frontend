@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmBaziBackendURL } from '../constants/Urls';
+import { FilmBaziApiUrl } from '../constants/Urls';
 import { DiscountCodeType } from '../types';
 
 const useGetDiscountCode = () => {
@@ -24,7 +24,7 @@ const useGetDiscountCode = () => {
         headers.append('Authorization', `JWT ${accessToken}`);
       }
 
-      const response = await fetch(`${FilmBaziBackendURL}films/discount-codes/get_discount_code/?film=${filmId}`, {
+      const response = await fetch(`${FilmBaziApiUrl}films/discount-codes/get_discount_code/?film=${filmId}`, {
         headers: headers,
       });
 

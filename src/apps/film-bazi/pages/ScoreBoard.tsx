@@ -12,6 +12,7 @@ import {
 import AppBarComponent from '../components/organisms/Appbar';
 import useGetScoreBoard from '../hooks/useGetScoreBoard';
 import { ScoreBoardItemType } from '../types';
+import useGetMyRank from '../hooks/useGetMyRank';
 
 interface CompetitionScoresProps {
 	winners: ScoreBoardItemType[];
@@ -238,6 +239,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, first_name, last_name
 
 const App: React.FC = () => {
 	const { scoreBoard } = useGetScoreBoard();
+	const { rank } = useGetMyRank();
 
 	const winners = [
 		{ rank: 1, first_name: 'فاطمه', last_name: 'هاشمی', score: 100 },

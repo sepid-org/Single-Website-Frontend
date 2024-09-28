@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { DiscountCodeType, FilmType } from 'apps/film-bazi/types';
-import { FilmBaziBackendURL } from '../constants/Urls';
+import { FilmBaziApiUrl } from '../constants/Urls';
 
 const useGetMyDiscountCodes = () => {
   const [discountCodes, setDiscountCodes] = useState<DiscountCodeType[]>([]);
@@ -18,7 +18,7 @@ const useGetMyDiscountCodes = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziBackendURL}films/discount-codes/get_my_discount_codes/`, {
+        const response = await fetch(`${FilmBaziApiUrl}films/discount-codes/get_my_discount_codes/`, {
           headers: headers,
         });
         if (!response.ok) {
