@@ -15,12 +15,16 @@ import {
 	PaginationItem
 } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
+import useGetMyRank from '../hooks/useGetMyRank';
+import { from } from 'stylis';
+import { useSelector } from 'react-redux';
 
 interface ScoreRecord {
 	rank: number;
 	first_name: string;
 	last_name: string;
 	score: number;
+	currentUser: boolean;
 }
 
 interface WinnerScore{
@@ -30,57 +34,51 @@ interface WinnerScore{
 
 
 const App: React.FC = () => {
-	const { scoreBoard, loading, error } = useGetScoreBoard();
-	const [winners, setWinners] = useState([]);
+	let { scoreBoard, loading: scoreBoardLoading } = useGetScoreBoard();
+	const {rank: myRank, loading: myRankLoading, error: myRankError} = useGetMyRank();
+	
+    const [winners, setWinners] = useState([]);
+	const [scoreRecords, setScoreRecords] = useState([]);
+
+	const userAccount = useSelector((state: any) => state.account);
+
 	useEffect(() => {
-		if (!loading) {
+		if (!scoreBoardLoading) {
 		  const calculateWinners = () => {
 			const ranks = [];
 			for(let i = 1; i < 4; i++){
 				let rank = scoreBoard.find(record => record.rank === i);
-				//console.log(rank);
 				if(rank != null){
 					ranks.push({rank: i, score: rank.score});
 				}
 			}
 			setWinners(ranks);
+			for(let i = 0; i < scoreBoard.length; i++){
+				Object.defineProperty(scoreBoard[i], "currentUser", {value: false, writable: true});
+			}
+			setScoreRecords(scoreBoard);
 		  };
 		  calculateWinners();
 		}
-	  }, [loading]);
-	//const winners = [{rank: 1, score: 100}, {rank: 2, score: 90}, {rank: 3, score: 80}]
+	  }, [scoreBoardLoading]);
 
-	/*for(let i = 0; i < allScores.length; i++){
-		for(let j = i; j < allScores.length; j++){
-			if(allScores[i].score < allScores[j].score){
-				let temp = allScores[i];
-				allScores[i] = allScores[j];
-				allScores[j] = temp;
+	useEffect(() => {
+		if(!scoreBoardLoading && !myRankLoading && myRank!= null){
+			let currentUser = (scoreBoard.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
+			if (currentUser != null){
+				currentUser.currentUser = true;
+				setScoreRecords(scoreBoard);
 			}
 		}
-	}
-	let currentScore = allScores[0].score;
-	let currentRank = 1;
-	let winners: WinnerScore[] = [{rank: currentRank, score: currentScore}];
-	for(let i = 0; i < allScores.length; i++){
-		if(allScores[i].score === currentScore){
-			Object.defineProperty(allScores[i], "rank", {value: currentRank})
-		}
-		else{
-			Object.defineProperty(allScores[i], "rank", {value: currentRank + 1});
-			currentRank += 1;
-			currentScore = allScores[i].score;
-			if(currentRank < 4){
-				winners.push({rank: currentRank, score: currentScore});
-			}
-		}
-	}*/
+	}, [scoreBoardLoading, myRankLoading])
+
+	
 	
 
 	return (
 		<Fragment>
 			<AppBarComponent />	
-			<CompetitionScores winners={winners} allScores={scoreBoard} />
+			<CompetitionScores winners={winners} allScores={scoreRecords} />
 			{scoreBoard.map((record) => (<p>{record.first_name}</p>))}
 		</Fragment>
 	);
@@ -141,7 +139,7 @@ function CompetitionScores({ winners, allScores }){
                 container
             >
                 {allScores.map(record => (
-                    <ScoreRecord key={record.rank} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} />
+                    <ScoreRecord key={record.rank} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser}/>
                 ))}
             </Grid>
 			{/*<Pagination
@@ -234,8 +232,9 @@ const WinnerCard: React.FC<WinnerScore> = ({ score, rank }) => {
     );  
 };
       
-const ScoreRecord: React.FC<ScoreRecord> = ({ rank, first_name, last_name, score }) => {
-const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank === 3? "#853414" : "#99999905";
+const ScoreRecord: React.FC<ScoreRecord> = ({ rank, first_name, last_name, score, currentUser }) => {
+	const conditionalUsreBackground = currentUser? "#2bb013": "#99999905";
+	const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank === 3? "#853414" : "#99999905";
     return (
         <Grid 
             item
@@ -293,7 +292,8 @@ const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank =
                         padding: "16px",
                         gap: "12px",
                         background: "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)",
-                    }}
+						backgroundColor: conditionalUsreBackground,
+					}}
                     item
                     xs={6}
                 >
