@@ -42,26 +42,26 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ winners, allScore
 			>
 				<Grid width={'100%'} container spacing={2}>
 					<Grid item xs={4}>
-						< WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
+						<WinnerCard first_name={winners[2]?.first_name} last_name={winners[2]?.last_name} score={winners[2]?.score} rank={winners[2]?.rank} />
 					</Grid>
 					<Grid item xs={4}>
-						<WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
+						<WinnerCard first_name={winners[0]?.first_name} last_name={winners[0]?.last_name} score={winners[0]?.score} rank={winners[0]?.rank} />
 					</Grid>
 					<Grid item xs={4}>
-						<WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
+						<WinnerCard first_name={winners[1]?.first_name} last_name={winners[1]?.last_name} score={winners[1]?.score} rank={winners[1]?.rank} />
 					</Grid>
 				</Grid>
 			</Box>
 			<Box sx={{ width: '100%', maxWidth: 600 }}>
 				{allScores.map(record => (
-					<ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
+					<ScoreRecord key={record.rank} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} />
 				))}
 			</Box>
 		</Box>
 	);
 };
 
-const WinnerCard: React.FC<ScoreBoardItemType> = ({ name, score, rank }) => {
+const WinnerCard: React.FC<ScoreBoardItemType> = ({ first_name, last_name, score, rank }) => {
 	const conditionalHeight = rank === 1 ? "198px" : rank === 2 ? "120px" : "58px";
 	const conditionalMargin = rank === 1 ? "0px" : rank === 2 ? "78px" : "140px";
 	const conditionalColor = rank === 1 ? "#d9c66a" : rank === 2 ? "#686868" : "#853414";
@@ -113,7 +113,7 @@ const WinnerCard: React.FC<ScoreBoardItemType> = ({ name, score, rank }) => {
 					color: conditionalColor
 				}}
 			>
-				{name}
+				{`${first_name} ${last_name}`}
 			</Typography>
 			<Typography
 				sx={{
@@ -140,7 +140,7 @@ const WinnerCard: React.FC<ScoreBoardItemType> = ({ name, score, rank }) => {
 	);
 };
 
-const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score }) => {
+const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, first_name, last_name, score }) => {
 	return (
 		<Box
 			sx={{
@@ -200,7 +200,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score }) => {
 						color: "white"
 					}}
 				>
-					{name}
+					{`${first_name} ${last_name}`}
 				</Typography>
 				<Box
 					sx={{
@@ -240,17 +240,17 @@ const App: React.FC = () => {
 	const { scoreBoard } = useGetScoreBoard();
 
 	const winners = [
-		{ name: 'فاطمه', score: 100, rank: 1 },
-		{ name: 'احمد', score: 90, rank: 2 },
-		{ name: 'زهرا', score: 80, rank: 3 },
+		{ rank: 1, first_name: 'فاطمه', last_name: 'هاشمی', score: 100 },
+		{ rank: 2, first_name: 'احمد', last_name: 'هاشمی‌فر', score: 90 },
+		{ rank: 3, first_name: 'زهرا', last_name: 'هاشمی‌نسب', score: 80 },
 	];
 
 	const allScores = [
-		{ rank: 1, name: 'فاطمه', score: 100 },
-		{ rank: 2, name: 'احمد', score: 90 },
-		{ rank: 3, name: 'زهرا', score: 80 },
-		{ rank: 4, name: 'علی', score: 70 },
-		{ rank: 5, name: 'قلی', score: 60 },
+		{ rank: 1, first_name: 'فاطمه', last_name: 'هاشمی', score: 100 },
+		{ rank: 2, first_name: 'احمد', last_name: 'هاشمی‌فر', score: 90 },
+		{ rank: 3, first_name: 'زهرا', last_name: 'هاشمی‌نسب', score: 80 },
+		{ rank: 4, first_name: 'علی', last_name: 'هاشمیچیان', score: 70 },
+		{ rank: 5, first_name: 'قلی', last_name: 'هاشمی‌پور', score: 60 },
 	];
 
 	return (

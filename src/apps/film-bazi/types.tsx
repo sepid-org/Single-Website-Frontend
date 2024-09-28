@@ -69,6 +69,7 @@ export type BalancesType = {
 
 export interface ScoreBoardItemType {
   rank: number;
-  name: string;
+  first_name: string;
+  last_name: string;
   score: number;
 }
