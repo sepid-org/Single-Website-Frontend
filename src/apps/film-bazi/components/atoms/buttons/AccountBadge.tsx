@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { IconButton, Stack, Typography, Avatar, Menu, MenuItem, Skeleton, useTheme, useMediaQuery } from "@mui/material";
+import React, { Fragment, useState } from "react";
+import { IconButton, Stack, Typography, Avatar, Menu, MenuItem, Skeleton, useTheme, useMediaQuery, Button } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import useLocalNavigate from "apps/film-bazi/hooks/useLocalNavigate";
 import useUserProfile from "commons/hooks/useUserProfile";
 import useLogout from "commons/hooks/useLogout";
@@ -51,27 +52,31 @@ const AccountBadge = () => {
   const { profile_picture: profilePicture, fullName } = userProfile;
 
   return (
-    <Stack
-      direction="row"
-      alignItems="center"
-      sx={{
-        paddingY: 1,
-        borderRadius: 2,
-      }}
-    >
-      <Avatar
-        src={profilePicture}
-        alt={fullName}
-        sx={{ width: 35, height: 35 }}
-      />
+    <Fragment>
+      <Button size="small" disableRipple onClick={handleMenuOpen}>
+        <Stack
+          direction="row"
+          alignItems="center"
+          sx={{
+            // paddingY: 1,
+            borderRadius: 2,
+          }}
+        >
+          <Avatar
+            src={profilePicture}
+            alt={fullName}
+            sx={{ width: 35, height: 35 }}
+          />
 
-      <Typography fontWeight={700} fontSize={16} paddingLeft={1}>
-        {fullName}
-      </Typography>
-
-      <IconButton sx={{ color: 'white' }} onClick={handleMenuOpen}>
-        <KeyboardArrowDownIcon />
-      </IconButton>
+          <Typography fontWeight={700} fontSize={16} paddingLeft={1}>
+            {fullName}
+          </Typography>
+          {isMenuOpen ?
+            <KeyboardArrowUp sx={{ marginLeft: 1 }} /> :
+            <KeyboardArrowDownIcon sx={{ marginLeft: 1 }} />
+          }
+        </Stack>
+      </Button>
 
       <Menu
         anchorEl={anchorEl}
@@ -79,7 +84,7 @@ const AccountBadge = () => {
         onClose={handleMenuClose}
         anchorOrigin={{
           vertical: 'bottom',
-          horizontal: 'center',
+          horizontal: 'left',
         }}
         transformOrigin={{
           vertical: 'top',
@@ -89,7 +94,7 @@ const AccountBadge = () => {
         <MenuItem onClick={handleProfileClick}>پروفایل</MenuItem>
         <MenuItem onClick={handleLogoutClick}>خروج</MenuItem>
       </Menu>
-    </Stack>
+    </Fragment >
   );
 };
 
