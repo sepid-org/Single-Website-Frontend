@@ -17,7 +17,7 @@ const CreateAttributeDialog: FC<CreateAttributeDialogPropsType> = ({
   open,
   handleClose,
 }) => {
-  const { data: currencies } = useGetCurrenciesQuery({});
+  // const { data: currencies } = useGetCurrenciesQuery({});
 
   return (
     <Dialog disableScrollLock open={open} maxWidth="md" onClose={handleClose}>
