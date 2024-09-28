@@ -3,22 +3,17 @@ import React from "react"
 import StarIcon from "../icons/StarIcon"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
+import useGetUserBalances from "apps/film-bazi/hooks/useGetUserBalances"
+import CustomBadge from "../CustomBadge"
 
-const YourScore = ({ score = 1085 }) => {
+const MyScoreBadge = ({ }) => {
+  const { balances, loading } = useGetUserBalances();
+  const score = balances['filmbazi-coin'] || 0;
 
   return (
-    <Stack
-      direction={'row'}
-      alignItems={'center'}
-      justifyContent={'space-between'}
-      sx={{
-        background: '#00000033',
-        paddingX: 2,
-        paddingY: 1,
-        borderRadius: 2,
-      }}>
+    <CustomBadge>
       <Typography fontWeight={700} fontSize={18}>
-        {'امتیاز تو'}
+        {'امتیاز من'}
       </Typography>
       <Stack direction={'row'} spacing={0.5}>
         <Typography fontWeight={600} fontSize={16} color={Golden}>
@@ -26,8 +21,8 @@ const YourScore = ({ score = 1085 }) => {
         </Typography>
         <StarIcon />
       </Stack>
-    </Stack>
+    </CustomBadge >
   )
 }
 
-export default YourScore;
+export default MyScoreBadge;

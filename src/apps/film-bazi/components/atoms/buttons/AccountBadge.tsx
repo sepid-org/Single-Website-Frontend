@@ -1,43 +1,54 @@
-import { IconButton, Stack, Typography, Avatar, Menu, MenuItem } from "@mui/material";
 import React, { useState } from "react";
+import { IconButton, Stack, Typography, Avatar, Menu, MenuItem, Skeleton, useTheme, useMediaQuery } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { useSelector } from "react-redux";
-import { useGetUserProfileQuery } from "apps/website-display/redux/features/party/ProfileSlice";
 import useLocalNavigate from "apps/film-bazi/hooks/useLocalNavigate";
 import useUserProfile from "commons/hooks/useUserProfile";
 import useLogout from "commons/hooks/useLogout";
 
 const AccountBadge = () => {
   const localNavigate = useLocalNavigate();
-  const { data: { profile_picture: profilePicture, fullName } } = useUserProfile();
+  const { data: userProfile, isLoading } = useUserProfile();
   const { logout } = useLogout();
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
-  // State to manage the menu
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
-  // Handle menu opening
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Handle menu closing
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
-  // Menu option handlers
   const handleProfileClick = () => {
-    // Logic for navigating to profile
     localNavigate('/profile/');
     handleMenuClose();
   };
 
   const handleLogoutClick = () => {
-    // Logic for logging out
     logout();
     handleMenuClose();
   };
+
+  if (isLoading) {
+    return (
+      <Stack direction="row" alignItems="center" sx={{ paddingY: 1, borderRadius: 2 }}>
+        <Skeleton variant="circular" width={35} height={35} />
+        <Skeleton
+          variant="text"
+          width={isXs ? 120 : 160}
+          height={40}
+          sx={{ marginLeft: 1 }}
+        />
+        <Skeleton variant="circular" width={24} height={24} sx={{ marginLeft: 1 }} />
+      </Stack>
+    );
+  }
+
+  const { profile_picture: profilePicture, fullName } = userProfile;
 
   return (
     <Stack
@@ -58,12 +69,10 @@ const AccountBadge = () => {
         {fullName}
       </Typography>
 
-      {/* Icon button for opening the menu */}
       <IconButton sx={{ color: 'white' }} onClick={handleMenuOpen}>
         <KeyboardArrowDownIcon />
       </IconButton>
 
-      {/* Dropdown menu */}
       <Menu
         anchorEl={anchorEl}
         open={isMenuOpen}

@@ -8,8 +8,9 @@ import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import Paper from './Paper';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
-import { useGetFormQuery, useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
+import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import { toast } from 'react-toastify';
+import { useSubmitRegistrationFormMutation } from 'apps/website-display/redux/features/form/RegistrationFormSlice';
 
 type RegistrationFormPropsType = {
   onSuccess?: any;
@@ -27,11 +28,10 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: registrationForm } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
-  const [submitRegistrationForm, submitRegistrationFormResult] = useSubmitFormMutation();
+  const [submitRegistrationForm, submitRegistrationFormResult] = useSubmitRegistrationFormMutation();
 
   const submit = () => {
     submitRegistrationForm({
-      answer_sheet_type: 'RegistrationReceipt',
       formId: registrationForm.id,
       answers,
     });

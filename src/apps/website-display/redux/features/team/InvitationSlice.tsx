@@ -47,7 +47,7 @@ export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
 
     getMyInvitations: builder.query<GetMyInvitationsOutputType, GetMyInvitationsInputType>({
       providesTags: ['my-invitations'],
-      query: ({ registrationFormId }) => `fsm/form/${registrationFormId}/my_invitations/`,
+      query: ({ registrationFormId }) => `fsm/registration/${registrationFormId}/my_invitations/`,
       transformResponse: (response: any): GetMyInvitationsOutputType => {
         return response;
       },
@@ -71,7 +71,7 @@ export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     respondInvitation: builder.mutation<RespondInvitationOutputType, RespondInvitationInputType>({
-      invalidatesTags: ['team-invitations', 'my-invitations', 'receipt'],
+      invalidatesTags: ['team-invitations', 'my-invitations', 'registration-receipt'],
       query: ({ invitationId, ...body }) => ({
         url: `fsm/invitations/${invitationId}/respond/`,
         method: 'POST',

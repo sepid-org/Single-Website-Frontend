@@ -1,23 +1,15 @@
 import { AnswerType, RegistrationFormType, RegistrationReceiptType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-// todo: should be based on form type
 type GetFormOutputType = RegistrationFormType;
 
 type SubmitFormInputType = {
   formId: string;
-  answer_sheet_type: 'RegistrationReceipt';
   answers: AnswerType[];
 }
 
 type SubmitFormOutputType = RegistrationReceiptType;
 
-type GetFormAnswerSheetOutputType = {
-  count: number;
-  results: RegistrationReceiptType[];
-}
-
-// todo: should be based on form type
 type UpdateFormInputType = Partial<RegistrationFormType>
 
 type UpdateFormOutputType = any;
@@ -41,29 +33,28 @@ export const FormSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    getFormAnswerSheets: builder.query<GetFormAnswerSheetOutputType, { formId: string, pageNumber: string }>({
-      providesTags: ['receipts'],
-      query: ({ formId, pageNumber }) => `fsm/form/${formId}/receipts/?page=${pageNumber}`,
-      transformResponse: (response: any): GetFormAnswerSheetOutputType => {
-        return response;
-      },
-    }),
-
     submitForm: builder.mutation<SubmitFormOutputType, SubmitFormInputType>({
-      invalidatesTags: (result, error, item) => [{ type: 'receipt', id: item.formId }],
+      invalidatesTags: (result, error, item) => {
+        if (!error) {
+          return [
+            { type: 'answer-sheet', id: result.id },
+          ]
+        }
+      },
       query: ({ formId, ...body }) => ({
-        url: `fsm/form/${formId}/register/`,
+        url: `fsm/form/${formId}/submit/`,
         method: 'POST',
-        body,
+        body: {
+          answer_sheet_type: 'General',
+          ...body,
+        },
       }),
     }),
-
   })
 });
 
 export const {
   useGetFormQuery,
   useUpdateFormMutation,
-  useGetFormAnswerSheetsQuery,
   useSubmitFormMutation,
 } = FormSlice;

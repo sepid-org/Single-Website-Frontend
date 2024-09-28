@@ -4,11 +4,18 @@ import UserSetting from 'commons/template/Setting/UserSetting';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container, Paper } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
+import MyAssets from '../components/template/MyAssets';
 
 let tabs: DashboardTabType[] = [
   {
+    slug: 'assets',
+    label: 'دارایی‌ها',
+    component: <MyAssets />,
+    disabled: false,
+  },
+  {
     slug: 'user',
-    label: 'مشخصات',
+    label: 'اطلاعات فردی',
     component: <UserSetting />,
     disabled: false,
   },

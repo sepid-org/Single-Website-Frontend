@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmType } from 'apps/film-bazi/types';
+import { BalancesType } from 'apps/film-bazi/types';
 import { FilmBaziApiUrl } from '../constants/Urls';
 
-const useGetFilms = () => {
-  const [films, setFilms] = useState<FilmType[]>([]);
+const useGetUserBalances = () => {
+  const [balances, setBalances] = useState<BalancesType>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
   useEffect(() => {
-    const fetchFilms = async () => {
+    const fetchBalances = async () => {
       try {
         const headers = new Headers();
         if (accessToken) {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}films/films/`, {
+        const response = await fetch(`${FilmBaziApiUrl}scores/user-balance/`, {
           headers: headers,
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const data: FilmType[] = await response.json();
-        setFilms(data);
+        const data: BalancesType = await response.json();
+        setBalances(data);
         setLoading(false);
       } catch (error) {
         setError(error instanceof Error ? error.message : 'An unknown error occurred');
@@ -33,11 +33,11 @@ const useGetFilms = () => {
       }
     };
     if (accessToken) {
-      fetchFilms();
+      fetchBalances();
     }
   }, [accessToken]);
 
-  return { films, loading, error };
+  return { balances, loading, error };
 };
 
-export default useGetFilms;
+export default useGetUserBalances;

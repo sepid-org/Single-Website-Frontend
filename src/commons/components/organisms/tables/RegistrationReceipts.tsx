@@ -4,10 +4,10 @@ import {
 } from '@mui/material';
 import React, { FC, Fragment, useState } from 'react';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
-import { useGetFormAnswerSheetsQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import { useDeleteReceiptMutation } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AreYouSure from '../dialogs/AreYouSure';
+import { useGetRegistrationFormAnswerSheetsQuery } from 'apps/website-display/redux/features/form/RegistrationFormSlice';
 
 const STATUS = {
   Waiting: 'منتظر',
@@ -24,7 +24,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
 }) => {
   const [page, setPage] = React.useState(1);
   const [selectedReceiptId, setSelectedReceiptId] = useState<string>(null);
-  const { data: allRegistrationReceipts } = useGetFormAnswerSheetsQuery({
+  const { data: allRegistrationReceipts } = useGetRegistrationFormAnswerSheetsQuery({
     formId: registrationFormId,
     pageNumber: page.toString()
   }, {

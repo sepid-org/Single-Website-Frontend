@@ -1,10 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import goldenStarIcon from "../assets/filledStarIcon.svg";
 import backgroundImg from "../assets/background.png";
 import starIcon from "../assets/starIcon.svg";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import useGetScoreBoard from '../hooks/useGetScoreBoard';
 import {
 	Box,
 	Typography,
@@ -17,7 +18,8 @@ import AppBarComponent from '../components/organisms/Appbar';
 
 interface ScoreRecord {
 	rank: number;
-	name: string;
+	first_name: string;
+	last_name: string;
 	score: number;
 }
 
@@ -28,34 +30,27 @@ interface WinnerScore{
 
 
 const App: React.FC = () => {
-	const allScores = [
-		{ name: 'فاطمه', score: 100 },
-		{ name: 'احمد', score: 90 },
-		{ name: 'زهرا', score: 80 },
-		{ name: 'علی', score: 70 },
-		{ name: 'قلی', score: 60 },
-		{ name: 'فاطمه', score: 70 },
-		{ name: 'احمد', score: 100 },
-		{ name: 'زهرا', score: 70 },
-		{ name: 'علی', score: 90 },
-		{ name: 'قلی', score: 60 },
-		{ name: 'فاطمه', score: 70 },
-		{ name: 'احمد', score: 70 },
-		{ name: 'زهرا', score: 70 },
-		{ name: 'علی', score: 70 },
-		{ name: 'قلی', score: 100 },
-		{ name: 'فاطمه', score: 70 },
-		{ name: 'احمد', score: 70 },
-		{ name: 'زهرا', score: 70 },
-		{ name: 'علی', score: 70 },
-		{ name: 'قلی', score: 60 },
-		{ name: 'فاطمه', score: 70 },
-		{ name: 'احمد', score: 70 },
-		{ name: 'زهرا', score: 70 },
-		{ name: 'علی', score: 90 },
-		{ name: 'قلی', score: 60 },
-	];
-	for(let i = 0; i < allScores.length; i++){
+	const { scoreBoard, loading, error } = useGetScoreBoard();
+	const [winners, setWinners] = useState([]);
+	useEffect(() => {
+		if (!loading) {
+		  const calculateWinners = () => {
+			const ranks = [];
+			for(let i = 1; i < 4; i++){
+				let rank = scoreBoard.find(record => record.rank === i);
+				//console.log(rank);
+				if(rank != null){
+					ranks.push({rank: i, score: rank.score});
+				}
+			}
+			setWinners(ranks);
+		  };
+		  calculateWinners();
+		}
+	  }, [loading]);
+	//const winners = [{rank: 1, score: 100}, {rank: 2, score: 90}, {rank: 3, score: 80}]
+
+	/*for(let i = 0; i < allScores.length; i++){
 		for(let j = i; j < allScores.length; j++){
 			if(allScores[i].score < allScores[j].score){
 				let temp = allScores[i];
@@ -79,13 +74,14 @@ const App: React.FC = () => {
 				winners.push({rank: currentRank, score: currentScore});
 			}
 		}
-	}
+	}*/
 	
 
 	return (
 		<Fragment>
 			<AppBarComponent />	
-			<CompetitionScores winners={winners} allScores={allScores} />
+			<CompetitionScores winners={winners} allScores={scoreBoard} />
+			{scoreBoard.map((record) => (<p>{record.first_name}</p>))}
 		</Fragment>
 	);
 };
@@ -94,10 +90,10 @@ export default App;
 
 
 function CompetitionScores({ winners, allScores }){
-    const [scorePage, setScorePage] = useState(1);
+    /*const [scorePage, setScorePage] = useState(1);
 	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 		setScorePage(value);
-	};
+	};*/
 	return (
         <Box
             sx={{
@@ -127,13 +123,13 @@ function CompetitionScores({ winners, allScores }){
                     }}
                 >
                     <Grid>
-                        < WinnerCard name={winners[2]?.name} score={winners[2]?.score} rank={winners[2]?.rank} />
+                        < WinnerCard score={winners[2]?.score} rank={winners[2]?.rank} />
                     </Grid>
                     <Grid>
-                        <WinnerCard name={winners[0]?.name} score={winners[0]?.score} rank={winners[0]?.rank} />
+                        <WinnerCard score={winners[0]?.score} rank={winners[0]?.rank} />
                     </Grid>
                     <Grid>
-                        <WinnerCard name={winners[1]?.name} score={winners[1]?.score} rank={winners[1]?.rank} />
+                        <WinnerCard score={winners[1]?.score} rank={winners[1]?.rank} />
                     </Grid>
                 </Grid>
             </Box>
@@ -145,7 +141,7 @@ function CompetitionScores({ winners, allScores }){
                 container
             >
                 {allScores.map(record => (
-                    <ScoreRecord key={record.rank} rank={record.rank} name={record.name} score={record.score} />
+                    <ScoreRecord key={record.rank} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} />
                 ))}
             </Grid>
 			{/*<Pagination
@@ -169,7 +165,7 @@ function CompetitionScores({ winners, allScores }){
     );
 };
       
-const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
+const WinnerCard: React.FC<WinnerScore> = ({ score, rank }) => {
     const conditionalHeight = rank === 1 ? "198px" : rank === 2 ? "120px" : "58px";
     const conditionalMargin = rank === 1 ? "0px" : rank === 2 ? "78px" : "140px"; 
     const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : "#853414";
@@ -238,7 +234,7 @@ const WinnerCard: React.FC<ScoreRecord> = ({ name, score, rank }) => {
     );  
 };
       
-const ScoreRecord: React.FC<ScoreRecord> = ({ rank, name, score }) => {
+const ScoreRecord: React.FC<ScoreRecord> = ({ rank, first_name, last_name, score }) => {
 const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank === 3? "#853414" : "#99999905";
     return (
         <Grid 
@@ -314,7 +310,7 @@ const conditionalColor = rank === 1? "#d9c66a" : rank === 2 ? "#686868" : rank =
                             marginLeft: "10px"
                         }}
                     >
-                        {name}
+                        {first_name + " " + last_name}
                     </Typography>
                     <Box 
                         sx={{ 

@@ -1,31 +1,31 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmType } from 'apps/film-bazi/types';
 import { FilmBaziApiUrl } from '../constants/Urls';
+import { ScoreBoardItemType } from '../types';
 
-const useGetFilms = () => {
-  const [films, setFilms] = useState<FilmType[]>([]);
+const useGetScoreBoard = (currencyName = 'filmbazi-coin') => {
+  const [scoreBoard, setScoreBoard] = useState<ScoreBoardItemType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
   useEffect(() => {
-    const fetchFilms = async () => {
+    const fetchScoreBoard = async () => {
       try {
         const headers = new Headers();
         if (accessToken) {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}films/films/`, {
+        const response = await fetch(`${FilmBaziApiUrl}scores/currency-scoreboard/?currency_name=${currencyName}`, {
           headers: headers,
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
-        const data: FilmType[] = await response.json();
-        setFilms(data);
+        const data: ScoreBoardItemType[] = await response.json();
+        setScoreBoard(data);
         setLoading(false);
       } catch (error) {
         setError(error instanceof Error ? error.message : 'An unknown error occurred');
@@ -33,11 +33,11 @@ const useGetFilms = () => {
       }
     };
     if (accessToken) {
-      fetchFilms();
+      fetchScoreBoard();
     }
   }, [accessToken]);
 
-  return { films, loading, error };
+  return { scoreBoard, loading, error };
 };
 
-export default useGetFilms;
+export default useGetScoreBoard;

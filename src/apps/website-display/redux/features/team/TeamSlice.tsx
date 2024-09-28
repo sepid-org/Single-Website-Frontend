@@ -70,7 +70,7 @@ export const TeamSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     createAndJoinTeam: builder.mutation<CreateAndJoinTeamOutputType, CreateAndJoinTeamInputType>({
-      invalidatesTags: ['teams', 'receipt'],
+      invalidatesTags: ['teams', 'registration-receipt'],
       query: ({ programSlug, ...body }) => ({
         url: `fsm/team/create_and_join_team/`,
         method: 'POST',
@@ -95,7 +95,7 @@ export const TeamSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     deleteTeam: builder.mutation<DeleteTeamOutputType, DeleteTeamInputType>({
-      invalidatesTags: ['teams', 'receipt'],
+      invalidatesTags: ['teams', 'registration-receipt'],
       query: ({ teamId }) => ({
         url: `fsm/team/${teamId}/`,
         method: 'DELETE',

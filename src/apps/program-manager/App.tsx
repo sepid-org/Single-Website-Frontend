@@ -15,14 +15,8 @@ const App = () => {
       <Route path="/:programSlug/*" element={<Program />} />
 
       <Route path="/" element={<PrivateRoute />}>
-        <Route
-          path="/:programSlug/form/"
-          element={<Registration />}
-        />
-        <Route
-          path="/:programSlug/team-setting/"
-          element={<TeamSetting />}
-        />
+        <Route path="/:programSlug/form/" element={<Registration />} />
+        <Route path="/:programSlug/team-setting/" element={<TeamSetting />} />
         <Route path="/:programSlug/manage/" element={<ProgramManagement />} />
       </Route>
 

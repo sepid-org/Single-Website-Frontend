@@ -13,7 +13,7 @@ type UserAvatarPropsType = {}
 
 const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
   const { logout } = useLogout();
-  const { data: { fullName } } = useUserProfile();
+  const { data: { fullName, profile_picture: profilePicture } } = useUserProfile();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -29,12 +29,11 @@ const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
 
   return (
     <Fragment>
-      <IconButton onClick={handleClick}>
+      <IconButton size='small' onClick={handleClick}>
         <Avatar
+          src={profilePicture}
           sx={{ backgroundColor: stringToColor(fullName) }}
-          alt="logo">
-          {fullName[0]}
-        </Avatar>
+          alt="logo" />
       </IconButton>
       <Menu
         disableScrollLock
