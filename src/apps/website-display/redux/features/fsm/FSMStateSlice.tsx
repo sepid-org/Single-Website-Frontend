@@ -1,5 +1,6 @@
 import { FSMStateType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type UpdateFSMStateInputType = {
   fsmStateId: string;
@@ -36,15 +37,13 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateFSMState: builder.mutation<UpdateFSMStateOutputType, UpdateFSMStateInputType>({
-      invalidatesTags: (result, error, item) => {
-        if (!error) {
-          return ([
-            { type: 'fsm-state', id: result.id },
-            'fsm-states',
-            'player-transited-path',
-          ]);
-        }
-      },
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [
+          { type: 'fsm-state', id: result.id },
+          'fsm-states',
+          'player-transited-path',
+        ]
+      ),
       query: ({ fsmStateId, ...body }) => ({
         url: `/fsm/state/${fsmStateId}/`,
         method: 'PATCH',
@@ -56,7 +55,7 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     deleteFSMState: builder.mutation<any, { fsmStateId: string }>({
-      invalidatesTags: ['fsm-states', 'player-transited-path'],
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-states', 'player-transited-path']),
       query: ({ fsmStateId }) => ({
         url: `/fsm/state/${fsmStateId}/`,
         method: 'DELETE',
@@ -64,11 +63,9 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getFSMState: builder.query<GetFSMStateOutputType, { fsmStateId: string }>({
-      providesTags: (result, error, item) => {
-        if (!error) {
-          return ([{ type: 'fsm-state', id: result.id }]);
-        }
-      },
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'fsm-state', id: result.id }]
+      ),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/`,
       transformResponse: (response: any): GetFSMStateOutputType => {
         return response;
