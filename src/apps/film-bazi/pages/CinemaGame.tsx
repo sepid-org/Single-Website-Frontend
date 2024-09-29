@@ -2,11 +2,12 @@ import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
 import { Box, Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 import BoardPaper from 'commons/template/Paper/BoardPaper';
+import { objectLogics } from '../utils/CinemaGameLogic';
 
 type SeatsGamePropsType = {}
 
-const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = '2496';
+const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
+  const paperId = '11';
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
@@ -31,24 +32,17 @@ const SeatsGame: FC<SeatsGamePropsType> = ({ }) => {
       <Box ref={appbarRef}>
         <AppBarComponent />
       </Box>
-      <Container
-        maxWidth={false}
-        sx={{
-          display: 'flex',
-          padding: 0,
-          justifyContent: 'center',
-          marginRight: 'auto !important',
-          marginLeft: 'auto !important',
-        }}>
-        {containerHeight > 0 &&
-          <BoardPaper
-            containerHeight={containerHeight}
-            paperId={paperId}
-          />
-        }
-      </Container>
+
+      {containerHeight > 0 &&
+        <BoardPaper
+          objectLogics={objectLogics}
+          containerHeight={containerHeight}
+          paperId={paperId}
+        />
+      }
+
     </Fragment>
   );
 };
 
-export default SeatsGame;
+export default CinemaGame;

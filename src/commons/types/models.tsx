@@ -313,7 +313,6 @@ export type FSMUserPermissions = {
   is_mentor: boolean;
 }
 
- 
 /////////////// OBJECT ///////////////
 
 export type ObjectType = {
@@ -323,4 +322,11 @@ export type ObjectType = {
   position?: PositionType;
 
   widget?: number;
+}
+
+export type ObjectLogicType = {
+  objectName: string;
+  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 }

@@ -5,14 +5,21 @@ import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { Stack } from '@mui/material';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
+import { ObjectLogicType } from 'commons/types/models';
 
 export type BoardPaperPropsType = {
   paperId: string;
   containerWidth?: number;
   containerHeight?: number;
+  objectLogics?: ObjectLogicType[];
 }
 
-const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.innerWidth, containerHeight = window.innerHeight }) => {
+const BoardPaper: FC<BoardPaperPropsType> = ({
+  paperId,
+  containerWidth = window.innerWidth,
+  containerHeight = window.innerHeight,
+  objectLogics = [],
+}) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
   const { data: objects } = useGetObjectsByPaperQuery({ paperId });
   const [positions, setPositions] = useState<PositionType[]>([]);
@@ -96,6 +103,8 @@ const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.
     handleResizeThrottled();
   }, [widgetsWithPositions])
 
+  console.log(objectLogics)
+
   const widgetsComponents = useMemo(() =>
     <div ref={boardRef} style={{
       position: 'relative',
@@ -115,7 +124,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({ paperId, containerWidth = window.
             }}
           >
             <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-              <ObjectWrapper object={{ ...object, onClick: () => { console.log(widget.id) } }}>
+              <ObjectWrapper object={object} logic={objectLogics.find(objectLogic => objectLogic.objectName === object.name)}>
                 <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
               </ObjectWrapper>
             </div>
