@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { BalancesType } from 'apps/film-bazi/types';
 import { FilmBaziApiUrl } from '../constants/Urls';
 
-const useGetMyBalances = () => {
+const useGetUserBalances = () => {
   const [balances, setBalances] = useState<BalancesType>({});
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +18,7 @@ const useGetMyBalances = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}scores/my-balance/`, {
+        const response = await fetch(`${FilmBaziApiUrl}scores/user-balance/`, {
           headers: headers,
         });
         if (!response.ok) {
@@ -40,4 +40,4 @@ const useGetMyBalances = () => {
   return { balances, loading, error };
 };
 
-export default useGetMyBalances;
+export default useGetUserBalances;
