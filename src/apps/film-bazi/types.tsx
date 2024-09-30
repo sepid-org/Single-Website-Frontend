@@ -74,3 +74,4 @@ export interface ScoreBoardItemType {
   score: number;
   currentUser: boolean;
 }
+
