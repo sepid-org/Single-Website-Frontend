@@ -19,6 +19,7 @@ import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/Thi
 import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPartyApps';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
 import GlobalStyles from 'commons/configs/styles/GlobalStyles';
+import { DialogProvider } from 'commons/components/organisms/PortalDialog/DialogContext';
 
 const App = ({ }) => {
   const locale = useSelector((state: any) => state.Intl.locale);
@@ -78,6 +79,7 @@ const App = ({ }) => {
               limit={3}
               draggable={false}
             />
+            <DialogProvider />
             <ConfettiContainer />
             <CssBaseline />
             <Root />
