@@ -3,13 +3,13 @@ import { Box, Container, Grid, Skeleton } from "@mui/material";
 import WinnerCard from "../molecules/WinnerCard";
 import ScoreRecord from "../molecules/ScoreRecord";
 
-export default function CompetitionScores({ winners, allScores, currentUser }){
+export default function CompetitionScores({ allScores }){
      /*const [scorePage, setScorePage] = useState(1);
 	const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 		setScorePage(value);
 	};*/
-    const currentUserExists = allScores.find(record => {record.rank === currentUser.rank && record.first_name === currentUser.first_name && record.last_name === currentUser.last_name}) != undefined;
-	return (
+
+    return (
         <Box
             sx={{
                 height: "auto",
@@ -32,13 +32,13 @@ export default function CompetitionScores({ winners, allScores, currentUser }){
                     }}
                 >
                     <Grid>
-                        < WinnerCard score={winners[2]?.score} rank={winners[2]?.rank} />
+                        < WinnerCard score={allScores.winnerScoresInfo[2]?.score} rank={allScores.winnerScoresInfo[2]?.rank} />
                     </Grid>
                     <Grid>
-                        <WinnerCard score={winners[0]?.score} rank={winners[0]?.rank} />
+                        <WinnerCard score={allScores.winnerScoresInfo[0]?.score} rank={allScores.winnerScoresInfo[0]?.rank} />
                     </Grid>
                     <Grid>
-                        <WinnerCard score={winners[1]?.score} rank={winners[1]?.rank} />
+                        <WinnerCard score={allScores.winnerScoresInfo[1]?.score} rank={allScores.winnerScoresInfo[1]?.rank} />
                     </Grid>
                 </Grid>
             </Box>
@@ -51,16 +51,19 @@ export default function CompetitionScores({ winners, allScores, currentUser }){
                 }}
                 container
             >
-                {allScores.map(record => (
+                {allScores.winnerUsersInfo.map(record => (
                     <ScoreRecord key={record.rank} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser}/>
                 ))}
-                {/*!currentUserExists && 
-                    <Box sx={{marginTop: "50px"}}>
+                {(allScores.currentUserExistsInWinners != false) && 
+                    <>
+                    <Box sx={{marginTop: "50px", marginBottom: "50px"}}>
                         <Box sx={{backgroundColor: "white", borderRadius:"50%", width:"10px", height:"10px", margin: "2px"}} />
                         <Box sx={{backgroundColor: "white", borderRadius:"50%", width:"10px", height:"10px", margin: "2px"}} />
                         <Box sx={{backgroundColor: "white", borderRadius:"50%", width:"10px", height:"10px", margin: "2px"}} />
                     </Box>
-                */}
+                    <ScoreRecord key={allScores.currentUser.rank} rank={allScores.currentUser.rank} first_name={allScores.currentUser.first_name} last_name={allScores.currentUser.last_name} score={allScores.currentUser.score} currentUser={allScores.currentUser.currentUser} />
+                    </>
+                }
             </Grid>
 			{/*<Pagination
 				sx={{

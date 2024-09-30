@@ -10,31 +10,25 @@ import { Container } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { Scoreboard } from '@mui/icons-material';
 import { ScoreBoardItemType } from '../types';
+import useGetMyBalances from '../hooks/useGetMyBalances';
 
-interface ScoreRecord {
-	rank: number;
-	first_name: string;
-	last_name: string;
-	score: number;
-	currentUser: boolean;
+interface scoreRecordsStateProp{
+    winnerUsersInfo: ScoreBoardItemType[],
+    winnerScoresInfo: {rank: number, score: number}[],
+    currentUser: ScoreBoardItemType,
+    currentUserExistsInWinners: boolean
 }
 
-interface WinnerScore{
-	rank: number,
-	score: number
-}
 
 
 const App: React.FC = () => {
 	let { scoreBoard, loading: scoreBoardLoading } = useGetScoreBoard();
 	const {rank: myRank, loading: myRankLoading, error: myRankError} = useGetMyRank();
-	
-    const [winners, setWinners] = useState([]);
-	const [scoreRecords, setScoreRecords] = useState([]);
-    const [currentUser, setCurrentUser] = useState<ScoreBoardItemType>(null);
-
-	const userAccount = useSelector((state: any) => state.account);
-
+	const {balances, loading: balancesLoading} = useGetMyBalances();
+    const userAccount = useSelector((state: any) => state.account);
+    
+    const [scoreRecordsState, setScoreRecordsState] = useState<scoreRecordsStateProp>({winnerUsersInfo: [],winnerScoresInfo: [],currentUser: null, currentUserExistsInWinners: false});
+    
 	useEffect(() => {
 		if (!scoreBoardLoading) {
 		  const calculateWinners = () => {
@@ -45,7 +39,8 @@ const App: React.FC = () => {
 					ranks.push({rank: i, score: rank.score});
 				}
 			}
-			setWinners(ranks);
+            setScoreRecordsState({...scoreRecordsState, winnerScoresInfo: ranks});
+			console.log(ranks);
 			for(let i = 0; i < scoreBoard.length; i++){
 				Object.defineProperty(scoreBoard[i], "currentUser", {value: false, writable: true});
 			}
@@ -55,22 +50,29 @@ const App: React.FC = () => {
 	  }, [scoreBoardLoading]);
 
 	useEffect(() => {
-		if(!scoreBoardLoading && !myRankLoading && myRank!= null){
-            setCurrentUser({
+		if(!scoreBoardLoading && !myRankLoading && !balancesLoading){
+            setScoreRecordsState({
+                ...scoreRecordsState,
+                currentUser: {
                 first_name: userAccount.userInfo.first_name,
                 last_name: userAccount.userInfo.last_name,
                 rank: myRank.rank,
                 currentUser: true,
-                score: 0
+                score: balances.filmbazi_coin
+                },
+                currentUserExistsInWinners: true,
             });
             let newRecords = [...scoreBoard];
-			let currentUserInRecords = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
-            if (currentUserInRecords != null){
-				currentUserInRecords.currentUser = true;
-			}
-            setScoreRecords(newRecords);
+            if(myRank.rank != null){
+                let currentUserInRecords = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
+                if (currentUserInRecords != null){
+                    currentUserInRecords.currentUser = true;
+                }
+            }
+            setScoreRecordsState({...scoreRecordsState, winnerUsersInfo: newRecords});
+            
 		}
-	}, [scoreBoardLoading, myRankLoading])
+	}, [scoreBoardLoading, myRankLoading, balancesLoading])
 
 
 	return (
@@ -87,7 +89,7 @@ const App: React.FC = () => {
             }}
         >
 			<AppBarComponent />	
-			<CompetitionScores winners={winners} allScores={scoreRecords} currentUser={currentUser} />
+			<CompetitionScores allScores={scoreRecordsState} />
 		</Container>
 	);
 };
