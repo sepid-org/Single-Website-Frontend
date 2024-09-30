@@ -103,8 +103,6 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
     handleResizeThrottled();
   }, [widgetsWithPositions])
 
-  console.log(objectLogics)
-
   const widgetsComponents = useMemo(() =>
     <div ref={boardRef} style={{
       position: 'relative',

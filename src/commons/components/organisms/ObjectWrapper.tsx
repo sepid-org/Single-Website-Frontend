@@ -14,8 +14,6 @@ const ObjectWrapper: FC<ObjectWrapperPropsType> = ({
   children,
 }) => {
 
-  console.log(object, logic)
-
   return (
     <Box onClick={logic?.onClick} onMouseEnter={logic?.onMouseEnter} onMouseLeave={logic?.onMouseLeave}>
       {children}
