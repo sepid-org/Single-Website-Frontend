@@ -9,6 +9,7 @@ import CompetitionScores from '../components/organisms/CompetitionScores';
 import { Container } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { Scoreboard } from '@mui/icons-material';
+import { ScoreBoardItemType } from '../types';
 
 interface ScoreRecord {
 	rank: number;
@@ -30,6 +31,7 @@ const App: React.FC = () => {
 	
     const [winners, setWinners] = useState([]);
 	const [scoreRecords, setScoreRecords] = useState([]);
+    const [currentUser, setCurrentUser] = useState<ScoreBoardItemType>(null);
 
 	const userAccount = useSelector((state: any) => state.account);
 
@@ -54,10 +56,17 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		if(!scoreBoardLoading && !myRankLoading && myRank!= null){
+            setCurrentUser({
+                first_name: userAccount.userInfo.first_name,
+                last_name: userAccount.userInfo.last_name,
+                rank: myRank.rank,
+                currentUser: true,
+                score: 0
+            });
             let newRecords = [...scoreBoard];
-			let currentUser = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
-            if (currentUser != null){
-				currentUser.currentUser = true;
+			let currentUserInRecords = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
+            if (currentUserInRecords != null){
+				currentUserInRecords.currentUser = true;
 			}
             setScoreRecords(newRecords);
 		}
@@ -78,7 +87,7 @@ const App: React.FC = () => {
             }}
         >
 			<AppBarComponent />	
-			<CompetitionScores winners={winners} allScores={scoreRecords} />
+			<CompetitionScores winners={winners} allScores={scoreRecords} currentUser={currentUser} />
 		</Container>
 	);
 };
