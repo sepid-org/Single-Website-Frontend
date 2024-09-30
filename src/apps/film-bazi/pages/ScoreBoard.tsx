@@ -26,12 +26,11 @@ const App: React.FC = () => {
 	const {rank: myRank, loading: myRankLoading, error: myRankError} = useGetMyRank();
 	const {balances, loading: balancesLoading} = useGetMyBalances();
     const userAccount = useSelector((state: any) => state.account);
-    
-    const [scoreRecordsState, setScoreRecordsState] = useState<scoreRecordsStateProp>({winnerUsersInfo: [],winnerScoresInfo: [],currentUser: null, currentUserExistsInWinners: false});
+    const [winnerScores, setWinnerScores] = useState([]);
+    const [scoreRecordsState, setScoreRecordsState] = useState<scoreRecordsStateProp>({winnerUsersInfo: [],winnerScoresInfo: [], currentUser: null, currentUserExistsInWinners: false});
     
 	useEffect(() => {
-		if (!scoreBoardLoading) {
-		  const calculateWinners = () => {
+		if (scoreBoard.length > 0) {
 			const ranks = [];
 			for(let i = 1; i < 4; i++){
 				let rank = scoreBoard.find(record => record.rank === i);
@@ -39,57 +38,57 @@ const App: React.FC = () => {
 					ranks.push({rank: i, score: rank.score});
 				}
 			}
-            setScoreRecordsState({...scoreRecordsState, winnerScoresInfo: ranks});
-			console.log(ranks);
-			for(let i = 0; i < scoreBoard.length; i++){
-				Object.defineProperty(scoreBoard[i], "currentUser", {value: false, writable: true});
-			}
-		  };
-		  calculateWinners();
+            setWinnerScores(ranks);
 		}
 	  }, [scoreBoardLoading]);
 
+
 	useEffect(() => {
 		if(!scoreBoardLoading && !myRankLoading && !balancesLoading){
-            setScoreRecordsState({
-                ...scoreRecordsState,
-                currentUser: {
-                first_name: userAccount.userInfo.first_name,
-                last_name: userAccount.userInfo.last_name,
-                rank: myRank.rank,
-                currentUser: true,
-                score: balances.filmbazi_coin
-                },
-                currentUserExistsInWinners: true,
-            });
             let newRecords = [...scoreBoard];
+            for(let i = 0; i < newRecords.length; i++){
+				Object.defineProperty(newRecords[i], "currentUser", {value: false, writable: true});
+			}
+            let exists = false;
             if(myRank.rank != null){
-                let currentUserInRecords = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
+                let currentUserInRecords = (newRecords.find(record => (record.id === userAccount.userInfo.id )));
                 if (currentUserInRecords != null){
                     currentUserInRecords.currentUser = true;
+                    exists = true;
                 }
             }
-            setScoreRecordsState({...scoreRecordsState, winnerUsersInfo: newRecords});
-            
+            setScoreRecordsState({...scoreRecordsState, 
+                winnerUsersInfo: newRecords, 
+                currentUser: {
+                    first_name: userAccount.userInfo.first_name,
+                    last_name: userAccount.userInfo.last_name,
+                    rank: myRank.rank,
+                    currentUser: true,
+                    id: userAccount.userInfo.id,
+                    score: balances["filmbazi-coin"]
+                },
+                currentUserExistsInWinners: exists
+            });
 		}
 	}, [scoreBoardLoading, myRankLoading, balancesLoading])
 
 
 	return (
 		<Container
+            maxWidth = {false}
             sx = {{
                 backgroundImage: `url(${backgroundImg})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
 				backgroundAttachment: "fixed",
-                height: '100vh',
+                minHeight: '100vh',
                 minWidth: "100vw",
                 width: "100vw",
             }}
         >
 			<AppBarComponent />	
-			<CompetitionScores allScores={scoreRecordsState} />
+			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores}/>
 		</Container>
 	);
 };
