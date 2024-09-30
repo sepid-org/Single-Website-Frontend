@@ -40,7 +40,6 @@ export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
         url: `/widgets/widget/${widgetId}/`,
         method: 'PATCH',
         body: {
-          widget_id: widgetId,
           widget_type: widgetType,
           paper: paperId,
           ...props,

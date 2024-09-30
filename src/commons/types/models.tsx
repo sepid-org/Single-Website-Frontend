@@ -321,6 +321,7 @@ export type ObjectType = {
   title: string;
   position?: PositionType;
 
+  order: string;
   widget?: number;
 }
 

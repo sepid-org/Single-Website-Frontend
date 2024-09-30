@@ -22,7 +22,8 @@ import Choice from 'commons/components/molecules/Choice';
 import { toast } from 'react-toastify';
 import { WidgetModes } from '../..';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import EditQuestionWidgetFields from 'commons/components/organisms/forms/EditQuestionWidgetFields';
+import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 
 type MultiChoiceQuestionEditWidgetPropsType = {
   onMutate: any;
@@ -46,7 +47,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   handleClose,
   open,
   maximum_choices_could_be_chosen,
-  ...questionWidgetProps
+  ...widgetProps
 }) => {
   const t = useTranslate();
   const [maximumChoicesCouldBeChosen, setMaximumChoicesCouldBeChosen] = useState(maximum_choices_could_be_chosen || 1);
@@ -59,7 +60,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
         { text: 'گزینه ۲' }
       ]
   );
-  const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
+  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
 
   const handleSubmit = () => {
@@ -70,7 +71,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       widgetId,
       onSuccess: handleClose,
       maximum_choices_could_be_chosen: maximumChoicesCouldBeChosen,
-      ...questionWidgetFields
+      ...widgetFields,
     });
   };
 
@@ -116,6 +117,10 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       disableEnforceFocus>
       <DialogTitle>{t('multipleChoiceQuestions')}</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <Stack spacing={4} alignItems={'start'}>
           <Stack width={'100%'}>
             <label>{'صورت سوال:'}</label>
@@ -169,9 +174,9 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
             value={maximumChoicesCouldBeChosen}
           />
 
-          <EditQuestionWidgetFields
-            fields={questionWidgetFields}
-            setFields={setQuestionWidgetFields}
+          <EditQuestionFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
           />
         </Stack>
       </DialogContent>

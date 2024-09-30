@@ -18,9 +18,6 @@ const useWidgetFactory = ({
   widgetType,
   collectAnswer,
 }: WidgetFactoryType) => {
-  // skip fetch is initially true, means it doesnot need to fetch the widget data for the first time
-  // the widget data should be fetched after each update
-  const [skipFetch, setSkipFetch] = useState(true);
   const dispatcher = useDispatch();
   const [deleteWidget] = useDeleteWidgetMutation();
   const [createWidget] = useCreateWidgetMutation();
@@ -42,11 +39,9 @@ const useWidgetFactory = ({
     widgetId ?
       (props) => {
         updateWidget({ widgetType, paperId: paperId, widgetId, ...props });
-        setSkipFetch(false);
       } :
       (props) => {
         createWidget({ widgetType, paperId: paperId, ...props });
-        setSkipFetch(false);
       }
 
   onAnswerChange = collectAnswer ? collectAnswer : () => { };
@@ -77,7 +72,6 @@ const useWidgetFactory = ({
     onAnswerSubmit,
     WidgetComponent,
     EditWidgetDialog,
-    skipFetch,
   };
 }
 

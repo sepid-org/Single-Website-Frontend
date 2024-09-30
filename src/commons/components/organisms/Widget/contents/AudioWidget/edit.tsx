@@ -12,6 +12,8 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import UploadFile from 'commons/components/molecules/UploadFile';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
 
 const AudioEditWidget = ({
@@ -22,9 +24,11 @@ const AudioEditWidget = ({
   open,
   link: previousLink,
   id: widgetId,
+  ...widgetProps
 }) => {
   const t = useTranslate();
   const [link, setLink] = useState<string>(previousLink || '');
+  const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
 
   const handleClick = () => {
     onMutate({
@@ -32,6 +36,7 @@ const AudioEditWidget = ({
       link,
       widgetId,
       onSuccess: handleClose,
+      ...widgetFields,
     });
   };
 
@@ -39,6 +44,10 @@ const AudioEditWidget = ({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>صوت</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <Stack spacing={2}>
           <UploadFile setFileLink={setLink} />
           <Divider>یا</Divider>

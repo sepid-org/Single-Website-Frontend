@@ -1,5 +1,6 @@
 import { WidgetModes } from "commons/components/organisms/Widget";
 import { HintType } from "commons/types/global";
+import { ObjectType } from "../models";
 
 export type WidgetTypes =
   'TextWidget' |
@@ -23,7 +24,7 @@ export type PositionType = {
   paper?: number;
 }
 
-export type WidgetType = {
+export type WidgetType = ObjectType & {
   name: string;
   id: number;
   mode: WidgetModes;

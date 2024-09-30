@@ -12,6 +12,8 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import UploadFile from 'commons/components/molecules/UploadFile';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
 const ImageEditWidget = ({
   onMutate,
@@ -21,9 +23,11 @@ const ImageEditWidget = ({
   open,
   link: previousLink,
   id: widgetId,
+  ...widgetProps
 }) => {
   const t = useTranslate();
   const [link, setLink] = useState<string>(previousLink || '');
+  const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
 
   const handleClick = () => {
     onMutate({
@@ -31,6 +35,7 @@ const ImageEditWidget = ({
       link,
       widgetId,
       onSuccess: handleClose,
+      ...widgetFields,
     })
   };
 
@@ -39,6 +44,10 @@ const ImageEditWidget = ({
       <DialogTitle>{t('image')}</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
           <UploadFile setFileLink={setLink} />
           <Divider>یا</Divider>
           <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>

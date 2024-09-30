@@ -9,6 +9,8 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
 function TextEditWidget({
   onMutate,
@@ -18,9 +20,11 @@ function TextEditWidget({
   text: oldText,
   paperId,
   id: widgetId,
+  ...widgetProps
 }) {
   const t = useTranslate();
   const [text, setText] = useState(oldText);
+  const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
 
   const handleClick = () => {
     onMutate({
@@ -28,6 +32,7 @@ function TextEditWidget({
       text,
       widgetId,
       onSuccess: handleClose,
+      ...widgetFields,
     })
   };
 
@@ -35,6 +40,10 @@ function TextEditWidget({
     <Dialog disableScrollLock fullWidth open={open} maxWidth='md'>
       <DialogTitle>{t('text')}</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
         <TinyEditorComponent
           content={text}

@@ -6,12 +6,12 @@ import {
 import React, { FC } from 'react';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 
-type EditQuestionWidgetFieldsPropsType = {
+type EditQuestionFieldsPropsType = {
   fields: Partial<QuestionWidgetType>;
   setFields: (fields: Partial<QuestionWidgetType>) => void;
 }
 
-const EditQuestionWidgetFields: FC<EditQuestionWidgetFieldsPropsType> = ({
+const EditQuestionFields: FC<EditQuestionFieldsPropsType> = ({
   fields,
   setFields,
 }) => {
@@ -50,4 +50,4 @@ const EditQuestionWidgetFields: FC<EditQuestionWidgetFieldsPropsType> = ({
   );
 }
 
-export default EditQuestionWidgetFields;
+export default EditQuestionFields;

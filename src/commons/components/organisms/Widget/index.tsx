@@ -97,7 +97,13 @@ const Widget: FC<WidgetPropsType> = ({
           <CollapseWidgetEditMenu widget={widget} paperId={paperId} />
         }
         {(mode === WidgetModes.View && widget?.hints?.length) ? <WidgetHint hints={widget.hints} /> : null}
-        <WidgetComponent submittedAnswer={submittedAnswer} {...widget} mode={mode} onAnswerSubmit={onAnswerSubmitWrapper || onAnswerSubmit} onAnswerChange={onAnswerChange} />
+        <WidgetComponent
+          {...widget}
+          mode={mode}
+          submittedAnswer={submittedAnswer}
+          onAnswerSubmit={onAnswerSubmitWrapper || onAnswerSubmit}
+          onAnswerChange={onAnswerChange}
+        />
       </Cover>
       {cost &&
         <CostDialog

@@ -4,7 +4,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  Typography,
   MobileStepper,
   useTheme,
   DialogTitle,
@@ -14,6 +13,8 @@ import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/
 import { EditPaper } from 'commons/template/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
 const DetailBoxEditDialog = ({
   paperId,
@@ -24,11 +25,13 @@ const DetailBoxEditDialog = ({
 
   open,
   handleClose,
+  ...widgetProps
 }) => {
   const theme = useTheme();
   const [title, setTitle] = useState(previousTitle);
   const [activeStep, setActiveStep] = useState(0);
   const [detailsId, setDetailsId] = useState<string>(details?.id);
+  const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
 
   const handleNext = () => {
     if (activeStep === 0) {
@@ -41,6 +44,7 @@ const DetailBoxEditDialog = ({
           setDetailsId(widget.details.id);
           setActiveStep((prevActiveStep) => prevActiveStep + 1);
         },
+        ...widgetFields,
       });
     }
     if (activeStep === 1) {
@@ -66,6 +70,10 @@ const DetailBoxEditDialog = ({
       <DialogContent>
         {activeStep === 0 &&
           <Fragment>
+            <EditObjectFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
             <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
             <TinyEditorComponent
               content={title}
