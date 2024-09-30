@@ -18,7 +18,7 @@ const useGetUserBalances = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}scores/user-balance/`, {
+        const response = await fetch(`${FilmBaziApiUrl}scores/my-balance/`, {
           headers: headers,
         });
         if (!response.ok) {

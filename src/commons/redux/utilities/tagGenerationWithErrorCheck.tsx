@@ -49,16 +49,17 @@ const createTag = (type: TagTypes, id?: string | number): TagDescription<TagType
   id ? { type, id } : { type };
 
 // Updated helper function
-const tagGenerationWithErrorCheck = (tags: TagTypes[] | ((result: any, error: any, arg: any) => TagDescription<TagTypes>[])) =>
+const tagGenerationWithErrorCheck = (
+  tags: TagTypes[] | ((result: any, error: any, arg: any) => TagDescription<TagTypes>[])
+) =>
   (result: any, error: any, arg: any): TagDescription<TagTypes>[] => {
-    if (result && !error) {
-      if (typeof tags === 'function') {
-        return tags(result, error, arg);
-      } else {
-        return tags.map(tag => createTag(tag));
-      }
+    if (result && !error && typeof tags === 'function') {
+      return tags(result, error, arg);
+    }
+    if (!error && typeof tags === 'object') {
+      return tags.map(tag => createTag(tag));
     }
     return [];
-  };
+  }
 
 export default tagGenerationWithErrorCheck;

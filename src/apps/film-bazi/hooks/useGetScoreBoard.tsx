@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FilmBaziApiUrl } from '../constants/Urls';
 import { ScoreBoardItemType } from '../types';
+import { GAME_CURRENCY_NAME } from '../constants/game';
 
-const useGetScoreBoard = (currencyName = 'filmbazi-coin') => {
+const useGetScoreBoard = (currencyName = GAME_CURRENCY_NAME) => {
   const [scoreBoard, setScoreBoard] = useState<ScoreBoardItemType[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);

@@ -4,7 +4,6 @@ import { programsReducer } from './programs';
 import { translatorReducer } from './translator';
 import { whiteboardReducer } from './whiteboard';
 import { workshopReducer } from './workshop';
-import { articleReducer } from './article';
 import { assessmentReducer } from './assessment';
 import { AnswerReducer } from './Answer';
 import { WebsiteReducer } from './Website';
@@ -20,7 +19,6 @@ const allReducers = {
   whiteboard: whiteboardReducer,
   programs: programsReducer,
   workshop: workshopReducer,
-  article: articleReducer,
   Intl: translatorReducer,
   scoring: assessmentReducer,
   answer: AnswerReducer,

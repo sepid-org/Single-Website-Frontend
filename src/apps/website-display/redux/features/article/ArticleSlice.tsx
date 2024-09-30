@@ -1,3 +1,4 @@
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { ArticleType } from 'commons/types/redux/article';
 
@@ -15,11 +16,9 @@ type GetArticlesOutputType = {
 export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getArticle: builder.query<GetArticleOutputType, { articleId: string }>({
-      providesTags: (result, error, item) => {
-        if (!error) {
-          return ([{ type: 'article', id: result.id }]);
-        }
-      },
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'article', id: result.id }]
+      ),
       query: ({ articleId }) => `fsm/article/${articleId}/`,
       transformResponse: (response: any): GetArticleOutputType => {
         return response;
@@ -27,7 +26,7 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getArticles: builder.query<GetArticlesOutputType, GetArticlesInputType>({
-      providesTags: ['articles'],
+      providesTags: tagGenerationWithErrorCheck(['articles']),
       query: ({ pageNumber }) => `fsm/article/?page=${pageNumber}`,
       transformResponse: (response: any): GetArticlesOutputType => {
         return {

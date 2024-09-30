@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import ProgramManagement from './pages/ProgramManagement';
 import { DarkSecondary, PrimaryColor } from './constants/colors';
-import SeatsGame from './pages/SeatsGame';
+import CinemaGame from './pages/CinemaGame';
 import LoginPage from './pages/Login';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import PrivateRoute from 'commons/routes/PrivateRoute';
@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="seats-game" element={<SeatsGame />} />
+            <Route path="seats-game" element={<CinemaGame />} />
             <Route path="admin-dashboard" element={<ProgramManagement />} />
             <Route path="scoreboard" element={<ScoreBoard />} />
           </Route>

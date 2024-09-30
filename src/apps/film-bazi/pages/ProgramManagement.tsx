@@ -2,6 +2,7 @@ import PeopleIcon from '@mui/icons-material/People';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
+import ClassIcon from '@mui/icons-material/Class';
 import React, { FC, Fragment } from 'react';
 
 import Info from 'commons/template/program/management/Info';
@@ -12,6 +13,7 @@ import Admins from 'commons/template/program/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
+import FSMs from 'commons/template/program/management/FSMs';
 
 const tabs: DashboardTabType[] = [
   {
@@ -37,6 +39,12 @@ const tabs: DashboardTabType[] = [
     label: 'مدیران',
     icon: PersonIcon,
     component: <Admins />,
+  },
+  {
+    slug: 'fsms',
+    label: 'کارگاه‌ها',
+    icon: ClassIcon,
+    component: <FSMs />,
   },
 ];
 

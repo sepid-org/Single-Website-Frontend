@@ -5,10 +5,11 @@ import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import useGetMyBalances from "apps/film-bazi/hooks/useGetMyBalances"
 import CustomBadge from "../CustomBadge"
+import { GAME_CURRENCY_NAME } from "apps/film-bazi/constants/game"
 
 const MyScoreBadge = ({ }) => {
   const { balances, loading } = useGetMyBalances();
-  const score = balances['filmbazi-coin'] || 0;
+  const score = balances[GAME_CURRENCY_NAME] || 0;
 
   return (
     <CustomBadge>
