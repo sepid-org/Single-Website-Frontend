@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { WidgetModes } from 'commons/components/organisms/Widget';
 import WIDGET_TYPE_MAPPER from './WidgetTypeMapper';
 import { useCreateWidgetMutation, useDeleteWidgetMutation, useUpdateWidgetMutation } from 'apps/website-display/redux/features/widget/WidgetSlice';
 import { runConfetti } from 'commons/components/molecules/confetti'
@@ -10,7 +9,6 @@ type WidgetFactoryType = {
   widgetId?: string;
   paperId?: string;
   widgetType?: string;
-  mode: WidgetModes;
   collectAnswer?: any;
 }
 
@@ -18,7 +16,6 @@ const useWidgetFactory = ({
   widgetId,
   paperId,
   widgetType,
-  mode,
   collectAnswer,
 }: WidgetFactoryType) => {
   // skip fetch is initially true, means it doesnot need to fetch the widget data for the first time

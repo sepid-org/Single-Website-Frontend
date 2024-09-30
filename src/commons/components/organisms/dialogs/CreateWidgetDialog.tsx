@@ -36,7 +36,6 @@ const CreateWidgetDialog: FC<CreateWidgetDialogPropsType> = ({
   const widgetProperties = useWidgetFactory({
     paperId,
     widgetType,
-    mode: WidgetModes.Create,
   });
 
   if (widgetType) {
