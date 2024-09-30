@@ -1,6 +1,5 @@
 import React from "react";
 import { Box, Grid } from "@mui/material";
-import backgroundImg from "../../assets/background.png";
 import WinnerCard from "../molecules/WinnerCard";
 import ScoreRecord from "../molecules/ScoreRecord";
 
@@ -12,12 +11,7 @@ export default function CompetitionScores({ winners, allScores }){
 	return (
         <Box
             sx={{
-                backgroundImage: `url(${backgroundImg})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-				backgroundAttachment: "fixed",
-                minHeight: '100vh',
+                height: "auto",
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
