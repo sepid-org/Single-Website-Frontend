@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
 import { Container } from '@mui/material';
 import backgroundImg from "../assets/background.png";
+import { Scoreboard } from '@mui/icons-material';
 
 interface ScoreRecord {
 	rank: number;
@@ -46,7 +47,6 @@ const App: React.FC = () => {
 			for(let i = 0; i < scoreBoard.length; i++){
 				Object.defineProperty(scoreBoard[i], "currentUser", {value: false, writable: true});
 			}
-			setScoreRecords(scoreBoard);
 		  };
 		  calculateWinners();
 		}
@@ -54,11 +54,12 @@ const App: React.FC = () => {
 
 	useEffect(() => {
 		if(!scoreBoardLoading && !myRankLoading && myRank!= null){
-			let currentUser = (scoreBoard.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
-			if (currentUser != null){
+            let newRecords = [...scoreBoard];
+			let currentUser = (newRecords.find(record => (record.rank === myRank.rank && userAccount.userInfo.first_name === record.first_name && userAccount.userInfo.last_name === record.last_name)));
+            if (currentUser != null){
 				currentUser.currentUser = true;
-				setScoreRecords(scoreBoard);
 			}
+            setScoreRecords(newRecords);
 		}
 	}, [scoreBoardLoading, myRankLoading])
 
