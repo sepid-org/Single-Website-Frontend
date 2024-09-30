@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Box, Typography,  } from "@mui/material";
+import { Container, Box, Typography, Skeleton,  } from "@mui/material";
 import starIcon from "../../assets/starIcon.svg";
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { ScoreBoardItemType } from "apps/film-bazi/types";
@@ -31,12 +31,12 @@ const WinnerCard:  React.FC<WinnerScore> = ({rank, score}) => {
                     gap: "0px",
                     border: "1.5px", 
                     borderRadius: '50%', 
-                    backgroundColor: conditionalColor,
                     display: 'flex', 
                     alignItems: 'center', 
                     justifyContent: 'center', 
                     marginBottom: 2,
                     marginTop: conditionalMargin,
+                    backgroundColor: conditionalColor,
                 }}
             >
                 <Box 

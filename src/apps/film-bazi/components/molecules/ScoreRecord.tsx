@@ -67,7 +67,8 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, first_name, last_name
                         background: conditionalUsreBackground,
 					}}
                     item
-                    xs={6}
+                    xs={9}
+                    md={6}
                 >
                     <Typography 
                         variant="body1" 
