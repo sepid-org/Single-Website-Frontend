@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FilmBaziApiUrl } from '../constants/Urls';
+import { GAME_CURRENCY_NAME } from '../constants/game';
 
 type GetRankResponseType = {
   rank: number;
 }
 
-const useGetMyRank = (currencyName = 'filmbazi-coin') => {
+const useGetMyRank = (currencyName = GAME_CURRENCY_NAME) => {
   const [rank, setRank] = useState<GetRankResponseType>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
