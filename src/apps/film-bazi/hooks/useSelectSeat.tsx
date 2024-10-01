@@ -25,7 +25,7 @@ export const useSelectSeat = () => {
         const errorData = await response.json();
         throw new Error(errorData.error || 'Failed to select seat');
       }
-      const data = await response.json();
+      const data: SeatType = await response.json();
       setSelectedSeat(data);
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unknown error occurred');

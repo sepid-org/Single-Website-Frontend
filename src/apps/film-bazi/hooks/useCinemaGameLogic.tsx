@@ -1,5 +1,4 @@
 import { ObjectLogicType } from "commons/types/models";
-import { toast } from "react-toastify";
 import { useSeatInfo } from "./useSeatInfo";
 import { useSelectSeat } from "./useSelectSeat";
 import useGetSeatSelections from "./useGetSeatSelections";
@@ -30,8 +29,6 @@ const common = {
   },
 }
 
-
-
 const useCinemaGameLogic = () => {
   const { seatInfo, fetchSeatInfo } = useSeatInfo();
   const { loading: selectSeatLoading, selectedSeat, selectSeat: _selectSeat, error: selectSeatError } = useSelectSeat();
@@ -48,6 +45,16 @@ const useCinemaGameLogic = () => {
   useEffect(() => {
     if (!selectSeatLoading) {
       if (selectedSeat) {
+        if (selectedSeat.score_reward) {
+          dialogService.open({
+            message: `آفرین! ${selectedSeat.score_reward} سکه به شما اضافه شد.`,
+          })
+        }
+        if (selectedSeat.other_reward) {
+          dialogService.open({
+            message: `آفرین! ${selectedSeat.other_reward}`,
+          })
+        }
         refetchSeatSelections();
       }
       if (selectSeatError) {
@@ -83,9 +90,6 @@ const useCinemaGameLogic = () => {
     ];
     return seatAndItsFullSeat;
   }
-
-
-
 
   const objectLogics: ObjectLogicType[] = [];
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach(index => objectLogics.push(...createSeat(index)))

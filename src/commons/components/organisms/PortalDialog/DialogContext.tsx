@@ -6,6 +6,7 @@ type OpenDialogPropsType = {
   title?: string;
   message: string;
   component?: any;
+  onClose?: any;
 }
 
 // Global dialog handler references, initialized when DialogProvider mounts
@@ -23,13 +24,15 @@ export const DialogProvider: FC<DialogProviderPropsType> = ({ }) => {
     message: '',
     title: '',
     component: null,
+    onClose: () => { }
   });
 
-  const openDialog = ({ message, title, component }: OpenDialogPropsType) => {
-    setDialogState(dialogState => ({ ...dialogState, open: true, message, title, component }));
+  const openDialog = ({ message, title, component, onClose }: OpenDialogPropsType) => {
+    setDialogState(dialogState => ({ ...dialogState, open: true, message, title, component, onClose }));
   };
 
   const closeDialog = () => {
+    dialogState.onClose?.();
     setDialogState(dialogState => ({ ...dialogState, open: false }));
   };
 
