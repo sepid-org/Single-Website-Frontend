@@ -1,4 +1,4 @@
-import { Container, Grid, Stack } from '@mui/material';
+import { Box, Container, Grid, Stack } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
@@ -8,6 +8,7 @@ import AppBarComponent from '../components/organisms/Appbar';
 import FilmCard from '../components/organisms/FilmCard';
 import { persianFilms } from '../constants/SampleFilms';
 import useGetFilms from '../hooks/useGetFilms';
+import backgroundImg from "../assets/dashboardBackground.svg";
 
 type DashboardPropsType = {}
 
@@ -23,6 +24,18 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
           <title>{program.name}</title>
         </Helmet>
       }
+      <Box
+        sx={{
+
+          backgroundImage: `url(${backgroundImg})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+				  backgroundAttachment: "fixed",
+          minHeight: '100vh',
+          minWidth: "100vw",
+        }}
+      >
       <AppBarComponent />
       <Container maxWidth='lg'
         sx={{
@@ -50,6 +63,7 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
           </Grid>
         </Grid>
       </Container>
+      </Box>
     </Fragment>
   );
 }
