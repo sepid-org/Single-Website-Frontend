@@ -6,7 +6,7 @@ import AppBarComponent from '../components/organisms/Appbar';
 import useGetMyRank from '../hooks/useGetMyRank';
 import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { Scoreboard } from '@mui/icons-material';
 import { ScoreBoardItemType } from '../types';
@@ -74,8 +74,7 @@ const App: React.FC = () => {
 
 
 	return (
-		<Container
-            maxWidth = {false}
+		<Box
             sx = {{
                 backgroundImage: `url(${backgroundImg})`,
                 backgroundSize: "cover",
@@ -89,7 +88,7 @@ const App: React.FC = () => {
         >
 			<AppBarComponent />	
 			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores}/>
-		</Container>
+		</Box>
 	);
 };
 
