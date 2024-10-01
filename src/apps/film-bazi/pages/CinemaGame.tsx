@@ -7,7 +7,7 @@ import { objectLogics } from '../utils/CinemaGameLogic';
 type SeatsGamePropsType = {}
 
 const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = '11';
+  const paperId = process.env.NODE_ENV === 'production' ? '2800' : '11';
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
