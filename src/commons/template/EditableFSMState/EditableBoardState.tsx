@@ -51,15 +51,15 @@ const EditableBoardState = ({ fsmStateId }) => {
     }
   }, [paper]);
 
-  const handleDragStop = useCallback((id, d) => {
+  const handleDragStop = (id, d) => {
     setPositions((prevPositions) =>
       prevPositions.map((position) =>
         position.widget === id ? { ...position, x: Math.round(d.x), y: Math.round(d.y) } : position
       )
     );
-  }, []);
+  };
 
-  const handleResize = useCallback((id, ref, position) => {
+  const handleResize = (id, ref, position) => {
     setPositions((prevPositions) =>
       prevPositions.map((position) =>
         position.widget === id
@@ -73,7 +73,7 @@ const EditableBoardState = ({ fsmStateId }) => {
           : position
       )
     );
-  }, []);
+  };
 
   const handleUpdateFSMState = () => {
     updatePositions({
