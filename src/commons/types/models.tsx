@@ -332,4 +332,5 @@ export type ObjectLogicType = {
   onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  sx?: any;
 }

@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo, Fragment, FC, useCallback } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetObjectsByPaperQuery } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { Stack } from '@mui/material';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
@@ -100,11 +98,9 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             height: widget.position?.height || 100,
           }}
         >
-          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-            <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.objectName === widget.name)}>
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
-            </ObjectWrapper>
-          </div>
+          <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.objectName === widget.name)}>
+            <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+          </ObjectWrapper>
         </div>
       )}
     </div >,

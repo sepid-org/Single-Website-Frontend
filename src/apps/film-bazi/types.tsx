@@ -76,3 +76,16 @@ export interface ScoreBoardItemType {
   id: boolean
 }
 
+export interface SeatType {
+  name: string;
+  score_reward: string;
+  other_reward: string;
+}
+
+export interface SeatSelectionType {
+  id: number;
+  seat: SeatType;
+  user: string;
+  created_at: string;
+  updated_at: string;
+}

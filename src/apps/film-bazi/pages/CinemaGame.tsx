@@ -1,8 +1,8 @@
 import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 import BoardPaper from 'commons/template/Paper/BoardPaper';
-import { objectLogics } from '../utils/CinemaGameLogic';
+import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
 
 type SeatsGamePropsType = {}
 
@@ -10,6 +10,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
   const paperId = process.env.NODE_ENV === 'production' ? '2800' : '11';
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+  const { objectLogics } = useCinemaGameLogic();
 
   useEffect(() => {
     const handleResize = () => {
