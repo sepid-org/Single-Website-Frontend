@@ -76,23 +76,6 @@ const FilmCard: React.FC<{ film: FilmType | null }> = ({ film }) => {
     setIsDialogOpen(false);
   };
 
-  if (!film) {
-    return (
-      <HoverCard>
-        <Skeleton
-          variant="rectangular"
-          width="100%"
-          height="100%"
-          animation="wave"
-          sx={{
-            borderRadius: '24px',
-            transform: 'scale(1, 1)', // This ensures the Skeleton respects the HoverCard's dimensions
-          }}
-        />
-      </HoverCard>
-    );
-  }
-
   return (
     <Fragment>
       <HoverCard

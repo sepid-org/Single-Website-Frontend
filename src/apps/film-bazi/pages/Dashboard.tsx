@@ -6,8 +6,8 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import DashboardSidebar from '../components/organisms/DashboardSidebar';
 import AppBarComponent from '../components/organisms/Appbar';
 import FilmCard from '../components/organisms/FilmCard';
-import { persianFilms } from '../constants/SampleFilms';
 import useGetFilms from '../hooks/useGetFilms';
+import FilmSkeletonCard from '../components/organisms/FilmSkeletonCard';
 
 type DashboardPropsType = {}
 
@@ -40,6 +40,13 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
           <Grid item xs={11} sm={9}>
             <Stack>
               <Grid container spacing={2}>
+                {!films &&
+                  [1, 2, 3].map((index) => (
+                    <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'}>
+                      <FilmSkeletonCard />
+                    </Grid>
+                  ))
+                }
                 {films.map((film) => (
                   <Grid container item xs={12} sm={6} md={4} key={film.name} justifyContent={'center'}>
                     <FilmCard film={film} />
