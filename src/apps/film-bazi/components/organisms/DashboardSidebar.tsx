@@ -31,7 +31,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
         <MyScoreBadge />
-        <DashboardButton2 label='صندلی بازی' icon={<CupIcon />} onClick={() => { localNavigate(`/seats-game/`) }} />
+        <DashboardButton2 label='بازی سینما' icon={<CupIcon />} onClick={() => { localNavigate(`/cinema-game/`) }} />
         <DashboardButton2 label='پروفایل' icon={<HomeIcon />} onClick={() => { localNavigate(`/profile/`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {/* <DashboardButton label='دوستاتو دعوت کن' icon={<ShareIcon />} /> */}

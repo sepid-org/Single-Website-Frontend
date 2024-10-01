@@ -29,7 +29,7 @@ const App = () => {
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
             <Route path="/" element={<Dashboard />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="seats-game" element={<CinemaGame />} />
+            <Route path="cinema-game" element={<CinemaGame />} />
             <Route path="admin-dashboard" element={<ProgramManagement />} />
             <Route path="scoreboard" element={<ScoreBoard />} />
           </Route>
