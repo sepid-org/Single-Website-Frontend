@@ -14,7 +14,7 @@ type DashboardPropsType = {}
 const Dashboard: FC<DashboardPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { films } = useGetFilms();
+  const { films, loading: getFilmsLoading } = useGetFilms();
 
   return (
     <Fragment>
@@ -40,7 +40,7 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
           <Grid item xs={11} sm={9}>
             <Stack>
               <Grid container spacing={2}>
-                {!films &&
+                {getFilmsLoading &&
                   [1, 2, 3].map((index) => (
                     <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'}>
                       <FilmSkeletonCard />
