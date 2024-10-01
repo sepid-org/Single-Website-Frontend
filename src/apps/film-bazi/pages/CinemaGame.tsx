@@ -33,7 +33,6 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       <Box ref={appbarRef}>
         <AppBarComponent />
       </Box>
-
       {containerHeight > 0 &&
         <BoardPaper
           objectLogics={objectLogics}
@@ -41,7 +40,6 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
           paperId={paperId}
         />
       }
-
     </Fragment>
   );
 };
