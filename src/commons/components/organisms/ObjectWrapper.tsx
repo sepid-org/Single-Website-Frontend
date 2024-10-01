@@ -4,13 +4,11 @@ import React, { FC, ReactNode } from "react";
 
 type ObjectWrapperPropsType = {
   logic: ObjectLogicType;
-  object: ObjectType;
   children: ReactNode;
 }
 
 const ObjectWrapper: FC<ObjectWrapperPropsType> = ({
   logic,
-  object,
   children,
 }) => {
 

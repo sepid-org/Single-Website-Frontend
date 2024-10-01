@@ -161,6 +161,8 @@ export type Submission = any
 export type SubmissionIsLoading = boolean
 export type PaperType = {
   id: string;
+  paper_type: string;
+  template: 'normal' | 'board';
   widgets: WidgetType[]
   hints: HintType[];
 }
@@ -317,9 +319,9 @@ export type FSMUserPermissions = {
 
 export type ObjectType = {
   id: number;
-  name?: string;
+  name: string;
   title: string;
-  position?: PositionType;
+  position: PositionType;
 
   order: string;
   widget?: number;

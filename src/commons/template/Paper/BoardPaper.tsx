@@ -21,20 +21,12 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
   objectLogics = [],
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
-  const { data: objects } = useGetObjectsByPaperQuery({ paperId });
-  const [positions, setPositions] = useState<PositionType[]>([]);
   const boardRef = useRef(null);
   const containerRef = useRef(null);
   const appbarRef = useRef(null);
   const BOARD_HEIGHT = 900;
   const BOARD_WIDTH = 1600;
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
-
-  useEffect(() => {
-    if (objects) {
-      setPositions(objects.map(object => object.position));
-    }
-  }, [objects]);
 
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
@@ -87,50 +79,36 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
     };
   }, [handleResizeThrottled]);
 
-  const widgetsWithPositions = useMemo(() => {
-    if (!paper || !positions) return [];
-    const widgets = paper.widgets;
-    return widgets.map(widget => {
-      const position = positions.find(position => position.widget === widget.id);
-      return {
-        ...widget,
-        ...position
-      };
-    });
-  }, [paper?.widgets, positions]);
-
   useEffect(() => {
     handleResizeThrottled();
-  }, [widgetsWithPositions])
+  }, [paper])
+
+  const widgets = [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
 
   const widgetsComponents = useMemo(() =>
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
-      {widgetsWithPositions.map((widget) => {
-        const object = objects?.find(object => object.widget === widget.id);
-        if (!object) return null;
-        return (
-          <div
-            key={widget.id}
-            style={{
-              position: 'absolute',
-              left: widget.x,
-              top: widget.y,
-              width: widget.width,
-              height: widget.height,
-            }}
-          >
-            <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-              <ObjectWrapper object={object} logic={objectLogics.find(objectLogic => objectLogic.objectName === object.name)}>
-                <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
-              </ObjectWrapper>
-            </div>
+      {widgets.map((widget) =>
+        <div
+          key={widget.id}
+          style={{
+            position: 'absolute',
+            left: widget.position.x,
+            top: widget.position.y,
+            width: widget.position.width,
+            height: widget.position.height,
+          }}
+        >
+          <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+            <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.objectName === widget.name)}>
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+            </ObjectWrapper>
           </div>
-        );
-      })}
+        </div>
+      )}
     </div >,
-    [widgetsWithPositions])
+    [widgets])
 
   return (
     <Fragment>

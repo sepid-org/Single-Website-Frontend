@@ -17,7 +17,6 @@ const EditableBoardState = ({ fsmStateId }) => {
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
   const [positions, setPositions] = useState<PositionType[]>(null);
-  const { data: objects } = useGetObjectsByPaperQuery({ paperId: fsmStateId });
   const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
   const [updatePositions, { isSuccess: isUpdatePositionsSuccess, isError: isUpdatePositionsError }] = useUpdatePositionsMutation();
 
@@ -29,10 +28,10 @@ const EditableBoardState = ({ fsmStateId }) => {
 
   useEffect(() => {
     const widgets = paper?.widgets;
-    if (objects && widgets) {
+    if (widgets) {
       // Check if any widget has no position, and if so, assign a random one
       const updatedPositions = widgets.map((widget) => {
-        const widgetPosition = objects.find(object => object.widget === widget.id)?.position;
+        const widgetPosition = widget.position;
 
         if (widgetPosition) {
           return widgetPosition;
@@ -50,7 +49,7 @@ const EditableBoardState = ({ fsmStateId }) => {
 
       setPositions(updatedPositions);
     }
-  }, [objects, paper]);
+  }, [paper]);
 
   const handleDragStop = useCallback((id, d) => {
     setPositions((prevPositions) =>
@@ -78,13 +77,7 @@ const EditableBoardState = ({ fsmStateId }) => {
 
   const handleUpdateFSMState = () => {
     updatePositions({
-      positions: positions.map(positions => ({
-        widget: positions.widget,
-        x: positions.x,
-        y: positions.y,
-        width: positions.width,
-        height: positions.height,
-      }))
+      positions,
     })
     updateFSMState({
       fsmStateId,
@@ -106,7 +99,7 @@ const EditableBoardState = ({ fsmStateId }) => {
 
   const widgetsWithPositions = useMemo(() => {
     if (!paper || !positions) return [];
-    const widgets = paper.widgets;
+    const widgets = [...paper.widgets].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
     return widgets.map(widget => {
       const position = positions.find(pos => pos.widget === widget.id) || {
         x: Math.round(Math.random() * 400),
@@ -119,7 +112,7 @@ const EditableBoardState = ({ fsmStateId }) => {
         ...position
       };
     });
-  }, [paper?.widgets, positions]);
+  }, [paper, positions]);
 
   if (isMobile) {
     return (
