@@ -89,15 +89,15 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
-      {widgets.map((widget) =>
+      {widgets.map((widget, index) =>
         <div
           key={widget.id}
           style={{
             position: 'absolute',
-            left: widget.position.x,
-            top: widget.position.y,
-            width: widget.position.width,
-            height: widget.position.height,
+            left: widget.position?.x || index * 10,
+            top: widget.position?.y || index * 10,
+            width: widget.position?.width || 100,
+            height: widget.position?.height || 100,
           }}
         >
           <div style={{ width: '100%', height: '100%', position: 'relative' }}>
