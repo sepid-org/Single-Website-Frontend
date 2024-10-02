@@ -56,7 +56,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
       }
       downloadFromURL(url, `purchases.xlsx`);
     }
-  }, [result])
+  }, [result.isLoading])
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>

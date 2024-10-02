@@ -34,7 +34,7 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
       }
       downloadFromURL(url, `answer-sheets.xlsx`);
     }
-  }, [getAnswerSheetsFileResult])
+  }, [getAnswerSheetsFileResult.isLoading])
 
   useEffect(() => {
     setForm(registrationForm);
@@ -61,11 +61,9 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
             {'به‌روز‌رسانی'}
           </Button>
         </Stack>
-
         <Stack>
           <FormInfo data={form} setData={setForm} />
         </Stack>
-
       </Stack>
 
       <Divider />
