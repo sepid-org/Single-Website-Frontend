@@ -1,12 +1,10 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { ObjectLogicType } from "commons/types/models";
 import { useSeatInfo } from "./useSeatInfo";
 import { useSelectSeat } from "./useSelectSeat";
 import useGetSeatSelections from "./useGetSeatSelections";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
-import { Stack, Typography } from "@mui/material";
-import CustomDialogPaper from "../components/atoms/CustomDialogPaper";
 import CustomDialogContent from "../components/organisms/CustomDialogContent";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";

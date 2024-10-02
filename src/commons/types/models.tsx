@@ -334,4 +334,5 @@ export type ObjectLogicType = {
   onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   sx?: any;
+  substituteComponent?: any;
 }

@@ -87,8 +87,9 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
-      {widgets.map((widget, index) =>
-        <div
+      {widgets.map((widget, index) => {
+        const objectLogic = objectLogics.find(objectLogic => objectLogic.name === widget.name)
+        return (<div
           key={widget.id}
           style={{
             position: 'absolute',
@@ -98,11 +99,13 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             height: widget.position?.height || 100,
           }}
         >
-          <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.name === widget.name)}>
-            <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+          <ObjectWrapper logic={objectLogic}>
+            {objectLogic?.substituteComponent ||
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+            }
           </ObjectWrapper>
-        </div>
-      )}
+        </div>)
+      })}
     </div >,
     [widgets])
 
