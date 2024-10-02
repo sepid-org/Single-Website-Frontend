@@ -21,7 +21,7 @@ import CreateMerchandiseDialog from 'commons/components/organisms/dialogs/Create
 import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
-import { useGetProgramMerchandisesPurchasesFileMutation } from 'apps/website-display/redux/features/report/ReportSlice';
+import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import { MEDIA_BASE_URL } from 'commons/configs/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
@@ -42,22 +42,21 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
     deleteDiscountCode({ discountCodeId })
   }
 
-  const [getProgramMerchandisesPurchasesFile, getExcelResult] = useGetProgramMerchandisesPurchasesFileMutation();
+  const [trigger, result] = useLazyGetProgramMerchandisesPurchasesFileQuery();
 
   const downloadExcelExport = () => {
-    // todo: EHSAN: it should not be registration_form_id
-    getProgramMerchandisesPurchasesFile({ programSlug: program.registration_form })
+    trigger({ programSlug: program.registration_form })
   }
 
   useEffect(() => {
-    if (getExcelResult.isSuccess) {
-      let url = getExcelResult.data.file;
+    if (result.isSuccess) {
+      let url = result.data.file;
       if (!isValidURL(url)) {
-        url = `${MEDIA_BASE_URL}${getExcelResult.data.file}`;
+        url = `${MEDIA_BASE_URL}${result.data.file}`;
       }
-      downloadFromURL(url, `registrants-answers.xlsx`);
+      downloadFromURL(url, `purchases.xlsx`);
     }
-  }, [getExcelResult])
+  }, [result])
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
@@ -92,17 +91,13 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
           <Typography variant='h2' gutterBottom>
             {'بلیط‌های خریداری‌شده'}
           </Typography>
-          <Fragment>
-            <Button variant='contained' onClick={downloadExcelExport} disabled={getExcelResult.isLoading}>
-              {'خروجی اکسل'}
-            </Button>
-            <CreateMerchandiseDialog open={isCreateMerchandiseDialogOpen} handleClose={() => setCreateMerchandiseDialogOpen(false)} />
-          </Fragment>
+          <Button variant='contained' onClick={downloadExcelExport} disabled={result.isLoading}>
+            {'خروجی اکسل'}
+          </Button>
         </Stack>
       </Stack>
 
       <Divider />
-
 
       <Stack>
         <Stack padding={2} paddingBottom={0} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
