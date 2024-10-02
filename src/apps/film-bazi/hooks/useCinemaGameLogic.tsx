@@ -12,6 +12,7 @@ import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 import { Button } from "@mui/material";
 import MyScoreBadge from "../components/atoms/buttons/MyScoreBadge";
+import useLocalNavigate from "./useLocalNavigate";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -44,6 +45,7 @@ const useCinemaGameLogic = ({
   const { seatInfo, fetchSeatInfo } = useSeatInfo();
   const { loading: selectSeatLoading, selectedSeat, selectSeat: selectSeat, error: selectSeatError } = useSelectSeat();
   const { seatSelections, refetch: refetchSeatSelections } = useGetSeatSelections();
+  const localNavigate = useLocalNavigate();
 
   const isSeatSelected = (seatName: string) => {
     return Boolean(seatSelections.find(seatSelection => seatSelection.seat.name === seatName))
@@ -157,7 +159,15 @@ const useCinemaGameLogic = ({
 
   const returnToDashboardButton: ObjectLogicType = {
     name: 'filmbazi-return-to-dashboard-button',
-    substituteComponent: <Button variant='outlined' fullWidth sx={{ height: 40 }}>{'بازگشت'}</Button>
+    substituteComponent:
+      <Button
+        variant='outlined'
+        fullWidth
+        sx={{ height: 40 }}
+        onClick={() => localNavigate('/')}
+      >
+        {'بازگشت'}
+      </Button>
   }
 
   const seats: ObjectLogicType[] = [];
