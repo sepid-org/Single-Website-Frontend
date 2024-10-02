@@ -1,10 +1,8 @@
 import {
   Grid,
-  Stack,
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
 import useGetMyDiscountCodes from 'apps/film-bazi/hooks/useGetMyDiscountCodes';
 import MyScoreBadge from '../atoms/buttons/MyScoreBadge';
 import DiscountCodeInfo from '../organisms/DiscountCodeInfoCard';

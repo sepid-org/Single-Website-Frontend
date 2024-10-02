@@ -1,9 +1,10 @@
+import React, { FC, Fragment } from 'react';
 import PeopleIcon from '@mui/icons-material/People';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 import ClassIcon from '@mui/icons-material/Class';
-import React, { FC, Fragment } from 'react';
+import VideocamIcon from '@mui/icons-material/Videocam';
 
 import Info from 'commons/template/program/management/Info';
 import Registration from 'commons/template/program/management/Registration';
@@ -14,6 +15,7 @@ import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 import FSMs from 'commons/template/program/management/FSMs';
+import ManageMovieScreeningResponds from '../components/template/ManageMovieScreeningResponds';
 
 const tabs: DashboardTabType[] = [
   {
@@ -45,6 +47,12 @@ const tabs: DashboardTabType[] = [
     label: 'کارگاه‌ها',
     icon: ClassIcon,
     component: <FSMs />,
+  },
+  {
+    slug: 'movie-screening-responds',
+    label: 'درخواست‌های اکران',
+    icon: VideocamIcon,
+    component: <ManageMovieScreeningResponds />,
   },
 ];
 
