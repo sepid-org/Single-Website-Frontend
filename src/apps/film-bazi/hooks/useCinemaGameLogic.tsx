@@ -44,7 +44,7 @@ const useCinemaGameLogic = ({
 }) => {
   const { seatInfo, fetchSeatInfo } = useSeatInfo();
   const { loading: selectSeatLoading, selectedSeat, selectSeat: selectSeat, error: selectSeatError } = useSelectSeat();
-  const { seatSelections, refetch: refetchSeatSelections } = useGetSeatSelections();
+  const { seatSelections, refetch: refetchSeatSelections, loading: getSeatSelectionsLoading } = useGetSeatSelections();
   const localNavigate = useLocalNavigate();
 
   const isSeatSelected = (seatName: string) => {
@@ -52,7 +52,7 @@ const useCinemaGameLogic = ({
   }
 
   useEffect(() => {
-    if (selectSeatLoading) {
+    if (selectSeatLoading || getSeatSelectionsLoading) {
       setOpenLoading(true);
     } else {
       setOpenLoading(false);
