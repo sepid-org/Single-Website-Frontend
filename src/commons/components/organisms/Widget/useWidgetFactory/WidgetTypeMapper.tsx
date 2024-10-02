@@ -16,6 +16,7 @@ import {
   sendInviteeUsernameResponseAction,
   sendUploadFileAnswerAction,
 } from 'apps/website-display/redux/slices/Answer';
+import BoxWidget, { EditableBoxWidget } from '../contents/BoxWidget';
 
 const WIDGET_TYPE_MAPPER = {
   SmallAnswerProblem: {
@@ -51,6 +52,12 @@ const WIDGET_TYPE_MAPPER = {
     EditWidgetDialog: TextEditWidget,
     label: 'متن',
     backendType: 'TextWidget',
+  },
+  BoxWidget: {
+    WidgetComponent: BoxWidget,
+    EditWidgetDialog: EditableBoxWidget,
+    label: 'جعبه',
+    backendType: 'BoxWidget',
   },
   DetailBoxWidget: {
     WidgetComponent: DetailBoxWidget,
