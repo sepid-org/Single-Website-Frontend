@@ -10,6 +10,8 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
+import { Button } from "@mui/material";
+import MyScoreBadge from "../components/atoms/buttons/MyScoreBadge";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -148,11 +150,25 @@ const useCinemaGameLogic = ({
     return seatAndItsFullSeat;
   }
 
-  const objectLogics: ObjectLogicType[] = [];
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach(index => objectLogics.push(...createSeat(index)))
+  const myScoreBadge: ObjectLogicType = {
+    name: 'filmbazi-my-score-badge',
+    substituteComponent: <MyScoreBadge />
+  }
+
+  const returnToDashboardButton: ObjectLogicType = {
+    name: 'filmbazi-return-to-dashboard-button',
+    substituteComponent: <Button variant='outlined' fullWidth sx={{ height: 40 }}>{'بازگشت'}</Button>
+  }
+
+  const seats: ObjectLogicType[] = [];
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach(index => seats.push(...createSeat(index)))
 
   return {
-    objectLogics,
+    objectLogics: [
+      ...seats,
+      myScoreBadge,
+      returnToDashboardButton,
+    ]
   }
 }
 
