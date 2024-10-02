@@ -4,7 +4,7 @@ import AppBarComponent from '../components/organisms/Appbar';
 import useGetMyRank from '../hooks/useGetMyRank';
 import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
-import { Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { ScoreBoardItemType } from '../types';
 import useGetMyBalances from '../hooks/useGetMyBalances';
@@ -72,24 +72,21 @@ const App: React.FC = () => {
 
 
 	return (
-		<Fragment>
+		<Box
+			sx={{
+				backgroundImage: `url(${backgroundImg})`,
+				backgroundSize: "cover",
+				backgroundPosition: "center",
+				backgroundRepeat: "no-repeat",
+				backgroundAttachment: "fixed",
+				minHeight: '100vh',
+				minWidth: "100vw",
+				width: "100vw",
+			}}
+		>
 			<AppBarComponent />
-			<Container
-				maxWidth={false}
-				sx={{
-					backgroundImage: `url(${backgroundImg})`,
-					backgroundSize: "cover",
-					backgroundPosition: "center",
-					backgroundRepeat: "no-repeat",
-					backgroundAttachment: "fixed",
-					minHeight: '100vh',
-					minWidth: "100vw",
-					width: "100vw",
-				}}
-			>
-				<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
-			</Container>
-		</Fragment>
+			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
+		</Box>
 	);
 };
 
