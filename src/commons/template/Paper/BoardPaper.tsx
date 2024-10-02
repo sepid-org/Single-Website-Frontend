@@ -98,7 +98,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             height: widget.position?.height || 100,
           }}
         >
-          <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.objectName === widget.name)}>
+          <ObjectWrapper logic={objectLogics.find(objectLogic => objectLogic.name === widget.name)}>
             <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
           </ObjectWrapper>
         </div>

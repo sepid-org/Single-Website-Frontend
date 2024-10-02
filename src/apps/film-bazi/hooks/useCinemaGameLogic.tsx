@@ -1,9 +1,17 @@
+import React, { Fragment } from "react";
 import { ObjectLogicType } from "commons/types/models";
 import { useSeatInfo } from "./useSeatInfo";
 import { useSelectSeat } from "./useSelectSeat";
 import useGetSeatSelections from "./useGetSeatSelections";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
+import { Stack, Typography } from "@mui/material";
+import CustomDialogPaper from "../components/atoms/CustomDialogPaper";
+import CustomDialogContent from "../components/organisms/CustomDialogContent";
+import { toPersianNumber } from "commons/utils/translateNumber";
+import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
+import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
+import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -29,62 +37,113 @@ const common = {
   },
 }
 
-const useCinemaGameLogic = () => {
+const useCinemaGameLogic = ({
+  openLoading,
+  setOpenLoading,
+}) => {
   const { seatInfo, fetchSeatInfo } = useSeatInfo();
-  const { loading: selectSeatLoading, selectedSeat, selectSeat: _selectSeat, error: selectSeatError } = useSelectSeat();
+  const { loading: selectSeatLoading, selectedSeat, selectSeat: selectSeat, error: selectSeatError } = useSelectSeat();
   const { seatSelections, refetch: refetchSeatSelections } = useGetSeatSelections();
 
   const isSeatSelected = (seatName: string) => {
     return Boolean(seatSelections.find(seatSelection => seatSelection.seat.name === seatName))
   }
 
-  const selectSeat = (seatName: string) => {
-    _selectSeat(seatName);
-  }
+  useEffect(() => {
+    if (selectSeatLoading) {
+      setOpenLoading(true);
+    } else {
+      setOpenLoading(false);
+    }
+  }, [selectSeatLoading])
 
   useEffect(() => {
     if (!selectSeatLoading) {
       if (selectedSeat) {
         if (selectedSeat.score_reward) {
           dialogService.open({
-            message: `آفرین! ${selectedSeat.score_reward} سکه به شما اضافه شد.`,
+            component:
+              <CustomDialogContent
+                image={<ScoreAnnouncement />}
+                title={`تبریک! ${selectedSeat.score_reward} سکه به شما اضافه شد.`}
+                onClick={() => {
+                  dialogService.close();
+                }}
+              />
           })
         }
         if (selectedSeat.other_reward) {
           dialogService.open({
-            message: `آفرین! ${selectedSeat.other_reward}`,
+            component:
+              <CustomDialogContent
+                image={<ScoreAnnouncement />}
+                title={`تبریک! ${selectedSeat.other_reward}`}
+                onClick={() => {
+                  dialogService.close();
+                }}
+              />
           })
         }
         refetchSeatSelections();
       }
       if (selectSeatError) {
         dialogService.open({
-          message: selectSeatError,
+          component:
+            <CustomDialogContent
+              image={<GraySeatAnnouncement />}
+              title={'فرصت‌های انتخاب صندلیت تموم شده'}
+              message={'برای به‌دست‌آوردن فرصت جدید، باید کدهای تخفیفت رو بین دوستات پخش کنی'}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
         })
       }
     }
   }, [selectSeatLoading])
 
   const createSeat = (seatIndex: number) => {
-
     const seatName = `filmbazi-level1-seat${seatIndex}`;
     const fullSeatName = `filmbazi-level1-fullseat${seatIndex}`;
     const seatAndItsFullSeat: ObjectLogicType[] = [
       {
         ...common,
-        objectName: seatName,
+        title: `صندلی شماره ${seatIndex}`,
+        name: seatName,
         sx: {
           display: isSeatSelected(seatName) ? 'none' : null,
         },
         onClick: (e) => {
-          const target = e.target;
-          selectSeat(seatName);
+          dialogService.open({
+            component:
+              <CustomDialogContent
+                image={<GraySeatAnnouncement />}
+                title={`آیا از انتخاب صندلی شماره ${toPersianNumber(seatIndex)} مطمئن هستید؟`}
+                onClickTitle={'آره مطمئنم'}
+                onClick={() => {
+                  dialogService.close();
+                  selectSeat(seatName);
+                }}
+              />
+          })
         }
       },
       {
-        objectName: fullSeatName,
+        name: fullSeatName,
         sx: {
           display: isSeatSelected(seatName) ? null : 'none',
+        },
+        onClick: () => {
+          dialogService.open({
+            component:
+              <CustomDialogContent
+                image={<RedSeatAnnouncement />}
+                title={'شما قبلاً این صندلی را انتخاب کرده‌اید'}
+                onClick={() => {
+                  dialogService.close();
+                }}
+              />
+          })
         }
       }
     ];
