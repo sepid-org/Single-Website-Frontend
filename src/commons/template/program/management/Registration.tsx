@@ -34,7 +34,7 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
       }
       downloadFromURL(url, `answer-sheets.xlsx`);
     }
-  }, [getAnswerSheetsFileResult.isLoading])
+  }, [getAnswerSheetsFileResult.data])
 
   useEffect(() => {
     setForm(registrationForm);

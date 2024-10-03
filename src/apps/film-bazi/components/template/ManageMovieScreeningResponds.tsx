@@ -29,7 +29,7 @@ const ManageMovieScreeningResponds: FC<ManageMovieScreeningRespondsPropsType> = 
       }
       downloadFromURL(url, `answer-sheets.xlsx`);
     }
-  }, [result.isLoading])
+  }, [result.data])
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>

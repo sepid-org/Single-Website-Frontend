@@ -36,7 +36,7 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
       }
       downloadFromURL(url, `registration-receipts.xlsx`);
     }
-  }, [result.isLoading])
+  }, [result.data])
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
