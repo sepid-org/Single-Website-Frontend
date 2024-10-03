@@ -57,7 +57,7 @@ const useCinemaGameLogic = ({
     } else {
       setOpenLoading(false);
     }
-  }, [selectSeatLoading])
+  }, [selectSeatLoading, getSeatSelectionsLoading])
 
   useEffect(() => {
     if (!selectSeatLoading) {
