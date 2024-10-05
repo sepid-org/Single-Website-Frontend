@@ -37,12 +37,12 @@ const PLUGINS = [
   'searchreplace', 'insertdatetime', 'media', 'table', 'directionality', 'wordcount'
 ];
 
-const TOOLBAR = 'redo undo | fontselect fontsize styles | align | bold italic underline formatgroup | bullist numlist | ltr rtl | insertgroup | searchreplace preview';
+const TOOLBAR = 'redo undo | fontselect fontsize styles | align | bold italic underline formatgroup | bullist numlist | ltr rtl | insertgroup | searchreplace preview | forecolor backcolor';
 
 const TOOLBAR_GROUPS = {
   formatgroup: {
     icon: 'format',
-    items: 'strikethrough | forecolor backcolor | superscript subscript | removeformat'
+    items: 'strikethrough | superscript subscript | removeformat'
   },
   insertgroup: {
     icon: 'plus',
@@ -64,7 +64,6 @@ const STYLE_FORMATS = [
 ];
 
 const TinyEditor = ({ content, onChange }) => {
-
   return (
     <Editor
       licenseKey='gpl'
@@ -80,6 +79,7 @@ const TinyEditor = ({ content, onChange }) => {
         toolbar: TOOLBAR,
         toolbar_groups: TOOLBAR_GROUPS,
         style_formats: STYLE_FORMATS,
+        custom_colors: true
       }}
       value={content}
       onEditorChange={onChange}
