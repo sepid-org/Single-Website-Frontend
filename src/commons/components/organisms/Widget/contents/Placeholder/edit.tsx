@@ -11,7 +11,7 @@ import EditObjectFields from 'commons/components/organisms/forms/EditObjectField
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
 
-const EditableBoxWidget = ({
+const EditablePlaceholder = ({
   onMutate,
   handleClose,
 
@@ -34,7 +34,7 @@ const EditableBoxWidget = ({
 
   return (
     <Dialog disableScrollLock open={open}>
-      <DialogTitle>جعبه</DialogTitle>
+      <DialogTitle>جانگهدار</DialogTitle>
       <DialogContent>
         <EditObjectFields
           fields={widgetFields}
@@ -56,4 +56,4 @@ const EditableBoxWidget = ({
   );
 }
 
-export default EditableBoxWidget;
+export default EditablePlaceholder;

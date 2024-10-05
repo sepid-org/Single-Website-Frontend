@@ -16,7 +16,7 @@ import {
   sendInviteeUsernameResponseAction,
   sendUploadFileAnswerAction,
 } from 'apps/website-display/redux/slices/Answer';
-import BoxWidget, { EditableBoxWidget } from '../contents/BoxWidget';
+import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
 
 const WIDGET_TYPE_MAPPER = {
   SmallAnswerProblem: {
@@ -53,11 +53,11 @@ const WIDGET_TYPE_MAPPER = {
     label: 'متن',
     backendType: 'TextWidget',
   },
-  BoxWidget: {
-    WidgetComponent: BoxWidget,
-    EditWidgetDialog: EditableBoxWidget,
-    label: 'جعبه',
-    backendType: 'BoxWidget',
+  Placeholder: {
+    WidgetComponent: Placeholder,
+    EditWidgetDialog: EditablePlaceholder,
+    label: 'جانگهدار',
+    backendType: 'Placeholder',
   },
   DetailBoxWidget: {
     WidgetComponent: DetailBoxWidget,
