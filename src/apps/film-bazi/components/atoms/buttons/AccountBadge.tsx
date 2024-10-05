@@ -58,7 +58,6 @@ const AccountBadge = () => {
           direction="row"
           alignItems="center"
           sx={{
-            // paddingY: 1,
             borderRadius: 2,
           }}
         >
@@ -78,6 +77,7 @@ const AccountBadge = () => {
       </Button>
 
       <Menu
+        disableScrollLock
         anchorEl={anchorEl}
         open={isMenuOpen}
         onClose={handleMenuClose}

@@ -26,10 +26,9 @@ const Dashboard: FC<DashboardPropsType> = ({ }) => {
       }
       <Box
         sx={{
-
           backgroundImage: `url(${backgroundImg})`,
           backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundPosition: "left",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           minHeight: '100vh',

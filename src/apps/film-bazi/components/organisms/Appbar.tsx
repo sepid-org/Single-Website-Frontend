@@ -6,6 +6,7 @@ import NotificationIcon from '../atoms/icons/NotificationIcon';
 import MenuIcon from '@mui/icons-material/Menu'; // Menu icon for mobile drawer toggle
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import { useTheme } from '@mui/material/styles'; // To get theme breakpoints
+import DashboardButton3 from '../atoms/buttons/DashboardButton3';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0px 4px 4px 0px #00000040',
@@ -64,23 +65,15 @@ const AppBarComponent = () => {
               </IconButton>
             ) : (
               <Stack direction={'row-reverse'} spacing={2}>
-                <Button startIcon={<NotificationIcon />} onClick={() => localNavigate('/')}>
-                  <Typography fontWeight={700} fontSize={18} color={'white'}>
-                    {'اطلاعیه‌ها'}
-                  </Typography>
-                </Button>
-                <Button startIcon={<HomeIcon />} onClick={() => localNavigate('/')}>
-                  <Typography fontWeight={700} fontSize={18} color={'white'}>
-                    {'خانه'}
-                  </Typography>
-                </Button>
+                <DashboardButton3 label='اطلاعیه‌ها' icon={<NotificationIcon />} onClick={() => { localNavigate(`/`) }} />
+                <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
               </Stack>
             )}
           </Stack>
         </Container>
       </CustomToolbar>
 
-      <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)} PaperProps={{ sx: { borderRadius: '0px !important' } }}>
+      <Drawer disableScrollLock anchor="right" open={drawerOpen} onClose={toggleDrawer(false)} PaperProps={{ sx: { borderRadius: '0px !important' } }}>
         {DrawerContent}
       </Drawer>
     </CustomAppBar>

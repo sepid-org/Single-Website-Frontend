@@ -11,7 +11,6 @@ import RankingIcon from '../atoms/icons/RankingIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
-import HomeIcon from '../atoms/icons/HomeIcon';
 
 type DashboardSidebarPropsType = {}
 
@@ -32,9 +31,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       <Stack spacing={2} justifyContent={'space-between'}>
         <MyScoreBadge />
         <DashboardButton2 label='بازی سینما' icon={<CupIcon />} onClick={() => { localNavigate(`/cinema-game/`) }} />
-        <DashboardButton2 label='پروفایل' icon={<HomeIcon />} onClick={() => { localNavigate(`/profile/`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
-        {/* <DashboardButton label='دوستاتو دعوت کن' icon={<ShareIcon />} /> */}
         {programPermissions?.is_manager &&
           <DashboardButton label='مدیریت دوره' onClick={() => { localNavigate(`/admin-dashboard/`) }} />
         }
