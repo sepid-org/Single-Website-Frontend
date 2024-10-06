@@ -6,14 +6,9 @@ import CreateAccount from 'apps/website-display/pages/CreateAccount';
 import RegistrationReceipt from 'apps/website-display/pages/RegistrationReceipt';
 import Programs from 'apps/website-display/pages/Programs';
 import Setting from 'apps/website-display/pages/Setting';
-import Program from 'apps/website-display/pages/Program';
-import ProgramManagement from 'apps/website-display/pages/ProgramManagement';
-import NotFoundPage from 'apps/website-display/pages/Message/NotFoundPage';
 import Login from 'apps/website-display/pages/Login';
-import FailedPayment from 'apps/website-display/pages/Message/FailedPayment';
-import SuccessfulPayment from 'apps/website-display/pages/Message/SuccessfulPayment';
-import Registration from 'apps/website-display/pages/Registration';
-import TeamSetting from 'apps/website-display/pages/TeamSetting';
+import FailedPayment from 'apps/program/pages/Message/FailedPayment';
+import SuccessfulPayment from 'apps/program/pages/Message/SuccessfulPayment';
 import FSM from 'apps/website-display/pages/FSM';
 import Article from 'apps/website-display/pages/Article';
 import Articles from 'apps/website-display/pages/Articles';
@@ -22,9 +17,9 @@ import FSMManagement from 'apps/website-display/pages/FSMManagement';
 import Correction from 'apps/website-display/pages/Correction';
 import EditArticle from 'apps/website-display/pages/EditArticle';
 import ProfilePage from 'apps/website-display/pages/Profile';
-import WebsiteManagement from 'apps/website-factory/pages/WebsiteManagement';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import Notifications from 'apps/chat/pages/Notifications';
+import NotFoundPage from 'commons/pages/NotFoundPage';
 
 const App = () => {
 
@@ -51,18 +46,8 @@ const App = () => {
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />
         <Route path="/fsm/:fsmId/" element={<FSM />} />
-        <Route
-          path="/program/:programSlug/form/"
-          element={<Registration />}
-        />
-        <Route
-          path="/program/:programSlug/team-setting/"
-          element={<TeamSetting />}
-        />
-        <Route path="/program/:programSlug/*" element={<Program />} />
 
         {/* only mentors can visit: */}
-        <Route path="/program/:programSlug/manage/" element={<ProgramManagement />} />
         <Route path="/fsm/:fsmId/manage/correction/:answerId/" element={<Correction />} />
         <Route path="/fsm/:fsmId/manage/" element={<FSMManagement />} />
       </Route>

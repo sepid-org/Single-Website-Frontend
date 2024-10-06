@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Program from 'apps/website-display/pages/Program';
-import ProgramManagement from 'apps/website-display/pages/ProgramManagement';
-import NotFoundPage from 'apps/website-display/pages/Message/NotFoundPage';
-import Registration from 'apps/website-display/pages/Registration';
-import TeamSetting from 'apps/website-display/pages/TeamSetting';
 import PrivateRoute from 'commons/routes/PrivateRoute';
+import TeamSetting from './pages/TeamSetting';
+import Registration from './pages/Registration';
+import ProgramManagement from './pages/ProgramManagement';
+import NotFoundPage from 'commons/pages/NotFoundPage';
+import Program from './pages/Program';
 
 const App = () => {
 

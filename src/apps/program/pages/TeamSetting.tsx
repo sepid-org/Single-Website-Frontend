@@ -30,8 +30,8 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import ProgramTeamSettingBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramTeamSetting';
 import ProgramPageWrapper from 'commons/template/program/ProgramPageWrapper';
-import { useCreateAndJoinTeamMutation, useDeleteTeamMutation, useGetTeamQuery } from '../redux/features/team/TeamSlice';
-import { useDeleteInvitationMutation, useGetMyInvitationsQuery, useGetTeamInvitationsQuery, useInviteMemberMutation } from '../redux/features/team/InvitationSlice';
+import { useCreateAndJoinTeamMutation, useDeleteTeamMutation, useGetTeamQuery } from '../../website-display/redux/features/team/TeamSlice';
+import { useDeleteInvitationMutation, useGetMyInvitationsQuery, useGetTeamInvitationsQuery, useInviteMemberMutation } from '../../website-display/redux/features/team/InvitationSlice';
 
 const PROFILE_PICTURE = process.env.PUBLIC_URL + '/images/profile.png';
 
