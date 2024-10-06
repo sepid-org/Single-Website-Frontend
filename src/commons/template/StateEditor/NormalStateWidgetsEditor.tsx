@@ -15,11 +15,11 @@ import EditHints from '../EditHints';
 import { useDeleteFSMStateMutation, useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { toast } from 'react-toastify';
 
-type EditableNormalStatePropsType = {
+type NormalStateWidgetsEditorPropsType = {
   fsmStateId: string;
 }
 
-const EditableNormalState: FC<EditableNormalStatePropsType> = ({
+const NormalStateWidgetsEditor: FC<NormalStateWidgetsEditorPropsType> = ({
   fsmStateId,
 }) => {
   const { fsmId } = useParams()
@@ -119,4 +119,4 @@ const EditableNormalState: FC<EditableNormalStatePropsType> = ({
   );
 }
 
-export default EditableNormalState;
+export default NormalStateWidgetsEditor;

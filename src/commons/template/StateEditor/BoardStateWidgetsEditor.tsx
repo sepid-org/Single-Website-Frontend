@@ -1,16 +1,20 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Rnd } from 'react-rnd';
 import { useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetObjectsByPaperQuery, useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
+import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { Box, Button, Checkbox, Divider, FormControlLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { FSMStateType } from 'commons/types/models';
 import { toast } from 'react-toastify';
 
-const EditableBoardState = ({ fsmStateId }) => {
+type BoardStateWidgetsEditorPropsType = {
+  fsmStateId: string;
+}
+
+const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
@@ -179,4 +183,4 @@ const EditableBoardState = ({ fsmStateId }) => {
   );
 };
 
-export default EditableBoardState;
+export default BoardStateWidgetsEditor;

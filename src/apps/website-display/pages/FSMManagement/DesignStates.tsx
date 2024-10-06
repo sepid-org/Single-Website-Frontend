@@ -1,15 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import {
   Stack,
   Skeleton,
-  Typography,
-  Button,
   Dialog,
   IconButton,
 } from '@mui/material';
 import { useParams } from 'react-router';
-import StatesMenu from 'commons/components/organisms/StatesMenu';
-import EditableFSMState from 'commons/template/EditableFSMState';
+import StateEditor from 'commons/template/StateEditor';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -20,7 +17,6 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [selectedStateId, setSelectedStateId] = useState(null);
   const { data: fsmStates, isLoading } = useGetFSMStatesQuery({ fsmId });
-
 
   const headers = [
     { label: 'شناسه', name: 'id' },
@@ -57,7 +53,7 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
         onClose={() => setSelectedStateId(null)}
       >
         {Boolean(selectedStateId) &&
-          <EditableFSMState fsmStateId={selectedStateId} />
+          <StateEditor fsmStateId={selectedStateId} />
         }
       </Dialog>
     </Stack>
