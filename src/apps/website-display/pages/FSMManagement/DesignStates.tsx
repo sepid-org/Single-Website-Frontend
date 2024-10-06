@@ -5,52 +5,60 @@ import {
   Typography,
   Button,
   Dialog,
+  IconButton,
 } from '@mui/material';
 import { useParams } from 'react-router';
 import StatesMenu from 'commons/components/organisms/StatesMenu';
 import EditableFSMState from 'commons/template/EditableFSMState';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 type DesignStatesPropsType = {}
 
 const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
   const { fsmId } = useParams();
-  const [stateIndex, setStateIndex] = useState(0);
-  const [isEditableFSMStateDialogOpen, setIsEditableFSMStateDialogOpen] = useState(false);
-  const { data: fsmStates = [], isLoading, isSuccess } = useGetFSMStatesQuery({ fsmId });
+  const [selectedStateId, setSelectedStateId] = useState(null);
+  const { data: fsmStates, isLoading } = useGetFSMStatesQuery({ fsmId });
 
-  useEffect(() => {
-    if (isSuccess) {
-      setStateIndex(stateIndex => Math.max(0, Math.min(stateIndex, fsmStates.length - 1)));
-    }
-  }, [fsmStates])
 
-  const finalStateIndex = Math.max(0, Math.min(stateIndex, fsmStates.length - 1));
+  const headers = [
+    { label: 'شناسه', name: 'id' },
+    { label: 'نام', name: 'name' },
+    { label: 'قالب', name: 'template' },
+    { label: 'تنظیمات', name: 'settings' },
+  ];
+
+  const rowsWithSettings = fsmStates?.map(obj => ({
+    ...obj,
+    settings: (
+      <IconButton onClick={() => setSelectedStateId(obj.id)}>
+        <SettingsIcon />
+      </IconButton>
+    ),
+  }));
 
   return (
-    <Stack padding={2} spacing={4}>
-      <StatesMenu
-        stateIndex={stateIndex}
-        setStateIndex={setStateIndex}
-        states={fsmStates}
-      />
-      {(isLoading) ?
-        <Skeleton variant="rounded" width={'100%'} height={600} /> :
-        ((fsmStates[finalStateIndex]?.id) ?
-          <Button onClick={() => setIsEditableFSMStateDialogOpen(true)}>
-            {'ویرایش گام'}
-          </Button> :
-          <Typography variant='h2'>
-            {'گامی وجود ندارد.'}
-          </Typography>)
+    <Stack spacing={2}>
+      {isLoading ?
+        [1, 2, 3, 4].map(index =>
+          <Skeleton key={index} variant="rounded" width={'100%'} height={60} />
+        ) :
+        <SimpleTable
+          headers={headers}
+          rows={rowsWithSettings}
+          hideRowNumbersColumn={true}
+        />
       }
       <Dialog
         fullWidth={true}
-        maxWidth={fsmStates[finalStateIndex]?.template === 'board' ? false : 'sm'}
-        open={isEditableFSMStateDialogOpen}
-        onClose={() => setIsEditableFSMStateDialogOpen(false)}
+        maxWidth={false}
+        open={Boolean(selectedStateId)}
+        onClose={() => setSelectedStateId(null)}
       >
-        <EditableFSMState fsmStateId={fsmStates[finalStateIndex]?.id} />
+        {Boolean(selectedStateId) &&
+          <EditableFSMState fsmStateId={selectedStateId} />
+        }
       </Dialog>
     </Stack>
   );

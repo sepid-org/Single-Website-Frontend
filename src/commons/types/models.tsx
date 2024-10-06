@@ -159,7 +159,7 @@ export type Article = any
 export type Problem = any
 export type Submission = any
 export type SubmissionIsLoading = boolean
-export type PaperType = {
+export type PaperType = ObjectType & {
   id: string;
   paper_type: string;
   template: 'normal' | 'board';
