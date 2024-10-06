@@ -51,7 +51,7 @@ const useRegistrationSteps = ({
       onClick: () => goToStep(getStepIndex('user-setting')),
     })
 
-    if (program.audience_type === 'Student') {
+    if (registrationForm.audience_type === 'Student') {
       steps.push({
         name: 'school-setting',
         label: 'تکمیل اطلاعات دانش‌آموزی',
@@ -60,7 +60,7 @@ const useRegistrationSteps = ({
       })
     }
 
-    if (program.audience_type === 'Academic') {
+    if (registrationForm.audience_type === 'Academic') {
       steps.push({
         name: 'university-setting',
         label: 'تکمیل اطلاعات دانشجویی',

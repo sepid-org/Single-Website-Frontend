@@ -32,14 +32,11 @@ export type ProgramType = {
   program_contact_info: ProgramContactInfoType;
   is_visible: boolean;
   accessible_after_closure: boolean;
-  audience_type: AudienceTypeType;
-  certificates_ready: boolean
   cover_page: string;
   creator: string;
   description: string;
   end_date: string | null;
   participation_type: ProgramParticipationType;
-  has_certificate: boolean
   id: string;
   is_active: boolean;
   is_approved: boolean;
@@ -49,8 +46,6 @@ export type ProgramType = {
   initial_participants_count: number;
   final_participants_count: number;
   registration_form: string;
-  registration_start_date: string | null;
-  registration_end_date: string | null;
   start_date: string | null;
   team_size: number;
   is_public: boolean;

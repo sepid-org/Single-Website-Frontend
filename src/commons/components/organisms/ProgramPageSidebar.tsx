@@ -15,6 +15,7 @@ import ProgramContactInfo from 'commons/components/molecules/ProgramContactInfo'
 import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import ShareProgramButton from 'commons/components/atoms/ShareProgramButton';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
+import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 
 type ProgramPageSidebarPropsType = {
   getCertificate: any;
@@ -28,10 +29,11 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
+  const { data: registrationForm } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: programPermissions } = useGetProgramUserPermissionsQuery({ programSlug });
 
-  if (!program) return null;
+  if (!program || !registrationForm) return null;
 
   const doGetCertificate = () => {
     getCertificate({ receiptId: registrationReceipt.id }).then((action) => {
@@ -61,10 +63,10 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
             {'تیم‌بندی'}
           </Button>
         }
-        {program.has_certificate &&
+        {registrationForm.has_certificate &&
           <Button
             size='large'
-            disabled={!program.certificates_ready}
+            disabled={!registrationForm.certificates_ready}
             onClick={doGetCertificate}
             color='info'
             variant="contained"
