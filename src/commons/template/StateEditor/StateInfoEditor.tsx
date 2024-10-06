@@ -98,7 +98,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ fsmStateId }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl required fullWidth>
+            <FormControl fullWidth>
               <InputLabel>قالب گام</InputLabel>
               <Select
                 onChange={(event) => {
@@ -158,6 +158,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ fsmStateId }) => {
         </Grid>
       </Container>
       <AreYouSure
+        text={'آیا از حذف گام مطمئن هستید؟ با حذف گام، تمام ویجت‌های آن نیز از بین می‌روند.'}
         open={openDeleteWidgetDialog}
         handleClose={() => setOpenDeleteWidgetDialog(false)}
         callBackFunction={() => deleteFSMState({ fsmStateId })}

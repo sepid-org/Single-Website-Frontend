@@ -12,6 +12,7 @@ export const tagTypes = [
   'program-admins',
   'fsm-states',
   'fsm-state',
+  'fsm-state-edges',
   'fsm-edges',
   'widget',
   'paper',

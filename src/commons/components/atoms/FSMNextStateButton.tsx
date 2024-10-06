@@ -9,25 +9,22 @@ import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
-import { EdgeType } from 'commons/types/models';
-import useFinishFSM from 'commons/hooks/useFinishFSM';
+import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 type FSMNextStateButtonPropsType = {
-  outwardEdges: EdgeType[]
-  isEnd?: boolean;
+  fsmStateId: string;
 }
 
 const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
-  outwardEdges = [],
-  isEnd,
+  fsmStateId,
 }) => {
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);
   const { isMentor } = useContext(StatePageContext);
-  const [goForward, goForwardResult] = useGoForwardMutation();
-  const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
-  const { finishFSM } = useFinishFSM();
+  const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
+  const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
+  const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })
 
   const edges = isMentor
     ? outwardEdges
@@ -58,17 +55,6 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
   };
 
   if (edges.length === 0) {
-    if (isEnd) {
-      return (
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={finishFSM}>
-          {'اتمام کارگاه'}
-        </Button>
-      )
-    }
     return null;
   }
 
@@ -78,7 +64,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         fullWidth
         variant="contained"
         color="primary"
-        disabled={edges.length === 0 || goForwardResult?.isLoading || mentorMoveForwardResult?.isLoading}
+        disabled={isGoForwardLoading || isMentorMoveForwardLoading}
         onClick={handleClick}>
         {edges.length === 0
           ? 'جابجایی با همیار'

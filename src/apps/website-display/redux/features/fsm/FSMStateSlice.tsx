@@ -1,4 +1,4 @@
-import { FSMStateType } from 'commons/types/models';
+import { EdgeType, FSMStateType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -17,6 +17,8 @@ type CreateFSMStateOutputType = {
 }
 
 type GetFSMStateOutputType = FSMStateType;
+
+type EdgesOutputType = EdgeType[];
 
 
 export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
@@ -71,6 +73,20 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
         return response;
       },
     }),
+
+    getFSMStateOutwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'fsm-state-edges', id: result.id }]
+      ),
+      query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/outward_edges/`,
+    }),
+
+    getFSMStateInwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'fsm-state-edges', id: result.id }]
+      ),
+      query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/inward_edges/`,
+    }),
   })
 });
 
@@ -79,4 +95,6 @@ export const {
   useUpdateFSMStateMutation,
   useGetFSMStateQuery,
   useDeleteFSMStateMutation,
+  useGetFSMStateOutwardEdgesQuery,
+  useGetFSMStateInwardEdgesQuery,
 } = FSMStateSlice;

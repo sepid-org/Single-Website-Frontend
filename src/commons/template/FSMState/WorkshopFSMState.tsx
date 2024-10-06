@@ -9,6 +9,7 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
+import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 
 export type WorkshopFSMStatePropsType = {
   isMentor: boolean;
@@ -77,10 +78,13 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               <Stack sx={{ display: { xs: 'none', md: 'inherit' } }}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
+                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
+                    {state?.is_end ?
+                      <FinishFSMButton /> :
+                      <FSMNextStateButton fsmStateId={state.id} />
+                    }
                   </Grid>
                 </Grid>
               </Stack>
@@ -92,10 +96,13 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
+                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
+                    {state.is_end ?
+                      <FinishFSMButton /> :
+                      <FSMNextStateButton fsmStateId={state.id} />
+                    }
                   </Grid>
                 </Grid>
               </Stack>
@@ -111,10 +118,13 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton inwardEdges={inward_edges} playerId={playerId} />
+                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
                   </Grid>
                   <Grid item xs={6}>
-                    <FSMNextStateButton isEnd={state.is_end} outwardEdges={outward_edges} />
+                    {state.is_end ?
+                      <FinishFSMButton /> :
+                      <FSMNextStateButton fsmStateId={state.id} />
+                    }
                   </Grid>
                 </Grid>
               </Stack>
