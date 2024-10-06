@@ -4,12 +4,14 @@ import {
   Skeleton,
   Dialog,
   IconButton,
+  Typography,
 } from '@mui/material';
 import { useParams } from 'react-router';
 import StateEditor from 'commons/template/StateEditor';
 import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
+import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 
 type DesignStatesPropsType = {}
 
@@ -35,27 +37,35 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
   }));
 
   return (
-    <Stack spacing={2}>
-      {isLoading ?
-        [1, 2, 3, 4].map(index =>
-          <Skeleton key={index} variant="rounded" width={'100%'} height={60} />
-        ) :
-        <SimpleTable
-          headers={headers}
-          rows={rowsWithSettings}
-          hideRowNumbersColumn={true}
-        />
-      }
-      <Dialog
-        fullWidth={true}
-        maxWidth={false}
-        open={Boolean(selectedStateId)}
-        onClose={() => setSelectedStateId(null)}
-      >
-        {Boolean(selectedStateId) &&
-          <StateEditor fsmStateId={selectedStateId} />
+    <Stack padding={2} spacing={2} alignItems={'stretch'} justifyContent={'center'}>
+      <Stack direction={'row'} justifyContent={'space-between'}>
+        <Typography variant='h2'>
+          {'گام‌ها'}
+        </Typography>
+        <CreateStateButton />
+      </Stack>
+      <Stack spacing={2}>
+        {isLoading ?
+          [1, 2, 3, 4].map(index =>
+            <Skeleton key={index} variant="rounded" width={'100%'} height={60} />
+          ) :
+          <SimpleTable
+            headers={headers}
+            rows={rowsWithSettings}
+            hideRowNumbersColumn={true}
+          />
         }
-      </Dialog>
+        <Dialog
+          fullWidth={true}
+          maxWidth={false}
+          open={Boolean(selectedStateId)}
+          onClose={() => setSelectedStateId(null)}
+        >
+          {Boolean(selectedStateId) &&
+            <StateEditor fsmStateId={selectedStateId} />
+          }
+        </Dialog>
+      </Stack>
     </Stack>
   );
 };
