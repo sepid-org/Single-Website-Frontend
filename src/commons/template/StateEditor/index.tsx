@@ -5,6 +5,7 @@ import { DashboardTabType } from 'commons/types/global';
 import NormalStateWidgetsEditor from './NormalStateWidgetsEditor';
 import BoardStateWidgetsEditor from './BoardStateWidgetsEditor';
 import { Box, Container, Tab, Tabs } from '@mui/material';
+import StateInfoEditor from './StateInfoEditor';
 
 
 type EditableFSMStatePropsType = {
@@ -15,7 +16,7 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
   fsmStateId,
 }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
@@ -28,9 +29,9 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
   const tabs: DashboardTabType[] = [
     {
       slug: 'info',
-      label: 'اطلاعات کلی',
+      label: 'مشخصات گام',
       component:
-        <Box>{'ویرایش اطلاعات کلی گام'}</Box>
+        <StateInfoEditor fsmStateId={fsmStateId} />
     },
     {
       slug: 'papers',
@@ -38,9 +39,7 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
-          <Container maxWidth='md'>
-            <NormalStateWidgetsEditor fsmStateId={fsmStateId} />
-          </Container> :
+          <NormalStateWidgetsEditor fsmStateId={fsmStateId} /> :
           <BoardStateWidgetsEditor fsmStateId={fsmStateId} />,
     },
   ];

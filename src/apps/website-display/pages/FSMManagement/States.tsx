@@ -12,6 +12,7 @@ import { useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FS
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
+import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
 
 type StatesPropsType = {}
 
@@ -55,7 +56,7 @@ const States: FC<StatesPropsType> = ({ }) => {
             hideRowNumbersColumn={true}
           />
         }
-        <Dialog
+        <FullScreenDialog
           fullWidth={true}
           maxWidth={false}
           open={Boolean(selectedStateId)}
@@ -64,7 +65,7 @@ const States: FC<StatesPropsType> = ({ }) => {
           {Boolean(selectedStateId) &&
             <StateEditor fsmStateId={selectedStateId} />
           }
-        </Dialog>
+        </FullScreenDialog>
       </Stack>
     </Stack>
   );

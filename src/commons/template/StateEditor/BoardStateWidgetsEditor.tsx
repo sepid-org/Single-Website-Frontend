@@ -1,14 +1,13 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { Rnd } from 'react-rnd';
-import { useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { Box, Button, Checkbox, Divider, FormControlLabel, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
-import { FSMStateType } from 'commons/types/models';
 import { toast } from 'react-toastify';
+import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 type BoardStateWidgetsEditorPropsType = {
   fsmStateId: string;
@@ -17,18 +16,10 @@ type BoardStateWidgetsEditorPropsType = {
 const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
-  const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
   const [positions, setPositions] = useState<PositionType[]>(null);
-  const [updateFSMState, { isSuccess: isUpdateFSMStateSuccess, isError: isUpdateFSMStateError }] = useUpdateFSMStateMutation();
-  const [updatePositions, { isSuccess: isUpdatePositionsSuccess, isError: isUpdatePositionsError }] = useUpdatePositionsMutation();
-
-  useEffect(() => {
-    if (initialFsmState) {
-      setFsmState(initialFsmState);
-    }
-  }, [initialFsmState]);
+  const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
 
   useEffect(() => {
     const widgets = paper?.widgets;
@@ -83,23 +74,13 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
     updatePositions({
       positions,
     })
-    updateFSMState({
-      fsmStateId,
-      ...fsmState,
-    })
   }
 
   useEffect(() => {
-    if (isUpdateFSMStateSuccess && isUpdatePositionsSuccess) {
+    if (isUpdatePositionsSuccess) {
       toast.success('تغییرات با موفقیت ثبت شدند.');
     }
-  }, [isUpdateFSMStateSuccess, isUpdatePositionsSuccess])
-
-  useEffect(() => {
-    if (isUpdatePositionsError && isUpdateFSMStateError) {
-      toast.error('مشکلی در ثبت تغییرات وجود داشت.');
-    }
-  }, [isUpdatePositionsError, isUpdateFSMStateError])
+  }, [isUpdatePositionsSuccess])
 
   const widgetsWithPositions = useMemo(() => {
     if (!paper || !positions) return [];
@@ -131,32 +112,18 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
   return (
     <Stack sx={{ overflow: 'hidden', userSelect: 'none' }}>
       <Stack padding={1} justifyContent={'space-between'} direction={'row'}>
-        <Stack direction={'row'} spacing={1}>
-          <CreateWidgetButton paperId={fsmStateId} />
-          <Divider orientation='vertical' />
-          <FormControlLabel
-            labelPlacement='start'
-            label={'نمایش نوار ابزار بالای صفحه:'}
-            control={
-              <Checkbox
-                checked={fsmState?.show_appbar || false}
-                onChange={() => {
-                  setFsmState({
-                    ...fsmState,
-                    show_appbar: !fsmState.show_appbar,
-                  })
-                }}
-                color="primary"
-              />
-            } />
-          <Divider orientation='vertical' />
-        </Stack>
+        <CreateWidgetButton paperId={fsmStateId} />
         <Button variant='contained' onClick={handleUpdateFSMState}>
           {'ذخیره'}
         </Button>
       </Stack>
       <Box sx={{ overflow: 'auto' }}>
-        <div style={{ width: 1600, height: 900, background: '#f0f0f0', position: 'relative' }}>
+        <div style={{
+          width: fsmState.position?.width || 1600,
+          height: fsmState.position?.height || 900,
+          background: '#f0f0f0',
+          position: 'relative',
+        }}>
           {widgetsWithPositions?.map((widget) => (
             <Rnd
               key={widget.id}
