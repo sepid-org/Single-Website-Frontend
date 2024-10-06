@@ -31,7 +31,14 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ fsmStateId }) => {
   const [updateFSMState, { isSuccess, isLoading }] = useUpdateFSMStateMutation();
 
   const [openDeleteWidgetDialog, setOpenDeleteWidgetDialog] = useState(false);
-  const [deleteFSMState] = useDeleteFSMStateMutation();
+  const [deleteFSMState, { isLoading: isDeleteFSMStateLoading, isSuccess: isDeleteFSMStateSuccess }] = useDeleteFSMStateMutation();
+
+  useEffect(() => {
+    if (isDeleteFSMStateSuccess) {
+      // todo: it's not clean to refresh the page after deleting state
+      window.location.reload();
+    }
+  }, [isDeleteFSMStateLoading])
 
   useEffect(() => {
     if (initialFsmState) {
