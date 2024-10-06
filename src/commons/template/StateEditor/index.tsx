@@ -1,12 +1,6 @@
 import React, { FC } from 'react';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import Dashboard from 'commons/components/organisms/Dashboard';
-import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import InfoIcon from '@mui/icons-material/Info';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import DesignStates from 'apps/website-display/pages/FSMManagement/DesignStates';
-import Statistics from 'apps/website-display/pages/FSMManagement/Statistics';
-import Info from 'apps/website-display/pages/FSMManagement/Info';
 import { DashboardTabType } from 'commons/types/global';
 import NormalStateWidgetsEditor from './NormalStateWidgetsEditor';
 import BoardStateWidgetsEditor from './BoardStateWidgetsEditor';

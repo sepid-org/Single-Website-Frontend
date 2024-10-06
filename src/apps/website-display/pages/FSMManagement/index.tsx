@@ -9,7 +9,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import Layout from 'commons/template/Layout';
-import DesignStates from './DesignStates';
+import States from './States';
 import Edges from './Edges';
 import Statistics from './Statistics';
 import IndividualRequests from './IndividualRequests';
@@ -33,7 +33,7 @@ const initialTabs: DashboardTabType[] = [
     slug: 'states',
     label: 'گام‌ها',
     icon: DesignServicesIcon,
-    component: <DesignStates />,
+    component: <States />,
   },
   {
     slug: 'edges',

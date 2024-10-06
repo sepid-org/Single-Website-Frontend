@@ -13,9 +13,9 @@ import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 
-type DesignStatesPropsType = {}
+type StatesPropsType = {}
 
-const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
+const States: FC<StatesPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [selectedStateId, setSelectedStateId] = useState(null);
   const { data: fsmStates, isLoading } = useGetFSMStatesQuery({ fsmId });
@@ -70,4 +70,4 @@ const DesignStates: FC<DesignStatesPropsType> = ({ }) => {
   );
 };
 
-export default DesignStates;
+export default States;
