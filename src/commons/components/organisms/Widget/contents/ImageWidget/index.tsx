@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import ImageEditWidget from './edit';
 export { ImageEditWidget };
 
-const ImageWidget = ({ link, file, alt }) => {
+const ImageWidget = ({ link }) => {
   const [aspectRatio, setAspectRatio] = useState(1);
 
   useEffect(() => {
     const img = new Image();
-    img.src = file || link;
+    img.src = link;
     img.onload = () => {
       setAspectRatio(img.height / img.width);
     };
-  }, [file, link]);
+  }, [link]);
 
   return (
     <div
@@ -28,7 +28,7 @@ const ImageWidget = ({ link, file, alt }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: `url(${file || link})`,
+          backgroundImage: `url(${link})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
@@ -37,7 +37,7 @@ const ImageWidget = ({ link, file, alt }) => {
           MozUserSelect: 'none',
           msUserSelect: 'none',
         }}
-        title={alt}
+        title={null}
       />
     </div>
   );

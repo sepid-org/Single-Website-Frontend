@@ -139,9 +139,7 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
               onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
             >
-              <div style={{ width: '100%', height: '100%', position: 'relative' }}>
-                <Widget coveredWithPaper={false} widget={widget} paperId={fsmStateId} mode={WidgetModes.Edit} />
-              </div>
+              <Widget coveredWithPaper={false} widget={widget} paperId={fsmStateId} mode={WidgetModes.Edit} />
             </Rnd>
           ))}
         </div>

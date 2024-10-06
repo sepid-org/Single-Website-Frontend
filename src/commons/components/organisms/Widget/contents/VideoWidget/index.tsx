@@ -8,7 +8,7 @@ const VideoWidget = ({ link, file }) => {
       onContextMenu={(e) => { e.preventDefault() }}
       controlsList="nodownload"
       controls
-      src={file || link}
+      src={link}
       style={{
         width: '100%',
         maxWidth: '100%',
