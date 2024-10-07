@@ -74,7 +74,6 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         open={openChangeStateDialog}
         handleClose={() => setOpenChangeStateDialog(false)}
         edges={edges}
-        changeState={changeState}
       />
       <StatePasswordDialog
         open={!!selectedEdge}

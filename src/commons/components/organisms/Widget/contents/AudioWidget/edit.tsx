@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import UploadFile from 'commons/components/molecules/UploadFile';
+import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 
@@ -49,7 +49,7 @@ const AudioEditWidget = ({
           setFields={setWidgetFields}
         />
         <Stack spacing={2}>
-          <UploadFile setFileLink={setLink} />
+          <UploadFileButton setFileLink={setLink} />
           <Divider>یا</Divider>
           <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>
           <TextField

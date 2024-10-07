@@ -11,13 +11,13 @@ import { toast } from 'react-toastify'
 import { useUploadFileMutation } from 'apps/website-display/redux/features/FileSlice';
 import { useSelector } from 'react-redux';
 
-type UploadFilePropsType = {
+type UploadFileButtonPropsType = {
   setFileLink: any;
   id?: string;
   acceptableFileFormats?: string;
 }
 
-const UploadFile: FC<UploadFilePropsType> = ({
+const UploadFileButton: FC<UploadFileButtonPropsType> = ({
   setFileLink,
   id = Math.ceil(Math.random() * 1000),
   acceptableFileFormats = "video/* ,image/*, audio/mp3, application/pdf",
@@ -50,15 +50,15 @@ const UploadFile: FC<UploadFilePropsType> = ({
       <Button
         startIcon={<CloudUploadIcon />}
         endIcon={
-          uploadProgress &&
-          <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} />
+          uploadProgress ?
+            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} /> :
+            null
         }
         disabled={result.isLoading}
         component="label"
         htmlFor={`upload-widget-file-${id}`}
         variant="contained"
         color="primary"
-        size="small"
         sx={{ whiteSpace: 'nowrap' }}>
         {'بارگذاری فایل'}
       </Button>
@@ -73,4 +73,4 @@ const UploadFile: FC<UploadFilePropsType> = ({
   );
 }
 
-export default UploadFile;
+export default UploadFileButton;

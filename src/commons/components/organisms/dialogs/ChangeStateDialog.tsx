@@ -5,11 +5,13 @@ import {
   ListItemButton,
   Typography,
 } from '@mui/material';
+import useChangeState from 'commons/hooks/useChangeState';
 import React from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
-function ChangeStateDialog({ open, handleClose, edges, changeState }) {
+function ChangeStateDialog({ open, handleClose, edges }) {
   const t = useTranslate();
+  const { changeState } = useChangeState();
 
   return (
     <Dialog disableScrollLock open={open} onClose={handleClose}>

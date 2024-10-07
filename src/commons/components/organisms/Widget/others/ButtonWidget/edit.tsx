@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import UploadFile from 'commons/components/molecules/UploadFile';
+import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
@@ -26,7 +26,6 @@ const ButtonWidgetEditor = ({
 
   paperId,
   open,
-  link: previousLink,
   id: widgetId,
   ...widgetProps
 }) => {
@@ -36,7 +35,7 @@ const ButtonWidgetEditor = ({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',
     destination_page_url: widgetProps.destination_page_url || '',
-    destination_state_ids: widgetProps.destination_state_ids || '',
+    edges_to_destination_states: widgetProps.edges_to_destination_states || [],
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
   const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId });
@@ -51,47 +50,48 @@ const ButtonWidgetEditor = ({
     })
   };
 
-  console.log(buttonFields)
-
-  const outwardEdgesReps = outwardEdges.map(outwardEdge => ({ id: outwardEdge.id, name: outwardEdge.head.name }))
+  const outwardEdgesReps = outwardEdges.map(outwardEdge => ({ ...outwardEdge, name: outwardEdge.head.name }))
 
   return (
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{'دکمه'}</DialogTitle>
       <DialogContent>
-        <Stack spacing={2}>
+        <Stack spacing={3}>
           <EditObjectFields
             fields={widgetFields}
             setFields={setWidgetFields}
           />
-          <FormLabel>{'متن دکمه'}</FormLabel>
-          <TinyEditorComponent
-            content={buttonFields.label}
-            onChange={(text) => setButtonFields({
-              ...buttonFields,
-              label: text,
-            })}
-          />
-          <FormLabel>{'تصویر دکمه (اختیاری)'}</FormLabel>
-          <UploadFile
-            setFileLink={(link) => setButtonFields({
-              ...buttonFields,
-              background_image: link,
-            })} />
-          <Divider>یا</Divider>
-          <Typography variant='caption'>{t('uploadFileFillUrl')}</Typography>
-          <TextField
-            fullWidth
-            label="آدرس تصویر"
-            value={buttonFields.background_image}
-            inputProps={{ className: 'ltr-input' }}
-            placeholder="http://example.com/example.png"
-            onChange={(e) => setButtonFields({
-              ...buttonFields,
-              background_image: e.target.value
-            })}
-          />
-          <FormLabel>{'گام‌های مقصد'}</FormLabel>
+          <Stack>
+            <FormLabel>{'متن دکمه'}</FormLabel>
+            <TinyEditorComponent
+              content={buttonFields.label}
+              onChange={(text) => setButtonFields({
+                ...buttonFields,
+                label: text,
+              })}
+            />
+          </Stack>
+
+          <Stack direction={'row'} spacing={2} alignItems={'center'} justifyContent={'stretch'}>
+            <TextField
+              label={'تصویر دکمه'}
+              value={buttonFields.background_image}
+              inputProps={{ className: 'ltr-input' }}
+              placeholder="https://..."
+              onChange={(e) => setButtonFields({
+                ...buttonFields,
+                background_image: e.target.value
+              })}
+              helperText={t('uploadFileFillUrl')}
+            />
+            <UploadFileButton
+              setFileLink={(link) => setButtonFields({
+                ...buttonFields,
+                background_image: link,
+              })}
+            />
+          </Stack>
+
           <Autocomplete
             multiple
             fullWidth
@@ -99,26 +99,27 @@ const ButtonWidgetEditor = ({
             onChange={(event, newValue) => {
               setButtonFields({
                 ...buttonFields,
-                destination_state_ids: newValue,
+                edges_to_destination_states: newValue,
               });
             }}
-            value={buttonFields.destination_state_ids || []}
+            value={buttonFields.edges_to_destination_states || []}
             renderInput={(params) =>
               <TextField
                 {...params}
-                label="مقاصد"
+                label='گام‌های مقصد'
+                helperText={'توجه کنید که فقط یال‌های خروجی همین گام در این لیست نمایش داده می‌شود. برای افزودن یال به صفحه‌ی یال‌ها مراجعه کنید.'}
               />
             }
             options={outwardEdgesReps}
           />
 
-          <FormLabel>{'لینک مقصد'}</FormLabel>
           <TextField
             fullWidth
             label="لینک مقصد"
+            disabled={buttonFields.edges_to_destination_states.length > 0}
             value={buttonFields.destination_page_url}
             inputProps={{ className: 'ltr-input' }}
-            placeholder="http://example.com/example.png"
+            placeholder="https://..."
             onChange={(e) => setButtonFields({
               ...buttonFields,
               destination_page_url: e.target.value
