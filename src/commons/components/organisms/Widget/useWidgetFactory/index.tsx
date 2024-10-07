@@ -3,7 +3,6 @@ import WIDGET_TYPE_MAPPER from './WidgetTypeMapper';
 import { useCreateWidgetMutation, useDeleteWidgetMutation, useUpdateWidgetMutation } from 'apps/website-display/redux/features/widget/WidgetSlice';
 import { runConfetti } from 'commons/components/molecules/confetti'
 import { toast } from 'react-toastify';
-import { useState } from 'react';
 
 type WidgetFactoryType = {
   widgetId?: string;

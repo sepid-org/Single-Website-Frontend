@@ -13,7 +13,16 @@ const ObjectWrapper: FC<ObjectWrapperPropsType> = ({
 }) => {
 
   return (
-    <Box sx={logic?.sx} onClick={logic?.onClick} onMouseEnter={logic?.onMouseEnter} onMouseLeave={logic?.onMouseLeave}>
+    <Box
+      sx={{
+        height: '100%',
+        width: '100%',
+        ...logic?.sx
+      }}
+      onClick={logic?.onClick}
+      onMouseEnter={logic?.onMouseEnter}
+      onMouseLeave={logic?.onMouseLeave}
+    >
       {children}
     </Box>
   );

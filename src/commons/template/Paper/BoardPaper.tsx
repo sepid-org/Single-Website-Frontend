@@ -89,22 +89,23 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
     }}>
       {widgets.map((widget, index) => {
         const objectLogic = objectLogics.find(objectLogic => objectLogic.name === widget.name)
-        return (<div
-          key={widget.id}
-          style={{
-            position: 'absolute',
-            left: widget.position?.x || index * 10,
-            top: widget.position?.y || index * 10,
-            width: widget.position?.width || 100,
-            height: widget.position?.height || 100,
-          }}
-        >
-          <ObjectWrapper logic={objectLogic}>
-            {objectLogic?.substituteComponent ||
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
-            }
-          </ObjectWrapper>
-        </div>)
+        return (
+          <div
+            key={widget.id}
+            style={{
+              position: 'absolute',
+              left: widget.position?.x || index * 10,
+              top: widget.position?.y || index * 10,
+              width: widget.position?.width || 100,
+              height: widget.position?.height || 100,
+            }}
+          >
+            <ObjectWrapper logic={objectLogic}>
+              {objectLogic?.substituteComponent ||
+                <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+              }
+            </ObjectWrapper>
+          </div>)
       })}
     </div >,
     [widgets])

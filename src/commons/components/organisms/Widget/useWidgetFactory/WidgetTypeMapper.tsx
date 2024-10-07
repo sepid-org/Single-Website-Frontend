@@ -13,10 +13,11 @@ import {
   sendSmallAnswerAction,
   sendBigAnswerAction,
   sendMultiChoiceAnswerAction,
-  sendInviteeUsernameResponseAction,
   sendUploadFileAnswerAction,
 } from 'apps/website-display/redux/slices/Answer';
 import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
+import ButtonWidget from '../others/ButtonWidget';
+import ButtonWidgetEditor from '../others/ButtonWidget/edit';
 
 const WIDGET_TYPE_MAPPER = {
   SmallAnswerProblem: {
@@ -88,6 +89,12 @@ const WIDGET_TYPE_MAPPER = {
     EditWidgetDialog: IframeEditWidget,
     label: 'بازی',
     backendType: 'Iframe',
+  },
+  ButtonWidget: {
+    WidgetComponent: ButtonWidget,
+    EditWidgetDialog: ButtonWidgetEditor,
+    label: 'دکمه',
+    backendType: 'ButtonWidget',
   },
 };
 export default WIDGET_TYPE_MAPPER;
