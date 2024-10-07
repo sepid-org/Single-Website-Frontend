@@ -36,6 +36,7 @@ const ButtonWidget = ({
           backgroundImage: `url(${background_image})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat', // Prevents image repetition
           padding: 0,
           textTransform: 'none',
           zIndex: 0,
