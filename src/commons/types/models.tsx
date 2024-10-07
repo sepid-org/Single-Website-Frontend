@@ -157,7 +157,6 @@ export type SubmissionIsLoading = boolean
 export type PaperType = ObjectType & {
   id: string;
   paper_type: string;
-  template: 'normal' | 'board';
   widgets: WidgetType[]
   hints: HintType[];
 }
