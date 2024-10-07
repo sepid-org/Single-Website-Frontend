@@ -4,6 +4,7 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import EventProgram from 'commons/template/program/EventProgram';
 import ProgramPageWrapper from 'commons/template/program/ProgramPageWrapper';
 import FilmBaziApp from 'apps/film-bazi/App'
+import AshbariaApp from 'apps/ashbaria/App'
 
 type ProgramPropsType = {}
 
@@ -13,7 +14,9 @@ const Program: FC<ProgramPropsType> = ({ }) => {
 
   return (
     <ProgramPageWrapper>
-      {program?.slug === 'filmbazi' ? <FilmBaziApp /> : <EventProgram />}
+      {program?.slug === 'filmbazi' ? <FilmBaziApp /> :
+        program?.slug === 'ashbaria' ? <AshbariaApp />
+          : <EventProgram />}
     </ProgramPageWrapper>
   )
 }
