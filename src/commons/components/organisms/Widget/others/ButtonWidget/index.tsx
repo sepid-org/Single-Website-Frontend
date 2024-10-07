@@ -52,7 +52,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         }}
       >
         <Button
-          disableRipple
           onClick={handleClick}
           sx={{
             position: 'absolute',
@@ -63,7 +62,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
             backgroundImage: `url(${background_image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat', // Prevents image repetition
+            backgroundRepeat: 'no-repeat',
             padding: 0,
             textTransform: 'none',
             zIndex: 0,

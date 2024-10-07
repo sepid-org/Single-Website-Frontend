@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Layout from 'commons/template/Layout';
-import EditPaper from 'commons/template/Paper/EditPaper';
+import { EditPaper } from 'commons/template/Paper';
 import { useGetArticleQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 
 const EditArticle = ({ }) => {

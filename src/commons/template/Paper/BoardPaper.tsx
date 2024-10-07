@@ -83,7 +83,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
 
   const widgets = [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
 
-  const widgetsComponents = useMemo(() =>
+  const widgetsComponents =
     <div ref={boardRef} style={{
       position: 'relative',
     }}>
@@ -94,8 +94,8 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             key={widget.id}
             style={{
               position: 'absolute',
-              left: widget.position?.x || index * 10,
-              top: widget.position?.y || index * 10,
+              left: widget.position?.x !== null ? widget.position.x : index * 10,
+              top: widget.position?.y !== null ? widget.position?.y : index * 10,
               width: widget.position?.width || 100,
               height: widget.position?.height || 100,
             }}
@@ -107,8 +107,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             </ObjectWrapper>
           </div>)
       })}
-    </div >,
-    [widgets])
+    </div >
 
   return (
     <Fragment>

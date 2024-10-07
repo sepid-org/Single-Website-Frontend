@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
 import NormalStateWidgetsEditor from './NormalStateWidgetsEditor';
-import BoardStateWidgetsEditor from './BoardStateWidgetsEditor';
-import { Box, Container, Tab, Tabs } from '@mui/material';
+import BoardStateEditor from './BoardStateEditor';
+import { Box, Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
 
 
@@ -40,14 +40,14 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
       component:
         fsmState.template === 'normal' ?
           <NormalStateWidgetsEditor fsmStateId={fsmStateId} /> :
-          <BoardStateWidgetsEditor fsmStateId={fsmStateId} />,
+          <BoardStateEditor fsmStateId={fsmStateId} />,
     },
   ];
 
   const selectedTab = tabs[tabIndex];
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1' }}>
+    <Fragment>
       <Tabs
         value={tabIndex}
         onChange={handleChange}
@@ -59,7 +59,7 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
         )}
       </Tabs>
       {selectedTab.component}
-    </Box>
+    </Fragment>
   )
 }
 

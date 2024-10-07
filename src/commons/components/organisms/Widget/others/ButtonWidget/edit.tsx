@@ -72,8 +72,9 @@ const ButtonWidgetEditor = ({
             />
           </Stack>
 
-          <Stack direction={'row'} spacing={2} alignItems={'center'} justifyContent={'stretch'}>
+          <Stack direction={'row'} spacing={2} alignItems={'start'}>
             <TextField
+              fullWidth
               label={'تصویر دکمه'}
               value={buttonFields.background_image}
               inputProps={{ className: 'ltr-input' }}

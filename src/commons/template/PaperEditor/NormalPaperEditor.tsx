@@ -7,12 +7,12 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 import { WidgetType } from 'commons/types/widgets/widget';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 
-type EditPaperPropsType = {
+type NormalPaperEditorPropsType = {
   paperId: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
-const EditPaper: FC<EditPaperPropsType> = ({
+const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
   paperId,
   mode = 'all',
 }) => {
@@ -54,4 +54,4 @@ const EditPaper: FC<EditPaperPropsType> = ({
   );
 }
 
-export default EditPaper;
+export default NormalPaperEditor;

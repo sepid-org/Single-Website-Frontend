@@ -4,22 +4,18 @@ import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { Box, Button, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Button, Stack } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { toast } from 'react-toastify';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
-type BoardStateWidgetsEditorPropsType = {
-  fsmStateId: string;
+type BoardPaperEditorPropsType = {
+  paperId: string;
 }
 
-const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStateId }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const { data: paper } = useGetPaperQuery({ paperId: fsmStateId }, { skip: !fsmStateId });
+const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
+  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
   const [positions, setPositions] = useState<PositionType[]>(null);
   const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
 
   useEffect(() => {
     const widgets = paper?.widgets;
@@ -84,7 +80,7 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
 
   const widgetsWithPositions = useMemo(() => {
     if (!paper || !positions) return [];
-    const widgets = [...paper.widgets].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
+    const widgets = [...paper?.widgets].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
     return widgets.map(widget => {
       const position = positions.find(pos => pos.widget === widget.id) || {
         x: Math.round(Math.random() * 400),
@@ -99,28 +95,18 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
     });
   }, [paper, positions]);
 
-  if (isMobile) {
-    return (
-      <Paper sx={{ padding: 2 }}>
-        <Typography textAlign={'center'}>
-          {'ویرایش این گام در تلفن همراه امکان‌پذیر نیست :('}
-        </Typography>
-      </Paper>
-    )
-  }
-
   return (
-    <Stack sx={{ overflow: 'hidden', userSelect: 'none' }}>
-      <Stack padding={1} justifyContent={'space-between'} direction={'row'}>
-        <CreateWidgetButton paperId={fsmStateId} />
+    <Stack sx={{ overflow: 'hidden', position: 'relative' }}>
+      <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100}>
+        <CreateWidgetButton paperId={paperId} />
         <Button variant='contained' onClick={handleUpdateFSMState}>
           {'ذخیره'}
         </Button>
       </Stack>
-      <Box sx={{ overflow: 'auto' }}>
+      <Box overflow={'auto'}>
         <div style={{
-          width: fsmState.position?.width || 1600,
-          height: fsmState.position?.height || 900,
+          width: paper?.position?.width || 1600,
+          height: paper?.position?.height || 900,
           background: '#f0f0f0',
           position: 'relative',
         }}>
@@ -139,13 +125,13 @@ const BoardStateWidgetsEditor: FC<BoardStateWidgetsEditorPropsType> = ({ fsmStat
               onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
             >
-              <Widget coveredWithPaper={false} widget={widget} paperId={fsmStateId} mode={WidgetModes.Edit} />
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
             </Rnd>
           ))}
         </div>
       </Box>
-    </Stack >
+    </Stack>
   );
 };
 
-export default BoardStateWidgetsEditor;
+export default BoardPaperEditor;

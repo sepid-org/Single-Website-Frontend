@@ -2,6 +2,7 @@ import {
   Button,
   CircularProgress,
   Stack,
+  Typography,
 } from '@mui/material';
 import {
   CloudUpload as CloudUploadIcon,
@@ -58,9 +59,10 @@ const UploadFileButton: FC<UploadFileButtonPropsType> = ({
         component="label"
         htmlFor={`upload-widget-file-${id}`}
         variant="contained"
-        color="primary"
-        sx={{ whiteSpace: 'nowrap' }}>
-        {'بارگذاری فایل'}
+        color="primary">
+        <Typography textAlign={'center'}>
+          {'بارگذاری فایل'}
+        </Typography>
       </Button>
       <input
         accept={acceptableFileFormats}

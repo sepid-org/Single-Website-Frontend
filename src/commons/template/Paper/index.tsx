@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-import EditPaper from './EditPaper';
+import PaperEditor from '../PaperEditor';
 import GeneralPaper, { GeneralPaperPropsType } from './General';
 import FormPaper, { FormPaperPropsType } from './Form';
 import AnswerSheetPaper, { AnswerSheetPaperPropsType } from './AnswerSheet';
@@ -20,5 +20,5 @@ const Paper: FC<PaperPropsType> = (props) => {
   // todo: add FSM state here
 };
 
-export { EditPaper };
+export { PaperEditor as EditPaper };
 export default Paper;
