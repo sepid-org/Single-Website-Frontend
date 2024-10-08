@@ -27,7 +27,8 @@ const EditObjectFields: FC<EditObjectFieldsPropsType> = ({
             name: e.target.value,
           })
         }}
-        label='نام'
+        label='شناسه'
+        helperText={'شناسه‌ی هر ویجت باید یکتا باشد. این شناسه برای ارجاع‌دادن به ویجت استفاده می‌شود.'}
       />
       <TextField
         fullWidth
