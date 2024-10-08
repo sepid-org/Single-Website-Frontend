@@ -30,12 +30,15 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     }
     if (edges_to_destination_states.length === 1) {
       changeState(edges_to_destination_states[0])
+      return;
     }
     if (edges_to_destination_states.length > 1) {
       setOpenChangeStateDialog(true);
+      return;
     }
     if (destination_page_url) {
       window.location.href = destination_page_url;
+      return;
     }
   };
 
