@@ -111,7 +111,7 @@ const FSM: FC<FSMPagePropsType> = ({
     const subscribe = async (teamId) => {
       const teamState = await getTeamState(teamId)
       if (!teamState) {
-        await createTeamState(teamId, player?.current_state.toString(), player?.current_state.name, moment().format('HH:mm:ss'))
+        await createTeamState(teamId, player?.current_state.toString(), player?.current_state.title, moment().format('HH:mm:ss'))
       }
       const subscriber = await getChangeTeamStateSubscription({
         uuid: teamId,

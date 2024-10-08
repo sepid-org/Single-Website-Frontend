@@ -47,8 +47,8 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ fsmStateId }) => {
   }, [initialFsmState]);
 
   const handleUpdateFSMState = () => {
-    if (!fsmState.name) {
-      toast.error('نام گام نمی‌تواند خالی باشد.');
+    if (!fsmState.title) {
+      toast.error('عنوان گام نمی‌تواند خالی باشد.');
       return;
     }
     updateFSMState({
@@ -88,11 +88,11 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ fsmStateId }) => {
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              value={fsmState?.name || ''}
-              label='نام گام'
+              value={fsmState?.title || ''}
+              label='عنوان گام'
               onChange={(e) => setFsmState(fsmState => ({
                 ...fsmState,
-                name: e.target.value,
+                title: e.target.value,
               }))}
               fullWidth variant='outlined'
             />

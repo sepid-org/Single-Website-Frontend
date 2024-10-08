@@ -65,7 +65,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
                     }}
                     label='شروع'>
                     {fsmStates.map((state) => (
-                      <MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+                      <MenuItem key={state.id} value={state.id}>{state.title}</MenuItem>
                     ))}
                   </Select>
                 </FormControl >
@@ -83,7 +83,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
                     }}
                     label='پایان'>
                     {fsmStates.map((state) => (
-                      <MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+                      <MenuItem key={state.id} value={state.id}>{state.title}</MenuItem>
                     ))}
                   </Select>
                 </FormControl >
