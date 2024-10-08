@@ -17,14 +17,14 @@ function ChangeStateDialog({ open, handleClose, edges }) {
     <Dialog disableScrollLock open={open} onClose={handleClose}>
       <DialogTitle variant='h3'>{t('chooseNextState')}</DialogTitle>
       <List>
-        {edges.slice().sort((e1, e2) => e1.head.name < e2.head.name ? 1 : -1).map((edge) => (
+        {edges.slice().sort((e1, e2) => e1.head.title < e2.head.title ? 1 : -1).map((edge) => (
           <ListItemButton
             onClick={() => {
               changeState(edge);
               handleClose();
             }}
             key={edge.id}>
-            {edge.head.name}
+            {edge.head.title}
           </ListItemButton>
         ))}
       </List>

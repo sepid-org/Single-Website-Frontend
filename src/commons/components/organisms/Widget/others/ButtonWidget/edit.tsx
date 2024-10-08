@@ -50,7 +50,7 @@ const ButtonWidgetEditor = ({
     })
   };
 
-  const outwardEdgesReps = outwardEdges.map(outwardEdge => ({ ...outwardEdge, name: outwardEdge.head.name }))
+  const outwardEdgesReps = outwardEdges.map(outwardEdge => ({ ...outwardEdge, name: outwardEdge.head.title }))
 
   return (
     <Dialog disableScrollLock open={open}>
@@ -94,6 +94,7 @@ const ButtonWidgetEditor = ({
           </Stack>
 
           <Autocomplete
+            isOptionEqualToValue={(option, value) => option.name === value.head.title}
             multiple
             fullWidth
             getOptionLabel={(option) => option.name}

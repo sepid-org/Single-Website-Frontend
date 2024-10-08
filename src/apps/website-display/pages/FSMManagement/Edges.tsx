@@ -125,10 +125,10 @@ const Edges: FC<IndexPropsType> = ({ }) => {
             {fsmEdges?.map((edge, index) =>
               <TableRow key={index}>
                 <TableCell align='center'>
-                  {edge.tail?.name}
+                  {edge.tail?.title}
                 </TableCell>
                 <TableCell align='center'>
-                  {edge.head?.name}
+                  {edge.head?.title}
                 </TableCell>
                 <TableCell align='center'>
                   <Checkbox
