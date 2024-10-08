@@ -37,6 +37,13 @@ const Edges: FC<IndexPropsType> = ({ }) => {
   const [updateFSMEdge] = useUpdateFSMEdgeMutation();
   const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
 
+  const handleCreateFSMEdge = () => {
+    if (!newEdge.head || !newEdge.tail) {
+      return;
+    }
+    createFSMEdge(newEdge);
+  }
+
   return (
     <Stack>
       <TableContainer>
@@ -114,9 +121,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
               </TableCell>
               <TableCell align='center'>
                 <Button
-                  onClick={() => {
-                    createFSMEdge(newEdge);
-                  }}
+                  onClick={handleCreateFSMEdge}
                   variant='contained' color='primary'>
                   {'ایجاد'}
                 </Button>
