@@ -12,7 +12,7 @@ type GetFSMRoadmapInputType = {
 };
 
 type GetFSMRoadmapOutputType = {
-  firstStateName: string;
+  firstStateTitle: string;
   links: Link[];
 }
 
@@ -32,7 +32,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
       query: ({ fsmId }) => `/roadmap/get_fsm_roadmap/?fsm=${fsmId}`,
       transformResponse: (response: any): GetFSMRoadmapOutputType => {
         return {
-          firstStateName: response.first_state_name,
+          firstStateTitle: response.first_state_title,
           links: response.links,
         };
       },

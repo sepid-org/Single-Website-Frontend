@@ -4,7 +4,7 @@ export type RoadmapInitialStateType = {
 }
 
 export type FSMRoadmapType = {
-  firstStateName: string;
+  firstStateTitle: string;
   links: Link[],
 }
 
