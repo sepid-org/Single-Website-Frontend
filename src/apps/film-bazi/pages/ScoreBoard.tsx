@@ -41,7 +41,7 @@ const App: React.FC = () => {
 
 
 	useEffect(() => {
-		if (!scoreBoardLoading && !myRankLoading && !balancesLoading) {
+		if (!scoreBoardLoading && myRank && !balancesLoading) {
 			let newRecords = [...scoreBoard];
 			for (let i = 0; i < newRecords.length; i++) {
 				Object.defineProperty(newRecords[i], "currentUser", { value: false, writable: true });
@@ -68,7 +68,7 @@ const App: React.FC = () => {
 				currentUserExistsInWinners: exists
 			});
 		}
-	}, [scoreBoardLoading, myRankLoading, balancesLoading])
+	}, [scoreBoardLoading, myRank, balancesLoading])
 
 
 	return (

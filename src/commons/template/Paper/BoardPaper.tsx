@@ -94,8 +94,8 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
             key={widget.id}
             style={{
               position: 'absolute',
-              left: widget.position?.x !== null ? widget.position.x : index * 10,
-              top: widget.position?.y !== null ? widget.position?.y : index * 10,
+              left: widget.position?.x !== undefined ? widget.position.x : index * 10,
+              top: widget.position?.y !== undefined ? widget.position?.y : index * 10,
               width: widget.position?.width || 100,
               height: widget.position?.height || 100,
             }}
