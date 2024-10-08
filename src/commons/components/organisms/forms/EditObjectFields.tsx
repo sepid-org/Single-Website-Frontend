@@ -32,7 +32,7 @@ const EditObjectFields: FC<EditObjectFieldsPropsType> = ({
       />
       <TextField
         fullWidth
-        value={fields.order || 0}
+        value={fields.order || ''}
         variant='outlined'
         label={'اولویت نمایش'}
         name='order'
