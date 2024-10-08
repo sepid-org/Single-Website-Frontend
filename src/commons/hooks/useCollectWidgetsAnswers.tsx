@@ -2,7 +2,7 @@ import { useState } from "react";
 import { WidgetTypes } from "commons/types/widgets/widget";
 
 type collectAnswersPropsType = {
-  widgetId: number;
+  widgetId: string;
   widgetType: WidgetTypes;
 }
 

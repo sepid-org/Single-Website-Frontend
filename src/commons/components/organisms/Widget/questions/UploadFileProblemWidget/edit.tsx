@@ -21,7 +21,7 @@ type UploadFileProblemEditWidgetPropsType = {
 
   open: boolean;
   text: string;
-  paperId: number;
+  paperId: string;
   id: number;
   solution: string;
 }

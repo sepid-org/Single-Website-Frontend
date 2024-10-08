@@ -19,10 +19,10 @@ export type WorkshopFSMStatePropsType = {
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) => {
   const { fsmId } = useParams();
-  const { data: paper } = useGetPaperQuery({ paperId: stateId });
   const { data: state } = useGetFSMStateQuery({ fsmStateId: stateId })
+  const paperId = state.papers[0];
+  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
-
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
   const hints = [...(state?.hints || [])];
@@ -30,7 +30,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
   const outward_edges = state?.outward_edges || [];
 
   hints.sort((a, b) => a.id - b.id);
-  visibleWidgets.sort((a, b) => a.id - b.id);
+  visibleWidgets.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
   const questions = visibleWidgets.filter((widget) =>
     widget.widget_type.includes('Problem')
@@ -40,7 +40,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
     questions.map((widget, index) => (
       <Stack key={widget.id}>
         <Divider style={{ marginBottom: 20 }} />
-        <Widget paperId={stateId} coveredWithPaper={false} key={widget.id} widget={widget} />
+        <Widget fsmStateId={stateId} paperId={paperId} coveredWithPaper={false} key={widget.id} widget={widget} />
       </Stack>
     )), [questions]);
 
@@ -51,7 +51,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
   const notQuestionWidgets = useMemo(() =>
     notQuestions.map((widget) => (
       <Stack key={widget.id}>
-        <Widget paperId={stateId} coveredWithPaper={false} widget={widget} />
+        <Widget fsmStateId={stateId} paperId={paperId} coveredWithPaper={false} widget={widget} />
       </Stack>
     )), [notQuestions]);
 

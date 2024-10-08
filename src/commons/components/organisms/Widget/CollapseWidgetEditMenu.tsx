@@ -8,6 +8,7 @@ import WidgetEditMenu from './WidgetEditMenu';
 const CollapseWidgetEditMenu = ({
   widget,
   paperId,
+  fsmStateId,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -29,7 +30,7 @@ const CollapseWidgetEditMenu = ({
           <IconButton size='small' onClick={handleToggle}>
             {expanded ? <CloseIcon /> : <MoreVertIcon />}
           </IconButton>
-          <WidgetEditMenu widget={widget} paperId={paperId} />
+          <WidgetEditMenu fsmStateId={fsmStateId} widget={widget} paperId={paperId} />
         </Stack>
       </Collapse>
     </div>

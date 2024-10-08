@@ -5,19 +5,21 @@ import BoardPaperEditor from "./BoardPaperEditor";
 type PaperEditorPropsType = {
   template?: 'normal' | 'board';
   paperId: string;
+  fsmStateId?: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
 const PaperEditor: FC<PaperEditorPropsType> = ({
   template = 'normal',
   paperId,
+  fsmStateId,
   ...props
 }) => {
   if (template === 'normal') {
-    return <NormalPaperEditor paperId={paperId} {...props} />
+    return <NormalPaperEditor fsmStateId={fsmStateId} paperId={paperId} {...props} />
   }
   if (template === 'board') {
-    return <BoardPaperEditor paperId={paperId} {...props} />
+    return <BoardPaperEditor fsmStateId={fsmStateId} paperId={paperId} {...props} />
   }
 }
 

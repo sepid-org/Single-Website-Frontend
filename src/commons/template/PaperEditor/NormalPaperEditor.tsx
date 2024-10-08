@@ -9,11 +9,13 @@ import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton'
 
 type NormalPaperEditorPropsType = {
   paperId: string;
+  fsmStateId?: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
 const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
   paperId,
+  fsmStateId,
   mode = 'all',
 }) => {
   const t = useTranslate();
@@ -40,6 +42,7 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
           <Fragment>
             {widgets?.map((widget, index) => (
               <Widget
+                fsmStateId={fsmStateId}
                 key={widget.id}
                 paperId={paperId}
                 widget={widget}
@@ -48,7 +51,7 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
             ))}
           </Fragment>
         }
-        <CreateWidgetButton mode={mode} paperId={paperId} />
+        <CreateWidgetButton fsmStateId={fsmStateId} mode={mode} paperId={paperId} />
       </Stack>
     </Fragment>
   );

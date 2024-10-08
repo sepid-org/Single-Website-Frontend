@@ -1,6 +1,7 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { EditPaper } from '../Paper';
+import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 type BoardStateEditorPropsType = {
   fsmStateId: string;
@@ -9,6 +10,9 @@ type BoardStateEditorPropsType = {
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const { data } = useGetFSMStateQuery({ fsmStateId });
+  // todo: all papers should be displayed
+  const paperId = data.papers[0]
 
   if (isMobile) {
     return (
@@ -19,7 +23,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   }
 
   return (
-    <EditPaper template='board' paperId={fsmStateId} />
+    <EditPaper template='board' fsmStateId={fsmStateId} paperId={paperId} />
   );
 };
 

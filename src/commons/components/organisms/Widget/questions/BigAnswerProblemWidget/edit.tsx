@@ -22,7 +22,7 @@ type BigAnswerProblemEditWidgetPropsType = {
   open: boolean;
   text: string;
   solution: any;
-  paperId: number;
+  paperId: string;
   id: string;
   is_required?: boolean;
 }

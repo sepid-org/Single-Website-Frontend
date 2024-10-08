@@ -7,7 +7,7 @@ import { ObjectType } from 'commons/types/models';
 
 type EditObjectFieldsPropsType = {
   fields: Partial<ObjectType>;
-  setFields: (fields: Partial<ObjectType>) => void;
+  setFields: any;
 }
 
 const EditObjectFields: FC<EditObjectFieldsPropsType> = ({

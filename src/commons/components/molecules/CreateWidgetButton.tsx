@@ -6,11 +6,13 @@ import CreateWidgetDialog from 'commons/components/organisms/dialogs/CreateWidge
 
 type CreateWidgetPropsType = {
   paperId: string;
+  fsmStateId?: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
 const CreateWidgetButton: FC<CreateWidgetPropsType> = ({
   paperId,
+  fsmStateId,
   mode = 'all',
 }) => {
   const t = useTranslate();
@@ -26,6 +28,7 @@ const CreateWidgetButton: FC<CreateWidgetPropsType> = ({
         {t('createWidget')}
       </Button>
       <CreateWidgetDialog
+        fsmStateId={fsmStateId}
         showProblems={mode === 'problems' || mode === 'all'}
         showContent={mode === 'contents' || mode === 'all'}
         paperId={paperId}

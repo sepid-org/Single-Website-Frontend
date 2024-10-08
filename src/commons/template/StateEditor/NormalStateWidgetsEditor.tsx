@@ -17,6 +17,7 @@ const NormalStateWidgetsEditor: FC<NormalStateWidgetsEditorPropsType> = ({
   fsmStateId,
 }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const paperId = fsmState.papers[0];
 
   return (
     <Container maxWidth='md' sx={{ paddingBottom: 2 }}>
@@ -25,17 +26,17 @@ const NormalStateWidgetsEditor: FC<NormalStateWidgetsEditorPropsType> = ({
           {'مسئله‌ها'}
         </Typography>
         <Divider />
-        <EditPaper paperId={fsmStateId} mode='problems' />
+        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='problems' />
         <Typography variant='h2' gutterBottom>
           {'محتواها'}
         </Typography>
         <Divider />
-        <EditPaper paperId={fsmStateId} mode='contents' />
+        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='contents' />
         <Typography variant="h2" gutterBottom>
           {'راهنمایی‌ها'}
         </Typography>
         <Divider />
-        <EditHints paperId={fsmStateId} hints={fsmState?.hints} type='state' referenceId={fsmStateId} />
+        <EditHints hints={fsmState?.hints} type='state' referenceId={fsmStateId} />
       </Stack>
     </Container>
   );

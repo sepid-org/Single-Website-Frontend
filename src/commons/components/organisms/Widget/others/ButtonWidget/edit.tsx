@@ -24,12 +24,12 @@ const ButtonWidgetEditor = ({
   onMutate,
   handleClose,
 
+  fsmStateId,
   paperId,
   open,
   id: widgetId,
   ...widgetProps
 }) => {
-  const fsmStateId = paperId;
   const t = useTranslate();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',

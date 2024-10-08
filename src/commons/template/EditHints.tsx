@@ -15,14 +15,12 @@ type EditHintsPropsType = {
   type: 'widget' | 'state';
   hints: any[];
   referenceId: string;
-  paperId: string;
 }
 
 const EditHints: FC<EditHintsPropsType> = ({
   type = 'state',
   referenceId,
   hints = [],
-  paperId,
 }) => {
   const t = useTranslate();
   const [deleteDialogId, setDeleteDialogId] = useState<string>(null);
@@ -65,13 +63,13 @@ const EditHints: FC<EditHintsPropsType> = ({
         startIcon={<AddIcon />}
         variant="contained"
         color="primary"
-        onClick={() => type === 'state' ? createHint({ fsmStateId: referenceId }) : createWidgetHint({ paperId, widgetId: referenceId })}>
+        onClick={() => type === 'state' ? createHint({ fsmStateId: referenceId }) : createWidgetHint({ widgetId: referenceId })}>
         {t('createHelp')}
       </Button>
       <AreYouSure
         open={!!deleteDialogId}
         handleClose={() => setDeleteDialogId(null)}
-        callBackFunction={() => type === 'state' ? deleteHint({ fsmStateId: referenceId, hintId: deleteDialogId }) : deleteWidgetHint({ paperId, hintId: deleteDialogId })}
+        callBackFunction={() => type === 'state' ? deleteHint({ fsmStateId: referenceId, hintId: deleteDialogId }) : deleteWidgetHint({ hintId: deleteDialogId })}
       />
     </Stack>
   );

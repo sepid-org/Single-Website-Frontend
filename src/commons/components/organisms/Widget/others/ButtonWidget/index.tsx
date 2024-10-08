@@ -24,8 +24,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const { changeState } = useChangeState();
 
-  const isUsingEdges = edges_to_destination_states.length > 0;
-
   const handleClick = () => {
     if (mode === WidgetModes.Edit) {
       return;
@@ -46,7 +44,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       <Box
         sx={{
           position: 'relative',
-          minHeight: isUsingEdges ? null : 100,
+          minHeight: background_image ? 60 : 100,
           width: '100%',
           height: '100%',
         }}

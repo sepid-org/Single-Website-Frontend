@@ -15,7 +15,7 @@ const EditHintsDialog = ({
     <Dialog disableScrollLock open={open} onClose={handleClose} fullWidth>
       <DialogTitle>{'راهنمایی‌ها'}</DialogTitle>
       <DialogContent>
-        <EditHints paperId={paperId} referenceId={referenceId} type='widget' hints={hints} />
+        <EditHints referenceId={referenceId} type='widget' hints={hints} />
       </DialogContent>
     </Dialog>
   );

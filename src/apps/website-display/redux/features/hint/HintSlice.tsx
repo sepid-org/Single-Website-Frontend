@@ -17,13 +17,11 @@ type CreateFSMStateHintOutputType = HintType;
 
 type CreateWidgetHintInputType = {
   widgetId: string;
-  paperId: string;
 };
 
 type CreateWidgetHintOutputType = HintType;
 
 type DeleteWidgetHintInputType = {
-  paperId: string;
   hintId: string;
 };
 
@@ -62,7 +60,7 @@ export const HintSlice = ContentManagementServiceApi.injectEndpoints({
 
     createWidgetHint: builder.mutation<CreateWidgetHintOutputType, CreateWidgetHintInputType>({
       // todo: it should invalidate 'widget' not 'paper'
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      // invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetId, ...body }) => ({
         url: `/widgets/widget-hint/`,
         method: 'POST',
@@ -79,7 +77,7 @@ export const HintSlice = ContentManagementServiceApi.injectEndpoints({
 
     deleteWidgetHint: builder.mutation<DeleteWidgetHintOutputType, DeleteWidgetHintInputType>({
       // todo: it should invalidate 'widget' not 'paper'
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      // invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ hintId }) => ({
         url: `/widgets/widget-hint/${hintId}/`,
         method: 'DELETE',

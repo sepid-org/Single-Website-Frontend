@@ -10,9 +10,13 @@ import { toast } from 'react-toastify';
 
 type BoardPaperEditorPropsType = {
   paperId: string;
+  fsmStateId?: string;
 }
 
-const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
+const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
+  paperId,
+  fsmStateId,
+}) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
   const [positions, setPositions] = useState<PositionType[]>(null);
   const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
@@ -98,7 +102,7 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
   return (
     <Stack sx={{ overflow: 'hidden', position: 'relative' }}>
       <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100}>
-        <CreateWidgetButton paperId={paperId} />
+        <CreateWidgetButton paperId={paperId} fsmStateId={fsmStateId} />
         <Button variant='contained' onClick={handleUpdateFSMState}>
           {'ذخیره'}
         </Button>
@@ -125,7 +129,7 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
               onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
             >
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
+              <Widget fsmStateId={fsmStateId} coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
             </Rnd>
           ))}
         </div>

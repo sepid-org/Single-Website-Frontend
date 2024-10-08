@@ -40,6 +40,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId
       )}
       {containerHeight > 0 &&
         <BoardPaper
+          fsmStateId={stateId}
           containerHeight={containerHeight}
           paperId={stateId}
         />

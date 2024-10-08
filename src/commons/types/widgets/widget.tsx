@@ -18,15 +18,15 @@ export type PositionType = {
   y: number;
   width: number;
   height: number;
-  widget?: number;
-  fsm?: number;
-  edge?: number;
-  paper?: number;
+  state?: string;
+  widget?: string;
+  fsm?: string;
+  edge?: string;
+  paper?: string;
 }
 
 export type WidgetType = ObjectType & {
   name: string;
-  id: number;
   mode: WidgetModes;
   widget_type: WidgetTypes;
   hints: HintType[];

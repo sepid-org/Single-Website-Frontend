@@ -7,6 +7,7 @@ import { ObjectLogicType } from 'commons/types/models';
 
 export type BoardPaperPropsType = {
   paperId: string;
+  fsmStateId?: string;
   containerWidth?: number;
   containerHeight?: number;
   objectLogics?: ObjectLogicType[];
@@ -14,6 +15,7 @@ export type BoardPaperPropsType = {
 
 const BoardPaper: FC<BoardPaperPropsType> = ({
   paperId,
+  fsmStateId,
   containerWidth = window.innerWidth,
   containerHeight = window.innerHeight,
   objectLogics = [],
@@ -102,7 +104,7 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
           >
             <ObjectWrapper logic={objectLogic}>
               {objectLogic?.substituteComponent ||
-                <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+                <Widget fsmStateId={fsmStateId} coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
               }
             </ObjectWrapper>
           </div>)

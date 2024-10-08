@@ -26,8 +26,8 @@ export type ProgramType = {
   type: ProgramTypeType;
   slug: string;
   is_free: boolean;
-  site_help_paper_id: number;
-  FAQs_paper_id: number;
+  site_help_paper_id: string;
+  FAQs_paper_id: string;
   show_scores: boolean;
   program_contact_info: ProgramContactInfoType;
   is_visible: boolean;
@@ -60,7 +60,7 @@ export type TeamType = {
   id: string;
   members: RegistrationReceiptType[]
   name: string;
-  registration_form: number;
+  registration_form: string;
   team_head: string;
 };
 export type AnswerType = any;
@@ -140,7 +140,7 @@ export type RegistrationFormType = FormType & {
   conditions: any;
   creator: string;
   duration: string;
-  program: number;
+  program: string;
   fsm: FSMType;
   has_certificate: boolean;
   id: string;
@@ -158,9 +158,10 @@ export type PaperType = ObjectType & {
   id: string;
   paper_type: string;
   widgets: WidgetType[]
-  hints: HintType[];
 }
-export type FSMStateType = PaperType & {
+export type FSMStateType = ObjectType & {
+  hints: HintType[];
+  papers: string[];
   name: string;
   fsm: string;
   inward_edges: EdgeType[];
@@ -312,13 +313,13 @@ export type FSMUserPermissions = {
 /////////////// OBJECT ///////////////
 
 export type ObjectType = {
-  id: number;
+  id: string;
   name: string;
   title: string;
   position: PositionType;
 
   order: string;
-  widget?: number;
+  widget?: string;
 }
 
 export type ObjectLogicType = {
