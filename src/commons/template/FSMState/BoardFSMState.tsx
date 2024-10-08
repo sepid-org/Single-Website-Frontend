@@ -3,6 +3,7 @@ import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSM
 import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import BoardPaper from '../Paper/BoardPaper';
+import BoardFrame from '../Paper/BoardFrame';
 
 export type BoardFSMStatePropsType = {
   isMentor: boolean;
@@ -32,21 +33,23 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId
   }, [fsmState]);
 
   return (
-    <Fragment>
+    <Box position={'relative'}>
       {fsmState?.show_appbar && (
         <Box ref={appbarRef}>
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
         </Box>
       )}
-      {containerHeight > 0 && fsmState.papers.map(paperId => (
-        <BoardPaper
-          key={paperId}
-          fsmStateId={stateId}
-          containerHeight={containerHeight}
-          paperId={paperId}
-        />
-      ))}
-    </Fragment>
+      {containerHeight > 0 &&
+        <BoardFrame containerHeight={containerHeight}>
+          {fsmState.papers.map(paperId => (
+            <BoardPaper
+              fsmStateId={stateId}
+              paperId={paperId}
+            />
+          ))}
+        </BoardFrame>
+      }
+    </Box>
   );
 };
 
