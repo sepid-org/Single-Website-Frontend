@@ -69,7 +69,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
                 <FSMStateHelpButton hints={hints} />
               </Box>
               <Typography component="h2" variant="h3" align='center' alignSelf={'center'}>
-                {state?.name}
+                {state?.title}
               </Typography>
               {questionWidgets}
               {!(inward_edges?.length === 0 && outward_edges?.length === 0) &&
@@ -90,7 +90,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               </Stack>
             </Stack>
             {(state && fsm.show_roadmap) &&
-              < FSMStateRoadMap currentNodeName={state?.name} playerId={playerId} />
+              <FSMStateRoadMap currentNodeName={state?.title} playerId={playerId} />
             }
             {notQuestions.length === 0 &&
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
