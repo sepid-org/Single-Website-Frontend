@@ -38,13 +38,13 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
         </Box>
       )}
-      {containerHeight > 0 &&
+      {containerHeight > 0 && fsmState.papers.map(paperId => (
         <BoardPaper
           fsmStateId={stateId}
           containerHeight={containerHeight}
-          paperId={stateId}
+          paperId={paperId}
         />
-      }
+      ))}
     </Fragment>
   );
 };
