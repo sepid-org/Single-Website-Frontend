@@ -31,36 +31,36 @@ const FormInfo: FC<FormInfoPropsType> = ({
   }
 
   const setSinceField = (newValue: string) => {
-    if (data?.till) {
-      if (moment(newValue).isAfter(moment(data.till))) {
+    if (data?.end_date) {
+      if (moment(newValue).isAfter(moment(data.end_date))) {
         toast.error('تاریخ شروع نمی‌تواند بعد از تاریخ پایان باشد.');
         setData({
           ...data,
-          'since': data.till,
+          'start_date': data.end_date,
         })
         return;
       }
     }
     setData({
       ...data,
-      'since': newValue,
+      'start_date': newValue,
     })
   }
 
   const setTillField = (newValue: string) => {
-    if (data?.since) {
-      if (moment(data.since).isAfter(moment(newValue))) {
+    if (data?.start_date) {
+      if (moment(data.start_date).isAfter(moment(newValue))) {
         toast.error('تاریخ پایان نمی‌تواند قبل از تاریخ شروع باشد.');
         setData({
           ...data,
-          'till': data.since,
+          'end_date': data.start_date,
         })
         return;
       }
     }
     setData({
       ...data,
-      'till': newValue,
+      'end_date': newValue,
     })
   }
 
@@ -110,13 +110,13 @@ const FormInfo: FC<FormInfoPropsType> = ({
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='شروع ثبت‌نام'
-          value={data?.since}
+          value={data?.start_date}
           setValue={setSinceField} />
       </Grid>
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='پایان ثبت‌نام'
-          value={data?.till}
+          value={data?.end_date}
           setValue={setTillField} />
       </Grid>
     </Grid>

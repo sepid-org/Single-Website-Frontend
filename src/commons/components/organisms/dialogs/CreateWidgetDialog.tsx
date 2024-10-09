@@ -19,6 +19,7 @@ type CreateWidgetDialogPropsType = {
 
   open: boolean;
   paperId: string;
+  fsmStateId?: string;
   showContent?: boolean;
   showProblems?: boolean;
 }
@@ -28,6 +29,7 @@ const CreateWidgetDialog: FC<CreateWidgetDialogPropsType> = ({
   open,
   handleClose,
   paperId,
+  fsmStateId,
   showContent = true,
   showProblems = false,
 }) => {
@@ -36,7 +38,6 @@ const CreateWidgetDialog: FC<CreateWidgetDialogPropsType> = ({
   const widgetProperties = useWidgetFactory({
     paperId,
     widgetType,
-    mode: WidgetModes.Create,
   });
 
   if (widgetType) {
@@ -47,6 +48,7 @@ const CreateWidgetDialog: FC<CreateWidgetDialogPropsType> = ({
 
     return (
       <EditWidgetDialog
+        fsmStateId={fsmStateId}
         paperId={paperId}
         open={open}
         onMutate={onMutate}

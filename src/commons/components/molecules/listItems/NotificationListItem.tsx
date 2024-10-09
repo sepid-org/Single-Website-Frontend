@@ -4,8 +4,8 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { MessageType } from "commons/types/models";
 import dateFormatter from 'commons/utils/dateFormatter';
+import { MessageType } from "apps/chat/types/models";
 
 type NotificationListItemPropsType = {
   notification: MessageType;
@@ -33,7 +33,7 @@ const NotificationListItem: FC<NotificationListItemPropsType> = ({
         <Stack width={80} alignItems={'center'} justifyContent={'center'} spacing={1}>
           <img width={40} style={{ borderRadius: 5 }} src={notification.sender.logo.mobile_image} />
           <Typography textAlign={'center'} display={'inline'} component="small" variant="body2">
-            {notification.sender.displayName}
+            {notification.sender.display_name}
           </Typography>
         </Stack>
         <Stack spacing={2}>

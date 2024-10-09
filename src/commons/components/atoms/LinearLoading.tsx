@@ -1,6 +1,5 @@
 import { LinearProgress } from '@mui/material';
 import React, { FC } from 'react';
-import CustomJoyrideButton from './CustomJoyrideButton';
 
 type LinearLoadingPropsType = {
   loading: boolean;

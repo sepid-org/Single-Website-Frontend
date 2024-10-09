@@ -1,43 +1,50 @@
-import { Button, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import React from 'react';
+import { IconButton, Skeleton } from '@mui/material';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import useWidth from 'commons/utils/UseWidth';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-function ProgramLogo({ }) {
-  const { programSlug } = useParams();
-  const width = useWidth();
-  const { data: program } = useGetProgramQuery({ programSlug: programSlug });
-
-  return (
-    <Stack direction={'row'} alignItems={'center'}>
-      <Tooltip title={program?.name} arrow>
-        <IconButton disabled={width !== 'xs'} component={Link} to={`/program/${programSlug}/`}>
-          <img
-            src={program?.cover_page}
-            alt='course-logo'
-            style={{
-              objectFit: 'cover',
-              borderRadius: '50%',
-              height: 40,
-              width: 40,
-              border: '1px solid #00000099',
-            }}
-          />
-        </IconButton>
-      </Tooltip>
-      <Button component={Link} to={`/program/${programSlug}/`}>
-        <Typography
-          fontSize={20} color={'black'}
-          maxWidth={{ xs: 100, sm: 200, md: 300 }} whiteSpace={'nowrap'}
-          overflow={'hidden'} textOverflow={'ellipsis'}>
-          {program?.name}
-        </Typography>
-      </Button>
-    </Stack>
-  );
+type ProgramLogoPropsType = {
+  size?: 'small' | 'normal' | 'large';
+  destination?: string;
 }
 
+const sizes = {
+  small: {
+    width: 50,
+    height: 50,
+    maxWidth: 200,
+    maxHeight: 50,
+  },
+  normal: {
+    width: 75,
+    height: 75,
+    maxWidth: 250,
+    maxHeight: 75,
+  },
+  large: {
+    width: 100,
+    height: 100,
+    maxWidth: 300,
+    maxHeight: 100,
+  },
+}
+
+const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small', destination: inputDestination }) => {
+  const { programSlug } = useParams();
+  const { data: program, isSuccess } = useGetProgramQuery({ programSlug: programSlug });
+  const logoSize = sizes[size];
+  const destination = inputDestination || `/program/${programSlug}/`;
+
+  if (!isSuccess) {
+    return <Skeleton variant="circular" width={logoSize.width} height={logoSize.height} />
+  }
+
+  return (
+    <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to={destination}>
+      <img alt="website-logo" unselectable="on" src={program.cover_page} style={{ maxWidth: logoSize.maxWidth, maxHeight: logoSize.maxHeight }} />
+    </IconButton>
+  );
+}
 
 export default ProgramLogo;

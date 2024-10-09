@@ -1,6 +1,9 @@
 import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
+import WebsiteDisplayApp from 'apps/website-display/App';
+import WebsiteFactoryApp from 'apps/website-factory/App';
+import ProgramApp from 'apps/program/App';
 import ResetPassword from 'apps/website-display/pages/ResetPassword';
 import CreateAccount from 'apps/website-display/pages/CreateAccount';
 import RegistrationReceipt from 'apps/website-display/pages/RegistrationReceipt';
@@ -30,52 +33,9 @@ const Root = () => {
 
   return (
     <Routes>
-
-      <Route path="/" element={<Navigate to={'/programs/'} />} />
-      <Route path="/login/" element={<Login />} />
-      <Route path="/reset-password/" element={<ResetPassword />} />
-      <Route path="/create-account/" element={<CreateAccount />} />
-      <Route path="/articles/" element={<Articles />} />
-      <Route path="/article/:articleId/" element={<Article />} />
-      <Route path="/programs/" element={<Programs />} />
-      <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
-      <Route path="/map" element={<CourseMapEditor />} />
-      <Route path="/viewMap" element={<CourseMapViewMode />} />
-
-      <Route path="/" element={<PrivateRoute />}>
-        <Route path="/edit-article/:articleId/" element={<EditArticle />} />
-        <Route
-          path="/message/payment/success/:paymentId?/"
-          element={<SuccessfulPayment />}
-        />
-        <Route
-          path="/message/payment/failure/:paymentId?/"
-          element={<FailedPayment />}
-        />
-        <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
-        <Route path="/setting/:section?/" element={<Setting />} />
-        <Route path="/articles/" element={<Articles />} />
-        <Route path="/program/:programSlug/fsm/:fsmId/" element={<FSM />} />
-        <Route
-          path="/program/:programSlug/form/"
-          element={<Registration />}
-        />
-        <Route
-          path="/program/:programSlug/team-setting/"
-          element={<TeamSetting />}
-        />
-        <Route path="/program/:programSlug/" element={<Program />} />
-
-        {/* only website admins can visit: */}
-        <Route path="/website/:websiteName/manage/:section?/" element={<WebsiteManagement />} />
-
-        {/* only mentors can visit: */}
-        <Route path="/program/:programSlug/manage/:section?/" element={<ProgramManagement />} />
-        <Route path="/program/:programSlug/fsm/:fsmId/manage/correction/:answerId/" element={<Correction />} />
-        <Route path="/program/:programSlug/fsm/:fsmId/manage/:section?/" element={<FSMManagement />} />
-      </Route>
-
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="/program/*" element={<ProgramApp />} />
+      <Route path="/management/*" element={<WebsiteFactoryApp />} />
+      <Route path="*" element={<WebsiteDisplayApp />} />
     </Routes>
   );
 };

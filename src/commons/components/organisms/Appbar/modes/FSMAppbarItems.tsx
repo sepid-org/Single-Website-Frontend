@@ -12,9 +12,10 @@ import UserAvatar from '../components/UserAvatar';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import BackToProgramButton from '../components/BackToProgramButton';
 
 const FSMAppbarItems = ({ }) => {
-  const { fsmId, programSlug } = useParams();
+  const { fsmId } = useParams();
   // todo: refactor: fetch program minimal info (not whole program info!)
   // const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsm } = useGetFSMQuery({ fsmId });
@@ -27,7 +28,7 @@ const FSMAppbarItems = ({ }) => {
   const teamAvatar = <TeamAvatar />;
   const fsmLogo = <FSMLogo />;
   const scoresDialogButton = <ScoresDialogButton />
-  const backToProgram = <DashboardButton label={'بازگشت به دوره'} to={`/program/${programSlug}/`} />;
+  const backToProgram = <BackToProgramButton />;
 
   const desktopLeftItems = [];
   const desktopRightItems = [fsmLogo];
@@ -36,9 +37,9 @@ const FSMAppbarItems = ({ }) => {
   const mobileMenuListItems = [];
   const toolbarItems = [];
 
-  if (fsm?.first_state?.is_exam) {
-    toolbarItems.push(reviewAnswers);
-  }
+  // if (fsm?.first_state?.is_exam) {
+  //   toolbarItems.push(reviewAnswers);
+  // }
 
   // if (program?.show_scores) {
   //   toolbarItems.push(scoresDialogButton);

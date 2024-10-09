@@ -45,11 +45,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     <Stack spacing={1}>
       <IsRequired disabled={!questionWidgetFields.is_required}>
         <TinyPreview
-          frameProps={{
-            frameBorder: '0',
-            scrolling: 'no',
-            width: '100%',
-          }}
+          styles={{ width: '100%' }}
           content={text}
         />
       </IsRequired>
@@ -74,11 +70,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
         <Fragment>
           {answer ?
             <TinyPreview
-              frameProps={{
-                frameBorder: '0',
-                scrolling: 'no',
-                width: '100%',
-              }}
+              styles={{ width: '100%' }}
               content={answer}
             /> :
             <Typography color='red' variant='caption'>

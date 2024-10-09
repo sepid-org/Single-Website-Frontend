@@ -1,5 +1,5 @@
 import { Link } from 'commons/types/redux/Roadmap';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetPlayerTransitedPathInputType = {
   playerId: string;
@@ -12,11 +12,11 @@ type GetFSMRoadmapInputType = {
 };
 
 type GetFSMRoadmapOutputType = {
-  firstStateName: string;
+  firstStateTitle: string;
   links: Link[];
 }
 
-export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
+export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getPlayerTransitedPath: builder.query<GetPlayerTransitedPathOutputType, GetPlayerTransitedPathInputType>({
@@ -32,7 +32,7 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
       query: ({ fsmId }) => `/roadmap/get_fsm_roadmap/?fsm=${fsmId}`,
       transformResponse: (response: any): GetFSMRoadmapOutputType => {
         return {
-          firstStateName: response.first_state_name,
+          firstStateTitle: response.first_state_title,
           links: response.links,
         };
       },

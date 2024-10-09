@@ -1,14 +1,13 @@
 import { Button, Icon, Typography } from '@mui/material';
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { logoutAction } from 'apps/website-display/redux/slices/account';
+import useLogout from 'commons/hooks/useLogout';
 
 function LogoutButton({ }) {
-  const dispatch = useDispatch();
+  const { logout } = useLogout();
   return (
     <Button
       variant="outlined"
-      onClick={() => dispatch(logoutAction)}
+      onClick={logout}
       endIcon={
         <Icon>
           <img

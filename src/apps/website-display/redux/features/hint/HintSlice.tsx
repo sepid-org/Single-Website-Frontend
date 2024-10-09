@@ -1,4 +1,4 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { HintType } from 'commons/types/global';
 
 type DeleteFSMStateHintInputType = {
@@ -17,19 +17,17 @@ type CreateFSMStateHintOutputType = HintType;
 
 type CreateWidgetHintInputType = {
   widgetId: string;
-  paperId: string;
 };
 
 type CreateWidgetHintOutputType = HintType;
 
 type DeleteWidgetHintInputType = {
-  paperId: string;
   hintId: string;
 };
 
 type DeleteWidgetHintOutputType = any;
 
-export const HintSlice = ManageContentServiceApi.injectEndpoints({
+export const HintSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     createFSMStateHint: builder.mutation<CreateFSMStateHintOutputType, CreateFSMStateHintInputType>({
@@ -39,6 +37,7 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
         method: 'POST',
         body: {
           ...body,
+          widgets: [],
           reference: fsmStateId,
         },
       }),
@@ -61,12 +60,13 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
 
     createWidgetHint: builder.mutation<CreateWidgetHintOutputType, CreateWidgetHintInputType>({
       // todo: it should invalidate 'widget' not 'paper'
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      // invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetId, ...body }) => ({
-        url: `/fsm/widget-hint/`,
+        url: `/widgets/widget-hint/`,
         method: 'POST',
         body: {
           ...body,
+          widgets: [],
           reference: widgetId,
         },
       }),
@@ -77,9 +77,9 @@ export const HintSlice = ManageContentServiceApi.injectEndpoints({
 
     deleteWidgetHint: builder.mutation<DeleteWidgetHintOutputType, DeleteWidgetHintInputType>({
       // todo: it should invalidate 'widget' not 'paper'
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      // invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ hintId }) => ({
-        url: `/fsm/widget-hint/${hintId}/`,
+        url: `/widgets/widget-hint/${hintId}/`,
         method: 'DELETE',
       }),
       transformResponse: (response: any): DeleteWidgetHintOutputType => {

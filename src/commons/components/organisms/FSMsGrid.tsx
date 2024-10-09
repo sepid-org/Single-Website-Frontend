@@ -1,13 +1,14 @@
 import { Box, Grid, Pagination, Stack } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 
-import FSMCard from 'commons/components/organisms/cards/FSMCard';
+import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import useWidth from 'commons/utils/UseWidth';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { useParams } from 'react-router-dom';
 import { useGetProgramFSMsUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import FSMHorizontalCard from './cards/FSMHorizontalCard';
 
 type FSMsGridPropsType = {}
 
@@ -27,7 +28,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
       <Grid container spacing={2}>
         {[...Array(numberOfSkeleton)].map((e, i) => (
           <Grid item key={i} xs={12} sm={6} lg={4}>
-            <FSMCard isLoading={true} fsm={null} />
+            <VerticalFSMCard isLoading={true} fsm={null} />
           </Grid>
         ))}
       </Grid>
@@ -35,20 +36,32 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
   }
 
   if (visibleFSMS.length > 0) {
-    let tmpArr = [...visibleFSMS].filter(fsm => fsm.is_visible).sort((fsm1, fsm2) => fsm2.order_in_program - fsm1.order_in_program)
     return (
       <Stack spacing={2}>
         <Stack>
           <Grid container spacing={2}>
-            {tmpArr.map((fsm) => (
-              <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
-                <FSMCard
-                  fsm={fsm}
-                  userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
-                />
-              </Grid>
-            ))}
-          </Grid>
+            {visibleFSMS.map((fsm) => {
+              if (fsm.card_type === 'vertical1') {
+                return (
+                  <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
+                    <VerticalFSMCard
+                      fsm={fsm}
+                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    />
+                  </Grid>
+                )
+              } else {
+                return (
+                  <Grid item key={fsm.id} xs={12}>
+                    <FSMHorizontalCard
+                      fsm={fsm}
+                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    />
+                  </Grid>
+                )
+              }
+            })}
+          </Grid >
         </Stack>
         <Pagination
           variant="outlined"
@@ -58,7 +71,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
           page={pageNumber}
           onChange={(e, value) => setPageNumber(value)}
         />
-      </Stack>
+      </Stack >
     );
   }
 

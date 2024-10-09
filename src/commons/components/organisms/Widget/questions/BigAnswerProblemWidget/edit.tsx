@@ -11,8 +11,9 @@ import {
 import React, { FC, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
-import EditQuestionWidgetFields from 'commons/components/organisms/forms/EditQuestionWidgetFields';
+import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 
 type BigAnswerProblemEditWidgetPropsType = {
   handleClose: any;
@@ -21,7 +22,7 @@ type BigAnswerProblemEditWidgetPropsType = {
   open: boolean;
   text: string;
   solution: any;
-  paperId: number;
+  paperId: string;
   id: string;
   is_required?: boolean;
 }
@@ -35,12 +36,12 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
   solution: previousSolution,
   paperId,
   id: widgetId,
-  ...questionWidgetProps
+  ...widgetProps
 }) => {
   const t = useTranslate();
   const [text, setText] = useState<string>(oldText);
   const [solution, setSolution] = useState<string>(previousSolution || '');
-  const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
+  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
   const handleClick = () => {
     onMutate({
@@ -49,7 +50,7 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       text: text,
       solution,
       onSuccess: handleClose,
-      ...questionWidgetFields
+      ...widgetFields,
     })
   };
 
@@ -66,6 +67,10 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       <DialogContent>
         <Stack alignItems={'start'} spacing={1}>
           <label>{'صورت سوال'}</label>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
           <TinyEditorComponent
             content={text}
             onChange={(val: string) => setText(val)}
@@ -75,9 +80,9 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
             content={solution}
             onChange={(val: string) => setSolution(val)}
           />
-          <EditQuestionWidgetFields
-            fields={questionWidgetFields}
-            setFields={setQuestionWidgetFields}
+          <EditQuestionFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
           />
         </Stack>
       </DialogContent>

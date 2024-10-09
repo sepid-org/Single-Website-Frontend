@@ -1,10 +1,15 @@
 import { RegistrationReceiptType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-export const ReceiptSlice = ManageContentServiceApi.injectEndpoints({
+export const ReceiptSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getReceipt: builder.query<RegistrationReceiptType, { receiptId: string }>({
-      providesTags: (result) => [{ type: 'receipt', id: result?.id }],
+      providesTags: (result, error, item) => {
+        if (!error) {
+          return (
+            [{ type: 'registration-receipt', id: result?.id }])
+        }
+      },
       query: ({ receiptId }) => `fsm/receipts/${receiptId}/`,
       transformResponse: (response: any): RegistrationReceiptType => {
         return response;
@@ -12,7 +17,7 @@ export const ReceiptSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     deleteReceipt: builder.mutation<RegistrationReceiptType, { receiptId: string }>({
-      invalidatesTags: ['receipts'],
+      invalidatesTags: ['registration-receipts'],
       query: ({ receiptId }) => ({
         url: `fsm/receipts/${receiptId}/`,
         method: 'DELETE',
@@ -20,7 +25,14 @@ export const ReceiptSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getMyReceipt: builder.query<RegistrationReceiptType, { formId: string }>({
-      providesTags: (result, error, item) => [{ type: 'receipt', id: item.formId }],
+      providesTags: (result, error, item) => {
+        if (!error) {
+          return ([
+            { type: 'registration-receipt', id: result.id },
+            { type: 'form', id: item.formId },
+          ])
+        }
+      },
       query: ({ formId }) => `fsm/receipts/my_receipt/?form=${formId}`,
       transformResponse: (response: any): RegistrationReceiptType => {
         return response;

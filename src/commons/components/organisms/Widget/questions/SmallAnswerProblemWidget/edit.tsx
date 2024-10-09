@@ -11,7 +11,8 @@ import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import EditQuestionWidgetFields from 'commons/components/organisms/forms/EditQuestionWidgetFields';
+import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 
 function SmallAnswerProblemEditWidget({
   onMutate,
@@ -23,13 +24,13 @@ function SmallAnswerProblemEditWidget({
   correct_answer: oldCorrectAnswer,
   paperId,
   id: widgetId,
-  ...questionWidgetProps
+  ...widgetProps
 }) {
   const t = useTranslate();
   const [text, setText] = useState<string>(oldText);
   const [correctAnswer, setCorrectAnswer] = useState<string>(oldCorrectAnswer?.text || '');
   const [solution, setSolution] = useState<string>(oldSolution || '');
-  const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
+  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
   const handleSubmit = () => {
     const body = {
@@ -38,7 +39,7 @@ function SmallAnswerProblemEditWidget({
       text,
       solution,
       onSuccess: handleClose,
-      ...questionWidgetFields
+      ...widgetFields,
     }
     if (correctAnswer) {
       body['correct_answer'] = {
@@ -59,6 +60,10 @@ function SmallAnswerProblemEditWidget({
       disableEnforceFocus>
       <DialogTitle>{t('shortAnswerQuestion')}</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <Stack spacing={1} alignItems={'start'}>
           <label>{'صورت سوال'}</label>
           <TinyEditorComponent
@@ -77,9 +82,9 @@ function SmallAnswerProblemEditWidget({
             content={solution}
             onChange={(val: string) => setSolution(val)}
           />
-          <EditQuestionWidgetFields
-            fields={questionWidgetFields}
-            setFields={setQuestionWidgetFields}
+          <EditQuestionFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
           />
         </Stack>
       </DialogContent>

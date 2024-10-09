@@ -1,11 +1,11 @@
 import { BannerType } from "./redux/WebSiteAppearance";
 
 export type DashboardTabType = {
-  name: string;
+  slug: string;
   label: string;
-  icon: any;
+  icon?: any;
+  disabled?: boolean;
   component: any;
-  isActive?: boolean;
 }
 
 export type directionType = 'rtl' | 'ltr';

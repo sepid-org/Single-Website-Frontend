@@ -1,9 +1,5 @@
 // account
-export const logoutUrl = 'auth/accounts/logout/';
 export const refreshTokenUrl = 'auth/accounts/refresh/';
-export const changePasswordUrl = 'auth/accounts/change_pass/';
-export const verificationCodeUrl = 'auth/accounts/verification_code/';
-export const accountCRUDUrl = ({ id }) => id ? `auth/accounts/${id}/` : 'auth/accounts/';
 
 // Article
 export const articlesUrl = ({ pageNumber, articleId }) => articleId ? `fsm/article/${articleId}` : `fsm/article/?page=${pageNumber}`;
@@ -31,9 +27,9 @@ export const getPlayerFromTeamUrl = ({ id }) => `/fsm/fsm/${id}/get_player_from_
 
 // response
 // answer
-export const clearQuestionAnswerUrl = `/response/answers/clear_question_answer/`;
-export const answerCRUDUrl = ({ answerId }) => answerId ? `response/answers/${answerId}/` : 'response/answers/';
-export const sendWidgetAnswerUrl = `/response/answers/submit_answer/`;
+export const clearQuestionAnswerUrl = `/responses/answers/clear_question_answer/`;
+export const answerCRUDUrl = ({ answerId }) => answerId ? `responses/answers/${answerId}/` : 'responses/answers/';
+export const sendWidgetAnswerUrl = `/responses/answers/submit_answer/`;
 
 
 // assessment:

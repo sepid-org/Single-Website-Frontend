@@ -1,5 +1,5 @@
 import { PurchaseType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type ApplyDiscountCodeInputType = {
   merchandiseId: string;
@@ -17,7 +17,7 @@ type PurchaseInputType = {
 
 type PurchaseOutputType = PurchaseType;
 
-export const PurchaseSlice = ManageContentServiceApi.injectEndpoints({
+export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     applyDiscountCode: builder.mutation<ApplyDiscountCodeOutputType, ApplyDiscountCodeInputType>({
       query: ({ ...body }) => ({

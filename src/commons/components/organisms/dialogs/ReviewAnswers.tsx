@@ -75,7 +75,6 @@ const ReviewAnswers: FC<ReviewAnswersPropsType> = ({
 }
 
 const mapStateToProps = (state) => ({
-  isFetching: state.workshop.isFetching,
   answers: state.workshop.answers,
 });
 

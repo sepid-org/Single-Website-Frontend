@@ -11,7 +11,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
 
-import FSMCard from '../cards/FSMCard';
+import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { toast } from 'react-toastify';
 import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
@@ -39,6 +39,8 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
     cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
     is_active: true,
     is_visible: true,
+    card_type: 'vertical1',
+    show_roadmap: true,
   });
   const [createFSM, result] = useCreateFSMMutation();
 
@@ -94,7 +96,7 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
               display: { xs: 'none', md: 'inline' },
               opacity: properties.is_visible ? 1 : 0.2
             }}>
-              <FSMCard fsm={properties} />
+              <VerticalFSMCard fsm={properties} />
             </Grid>
           </Grid>
         </Grid>

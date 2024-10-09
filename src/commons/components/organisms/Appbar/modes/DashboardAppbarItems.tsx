@@ -5,8 +5,8 @@ import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/Web
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import DefaultAppbarItems from './DefaultAppbarItems';
 import UserInfo from '../components/UserInfo';
-import NotificationButton from '../components/NotificationButton';
 import { useSelector } from 'react-redux';
+import NotificationButton from 'apps/chat/components/atoms/NotificationButton';
 
 const DashboardAppbarItems = ({ }) => {
 

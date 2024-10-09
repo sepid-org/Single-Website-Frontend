@@ -1,20 +1,19 @@
 import { Avatar, IconButton, Menu, MenuItem, Stack, Typography } from '@mui/material';
-import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux';
+import React, { FC, Fragment, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { stringToColor } from 'commons/utils/stringToColor';
-import { logoutAction } from 'apps/website-display/redux/slices/account';
 import LogoutIcon from '@mui/icons-material/Logout';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { useGetPermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetWebsitePermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import useLogout from 'commons/hooks/useLogout';
+import useUserProfile from 'commons/hooks/useUserProfile';
 
-type UserAvatarPropsType = {
-  name: string;
-  logout: any;
-}
+type UserAvatarPropsType = {}
 
-const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => {
+const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
+  const { logout } = useLogout();
+  const { data: { fullName, profile_picture: profilePicture } } = useUserProfile();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -26,16 +25,15 @@ const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => 
     setAnchorEl(null);
   };
 
-  const { data: websitePermissions } = useGetPermissionQuery();
+  const { data: websitePermissions } = useGetWebsitePermissionQuery();
 
   return (
     <Fragment>
-      <IconButton onClick={handleClick}>
+      <IconButton size='small' onClick={handleClick}>
         <Avatar
-          sx={{ backgroundColor: stringToColor(name) }}
-          alt="logo">
-          {name[0]}
-        </Avatar>
+          src={profilePicture}
+          sx={{ backgroundColor: stringToColor(fullName) }}
+          alt="logo" />
       </IconButton>
       <Menu
         disableScrollLock
@@ -43,7 +41,7 @@ const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => 
         open={open}
         onClose={handleClose}>
         <Typography sx={{ padding: 1, paddingX: 2, userSelect: 'none' }} fontWeight={500} fontSize={20}>
-          {name || 'بی‌نام بی‌نام‌زاده'}
+          {fullName || 'بی‌نام بی‌نام‌زاده'}
         </Typography>
         <MenuItem onClick={() => {
           navigate('/setting/');
@@ -56,7 +54,7 @@ const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => 
           </Stack>
         </MenuItem>
         {websitePermissions?.isAdmin &&
-          <MenuItem onClick={() => navigate(`/website/manage/`)}>
+          <MenuItem onClick={() => navigate(`/management/`)}>
             <Stack direction='row' spacing={1} alignItems={'center'}>
               <SettingsIcon />
               <Typography>
@@ -78,12 +76,4 @@ const UserAvatar = ({ name = 'بی‌نام', logout }: UserAvatarPropsType) => 
   );
 }
 
-const mapStateToProps = (state) => ({
-  name: state.account.userInfo?.first_name && state.account.userInfo?.last_name
-    ? `${state.account.userInfo.first_name} ${state.account.userInfo.last_name}`
-    : ''
-});
-
-export default connect(mapStateToProps, {
-  logout: logoutAction,
-})(UserAvatar);
+export default UserAvatar;

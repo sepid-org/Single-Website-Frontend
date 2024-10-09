@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react';
 
-import Layout from 'commons/components/template/Layout';
-import Profile from 'commons/components/template/Profile';
+import Layout from 'commons/template/Layout';
+import Profile from 'commons/template/Profile';
 
 type ProfilePropsType = {}
 

@@ -12,7 +12,8 @@ import React, { useState, FC } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import EditQuestionWidgetFields from 'commons/components/organisms/forms/EditQuestionWidgetFields';
+import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 
 type UploadFileProblemEditWidgetPropsType = {
   onMutate: any;
@@ -20,7 +21,7 @@ type UploadFileProblemEditWidgetPropsType = {
 
   open: boolean;
   text: string;
-  paperId: number;
+  paperId: string;
   id: number;
   solution: string;
 }
@@ -34,12 +35,12 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
   solution: oldSolution,
   paperId,
   id: widgetId,
-  ...questionWidgetProps
+  ...widgetProps
 }) => {
   const t = useTranslate();
   const [text, setText] = useState(oldText || '');
   const [solution, setSolution] = useState<string>(oldSolution || '');
-  const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
+  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
   const handleSubmit = () => {
     onMutate({
@@ -48,7 +49,7 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
       widgetId,
       solution,
       onSuccess: handleClose,
-      ...questionWidgetFields
+      ...widgetFields
     });
   };
 
@@ -56,6 +57,10 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
     <Dialog disableScrollLock open={open} maxWidth='md'>
       <DialogTitle>{'ارسال فایل'}</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <Stack spacing={1} alignItems={'start'}>
           <Typography>
             متن درخواستی را که برای ارسال فایل دارید، در قسمت زیر وارد کنید.
@@ -72,9 +77,9 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
             content={solution}
             onChange={(val: string) => setSolution(val)}
           />
-          <EditQuestionWidgetFields
-            fields={questionWidgetFields}
-            setFields={setQuestionWidgetFields}
+          <EditQuestionFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
           />
         </Stack>
       </DialogContent>

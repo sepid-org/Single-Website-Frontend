@@ -1,14 +1,14 @@
-import { FSMStateType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { PaperType } from 'commons/types/models';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-type GetFSMStateOutputType = FSMStateType;
+type GetPaperOutputType = PaperType;
 
-export const PaperSlice = ManageContentServiceApi.injectEndpoints({
+export const PaperSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getPaper: builder.query<GetFSMStateOutputType, { paperId: string }>({
+    getPaper: builder.query<GetPaperOutputType, { paperId: string }>({
       providesTags: (result) => [{ type: 'paper', id: result?.id }],
       query: ({ paperId }) => `fsm/paper/${paperId}/`,
-      transformResponse: (response: any): GetFSMStateOutputType => {
+      transformResponse: (response: any): GetPaperOutputType => {
         return response;
       },
     }),

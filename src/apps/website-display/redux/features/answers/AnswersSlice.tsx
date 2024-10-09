@@ -1,11 +1,11 @@
 import { CurrencyType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetCurrenciesInputType = {};
 
 type GetCurrenciesOutputType = CurrencyType[];
 
-export const AttributeSlice = ManageContentServiceApi.injectEndpoints({
+export const AttributeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     // تعیین اون سه تا اتربیوت برای یک ویجت
     // تعیین اون سه تا اتربیوت برای یک پیپر

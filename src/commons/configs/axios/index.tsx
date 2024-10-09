@@ -1,8 +1,8 @@
 import Axios from 'axios';
-import { MCS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/configs/Constants';
 
 const baseAxios = Axios.create({
-  baseURL: MCS_URL + 'api/',
+  baseURL: CMS_URL + 'api/',
   timeout: 60000,
   maxRedirects: 5,
 });

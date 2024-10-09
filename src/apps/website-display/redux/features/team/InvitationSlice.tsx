@@ -1,5 +1,5 @@
 import { InvitationType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetTeamInvitationsInputType = {
   teamId: string;
@@ -34,7 +34,7 @@ type RespondInvitationInputType = {
 type RespondInvitationOutputType = void;
 
 
-export const InvitationSlice = ManageContentServiceApi.injectEndpoints({
+export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getTeamInvitations: builder.query<GetTeamInvitationsOutputType, GetTeamInvitationsInputType>({
@@ -47,7 +47,7 @@ export const InvitationSlice = ManageContentServiceApi.injectEndpoints({
 
     getMyInvitations: builder.query<GetMyInvitationsOutputType, GetMyInvitationsInputType>({
       providesTags: ['my-invitations'],
-      query: ({ registrationFormId }) => `fsm/form/${registrationFormId}/my_invitations/`,
+      query: ({ registrationFormId }) => `fsm/registration/${registrationFormId}/my_invitations/`,
       transformResponse: (response: any): GetMyInvitationsOutputType => {
         return response;
       },
@@ -71,7 +71,7 @@ export const InvitationSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     respondInvitation: builder.mutation<RespondInvitationOutputType, RespondInvitationInputType>({
-      invalidatesTags: ['team-invitations', 'my-invitations', 'receipt'],
+      invalidatesTags: ['team-invitations', 'my-invitations', 'registration-receipt'],
       query: ({ invitationId, ...body }) => ({
         url: `fsm/invitations/${invitationId}/respond/`,
         method: 'POST',

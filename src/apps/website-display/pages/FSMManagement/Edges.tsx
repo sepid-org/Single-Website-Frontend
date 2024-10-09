@@ -37,6 +37,13 @@ const Edges: FC<IndexPropsType> = ({ }) => {
   const [updateFSMEdge] = useUpdateFSMEdgeMutation();
   const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
 
+  const handleCreateFSMEdge = () => {
+    if (!newEdge.head || !newEdge.tail) {
+      return;
+    }
+    createFSMEdge(newEdge);
+  }
+
   return (
     <Stack>
       <TableContainer>
@@ -65,7 +72,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
                     }}
                     label='شروع'>
                     {fsmStates.map((state) => (
-                      <MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+                      <MenuItem key={state.id} value={state.id}>{state.title}</MenuItem>
                     ))}
                   </Select>
                 </FormControl >
@@ -83,7 +90,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
                     }}
                     label='پایان'>
                     {fsmStates.map((state) => (
-                      <MenuItem key={state.id} value={state.id}>{state.name}</MenuItem>
+                      <MenuItem key={state.id} value={state.id}>{state.title}</MenuItem>
                     ))}
                   </Select>
                 </FormControl >
@@ -114,9 +121,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
               </TableCell>
               <TableCell align='center'>
                 <Button
-                  onClick={() => {
-                    createFSMEdge(newEdge);
-                  }}
+                  onClick={handleCreateFSMEdge}
                   variant='contained' color='primary'>
                   {'ایجاد'}
                 </Button>
@@ -125,10 +130,10 @@ const Edges: FC<IndexPropsType> = ({ }) => {
             {fsmEdges?.map((edge, index) =>
               <TableRow key={index}>
                 <TableCell align='center'>
-                  {edge.tail?.name}
+                  {edge.tail?.title}
                 </TableCell>
                 <TableCell align='center'>
-                  {edge.head?.name}
+                  {edge.head?.title}
                 </TableCell>
                 <TableCell align='center'>
                   <Checkbox

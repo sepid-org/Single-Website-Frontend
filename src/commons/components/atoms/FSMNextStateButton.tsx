@@ -1,7 +1,6 @@
 import { Button } from '@mui/material';
 import React, { FC, Fragment, useContext, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useNavigate } from 'react-router-dom';
 
 import { StatePageContext } from 'apps/website-display/pages/FSM';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
@@ -10,29 +9,26 @@ import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
-import { EdgeType } from 'commons/types/models';
+import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 type FSMNextStateButtonPropsType = {
-  outwardEdges: EdgeType[]
+  fsmStateId: string;
 }
 
 const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
-  outwardEdges = [],
+  fsmStateId,
 }) => {
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);
   const { isMentor } = useContext(StatePageContext);
-  const [goForward, goForwardResult] = useGoForwardMutation();
-  const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
-
+  const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
+  const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
+  const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })
 
   const edges = isMentor
     ? outwardEdges
     : outwardEdges.filter((edge) => edge.is_visible);
-  // const edges = outwardEdges;
-
-  const navigate = useNavigate();
 
   const changeState = (edge) => {
     if (isMentor) {
@@ -51,9 +47,6 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
   };
 
   const handleClick = () => {
-    if (edges.length === 0) {
-      navigate('/programs/');
-    }
     if (edges.length === 1) {
       changeState(edges[0]);
     } else {
@@ -61,8 +54,8 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
     }
   };
 
-  if (outwardEdges.length === 0) {
-    return (null)
+  if (edges.length === 0) {
+    return null;
   }
 
   return (
@@ -71,7 +64,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         fullWidth
         variant="contained"
         color="primary"
-        disabled={edges.length === 0 || goForwardResult?.isLoading || mentorMoveForwardResult?.isLoading}
+        disabled={isGoForwardLoading || isMentorMoveForwardLoading}
         onClick={handleClick}>
         {edges.length === 0
           ? 'جابجایی با همیار'
@@ -81,7 +74,6 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
         open={openChangeStateDialog}
         handleClose={() => setOpenChangeStateDialog(false)}
         edges={edges}
-        changeState={changeState}
       />
       <StatePasswordDialog
         open={!!selectedEdge}

@@ -16,7 +16,7 @@ import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 type InfoPropsType = {}
 
 const Info: FC<InfoPropsType> = ({ }) => {
-  const { fsmId, programSlug } = useParams();
+  const { fsmId } = useParams();
   const [properties, setProperties] = useState<FSMType>();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [updateFSM, result] = useUpdateFSMMutation();

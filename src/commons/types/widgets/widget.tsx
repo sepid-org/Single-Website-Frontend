@@ -1,5 +1,6 @@
 import { WidgetModes } from "commons/components/organisms/Widget";
 import { HintType } from "commons/types/global";
+import { ObjectType } from "../models";
 
 export type WidgetTypes =
   'TextWidget' |
@@ -12,13 +13,22 @@ export type WidgetTypes =
   'MultiChoiceProblem' |
   'UploadFileProblem';
 
-export type WidgetType = {
+export type PositionType = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  state?: string;
+  widget?: string;
+  fsm?: string;
+  edge?: string;
+  paper?: string;
+}
+
+export type WidgetType = ObjectType & {
   name: string;
-  id: number;
   mode: WidgetModes;
   widget_type: WidgetTypes;
-  cost: any;
-  reward: any;
   hints: HintType[];
   is_hidden: boolean;
-};
+}

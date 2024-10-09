@@ -1,5 +1,5 @@
 import { UserInfoType } from 'commons/types/profile';
-import { ManageContentServiceApi } from '../../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../../ManageContentServiceApiSlice';
 import { AnswerType } from 'commons/types/models';
 
 type GetAnswerSheetAnswersInputType = {
@@ -14,12 +14,12 @@ type GetQuestionAnswersInputType = {
 
 type GetQuestionAnswersOutputType = AnswerType[];
 
-export const AnswerSheetSlice = ManageContentServiceApi.injectEndpoints({
+export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getAnswerSheetAnswers: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ answerSheetId }) => ({
-        url: `response/answers/answer_sheet_answers/?answer_sheet=${answerSheetId}`,
+        url: `responses/answers/answer_sheet_answers/?answer_sheet=${answerSheetId}`,
         method: 'GET',
       }),
     }),
@@ -27,7 +27,7 @@ export const AnswerSheetSlice = ManageContentServiceApi.injectEndpoints({
     getWidgetAnswers: builder.query<GetQuestionAnswersOutputType, GetQuestionAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ questionId }) => ({
-        url: `response/answers/question_answers/?question=${questionId}/`,
+        url: `responses/answers/question_answers/?question=${questionId}/`,
         method: 'GET',
       }),
     }),

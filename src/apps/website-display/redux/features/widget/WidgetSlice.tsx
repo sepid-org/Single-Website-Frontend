@@ -1,5 +1,5 @@
 import { WidgetTypes } from 'commons/components/organisms/Widget';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
 
 type CreateWidgetInputType = {
@@ -15,13 +15,16 @@ type UpdateWidgetInputType = {
 
 type GetWidgetOutputType = WidgetType;
 
-export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
-  endpoints: builder => ({
+type GetWidgetsByIdsInputType = {
+  ids: string[];
+}
 
+export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
+  endpoints: builder => ({
     createWidget: builder.mutation<void, CreateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetType, paperId, ...props }) => ({
-        url: `/fsm/widget/`,
+        url: `/widgets/widget/`,
         method: 'POST',
         body: {
           widget_type: widgetType,
@@ -34,10 +37,9 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
     updateWidget: builder.mutation<void, UpdateWidgetInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetType, widgetId, paperId, ...props }) => ({
-        url: `/fsm/widget/${widgetId}/`,
+        url: `/widgets/widget/${widgetId}/`,
         method: 'PATCH',
         body: {
-          widget_id: widgetId,
           widget_type: widgetType,
           paper: paperId,
           ...props,
@@ -47,7 +49,7 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
 
     getWidget: builder.query<GetWidgetOutputType, { widgetId: string }>({
       providesTags: (result, error, item) => [{ type: 'widget', id: item.widgetId }],
-      query: ({ widgetId }) => `fsm/widget/${widgetId}/`,
+      query: ({ widgetId }) => `widgets/widget/${widgetId}/`,
       transformResponse: (response: any): GetWidgetOutputType => {
         return response;
       },
@@ -56,11 +58,28 @@ export const WidgetSlice = ManageContentServiceApi.injectEndpoints({
     deleteWidget: builder.mutation<void, { widgetId: string, paperId: string }>({
       invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
       query: ({ widgetId }) => ({
-        url: `/fsm/widget/${widgetId}/`,
+        url: `/widgets/widget/${widgetId}/`,
         method: 'DELETE',
       }),
     }),
 
+    getWidgetsByIds: builder.query<GetWidgetOutputType[], GetWidgetsByIdsInputType>({
+      query: (args) => ({
+        url: '/widgets/widget/get_widgets_by_ids/',
+        method: 'POST',
+        body: args,
+      }),
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.map(({ id }) => ({ type: 'widget' as const, id })),
+            { type: 'widget', id: 'LIST' },
+          ]
+          : [{ type: 'widget', id: 'LIST' }],
+      transformResponse: (response: any[]): GetWidgetOutputType[] => {
+        return response;
+      },
+    }),
   })
 });
 
@@ -69,4 +88,5 @@ export const {
   useUpdateWidgetMutation,
   useGetWidgetQuery,
   useDeleteWidgetMutation,
+  useGetWidgetsByIdsQuery,
 } = WidgetSlice;

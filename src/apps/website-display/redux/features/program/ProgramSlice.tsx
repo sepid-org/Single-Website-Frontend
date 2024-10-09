@@ -1,5 +1,6 @@
 import { FSMUserPermissions, ProgramType, ProgramUserPermissions } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetProgramsInputType = {
   pageNumber?: number;
@@ -45,7 +46,7 @@ type CreateProgramOutputType = {
 
 }
 
-export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
+export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     createProgram: builder.mutation<CreateProgramOutputType, CreateProgramInputType>({
@@ -84,7 +85,9 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getProgram: builder.query<GetProgramOutputType, GetProgramInputType>({
-      providesTags: ['program'],
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'program', id: item.programSlug }]
+      ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/`,
       transformResponse: (response: any): GetProgramOutputType => {
         return response;
@@ -92,7 +95,12 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getProgramUserPermissions: builder.query<GetProgramUserPermissionsOutputType, GetProgramUserPermissionsInputType>({
-      providesTags: ['program-user-permissions'],
+      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [
+          'user-specific-data',
+          { type: 'program', id: item.programSlug }
+        ]
+      ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_permissions/`,
       transformResponse: (response: any): GetProgramUserPermissionsOutputType => {
         return response;
@@ -100,7 +108,7 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     getProgramFSMsUserPermissions: builder.query<GetProgramFSMsUserPermissionsOutputType, GetProgramFSMsUserPermissionsInputType>({
-      providesTags: ['fsms-user-permissions'],
+      providesTags: ['fsms', 'user-specific-data'],
       query: ({ programSlug }) => `fsm/program/${programSlug}/get_fsms_user_permissions/`,
       transformResponse: (response: any): GetProgramFSMsUserPermissionsOutputType => {
         return response;
@@ -113,7 +121,7 @@ export const ProgramSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     registerUserInProgram: builder.mutation<any, { registrationFormId: string, username: string }>({
-      invalidatesTags: ['receipts'],
+      invalidatesTags: ['registration-receipt'],
       query: ({ registrationFormId, username }) => ({
         url: `fsm/registration_form_admin/${registrationFormId}/register_user_in_program/`,
         method: 'POST',

@@ -1,57 +1,45 @@
 import { FileType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-type GetFormRespondentsInfoInputType = {
+type GetRegistrationReceiptsFileInputType = {
   formId: string;
 }
 
-type GetFormRespondentsInfoOutputType = FileType;
+type GetRegistrationReceiptsFileOutputType = FileType;
 
-type GetFormRespondentsAnswersInputType = {
+type GetAnswerSheetsFileInputType = {
   formId: string;
 }
 
-type GetFormRespondentsAnswersOutputType = FileType;
+type GetAnswerSheetsFileOutputType = FileType;
 
-type GetProgramMerchandisesPurchasesInputType = {
+type GetProgramMerchandisesPurchasesFileInputType = {
   programSlug: string;
 }
 
-type GetProgramMerchandisesPurchasesOutputType = FileType;
+type GetProgramMerchandisesPurchasesFileOutputType = FileType;
 
-export const ReportSlice = ManageContentServiceApi.injectEndpoints({
+export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
-    getFormRespondentsInfoFile: builder.mutation<GetFormRespondentsInfoOutputType, GetFormRespondentsInfoInputType>({
-      invalidatesTags: ['programs'],
+    getRegistrationReceiptsFile: builder.query<GetRegistrationReceiptsFileOutputType, GetRegistrationReceiptsFileInputType>({
+      providesTags: ['programs'],
       query: ({ formId }) => ({
-        url: `/report/form-respondents-info/`,
-        method: 'POST',
-        body: {
-          form_id: formId
-        },
+        url: `/reports/registration-receipts/?registration_form_id=${formId}`,
       }),
     }),
 
-    getFormRespondentsAnswersFile: builder.mutation<GetFormRespondentsAnswersOutputType, GetFormRespondentsAnswersInputType>({
-      invalidatesTags: ['programs'],
+    getAnswerSheetsFile: builder.query<GetAnswerSheetsFileOutputType, GetAnswerSheetsFileInputType>({
+      providesTags: ['programs'],
       query: ({ formId }) => ({
-        url: `/report/form-respondents-answers/`,
-        method: 'POST',
-        body: {
-          form_id: formId
-        },
+        url: `/reports/answer-sheets/?form_id=${formId}`,
       }),
     }),
 
-    getProgramMerchandisesPurchasesFile: builder.mutation<GetProgramMerchandisesPurchasesOutputType, GetProgramMerchandisesPurchasesInputType>({
-      invalidatesTags: ['programs'],
+    getProgramMerchandisesPurchasesFile: builder.query<GetProgramMerchandisesPurchasesFileOutputType, GetProgramMerchandisesPurchasesFileInputType>({
+      providesTags: ['programs'],
       query: ({ programSlug }) => ({
-        url: `/report/program-merchandises-purchases/`,
-        method: 'POST',
-        body: {
-          program_id: programSlug
-        },
+        url: `/reports/program-merchandises-purchases/?program_id=${programSlug}`,
       }),
     }),
 
@@ -59,7 +47,7 @@ export const ReportSlice = ManageContentServiceApi.injectEndpoints({
 });
 
 export const {
-  useGetFormRespondentsInfoFileMutation,
-  useGetFormRespondentsAnswersFileMutation,
-  useGetProgramMerchandisesPurchasesFileMutation
+  useLazyGetRegistrationReceiptsFileQuery,
+  useLazyGetAnswerSheetsFileQuery,
+  useLazyGetProgramMerchandisesPurchasesFileQuery,
 } = ReportSlice;

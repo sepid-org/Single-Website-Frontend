@@ -96,15 +96,27 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
       <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
-          value={data.order_in_program}
+          value={data.order}
           variant='outlined'
           label={'اولویت نمایش'}
-          name='order_in_program'
+          name='order'
           onChange={putData}
           helperText={'کارگاه با اولویت نمایش بزرگ‌تر، زودتر در صفحه‌ی اصلی دوره نمایش داده می‌شود.'}
         />
       </Grid>
-
+      <Grid item xs={12} md={6}>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel>نوع کارت</InputLabel>
+          <Select
+            value={data.card_type}
+            onChange={putData}
+            name='card_type'
+            label='وضعیت کارگاه'>
+            <MenuItem value={'horizontal1'}>{'افقی ۱'}</MenuItem>
+            <MenuItem value={'vertical1'}>{'عمودی ۱'}</MenuItem>
+          </Select>
+        </FormControl>
+      </Grid>
       <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_active'
@@ -122,6 +134,16 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           onChange={() => toggleValue('is_visible')}
           control={<Switch color="primary" />}
           label="قابل مشاهده برای شرکت‌کنندگان:"
+          labelPlacement='start'
+        />
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <FormControlLabel
+          name='show_roadmap'
+          checked={data.show_roadmap}
+          onChange={() => toggleValue('show_roadmap')}
+          control={<Switch color="primary" />}
+          label="نمایش نقشه راه:"
           labelPlacement='start'
         />
       </Grid>

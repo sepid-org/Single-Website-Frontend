@@ -45,6 +45,7 @@
     "react-lazyload": "^3.2.0",
     "react-redux": "^8.0.2",
     "react-redux-multilingual": "^2.0.1",
+    "react-rnd": "^10.4.12",
     "react-router-dom": "^6.22.2",
     "react-scripts": "^5.0.1",
     "react-toastify": "^10.0.4",
@@ -61,7 +62,7 @@
     "build": "react-scripts build && npm run sentry:sourcemaps",
     "test": "jest",
     "eject": "react-scripts eject",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org sepid-org --project sepid-website-frontend ./build && sentry-cli --url https://sentry.hamravesh.com sourcemaps upload --org sepid-org --project sepid-website-frontend ./build",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org sepid-org --project sepid-platform-frontend ./build && sentry-cli --url https://sentry.hamravesh.com sourcemaps upload --org sepid-org --project sepid-platform-frontend ./build",
     "lint": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:fix": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --fix"
   },

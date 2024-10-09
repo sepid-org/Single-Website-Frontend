@@ -1,4 +1,5 @@
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type CreateAccountInputType = {
   phoneNumber: string;
@@ -57,9 +58,26 @@ type LoginOutputType = {
   account: any;
 }
 
-export const UserSlice = ManageContentServiceApi.injectEndpoints({
+type ChangeUserPasswordInputType = {
+  phoneNumber: string;
+  password: string;
+  verificationCode: string;
+}
+
+type ChangeUserPasswordOutputType = void;
+
+type GetVerificationCodeInputType = {
+  phoneNumber: string;
+  codeType: string;
+  websiteDisplayName: string;
+}
+
+type GetVerificationCodeOutputType = void;
+
+export const UserSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
         method: 'POST',
@@ -74,13 +92,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
       transformResponse: (response: any): CreateAccountOutputType => {
         return response;
       },
-    }),
-
-    checkAuthentication: builder.query<void, void>({
-      query: () => ({
-        url: 'auth/accounts/check-authentication/',
-        method: 'GET',
-      }),
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
@@ -94,6 +106,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     loginGoogleUser: builder.mutation<LoginGoogleUserOutputType, LoginGoogleUserInputType>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: (body) => ({
         url: 'auth/accounts/login-with-google/',
         method: 'POST',
@@ -102,6 +115,7 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
       transformResponse: (response: any): LoginGoogleUserOutputType => {
         return response;
       },
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
@@ -113,22 +127,53 @@ export const UserSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     login: builder.mutation<LoginOutputType, LoginInput>({
-      // todo: this invalidation should be deleted (after separating permission and programs)
-      invalidatesTags: ['player', 'receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: (body) => ({
         url: 'auth/accounts/login/',
         method: 'POST',
         body,
       }),
-    })
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
+    }),
+
+    changeUserPassword: builder.mutation<ChangeUserPasswordOutputType, ChangeUserPasswordInputType>({
+      query: ({ phoneNumber, verificationCode, ...body }) => ({
+        url: 'auth/accounts/change_pass/',
+        method: 'POST',
+        body: {
+          phone_number: phoneNumber,
+          code: verificationCode,
+          ...body,
+        },
+      }),
+      transformResponse: (response: any): ChangeUserPasswordOutputType => {
+        return response;
+      },
+    }),
+
+    getVerificationCode: builder.mutation<GetVerificationCodeOutputType, GetVerificationCodeInputType>({
+      query: ({ phoneNumber, codeType, websiteDisplayName }) => ({
+        url: 'auth/accounts/verification_code/',
+        method: 'POST',
+        body: {
+          phone_number: phoneNumber,
+          code_type: codeType,
+          website_display_name: websiteDisplayName,
+        },
+      }),
+      transformResponse: (response: any): GetVerificationCodeOutputType => {
+        return response;
+      },
+    }),
   })
 });
 
 export const {
   useCreateAccountMutation,
-  useCheckAuthenticationQuery,
   useGetGoogleUserProfileQuery,
   useLoginGoogleUserMutation,
   useChangePhoneNumberMutation,
   useLoginMutation,
+  useChangeUserPasswordMutation,
+  useGetVerificationCodeMutation,
 } = UserSlice;

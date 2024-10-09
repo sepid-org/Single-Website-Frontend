@@ -9,6 +9,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
@@ -21,9 +23,11 @@ function IframeEditWidget({
   paperId,
   link: oldLink,
   id: widgetId,
+  ...widgetProps
 }) {
   const [link, setLink] = useState(oldLink);
   const t = useTranslate();
+  const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
 
   const onEditWrapper = () => {
     onMutate({
@@ -31,6 +35,7 @@ function IframeEditWidget({
       link,
       widgetId,
       onSuccess: handleClose,
+      ...widgetFields,
     })
   };
 
@@ -38,6 +43,10 @@ function IframeEditWidget({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{'لینک'}</DialogTitle>
       <DialogContent>
+        <EditObjectFields
+          fields={widgetFields}
+          setFields={setWidgetFields}
+        />
         <Stack spacing={1}>
           <Typography>
             {'لطفاً لینک مورد نظر خود را قرار دهید. '}

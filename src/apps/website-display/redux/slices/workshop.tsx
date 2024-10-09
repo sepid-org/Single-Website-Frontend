@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { Apis } from 'apps/website-display/redux/apis';
-import { createAsyncThunkApi } from 'apps/website-display/redux/apis/cerateApiAsyncThunk';
+import { Apis } from 'commons/redux/utilities';
+import { createAsyncThunkApi } from 'commons/redux/utilities/cerateApiAsyncThunk';
 import {
   reviewAnswersUrl,
   addMentorToWorkshopUrl,

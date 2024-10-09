@@ -78,11 +78,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     <Stack spacing={1}>
       <IsRequired disabled={!questionWidgetProps.is_required}>
         <TinyPreview
-          frameProps={{
-            frameBorder: '0',
-            scrolling: 'no',
-            width: '100%',
-          }}
+          styles={{ width: '100%' }}
           content={questionText}
         />
       </IsRequired>

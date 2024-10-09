@@ -1,5 +1,6 @@
+import { HintType } from "./global";
 import { SchoolStudentshipType, UserInfoType } from "./profile";
-import { WidgetType } from "./widgets/widget";
+import { PositionType, WidgetType } from "./widgets/widget";
 
 export type PlayerRequestType = any;
 
@@ -25,20 +26,17 @@ export type ProgramType = {
   type: ProgramTypeType;
   slug: string;
   is_free: boolean;
-  site_help_paper_id: number;
-  FAQs_paper_id: number;
+  site_help_paper_id: string;
+  FAQs_paper_id: string;
   show_scores: boolean;
   program_contact_info: ProgramContactInfoType;
   is_visible: boolean;
   accessible_after_closure: boolean;
-  audience_type: AudienceTypeType;
-  certificates_ready: boolean
   cover_page: string;
   creator: string;
   description: string;
   end_date: string | null;
   participation_type: ProgramParticipationType;
-  has_certificate: boolean
   id: string;
   is_active: boolean;
   is_approved: boolean;
@@ -48,10 +46,9 @@ export type ProgramType = {
   initial_participants_count: number;
   final_participants_count: number;
   registration_form: string;
-  registration_since: string | null;
-  registration_till: string | null;
   start_date: string | null;
   team_size: number;
+  is_public: boolean;
 }
 
 export type AnswerSheetType = 'RegistrationReceipt' | 'StateAnswerSheet';
@@ -63,7 +60,7 @@ export type TeamType = {
   id: string;
   members: RegistrationReceiptType[]
   name: string;
-  registration_form: number;
+  registration_form: string;
   team_head: string;
 };
 export type AnswerType = any;
@@ -93,13 +90,20 @@ export type RegistrationReceiptType = {
   'StudentshipDataIncomplete';
 }
 
-type PaperType = 'RegistrationForm';
-type AcceptingStatus = 'AutoAccept' | 'Manual';
-type AudienceType = 'Student' | 'Academic' | 'All';
-type FSMLearningType = 'Supervised' | 'Unsupervised';
-type FSMPType = 'Individual' | 'Team' | 'Hybrid';
+type StateTemplateTypes = 'normal' | 'board';
+type PaperTypes = 'RegistrationForm';
+type AcceptingStatusTypes = 'AutoAccept' | 'Manual';
+type AudienceTypes = 'Student' | 'Academic' | 'All';
+type FSMLearningTypes = 'Supervised' | 'Unsupervised';
+type FSMPTypes = 'Individual' | 'Team' | 'Hybrid';
 
 export type ContentType = {
+  title: string;
+  create_at: string;
+  updated_at: string;
+  attributes: any[];
+  is_private: boolean;
+  order: number;
   has_entrance_lock?: boolean;
 }
 
@@ -110,43 +114,62 @@ export type FSMType = ContentType & {
   name: string;
   first_state: FSMStateType;
   description: string;
-  fsm_learning_type: FSMLearningType | '';
-  fsm_p_type: FSMPType | '';
-  program: string;
+  fsm_learning_type: FSMLearningTypes | '';
+  fsm_p_type: FSMPTypes | '';
+  program_slug: string;
   cover_page: string;
   is_active: boolean;
   is_visible: boolean;
-  order_in_program: number;
+  card_type: 'vertical1' | 'horizontal1';
+  show_roadmap: boolean;
 };
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
-export type RegistrationFormType = {
-  accepting_status: AcceptingStatus;
+export type FormType = {
+  audience_type: AudienceTypes;
+  start_date: string;
+  end_date: string;
+}
+
+export type RegistrationFormType = FormType & {
+  accepting_status: AcceptingStatusTypes;
   gender_partition_status: GenderPartitionType;
-  audience_type: AudienceType;
   certificate_templates: any;
   certificates_ready: boolean;
   conditions: any;
   creator: string;
   duration: string;
-  program: number;
+  program: string;
   fsm: FSMType;
   has_certificate: boolean;
   id: string;
   is_exam: boolean;
   max_grade: number;
   min_grade: number;
-  paper_type: PaperType;
-  since: string;
-  till: string;
+  paper_type: PaperTypes;
   widgets: WidgetType[];
 }
 export type Article = any
 export type Problem = any
 export type Submission = any
 export type SubmissionIsLoading = boolean
-export type FSMStateType = any;
+export type PaperType = ObjectType & {
+  id: string;
+  paper_type: string;
+  widgets: WidgetType[]
+}
+export type FSMStateType = ObjectType & {
+  hints: HintType[];
+  papers: string[];
+  name: string;
+  fsm: string;
+  inward_edges: EdgeType[];
+  outward_edges: EdgeType[];
+  template: StateTemplateTypes;
+  show_appbar: boolean;
+  is_end: boolean;
+};
 export type FSMEdgeType = any;
 export type Answer = any
 export type WorkshopEdge = any
@@ -164,24 +187,13 @@ export type UploadedFile = { link: string, name: string, id: string }
 
 export type LogoType = {
   mobile_image: string;
-  desctop_image: string;
+  desktop_image: string;
 }
 
 export type PartyType = {
   displayName: string;
   logo: LogoType;
 };
-
-export type MessageType = {
-  id: number;
-  reply_to?: MessageType;
-  sender: PartyType;
-  recipient: PartyType;
-  title: string;
-  content: string; // todo: change content to Widget
-  seen: boolean;
-  received_datetime: any;
-}
 
 export type InstituteType = {
   id: string;
@@ -260,13 +272,18 @@ export type PlayerType = {
 }
 
 export type EdgeType = {
+  tail: any;
+  head: any;
   id: string;
   has_transition_lock?: boolean;
   is_visible: boolean;
+  is_back_enabled?: boolean;
 }
 
 export type CurrencyType = any;
 
+
+/////////////// ATTRIBUTES ///////////////
 
 export type Attribute = {
 
@@ -291,4 +308,26 @@ export type ProgramUserPermissions = {
 export type FSMUserPermissions = {
   fsm_id: string;
   is_mentor: boolean;
+}
+
+/////////////// OBJECT ///////////////
+
+export type ObjectType = {
+  id: string;
+  name: string;
+  title: string;
+  position: PositionType;
+
+  order: string;
+  widget?: string;
+}
+
+export type ObjectLogicType = {
+  title?: string;
+  name: string;
+  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  sx?: any;
+  substituteComponent?: any;
 }

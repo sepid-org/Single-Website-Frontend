@@ -1,5 +1,5 @@
 import { MerchandiseType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type GetProgramMerchandisesInputType = {
   programSlug: string;
@@ -30,7 +30,7 @@ type SoftDeleteInputType = {
 type SoftDeleteOutputType = void;
 
 
-export const MerchandiseSlice = ManageContentServiceApi.injectEndpoints({
+export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getProgramMerchandises: builder.query<GetProgramMerchandisesOutputType, GetProgramMerchandisesInputType>({
       providesTags: ['merchandises'],

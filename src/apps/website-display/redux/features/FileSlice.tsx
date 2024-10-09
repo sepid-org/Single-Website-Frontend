@@ -1,8 +1,8 @@
 import jsonToFormData from 'commons/utils/jsonToFromDate';
-import { ManageContentServiceApi } from './ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from './ManageContentServiceApiSlice';
 import axios from 'axios';
 import { setUploadProgress } from 'apps/website-display/redux/slices/Global';
-import { MCS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/configs/Constants';
 
 type CreateFileInputType = {
   file: File;
@@ -13,13 +13,13 @@ type CreateFileOutputType = {
   file: string;
 }
 
-export const FileSlice = ManageContentServiceApi.injectEndpoints({
+export const FileSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     uploadFile: builder.mutation<CreateFileOutputType, CreateFileInputType>({
       queryFn: async (data, api) => {
         try {
           const result = await axios.post(
-            `${MCS_URL}api/file-storage/file/`,
+            `${CMS_URL}api/file-storage/file/`,
             jsonToFormData(data),
             {
               //...other options like headers here

@@ -6,25 +6,31 @@ import {
   useGoBackwardMutation,
   useMentorMoveBackwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
+import { useGetFSMStateInwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 
 type FSMBackStateButtonPropsType = {
-  inwardEdges: any[];
+  fsmStateId: string;
   playerId: string;
 }
 
 const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
-  inwardEdges = [],
+  fsmStateId,
   playerId,
 }) => {
-  const { isMentor, teamId } = useContext(StatePageContext);
+  const { isMentor } = useContext(StatePageContext);
   const [goBackward, goBackwardResult] = useGoBackwardMutation();
   const [mentorMoveBackward, mentorMoveBackwardResult] = useMentorMoveBackwardMutation();
+  const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })
 
-  if (inwardEdges.length === 0) {
+  const edges = isMentor
+    ? inwardEdges
+    : inwardEdges.filter((edge) => edge.is_visible);
+
+  if (edges.length === 0) {
     return null;
   }
 
-  const backEdge = inwardEdges[0];
+  const backEdge = edges[0];
 
   const handleClick = () => {
     if (isMentor) {
@@ -34,7 +40,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
     } else {
       if (backEdge.is_back_enabled) {
         goBackward({
-          playerId: playerId,
+          playerId,
         });
       }
     }
@@ -47,7 +53,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
       variant="outlined"
       color="primary"
       onClick={handleClick}>
-      قبلی
+      {'گام قبل'}
     </Button>
   );
 }

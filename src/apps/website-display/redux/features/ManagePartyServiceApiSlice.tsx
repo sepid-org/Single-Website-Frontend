@@ -1,10 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { MPS_URL } from 'commons/configs/Constants'
-import CustomBaseQuery from './utilities/CustomBaseQuery';
+import { PMS_URL } from 'commons/configs/Constants'
+import CustomBaseQuery from 'commons/redux/utilities/CustomBaseQuery';
+import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
-export const ManagePartyServiceApi = createApi({
+export const PartyManagementServiceApi = createApi({
   reducerPath: 'manage-party-service',
-  baseQuery: CustomBaseQuery({ baseUrl: MPS_URL + 'api/' }),
+  tagTypes,
+  baseQuery: CustomBaseQuery({ baseUrl: PMS_URL + 'api/' }),
   endpoints: build => ({
   })
 })

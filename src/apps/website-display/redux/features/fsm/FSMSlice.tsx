@@ -1,5 +1,5 @@
-import { FSMStateType, FSMType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { EdgeType, FSMStateType, FSMType } from 'commons/types/models';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
   fsmId: string;
@@ -33,12 +33,13 @@ type GetFSMInputType = {
 
 type GetFSMOutputType = FSMType;
 
-
 type GetFSMStatesOutputType = FSMStateType[];
 
+type GetFSMEdgesOutputType = EdgeType[];
 
 
-export const FSMSlice = ManageContentServiceApi.injectEndpoints({
+
+export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSM: builder.mutation<CreateFSMOutputType, CreateFSMInputType>({
       invalidatesTags: ['fsms'],
@@ -63,7 +64,6 @@ export const FSMSlice = ManageContentServiceApi.injectEndpoints({
         return response;
       },
     }),
-
 
     getFSM: builder.query<GetFSMOutputType, GetFSMInputType>({
       providesTags: ['fsm'],
@@ -92,10 +92,10 @@ export const FSMSlice = ManageContentServiceApi.injectEndpoints({
       },
     }),
 
-    getFSMEdges: builder.query<GetFSMStatesOutputType, { fsmId: string }>({
+    getFSMEdges: builder.query<GetFSMEdgesOutputType, { fsmId: string }>({
       providesTags: ['fsm-edges'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/get_edges/`,
-      transformResponse: (response: any): GetFSMStatesOutputType => {
+      transformResponse: (response: any): GetFSMEdgesOutputType => {
         return response;
       },
     }),

@@ -8,7 +8,7 @@ import {
 } from 'apps/website-display/redux/slices/Answer';
 import UploadFileProblemEditWidget from './edit';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import UploadFile from 'commons/components/molecules/UploadFile';
+import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
@@ -68,7 +68,7 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
       </IsRequired>
       <Stack justifyContent='flex-end' spacing={1}>
         {(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
-          <UploadFile setFileLink={setFileLink} />
+          <UploadFileButton setFileLink={setFileLink} />
         }
         {(mode !== WidgetModes.Edit && fileLink) &&
           <Button

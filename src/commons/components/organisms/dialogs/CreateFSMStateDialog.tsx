@@ -19,17 +19,17 @@ const CreateFSMStateDialog: FC<CreateStateDialogPropsType> = ({
   open,
   handleClose,
 }) => {
-  const [name, setName] = useState('');
+  const [title, setTitle] = useState('');
   const { fsmId } = useParams();
   const t = useTranslate();
   const [createFSMState, result] = useCreateFSMStateMutation();
 
   const handleCreatingFSMState = () => {
-    if (!name) {
-      toast.error('لطفاً نام گام را وارد کنید.');
+    if (!title) {
+      toast.error('لطفاً عنوان گام را وارد کنید.');
       return;
     }
-    createFSMState({ name, fsmId });
+    createFSMState({ title: title, fsmId });
   }
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const CreateFSMStateDialog: FC<CreateStateDialogPropsType> = ({
             fullWidth
             autoFocus
             label={t('stateName')}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </Stack>
       </DialogContent>

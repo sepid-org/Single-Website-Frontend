@@ -8,11 +8,7 @@ export { TextEditWidget };
 const TextWidget = ({ text }) => {
   return (
     <TinyPreview
-      frameProps={{
-        frameBorder: '0',
-        scrolling: 'no',
-        width: '100%',
-      }}
+      styles={{ width: '100%' }}
       content={text}
     />
   );

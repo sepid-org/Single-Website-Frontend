@@ -6,14 +6,14 @@ type GraphType1PropsType = {
   currentNodeId: string;
   links: Link[];
   highlightedPath: Link[];
-  firstStateName: string;
+  firstStateTitle: string;
 };
 
 const RoadMapType1: FC<GraphType1PropsType> = ({
   currentNodeId,
   links: inputLinks,
   highlightedPath: highlightedPath,
-  firstStateName,
+  firstStateTitle,
 }) => {
   const nodesXdistance = 120;
   const nodesYdistance = 100;
@@ -69,7 +69,7 @@ const RoadMapType1: FC<GraphType1PropsType> = ({
   const developGraph = (inputLinks: any[]) => {
     const nodes = [];
     const links = [];
-    handleAddingNode(firstStateName, 0, nodes);
+    handleAddingNode(firstStateTitle, 0, nodes);
 
     // todo: probably with the PlayerTransaction model, we can refactor this piece of code:
     let counter = 10_000;

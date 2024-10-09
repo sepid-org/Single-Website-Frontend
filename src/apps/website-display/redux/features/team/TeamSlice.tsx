@@ -1,5 +1,5 @@
 import { TeamType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
 
 type GetProgramTeamsInputType = {
@@ -38,7 +38,7 @@ type DeleteTeamInputType = {
 
 type DeleteTeamOutputType = void;
 
-export const TeamSlice = ManageContentServiceApi.injectEndpoints({
+export const TeamSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getTeam: builder.query<GetTeamOutputType, GetTeamInputType>({
@@ -70,7 +70,7 @@ export const TeamSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     createAndJoinTeam: builder.mutation<CreateAndJoinTeamOutputType, CreateAndJoinTeamInputType>({
-      invalidatesTags: ['teams', 'receipt'],
+      invalidatesTags: ['teams', 'registration-receipt'],
       query: ({ programSlug, ...body }) => ({
         url: `fsm/team/create_and_join_team/`,
         method: 'POST',
@@ -95,7 +95,7 @@ export const TeamSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     deleteTeam: builder.mutation<DeleteTeamOutputType, DeleteTeamInputType>({
-      invalidatesTags: ['teams', 'receipt'],
+      invalidatesTags: ['teams', 'registration-receipt'],
       query: ({ teamId }) => ({
         url: `fsm/team/${teamId}/`,
         method: 'DELETE',

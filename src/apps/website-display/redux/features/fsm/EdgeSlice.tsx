@@ -1,9 +1,10 @@
-import { FSMEdgeType, FSMStateType } from 'commons/types/models';
-import { ManageContentServiceApi } from '../ManageContentServiceApiSlice';
+import { FSMEdgeType } from 'commons/types/models';
+import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type UpdateFSMEdgeInputType = {
   fsmEdgeId: string;
-} & FSMStateType;
+} & Partial<FSMEdgeType>;
 
 type UpdateFSMEdgeOutputType = FSMEdgeType;
 
@@ -18,10 +19,10 @@ type CreateFSMEdgeOutputType = {
 
 }
 
-export const EdgeSlice = ManageContentServiceApi.injectEndpoints({
+export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSMEdge: builder.mutation<CreateFSMEdgeOutputType, CreateFSMEdgeInputType>({
-      invalidatesTags: ['fsm-edges', 'fsm-state'],
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'fsm-state']),
       query: ({ ...body }) => ({
         url: `/fsm/edge/`,
         method: 'POST',
@@ -33,7 +34,7 @@ export const EdgeSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     updateFSMEdge: builder.mutation<UpdateFSMEdgeOutputType, UpdateFSMEdgeInputType>({
-      invalidatesTags: ['fsm-edges', 'player-transited-path', 'fsm-state'],
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state']),
       query: ({ fsmEdgeId, ...body }) => ({
         url: `/fsm/edge/${fsmEdgeId}/`,
         method: 'PATCH',
@@ -45,7 +46,7 @@ export const EdgeSlice = ManageContentServiceApi.injectEndpoints({
     }),
 
     deleteFSMEdge: builder.mutation<any, { fsmEdgeId: string }>({
-      invalidatesTags: ['fsm-edges', 'player-transited-path', 'fsm-state'],
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state']),
       query: ({ fsmEdgeId }) => ({
         url: `/fsm/edge/${fsmEdgeId}/`,
         method: 'DELETE',

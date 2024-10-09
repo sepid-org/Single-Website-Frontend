@@ -3,7 +3,7 @@ import React, { FC, Fragment, useState } from 'react';
 
 type ProgramPageDashboardButtonPropsType = {
   buttonLabel: string;
-  paperId: number;
+  paperId: string;
 }
 
 const ProgramPageDashboardButton: FC<ProgramPageDashboardButtonPropsType> = ({ buttonLabel, paperId }) => {
