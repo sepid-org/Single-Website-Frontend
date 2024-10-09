@@ -27,7 +27,7 @@ const sampleNodes: CourseMapNodeInfo[] = [
         draggable: true
     },
     {
-        data: {label: " kjugilougpihiqoiejhf09q47rihاستیت رندوم", isFirstNode: false,},
+        data: {label: "استیت رندوم", isFirstNode: false,},
         id: "3",
         position: {x: 500, y: 0},
         type: "stateNode",
@@ -117,12 +117,12 @@ function FlowCanva({nodes, setNodes}){
     const onConnect = useCallback(
         ((connection) => {
             const doubleEdge = edges.filter((edge) => {
-                return edge.source === connection.source && edge.target === connection.target;
+                return (edge.source === connection.source && edge.target === connection.target) || (edge.source === connection.target && edge.target === connection.source);
             });
             if(doubleEdge.length > 0){
                 return;
             }
-            const source = connection.target;
+            /*const source = connection.target;
             const target = connection.source;
             let visited = [];
             let toExplore = [source];
@@ -138,11 +138,10 @@ function FlowCanva({nodes, setNodes}){
                 }
                 toExplore.shift();
             }
-            if(!visited.includes(target)){
+            if(!visited.includes(target)){*/
                 const newEdge = {...connection,  type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" }};
-                console.log(newEdge);
                 setEdges((eds) => addEdge(newEdge, eds));
-            }
+            //}
         }),
         [edges,setEdges],
     );

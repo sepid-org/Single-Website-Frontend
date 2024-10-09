@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import '@xyflow/react/dist/style.css';
 import {Handle, Position, NodeProps, useReactFlow} from '@xyflow/react';
-import { Box, IconButton, Typography } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, createTheme, IconButton, ThemeProvider, Typography } from '@mui/material';
+import SettingsIcon from '@mui/icons-material/Settings';
+import FullScreenDialog from '../atoms/FullScreenDialog';
+import StateEditor from 'commons/template/StateEditor';
 
 interface stateNodeProps extends NodeProps{
     data: {
@@ -65,6 +67,8 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({data, id}) => {
       );
     });
   };
+
+  const [stateNodeIsSelected, setStateNodeIsSelected] = useState(false);
     
     return(
         <Box
@@ -111,19 +115,23 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({data, id}) => {
                     id="left-target"
                 />
             </>}
-            <Typography
-                sx={{
-                    width: "120px",
-                    flexShrink: 0,
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap"
-                }}
-            >
-                {data.label}
-            </Typography>
-            <IconButton> 
-                <EditIcon />
+                <Typography
+                    sx={{
+                        width: "120px",
+                        flexShrink: 0,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                    }}
+                    style={{
+                        direction: "rtl", 
+                        textAlign: "right"
+                    }}
+                >
+                    {data.label}
+                </Typography>
+            <IconButton onClick={() => setStateNodeIsSelected(true)}> 
+                <SettingsIcon />
             </IconButton>
             <Handle 
                 type="source"
@@ -149,6 +157,16 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({data, id}) => {
                 isConnectable={true}
                 id="left-source"
             />
+            <FullScreenDialog
+                fullWidth={true}
+                maxWidth={false}
+                open={stateNodeIsSelected}
+                onClose={() => setStateNodeIsSelected(false)}
+            >
+                {stateNodeIsSelected &&
+                    <StateEditor fsmStateId={id}/>
+                }
+            </FullScreenDialog>
         </Box>
     );
 }
