@@ -1,9 +1,9 @@
 import React, { FC, Fragment } from 'react';
-import BoardPaper from 'commons/template/Paper/BoardPaper';
 import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
 import { Backdrop, Stack } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import CustomDialogPaper from '../components/atoms/CustomDialogPaper';
+import BoardPaper from 'commons/template/Paper/BoardPaper';
 
 type SeatsGamePropsType = {}
 
@@ -33,7 +33,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       </Backdrop>
       <BoardPaper
         objectLogics={objectLogics}
-        paperId={paperId}
+        paperIds={[paperId]}
       />
     </Fragment>
   );

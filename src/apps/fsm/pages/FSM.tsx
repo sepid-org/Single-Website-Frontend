@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
 import { initParseServer } from 'apps/website-display/parse/init';
-import FSMState from 'commons/template/FSMState';
 import { createTeamState, getChangeTeamStateSubscription, getTeamState } from 'apps/website-display/parse/team';
 import {
   changeOpenChatRoomAction,
@@ -16,6 +15,8 @@ import {
   useGetMyPlayerQuery,
   useEnterFSMMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
+import FSMState from '../template/FSMState';
+import useUserProfile from 'commons/hooks/useUserProfile';
 
 var moment = require('moment');
 
@@ -24,7 +25,6 @@ type FSMPagePropsType = {
   // todo:
   openChatRoom: any;
   changeOpenChatRoom: any;
-  personsName: string;
   mentorId: string;
   teamId: string;
 }
@@ -34,8 +34,6 @@ const FSM: FC<FSMPagePropsType> = ({
   // todo:
   openChatRoom,
   changeOpenChatRoom,
-  personsName,
-  mentorId,
   teamId,
 }) => {
   const { fsmId } = useParams();
@@ -49,9 +47,11 @@ const FSM: FC<FSMPagePropsType> = ({
   const isMentor = Boolean(teamHeadPlayerId);
   teamId = new URLSearchParams(search).get('teamId') || teamId
   const [enterFSM, result] = useEnterFSMMutation();
+  const { data: { fullName, id: mentorId } } = useUserProfile();
+
 
   let readyToAddMentor = false
-  if (teamId !== undefined && mentorId !== undefined && personsName !== undefined) {
+  if (teamId !== undefined && mentorId !== undefined && fullName !== undefined) {
     readyToAddMentor = true
   }
 
@@ -64,10 +64,10 @@ const FSM: FC<FSMPagePropsType> = ({
   // useEffect(() => {
   //   let updateInterval
   //   if (!mentorAdded && isMentor && readyToAddMentor) {
-  //     addMentorToRoom(teamId, mentorId.toString(), personsName)
+  //     addMentorToRoom(teamId, mentorId, fullName)
   //     setMentorAdded(true)
-  //     updateMentorTime(teamId, mentorId.toString())
-  //     updateInterval = setInterval(() => { updateMentorTime(teamId, mentorId.toString()) }, 10000)
+  //     updateMentorTime(teamId, mentorId)
+  //     updateInterval = setInterval(() => { updateMentorTime(teamId, mentorId) }, 10000)
   //   }
   //   return (
   //     () => {
@@ -142,11 +142,7 @@ const FSM: FC<FSMPagePropsType> = ({
 const mapStateToProps = (state, ownProps) => ({
   openChatRoom: state.currentState.openChatRoom,
   currentState: state.currentState.fsmState,
-  needUpdateState: state.currentState.needUpdateState,
-  studentPlayerId: state.currentState.playerId,
   teamId: state.currentState.teamId,
-  personsName: `${state.account.userInfo?.first_name} ${state.account.userInfo?.last_name}`,
-  mentorId: state.account.userInfo?.id,
 });
 
 export default connect(mapStateToProps, {

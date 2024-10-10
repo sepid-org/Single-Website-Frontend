@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
-import NormalStateEditor from './NormalStateEditor';
+import NormalPaperEditor from '../Paper/NormalPaperEditor';
 import BoardStateEditor from './BoardStateEditor';
 import { Box, Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
@@ -33,11 +33,11 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({ }) => {
     },
     {
       slug: 'papers',
-      label: 'برگه‌ها',
+      label: 'ویجت‌ها',
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
-          <NormalStateEditor /> :
+          <NormalPaperEditor /> :
           <BoardStateEditor />,
     },
   ];

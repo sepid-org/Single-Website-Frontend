@@ -4,12 +4,12 @@ import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { ObjectLogicType } from 'commons/types/models';
 
-export type BoardPaperPropsType = {
+export type BoardPaperWidgetsPropsType = {
   paperId: string;
   objectLogics?: ObjectLogicType[];
 }
 
-const BoardPaper: FC<BoardPaperPropsType> = ({
+const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
   paperId,
   objectLogics = [],
 }) => {
@@ -46,4 +46,4 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
   );
 };
 
-export default BoardPaper;
+export default BoardPaperWidgets;

@@ -23,7 +23,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
   }
 
   return (
-    <EditPaper template='board' fsmStateId={fsmStateId} paperId={paperId} />
+    <EditPaper fsmStateId={fsmStateId} paperId={paperId} />
   );
 };
 
