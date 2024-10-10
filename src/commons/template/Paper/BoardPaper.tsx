@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useRef, useMemo, Fragment, FC, useCallback } from 'react';
+import React, { Fragment, FC } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
-import { Stack } from '@mui/material';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { ObjectLogicType } from 'commons/types/models';
 
 export type BoardPaperPropsType = {
   paperId: string;
-  fsmStateId?: string;
   objectLogics?: ObjectLogicType[];
 }
 
 const BoardPaper: FC<BoardPaperPropsType> = ({
   paperId,
-  fsmStateId,
   objectLogics = [],
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
@@ -36,13 +33,11 @@ const BoardPaper: FC<BoardPaperPropsType> = ({
         >
           <ObjectWrapper logic={objectLogic}>
             {objectLogic?.substituteComponent ||
-              <Widget fsmStateId={fsmStateId} coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
             }
           </ObjectWrapper>
         </div>)
     })
-
-
 
   return (
     <Fragment>

@@ -2,19 +2,17 @@ import React, { FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
-import NormalStateWidgetsEditor from './NormalStateWidgetsEditor';
+import NormalStateEditor from './NormalStateEditor';
 import BoardStateEditor from './BoardStateEditor';
 import { Box, Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 
-type EditableFSMStatePropsType = {
-  fsmStateId: string;
-}
+type EditableFSMStatePropsType = {}
 
-const EditableFSMState: FC<EditableFSMStatePropsType> = ({
-  fsmStateId,
-}) => {
+const EditableFSMState: FC<EditableFSMStatePropsType> = ({ }) => {
+  const { fsmStateId } = useFSMContext();
   const [tabIndex, setTabIndex] = React.useState(0);
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
 
@@ -31,7 +29,7 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
       slug: 'info',
       label: 'مشخصات گام',
       component:
-        <StateInfoEditor fsmStateId={fsmStateId} />
+        <StateInfoEditor />
     },
     {
       slug: 'papers',
@@ -39,8 +37,8 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
-          <NormalStateWidgetsEditor fsmStateId={fsmStateId} /> :
-          <BoardStateEditor fsmStateId={fsmStateId} />,
+          <NormalStateEditor /> :
+          <BoardStateEditor />,
     },
   ];
 

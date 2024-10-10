@@ -19,18 +19,19 @@ import EditObjectFields from 'commons/components/organisms/forms/EditObjectField
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const ButtonWidgetEditor = ({
   onMutate,
   handleClose,
 
-  fsmStateId,
   paperId,
   open,
   id: widgetId,
   ...widgetProps
 }) => {
   const t = useTranslate();
+  const { fsmStateId } = useFSMContext();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',

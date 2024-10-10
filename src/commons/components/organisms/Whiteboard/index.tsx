@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { Box } from '@mui/material';
 import { connect } from 'react-redux';
-
-import { StatePageContext } from 'apps/website-display/pages/FSM';
 import { getWhiteboardActionSubscription } from 'apps/website-display/parse/whiteboard';
 import {
   addNewLineNodeAction,
@@ -16,6 +14,7 @@ import {
 } from 'apps/website-display/redux/slices/whiteboard';
 import Drawing from './Drawing';
 import WhiteboardNavbar from './WhiteboardNavbar';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 function Whiteboard({
   width,
@@ -36,8 +35,7 @@ function Whiteboard({
 }) {
   const subscriberRef = useRef(null);
   const [stage, setStage] = useState(null);
-
-  const { teamId } = useContext(StatePageContext);
+  const { teamId } = useFSMContext();
 
   useEffect(() => {
     const subscribe = async (teamId) => {

@@ -1,34 +1,27 @@
 import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import { Helmet } from "react-helmet";
 
 import { initParseServer } from 'apps/website-display/parse/init';
 import FSMState from 'commons/template/FSMState';
-import { createTeamState, getChangeTeamStateSubscription, getTeamState } from '../parse/team';
+import { createTeamState, getChangeTeamStateSubscription, getTeamState } from 'apps/website-display/parse/team';
 import {
   changeOpenChatRoomAction,
 } from 'apps/website-display/redux/slices/currentState';
-import { addMentorToRoom, updateMentorTime } from 'apps/website-display/parse/mentorsInRoom';
 import DraggableChatRoom from 'commons/components/organisms/DraggableMeeting';
-import Layout from 'commons/template/Layout';
-import { TeamType } from 'commons/types/models';
 import { toast } from 'react-toastify';
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
-  useGetCurrentUserFSMPlayerQuery,
+  useGetMyPlayerQuery,
   useEnterFSMMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
 
 var moment = require('moment');
 
-export const StatePageContext = React.createContext<any>({});
-
 type FSMPagePropsType = {
   mentorGetCurrentState: any;
   // todo:
-  teamRoom: any;
   openChatRoom: any;
   changeOpenChatRoom: any;
   personsName: string;
@@ -39,7 +32,6 @@ type FSMPagePropsType = {
 const FSM: FC<FSMPagePropsType> = ({
   mentorGetCurrentState,
   // todo:
-  teamRoom,
   openChatRoom,
   changeOpenChatRoom,
   personsName,
@@ -49,12 +41,11 @@ const FSM: FC<FSMPagePropsType> = ({
   const { fsmId } = useParams();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const subscriberRef = useRef(null);
-  const [mentorAdded, setMentorAdded] = useState(false)
   const search = useLocation().search;
-  const { data: currentUserPlayer, refetch: refetchCurrentUserFSMPlayer } = useGetCurrentUserFSMPlayerQuery({ fsmId });
+  const { data: myPlayer, refetch: refetchMyPlayer } = useGetMyPlayerQuery({ fsmId });
   let teamHeadPlayerId = new URLSearchParams(search).get('playerId');
   const { data: teamHeadPlayer } = useGetPlayerQuery({ playerId: teamHeadPlayerId }, { skip: !Boolean(teamHeadPlayerId) });
-  const player = teamHeadPlayer || currentUserPlayer;
+  const player = teamHeadPlayer || myPlayer;
   const isMentor = Boolean(teamHeadPlayerId);
   teamId = new URLSearchParams(search).get('teamId') || teamId
   const [enterFSM, result] = useEnterFSMMutation();
@@ -90,7 +81,7 @@ const FSM: FC<FSMPagePropsType> = ({
   const [parseTeamStateId, setParseTeamStateId] = useState(null);
 
   const onUpdateStateFromParse = (teamState) =>
-    setParseTeamStateId(teamState.get('stateId'));
+    setParseTeamStateId(teamState.get('fsmStateId'));
 
   useEffect(() => {
     if (!player?.current_state?.id || !parseTeamStateId) return;
@@ -101,7 +92,7 @@ const FSM: FC<FSMPagePropsType> = ({
       } else {
         // با حرکت خود بازیکن هم، اینجا اجرا میشه!‌ نباید اینطوری باشه
         // toast.info('جابه‌جا شدید');
-        refetchCurrentUserFSMPlayer();
+        refetchMyPlayer();
       }
     }
   }, [parseTeamStateId]);
@@ -140,12 +131,7 @@ const FSM: FC<FSMPagePropsType> = ({
 
   return (
     <Fragment>
-      {fsm &&
-        <Helmet>
-          <title>{fsm.name}</title>
-        </Helmet>
-      }
-      <FSMState stateId={(player.current_state as any)} isMentor={isMentor} playerId={player.id} />
+      <FSMState />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
         <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
       }
@@ -155,8 +141,6 @@ const FSM: FC<FSMPagePropsType> = ({
 
 const mapStateToProps = (state, ownProps) => ({
   openChatRoom: state.currentState.openChatRoom,
-  teamRoom: state.currentState.teamRoom,
-  myTeam: state.currentState.myTeam,
   currentState: state.currentState.fsmState,
   needUpdateState: state.currentState.needUpdateState,
   studentPlayerId: state.currentState.playerId,

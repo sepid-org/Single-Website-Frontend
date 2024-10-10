@@ -10,16 +10,14 @@ import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSM
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-export type WorkshopFSMStatePropsType = {
-  isMentor: boolean;
-  stateId: string;
-  playerId: string;
-}
+export type WorkshopFSMStatePropsType = {}
 
-const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) => {
+const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ }) => {
+  const { fsmStateId } = useFSMContext()
   const { fsmId } = useParams();
-  const { data: state } = useGetFSMStateQuery({ fsmStateId: stateId })
+  const { data: state } = useGetFSMStateQuery({ fsmStateId })
   const paperId = state.papers[0];
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
@@ -40,7 +38,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
     questions.map((widget, index) => (
       <Stack key={widget.id}>
         <Divider style={{ marginBottom: 20 }} />
-        <Widget fsmStateId={stateId} paperId={paperId} coveredWithPaper={false} key={widget.id} widget={widget} />
+        <Widget paperId={paperId} coveredWithPaper={false} key={widget.id} widget={widget} />
       </Stack>
     )), [questions]);
 
@@ -51,7 +49,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
   const notQuestionWidgets = useMemo(() =>
     notQuestions.map((widget) => (
       <Stack key={widget.id}>
-        <Widget fsmStateId={stateId} paperId={paperId} coveredWithPaper={false} widget={widget} />
+        <Widget paperId={paperId} coveredWithPaper={false} widget={widget} />
       </Stack>
     )), [notQuestions]);
 
@@ -78,30 +76,30 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               <Stack sx={{ display: { xs: 'none', md: 'inherit' } }}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
+                    <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
                     {state?.is_end ?
                       <FinishFSMButton /> :
-                      <FSMNextStateButton fsmStateId={state.id} />
+                      <FSMNextStateButton />
                     }
                   </Grid>
                 </Grid>
               </Stack>
             </Stack>
             {(state && fsm.show_roadmap) &&
-              <FSMStateRoadMap currentNodeName={state?.title} playerId={playerId} />
+              <FSMStateRoadMap currentNodeName={state?.title} />
             }
             {notQuestions.length === 0 &&
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
+                    <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
                     {state.is_end ?
                       <FinishFSMButton /> :
-                      <FSMNextStateButton fsmStateId={state.id} />
+                      <FSMNextStateButton />
                     }
                   </Grid>
                 </Grid>
@@ -118,12 +116,12 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ stateId, playerId }) 
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
-                    <FSMBackStateButton fsmStateId={state.id} playerId={playerId} />
+                    <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
                     {state.is_end ?
                       <FinishFSMButton /> :
-                      <FSMNextStateButton fsmStateId={state.id} />
+                      <FSMNextStateButton />
                     }
                   </Grid>
                 </Grid>

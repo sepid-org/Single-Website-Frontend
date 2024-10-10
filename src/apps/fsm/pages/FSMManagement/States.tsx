@@ -63,7 +63,7 @@ const States: FC<StatesPropsType> = ({ }) => {
           onClose={() => setSelectedStateId(null)}
         >
           {Boolean(selectedStateId) &&
-            <StateEditor fsmStateId={selectedStateId} />
+            <StateEditor />
           }
         </FullScreenDialog>
       </Stack>

@@ -8,14 +8,12 @@ import React, { FC } from 'react';
 import { EditPaper } from '../Paper';
 import EditHints from '../EditHints';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-type NormalStateWidgetsEditorPropsType = {
-  fsmStateId: string;
-}
+type NormalStateEditorPropsType = {}
 
-const NormalStateWidgetsEditor: FC<NormalStateWidgetsEditorPropsType> = ({
-  fsmStateId,
-}) => {
+const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ }) => {
+  const { fsmStateId } = useFSMContext();
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
   const paperId = fsmState.papers[0];
 
@@ -42,4 +40,4 @@ const NormalStateWidgetsEditor: FC<NormalStateWidgetsEditorPropsType> = ({
   );
 }
 
-export default NormalStateWidgetsEditor;
+export default NormalStateEditor;

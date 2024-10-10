@@ -5,15 +5,23 @@ import {
   Warning as WarningIcon,
   Help as HelpIcon,
 } from '@mui/icons-material';
-import React, { useContext, useEffect, useRef, useState } from 'react';
-import { connect } from 'react-redux';
-import { StatePageContext } from 'apps/website-display/pages/FSM';
+import React, { useEffect, useRef, useState } from 'react';
 import CustomJitsiMeeting from './CustomJitsiMeeting';
 import MeetingCustomSpinner from 'commons/components/atoms/MeetingCustomSpinner';
+import useUserProfile from 'commons/hooks/useUserProfile';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-function Meeting({ handleClose, displayName }) {
+function Meeting({ handleClose }) {
   const [random, setRandom] = useState(0);
   const [showWarning, setShowWarning] = useState(true);
+  const { data: userProfile } = useUserProfile();
+  const { isMentor, teamId } = useFSMContext();
+  const displayName = isMentor ?
+    `${userProfile?.first_name} ${userProfile?.last_name} (همیار)` :
+    userProfile?.first_name + ' ' + userProfile?.last_name;
+
+  // todo: const { teamRoom, myTeam } = useTeam({ teamId });
+  const teamRoom = 'NOT_IMPLEMENTED', myTeam = { name: 'NOT_IMPLEMENTED' };
 
   const refresh = () => {
     setShowWarning(true);
@@ -24,7 +32,6 @@ function Meeting({ handleClose, displayName }) {
   }
 
   const iframeRef = useRef(null);
-  const { myTeam, teamId, teamRoom } = useContext(StatePageContext);
 
   useEffect(() => {
     setTimeout(() => {
@@ -102,10 +109,4 @@ function Meeting({ handleClose, displayName }) {
   );
 }
 
-const mapStatesToProps = (state) => ({
-  displayName: state.account.userInfo?.isMentor
-    ? `${state.account.userInfo?.first_name} ${state.account.userInfo?.last_name} (همیار)`
-    : state.account.userInfo?.first_name + ' ' + state.account.userInfo?.last_name,
-});
-
-export default connect(mapStatesToProps)(Meeting);
+export default Meeting;

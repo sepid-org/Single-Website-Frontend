@@ -5,17 +5,17 @@ import {
   DialogContent,
   DialogContentText
 } from '@mui/material'
-import React, { useContext } from 'react'
+import React from 'react'
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-import { StatePageContext } from 'apps/website-display/pages/FSM'
 
-export default function RemoveAllNodesDialog ({
+export default function RemoveAllNodesDialog({
   open,
   handleClose,
   removeAllNodes
 }) {
-  const { teamId } = useContext(StatePageContext)
-
+  const { teamId } = useFSMContext();
+  
   return (
     <Dialog disableScrollLock open={open} onClose={handleClose}>
       <DialogContent>

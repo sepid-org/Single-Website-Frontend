@@ -11,10 +11,9 @@ import {
   TextFields as TextFieldsIcon,
   Undo as UndoIcon
 } from '@mui/icons-material'
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 
-import { StatePageContext } from 'apps/website-display/pages/FSM'
 import {
   addNewTextNodeAction,
   changeWhiteboardModeAction,
@@ -29,8 +28,9 @@ import DrawingModes from './Drawing/DrawingModes'
 import CircleMenu from './Components/CircleMenu'
 import RectangleMenu from './Components/RectangleMenu'
 import RemoveAllNodesDialog from './Components/RemoveAllNodesDialog'
+import { useFSMContext } from 'commons/hooks/useFSMContext'
 
-function WhiteboardNavbar ({
+function WhiteboardNavbar({
   drawingMode,
   addNewTextNode,
   changeMode,
@@ -45,8 +45,7 @@ function WhiteboardNavbar ({
   setIsFullScreen
 }) {
   const [openRemoveNodes, setOpenRemoveNodes] = useState(false)
-
-  const { teamId } = useContext(StatePageContext)
+  const { teamId } = useFSMContext();
 
   return (
     <Grid

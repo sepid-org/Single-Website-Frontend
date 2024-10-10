@@ -10,15 +10,15 @@ import {
   usePopupState
 } from 'material-ui-popup-state/hooks'
 import Menu from 'material-ui-popup-state/HoverMenu'
-import React, { useContext } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { StatePageContext } from 'apps/website-display/pages/FSM'
 import {
   addNewRectangleNodeAction,
   changeWhiteboardModeAction
 } from 'apps/website-display/redux/slices/whiteboard'
 import DrawingModes from '../Drawing/DrawingModes'
+import { useFSMContext } from 'commons/hooks/useFSMContext'
 
 const RectangleMenu = ({ changeMode, addNewRectangleNode }) => {
   const popupState = usePopupState({
@@ -26,7 +26,7 @@ const RectangleMenu = ({ changeMode, addNewRectangleNode }) => {
     popupId: 'RectangleMenu'
   })
 
-  const { teamId } = useContext(StatePageContext)
+  const { teamId } = useFSMContext()
 
   const onClick = (type) => {
     changeMode({ mode: DrawingModes.MOVE })

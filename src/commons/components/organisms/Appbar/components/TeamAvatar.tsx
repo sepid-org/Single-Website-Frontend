@@ -10,14 +10,25 @@ import {
 import { OfflineBolt } from '@mui/icons-material';
 import React, { Fragment, useContext } from 'react';
 
-import { StatePageContext } from 'apps/website-display/pages/FSM';
 import { stringToColor } from 'commons/utils/stringToColor';
 import { TeamType } from 'commons/types/models';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const TeamAvatar = () => {
-  const context = useContext(StatePageContext);
-  const myTeam: TeamType = context.myTeam;
-
+  const { teamId } = useFSMContext();
+  const myTeam = {
+    name: 'NOT_IMPLEMENTED',
+    members: [
+      {
+        id: '-1',
+        user: {
+          first_name: 'NOT',
+          last_name: 'IMPLEMENTED',
+        }
+      }
+    ],
+    team_head: 'NOT_IMPLEMENTED',
+  }
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -62,7 +73,7 @@ const TeamAvatar = () => {
                 vertical: 'top',
                 horizontal: 'left',
               }}
-              invisible={myTeam?.team_head.toString() !== member.id}
+              invisible={myTeam?.team_head !== member.id}
               badgeContent={<OfflineBolt style={{ color: 'gold' }} />}>
               <Avatar
                 style={{

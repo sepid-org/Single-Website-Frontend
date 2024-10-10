@@ -102,7 +102,7 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
   return (
     <Stack sx={{ overflow: 'hidden', position: 'relative' }}>
       <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100}>
-        <CreateWidgetButton paperId={paperId} fsmStateId={fsmStateId} />
+        <CreateWidgetButton paperId={paperId} />
         <Button variant='contained' onClick={handleUpdateFSMState}>
           {'ذخیره'}
         </Button>
@@ -129,7 +129,7 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
               onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
             >
-              <Widget fsmStateId={fsmStateId} coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
             </Rnd>
           ))}
         </div>

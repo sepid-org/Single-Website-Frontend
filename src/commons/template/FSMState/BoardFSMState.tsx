@@ -4,15 +4,13 @@ import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import BoardPaper from '../Paper/BoardPaper';
 import BoardFrame from '../Paper/BoardFrame';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-export type BoardFSMStatePropsType = {
-  isMentor: boolean;
-  stateId: string;
-  playerId: string;
-};
+export type BoardFSMStatePropsType = {};
 
-const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId: stateId }, { skip: !Boolean(stateId) });
+const BoardFSMState: FC<BoardFSMStatePropsType> = ({ }) => {
+  const { fsmStateId, isMentor } = useFSMContext()
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
@@ -42,10 +40,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ isMentor, stateId, playerId
       {containerHeight > 0 &&
         <BoardFrame containerHeight={containerHeight}>
           {fsmState.papers.map(paperId => (
-            <BoardPaper
-              fsmStateId={stateId}
-              paperId={paperId}
-            />
+            <BoardPaper paperId={paperId} />
           ))}
         </BoardFrame>
       }

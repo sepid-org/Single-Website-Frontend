@@ -42,7 +42,6 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
           <Fragment>
             {widgets?.map((widget, index) => (
               <Widget
-                fsmStateId={fsmStateId}
                 key={widget.id}
                 paperId={paperId}
                 widget={widget}
@@ -51,7 +50,7 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
             ))}
           </Fragment>
         }
-        <CreateWidgetButton fsmStateId={fsmStateId} mode={mode} paperId={paperId} />
+        <CreateWidgetButton mode={mode} paperId={paperId} />
       </Stack>
     </Fragment>
   );

@@ -12,12 +12,12 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/:programSlug/*" element={<Program />} />
+      <Route path="/" element={<Program />} />
 
       <Route path="/" element={<PrivateRoute />}>
-        <Route path="/:programSlug/form/" element={<Registration />} />
-        <Route path="/:programSlug/team-setting/" element={<TeamSetting />} />
-        <Route path="/:programSlug/manage/" element={<ProgramManagement />} />
+        <Route path="/form/" element={<Registration />} />
+        <Route path="/team-setting/" element={<TeamSetting />} />
+        <Route path="/manage/" element={<ProgramManagement />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
