@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import '@xyflow/react/dist/style.css';
 import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
-import { Box, createTheme, IconButton, ThemeProvider, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
-import FullScreenDialog from '../atoms/FullScreenDialog';
+import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
 import StateEditor from 'commons/template/StateEditor';
 
 interface stateNodeProps extends NodeProps {

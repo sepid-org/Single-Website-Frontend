@@ -4,7 +4,7 @@ import { MarkerType } from '@xyflow/react';
 import { CourseViewMapNodeInfo } from "commons/types/global";
 import { Box, Container, Typography } from "@mui/material";
 import '@xyflow/react/dist/style.css';
-import { FloatingCustomEdge, FloatingConnectionLine } from "commons/components/molecules/FloatingEdge";
+import { FloatingCustomEdge, FloatingConnectionLine } from "commons/components/molecules/FSMMap/FloatingEdge";
 import { Opacity } from "@mui/icons-material";
 
 

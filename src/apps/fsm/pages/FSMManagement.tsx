@@ -21,6 +21,8 @@ import { DashboardTabType } from 'commons/types/global';
 import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import FSMManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/FSMManagement';
 import Dashboard from 'commons/components/organisms/Dashboard';
+import MapIcon from '@mui/icons-material/Map';
+import MapEditor from '../template/MapEditor';
 
 const initialTabs: DashboardTabType[] = [
   {
@@ -28,6 +30,12 @@ const initialTabs: DashboardTabType[] = [
     label: 'اطلاعات کلی',
     icon: InfoIcon,
     component: <Info />,
+  },
+  {
+    slug: 'fsm-map',
+    label: 'نقشه',
+    icon: MapIcon,
+    component: <MapEditor />,
   },
   {
     slug: 'states',
