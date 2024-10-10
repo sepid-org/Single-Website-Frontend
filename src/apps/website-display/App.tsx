@@ -9,12 +9,9 @@ import Setting from 'apps/website-display/pages/Setting';
 import Login from 'apps/website-display/pages/Login';
 import FailedPayment from 'apps/program/pages/Message/FailedPayment';
 import SuccessfulPayment from 'apps/program/pages/Message/SuccessfulPayment';
-import FSM from 'apps/website-display/pages/FSM';
 import Article from 'apps/website-display/pages/Article';
 import Articles from 'apps/website-display/pages/Articles';
 import PrivateRoute from 'commons/routes/PrivateRoute';
-import FSMManagement from 'apps/website-display/pages/FSMManagement';
-import Correction from 'apps/website-display/pages/Correction';
 import EditArticle from 'apps/website-display/pages/EditArticle';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
@@ -45,11 +42,6 @@ const App = () => {
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />
-        <Route path="/fsm/:fsmId/" element={<FSM />} />
-
-        {/* only mentors can visit: */}
-        <Route path="/fsm/:fsmId/manage/correction/:answerId/" element={<Correction />} />
-        <Route path="/fsm/:fsmId/manage/" element={<FSMManagement />} />
       </Route>
 
       <Route path="/" element={<AnonymousRoute />}>

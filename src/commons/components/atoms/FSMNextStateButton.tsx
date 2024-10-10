@@ -2,7 +2,6 @@ import { Button } from '@mui/material';
 import React, { FC, Fragment, useContext, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
-import { StatePageContext } from 'apps/website-display/pages/FSM';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import StatePasswordDialog from 'commons/components/organisms/dialogs/StatePasswordDialog';
 import {
@@ -10,18 +9,15 @@ import {
   useMentorMoveForwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-type FSMNextStateButtonPropsType = {
-  fsmStateId: string;
-}
+type FSMNextStateButtonPropsType = {}
 
-const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({
-  fsmStateId,
-}) => {
+const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
+  const { fsmStateId, isMentor } = useFSMContext();
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);
-  const { isMentor } = useContext(StatePageContext);
   const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
   const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
   const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })

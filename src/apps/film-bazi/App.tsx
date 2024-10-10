@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import ProgramManagement from './pages/ProgramManagement';
-import { DarkSecondary, PrimaryColor } from './constants/colors';
+import { DarkSecondary } from './constants/colors';
 import CinemaGame from './pages/CinemaGame';
 import LoginPage from './pages/Login';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
@@ -16,7 +16,6 @@ import { customTheme } from './styles/Theme';
 import MovieScreeningRequest from './pages/MovieScreeningRequest';
 
 const App = () => {
-
   return (
     <div style={{
       backgroundColor: DarkSecondary,
@@ -24,14 +23,14 @@ const App = () => {
     }}>
       <ThemeProvider theme={customTheme}>
         <Routes>
-          <Route path="movie-screening-request" element={<MovieScreeningRequest />} />
+          <Route path="/movie-screening-request/" element={<MovieScreeningRequest />} />
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="cinema-game" element={<CinemaGame />} />
-            <Route path="admin-dashboard" element={<ProgramManagement />} />
-            <Route path="scoreboard" element={<ScoreBoard />} />
+            <Route path="/profile/" element={<Profile />} />
+            <Route path="/cinema-game/" element={<CinemaGame />} />
+            <Route path="/admin-dashboard/" element={<ProgramManagement />} />
+            <Route path="/scoreboard/" element={<ScoreBoard />} />
+            <Route index element={<Dashboard />} />
           </Route>
 
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>

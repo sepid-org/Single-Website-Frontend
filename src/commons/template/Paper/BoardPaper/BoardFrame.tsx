@@ -42,7 +42,7 @@ const BoardFrame: FC<BoardFramePropsType> = ({
       containerRef.current.style.overflowY = 'hidden';
       containerRef.current.style.height = `${containerHeight - appbarHeight}px`;
     }
-  }, [boardRef, containerRef, appbarRef]);
+  }, [boardRef, containerRef, appbarRef, containerHeight, containerWidth]);
 
   const handleResizeThrottled = useCallback(() => {
     window.requestAnimationFrame(handleResize);

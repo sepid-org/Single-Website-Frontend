@@ -1,23 +1,16 @@
 import { Button } from '@mui/material';
 import React, { FC, useContext } from 'react';
-
-import { StatePageContext } from 'apps/website-display/pages/FSM';
 import {
   useGoBackwardMutation,
   useMentorMoveBackwardMutation,
 } from 'apps/website-display/redux/features/program/PlayerSlice';
 import { useGetFSMStateInwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-type FSMBackStateButtonPropsType = {
-  fsmStateId: string;
-  playerId: string;
-}
+type FSMBackStateButtonPropsType = {}
 
-const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({
-  fsmStateId,
-  playerId,
-}) => {
-  const { isMentor } = useContext(StatePageContext);
+const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({ }) => {
+  const { fsmStateId, playerId, isMentor } = useFSMContext();
   const [goBackward, goBackwardResult] = useGoBackwardMutation();
   const [mentorMoveBackward, mentorMoveBackwardResult] = useMentorMoveBackwardMutation();
   const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })

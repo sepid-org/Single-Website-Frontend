@@ -39,7 +39,7 @@ export const getTeamState = async (uuid) => {
 };
 
 export const createTeamState = async (uuid, paperId, currentStateName, teamEnterTimeToState) => {
-  return await new TeamState().save({ uuid, stateId: paperId, currentStateName, teamEnterTimeToState });
+  return await new TeamState().save({ uuid, fsmStateId: paperId, currentStateName, teamEnterTimeToState });
 };
 
 export const changeTeamState = async ({ uuid, paperId, currentStateName, teamEnterTimeToState }) => {
@@ -54,7 +54,7 @@ export const changeTeamState = async ({ uuid, paperId, currentStateName, teamEnt
   } else {
     teamState.set('currentStateName', currentStateName)
     teamState.set('teamEnterTimeToState', teamEnterTimeToState)
-    teamState.set('stateId', paperId)
+    teamState.set('fsmStateId', paperId)
     await teamState.save();
   }
 };

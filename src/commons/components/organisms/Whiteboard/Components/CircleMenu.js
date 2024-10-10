@@ -10,23 +10,22 @@ import {
   usePopupState
 } from 'material-ui-popup-state/hooks'
 import Menu from 'material-ui-popup-state/HoverMenu'
-import React, { useContext } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
-import { StatePageContext } from 'apps/website-display/pages/FSM'
 import {
   addNewCircleNodeAction,
   changeWhiteboardModeAction
 } from 'apps/website-display/redux/slices/whiteboard'
 import DrawingModes from '../Drawing/DrawingModes'
+import { useFSMContext } from 'commons/hooks/useFSMContext'
 
 const CircleMenu = ({ changeMode, addNewCircleNode }) => {
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'circleMenu'
   })
-
-  const { teamId } = useContext(StatePageContext)
+  const { teamId } = useFSMContext();
 
   const onClick = (type) => {
     changeMode({ mode: DrawingModes.MOVE })

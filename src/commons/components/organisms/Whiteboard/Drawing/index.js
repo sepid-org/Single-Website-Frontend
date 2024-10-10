@@ -1,11 +1,11 @@
-import React, { useCallback, useContext, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Layer, Line, Rect, Stage } from 'react-konva'
 
-import { StatePageContext } from 'apps/website-display/pages/FSM'
 import DrawingModes from './DrawingModes'
 import KonvaNode from './KonvaNode'
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-function Drawing ({
+function Drawing({
   width,
   height,
   drawingMode,
@@ -80,7 +80,7 @@ function Drawing ({
     }
   }
 
-  const { teamId } = useContext(StatePageContext)
+  const { teamId } = useFSMContext();
 
   const onTouchStageEnd = () => {
     if (activeLine) {

@@ -12,7 +12,6 @@ import CreateAttributeDialog from '../dialogs/CreateAttributeDialog';
 const WidgetEditMenu = ({
   widget,
   paperId,
-  fsmStateId,
 }) => {
   const [openAddAttributeDialog, setAddAttributeDialogOpen] = useState(false);
   const [openDeleteWidgetDialog, setOpenDeleteWidgetDialog] = useState(false);
@@ -56,7 +55,6 @@ const WidgetEditMenu = ({
       />
       <EditWidgetDialog
         {...widget}
-        fsmStateId={fsmStateId}
         paperId={paperId}
         open={openEditDialog}
         handleClose={() => setOpenEditDialog(false)}

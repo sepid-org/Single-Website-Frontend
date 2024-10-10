@@ -32,7 +32,6 @@ type WidgetPropsType = {
   widget: WidgetType;
   mode?: WidgetModes;
   paperId: string;
-  fsmStateId?: string;
   coveredWithPaper?: boolean;
   collectAnswer?: any;
   submittedAnswer?: AnswerType;
@@ -42,7 +41,6 @@ const Widget: FC<WidgetPropsType> = ({
   widget,
   mode = WidgetModes.View,
   paperId,
-  fsmStateId,
   coveredWithPaper = true,
   collectAnswer,
   submittedAnswer,
@@ -71,14 +69,13 @@ const Widget: FC<WidgetPropsType> = ({
   return (
     <Cover>
       {mode === WidgetModes.Edit &&
-        <CollapseWidgetEditMenu widget={widget} paperId={paperId} fsmStateId={fsmStateId} />
+        <CollapseWidgetEditMenu widget={widget} paperId={paperId}/>
       }
       {(mode === WidgetModes.View && widget?.hints?.length) ? <WidgetHint hints={widget.hints} /> : null}
       <WidgetComponent
         {...widget}
         mode={mode}
         paperId={paperId}
-        fsmStateId={fsmStateId}
         submittedAnswer={submittedAnswer}
         onAnswerSubmit={onAnswerSubmit}
         onAnswerChange={onAnswerChange}

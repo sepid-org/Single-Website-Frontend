@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { EditPaper } from '../Paper';
 import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
-type BoardStateEditorPropsType = {
-  fsmStateId: string;
-}
+type BoardStateEditorPropsType = {}
 
-const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
+const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
   const theme = useTheme();
+  const { fsmStateId } = useFSMContext();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data } = useGetFSMStateQuery({ fsmStateId });
   // todo: all papers should be displayed
@@ -23,7 +23,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   }
 
   return (
-    <EditPaper template='board' fsmStateId={fsmStateId} paperId={paperId} />
+    <EditPaper fsmStateId={fsmStateId} paperId={paperId} />
   );
 };
 
