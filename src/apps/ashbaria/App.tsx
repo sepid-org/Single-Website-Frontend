@@ -6,6 +6,7 @@ import { customTheme } from '../ashbaria/styles/Theme';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import GameMenu from './pages/Menu';
+import Profile from './pages/Profile';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
           </Route>
 
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
     </div>
