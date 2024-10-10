@@ -12,14 +12,17 @@ const FSMState: FC<FSMStatePropsType> = () => {
   const { data: state } = useGetFSMStateQuery({ fsmStateId })
 
   if (state?.template === 'board') {
-    return <BoardFSMState />
+    return (
+      <BoardFSMState />
+    )
   }
 
   if (state?.template === 'normal') {
     return (
       <Layout appbarMode={isMentor ? 'MENTOR_FSM' : 'FSM'}>
         <WorkshopFSMState />
-      </Layout>)
+      </Layout>
+    )
   }
 }
 

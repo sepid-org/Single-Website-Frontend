@@ -18,7 +18,7 @@ const BoardPaper: FC<BoardFSMStatePropsType> = ({
   return (
     <BoardFrame containerHeight={containerHeight}>
       {paperIds.map(paperId => (
-        <BoardPaperWidgets objectLogics={objectLogics} paperId={paperId} />
+        <BoardPaperWidgets key={paperId} objectLogics={objectLogics} paperId={paperId} />
       ))}
     </BoardFrame>
   );
