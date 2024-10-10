@@ -2,10 +2,10 @@ import CourseMapEditorProvider from "commons/components/organisms/Roadmap/Course
 import React from "react";
 
 
-const MapEditor = () => {
+const FSMMapEditor = () => {
   return (
     <CourseMapEditorProvider />
   )
 }
 
-export default MapEditor;
+export default FSMMapEditor;
