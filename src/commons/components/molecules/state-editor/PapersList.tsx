@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import PaperListItem from "./PaperListItem";
+import PaperListItem from "../../atoms/state-editor/PaperListItem";
 import { useUpdatePaperOrderMutation } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 
 // a little function to help us with reordering the result

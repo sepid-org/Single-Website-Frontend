@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import PapersList from './PapersList';
+import PapersList from '../../components/molecules/state-editor/PapersList';
 import BoardPaperEditor from '../PaperEditor/BoardPaperEditor';
 
 type BoardStateEditorPropsType = {
