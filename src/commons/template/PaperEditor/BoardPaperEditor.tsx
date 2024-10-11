@@ -7,7 +7,6 @@ import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/
 import { Box, Button, Stack } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import { toast } from 'react-toastify';
-import PapersMenu from 'commons/components/organisms/PapersMenu';
 
 type BoardPaperEditorPropsType = {
   paperId: string;
@@ -19,7 +18,6 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
   const [positions, setPositions] = useState<PositionType[]>(null);
   const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
-  const [currentPaperId, setCurrentPaperId] = useState<string>('');
 
   useEffect(() => {
     const widgets = paper?.widgets;
@@ -101,14 +99,11 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
 
   return (
     <Stack sx={{ overflow: 'hidden', position: 'relative' }}>
-      <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100} width={'100%'}>
-        <PapersMenu currentPaperId='' setCurrentPaperId={undefined} papers={[]} />
-        <Stack spacing={1} direction={'row'}>
-          <CreateWidgetButton paperId={paperId} />
-          <Button variant='contained' onClick={handleUpdateFSMState}>
-            {'ذخیره'}
-          </Button>
-        </Stack>
+      <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100}>
+        <CreateWidgetButton paperId={paperId} />
+        <Button variant='contained' onClick={handleUpdateFSMState}>
+          {'ذخیره'}
+        </Button>
       </Stack>
       <Box overflow={'auto'}>
         <div style={{

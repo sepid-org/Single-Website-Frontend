@@ -1,8 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { PaperEditor } from '../Paper';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import PapersMenu from 'commons/components/organisms/PapersMenu';
 
 type BoardStateEditorPropsType = {}
 
@@ -13,6 +14,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
   const { data } = useGetFSMStateQuery({ fsmStateId });
   // todo: all papers should be displayed
   const paperId = data.papers[0]
+  const [currentPaperId, setCurrentPaperId] = useState<string>('');
 
   if (isMobile) {
     return (
@@ -24,7 +26,10 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
 
   // bill
   return (
-    <PaperEditor paperId={paperId} />
+    <Fragment>
+      <PapersMenu currentPaperId='' setCurrentPaperId={undefined} papers={[]} />
+      <PaperEditor template='board' paperId={paperId} />
+    </Fragment>
   );
 };
 
