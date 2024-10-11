@@ -14,7 +14,7 @@ import {
 } from 'apps/website-display/redux/slices/whiteboard';
 import Drawing from './Drawing';
 import WhiteboardNavbar from './WhiteboardNavbar';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 function Whiteboard({
   width,
@@ -35,7 +35,7 @@ function Whiteboard({
 }) {
   const subscriberRef = useRef(null);
   const [stage, setStage] = useState(null);
-  const { teamId } = useFSMContext();
+  const { teamId } = useFSMStateContext();
 
   useEffect(() => {
     const subscribe = async (teamId) => {

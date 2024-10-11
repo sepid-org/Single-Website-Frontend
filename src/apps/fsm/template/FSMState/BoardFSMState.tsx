@@ -2,13 +2,15 @@ import React, { useState, useEffect, useRef, FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import BoardPaper from 'commons/template/Paper/BoardPaper';
 
-export type BoardFSMStatePropsType = {};
+export type BoardFSMStatePropsType = {
+  fsmStateId: string;
+};
 
-const BoardFSMState: FC<BoardFSMStatePropsType> = ({ }) => {
-  const { fsmStateId, isMentor } = useFSMContext()
+const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
+  const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);

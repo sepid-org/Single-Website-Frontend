@@ -5,12 +5,12 @@ import {
   useMentorMoveBackwardMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { useGetFSMStateInwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type FSMBackStateButtonPropsType = {}
 
 const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({ }) => {
-  const { fsmStateId, playerId, isMentor } = useFSMContext();
+  const { fsmStateId, playerId, isMentor } = useFSMStateContext();
   const [goBackward, goBackwardResult] = useGoBackwardMutation();
   const [mentorMoveBackward, mentorMoveBackwardResult] = useMentorMoveBackwardMutation();
   const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })

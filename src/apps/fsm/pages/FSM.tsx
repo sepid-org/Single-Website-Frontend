@@ -49,7 +49,6 @@ const FSM: FC<FSMPagePropsType> = ({
   const [enterFSM, result] = useEnterFSMMutation();
   const { data: { fullName, id: mentorId } } = useUserProfile();
 
-
   let readyToAddMentor = false
   if (teamId !== undefined && mentorId !== undefined && fullName !== undefined) {
     readyToAddMentor = true
@@ -131,7 +130,7 @@ const FSM: FC<FSMPagePropsType> = ({
 
   return (
     <Fragment>
-      <FSMState />
+      <FSMState fsmStateId={(player?.current_state as any)} />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
         <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
       }

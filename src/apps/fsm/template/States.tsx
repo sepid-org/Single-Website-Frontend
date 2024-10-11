@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useParams } from 'react-router';
-import StateEditor from 'commons/template/StateEditor';
+import FSMStateEditor from 'commons/template/FSMStateEditor';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -63,7 +63,7 @@ const States: FC<StatesPropsType> = ({ }) => {
           onClose={() => setSelectedStateId(null)}
         >
           {Boolean(selectedStateId) &&
-            <StateEditor />
+            <FSMStateEditor fsmStateId={selectedStateId} />
           }
         </FullScreenDialog>
       </Stack>

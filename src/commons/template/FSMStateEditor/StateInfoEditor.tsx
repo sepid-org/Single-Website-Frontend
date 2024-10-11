@@ -20,12 +20,12 @@ import { FSMStateType } from 'commons/types/models';
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import { toast } from 'react-toastify';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type StateInfoEditorPropsType = {}
 
 const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
-  const { fsmStateId } = useFSMContext();
+  const { fsmStateId } = useFSMStateContext();
   const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const [updateFSMState, { isSuccess, isLoading }] = useUpdateFSMStateMutation();

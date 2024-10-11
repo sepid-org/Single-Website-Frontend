@@ -9,12 +9,12 @@ import {
   useMentorMoveForwardMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type FSMNextStateButtonPropsType = {}
 
 const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
-  const { fsmStateId, isMentor } = useFSMContext();
+  const { fsmStateId, isMentor } = useFSMStateContext();
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);

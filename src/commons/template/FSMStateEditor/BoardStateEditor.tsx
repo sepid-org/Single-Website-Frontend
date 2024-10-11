@@ -2,13 +2,13 @@ import React, { FC } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { EditPaper } from '../Paper';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type BoardStateEditorPropsType = {}
 
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
   const theme = useTheme();
-  const { fsmStateId } = useFSMContext();
+  const { fsmStateId } = useFSMStateContext();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data } = useGetFSMStateQuery({ fsmStateId });
   // todo: all papers should be displayed

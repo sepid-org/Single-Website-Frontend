@@ -10,12 +10,13 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
-export type WorkshopFSMStatePropsType = {}
+export type WorkshopFSMStatePropsType = {
+  fsmStateId: string;
+}
 
-const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ }) => {
-  const { fsmStateId } = useFSMContext()
+const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useParams();
   const { data: state } = useGetFSMStateQuery({ fsmStateId })
   const paperId = state.papers[0];

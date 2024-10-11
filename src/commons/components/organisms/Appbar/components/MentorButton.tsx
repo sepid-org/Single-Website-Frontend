@@ -5,14 +5,14 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { requestMentorAction } from 'apps/website-display/redux/slices/currentState';
 import useWidth from 'commons/utils/UseWidth';
 import { toast } from 'react-toastify';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import { useParams } from 'react-router-dom';
 
 
 function MentorButton({ callMentor }) {
   const t = useTranslate();
   const { fsmId } = useParams();
-  const { playerId, teamId } = useFSMContext();
+  const { playerId, teamId } = useFSMStateContext();
   const [isEnable, setEnable] = useState(true);
   const width = useWidth();
 

@@ -4,11 +4,11 @@ import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
-import { useFSMContext } from './useFSMContext';
+import { useFSMStateContext } from './useFSMStateContext';
 
 const useChangeState = () => {
   const t = useTranslate();
-  const { isMentor } = useFSMContext();
+  const { isMentor } = useFSMStateContext();
   const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
   const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
 

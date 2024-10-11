@@ -4,7 +4,7 @@ import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
 import { Box, IconButton, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
-import StateEditor from 'commons/template/StateEditor';
+import FSMStateEditor from 'commons/template/FSMStateEditor';
 
 interface stateNodeProps extends NodeProps {
 	data: {
@@ -164,7 +164,7 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				onClose={() => setStateNodeIsSelected(false)}
 			>
 				{stateNodeIsSelected &&
-					<StateEditor />
+					<FSMStateEditor fsmStateId={id} />
 				}
 			</FullScreenDialog>
 		</Box>

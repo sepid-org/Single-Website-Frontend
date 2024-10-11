@@ -18,14 +18,14 @@ import {
   changeWhiteboardModeAction
 } from 'apps/website-display/redux/slices/whiteboard'
 import DrawingModes from '../Drawing/DrawingModes'
-import { useFSMContext } from 'commons/hooks/useFSMContext'
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext'
 
 const CircleMenu = ({ changeMode, addNewCircleNode }) => {
   const popupState = usePopupState({
     variant: 'popover',
     popupId: 'circleMenu'
   })
-  const { teamId } = useFSMContext();
+  const { teamId } = useFSMStateContext();
 
   const onClick = (type) => {
     changeMode({ mode: DrawingModes.MOVE })
