@@ -104,6 +104,17 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       invalidatesTags: ['fsms'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/soft_delete/`
     }),
+
+    setFSMFirstState: builder.mutation<any, { fsmId: string; fsmStateId: string }>({
+      invalidatesTags: ['fsm'],
+      query: ({ fsmId, fsmStateId }) => ({
+        url: `/fsm/fsm/${fsmId}/first_state/`,
+        method: 'POST',
+        body: {
+          state: fsmStateId,
+        },
+      }),
+    }),
   })
 });
 
@@ -115,4 +126,5 @@ export const {
   useSoftDeleteFSMMutation,
   useGetFSMStatesQuery,
   useGetFSMEdgesQuery,
+  useSetFSMFirstStateMutation,
 } = FSMSlice;

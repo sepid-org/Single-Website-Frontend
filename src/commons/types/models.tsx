@@ -112,7 +112,7 @@ export type FSMType = ContentType & {
   is_mentor: boolean;
   id: string;
   name: string;
-  first_state: FSMStateType;
+  first_state: string;
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
