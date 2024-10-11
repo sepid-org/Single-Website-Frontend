@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { EditPaper } from '.';
+import { PaperEditor } from '.';
 import EditHints from '../EditHints';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -24,12 +24,12 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
           {'مسئله‌ها'}
         </Typography>
         <Divider />
-        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='problems' />
+        <PaperEditor paperId={paperId} mode='problems' />
         <Typography variant='h2' gutterBottom>
           {'محتواها'}
         </Typography>
         <Divider />
-        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='contents' />
+        <PaperEditor paperId={paperId} mode='contents' />
         <Typography variant="h2" gutterBottom>
           {'راهنمایی‌ها'}
         </Typography>

@@ -1,25 +1,23 @@
 import React, { FC } from "react";
 import NormalPaperEditor from "./NormalPaperEditor";
 import BoardPaperEditor from "./BoardPaperEditor";
-import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 
 type PaperEditorPropsType = {
   paperId: string;
-  fsmStateId?: string;
+  template?: 'normal' | 'board';
   mode?: 'contents' | 'problems' | 'all';
 }
 
 const PaperEditor: FC<PaperEditorPropsType> = ({
   paperId,
-  fsmStateId,
+  template = 'normal',
   ...props
 }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
-  if (fsmState?.template === 'normal') {
-    return <NormalPaperEditor fsmStateId={fsmStateId} paperId={paperId} {...props} />
+  if (template === 'normal') {
+    return <NormalPaperEditor paperId={paperId} {...props} />
   }
-  if (fsmState?.template === 'board') {
-    return <BoardPaperEditor fsmStateId={fsmStateId} paperId={paperId} {...props} />
+  if (template === 'board') {
+    return <BoardPaperEditor paperId={paperId} {...props} />
   }
 }
 

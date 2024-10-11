@@ -11,12 +11,10 @@ import PapersMenu from 'commons/components/organisms/PapersMenu';
 
 type BoardPaperEditorPropsType = {
   paperId: string;
-  fsmStateId?: string;
 }
 
 const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
   paperId,
-  fsmStateId,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
   const [positions, setPositions] = useState<PositionType[]>(null);

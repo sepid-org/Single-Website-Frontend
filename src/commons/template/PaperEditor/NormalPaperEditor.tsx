@@ -9,13 +9,11 @@ import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton'
 
 type NormalPaperEditorPropsType = {
   paperId: string;
-  fsmStateId?: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
 const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
   paperId,
-  fsmStateId,
   mode = 'all',
 }) => {
   const t = useTranslate();

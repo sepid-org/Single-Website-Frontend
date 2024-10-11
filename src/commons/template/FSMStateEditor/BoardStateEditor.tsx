@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
-import { EditPaper } from '../Paper';
+import { PaperEditor } from '../Paper';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
@@ -22,8 +22,9 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
     )
   }
 
+  // bill
   return (
-    <EditPaper fsmStateId={fsmStateId} paperId={paperId} />
+    <PaperEditor paperId={paperId} />
   );
 };
 
