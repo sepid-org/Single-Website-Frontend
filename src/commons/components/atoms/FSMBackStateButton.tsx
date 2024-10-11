@@ -3,8 +3,8 @@ import React, { FC, useContext } from 'react';
 import {
   useGoBackwardMutation,
   useMentorMoveBackwardMutation,
-} from 'apps/website-display/redux/features/fsm/PlayerSlice';
-import { useGetFSMStateInwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useGetFSMStateInwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMBackStateButtonPropsType = {}

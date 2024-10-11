@@ -7,8 +7,8 @@ import StatePasswordDialog from 'commons/components/organisms/dialogs/StatePassw
 import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
-} from 'apps/website-display/redux/features/fsm/PlayerSlice';
-import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMNextStateButtonPropsType = {}

@@ -9,12 +9,12 @@ import {
 } from 'apps/website-display/redux/slices/currentState';
 import DraggableChatRoom from 'commons/components/organisms/DraggableMeeting';
 import { toast } from 'react-toastify';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
   useEnterFSMMutation,
-} from 'apps/website-display/redux/features/fsm/PlayerSlice';
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 

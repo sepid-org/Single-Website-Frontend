@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { useGetFSMQuery } from "apps/website-display/redux/features/fsm/FSMSlice";
+import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 
 const useFinishFSM = () => {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Typography, useMediaQuery, useTheme } from '@mui/material';
 import { EditPaper } from '../Paper';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type BoardStateEditorPropsType = {}

@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
 import NormalPaperEditor from '../Paper/NormalPaperEditor';

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import NormalPaperEditor from "./NormalPaperEditor";
 import BoardPaperEditor from "./BoardPaperEditor";
-import { useGetFSMStateQuery } from "apps/website-display/redux/features/fsm/FSMStateSlice";
+import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 
 type PaperEditorPropsType = {
   paperId: string;

@@ -13,7 +13,7 @@ import { useParams } from 'react-router-dom';
 import ClearIcon from '@mui/icons-material/Clear';
 import InfoIcon from '@mui/icons-material/Info';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
-import { useAddMentorToFSMMutation, useGetFSMMentorsQuery, useRemoveMentorFromFSMMutation } from 'apps/website-display/redux/features/fsm/MentorSlice';
+import { useAddMentorToFSMMutation, useGetFSMMentorsQuery, useRemoveMentorFromFSMMutation } from 'apps/fsm/redux/slices/fsm/MentorSlice';
 
 type MentorsPropsType = {}
 

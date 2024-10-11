@@ -8,7 +8,7 @@ import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetFSMQuery, useUpdateFSMMutation } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery, useUpdateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { FSMType } from 'commons/types/models';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';

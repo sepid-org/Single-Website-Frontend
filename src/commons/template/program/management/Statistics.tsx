@@ -11,7 +11,7 @@ import MentorStaticsFSMCard from 'commons/components/organisms/cards/MentorStati
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import MetabaseDashboard from 'commons/template/MetabaseDashboard';
-import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';

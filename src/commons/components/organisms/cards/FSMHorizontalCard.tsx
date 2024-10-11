@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Tooltip, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import { useEnterFSMMutation } from 'apps/website-display/redux/features/fsm/PlayerSlice';
+import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 
 const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {

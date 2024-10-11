@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, FC, Fragment } from 'react';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMContext } from 'commons/hooks/useFSMContext';

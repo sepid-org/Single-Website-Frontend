@@ -16,7 +16,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, FSMUserPermissions } from 'commons/types/models';
-import { useEnterFSMMutation } from 'apps/website-display/redux/features/fsm/PlayerSlice';
+import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
 type VerticalFSMCardPropsType = {
   fsm: Partial<FSMType>;

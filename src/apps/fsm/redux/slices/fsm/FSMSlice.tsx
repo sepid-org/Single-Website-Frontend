@@ -1,5 +1,5 @@
 import { EdgeType, FSMStateType, FSMType } from 'commons/types/models';
-import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
   fsmId: string;

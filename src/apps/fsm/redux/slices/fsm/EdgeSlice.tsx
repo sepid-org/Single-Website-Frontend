@@ -1,5 +1,5 @@
 import { FSMEdgeType } from 'commons/types/models';
-import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type UpdateFSMEdgeInputType = {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import Layout from 'commons/template/Layout';

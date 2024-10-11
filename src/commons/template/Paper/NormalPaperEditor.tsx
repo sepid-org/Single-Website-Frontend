@@ -7,7 +7,7 @@ import {
 import React, { FC } from 'react';
 import { EditPaper } from '.';
 import EditHints from '../EditHints';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type NormalPaperEditorPropsType = {}
