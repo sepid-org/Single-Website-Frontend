@@ -1,9 +1,9 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import PapersList from '../../components/molecules/state-editor/PapersList';
+import PapersList from 'apps/fsm/components/molecules/PapersList';
 import BoardPaperEditor from '../PaperEditor/BoardPaperEditor';
+import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
 
 type BoardStateEditorPropsType = {
   fsmStateId: string;
@@ -31,7 +31,10 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
 
   return (
     <Stack direction={'row'} overflow={'hidden'}>
-      <PapersList paperIds={fsmState.papers} fsmStateId={fsmStateId} />
+      <Stack spacing={2}>
+        <AddPaperToFSMState fsmStateId={fsmStateId} />
+        <PapersList paperIds={fsmState.papers} fsmStateId={fsmStateId} />
+      </Stack>
       {currentPaperId &&
         <BoardPaperEditor paperId={currentPaperId} />
       }

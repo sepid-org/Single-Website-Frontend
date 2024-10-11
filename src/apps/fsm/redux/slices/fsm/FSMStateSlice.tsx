@@ -28,8 +28,26 @@ type UpdatePaperOrderOutputType = {
   message: string;
 };
 
+type AddPaperToFSMStateInputType = {
+  fsmStateId: string;
+  paperId: string;
+};
+
+type AddPaperToFSMStateOutputType = {
+  message: string;
+};
+
+type RemovePaperFromFSMStateInputType = {
+  fsmStateId: string;
+  paperId: string;
+};
+
+type RemovePaperFromFSMStateOutputType = {
+  message: string;
+};
+
 export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     createFSMState: builder.mutation<CreateFSMStateOutputType, CreateFSMStateInputType>({
       invalidatesTags: ['fsm-states'],
       query: ({ fsmId, ...body }) => ({
@@ -40,30 +58,22 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
           fsm: fsmId,
         },
       }),
-      transformResponse: (response: any): CreateFSMStateOutputType => {
-        return response;
-      },
     }),
 
     updateFSMState: builder.mutation<UpdateFSMStateOutputType, UpdateFSMStateInputType>({
-      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [
-          { type: 'fsm-state', id: result.id },
-          'fsm-states',
-          'player-transited-path',
-        ]
-      ),
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state', id: result.id },
+        'fsm-states',
+        'player-transited-path',
+      ]),
       query: ({ fsmStateId, ...body }) => ({
         url: `/fsm/state/${fsmStateId}/`,
         method: 'PATCH',
         body,
       }),
-      transformResponse: (response: any): UpdateFSMStateOutputType => {
-        return response;
-      },
     }),
 
-    deleteFSMState: builder.mutation<any, { fsmStateId: string }>({
+    deleteFSMState: builder.mutation<void, { fsmStateId: string }>({
       invalidatesTags: tagGenerationWithErrorCheck(['fsm-states', 'player-transited-path']),
       query: ({ fsmStateId }) => ({
         url: `/fsm/state/${fsmStateId}/`,
@@ -72,26 +82,23 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getFSMState: builder.query<GetFSMStateOutputType, { fsmStateId: string }>({
-      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'fsm-state', id: result.id }]
-      ),
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state', id: result.id },
+      ]),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/`,
-      transformResponse: (response: any): GetFSMStateOutputType => {
-        return response;
-      },
     }),
 
     getFSMStateOutwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
-      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'fsm-state-edges', id: item.fsmStateId }]
-      ),
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state-edges', id: item.fsmStateId },
+      ]),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/outward_edges/`,
     }),
 
     getFSMStateInwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
-      providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'fsm-state-edges', id: item.fsmStateId }]
-      ),
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state-edges', id: item.fsmStateId },
+      ]),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/inward_edges/`,
     }),
 
@@ -104,11 +111,30 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body: { paper_ids: paperIds },
       }),
-      transformResponse: (response: any): UpdatePaperOrderOutputType => {
-        return response;
-      },
     }),
-  })
+
+    addPaperToFSMState: builder.mutation<AddPaperToFSMStateOutputType, AddPaperToFSMStateInputType>({
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state', id: item.fsmStateId },
+      ]),
+      query: ({ fsmStateId, paperId }) => ({
+        url: `/fsm/state/${fsmStateId}/add_paper/`,
+        method: 'POST',
+        body: { paper_id: paperId },
+      }),
+    }),
+
+    removePaperFromFSMState: builder.mutation<RemovePaperFromFSMStateOutputType, RemovePaperFromFSMStateInputType>({
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state', id: item.fsmStateId },
+      ]),
+      query: ({ fsmStateId, paperId }) => ({
+        url: `/fsm/state/${fsmStateId}/remove_paper/`,
+        method: 'POST',
+        body: { paper_id: paperId },
+      }),
+    }),
+  }),
 });
 
 export const {
@@ -119,4 +145,6 @@ export const {
   useGetFSMStateOutwardEdgesQuery,
   useGetFSMStateInwardEdgesQuery,
   useUpdatePaperOrderMutation,
+  useAddPaperToFSMStateMutation,
+  useRemovePaperFromFSMStateMutation,
 } = FSMStateSlice;

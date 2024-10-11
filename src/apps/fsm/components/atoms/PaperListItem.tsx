@@ -5,9 +5,10 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 
 type PaperListItemPropsType = {
   paperId: string;
+  handleRemovePaperFromFSMState: any;
 }
 
-const PaperListItem: FC<PaperListItemPropsType> = ({ paperId }) => {
+const PaperListItem: FC<PaperListItemPropsType> = ({ paperId, handleRemovePaperFromFSMState }) => {
   return (
     <Paper
       elevation={1}
@@ -18,7 +19,7 @@ const PaperListItem: FC<PaperListItemPropsType> = ({ paperId }) => {
     >
       <Stack direction="row" alignItems="center" justifyContent="space-between">
         <Typography>{`لایه شماره ${toPersianNumber(paperId)}`}</Typography>
-        <IconButton aria-label="delete">
+        <IconButton onClick={handleRemovePaperFromFSMState}>
           <DeleteIcon />
         </IconButton>
       </Stack>
