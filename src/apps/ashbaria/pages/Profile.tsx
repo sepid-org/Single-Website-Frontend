@@ -3,6 +3,7 @@ import { DashboardTabType } from 'commons/types/global';
 import UserInfo from "../templates/UserInfo";
 import { Box } from "@mui/material";
 import Dashboard from "commons/components/organisms/Dashboard";
+import backgroundImg from "../assets/profileBackgroun.svg"
 
 export default function Profile(){
 
@@ -14,7 +15,12 @@ export default function Profile(){
                     minWidth: "100vw",
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    backgroundImage: `url(${backgroundImg})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundAttachment: "fixed",
                 }}
             >
                 <UserInfo />

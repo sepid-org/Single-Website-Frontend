@@ -1,10 +1,11 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import girlIcon from "../../assets/Girl-head.svg";
-import boyIcon from "../../assets/Boy-head.svg";
+import girlSelectedIcon from "../../assets/girl-yellow-head.svg";
+import girlUnsellectedIcon from "../../assets/girl-purple-head.svg"
+import boyUnselectedIcon from "../../assets/Boy-purple-head.svg";
 
-export default function GenderSelector(){
-    const [selectedGender, setSelectedGender] = useState(null);
+export default function GenderSelector({gender}){
+    const [selectedGender, setSelectedGender] = useState(gender);
     const selectColor  = (genderValue: string) => {
        return selectedGender === genderValue ? "#FFA800" : "#A198BB";
     }
@@ -15,7 +16,7 @@ export default function GenderSelector(){
         <Grid
             item
             md={6}
-            xs={12}
+            xs={11}
             sx={{
                 marginTop: "16px"
             }}
@@ -36,14 +37,17 @@ export default function GenderSelector(){
                 sx={{
                     display: "flex",
                     flexDirection: "row",
-                    width: "100%"
+                    width: "100%",
+                    padding: "0px 16px 0px 16px",
+                    
+                    height: "44px"
                 }}
             >
                 <Box
                     onClick={() => setSelectedGender("boy")}
                     sx={{
                         width: "50%",
-                        height: "48px",
+                        height: "44px",
                         padding: "0px 12px 0px 12px",
                         gap: "4px",
                         borderRadius: "12px 0px 0px 12px",
@@ -57,7 +61,7 @@ export default function GenderSelector(){
                 >
                     <Box
                         component="img"
-                        src={boyIcon}
+                        src={boyUnselectedIcon}
                         width= "20px"
                         height= "20px"
                         padding= "1.67px"
@@ -69,7 +73,7 @@ export default function GenderSelector(){
                     onClick={() => setSelectedGender("girl")}
                     sx={{
                         width: "50%",
-                        height: "48px",
+                        height: "44px",
                         padding: "0px 12px 0px 12px",
                         gap: "4px",
                         borderRadius: "0px 12px 12px 0px",
@@ -83,7 +87,7 @@ export default function GenderSelector(){
                 >
                     <Box
                         component="img"
-                        src={girlIcon}
+                        src={selectedGender === "girl" ? girlSelectedIcon : girlUnsellectedIcon}
                         width= "20px"
                         height= "20px"
                         padding= "1.67px"

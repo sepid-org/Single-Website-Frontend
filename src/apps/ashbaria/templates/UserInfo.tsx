@@ -13,7 +13,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFnsJalali } from "@mui/x-date-pickers/AdapterDateFnsJalali";
 import moment from "moment";
 import Iran from 'commons/utils/iran';
-
+import profilePic1 from "../assets/profile1.svg";
+import profilePic2 from "../assets/profile2.svg";
+import profilePic3 from "../assets/profile3.svg";
 
 
 type UserSettingPropsType = {
@@ -62,8 +64,6 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
     });
   }
 
-
-  const [birthDate, setBirthDate] = useState(null);
   const [gender, setGender] = useState('boy');
 
   const [data, setData] = useState({
@@ -89,10 +89,18 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
   }
 
   const [currentScore, setCurrentScore] = useState(150);
+  const [selectedProfilePic, setSelectedProfilePic] = useState(data.profile_logo);
+
+  const selectBorderColor = (profilePic: string) => {
+    return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
+  }
 
   return(
     <Container
         sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
           width: "85%",
           padding: "16px 0px 0px 0px",
           gap: "16px",
@@ -104,7 +112,7 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)"
         }}
       >
-        <Grid container spacing={2}>
+        <Grid container item xs={11} spacing={2}>
           {/* First Row */}
           <Grid 
             item 
@@ -134,7 +142,7 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
               />
               <Typography 
                 variant="h6"
-                sx={{fontSize: "18px", fontWeight: 800}}
+                sx={{fontSize: "18px", fontWeight: 800, color: "white"}}
               >
                 نمایه
               </Typography>
@@ -160,7 +168,8 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 variant="body2" 
                 sx={{
                   fontSize: "16px", 
-                  fontWeight: 800
+                  fontWeight: 800,
+                  color: "white"
                 }}
               >
                 {toPersianNumber(currentScore)}+
@@ -175,7 +184,8 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           </Grid>
 
           {/* Second Row */}
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid container spacing={2} sx={{display: "center", justifyContent: "center"}}></Grid>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
             <Typography 
               sx={{
                 paddingBottom: "4px", 
@@ -195,17 +205,19 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 name="first_name"
                 onChange={handleChange} 
                 sx={{
-                    width: "100%",  
-                    height: "44px",
                     padding: "0px 16px 0px 16px",
                     gap: "10px",
                     borderRadius: "8px",
-                    border: "1px 0px 0px 0px",
-                    opacity: "0px",
+                    border: "1px",
+                    '& .MuiOutlinedInput-root':{
+                      height: "44px",
+                      width: "100%"
+                    }
                 }}
+                placeholder="نام خود را وارد کنید."
             />
           </Grid>
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
           <Typography 
             sx={{
               paddingBottom: "4px", 
@@ -225,19 +237,21 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 name="last_name"
                 onChange={handleChange}
                 sx={{
-                    width: "100%",
-                    height: "44px",
                     padding: "0px 16px 0px 16px",
                     gap: "10px",
                     borderRadius: "8px",
-                    border: "1px 0px 0px 0px",
-                    opacity: "0px",
+                    border: "1px",
+                    '& .MuiOutlinedInput-root':{
+                      height: "44px",
+                      width: "100%"
+                    }
                 }}
+                placeholder="نام خانوادگی خود را وارد کنید."
             />
           </Grid>
 
           {/* Third Row */}
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 
@@ -257,16 +271,19 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
             name="national_id"
             onChange={handleChange}
             sx={{
-                width: "100%",
-                height: "44px",
                 padding: "0px 16px 0px 16px",
                 gap: "10px",
                 borderRadius: "8px",
-                border: "1px 0px 0px 0px",
+                border: "1px",
+                '& .MuiOutlinedInput-root':{
+                  height: "44px",
+                  width: "100%"
+                }
             }}
+            placeholder="کد ملی خود را وارد کنید."
           />
           </Grid>
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
             <Typography
               sx={{
                 paddingBottom: "4px", 
@@ -274,7 +291,7 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 fontSize: "14px",
                 fonWeight: "400",
                 lineHeight: "20.88px",
-                textAlign: "left"
+                textAlign: "left",
               }}
             >
               تاریخ تولد
@@ -283,12 +300,14 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
               required 
               fullWidth
               sx={{
-                width: "100%",
-                height: "44px",
                 padding: "0px 16px 0px 16px",
                 gap: "10px",
                 borderRadius: "8px",
-                border: "1px 0px 0px 0px",
+                border: "1px",
+                '& .MuiOutlinedInput-root':{
+                  height: "44px",
+                  width: "100%"
+                }
               }}
             >
               <LocalizationProvider dateAdapter={AdapterDateFnsJalali} dateFormats={{ monthShort: 'MMMM' }}>
@@ -304,8 +323,8 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           </Grid>
 
           {/* Fourth Row */}
-          <GenderSelector />
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <GenderSelector gender={data.gender}/>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
           <Typography 
             sx={{
               paddingBottom: "4px", 
@@ -318,26 +337,32 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           >
             نحوه‌ی آشنایی
           </Typography>
-            <Select 
-              fullWidth 
-              defaultValue={data.first_name || ''}
-              sx={{
-                width: "100%",
+          <FormControl
+            required 
+            fullWidth
+            sx={{
+              padding: "0px 16px 0px 16px",
+              gap: "10px",
+              borderRadius: "8px",
+              border: "1px",
+              '& .MuiOutlinedInput-root':{
                 height: "44px",
-                padding: "0px 16px 0px 16px",
-                gap: "10px",
-                borderRadius: "8px",
-                border: "1px"
-              }}
+                width: "100%"
+              }
+            }}
+          >
+            <Select 
+              defaultValue={data.first_name || ''}
               onChange={handleChange}
             >
               <MenuItem value="1">Select Option</MenuItem>
               <MenuItem value="2">option</MenuItem>
             </Select>
+            </FormControl>
           </Grid>
 
           {/* Fifth Row */}
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 
@@ -350,27 +375,33 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           >
             استان
           </Typography>
-            <Select 
-              fullWidth 
-              defaultValue={data.province || ''}
-              sx={{
-                width: "100%",
+          <FormControl
+            required 
+            fullWidth
+            sx={{
+              padding: "0px 16px 0px 16px",
+              gap: "10px",
+              borderRadius: "8px",
+              border: "1px",
+              '& .MuiOutlinedInput-root':{
                 height: "44px",
-                padding: "0px 16px 0px 16px",
-                gap: "10px",
-                borderRadius: "8px",
-                border: "1px"
-              }}
-              onChange={handleChange}
+                width: "100%"
+              }
+            }}
+          >
+            <Select 
+              defaultValue={data.province || ''}
+              onChange={(event) => {setData({...data, province: event.target.value})}}
             >
               {Iran.Provinces.map((province) => (
-              <MenuItem key={province.id} value={province.title}>
-                {province.title}
-              </MenuItem>
-            ))}
+                <MenuItem key={province.id} value={province.title}>
+                  {province.title}
+                </MenuItem>
+              ))}
             </Select>
+            </FormControl>
             </Grid>
-            <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+            <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
             <Typography
               sx={{
                 paddingBottom: "4px", 
@@ -383,19 +414,24 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
             >
               شهر
             </Typography>
+            <FormControl
+            required 
+            fullWidth
+            sx={{
+              padding: "0px 16px 0px 16px",
+              gap: "10px",
+              borderRadius: "8px",
+              border: "1px",
+              '& .MuiOutlinedInput-root':{
+                height: "44px",
+                width: "100%"
+              }
+            }}
+          >
             <Select 
-              fullWidth 
               disabled={!data.province && !data.city}
               value={data.city || ''}
-              onChange={handleChange}
-              sx={{
-                width: "100%",
-                height: "44px",
-                padding: "0px 16px 0px 16px",
-                gap: "10px",
-                borderRadius: "8px",
-                border: "1px"
-              }}
+              onChange={(event) => {setData({...data, city: event.target.value})}}
             >
               {Iran.Cities.filter((city) =>
               city.province_id == Iran.Provinces.find(province => province.title == data.province)?.id)
@@ -405,10 +441,11 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 </MenuItem>
               ))}
             </Select>
+            </FormControl>
           </Grid>
 
           {/* Sixth Row */}
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
             <Typography
               sx={{
                 paddingBottom: "4px", 
@@ -428,16 +465,19 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
                 name="phone_number"
                 onChange={handleChange}
                 sx={{
-                    width: "100%",
-                    height: "44px",
                     padding: "0px 16px 0px 16px",
                     gap: "10px",
                     borderRadius: "8px",
                     border: "1px",
-                }} 
+                    '& .MuiOutlinedInput-root':{
+                      height: "44px",
+                      width: "100%"
+                    }
+                  }} 
+                placeholder="شماره تلفن خود را وارد کنید."
               />
           </Grid>
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 
@@ -457,18 +497,21 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
               name="post_number"
               onChange={handleChange}
               sx={{
-                  width: "100%",
-                  height: "44px",
                   padding: "0px 16px 0px 16px",
                   gap: "10px",
                   borderRadius: "8px",
                   border: "1px",
+                  '& .MuiOutlinedInput-root':{
+                    height: "44px",
+                    width: "100%"
+                  }
               }}
+              placeholder="کد پستی خود را وارد کنید."
             />
           </Grid>
 
           {/* Seventh Row */}
-          <Grid item xs={12} sx={{marginTop: "16px"}}>
+          <Grid item xs={11} md={12} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 
@@ -488,78 +531,144 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
               name="address"
               onChange={handleChange}
               sx={{
-                  width: "100%",
-                  height: "44px",
                   padding: "0px 16px 0px 16px",
                   gap: "10px",
                   borderRadius: "8px",
                   border: "1px",
+                  '& .MuiOutlinedInput-root':{
+                    height: "44px",
+                    width: "100%"
+                  }
               }}  
+              placeholder="آدرس خود را وارد کنید."
             />
           </Grid>
 
           {/* Eighth Row */}
-          <Grid item xs={12}>
-            {/* Replace with your image buttons */}
-            <Box display="flex" justifyContent="space-between">
-            {[1, 2, 3].map((item) => (
-                <IconButton key={item} sx={{ borderRadius: '50%', width: '60px', height: '60px' }}>
-                  <img style={{ width: '100%', borderRadius: '50%' }} />
-                </IconButton>
+          <Grid item xs={11} sx={{marginTop: "16px"}}>
+          <Typography
+            sx={{
+              paddingBottom: "4px", 
+              gap: "10px",
+              fontSize: "14px",
+              fonWeight: "400",
+              lineHeight: "20.88px",
+              textAlign: "left"
+            }}
+          >
+            تصویر نمایه
+          </Typography>
+            <Box display="flex" justifyContent="flex-start">
+            {[profilePic1, profilePic2, profilePic3].map((item) => (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "relative",
+                  borderRadius: "50%",
+                  overflow: "hidden",
+                  width: "84px",
+                  height: "84px",
+                  background: selectBorderColor(item),
+                  backgroundClip: "padding-box",
+                  margin: "15px",
+                }}
+                  onClick={() => {
+                    setSelectedProfilePic(item);
+                  }}
+              >
+                <Box
+                  component="img"
+                  src={item}
+                  width= "80px"
+                  height= "80px"
+                  padding= "1.67px"
+                  sx={{
+                    borderRadius: "50%",
+                  }}
+                />
+                </Box>
               ))}
             </Box>
           </Grid>
 
           {/* Last Row */}
-          <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
-            <Button 
-              fullWidth
+          <Grid item xs={11} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
+            <Box
               sx={{
-                height: "42px",
-                minWidth: "80px",
-                padding: "10px 20px 10px 20px",
-                gap: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "44px",
+                minWidth: "82px",
                 borderRadius: "100px",
-                border: "1px solid",
-                borderImageSource: "linear-gradient(to right, #FE9C42, #E25100)",
-                borderImageSlice: 1,
-                color: "#FE9C42",
-                '&: hover':{
-                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                  color: "black"
-                }
-              }}
-              style={{
-                borderRadius: "100px"
-              }}
-              onClick={() => {}}
-            >
-              ذخیره
-            </Button>
-            </Grid>
-            <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
-            <Button 
-              fullWidth
-              sx={{
-                height: "42px",
-                minWidth: "80px",
-                padding: "10px 20px 10px 20px",
-                gap: "4px",
-                borderRadius: "100px",
-                border: "1px solid",
-                borderImageSource: "linear-gradient(to right, #FE9C42, #E25100)",
-                borderImageSlice: 1,
                 backgroundClip: "padding-box",
-                color: "#FE9C42",
-                '&: hover':{
-                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                  color: "black"
-                }
+                position: "relative",
+                overflow: "hidden",
+                background: "linear-gradient(to right, #FE9C42, #E25100)",
               }}
-              onClick={() => {}}
             >
-              انصراف
-            </Button>
+              <Button 
+                fullWidth
+                sx={{
+                  height: "42px",
+                  minWidth: "80px",
+                  padding: "10px 20px 10px 20px",
+                  gap: "4px",
+                  borderRadius: "100px",
+                  backgroundColor: "#130e15",
+                  color: "#FE9C42",
+                  '&: hover':{
+                    background: "linear-gradient(180deg, #FE9C42, #E25100)",
+                    color: "black"
+                  }
+                }}
+                style={{
+                  borderRadius: "100px"
+                }}
+                onClick={() => {}}
+              >
+                ذخیره
+              </Button>
+            </Box>
+            </Grid>
+            <Grid item xs={11} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "44px",
+                  minWidth: "82px",
+                  borderRadius: "100px",
+                  backgroundClip: "padding-box",
+                  position: "relative",
+                  overflow: "hidden",
+                  background: "linear-gradient(to right, #FE9C42, #E25100)",
+                }}
+              >
+                <Button 
+                  fullWidth
+                  sx={{
+                    height: "42px",
+                    minWidth: "80px",
+                    padding: "10px 20px 10px 20px",
+                    gap: "4px",
+                    borderRadius: "100px",
+                    backgroundColor: "#130e15",
+                    backgroundClip: "padding-box",
+                    color: "#FE9C42",
+                    '&: hover':{
+                      background: "linear-gradient(180deg, #FE9C42, #E25100)",
+                      color: "black"
+                    }
+                  }}
+                  onClick={() => {}}
+                >
+                  انصراف
+                </Button>
+              </Box>
           </Grid>
         </Grid>
       </Container>

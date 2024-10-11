@@ -16,6 +16,7 @@ const App = () => {
       minHeight: '100vh',  // This ensures the color covers the full height of the viewport
     }}>
       <ThemeProvider theme={customTheme}>
+      
         <Routes>
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
@@ -28,6 +29,7 @@ const App = () => {
           <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
+      
     </div>
   );
 };
