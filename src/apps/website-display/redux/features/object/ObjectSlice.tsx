@@ -21,12 +21,12 @@ export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updatePositions: builder.mutation<void, UpdatePositionsRequest>({
+      invalidatesTags: [{ type: 'Position', id: 'LIST' }, 'paper'],
       query: ({ positions }) => ({
         url: '/fsm/objects/update-positions/',
         method: 'POST',
         body: { positions },
       }),
-      invalidatesTags: [{ type: 'Position', id: 'LIST' }],
     }),
   }),
 });
