@@ -9,51 +9,38 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState, FC } from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import ClearIcon from '@mui/icons-material/Clear';
-import { addMentorToWorkshopAction } from 'apps/website-display/redux/slices/programs';
-import { getAllWorkshopMentorsAction, removeMentorFromWorkshopAction } from 'apps/website-display/redux/slices/workshop';
-import { UserPublicInfoType } from 'commons/types/models';
 import InfoIcon from '@mui/icons-material/Info';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
+import { useAddMentorToFSMMutation, useGetFSMMentorsQuery, useRemoveMentorFromFSMMutation } from 'apps/website-display/redux/features/fsm/MentorSlice';
 
-type MentorsPropsType = {
-  addMentorToWorkshop: Function,
-  getAllWorkshopMentors: Function,
-  removeMentorFromWorkshop: Function,
-  fsmMentors: UserPublicInfoType[],
-}
+type MentorsPropsType = {}
 
-const Mentors: FC<MentorsPropsType> = ({
-  addMentorToWorkshop,
-  getAllWorkshopMentors,
-  removeMentorFromWorkshop,
-  fsmMentors = []
-}) => {
+const Mentors: FC<MentorsPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [username, setUsername] = useState<string>('');
-
-  useEffect(() => {
-    getAllWorkshopMentors({ fsmId })
-  }, [])
+  const [addMentorToFSM, addMentorToFSMResult] = useAddMentorToFSMMutation()
+  const [removeMentorFromFSM] = useRemoveMentorFromFSMMutation()
+  const { data: fsmMentors } = useGetFSMMentorsQuery({ fsmId });
 
   const addMentor = () => {
-    addMentorToWorkshop({
+    addMentorToFSM({
       username,
       fsmId,
-      onSuccess: () => {
-        setUsername('');
-        getAllWorkshopMentors({ fsmId })
-      }
     });
   };
 
+  useEffect(() => {
+    if (addMentorToFSMResult.isSuccess) {
+      setUsername('');
+    }
+  }, [addMentorToFSMResult])
+
   const removeMentor = (username) => {
-    removeMentorFromWorkshop({
+    removeMentorFromFSM({
       fsmId,
       username,
-      onSuccess: () => getAllWorkshopMentors({ fsmId })
     });
   }
 
@@ -110,7 +97,7 @@ const Mentors: FC<MentorsPropsType> = ({
           { name: 'activities', label: 'عملیات' },
         ]}
 
-        rows={fsmMentors.map(mentor => ({
+        rows={fsmMentors?.map(mentor => ({
           ...mentor,
           activities:
             <Tooltip title='حذف همیار' arrow>
@@ -125,12 +112,4 @@ const Mentors: FC<MentorsPropsType> = ({
   );
 }
 
-const mapStateToProps = (state) => ({
-  fsmMentors: state.workshop.allWorkshopMentors,
-});
-
-export default connect(mapStateToProps, {
-  addMentorToWorkshop: addMentorToWorkshopAction,
-  getAllWorkshopMentors: getAllWorkshopMentorsAction,
-  removeMentorFromWorkshop: removeMentorFromWorkshopAction,
-})(Mentors);
+export default Mentors;

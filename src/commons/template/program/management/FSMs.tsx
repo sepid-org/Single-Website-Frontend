@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import MentorFSMCard from 'commons/components/organisms/cards/MentorFSMCard';
 import CreateFSMDialog from 'commons/components/organisms/dialogs/CreateFSMDialog';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
-import { addMentorToWorkshopAction } from 'apps/website-display/redux/slices/programs';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetFSMsQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
@@ -80,6 +79,4 @@ const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
   );
 }
 
-export default connect(null, {
-  addMentorToWorkshop: addMentorToWorkshopAction,
-})(ProgramManagementFsmTab);
+export default ProgramManagementFsmTab;

@@ -4,10 +4,7 @@ import { Apis } from 'commons/redux/utilities';
 import { createAsyncThunkApi } from 'commons/redux/utilities/cerateApiAsyncThunk';
 import {
   reviewAnswersUrl,
-  addMentorToWorkshopUrl,
   getFSMPlayersUrl,
-  getAllWorkshopMentors,
-  removeMentorURL,
 } from 'apps/website-display/redux/constants/urls';
 
 type FSMInitialStateType = any;
@@ -46,29 +43,6 @@ export const getFSMPlayersAction = createAsyncThunkApi(
   getFSMPlayersUrl,
 )
 
-export const addMentorToWorkshopAction = createAsyncThunkApi(
-  'workshop/addMentorToWorkshopAction',
-  Apis.POST,
-  addMentorToWorkshopUrl,
-  {
-    defaultNotification: {
-      success: 'همیار با موفقیت اضافه شد.',
-    },
-  }
-);
-
-export const getAllWorkshopMentorsAction = createAsyncThunkApi(
-  'account/getAllWorkshopMentorsAction',
-  Apis.GET,
-  getAllWorkshopMentors
-);
-
-export const removeMentorFromWorkshopAction = createAsyncThunkApi(
-  'programs/removeMentorFromWorkshopAction',
-  Apis.POST,
-  removeMentorURL,
-);
-
 const IndexSlice = createSlice({
   name: 'workshop',
   initialState,
@@ -88,13 +62,6 @@ const IndexSlice = createSlice({
       state.isFetching = false;
     },
     [getFSMPlayersAction.rejected.toString()]: isNotFetching,
-
-    [getAllWorkshopMentorsAction.pending.toString()]: isFetching,
-    [getAllWorkshopMentorsAction.fulfilled.toString()]: (state, { payload: { response } }) => {
-      state.allWorkshopMentors = response;
-      state.isFetching = false;
-    },
-    [getAllWorkshopMentorsAction.rejected.toString()]: isNotFetching,
   },
 });
 
