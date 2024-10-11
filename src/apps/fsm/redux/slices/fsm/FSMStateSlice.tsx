@@ -76,14 +76,14 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
 
     getFSMStateOutwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'fsm-state-edges', id: result.id }]
+        [{ type: 'fsm-state-edges', id: item.fsmStateId }]
       ),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/outward_edges/`,
     }),
 
     getFSMStateInwardEdges: builder.query<EdgesOutputType, { fsmStateId: string }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'fsm-state-edges', id: result.id }]
+        [{ type: 'fsm-state-edges', id: item.fsmStateId }]
       ),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/inward_edges/`,
     }),
