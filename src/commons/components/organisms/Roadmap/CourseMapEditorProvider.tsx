@@ -11,34 +11,12 @@ import { useParams } from 'react-router-dom';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import { EdgeType, FSMStateType } from 'commons/types/models';
 
-const sampleNodes: CourseMapNodeInfo[] = [
-	{
-		data: { label: "این استیت اوله", isFirstNode: true, },
-		id: "1",
-		position: { x: 0, y: 0 },
-		type: "stateNode",
-		draggable: true
-	},
-	{
-		data: { label: "این یک استیت است", isFirstNode: false, },
-		id: "2",
-		position: { x: 300, y: 0 },
-		type: "stateNode",
-		draggable: true
-	},
-	{
-		data: { label: "استیت رندوم", isFirstNode: false, },
-		id: "3",
-		position: { x: 500, y: 0 },
-		type: "stateNode",
-		draggable: true
-	}
-];
 
 const FSM_STATE_WIDTH = 200;
 const FSM_STATE_HEIGHT = 50;
 const FSM_MAP_WIDTH = 600;
 const FSM_MAP_HEIGHT = 800;
+
 
 const _getRandomPosition = () => ({
 	x: Math.floor(Math.random() * FSM_MAP_HEIGHT),
@@ -48,7 +26,7 @@ const _getRandomPosition = () => ({
 });
 
 // Helper function to convert backend type to graph rendering type
-const _convertToGraphNodeType = (backendState) => ({
+const _convertToGraphNodeType = (backendState, firstState) => ({
 	...backendState,
 	id: backendState.id.toString(),
 	position: backendState.position || _getRandomPosition(),
@@ -56,7 +34,7 @@ const _convertToGraphNodeType = (backendState) => ({
 	draggable: true,
 	data: {
 		label: backendState.title,
-		isFirstNode: backendState.order === 0, // Assuming the first state has order 0
+		isFirstNode: backendState.id === firstState
 	}
 });
 
@@ -79,9 +57,27 @@ function CourseMapEditor() {
 	const firstState = fsm?.first_state;
 
 	useEffect(() => {
-		if (initialFsmStates) {
-			const graphStates = initialFsmStates.map(_convertToGraphNodeType);
+		console.log(initialFsmStates);
+		if (initialFsmStates && initialFsmStates.length > 0) {
+			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState)});
 			setFsmStates(graphStates);
+		}
+		else if(initialFsmStates){
+			setFsmStates([{
+				id: "1",
+				position: {
+					x: 0,
+					y: 0,
+					width: FSM_STATE_WIDTH,
+					height: FSM_STATE_HEIGHT,
+				},
+				type: "stateNode",
+				draggable: true,
+				data: {
+					label: "گام اول",
+					isFirstNode: true
+				}
+			}])
 		}
 	}, [initialFsmStates]);
 
