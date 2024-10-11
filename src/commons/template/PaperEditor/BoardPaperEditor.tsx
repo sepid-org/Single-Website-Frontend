@@ -1,109 +1,64 @@
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Rnd } from 'react-rnd';
-import { PositionType } from 'commons/types/widgets/widget';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
-import { toast } from 'react-toastify';
 
 type BoardPaperEditorPropsType = {
   paperId: string;
 }
 
-const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
-  paperId,
-}) => {
+const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
-  const [positions, setPositions] = useState<PositionType[]>(null);
-  const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
+  const [updatePositions] = useUpdatePositionsMutation();
 
-  useEffect(() => {
-    const widgets = paper?.widgets;
-    if (widgets) {
-      // Check if any widget has no position, and if so, assign a random one
-      const updatedPositions = widgets.map((widget) => {
-        const widgetPosition = widget.position;
+  const widgets = useMemo(() => {
+    if (!paper?.widgets) return [];
+    return paper.widgets.map(widget => ({
+      ...widget,
+      position: {
+        x: Math.round(Math.random() * 400),
+        y: Math.round(Math.random() * 400),
+        width: 200,
+        height: 200,
+        widget: widget.id,
+        ...widget.position,
+      }
+    }));
+  }, [paper?.widgets]);
 
-        if (widgetPosition) {
-          return widgetPosition;
-        } else {
-          // Add a random position if no position found for this widget
-          return {
-            x: Math.round(Math.random() * 400),
-            y: Math.round(Math.random() * 400),
-            width: 200,
-            height: 200,
-            widget: widget.id,
-          };
-        }
-      });
+  const handleDragStop = useCallback((id: string, d: { x: number; y: number }) => {
+    updatePositions({
+      positions: widgets.map(widget =>
+        widget.id === id
+          ? { ...widget.position, x: Math.round(d.x), y: Math.round(d.y) }
+          : widget.position
+      ),
+    });
+  }, [widgets, updatePositions]);
 
-      setPositions(updatedPositions);
-    }
-  }, [paper]);
-
-  const handleDragStop = (id, d) => {
-    setPositions((prevPositions) =>
-      prevPositions.map((position) =>
-        position.widget === id ? { ...position, x: Math.round(d.x), y: Math.round(d.y) } : position
-      )
-    );
-  };
-
-  const handleResize = (id, ref, position) => {
-    setPositions((prevPositions) =>
-      prevPositions.map((position) =>
-        position.widget === id
+  const handleResize = useCallback((id: string, ref: HTMLElement, position: { x: number; y: number }) => {
+    updatePositions({
+      positions: widgets.map(widget =>
+        widget.id === id
           ? {
-            ...position,
+            ...widget.position,
             width: Math.round(ref.offsetWidth),
             height: Math.round(ref.offsetHeight),
             x: Math.round(position.x),
             y: Math.round(position.y),
           }
-          : position
-      )
-    );
-  };
-
-  const handleUpdateFSMState = () => {
-    updatePositions({
-      positions,
-    })
-  }
-
-  useEffect(() => {
-    if (isUpdatePositionsSuccess) {
-      toast.success('تغییرات با موفقیت ثبت شدند.');
-    }
-  }, [isUpdatePositionsSuccess])
-
-  const widgetsWithPositions = useMemo(() => {
-    if (!paper || !positions) return [];
-    const widgets = [...paper?.widgets].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
-    return widgets.map(widget => {
-      const position = positions.find(pos => pos.widget === widget.id) || {
-        x: Math.round(Math.random() * 400),
-        y: Math.round(Math.random() * 400),
-        width: 200,
-        height: 200
-      };
-      return {
-        ...widget,
-        ...position
-      };
+          : widget.position
+      ),
     });
-  }, [paper, positions]);
+  }, [widgets, updatePositions]);
 
   return (
     <Stack sx={{ overflow: 'hidden', position: 'relative' }}>
       <Stack spacing={1} padding={2} justifyContent={'space-between'} direction={'row'} position={'absolute'} top={0} right={10} zIndex={100}>
         <CreateWidgetButton paperId={paperId} />
-        <Button variant='contained' onClick={handleUpdateFSMState}>
-          {'ذخیره'}
-        </Button>
       </Stack>
       <Box overflow={'auto'}>
         <div style={{
@@ -112,14 +67,14 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({
           background: '#f0f0f0',
           position: 'relative',
         }}>
-          {widgetsWithPositions?.map((widget) => (
+          {widgets.map((widget) => (
             <Rnd
               key={widget.id}
               default={{
-                x: widget.x,
-                y: widget.y,
-                width: widget.width,
-                height: widget.height,
+                x: widget.position.x,
+                y: widget.position.y,
+                width: widget.position.width,
+                height: widget.position.height,
               }}
               style={{
                 border: 'solid',

@@ -13,13 +13,20 @@ type CreateFSMStateInputType = {
 } & any;
 
 type CreateFSMStateOutputType = {
-
 }
 
 type GetFSMStateOutputType = FSMStateType;
 
 type EdgesOutputType = EdgeType[];
 
+type UpdatePaperOrderInputType = {
+  fsmStateId: string;
+  paperIds: string[];
+};
+
+type UpdatePaperOrderOutputType = {
+  message: string;
+};
 
 export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
@@ -87,6 +94,20 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
       ),
       query: ({ fsmStateId }) => `/fsm/state/${fsmStateId}/inward_edges/`,
     }),
+
+    updatePaperOrder: builder.mutation<UpdatePaperOrderOutputType, UpdatePaperOrderInputType>({
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'fsm-state', id: item.fsmStateId },
+      ]),
+      query: ({ fsmStateId, paperIds }) => ({
+        url: `/fsm/state/${fsmStateId}/update_paper_order/`,
+        method: 'POST',
+        body: { paper_ids: paperIds },
+      }),
+      transformResponse: (response: any): UpdatePaperOrderOutputType => {
+        return response;
+      },
+    }),
   })
 });
 
@@ -97,4 +118,5 @@ export const {
   useDeleteFSMStateMutation,
   useGetFSMStateOutwardEdgesQuery,
   useGetFSMStateInwardEdgesQuery,
+  useUpdatePaperOrderMutation,
 } = FSMStateSlice;
