@@ -7,7 +7,7 @@ import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice
 import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
+} from 'apps/website-display/redux/features/fsm/PlayerSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';

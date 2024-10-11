@@ -3,7 +3,7 @@ import React, { FC, useContext } from 'react';
 import {
   useGoBackwardMutation,
   useMentorMoveBackwardMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
+} from 'apps/website-display/redux/features/fsm/PlayerSlice';
 import { useGetFSMStateInwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 

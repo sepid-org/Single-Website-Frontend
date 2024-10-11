@@ -3,7 +3,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
+} from 'apps/website-display/redux/features/fsm/PlayerSlice';
 import { useFSMContext } from './useFSMContext';
 
 const useChangeState = () => {

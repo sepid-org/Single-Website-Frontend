@@ -14,7 +14,7 @@ import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
   useEnterFSMMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
+} from 'apps/website-display/redux/features/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 
