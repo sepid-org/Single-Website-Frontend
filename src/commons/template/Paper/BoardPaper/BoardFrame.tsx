@@ -1,30 +1,27 @@
-import React, { useState, useEffect, useRef, Fragment, FC, useCallback } from 'react';
+import React, { useState, useEffect, useRef, FC, useCallback, memo } from 'react';
 import { Stack } from '@mui/material';
 
 export type BoardFramePropsType = {
   containerWidth?: number;
   containerHeight?: number;
-  children: any;
+  children: React.ReactNode;
 }
 
-const BoardFrame: FC<BoardFramePropsType> = ({
+const BoardFrame: FC<BoardFramePropsType> = memo(({
   containerWidth = window.innerWidth,
   containerHeight = window.innerHeight,
   children,
 }) => {
-  const boardRef = useRef(null);
-  const containerRef = useRef(null);
-  const appbarRef = useRef(null);
+  const boardRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const appbarRef = useRef<HTMLDivElement>(null);
   const BOARD_HEIGHT = 900;
   const BOARD_WIDTH = 1600;
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
 
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
-      let appbarHeight = 0;
-      if (appbarRef.current) {
-        appbarHeight = appbarRef.current.offsetHeight;
-      }
+      const appbarHeight = appbarRef.current?.offsetHeight || 0;
       const scale = (containerHeight - appbarHeight) / BOARD_HEIGHT;
 
       const scaledWidth = BOARD_WIDTH * scale;
@@ -33,73 +30,65 @@ const BoardFrame: FC<BoardFramePropsType> = ({
       const isScrollNeeded = scaledWidth > containerWidth;
       setIsScrollNeeded(isScrollNeeded);
 
-      boardRef.current.style.height = `${scaledHeight}px`;
-      boardRef.current.style.width = `${scaledWidth}px`;
-      boardRef.current.style.transform = `scale(${scale})`;
-      boardRef.current.style.transformOrigin = 'top left';
+      Object.assign(boardRef.current.style, {
+        height: `${scaledHeight}px`,
+        width: `${scaledWidth}px`,
+        transform: `scale(${scale})`,
+        transformOrigin: 'top left',
+      });
 
-      containerRef.current.style.overflowX = isScrollNeeded ? 'auto' : 'hidden';
-      containerRef.current.style.overflowY = 'hidden';
-      containerRef.current.style.height = `${containerHeight - appbarHeight}px`;
+      Object.assign(containerRef.current.style, {
+        overflowX: isScrollNeeded ? 'auto' : 'hidden',
+        overflowY: 'hidden',
+        height: `${containerHeight - appbarHeight}px`,
+      });
     }
-  }, [boardRef, containerRef, appbarRef, containerHeight, containerWidth]);
-
-  const handleResizeThrottled = useCallback(() => {
-    window.requestAnimationFrame(handleResize);
-  }, [handleResize]);
+  }, [containerHeight, containerWidth]);
 
   useEffect(() => {
-    const resizeObserver = new ResizeObserver(handleResize);
+    const resizeObserver = new ResizeObserver(() => {
+      window.requestAnimationFrame(handleResize);
+    });
 
     if (containerRef.current) {
       resizeObserver.observe(containerRef.current);
     }
-    window.addEventListener('resize', handleResizeThrottled);
 
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        handleResizeThrottled();
+        handleResize();
       }
     };
+
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
-      window.removeEventListener('resize', handleResizeThrottled);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       resizeObserver.disconnect();
     };
-  }, [handleResizeThrottled]);
+  }, [handleResize]);
 
   useEffect(() => {
-    handleResizeThrottled();
-  }, [children])
+    handleResize();
+  }, [children, handleResize]);
 
-
-  const newChildren =
-    <div
-      ref={boardRef}
-      style={{
-        position: 'relative',
-      }}
-    >
+  const newChildren = (
+    <div ref={boardRef} style={{ position: 'relative' }}>
       {children}
     </div>
+  );
 
   return (
-    <Fragment>
-      {isScrollNeeded ?
-        <div ref={containerRef} >
-          {newChildren}
-        </div> :
-        <Stack
-          alignItems={'center'}
-          justifyContent={'center'}
-          ref={containerRef}>
+    <>
+      {isScrollNeeded ? (
+        <div ref={containerRef}>{newChildren}</div>
+      ) : (
+        <Stack alignItems="center" justifyContent="center" ref={containerRef}>
           {newChildren}
         </Stack>
-      }
-    </Fragment>
+      )}
+    </>
   );
-};
+});
 
 export default BoardFrame;

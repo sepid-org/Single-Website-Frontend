@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
@@ -15,18 +15,21 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
-  const widgets = [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
+  const widgets = useMemo(() =>
+    [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order))),
+    [paper?.widgets]
+  );
 
-  const widgetsComponents =
+  const widgetsComponents = useMemo(() =>
     widgets.map((widget, index) => {
-      const objectLogic = objectLogics.find(objectLogic => objectLogic.name === widget.name)
+      const objectLogic = objectLogics.find(objectLogic => objectLogic.name === widget.name);
       return (
         <div
           key={widget.id}
           style={{
             position: 'absolute',
-            left: widget.position?.x !== undefined ? widget.position.x : index * 10,
-            top: widget.position?.y !== undefined ? widget.position?.y : index * 10,
+            left: widget.position?.x ?? index * 10,
+            top: widget.position?.y ?? index * 10,
             width: widget.position?.width || 100,
             height: widget.position?.height || 100,
           }}
@@ -36,14 +39,13 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
               <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
             }
           </ObjectWrapper>
-        </div>)
-    })
-
-  return (
-    <Fragment>
-      {widgetsComponents}
-    </Fragment>
+        </div>
+      );
+    }),
+    [widgets, objectLogics, paperId]
   );
+
+  return <>{widgetsComponents}</>;
 };
 
-export default BoardPaperWidgets;
+export default React.memo(BoardPaperWidgets);
