@@ -5,15 +5,16 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { PaperEditor } from '.';
+import { PaperEditor } from '../Paper';
 import EditHints from '../EditHints';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
-type NormalPaperEditorPropsType = {}
+type NormalStateEditorPropsType = {
+  fsmStateId: string;
+}
 
-const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
-  const { fsmStateId } = useFSMStateContext();
+const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ fsmStateId }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
   const paperId = fsmState.papers[0];
 
@@ -40,4 +41,4 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
   );
 }
 
-export default NormalPaperEditor;
+export default NormalStateEditor;

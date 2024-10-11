@@ -5,11 +5,12 @@ import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersList from './PapersList';
 import BoardPaperEditor from '../PaperEditor/BoardPaperEditor';
 
-type BoardStateEditorPropsType = {}
+type BoardStateEditorPropsType = {
+  fsmStateId: string;
+}
 
-const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ }) => {
+const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
-  const { fsmStateId } = useFSMStateContext();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
   const [currentPaperId, setCurrentPaperId] = useState<string>('');

@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
-import NormalPaperEditor from '../Paper/NormalPaperEditor';
+import NormalStateEditor from './NormalStateEditor';
 import BoardStateEditor from './BoardStateEditor';
 import { Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
@@ -39,8 +39,8 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
-          <NormalPaperEditor /> :
-          <BoardStateEditor />,
+          <NormalStateEditor fsmStateId={fsmStateId} /> :
+          <BoardStateEditor fsmStateId={fsmStateId} />,
     },
   ];
 
