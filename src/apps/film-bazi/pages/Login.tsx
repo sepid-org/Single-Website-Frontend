@@ -59,7 +59,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
         width={440}>
 
         {isUserTokenExpired &&
-          <Typography align='center' variant='h5' color={'error'}>{'نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید.'}</Typography>
+          <Typography align='center' variant='h5' fontWeight={900}>{'نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید.'}</Typography>
         }
 
         <Stack

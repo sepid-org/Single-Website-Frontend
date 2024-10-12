@@ -23,11 +23,11 @@ const handleError = ({
       // todo: TOF
       if (window.location.pathname.includes('filmbazi')) {
         window.location.href = '/program/filmbazi/token-expiration/';
-      }
-      if (window.location.pathname.includes('ashbaria')) {
+      } else if (window.location.pathname.includes('ashbaria')) {
         window.location.href = '/program/ashbaria/token-expiration/';
+      } else {
+        window.location.href = '/token-expiration/';
       }
-      window.location.href = '/token-expiration/';
       dispatch({ type: 'account/logout' });
       return;
     }
