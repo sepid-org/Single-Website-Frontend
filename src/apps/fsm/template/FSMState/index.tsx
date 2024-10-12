@@ -32,7 +32,6 @@ const FSMState: FC<FSMStatePropsType> = ({
   return (
     <FSMStateProvider
       fsmStateId={fsmStateId}
-      fsmState={fsmState}
       isMentor={isMentor}
       teamId={teamId}
       playerId={player?.id}

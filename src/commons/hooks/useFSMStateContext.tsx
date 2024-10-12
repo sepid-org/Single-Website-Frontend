@@ -3,7 +3,6 @@ import React, { createContext, FC, useContext, ReactNode } from 'react';
 
 interface FSMStateContextType {
   fsmStateId: string;
-  fsmState: FSMStateType
   isMentor?: boolean;
   teamId?: string;
   playerId?: string;

@@ -58,7 +58,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
           <Tab key={tab.slug} label={tab.label} />
         )}
       </Tabs>
-      <FSMStateProvider fsmStateId={fsmStateId} fsmState={fsmState}>
+      <FSMStateProvider fsmStateId={fsmStateId}>
         {selectedTab.component}
       </FSMStateProvider>
     </Fragment>
