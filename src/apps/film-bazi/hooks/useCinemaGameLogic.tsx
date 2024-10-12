@@ -94,7 +94,7 @@ const useCinemaGameLogic = ({
             <CustomDialogContent
               image={<GraySeatAnnouncement />}
               title={'فرصت‌های انتخاب صندلیت تموم شده'}
-              message={'برای به‌دست‌آوردن فرصت جدید، باید کدهای تخفیفت رو بین دوستات پخش کنی'}
+              message={'برای به‌دست‌آوردن فرصت جدید، باید کد تخفیفت رو به دوستات بدی'}
               onClick={() => {
                 dialogService.close();
               }}
@@ -120,7 +120,7 @@ const useCinemaGameLogic = ({
             component:
               <CustomDialogContent
                 image={<GraySeatAnnouncement />}
-                title={`آیا از انتخاب صندلی شماره ${toPersianNumber(seatIndex)} مطمئن هستید؟`}
+                title={`آیا از انتخاب صندلی شماره ${toPersianNumber(seatIndex)} مطمئن هستی؟`}
                 onClickTitle={'آره مطمئنم'}
                 onClick={() => {
                   dialogService.close();
