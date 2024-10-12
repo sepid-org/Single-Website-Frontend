@@ -1,24 +1,24 @@
 import React, { FC } from 'react';
 import BoardPaperWidgets from 'commons/template/Paper/BoardPaper/BoardPaperWidgets';
 import BoardFrame from 'commons/template/Paper/BoardPaper/BoardFrame';
-import { ObjectLogicType } from 'commons/types/models';
+import { ComplementaryObjectType } from 'commons/types/models';
 
 export type BoardFSMStatePropsType = {
   paperIds: string[];
   containerHeight?: number;
-  objectLogics?: ObjectLogicType[];
+  complementaryObjects?: ComplementaryObjectType[];
 };
 
 const BoardPaper: FC<BoardFSMStatePropsType> = ({
   paperIds,
   containerHeight,
-  objectLogics,
+  complementaryObjects,
 }) => {
 
   return (
     <BoardFrame containerHeight={containerHeight}>
       {paperIds.map(paperId => (
-        <BoardPaperWidgets key={paperId} objectLogics={objectLogics} paperId={paperId} />
+        <BoardPaperWidgets key={paperId} complementaryObjects={complementaryObjects} paperId={paperId} />
       ))}
     </BoardFrame>
   );

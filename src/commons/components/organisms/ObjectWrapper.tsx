@@ -1,27 +1,28 @@
 import { Box } from "@mui/material";
-import { ObjectLogicType, ObjectType } from "commons/types/models";
+import { ComplementaryObjectType, ObjectType } from "commons/types/models";
 import React, { FC, ReactNode } from "react";
 
 type ObjectWrapperPropsType = {
-  logic: ObjectLogicType;
+  complementaryObject: ComplementaryObjectType;
   children: ReactNode;
 }
 
 const ObjectWrapper: FC<ObjectWrapperPropsType> = ({
-  logic,
+  complementaryObject,
   children,
 }) => {
+  const logics = complementaryObject.logics;
 
   return (
     <Box
       sx={{
         height: '100%',
         width: '100%',
-        ...logic?.sx
+        ...complementaryObject?.sx
       }}
-      onClick={logic?.onClick}
-      onMouseEnter={logic?.onMouseEnter}
-      onMouseLeave={logic?.onMouseLeave}
+      onClick={logics?.onClick}
+      onMouseEnter={logics?.onMouseEnter}
+      onMouseLeave={logics?.onMouseLeave}
     >
       {children}
     </Box>

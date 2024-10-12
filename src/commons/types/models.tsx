@@ -322,12 +322,14 @@ export type ObjectType = {
   widget?: string;
 }
 
-export type ObjectLogicType = {
+export type ComplementaryObjectType = {
   title?: string;
   name: string;
-  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  logics?: {
+    onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+    onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  }
   sx?: any;
   substituteComponent?: any;
 }

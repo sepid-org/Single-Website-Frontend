@@ -1,5 +1,5 @@
 import React from "react";
-import { ObjectLogicType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/models";
 import { useSeatInfo } from "./useSeatInfo";
 import { useSelectSeat } from "./useSelectSeat";
 import useGetSeatSelections from "./useGetSeatSelections";
@@ -108,7 +108,7 @@ const useCinemaGameLogic = ({
   const createSeat = (seatIndex: number) => {
     const seatName = `filmbazi-level1-seat${seatIndex}`;
     const fullSeatName = `filmbazi-level1-fullseat${seatIndex}`;
-    const seatAndItsFullSeat: ObjectLogicType[] = [
+    const seatAndItsFullSeat: ComplementaryObjectType[] = [
       {
         ...common,
         title: `صندلی شماره ${seatIndex}`,
@@ -116,19 +116,21 @@ const useCinemaGameLogic = ({
         sx: {
           display: isSeatSelected(seatName) ? 'none' : null,
         },
-        onClick: (e) => {
-          dialogService.open({
-            component:
-              <CustomDialogContent
-                image={<GraySeatAnnouncement />}
-                title={`آیا از انتخاب صندلی شماره ${toPersianNumber(seatIndex)} مطمئن هستی؟`}
-                onClickTitle={'آره مطمئنم'}
-                onClick={() => {
-                  dialogService.close();
-                  selectSeat(seatName);
-                }}
-              />
-          })
+        logics: {
+          onClick: (e) => {
+            dialogService.open({
+              component:
+                <CustomDialogContent
+                  image={<GraySeatAnnouncement />}
+                  title={`آیا از انتخاب صندلی شماره ${toPersianNumber(seatIndex)} مطمئن هستی؟`}
+                  onClickTitle={'آره مطمئنم'}
+                  onClick={() => {
+                    dialogService.close();
+                    selectSeat(seatName);
+                  }}
+                />
+            })
+          }
         }
       },
       {
@@ -136,34 +138,36 @@ const useCinemaGameLogic = ({
         sx: {
           display: isSeatSelected(seatName) ? null : 'none',
         },
-        onClick: () => {
-          dialogService.open({
-            component:
-              <CustomDialogContent
-                image={<RedSeatAnnouncement />}
-                title={'شما قبلاً این صندلی را انتخاب کرده‌اید'}
-                onClick={() => {
-                  dialogService.close();
-                }}
-              />
-          })
+        logics: {
+          onClick: () => {
+            dialogService.open({
+              component:
+                <CustomDialogContent
+                  image={<RedSeatAnnouncement />}
+                  title={'شما قبلاً این صندلی را انتخاب کرده‌اید'}
+                  onClick={() => {
+                    dialogService.close();
+                  }}
+                />
+            })
+          }
         }
       }
     ];
     return seatAndItsFullSeat;
   }
 
-  const myScoreBadge: ObjectLogicType = {
+  const myScoreBadge: ComplementaryObjectType = {
     name: 'filmbazi-my-score-badge',
     substituteComponent: <MyScoresBadge />
   }
 
-  const myChancesBadge: ObjectLogicType = {
+  const myChancesBadge: ComplementaryObjectType = {
     name: 'filmbazi-my-chances-badge',
     substituteComponent: <MyChancesBadge />
   }
 
-  const returnToDashboardButton: ObjectLogicType = {
+  const returnToDashboardButton: ComplementaryObjectType = {
     name: 'filmbazi-return-to-dashboard-button',
     substituteComponent:
       <Button
@@ -176,11 +180,11 @@ const useCinemaGameLogic = ({
       </Button>
   }
 
-  const seats: ObjectLogicType[] = [];
+  const seats: ComplementaryObjectType[] = [];
   [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].forEach(index => seats.push(...createSeat(index)))
 
   return {
-    objectLogics: [
+    complementaryObjects: [
       ...seats,
       myScoreBadge,
       myChancesBadge,
