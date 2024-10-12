@@ -11,8 +11,9 @@ import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 import { Button } from "@mui/material";
-import MyScoreBadge from "../components/atoms/buttons/MyScoreBadge";
+import MyScoresBadge from "../components/atoms/MyScoresBadge";
 import useLocalNavigate from "./useLocalNavigate";
+import MyChancesBadge from "../components/atoms/MyChancesBadge";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -154,7 +155,12 @@ const useCinemaGameLogic = ({
 
   const myScoreBadge: ObjectLogicType = {
     name: 'filmbazi-my-score-badge',
-    substituteComponent: <MyScoreBadge />
+    substituteComponent: <MyScoresBadge />
+  }
+
+  const myChancesBadge: ObjectLogicType = {
+    name: 'filmbazi-my-chances-badge',
+    substituteComponent: <MyChancesBadge />
   }
 
   const returnToDashboardButton: ObjectLogicType = {
@@ -177,6 +183,7 @@ const useCinemaGameLogic = ({
     objectLogics: [
       ...seats,
       myScoreBadge,
+      myChancesBadge,
       returnToDashboardButton,
     ]
   }

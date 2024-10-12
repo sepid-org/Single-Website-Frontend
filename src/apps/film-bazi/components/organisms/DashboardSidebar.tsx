@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import ProgramContactInfo from 'commons/components/molecules/ProgramContactInfo';
 import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import MyScoreBadge from '../atoms/buttons/MyScoreBadge';
+import MyScoresBadge from '../atoms/MyScoresBadge';
 import DashboardButton from '../atoms/buttons/DashboardButton';
 import RankingIcon from '../atoms/icons/RankingIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
@@ -29,7 +29,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       </Stack>
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
-        <MyScoreBadge />
+        <MyScoresBadge />
         <DashboardButton2 label='بازی سینما' icon={<CupIcon />} onClick={() => { localNavigate(`/cinema-game/`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {programPermissions?.is_manager &&

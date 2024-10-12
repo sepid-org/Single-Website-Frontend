@@ -4,7 +4,7 @@ import {
 } from '@mui/material';
 import React, { FC } from 'react';
 import useGetMyDiscountCodes from 'apps/film-bazi/hooks/useGetMyDiscountCodes';
-import MyScoreBadge from '../atoms/buttons/MyScoreBadge';
+import MyScoresBadge from '../atoms/MyScoresBadge';
 import DiscountCodeInfo from '../organisms/DiscountCodeInfoCard';
 import MyRankBadge from '../atoms/buttons/MyRankBadge';
 
@@ -19,7 +19,7 @@ const MyAssets: FC<MyAssetsPropsType> = ({ }) => {
         <Typography variant="h2" gutterBottom>دارایی‌ها</Typography>
       </Grid>
       <Grid xs={12} sm={6} item>
-        <MyScoreBadge />
+        <MyScoresBadge />
       </Grid>
       <Grid xs={12} sm={6} item>
         <MyRankBadge />
