@@ -20,6 +20,13 @@ const handleError = ({
 
   if (error.data?.code) {
     if (['user_not_found', 'token_not_valid'].includes(error.data.code)) {
+      // todo: TOF
+      if (window.location.pathname.includes('filmbazi')) {
+        window.location.href = '/program/filmbazi/token-expiration/';
+      }
+      if (window.location.pathname.includes('ashbaria')) {
+        window.location.href = '/program/ashbaria/token-expiration/';
+      }
       window.location.href = '/token-expiration/';
       dispatch({ type: 'account/logout' });
       return;
