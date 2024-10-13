@@ -35,20 +35,6 @@ const ChoiceEdit: FC<ChoiceEditPropsType> = ({
                 }
               />
             </Tooltip>
-            <Tooltip title='انتخاب به‌عنوان تمام‌کننده دادگاه' arrow>
-              <Checkbox
-                size='small'
-                checked={choice.is_finisher}
-                onChange={
-                  (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setChoice({
-                      ...choice,
-                      is_finisher: event.target.checked
-                    })
-                  }
-                }
-              />
-            </Tooltip>
           </InputAdornment>,
         endAdornment:
           <InputAdornment position='end'>
