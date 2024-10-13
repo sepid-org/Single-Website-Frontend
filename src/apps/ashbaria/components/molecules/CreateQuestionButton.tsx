@@ -1,6 +1,6 @@
 import { Button, Dialog, Typography } from "@mui/material";
 import React, { FC, Fragment, useState } from "react";
-import QuestionWidgetEditor from "../organisms/QuestionWidgetEditor";
+import QuestionEditor from "../organisms/QuestionEditor";
 
 type CreateQuestionButtonPropsType = {}
 
@@ -18,7 +18,7 @@ const CreateQuestionButton: FC<CreateQuestionButtonPropsType> = () => {
         open={openDialog}
         onClose={() => setOpenDialog(false)}
       >
-        <QuestionWidgetEditor onClose={() => setOpenDialog(false)} />
+        <QuestionEditor onClose={() => setOpenDialog(false)} />
       </Dialog>
     </Fragment>
   )

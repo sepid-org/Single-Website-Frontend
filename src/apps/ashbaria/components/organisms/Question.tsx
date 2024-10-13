@@ -10,10 +10,10 @@ import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import QuestionWidgetEditor from './QuestionWidgetEditor';
-export { QuestionWidgetEditor as MultiChoiceQuestionEditWidget };
+import QuestionEditor from './QuestionEditor';
+export { QuestionEditor as MultiChoiceQuestionEditWidget };
 
-type QuestionWidgetPropsType = {
+type QuestionPropsType = {
   onAnswerSubmit: any;
   onAnswerChange: any;
   id: string;
@@ -24,7 +24,7 @@ type QuestionWidgetPropsType = {
   submittedAnswer: AnswerType;
 } & QuestionWidgetType;
 
-const QuestionWidget: FC<QuestionWidgetPropsType> = ({
+const Question: FC<QuestionPropsType> = ({
   onAnswerSubmit,
   onAnswerChange,
 
@@ -109,4 +109,4 @@ const QuestionWidget: FC<QuestionWidgetPropsType> = ({
   );
 };
 
-export default QuestionWidget;
+export default Question;

@@ -41,6 +41,9 @@ export const tagTypes = [
   'team-invitations',
   'Position',
   'user-specific-data',
+  // Ashbaria
+  'question',
+  'questions',
 ]
 
 // Define a type for the tag types used in your app

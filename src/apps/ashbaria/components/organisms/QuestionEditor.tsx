@@ -17,12 +17,12 @@ import { useCreateQuestionMutation, useGetQuestionByIdQuery, useUpdateQuestionMu
 import { QuestionType } from 'apps/ashbaria/types';
 import ChoiceEditor from '../molecules/choice/ChoiceEdit';
 
-type QuestionWidgetEditorPropsType = {
+type QuestionEditorPropsType = {
   id?: number;
   onClose: any;
 }
 
-const QuestionWidgetEditor: FC<QuestionWidgetEditorPropsType> = ({
+const QuestionEditor: FC<QuestionEditorPropsType> = ({
   id,
   onClose,
 }) => {
@@ -31,12 +31,18 @@ const QuestionWidgetEditor: FC<QuestionWidgetEditorPropsType> = ({
   const [createQuestion, createResult] = useCreateQuestionMutation();
   const { programSlug } = useParams();
   const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 });
-  const [question, setQuestion] = useState<QuestionType>(initialQuestion || {
+  const [question, setQuestion] = useState<QuestionType>({
     name: '',
     choices: [],
     court: 1,
     maximum_choices_could_be_selected: 1,
   });
+
+  useEffect(() => {
+    if (initialQuestion) {
+      setQuestion(initialQuestion);
+    }
+  }, [initialQuestion])
 
   const addNewChoice = () => {
     setQuestion({
@@ -152,7 +158,7 @@ const QuestionWidgetEditor: FC<QuestionWidgetEditorPropsType> = ({
         inputProps={{ min: 1, max: question.choices.length, step: 1 }}
         value={question.maximum_choices_could_be_selected}
       />
-      <Stack direction={'row'} justifyContent={'end'}>
+      <Stack direction={'row'} justifyContent={'end'} spacing={1}>
         <Button onClick={onClose} color="primary" variant="outlined">
           {'انصراف'}
         </Button>
@@ -164,4 +170,4 @@ const QuestionWidgetEditor: FC<QuestionWidgetEditorPropsType> = ({
   );
 }
 
-export default QuestionWidgetEditor;
+export default QuestionEditor;
