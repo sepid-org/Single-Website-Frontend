@@ -317,9 +317,7 @@ export type ObjectType = {
   name: string;
   title: string;
   position: PositionType;
-
   order: string;
-  widget?: string;
 }
 
 export type ComplementaryObjectType = {

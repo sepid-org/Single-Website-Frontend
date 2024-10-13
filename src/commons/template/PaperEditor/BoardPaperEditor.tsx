@@ -23,7 +23,6 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
         y: Math.round(Math.random() * 400),
         width: 200,
         height: 200,
-        widget: widget.id,
         ...widget.position,
       }
     }));

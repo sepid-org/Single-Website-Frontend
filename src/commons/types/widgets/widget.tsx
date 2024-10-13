@@ -14,15 +14,11 @@ export type WidgetTypes =
   'UploadFileProblem';
 
 export type PositionType = {
+  id: string;
   x: number;
   y: number;
   width: number;
   height: number;
-  state?: string;
-  widget?: string;
-  fsm?: string;
-  edge?: string;
-  paper?: string;
 }
 
 export type WidgetType = ObjectType & {
