@@ -3,12 +3,14 @@ import allReducers from 'apps/website-display/redux/slices/allReducers';
 import { PartyManagementServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
 import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
+import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApiSlice';
 
 const appReducer = combineReducers({
   ...allReducers,
   [PartyManagementServiceApi.reducerPath]: PartyManagementServiceApi.reducer,
   [ContentManagementServiceApi.reducerPath]: ContentManagementServiceApi.reducer,
   [WebsiteManagementServiceApi.reducerPath]: WebsiteManagementServiceApi.reducer,
+  [AshbariaApi.reducerPath]: AshbariaApi.reducer,
 });
 
 export default appReducer;
