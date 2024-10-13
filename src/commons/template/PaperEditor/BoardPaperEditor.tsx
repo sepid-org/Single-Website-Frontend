@@ -80,7 +80,6 @@ const BoardPaperEditor: FC<BoardPaperEditorPropsType> = ({ paperId }) => {
                 border: 'solid',
                 userSelect: 'none',
               }}
-              bounds="parent"
               onDragStop={(e, d) => handleDragStop(widget.id, d)}
               onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
               enableUserSelectHack={false}
