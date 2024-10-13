@@ -1,3 +1,4 @@
+import React, { FC, useEffect, useState } from 'react';
 import {
   Button,
   IconButton,
@@ -8,7 +9,6 @@ import {
 import {
   AddCircle as AddCircleIcon,
 } from '@mui/icons-material';
-import React, { FC, useEffect, useState } from 'react';
 
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
@@ -106,7 +106,6 @@ const QuestionEditor: FC<QuestionEditorPropsType> = ({
         value={question.name}
         helperText={'از این نام برای اتصال به صفحه‌ی طراحی استفاده می‌شود.'}
       />
-
       <Stack width={'100%'}>
         <Typography gutterBottom>
           {'گزینه‌ها:'}
@@ -132,7 +131,6 @@ const QuestionEditor: FC<QuestionEditorPropsType> = ({
           <AddCircleIcon fontSize='large' />
         </IconButton>
       </Stack>
-
       <TextField
         label='حداکثر تعداد گزینه‌هایی که کاربر می‌تواند انتخاب کند'
         variant='outlined'

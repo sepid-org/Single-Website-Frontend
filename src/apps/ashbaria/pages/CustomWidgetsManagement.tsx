@@ -26,7 +26,9 @@ const CustomWidgetsManagement: FC<CustomWidgetsManagementPropsType> = ({ }) => {
       </Stack>
 
       <SimpleTable
+        hideRowNumbersColumn
         headers={[
+          { name: 'id', label: 'شناسه' },
           { name: 'name', label: 'نام سوال' },
           { name: 'court', label: 'دادگاه' },
           { name: 'activities', label: 'عملیات' },

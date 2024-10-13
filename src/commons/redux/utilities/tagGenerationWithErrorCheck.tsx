@@ -44,6 +44,7 @@ export const tagTypes = [
   // Ashbaria
   'question',
   'questions',
+  'Scenarios',
 ]
 
 // Define a type for the tag types used in your app
