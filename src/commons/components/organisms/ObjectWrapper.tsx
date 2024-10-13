@@ -11,7 +11,7 @@ const ObjectWrapper: FC<ObjectWrapperPropsType> = ({
   complementaryObject,
   children,
 }) => {
-  const logics = complementaryObject.logics;
+  const logics = complementaryObject?.logics;
 
   return (
     <Box
