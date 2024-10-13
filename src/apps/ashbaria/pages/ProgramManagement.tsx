@@ -43,7 +43,7 @@ const tabs: DashboardTabType[] = [
   },
   {
     slug: 'fsms',
-    label: 'دادگاه‌ها',
+    label: 'کارگاه‌ها',
     icon: AccountBalanceIcon,
     component: <FSMs />,
   },
