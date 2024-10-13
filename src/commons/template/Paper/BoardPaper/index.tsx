@@ -19,8 +19,8 @@ const BoardPaper: FC<BoardFSMStatePropsType> = ({
   const { complementaryObjects } = useCustomWidgets();
 
   const combinedComplementaryObjects = [
-    ...initialComplementaryObjects,
-    ...complementaryObjects,
+    ...(initialComplementaryObjects || []),
+    ...(complementaryObjects || []),
   ]
 
   return (
