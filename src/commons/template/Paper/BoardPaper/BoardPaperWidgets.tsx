@@ -17,10 +17,7 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
-  const widgets = useMemo(() =>
-    [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order))),
-    [paper?.widgets]
-  );
+  const widgets = paper?.widgets || [];
 
   const widgetsComponents = useMemo(() =>
     widgets.map((widget, index) => {
