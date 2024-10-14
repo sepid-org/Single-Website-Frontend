@@ -43,7 +43,9 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   }
 
   const onChoiceSelect = (choice) => {
-    if (mode === WidgetModes.Edit) return;
+    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
+      return;
+    }
     if (maximumChoicesCouldBeChosen === 1) {
       setSelectedChoices([choice])
       if (mode === WidgetModes.View) {

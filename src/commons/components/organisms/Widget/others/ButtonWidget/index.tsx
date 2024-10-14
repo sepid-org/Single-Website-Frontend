@@ -25,7 +25,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const { changeState } = useChangeState();
 
   const handleClick = () => {
-    if (mode === WidgetModes.Edit) {
+    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
     if (edges_to_destination_states.length === 1) {
