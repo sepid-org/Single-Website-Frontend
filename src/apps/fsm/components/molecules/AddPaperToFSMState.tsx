@@ -1,7 +1,7 @@
 import { IconButton, Stack, Typography, Paper, TextField, Button } from "@mui/material";
 import React, { FC, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { toPersianNumber } from "commons/utils/translateNumber";
+import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useAddPaperToFSMStateMutation } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 
 type AddPaperToFSMStatePropsType = {
@@ -18,7 +18,7 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
     }
     addPaperToFSMState({
       fsmStateId,
-      paperId,
+      paperId: toEnglishNumber(paperId),
     })
   }
 
@@ -28,6 +28,7 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
         size='small'
         fullWidth
         label='شماره لایه'
+        value={paperId}
         onChange={(e) => setPaperId(e.target.value)}
       />
       <Button variant='contained' onClick={handleAddPaperToFSMState}>
