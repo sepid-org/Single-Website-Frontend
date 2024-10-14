@@ -13,6 +13,9 @@ const CollapseWidgetEditMenu = ({
 
   const openMenu = () => {
     setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    }, 5000)
   }
 
   const closeMenu = () => {
