@@ -3,6 +3,7 @@ import BoardPaperWidgets from 'commons/template/Paper/BoardPaper/BoardPaperWidge
 import BoardFrame from 'commons/template/Paper/BoardPaper/BoardFrame';
 import { ComplementaryObjectType } from 'commons/types/models';
 import useCustomWidgets from 'commons/hooks/useCustomWidgets';
+import { WidgetModes } from 'commons/components/organisms/Widget';
 
 export type BoardFSMStatePropsType = {
   paperIds: string[];
@@ -26,7 +27,7 @@ const BoardPaper: FC<BoardFSMStatePropsType> = ({
   return (
     <BoardFrame containerHeight={containerHeight}>
       {paperIds.slice().reverse().map(paperId => (
-        <BoardPaperWidgets key={paperId} complementaryObjects={combinedComplementaryObjects} paperId={paperId} />
+        <BoardPaperWidgets key={paperId} complementaryObjects={combinedComplementaryObjects} paperId={paperId} mode={WidgetModes.View} />
       ))}
     </BoardFrame>
   );

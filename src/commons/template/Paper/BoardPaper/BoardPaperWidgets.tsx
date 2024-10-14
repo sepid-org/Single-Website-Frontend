@@ -7,11 +7,13 @@ import { ComplementaryObjectType } from 'commons/types/models';
 export type BoardPaperWidgetsPropsType = {
   paperId: string;
   complementaryObjects?: ComplementaryObjectType[];
+  mode: WidgetModes;
 }
 
 const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
   paperId,
   complementaryObjects = [],
+  mode,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
@@ -36,7 +38,7 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
         >
           <ObjectWrapper complementaryObject={complementaryObject}>
             {complementaryObject?.substituteComponent ||
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />}
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={mode} />}
           </ObjectWrapper>
         </div>
       );
