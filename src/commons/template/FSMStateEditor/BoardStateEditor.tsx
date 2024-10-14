@@ -37,7 +37,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
       </Grid>
       <Grid item md={10}>
         {currentPaperId &&
-          <BoardPaperEditor paperId={currentPaperId} backgroundPaperIds={fsmState.papers.filter(paperId => paperId !== currentPaperId)} />
+          <BoardPaperEditor paperId={currentPaperId} backgroundPaperIds={fsmState.papers.slice(-1)} />
         }
       </Grid>
     </Grid>

@@ -136,8 +136,8 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
             background: '#f0f0f0',
           }}
         />
-        {backgroundPaperIds.map(backgroundPaperId =>
-          <BoardPaperWidgets paperId={backgroundPaperId} />
+        {backgroundPaperIds.slice().reverse().map(backgroundPaperId =>
+          <BoardPaperWidgets key={backgroundPaperId} paperId={backgroundPaperId} />
         )}
         {widgets.map((widget) => (
           <Rnd
