@@ -169,6 +169,9 @@ export type FSMStateType = ObjectType & {
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;
+  type: string;
+  draggable: boolean;
+  data: Object;
 };
 export type FSMEdgeType = any;
 export type Answer = any
