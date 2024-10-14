@@ -1,15 +1,12 @@
 import {
   Button,
-  Divider,
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   Stack,
   TextField,
   FormLabel,
-  Typography,
   Autocomplete,
 } from '@mui/material';
 import React, { useState } from 'react';
@@ -20,6 +17,8 @@ import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useParams } from 'react-router-dom';
 
 const ButtonWidgetEditor = ({
   onMutate,
@@ -31,6 +30,7 @@ const ButtonWidgetEditor = ({
   ...widgetProps
 }) => {
   const t = useTranslate();
+  const { fsmId } = useParams();
   const { fsmStateId } = useFSMStateContext();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
@@ -39,6 +39,7 @@ const ButtonWidgetEditor = ({
     edges_to_destination_states: widgetProps.edges_to_destination_states || [],
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
+  const { data: fsmStates } = useGetFSMStatesQuery({ fsmId });
   const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId });
 
   const handleClick = () => {
