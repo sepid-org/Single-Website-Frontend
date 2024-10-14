@@ -23,6 +23,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
   const handleDragStop = useCallback((id, d) => {
     const updatedWidget = widgets.find(widget => widget.id === id);
     updatePositions({
+      paperId,
       positions: [
         {
           ...updatedWidget.position,
@@ -36,6 +37,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
   const handleResize = useCallback((id, ref, position) => {
     const updatedWidget = widgets.find(widget => widget.id === id);
     updatePositions({
+      paperId,
       positions: [{
         ...updatedWidget.position,
         width: Math.round(ref.offsetWidth),

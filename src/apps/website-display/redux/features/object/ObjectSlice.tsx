@@ -3,13 +3,17 @@ import { ContentManagementServiceApi } from "../ManageContentServiceApiSlice";
 
 
 interface UpdatePositionsRequest {
+  paperId: string;
   positions: PositionType[];
 }
 
 export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     updatePositions: builder.mutation<void, UpdatePositionsRequest>({
-      invalidatesTags: [{ type: 'Position', id: 'LIST' }, 'paper'],
+      invalidatesTags: (result, error, item) => [
+        { type: 'Position', id: 'LIST' },
+        { type: 'paper', id: item.paperId }
+      ],
       query: ({ positions }) => ({
         url: '/fsm/objects/update-positions/',
         method: 'POST',
