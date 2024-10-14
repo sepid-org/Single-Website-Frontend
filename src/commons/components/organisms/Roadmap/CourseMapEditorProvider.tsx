@@ -10,6 +10,8 @@ import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/
 import { useParams } from 'react-router-dom';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import { EdgeType, FSMStateType } from 'commons/types/models';
+import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
+import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
 
 const FSM_STATE_WIDTH = 200;
@@ -34,7 +36,7 @@ const _convertToGraphNodeType = (backendState, firstState) => ({
 	draggable: true,
 	data: {
 		label: backendState.title,
-		isFirstNode: backendState.id === firstState
+		isFirstNode: (backendState.id === firstState)
 	}
 });
 
@@ -47,44 +49,63 @@ const _convertToBackendStateType = (graphState) => ({
 	// Preserve other backend properties
 });
 
+const _convertToGraphEdgeType = (backendEdge, nodes) => ({
+	...backendEdge,
+	id: backendEdge.id.toString(),
+	source: nodes.filter(node => { return (node.data.label === backendEdge.head.title) })[0].id,
+	target: nodes.filter(node => { return (node.data.label === backendEdge.tail.title) })[0].id,
+	type: 'floating',
+	markerEnd: { type: MarkerType.Arrow, color: "black" },
+	sourceHandle: "top-source",
+	targetHandle: "top-target",
+});
+
+const _convertToBackendEdgeType = (graphEdge, nodes) => ({
+	attributes: [],
+	created_at: Date.now(), 
+	head: parseInt(graphEdge.source),
+	id: graphEdge.id,
+	is_back_enabled: true,
+	is_hidden: false,
+	is_private: true,
+	is_visible: true,
+	name: null,
+	order: 0,
+	position: null,
+	tail: parseInt(graphEdge.target),
+	text: null,
+	title: "Edge-" + graphEdge.id,
+	updated_at: Date.now(),
+	website: null
+});
+
 function CourseMapEditor() {
+	const [createFSMEdge] = useCreateFSMEdgeMutation();
+    //const [updateFSMEdge] = useUpdateFSMEdgeMutation();
+	const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
 	const { fsmId } = useParams();
 	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
-	const [fsmEdges, setFSMEdges] = useState<Partial<EdgeType>[]>(initialFsmEdges);
+	const [fsmEdges, setFSMEdges] = useState<Partial<EdgeType>[]>([]);
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const firstState = fsm?.first_state;
+	const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
 
 	useEffect(() => {
-		console.log(initialFsmStates);
-		if (initialFsmStates && initialFsmStates.length > 0) {
-			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState)});
+		if (initialFsmStates && initialFsmStates.length > 0 && firstState) {
+			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState) });
 			setFsmStates(graphStates);
 		}
-		else if(initialFsmStates){
-			setFsmStates([{
-				id: "1",
-				position: {
-					x: 0,
-					y: 0,
-					width: FSM_STATE_WIDTH,
-					height: FSM_STATE_HEIGHT,
-				},
-				type: "stateNode",
-				draggable: true,
-				data: {
-					label: "گام اول",
-					isFirstNode: true
-				}
-			}])
-		}
-	}, [initialFsmStates]);
+	}, [initialFsmStates, firstState]);
 
-	const updateFsmStates = (newStates) => {
-		const backendStates = newStates?.map(_convertToBackendStateType);
-		setFsmStates(backendStates);
-	}
+	useEffect(() => {
+		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
+			const graphEdges = initialFsmEdges.map((edge) => { return _convertToGraphEdgeType(edge, fsmStates) });
+			setFSMEdges(graphEdges);
+		}
+		console.log(initialFsmEdges);
+	}, [initialFsmEdges, fsmStates])
 
 	return (
 		<Container
@@ -94,7 +115,15 @@ function CourseMapEditor() {
 			}}
 			maxWidth={false}
 		>
-			<FlowCanva nodes={fsmStates} setNodes={updateFsmStates} edges={[]} setEdges={setFSMEdges} />
+			<FlowCanva 
+				nodes={fsmStates} 
+				setNodes={setFsmStates} 
+				edges={fsmEdges} 
+				setEdges={setFSMEdges} 
+				updatePositions={updatePositions} 
+				createFSMEdge={createFSMEdge} 
+				deleteFSMEdge={deleteFSMEdge}
+			/>
 			<Grid
 				container
 				spacing={2}
@@ -118,9 +147,11 @@ function CourseMapEditor() {
 	);
 }
 
-function FlowCanva({ nodes, setNodes, edges, setEdges }) {
+function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFSMEdge, deleteFSMEdge }) {
 
-	const onNodesChange = (changes) => setNodes(applyNodeChanges(changes, nodes))
+	const onNodesChange = (changes) => {
+		setNodes(applyNodeChanges(changes, nodes));
+	}
 
 	const onConnect = useCallback(
 		((connection) => {
@@ -132,6 +163,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 			}
 			const newEdge = { ...connection, type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" } };
 			setEdges((eds) => addEdge(newEdge, eds));
+			createFSMEdge(_convertToBackendEdgeType(newEdge,nodes));
 		}),
 		[edges, setEdges],
 	);
@@ -147,7 +179,15 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 		);
 	};
 	const avoidOverlap = (newNode, nodes) => {
-		let adjustedNode = { ...newNode };
+		newNode.position.x = Math.floor(newNode.position.x);
+		newNode.position.y = Math.floor(newNode.position.y);
+		let adjustedNode = { 
+			...newNode,
+			position:{
+				...(dragStartPosition.current as any),
+				...newNode.position,
+			}
+		};
 
 		for (const node of nodes) {
 			if (node.id != newNode.id && isOverlapping(newNode, node)) {
@@ -160,6 +200,9 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 		(event, node) => {
 			const newNodes = nodes.map((n) => (n.id === node.id ? avoidOverlap(node, nodes) : n));
 			setNodes(newNodes);
+			updatePositions({
+				positions: newNodes.map(node => node.position)
+			});
 		},
 		[nodes]
 	);
@@ -173,6 +216,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 		event.preventDefault();
 		if (window.confirm('آیا می‌خواهید یال را خذف کنید؟')) {
 			setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+			deleteFSMEdge({ fsmEdgeId: edge.id });
 		}
 	};
 
