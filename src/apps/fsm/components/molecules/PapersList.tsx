@@ -88,7 +88,6 @@ const PapersList: FC<PapersListPropsType> = ({
               {...provided.droppableProps}
               ref={provided.innerRef}
               style={{
-                width: 300,
                 padding: 8,
               }}
             >
@@ -102,10 +101,11 @@ const PapersList: FC<PapersListPropsType> = ({
                         {...provided.dragHandleProps}
                         style={getItemStyle(
                           snapshot.isDragging,
-                          provided.draggableProps.style
+                          provided.draggableProps.style,
                         )}
                       >
                         <PaperListItem
+                          isSelected={index === 0}
                           paperId={paperId}
                           handleRemovePaperFromFSMState={() => handleOpenRemovePaperDialog(paperId)}
                         />
@@ -124,7 +124,6 @@ const PapersList: FC<PapersListPropsType> = ({
           )}
         </Droppable>
       </DragDropContext>
-
     </Fragment>
   );
 }

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import PapersList from 'apps/fsm/components/molecules/PapersList';
 import BoardPaperEditor from '../PaperEditor/BoardPaperEditor';
@@ -30,15 +30,17 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   }
 
   return (
-    <Stack direction={'row'} overflow={'hidden'}>
-      <Stack spacing={2}>
+    <Grid container spacing={2} overflow={'hidden'} alignItems={'start'}>
+      <Grid item md={2}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
         <PapersList paperIds={fsmState.papers} fsmStateId={fsmStateId} />
-      </Stack>
-      {currentPaperId &&
-        <BoardPaperEditor paperId={currentPaperId} />
-      }
-    </Stack>
+      </Grid>
+      <Grid item md={10}>
+        {currentPaperId &&
+          <BoardPaperEditor paperId={currentPaperId} backgroundPaperIds={fsmState.papers.filter(paperId => paperId !== currentPaperId)} />
+        }
+      </Grid>
+    </Grid>
   );
 };
 

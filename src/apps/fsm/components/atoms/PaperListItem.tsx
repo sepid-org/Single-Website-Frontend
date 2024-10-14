@@ -6,12 +6,13 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 type PaperListItemPropsType = {
   paperId: string;
   handleRemovePaperFromFSMState: any;
+  isSelected: boolean;
 }
 
-const PaperListItem: FC<PaperListItemPropsType> = ({ paperId, handleRemovePaperFromFSMState }) => {
+const PaperListItem: FC<PaperListItemPropsType> = ({ paperId, handleRemovePaperFromFSMState, isSelected = false }) => {
   return (
     <Paper
-      elevation={1}
+      elevation={isSelected ? 4 : 1}
       sx={{
         borderRadius: 2,
         padding: 1,
