@@ -52,8 +52,8 @@ const _convertToBackendStateType = (graphState) => ({
 const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	...backendEdge,
 	id: backendEdge.id.toString(),
-	source: nodes.filter(node => { return (node.data.label === backendEdge.head.title) })[0].id,
-	target: nodes.filter(node => { return (node.data.label === backendEdge.tail.title) })[0].id,
+	source: backendEdge.head.id.toString(),
+	target: backendEdge.tail.id.toString(),
 	type: 'floating',
 	markerEnd: { type: MarkerType.Arrow, color: "black" },
 	sourceHandle: "top-source",
@@ -149,6 +149,25 @@ function CourseMapEditor() {
 
 function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFSMEdge, deleteFSMEdge }) {
 
+	const { fitView } = useReactFlow();
+	const containerRef = useRef(null);
+	useEffect(() => {
+		const handleResize = () => {
+			if (containerRef.current) {
+				fitView();
+			}
+		};
+
+		window.addEventListener('resize', handleResize);
+		handleResize();
+
+		return () => {
+			window.removeEventListener('resize', handleResize);
+		};
+	}, [fitView]);
+
+	fitView();
+
 	const onNodesChange = (changes) => {
 		setNodes(applyNodeChanges(changes, nodes));
 	}
@@ -201,7 +220,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			const newNodes = nodes.map((n) => (n.id === node.id ? avoidOverlap(node, nodes) : n));
 			setNodes(newNodes);
 			updatePositions({
-				positions: newNodes.map(node => node.position)
+				positions: [newNodes.filter(n => n.id === node.id)[0].position]
 			});
 		},
 		[nodes]
@@ -219,25 +238,6 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			deleteFSMEdge({ fsmEdgeId: edge.id });
 		}
 	};
-
-
-	const { fitView } = useReactFlow();
-	const containerRef = useRef(null);
-	useEffect(() => {
-		const handleResize = () => {
-			if (containerRef.current) {
-				fitView();
-			}
-		};
-
-		window.addEventListener('resize', handleResize);
-		handleResize();
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, [fitView]);
-
 
 	return (
 		<Container
