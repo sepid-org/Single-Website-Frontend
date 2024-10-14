@@ -151,7 +151,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
               height: widget.position.height,
             }}
             style={{
-              outline: '1px solid',
+              outline: '2px solid',
               userSelect: 'none',
             }}
             onDragStop={(e, d) => handleDragStop(widget.id, d)}
