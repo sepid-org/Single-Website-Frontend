@@ -18,7 +18,7 @@ import TeamRequests from 'apps/fsm/template/TeamRequests';
 import Mentors from 'apps/fsm/template/Mentors';
 import GoToAnswer from 'apps/fsm/template/GoToAnswer';
 import { DashboardTabType } from 'commons/types/global';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/FSMManagement';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import MapIcon from '@mui/icons-material/Map';

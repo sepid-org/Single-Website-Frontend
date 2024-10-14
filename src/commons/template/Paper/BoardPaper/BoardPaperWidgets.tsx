@@ -1,49 +1,49 @@
-import React, { Fragment, FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
-import { ObjectLogicType } from 'commons/types/models';
+import { ComplementaryObjectType } from 'commons/types/models';
 
 export type BoardPaperWidgetsPropsType = {
   paperId: string;
-  objectLogics?: ObjectLogicType[];
+  complementaryObjects?: ComplementaryObjectType[];
+  mode: WidgetModes;
 }
 
 const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
   paperId,
-  objectLogics = [],
+  complementaryObjects = [],
+  mode,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
-  const widgets = [...paper?.widgets || []].sort((w1, w2) => (parseInt(w1.order) - parseInt(w2.order)));
+  const widgets = paper?.widgets || [];
 
-  const widgetsComponents =
+  const widgetsComponents = useMemo(() =>
     widgets.map((widget, index) => {
-      const objectLogic = objectLogics.find(objectLogic => objectLogic.name === widget.name)
+      const complementaryObject = complementaryObjects.find(complementaryObject => complementaryObject.name === widget.name);
       return (
         <div
           key={widget.id}
           style={{
             position: 'absolute',
-            left: widget.position?.x !== undefined ? widget.position.x : index * 10,
-            top: widget.position?.y !== undefined ? widget.position?.y : index * 10,
+            left: widget.position?.x ?? index * 10,
+            top: widget.position?.y ?? index * 10,
             width: widget.position?.width || 100,
             height: widget.position?.height || 100,
           }}
         >
-          <ObjectWrapper logic={objectLogic}>
-            {objectLogic?.substituteComponent ||
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.View} />
-            }
+          <ObjectWrapper complementaryObject={complementaryObject}>
+            {complementaryObject?.substituteComponent ||
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={mode} />}
           </ObjectWrapper>
-        </div>)
-    })
-
-  return (
-    <Fragment>
-      {widgetsComponents}
-    </Fragment>
+        </div>
+      );
+    }),
+    [widgets, complementaryObjects, paperId]
   );
+
+  return <>{widgetsComponents}</>;
 };
 
-export default BoardPaperWidgets;
+export default React.memo(BoardPaperWidgets);

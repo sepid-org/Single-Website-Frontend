@@ -18,8 +18,8 @@ import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
-import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 const ButtonWidgetEditor = ({
   onMutate,
@@ -31,7 +31,7 @@ const ButtonWidgetEditor = ({
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const { fsmStateId } = useFSMContext();
+  const { fsmStateId } = useFSMStateContext();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',

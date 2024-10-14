@@ -4,7 +4,6 @@ import { Apis } from 'commons/redux/utilities';
 import { createAsyncThunkApi } from 'commons/redux/utilities/cerateApiAsyncThunk';
 import {
   getCertificateUrl,
-  addMentorToWorkshopUrl,
   registerUsersViaCSVUrl,
   getPlayerFromTeamUrl,
   validateRegistrationReceiptUrl,
@@ -68,12 +67,6 @@ export const validateRegistrationReceiptAction = createAsyncThunkApi(
       success: 'وضعیت رسید ثبت‌نام با موفقیت ثبت شد.',
     },
   }
-);
-
-export const addMentorToWorkshopAction = createAsyncThunkApi(
-  'programs/addMentorToWorkshopAction',
-  Apis.POST,
-  addMentorToWorkshopUrl,
 );
 
 export const getPlayerFromTeamAction = createAsyncThunkApi(

@@ -10,7 +10,7 @@ type SeatsGamePropsType = {}
 const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
   const paperId = process.env.NODE_ENV === 'production' ? '2800' : '11';
   const [openLoading, setOpenLoading] = React.useState(false);
-  const { objectLogics } = useCinemaGameLogic({
+  const { complementaryObjects } = useCinemaGameLogic({
     openLoading,
     setOpenLoading,
   });
@@ -32,7 +32,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
         <CircularProgress color="inherit" />
       </Backdrop>
       <BoardPaper
-        objectLogics={objectLogics}
+        complementaryObjects={complementaryObjects}
         paperIds={[paperId]}
       />
     </Fragment>

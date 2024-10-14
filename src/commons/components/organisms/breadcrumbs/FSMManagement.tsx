@@ -3,7 +3,7 @@ import { Breadcrumbs, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),

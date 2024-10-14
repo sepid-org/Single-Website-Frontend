@@ -14,7 +14,7 @@ import {
 import TeamsTab from './TeamsTab';
 import { TeamType } from 'commons/types/models';
 import { useGetProgramTeamsQuery } from 'apps/website-display/redux/features/team/TeamSlice';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 const Teams: FC<TeamPropsType> = ({
   teamsRequests,

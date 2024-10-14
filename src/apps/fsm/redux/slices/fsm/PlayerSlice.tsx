@@ -1,5 +1,5 @@
 import { FSMStateType, PlayerType, UserPublicInfoType } from 'commons/types/models';
-import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type GoForwardInputType = {
   edgeId: string;

@@ -4,7 +4,6 @@ import FormPaper from 'commons/template/Paper/Form';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
-import { toast } from 'react-toastify';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
@@ -16,7 +15,7 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const formId = program.registration_form;
+  const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
 
@@ -48,7 +47,7 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
           <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
             <Box
               component="img"
-              src={program.cover_page}
+              src={program?.cover_page}
               alt="program-cover-page"
               width={200}
               sx={{ borderRadius: 1, cursor: 'pointer' }}

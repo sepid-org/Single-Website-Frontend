@@ -17,8 +17,8 @@ import {
 import ClearIcon from '@mui/icons-material/Clear';
 import React, { useState, FC } from 'react';
 import { useParams } from 'react-router';
-import { useGetFSMEdgesQuery, useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
-import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/website-display/redux/features/fsm/EdgeSlice';
+import { useGetFSMEdgesQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
 type IndexPropsType = {}
 

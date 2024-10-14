@@ -6,7 +6,7 @@ import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowPr
 import { CourseMapNodeInfo } from 'commons/types/global';
 import StateNodeEditMode from 'commons/components/molecules/FSMMap/StateNodeEditMode';
 import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/molecules/FSMMap/FloatingEdge';
-import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import { EdgeType, FSMStateType } from 'commons/types/models';

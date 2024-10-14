@@ -1,5 +1,5 @@
 import { FSMEdgeType } from 'commons/types/models';
-import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type UpdateFSMEdgeInputType = {
@@ -22,7 +22,13 @@ type CreateFSMEdgeOutputType = {
 export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSMEdge: builder.mutation<CreateFSMEdgeOutputType, CreateFSMEdgeInputType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'fsm-state']),
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [
+          'fsm-edges',
+          { type: 'fsm-state-edges', id: item.tail },
+          { type: 'fsm-state-edges', id: item.head },
+        ]
+      ),
       query: ({ ...body }) => ({
         url: `/fsm/edge/`,
         method: 'POST',
@@ -34,7 +40,7 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateFSMEdge: builder.mutation<UpdateFSMEdgeOutputType, UpdateFSMEdgeInputType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state']),
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state-edges']),
       query: ({ fsmEdgeId, ...body }) => ({
         url: `/fsm/edge/${fsmEdgeId}/`,
         method: 'PATCH',
@@ -46,7 +52,7 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     deleteFSMEdge: builder.mutation<any, { fsmEdgeId: string }>({
-      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state']),
+      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state-edges']),
       query: ({ fsmEdgeId }) => ({
         url: `/fsm/edge/${fsmEdgeId}/`,
         method: 'DELETE',

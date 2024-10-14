@@ -1,37 +1,29 @@
 import { PositionType } from "commons/types/widgets/widget";
 import { ContentManagementServiceApi } from "../ManageContentServiceApiSlice";
-import { ObjectType } from "commons/types/models";
 
 
 interface UpdatePositionsRequest {
+  paperId?: string;
   positions: PositionType[];
 }
 
 export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
-    getObjectsByPaper: builder.query<ObjectType[], { paperId: string }>({
-      query: ({ paperId }) => `/fsm/objects/by-paper/${paperId}/`,
-      providesTags: (result, error, { paperId }) =>
-        result
-          ? [
-            ...result.map(({ id }) => ({ type: 'Position' as const, id })),
-            { type: 'Position' as const, id: 'LIST' },
-          ]
-          : [{ type: 'Position' as const, id: 'LIST' }],
-    }),
-
     updatePositions: builder.mutation<void, UpdatePositionsRequest>({
+      invalidatesTags: (result, error, item) => [
+        { type: 'Position', id: 'LIST' },
+        // todo: TOF
+        item.paperId && { type: 'paper', id: item.paperId },
+      ],
       query: ({ positions }) => ({
         url: '/fsm/objects/update-positions/',
         method: 'POST',
         body: { positions },
       }),
-      invalidatesTags: [{ type: 'Position', id: 'LIST' }],
     }),
   }),
 });
 
 export const {
-  useGetObjectsByPaperQuery,
   useUpdatePositionsMutation,
 } = PositionSlice;

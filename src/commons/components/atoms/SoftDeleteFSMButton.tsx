@@ -2,7 +2,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import React, { FC, Fragment, useEffect, useState } from 'react';
 
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
-import { useSoftDeleteFSMMutation } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useSoftDeleteFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';

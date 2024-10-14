@@ -5,15 +5,16 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { EditPaper } from '.';
+import { PaperEditor } from '../Paper';
 import EditHints from '../EditHints';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
-type NormalPaperEditorPropsType = {}
+type NormalStateEditorPropsType = {
+  fsmStateId: string;
+}
 
-const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
-  const { fsmStateId } = useFSMContext();
+const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ fsmStateId }) => {
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
   const paperId = fsmState.papers[0];
 
@@ -24,12 +25,12 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
           {'مسئله‌ها'}
         </Typography>
         <Divider />
-        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='problems' />
+        <PaperEditor paperId={paperId} mode='problems' />
         <Typography variant='h2' gutterBottom>
           {'محتواها'}
         </Typography>
         <Divider />
-        <EditPaper fsmStateId={fsmStateId} paperId={paperId} mode='contents' />
+        <PaperEditor paperId={paperId} mode='contents' />
         <Typography variant="h2" gutterBottom>
           {'راهنمایی‌ها'}
         </Typography>
@@ -40,4 +41,4 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({ }) => {
   );
 }
 
-export default NormalPaperEditor;
+export default NormalStateEditor;

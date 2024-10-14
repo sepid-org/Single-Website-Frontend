@@ -14,6 +14,7 @@ export const tagTypes = [
   'fsm-state',
   'fsm-state-edges',
   'fsm-edges',
+  'fsm-mentors',
   'widget',
   'paper',
   'articles',
@@ -40,6 +41,10 @@ export const tagTypes = [
   'team-invitations',
   'Position',
   'user-specific-data',
+  // Ashbaria
+  'question',
+  'questions',
+  'Scenarios',
 ]
 
 // Define a type for the tag types used in your app

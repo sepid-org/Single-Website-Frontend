@@ -112,7 +112,7 @@ export type FSMType = ContentType & {
   is_mentor: boolean;
   id: string;
   name: string;
-  first_state: FSMStateType;
+  first_state: string;
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
@@ -320,17 +320,17 @@ export type ObjectType = {
   name: string;
   title: string;
   position: PositionType;
-
   order: string;
-  widget?: string;
 }
 
-export type ObjectLogicType = {
+export type ComplementaryObjectType = {
   title?: string;
   name: string;
-  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  logics?: {
+    onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+    onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  }
   sx?: any;
   substituteComponent?: any;
 }

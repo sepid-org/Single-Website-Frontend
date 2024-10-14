@@ -1,18 +1,20 @@
 import React, { FC, Fragment } from 'react';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
-import NormalPaperEditor from '../Paper/NormalPaperEditor';
+import NormalStateEditor from './NormalStateEditor';
 import BoardStateEditor from './BoardStateEditor';
-import { Box, Tab, Tabs } from '@mui/material';
+import { Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 
+type FSMStateEditorPropsType = {
+  fsmStateId: string;
+}
 
-type EditableFSMStatePropsType = {}
-
-const EditableFSMState: FC<EditableFSMStatePropsType> = ({ }) => {
-  const { fsmStateId } = useFSMContext();
+const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
+  fsmStateId,
+}) => {
   const [tabIndex, setTabIndex] = React.useState(0);
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
 
@@ -37,8 +39,8 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({ }) => {
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
-          <NormalPaperEditor /> :
-          <BoardStateEditor />,
+          <NormalStateEditor fsmStateId={fsmStateId} /> :
+          <BoardStateEditor fsmStateId={fsmStateId} />,
     },
   ];
 
@@ -56,9 +58,11 @@ const EditableFSMState: FC<EditableFSMStatePropsType> = ({ }) => {
           <Tab key={tab.slug} label={tab.label} />
         )}
       </Tabs>
-      {selectedTab.component}
+      <FSMStateProvider fsmStateId={fsmStateId}>
+        {selectedTab.component}
+      </FSMStateProvider>
     </Fragment>
   )
 }
 
-export default EditableFSMState;
+export default FSMStateEditor;

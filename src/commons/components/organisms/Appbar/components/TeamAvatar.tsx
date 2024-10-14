@@ -12,10 +12,10 @@ import React, { Fragment, useContext } from 'react';
 
 import { stringToColor } from 'commons/utils/stringToColor';
 import { TeamType } from 'commons/types/models';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 const TeamAvatar = () => {
-  const { teamId } = useFSMContext();
+  const { teamId } = useFSMStateContext();
   const myTeam = {
     name: 'NOT_IMPLEMENTED',
     members: [
