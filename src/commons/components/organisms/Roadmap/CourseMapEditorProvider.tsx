@@ -32,7 +32,6 @@ const _convertToGraphNodeType = (backendState, firstState) => ({
 	position: backendState.position || _getRandomPosition(),
 	type: "stateNode",
 	draggable: true,
-	connectable: true,
 	data: {
 		label: backendState.title,
 		isFirstNode: backendState.id === firstState
@@ -62,6 +61,23 @@ function CourseMapEditor() {
 		if (initialFsmStates && initialFsmStates.length > 0) {
 			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState)});
 			setFsmStates(graphStates);
+		}
+		else if(initialFsmStates){
+			setFsmStates([{
+				id: "1",
+				position: {
+					x: 0,
+					y: 0,
+					width: FSM_STATE_WIDTH,
+					height: FSM_STATE_HEIGHT,
+				},
+				type: "stateNode",
+				draggable: true,
+				data: {
+					label: "گام اول",
+					isFirstNode: true
+				}
+			}])
 		}
 	}, [initialFsmStates]);
 
@@ -106,17 +122,19 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 
 	const onNodesChange = (changes) => setNodes(applyNodeChanges(changes, nodes))
 
-	const onConnect = useCallback((connection) => {
-		console.log("on connect");
-		const doubleEdge = edges.filter((edge) => {
-			return (edge.source === connection.source && edge.target === connection.target) || (edge.source === connection.target && edge.target === connection.source);
-		});
-		if (doubleEdge.length > 0) {
-			return;
-		}
-		const newEdge = { ...connection, type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" } };
-		setEdges((eds) => addEdge(newEdge, eds));
-	}, [edges, setEdges]);
+	const onConnect = useCallback(
+		((connection) => {
+			const doubleEdge = edges.filter((edge) => {
+				return (edge.source === connection.source && edge.target === connection.target) || (edge.source === connection.target && edge.target === connection.source);
+			});
+			if (doubleEdge.length > 0) {
+				return;
+			}
+			const newEdge = { ...connection, type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" } };
+			setEdges((eds) => addEdge(newEdge, eds));
+		}),
+		[edges, setEdges],
+	);
 
 	const isOverlapping = (node1, node2) => {
 		const node1element = document.getElementById(node1.id);
@@ -158,6 +176,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 		}
 	};
 
+
 	const { fitView } = useReactFlow();
 	const containerRef = useRef(null);
 	useEffect(() => {
@@ -187,10 +206,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 				edges={edges}
 				nodeTypes={{ stateNode: StateNodeEditMode }}
 				edgeTypes={{ floating: FloatingCustomEdge }}
-				connectOnClick={true}
 				onNodesChange={onNodesChange}
-				onConnectStart={() => console.log("start")}
-				onConnectEnd={() => console.log("end")}
 				onConnect={onConnect}
 				onNodeDragStop={onNodeDragStop}
 				onNodeDragStart={onNodeDragStart}

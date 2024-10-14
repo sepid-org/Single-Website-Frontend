@@ -88,30 +88,33 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 		//onMouseMove={handleMouseMove}
 		//onMouseUp={handleMouseUp}
 		>
-			<Handle
-				type="target"
-				position={Position.Top}
-				isConnectable={true}
-				id="top-target"
-			/>
-			<Handle
-				type="target"
-				position={Position.Bottom}
-				isConnectable={true}
-				id="bottom-target"
-			/>
-			<Handle
-				type="target"
-				position={Position.Right}
-				isConnectable={true}
-				id="right-target"
-			/>
-			<Handle
-				type="target"
-				position={Position.Left}
-				isConnectable={true}
-				id="left-target"
-			/>
+			{(!data.isFirstNode) &&
+				<>
+					<Handle
+						type="target"
+						position={Position.Top}
+						isConnectable={true}
+						id="top-target"
+					/>
+					<Handle
+						type="target"
+						position={Position.Bottom}
+						isConnectable={true}
+						id="bottom-target"
+					/>
+					<Handle
+						type="target"
+						position={Position.Right}
+						isConnectable={true}
+						id="right-target"
+					/>
+					<Handle
+						type="target"
+						position={Position.Left}
+						isConnectable={true}
+						id="left-target"
+					/>
+				</>}
 			<Typography
 				sx={{
 					width: "120px",
@@ -141,7 +144,6 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				position={Position.Bottom}
 				isConnectable={true}
 				id="bottom-source"
-				onDrag={() => console.log("dragggggg")}
 			/>
 			<Handle
 				type="source"
