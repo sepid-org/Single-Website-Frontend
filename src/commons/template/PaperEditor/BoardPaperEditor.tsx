@@ -166,6 +166,8 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
             onResizeStop={(e, direction, ref, delta, position) => handleResize(widget.id, ref, position)}
             enableUserSelectHack={false}
             scale={scale}
+            dragGrid={[5, 5]}
+            resizeGrid={[5, 5]}
           >
             <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
           </Rnd>
