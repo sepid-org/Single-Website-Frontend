@@ -70,7 +70,7 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
         {(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
           <UploadFileButton setFileLink={setFileLink} />
         }
-        {(mode !== WidgetModes.Edit && fileLink) &&
+        {(mode !== WidgetModes.Edit && mode !== WidgetModes.Disable && fileLink) &&
           <Button
             size="small"
             variant='outlined'

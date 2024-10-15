@@ -1,6 +1,13 @@
 import { FSMStateType, PlayerType, UserPublicInfoType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
+type TransitToStateInputType = {
+  stateId: string;
+}
+
+type TransitToStateOutputType = void;
+
+
 type GoForwardInputType = {
   edgeId: string;
   password?: string;
@@ -47,6 +54,16 @@ type GetMyPlayerOutputType = PlayerType;
 
 export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
+    transitToState: builder.mutation<TransitToStateOutputType, TransitToStateInputType>({
+      invalidatesTags: ['player'],
+      query: ({ stateId }) => ({
+        url: `/fsm/player/transit-to-state/`,
+        method: 'POST',
+        body: {
+          state: stateId,
+        },
+      }),
+    }),
 
     goForward: builder.mutation<GoForwardOutputType, GoForwardInputType>({
       invalidatesTags: ['player'],
@@ -119,4 +136,5 @@ export const {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
   useEnterFSMMutation,
+  useTransitToStateMutation,
 } = PlayerSlice;

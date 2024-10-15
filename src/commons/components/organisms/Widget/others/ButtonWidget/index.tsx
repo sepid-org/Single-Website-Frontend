@@ -22,14 +22,14 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   mode,
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
-  const { changeState } = useChangeState();
+  const { changePlayerState } = useChangeState();
 
   const handleClick = () => {
-    if (mode === WidgetModes.Edit) {
+    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
     if (edges_to_destination_states.length === 1) {
-      changeState(edges_to_destination_states[0])
+      changePlayerState(edges_to_destination_states[0].head)
       return;
     }
     if (edges_to_destination_states.length > 1) {

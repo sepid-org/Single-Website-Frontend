@@ -13,6 +13,7 @@ export enum WidgetModes {
   Edit,
   Review,
   InForm,
+  Disable,
 };
 
 export enum WidgetTypes {

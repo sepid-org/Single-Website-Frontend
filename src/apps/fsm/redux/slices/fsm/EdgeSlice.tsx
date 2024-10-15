@@ -1,4 +1,4 @@
-import { FSMEdgeType } from 'commons/types/models';
+import { EdgeType, FSMEdgeType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -19,11 +19,24 @@ type CreateFSMEdgeOutputType = {
 
 }
 
+type GetEdgeInputType = {
+  edgeId: string;
+}
+
+type GetEdgeOutputType = EdgeType;
+
+
 export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
+    getFSMEdge: builder.query<GetEdgeOutputType, GetEdgeInputType>({
+      providesTags: (result, error, item) => [{ type: 'fsm-edge', id: result.id }],
+      query: ({ edgeId }) => `fsm/edge/${edgeId}/`,
+    }),
+
     createFSMEdge: builder.mutation<CreateFSMEdgeOutputType, CreateFSMEdgeInputType>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
         [
+          { type: 'fsm-edge', id: result.id },
           'fsm-edges',
           { type: 'fsm-state-edges', id: item.tail },
           { type: 'fsm-state-edges', id: item.head },
@@ -34,9 +47,6 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: any): CreateFSMEdgeOutputType => {
-        return response;
-      },
     }),
 
     updateFSMEdge: builder.mutation<UpdateFSMEdgeOutputType, UpdateFSMEdgeInputType>({
@@ -46,9 +56,6 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'PATCH',
         body,
       }),
-      transformResponse: (response: any): UpdateFSMEdgeOutputType => {
-        return response;
-      },
     }),
 
     deleteFSMEdge: builder.mutation<any, { fsmEdgeId: string }>({
@@ -62,6 +69,7 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useGetFSMEdgeQuery,
   useCreateFSMEdgeMutation,
   useUpdateFSMEdgeMutation,
   useDeleteFSMEdgeMutation,

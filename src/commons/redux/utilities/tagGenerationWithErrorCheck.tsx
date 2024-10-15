@@ -14,6 +14,7 @@ export const tagTypes = [
   'fsm-state',
   'fsm-state-edges',
   'fsm-edges',
+  'fsm-edge',
   'fsm-mentors',
   'widget',
   'paper',
