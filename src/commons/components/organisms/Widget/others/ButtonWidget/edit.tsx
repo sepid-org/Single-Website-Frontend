@@ -14,7 +14,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 

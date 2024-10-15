@@ -15,7 +15,7 @@ import {
 import React, { FC, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { ChoiceType } from 'commons/types/widgets';
 import Choice from 'commons/components/molecules/Choice';

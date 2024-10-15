@@ -1,6 +1,6 @@
 import React, { FC, Fragment, useState } from 'react';
 import { Button, Box } from '@mui/material';
-import TinyPreview from 'commons/components/organisms/TinyMCE/ReactTiny/Preview';
+import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import useChangeState from 'commons/hooks/useChangeState';
 import { WidgetModes } from '../..';

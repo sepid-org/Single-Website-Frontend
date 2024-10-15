@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
