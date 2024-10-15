@@ -33,6 +33,8 @@ const CollapseWidgetEditMenu = ({
         onMouseLeave={closeMenu}
       >
         <Stack
+          component={Paper}
+          sx={{ borderRadius: 0 }}
           width={'auto'}
           direction='row'
           alignItems='center'
