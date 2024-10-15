@@ -34,6 +34,7 @@ const CollapseWidgetEditMenu = ({
       >
         <Stack
           component={Paper}
+          elevation={0}
           sx={{ borderRadius: 0 }}
           width={'auto'}
           direction='row'
