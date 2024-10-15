@@ -75,11 +75,20 @@ export function FloatingConnectionLine({ toX, toY, fromPosition, toPosition, fro
 
   return (
     <g>
-      <path
-        fill="none"
-        stroke="#222"
+      <path 
+        fill="none" 
+        d={edgePath} 
+        style={{
+          strokeWidth: 3, stroke: 'black'
+        }}
+      />
+      <circle
+        cx={toX}
+        cy={toY}
+        fill="black"
+        r={3}
+        stroke="black"
         strokeWidth={1.5}
-        d={edgePath}
       />
     </g>
   );

@@ -40,11 +40,12 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					position: "absolute",
 					top: "0px",
 					transform: "translateY(-50%)",
-					zIndex: "1",
+					zIndex: "3",
 					width: "60px",
 					height: "20px",
 					backgroundColor: "#752b34",
-					borderRadius: "5px"
+					borderRadius: "5px",
+					opacity: "0.8"
 				}}
 				className="custom-drag-handle"
 			/>
@@ -57,7 +58,8 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					width: "100%",
 					height: "100%",
 					position: "absolute",
-					opacity: "0"
+					opacity: "0",
+					zIndex: "2"
 				}}
 			/>
 			<Typography
@@ -67,6 +69,8 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					overflow: "hidden",
 					textOverflow: "ellipsis",
 					whiteSpace: "nowrap",
+					pointerEvents: "auto",
+					zIndex: "1"
 				}}
 				style={{
 					direction: "rtl",
@@ -87,7 +91,8 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					width: "100%",
 					height: "100%",
 					position: "absolute",
-					opacity: "0"
+					opacity: "0",
+					zIndex: "2"
 				}}
 			/>
 			<FullScreenDialog

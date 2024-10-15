@@ -49,28 +49,19 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	source: backendEdge.head.id.toString(),
 	target: backendEdge.tail.id.toString(),
 	type: 'floating',
-	markerEnd: { type: MarkerType.Arrow, color: "black" },
+	markerEnd: {
+		type: MarkerType.ArrowClosed,
+		color: 'black',
+	},
 	sourceHandle: "top-source",
 	targetHandle: "top-target",
 });
 
-const _convertToBackendEdgeType = (graphEdge, nodes) => ({
-	attributes: [],
-	created_at: Date.now(), 
-	head: parseInt(graphEdge.source),
-	id: graphEdge.id,
-	is_back_enabled: true,
-	is_hidden: false,
-	is_private: true,
+const _convertToBackendEdgeType = (graphEdge) => ({
+	tail: graphEdge.target,
+	head: graphEdge.source,
 	is_visible: true,
-	name: null,
-	order: 0,
-	position: null,
-	tail: parseInt(graphEdge.target),
-	text: null,
-	title: "Edge-" + graphEdge.id,
-	updated_at: Date.now(),
-	website: null
+	is_back_enabled: false
 });
 
 function CourseMapEditor() {
@@ -174,9 +165,8 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			if (doubleEdge.length > 0) {
 				return;
 			}
-			const newEdge = { ...connection, type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" } };
-			setEdges((eds) => addEdge(newEdge, eds));
-			createFSMEdge(_convertToBackendEdgeType(newEdge,nodes));
+			setEdges((eds) => addEdge(connection, eds));
+			createFSMEdge(_convertToBackendEdgeType(connection));
 		}),
 		[edges, setEdges],
 	);
@@ -233,6 +223,15 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		}
 	};
 
+	const defaultEdgeOptions = {
+		style: { strokeWidth: 3, stroke: 'black' },
+		type: 'floating',
+		markerEnd: {
+		  type: MarkerType.ArrowClosed,
+		  color: 'black',
+		},
+	};
+
 	return (
 		<Container
 			sx={{ height: "90%", width: "100%" }}
@@ -250,6 +249,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 				onNodeDragStart={onNodeDragStart}
 				onEdgeContextMenu={onEdgeContextMenu}
 				connectionLineComponent={FloatingConnectionLine}
+				defaultEdgeOptions={defaultEdgeOptions}
 			>
 				<Background />
 				<Controls />
