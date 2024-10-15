@@ -11,7 +11,15 @@ import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton'
 import BoardPaperWidgets from '../Paper/BoardPaper/BoardPaperWidgets';
 
 const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
+  const { data: paper } = useGetPaperQuery(
+    { paperId },
+    {
+      skip: !paperId,
+      selectFromResult: (result) => ({
+        ...result,
+        data: paperId ? result.data : null,
+      }),
+    });
   const [updatePositions] = useUpdatePositionsMutation();
   const [scale, setScale] = useState(0.6);
   const containerRef = useRef(null);
@@ -138,7 +146,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
             background: '#f0f0f0',
           }}
         />
-        {backgroundPaperIds.slice().reverse().map(backgroundPaperId =>
+        {backgroundPaperIds.map(backgroundPaperId =>
           <BoardPaperWidgets key={backgroundPaperId} paperId={backgroundPaperId} mode={WidgetModes.Disable} />
         )}
         {widgets.map((widget) => (
