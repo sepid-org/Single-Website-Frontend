@@ -31,12 +31,23 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				flexDirection: "row-reverse",
 				alignItems: "center",
 				justifyContent: "space-around",
+				position: "relative"
 			}}
 			id={id}
-		//onMouseDown={handleMouseDown}
-		//onMouseMove={handleMouseMove}
-		//onMouseUp={handleMouseUp}
 		>
+			<Box
+				sx={{
+					position: "absolute",
+					top: "0px",
+					transform: "translateY(-50%)",
+					zIndex: "1",
+					width: "60px",
+					height: "20px",
+					backgroundColor: "#752b34",
+					borderRadius: "5px"
+				}}
+				className="custom-drag-handle"
+			/>
 			<Handle
 				type="target"
 				position={Position.Top}

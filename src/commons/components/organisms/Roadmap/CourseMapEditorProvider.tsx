@@ -34,6 +34,7 @@ const _convertToGraphNodeType = (backendState, firstState) => ({
 	position: backendState.position || _getRandomPosition(),
 	type: "stateNode",
 	draggable: true,
+	dragHandle: '.custom-drag-handle',
 	data: {
 		label: backendState.title,
 		isFirstNode: (backendState.id === firstState)
@@ -41,13 +42,6 @@ const _convertToGraphNodeType = (backendState, firstState) => ({
 });
 
 // Helper function to convert graph type back to backend type
-const _convertToBackendStateType = (graphState) => ({
-	...graphState,
-	id: parseInt(graphState.id),
-	title: graphState.data.label,
-	position: graphState.position,
-	// Preserve other backend properties
-});
 
 const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	...backendEdge,
