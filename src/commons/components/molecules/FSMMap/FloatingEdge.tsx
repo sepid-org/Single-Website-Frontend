@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Position, getBezierPath, EdgeProps, useInternalNode } from '@xyflow/react';
 import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
+import EdgeEditorDialog from '../EdgeEditorDialog';
 
 
 export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd }) => {
@@ -36,13 +37,11 @@ export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, ma
       style={{ fill: "none", stroke: "#222", strokeWidth: "3", color: "#222" }}
       onClick={() => setEditDialogueIsOpen(true)}
     />
-    <FullScreenDialog
-				fullWidth={true}
-				maxWidth={false}
-				open={editDialogueIsOpen}
-				onClose={() => setEditDialogueIsOpen(false)}
-			>
-		</FullScreenDialog>
+    <EdgeEditorDialog 
+      id={id}
+      open={editDialogueIsOpen}
+      onClose={setEditDialogueIsOpen}
+    />
     </>
   );
 }
