@@ -24,11 +24,11 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
 
   return (
     <Grid container spacing={2} overflow={'hidden'} alignItems={'start'}>
-      <Grid item md={2}>
+      <Grid item md={3}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
         <PapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
       </Grid>
-      <Grid item md={10}>
+      <Grid item md={9}>
         <BoardPaperEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
       </Grid>
     </Grid>

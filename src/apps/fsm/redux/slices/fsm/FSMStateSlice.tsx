@@ -46,6 +46,14 @@ type RemovePaperFromFSMStateOutputType = {
   message: string;
 };
 
+type CreateAndAddPaperToFSMStateInputType = {
+  fsmStateId: string;
+};
+
+type CreateAndAddPaperToFSMStateOutputType = {
+
+};
+
 export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     createFSMState: builder.mutation<CreateFSMStateOutputType, CreateFSMStateInputType>({
@@ -134,6 +142,16 @@ export const FSMStateSlice = ContentManagementServiceApi.injectEndpoints({
         body: { paper_id: paperId },
       }),
     }),
+
+    createAndAddPaperToFSMState: builder.mutation<CreateAndAddPaperToFSMStateOutputType, CreateAndAddPaperToFSMStateInputType>({
+      invalidatesTags: (result, error, item) => [
+        { type: 'fsm-state', id: item.fsmStateId },
+      ],
+      query: ({ fsmStateId }) => ({
+        url: `/fsm/state/${fsmStateId}/create_and_add_paper/`,
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -147,4 +165,5 @@ export const {
   useUpdatePaperOrderMutation,
   useAddPaperToFSMStateMutation,
   useRemovePaperFromFSMStateMutation,
+  useCreateAndAddPaperToFSMStateMutation,
 } = FSMStateSlice;
