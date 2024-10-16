@@ -9,7 +9,7 @@ import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/m
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
-import { EdgeType, FSMStateType } from 'commons/types/models';
+import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
@@ -53,6 +53,11 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 		type: MarkerType.ArrowClosed,
 		color: 'black',
 	},
+	markerStart: {
+		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none") ,
+		orient: 'auto-start-reverse',
+		color: "black"
+	},
 	sourceHandle: "top-source",
 	targetHandle: "top-target",
 	//reconnectable: "source"
@@ -73,7 +78,7 @@ function CourseMapEditor() {
 	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
-	const [fsmEdges, setFSMEdges] = useState<Partial<EdgeType>[]>([]);
+	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const firstState = fsm?.first_state;
 	const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
@@ -151,8 +156,6 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			window.removeEventListener('resize', handleResize);
 		};
 	}, [fitView]);
-
-	//fitView();
 
 	const onNodesChange = (changes) => {
 		setNodes(applyNodeChanges(changes, nodes));

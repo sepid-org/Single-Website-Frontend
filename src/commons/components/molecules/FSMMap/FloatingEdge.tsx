@@ -4,7 +4,7 @@ import { Position, getBezierPath, EdgeProps, useInternalNode } from '@xyflow/rea
 import EdgeEditorDialog from '../EdgeEditorDialog';
 
 
-export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd }) => {
+export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd, markerStart }) => {
   const sourceNode = useInternalNode(source);
   const targetNode = useInternalNode(target);
 
@@ -33,6 +33,7 @@ export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, ma
       id={id}
       d={edgePath}
       markerEnd={markerEnd}
+      markerStart={markerStart}
       style={{ fill: "none", stroke: "#222", strokeWidth: "3", color: "#222" }}
       onClick={() => setEditDialogueIsOpen(true)}
     />

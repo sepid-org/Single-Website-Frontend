@@ -62,6 +62,45 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					zIndex: "2"
 				}}
 			/>
+			<Handle
+				type="target"
+				position={Position.Right}
+				isConnectable={true}
+				id="right-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="target"
+				position={Position.Bottom}
+				isConnectable={true}
+				id="bottom-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="target"
+				position={Position.Left}
+				isConnectable={true}
+				id="left-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
 			<Typography
 				sx={{
 					width: "120px",
@@ -87,6 +126,45 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				position={Position.Top}
 				isConnectable={true}
 				id="top-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="source"
+				position={Position.Right}
+				isConnectable={true}
+				id="right-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="source"
+				position={Position.Bottom}
+				isConnectable={true}
+				id="bottom-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="source"
+				position={Position.Left}
+				isConnectable={true}
+				id="left-source"
 				style={{
 					width: "100%",
 					height: "100%",
