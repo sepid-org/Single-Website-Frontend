@@ -1,4 +1,4 @@
-import { EdgeType, FSMStateType, FSMType } from 'commons/types/models';
+import { FSMEdgeType, FSMStateType, FSMType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
@@ -35,7 +35,7 @@ type GetFSMOutputType = FSMType;
 
 type GetFSMStatesOutputType = FSMStateType[];
 
-type GetFSMEdgesOutputType = EdgeType[];
+type GetFSMEdgesOutputType = FSMEdgeType[];
 
 
 

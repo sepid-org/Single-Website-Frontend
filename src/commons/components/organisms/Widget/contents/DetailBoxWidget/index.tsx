@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
-import TinyPreview from 'commons/components/organisms/TinyMCE/ReactTiny/Preview';
+import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import DetailBoxEditDialog from './EditDialog';
 import Paper from 'commons/template/Paper';
 import { Box, Collapse, IconButton, Stack } from '@mui/material';

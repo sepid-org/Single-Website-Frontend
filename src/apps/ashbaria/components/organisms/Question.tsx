@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 
-import TinyPreview from 'commons/components/organisms/TinyMCE/ReactTiny/Preview';
+import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import Choice from 'commons/components/molecules/Choice';
 import { toast } from 'react-toastify';

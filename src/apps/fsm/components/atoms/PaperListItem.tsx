@@ -12,9 +12,8 @@ type PaperListItemPropsType = {
 const PaperListItem: FC<PaperListItemPropsType> = ({ paperId, handleRemovePaperFromFSMState, isSelected = false }) => {
   return (
     <Paper
-      elevation={isSelected ? 4 : 1}
       sx={{
-        borderRadius: 2,
+        border: isSelected ? 2 : null,
         padding: 1,
       }}
     >

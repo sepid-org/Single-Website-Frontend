@@ -57,6 +57,7 @@ const States: FC<StatesPropsType> = ({ }) => {
           />
         }
         <FullScreenDialog
+          disableScrollLock
           fullWidth={true}
           maxWidth={false}
           open={Boolean(selectedStateId)}

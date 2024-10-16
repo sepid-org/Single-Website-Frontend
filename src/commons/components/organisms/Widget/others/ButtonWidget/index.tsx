@@ -1,16 +1,16 @@
 import React, { FC, Fragment, useState } from 'react';
 import { Button, Box } from '@mui/material';
-import TinyPreview from 'commons/components/organisms/TinyMCE/ReactTiny/Preview';
+import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import useChangeState from 'commons/hooks/useChangeState';
 import { WidgetModes } from '../..';
-import { EdgeType } from 'commons/types/models';
+import { FSMEdgeType } from 'commons/types/models';
 
 type ButtonWidgetPropsType = {
-  label;
-  background_image;
-  destination_page_url;
-  edges_to_destination_states: EdgeType[];
+  label: string;
+  background_image: string;
+  destination_page_url: string;
+  destination_states: string[];
   mode: WidgetModes;
 }
 
@@ -18,7 +18,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   label,
   background_image,
   destination_page_url,
-  edges_to_destination_states = [],
+  destination_states = [],
   mode,
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
@@ -28,11 +28,11 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
-    if (edges_to_destination_states.length === 1) {
-      changePlayerState(edges_to_destination_states[0].head)
+    if (destination_states.length === 1) {
+      changePlayerState(destination_states[0])
       return;
     }
-    if (edges_to_destination_states.length > 1) {
+    if (destination_states.length > 1) {
       setOpenChangeStateDialog(true);
       return;
     }
@@ -89,11 +89,11 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           />
         </Box>
       </Box>
-      <ChangeStateDialog
+      {/* <ChangeStateDialog
         open={openChangeStateDialog}
         handleClose={() => setOpenChangeStateDialog(false)}
         edges={edges_to_destination_states || []}
-      />
+      /> */}
     </Fragment>
   );
 };

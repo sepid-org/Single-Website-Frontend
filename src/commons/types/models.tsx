@@ -164,8 +164,8 @@ export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
   fsm: string;
-  inward_edges: EdgeType[];
-  outward_edges: EdgeType[];
+  inward_edges: FSMEdgeType[];
+  outward_edges: FSMEdgeType[];
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;
@@ -173,7 +173,6 @@ export type FSMStateType = ObjectType & {
   draggable: boolean;
   data: Object;
 };
-export type FSMEdgeType = any;
 export type Answer = any
 export type WorkshopEdge = any
 export type Token = any
@@ -274,9 +273,14 @@ export type PlayerType = {
   last_visit?: string;
 }
 
-export type EdgeType = {
-  tail: any;
-  head: any;
+export type FSMStateMinimalType = {
+  id: string;
+  title: string;
+}
+
+export type FSMEdgeType = {
+  tail: string;
+  head: string;
   id: string;
   has_transition_lock?: boolean;
   is_visible: boolean;

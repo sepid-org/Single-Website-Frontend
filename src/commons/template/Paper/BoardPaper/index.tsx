@@ -26,7 +26,7 @@ const BoardPaper: FC<BoardFSMStatePropsType> = ({
 
   return (
     <BoardFrame containerHeight={containerHeight}>
-      {paperIds.slice().reverse().map(paperId => (
+      {paperIds.map(paperId => (
         <BoardPaperWidgets key={paperId} complementaryObjects={combinedComplementaryObjects} paperId={paperId} mode={WidgetModes.View} />
       ))}
     </BoardFrame>

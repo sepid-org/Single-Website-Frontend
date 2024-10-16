@@ -14,9 +14,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
-import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 
@@ -31,16 +29,14 @@ const ButtonWidgetEditor = ({
 }) => {
   const t = useTranslate();
   const { fsmId } = useParams();
-  const { fsmStateId } = useFSMStateContext();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',
     destination_page_url: widgetProps.destination_page_url || '',
-    edges_to_destination_states: widgetProps.edges_to_destination_states || [],
+    destination_states: widgetProps.destination_states || [],
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
-  const { data: fsmStates } = useGetFSMStatesQuery({ fsmId });
-  const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId });
+  const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 
   const handleClick = () => {
     onMutate({
@@ -51,8 +47,6 @@ const ButtonWidgetEditor = ({
       ...buttonFields,
     })
   };
-
-  const outwardEdgesReps = outwardEdges.map(outwardEdge => ({ ...outwardEdge, name: outwardEdge.head.title }))
 
   return (
     <Dialog disableScrollLock open={open}>
@@ -96,31 +90,29 @@ const ButtonWidgetEditor = ({
           </Stack>
 
           <Autocomplete
-            isOptionEqualToValue={(option, value) => option.name === value.head.title}
             multiple
             fullWidth
-            getOptionLabel={(option) => option.name}
-            onChange={(event, newValue) => {
+            getOptionLabel={(option) => option.title}
+            onChange={(event, selectedOptions) => {
               setButtonFields({
                 ...buttonFields,
-                edges_to_destination_states: newValue,
+                destination_states: selectedOptions.map(selectedOption => selectedOption.id),
               });
             }}
-            value={buttonFields.edges_to_destination_states || []}
+            value={fsmStates.filter(state => buttonFields.destination_states.includes(state.id))}
             renderInput={(params) =>
               <TextField
                 {...params}
                 label='گام‌های مقصد'
-                helperText={'توجه کنید که فقط یال‌های خروجی همین گام در این لیست نمایش داده می‌شود. برای افزودن یال به صفحه‌ی یال‌ها مراجعه کنید.'}
               />
             }
-            options={outwardEdgesReps}
+            options={fsmStates}
           />
 
           <TextField
             fullWidth
             label="لینک مقصد"
-            disabled={buttonFields.edges_to_destination_states.length > 0}
+            disabled={buttonFields.destination_states.length > 0}
             value={buttonFields.destination_page_url}
             inputProps={{ className: 'ltr-input' }}
             placeholder="https://..."

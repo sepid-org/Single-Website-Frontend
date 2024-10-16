@@ -1,5 +1,5 @@
 import { IconButton, Stack, Typography, Paper, TextField, Button } from "@mui/material";
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useAddPaperToFSMStateMutation } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
@@ -21,6 +21,12 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
       paperId: toEnglishNumber(paperId),
     })
   }
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      setPaperId('');
+    }
+  }, [result])
 
   return (
     <Stack direction={'row'} spacing={1} padding={1}>

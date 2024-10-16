@@ -1,7 +1,8 @@
 import { IconButton } from "@mui/material";
 import React, { FC, Fragment, useState } from "react";
-import EditIcon from '@mui/icons-material/Edit';
+import SettingsIcon from '@mui/icons-material/Settings';
 import EdgeEditorDialog from "./EdgeEditorDialog";
+
 
 type EdgeEditorButtonPropsType = {
   id?: string;
@@ -15,12 +16,12 @@ const EdgeEditorButton: FC<EdgeEditorButtonPropsType> = ({
   return (
     <Fragment>
       <IconButton onClick={() => setOpenDialog(true)}>
-        <EditIcon />
+        <SettingsIcon />
       </IconButton>
       <EdgeEditorDialog
         id={id}
         open={openDialog}
-        onClose={setOpenDialog}
+        onClose={() => setOpenDialog(false)}
       />
     </Fragment>
   )

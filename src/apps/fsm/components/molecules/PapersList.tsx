@@ -74,7 +74,7 @@ const PapersList: FC<PapersListPropsType> = ({
     );
     updatePapersOrder({
       fsmStateId,
-      paperIds: newItems as any,
+      paperIds: newItems,
     })
     setPaperIds(newItems);
   };
@@ -105,7 +105,7 @@ const PapersList: FC<PapersListPropsType> = ({
                         )}
                       >
                         <PaperListItem
-                          isSelected={index === 0}
+                          isSelected={index === paperIds.length - 1}
                           paperId={paperId}
                           handleRemovePaperFromFSMState={() => handleOpenRemovePaperDialog(paperId)}
                         />
