@@ -1,4 +1,4 @@
-import { EdgeType, FSMEdgeType } from 'commons/types/models';
+import { FSMEdgeType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -8,22 +8,15 @@ type UpdateFSMEdgeInputType = {
 
 type UpdateFSMEdgeOutputType = FSMEdgeType;
 
-type CreateFSMEdgeInputType = {
-  tail: string;
-  head: string;
-  is_visible: boolean;
-  is_back_enabled: boolean;
-};
+type CreateFSMEdgeInputType = Partial<FSMEdgeType>
 
-type CreateFSMEdgeOutputType = {
-
-}
+type CreateFSMEdgeOutputType = FSMEdgeType;
 
 type GetEdgeInputType = {
   edgeId: string;
 }
 
-type GetEdgeOutputType = EdgeType;
+type GetEdgeOutputType = FSMEdgeType;
 
 
 export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
@@ -38,8 +31,7 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
         [
           { type: 'fsm-edge', id: result.id },
           'fsm-edges',
-          { type: 'fsm-state-edges', id: item.tail },
-          { type: 'fsm-state-edges', id: item.head },
+          'fsm-state-edges',
         ]
       ),
       query: ({ ...body }) => ({
@@ -50,7 +42,14 @@ export const EdgeSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateFSMEdge: builder.mutation<UpdateFSMEdgeOutputType, UpdateFSMEdgeInputType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['fsm-edges', 'player-transited-path', 'fsm-state-edges']),
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [
+          { type: 'fsm-edge', id: result.id },
+          'fsm-edges',
+          'player-transited-path',
+          'fsm-state-edges',
+        ]
+      ),
       query: ({ fsmEdgeId, ...body }) => ({
         url: `/fsm/edge/${fsmEdgeId}/`,
         method: 'PATCH',

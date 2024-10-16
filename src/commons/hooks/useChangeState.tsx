@@ -6,7 +6,7 @@ import {
   useTransitToStateMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { useFSMStateContext } from './useFSMStateContext';
-import { EdgeType } from 'commons/types/models';
+import { FSMEdgeType } from 'commons/types/models';
 
 const useChangeState = () => {
   const t = useTranslate();
@@ -21,7 +21,7 @@ const useChangeState = () => {
     })
   }
 
-  const changeState = (edge: EdgeType) => {
+  const changeState = (edge: FSMEdgeType) => {
     if (isMentor) {
       mentorMoveForward({
         edgeId: edge.id,

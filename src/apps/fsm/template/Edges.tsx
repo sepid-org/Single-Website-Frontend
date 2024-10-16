@@ -15,10 +15,11 @@ import {
   TableRow,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useGetFSMEdgesQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
+import EdgeEditorButton from 'commons/components/molecules/EdgeEditorButton';
 
 type IndexPropsType = {}
 
@@ -33,16 +34,20 @@ const Edges: FC<IndexPropsType> = ({ }) => {
   const [newEdge, setNewEdge] = useState(newEdgeInitialValue);
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
   const { data: fsmEdges = [] } = useGetFSMEdgesQuery({ fsmId });
-  const [createFSMEdge] = useCreateFSMEdgeMutation();
-  const [updateFSMEdge] = useUpdateFSMEdgeMutation();
-  const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
+  const [createFSMEdge, createFSMEdgeResult] = useCreateFSMEdgeMutation();
 
   const handleCreateFSMEdge = () => {
     if (!newEdge.head || !newEdge.tail) {
       return;
     }
-    createFSMEdge(newEdge);
+    createFSMEdge(newEdge as any);
   }
+
+  useEffect(() => {
+    if (createFSMEdgeResult.isSuccess) {
+      setNewEdge(newEdgeInitialValue);
+    }
+  }, [createFSMEdgeResult])
 
   return (
     <Stack>
@@ -130,48 +135,25 @@ const Edges: FC<IndexPropsType> = ({ }) => {
             {fsmEdges?.map((edge, index) =>
               <TableRow key={index}>
                 <TableCell align='center'>
-                  {edge.tail?.title}
+                  {fsmStates.find(fsmState => fsmState.id === edge.tail)?.title}
                 </TableCell>
                 <TableCell align='center'>
-                  {edge.head?.title}
+                  {fsmStates.find(fsmState => fsmState.id === edge.head)?.title}
                 </TableCell>
                 <TableCell align='center'>
                   <Checkbox
                     checked={edge.is_visible}
-                    onChange={() => {
-                      updateFSMEdge({
-                        fsmEdgeId: edge.id,
-                        is_visible: !edge.is_visible,
-                        is_back_enabled: edge.is_back_enabled,
-                        head: edge.head?.id,
-                        tail: edge.tail?.id,
-                      }) // todo: fix 
-                    }}
                     color="primary"
                   />
                 </TableCell>
                 <TableCell align='center'>
                   <Checkbox
                     checked={edge.is_back_enabled}
-                    onChange={() => {
-                      updateFSMEdge({
-                        fsmEdgeId: edge.id,
-                        is_visible: edge.is_visible,
-                        is_back_enabled: !edge.is_back_enabled,
-                        head: edge.head?.id,
-                        tail: edge.tail?.id,
-                      }) // todo: fix 
-                    }}
                     color="primary"
                   />
                 </TableCell>
                 <TableCell align='center'>
-                  <IconButton size='small'
-                    onClick={() => {
-                      deleteFSMEdge({ fsmEdgeId: edge.id })
-                    }}>
-                    <ClearIcon />
-                  </IconButton>
+                  <EdgeEditorButton id={edge.id} />
                 </TableCell>
               </TableRow>
             )}

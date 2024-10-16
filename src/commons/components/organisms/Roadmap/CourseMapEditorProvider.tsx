@@ -9,7 +9,7 @@ import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/m
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
-import { EdgeType, FSMStateType } from 'commons/types/models';
+import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 
 
 const FSM_STATE_WIDTH = 200;
@@ -53,7 +53,7 @@ function CourseMapEditor() {
 	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
-	const [fsmEdges, setFSMEdges] = useState<Partial<EdgeType>[]>(initialFsmEdges);
+	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>(initialFsmEdges);
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const firstState = fsm?.first_state;
 

@@ -1,4 +1,4 @@
-import { EdgeType, FSMStateType } from 'commons/types/models';
+import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -17,7 +17,7 @@ type CreateFSMStateOutputType = {
 
 type GetFSMStateOutputType = FSMStateType;
 
-type EdgesOutputType = EdgeType[];
+type EdgesOutputType = FSMEdgeType[];
 
 type UpdatePaperOrderInputType = {
   fsmStateId: string;
