@@ -8,7 +8,7 @@ import BoardPaper from 'commons/template/Paper/BoardPaper';
 type SeatsGamePropsType = {}
 
 const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = process.env.NODE_ENV === 'production' ? '2800' : '11';
+  const paperId = process.env.NODE_ENV === 'production' ? '6195' : '11';
   const [openLoading, setOpenLoading] = React.useState(false);
   const { complementaryObjects } = useCinemaGameLogic({
     openLoading,
