@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import { Position, getBezierPath, EdgeProps, useInternalNode } from '@xyflow/react';
-import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
 import EdgeEditorDialog from '../EdgeEditorDialog';
 
 

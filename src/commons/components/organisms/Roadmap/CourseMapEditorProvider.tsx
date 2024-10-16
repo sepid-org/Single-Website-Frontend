@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { Button, Container, Grid } from '@mui/material';
 import '@xyflow/react/dist/style.css';
 import { MarkerType } from '@xyflow/react';
-import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowProvider, useReactFlow } from '@xyflow/react';
+import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowProvider, useReactFlow, reconnectEdge } from '@xyflow/react';
 import { CourseMapNodeInfo } from 'commons/types/global';
 import StateNodeEditMode from 'commons/components/molecules/FSMMap/StateNodeEditMode';
 import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/molecules/FSMMap/FloatingEdge';
@@ -46,8 +46,8 @@ const _convertToGraphNodeType = (backendState, firstState) => ({
 const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	...backendEdge,
 	id: backendEdge.id.toString(),
-	source: backendEdge.head.id.toString(),
-	target: backendEdge.tail.id.toString(),
+	source: backendEdge.head.toString(),
+	target: backendEdge.tail.toString(),
 	type: 'floating',
 	markerEnd: {
 		type: MarkerType.ArrowClosed,
@@ -55,6 +55,7 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	},
 	sourceHandle: "top-source",
 	targetHandle: "top-target",
+	//reconnectable: "source"
 });
 
 const _convertToBackendEdgeType = (graphEdge) => ({
@@ -87,9 +88,9 @@ function CourseMapEditor() {
 	useEffect(() => {
 		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
 			const graphEdges = initialFsmEdges.map((edge) => { return _convertToGraphEdgeType(edge, fsmStates) });
+			console.log(graphEdges);
 			setFSMEdges(graphEdges);
 		}
-		console.log(initialFsmEdges);
 	}, [initialFsmEdges, fsmStates])
 
 	return (
@@ -151,7 +152,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		};
 	}, [fitView]);
 
-	fitView();
+	//fitView();
 
 	const onNodesChange = (changes) => {
 		setNodes(applyNodeChanges(changes, nodes));
@@ -165,7 +166,6 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			if (doubleEdge.length > 0) {
 				return;
 			}
-			setEdges((eds) => addEdge(connection, eds));
 			createFSMEdge(_convertToBackendEdgeType(connection));
 		}),
 		[edges, setEdges],
@@ -215,14 +215,6 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		dragStartPosition.current = node.position;
 	}, []);
 
-	const onEdgeContextMenu = (event, edge) => {
-		event.preventDefault();
-		if (window.confirm('آیا می‌خواهید یال را خذف کنید؟')) {
-			setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-			deleteFSMEdge({ fsmEdgeId: edge.id });
-		}
-	};
-
 	const defaultEdgeOptions = {
 		style: { strokeWidth: 3, stroke: 'black' },
 		type: 'floating',
@@ -231,6 +223,14 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		  color: 'black',
 		},
 	};
+
+	const onReconnect = useCallback(
+		(oldEdge, newConnection) =>{
+		  setEdges((els) => reconnectEdge(oldEdge, newConnection, els))
+		  console.log("reconnect")
+		},
+		[],
+	);
 
 	return (
 		<Container
@@ -247,9 +247,10 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 				onConnect={onConnect}
 				onNodeDragStop={onNodeDragStop}
 				onNodeDragStart={onNodeDragStart}
-				onEdgeContextMenu={onEdgeContextMenu}
 				connectionLineComponent={FloatingConnectionLine}
+				onReconnect={onReconnect}
 				defaultEdgeOptions={defaultEdgeOptions}
+				fitView
 			>
 				<Background />
 				<Controls />
