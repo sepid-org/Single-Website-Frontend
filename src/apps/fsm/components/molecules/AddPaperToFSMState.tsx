@@ -17,22 +17,16 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
     if (!paperId) {
       return;
     }
-    createAndAddPaperToFSMState({
+    addPaperToFSMState({
       fsmStateId,
+      paperId: toEnglishNumber(paperId),
     })
   }
 
   const handleCreateAndAddPaperToFSMState = () => {
-    if (paperId) {
-      addPaperToFSMState({
-        fsmStateId,
-        paperId: toEnglishNumber(paperId),
-      })
-    } else {
-      createAndAddPaperToFSMState({
-        fsmStateId,
-      })
-    }
+    createAndAddPaperToFSMState({
+      fsmStateId,
+    })
   }
 
   useEffect(() => {
@@ -42,8 +36,8 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
   }, [result])
 
   return (
-    <Stack direction={'row'} justifyItems={'stretch'} alignContent={'stretch'} alignItems={'stretch'} justifyContent={'stretch'} spacing={1} padding={1}>
-      <Stack direction={'row'}>
+    <Stack direction={'row'} spacing={1} padding={1}>
+      <Stack width={'100%'} direction={'row'}>
         <TextField
           size="small"
           fullWidth

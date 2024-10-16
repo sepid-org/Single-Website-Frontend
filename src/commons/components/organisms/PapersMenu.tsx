@@ -26,12 +26,12 @@ const PapersMenu: FC<PapersMenuPropsType> = ({
         }}
         value={papers[currentPaperId] || null}
         renderInput={(params) =>
-          <TextField {...params} label="مشاهده لایه" />
+          <TextField {...params} label="مشاهده برگه" />
         }
         options={papers}
       />
       <Button variant='contained'>
-        {'افزودن لایه'}
+        {'افزودن برگه'}
       </Button>
     </Stack>
   );

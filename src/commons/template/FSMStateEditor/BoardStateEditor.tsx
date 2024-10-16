@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import PapersList from 'apps/fsm/components/molecules/PapersList';
+import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardPaperEditor from 'commons/template/PaperEditor/BoardPaperEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
 
@@ -26,7 +26,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
     <Grid container spacing={2} overflow={'hidden'} alignItems={'start'}>
       <Grid item md={3}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
-        <PapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
+        <FSMStatePapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
       </Grid>
       <Grid item md={9}>
         <BoardPaperEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
