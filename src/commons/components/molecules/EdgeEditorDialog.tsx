@@ -19,7 +19,7 @@ const EdgeEditorDialog: FC<EdgeEditorDialogPropsType> = ({
   onClose,
 }) => {
   const { fsmId } = useParams();
-  const { data: initialEdge } = useGetFSMEdgeQuery({ edgeId: id }, { skip: !Boolean(id) });
+  const { data: initialEdge } = useGetFSMEdgeQuery({ edgeId: id }, { skip: !Boolean(id) || !Boolean(open) });
   const [createFSMEdge, createFSMEdgeResult] = useCreateFSMEdgeMutation();
   const [updateFSMEdge, updateFSMEdgeResult] = useUpdateFSMEdgeMutation();
   const [deleteFSMEdge, deleteFSMEdgeResult] = useDeleteFSMEdgeMutation();
@@ -74,6 +74,7 @@ const EdgeEditorDialog: FC<EdgeEditorDialogPropsType> = ({
   return (
     <Fragment>
       <Dialog
+        disableScrollLock
         open={open}
         onClose={onClose}
         fullWidth

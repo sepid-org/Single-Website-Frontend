@@ -28,7 +28,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
   const newEdgeInitialValue = {
     tail: '',
     head: '',
-    is_visible: false,
+    is_visible: true,
     is_back_enabled: true,
   }
   const [newEdge, setNewEdge] = useState(newEdgeInitialValue);
@@ -58,8 +58,8 @@ const Edges: FC<IndexPropsType> = ({ }) => {
               <TableCell align='center' className='my-other-step'>شروع</TableCell>
               <TableCell align='center'>پایان</TableCell>
               <TableCell align='center'>قابل مشاهده</TableCell>
-              <TableCell align='center'>قابل بازگشت</TableCell>
-              <TableCell align='center' className='my-first-step'>عملیات</TableCell>
+              <TableCell align='center'>دو طرفه</TableCell>
+              <TableCell align='center'>عملیات</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -141,16 +141,10 @@ const Edges: FC<IndexPropsType> = ({ }) => {
                   {fsmStates.find(fsmState => fsmState.id === edge.head)?.title}
                 </TableCell>
                 <TableCell align='center'>
-                  <Checkbox
-                    checked={edge.is_visible}
-                    color="primary"
-                  />
+                  {edge.is_visible ? '✅' : '❌'}
                 </TableCell>
                 <TableCell align='center'>
-                  <Checkbox
-                    checked={edge.is_back_enabled}
-                    color="primary"
-                  />
+                  {edge.is_back_enabled ? '✅' : '❌'}
                 </TableCell>
                 <TableCell align='center'>
                   <EdgeEditorButton id={edge.id} />
