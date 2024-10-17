@@ -14,6 +14,7 @@ import { Link } from 'commons/types/redux/Roadmap';
 import { useGetFSMRoadmapActionQuery, useGetPlayerTransitedPathQuery } from 'apps/website-display/redux/features/roadmap/RoadmapSlice';
 import { useParams } from 'react-router-dom';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import CourseMapViewMode from './Roadmap/CourseMapViewMode';
 
 type FSMStateRoadMapPropsType = {
   currentNodeName: string;
@@ -55,7 +56,7 @@ const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
         <Divider />
         {(!FSMRoadmap || !initialPlayerTransitedPath)
           ? <Skeleton variant='rectangular' height={200} sx={{ borderBottomLeftRadius: 8, borderBottomRightRadius: 8 }} />
-          : <RoadMapType1 currentNodeId={currentNodeName} firstStateTitle={FSMRoadmap.firstStateTitle} links={FSMRoadmap.links} highlightedPath={playerTransitedPath} />
+          : <CourseMapViewMode currentStateTitle={currentNodeName}/> 
         }
       </Collapse>
     </Box>

@@ -108,7 +108,6 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					overflow: "hidden",
 					textOverflow: "ellipsis",
 					whiteSpace: "nowrap",
-					//pointerEvents: "auto",
 					zIndex: "1"
 				}}
 				style={{
