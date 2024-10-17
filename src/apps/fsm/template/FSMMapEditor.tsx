@@ -1,4 +1,4 @@
-import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
 import CourseMapEditorProvider from "commons/components/organisms/Roadmap/CourseMapEditorProvider";
 import React, { useEffect, useState } from "react";
 import { useGetFSMQuery, useGetFSMStatesQuery, useSetFSMFirstStateMutation } from "../redux/slices/fsm/FSMSlice";
@@ -10,10 +10,10 @@ const FSMMapEditor = () => {
   const { data: fsm } = useGetFSMQuery({ fsmId })
   const { data: fsmStates } = useGetFSMStatesQuery({ fsmId })
   const [setFSMFirstState, result] = useSetFSMFirstStateMutation()
-  const [firstState, setFirstState] = useState<string>('')
+  const [firstState, setFirstState] = useState('')
 
   useEffect(() => {
-    if (fsm) {
+    if (fsm?.first_state) {
       setFirstState(fsm.first_state);
     }
   }, [fsm])
@@ -34,25 +34,31 @@ const FSMMapEditor = () => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={6}>
-        <FormControl fullWidth>
-          <InputLabel>گام آغازین</InputLabel>
-          <Select
-            value={firstState}
-            onChange={(e) => setFirstState(e.target.value)}
-            name="first_state"
-            label="گام آغازین">
-            {fsmStates?.map((fsmState) => (
-              <MenuItem key={fsmState.id} value={fsmState.id}>
-                {fsmState.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <Stack direction={'row'}>
+          <FormControl fullWidth>
+            <InputLabel>گام آغازین</InputLabel>
+            <Select
+              sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+              value={firstState || ''}
+              onChange={(e) => setFirstState(e.target.value)}
+              name="first_state"
+              label="گام آغازین">
+              {fsmStates?.map((fsmState) => (
+                <MenuItem key={fsmState.id} value={fsmState.id}>
+                  {fsmState.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button
+            disableElevation
+            sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+            variant='contained' onClick={handleSetFSMFirstState}>
+            {'ذخیره'}
+          </Button>
+        </Stack>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Button variant='contained' fullWidth onClick={handleSetFSMFirstState}>
-          {'ذخیره'}
-        </Button>
         <Typography variant='caption'>
           {'توجه کنید که با تغییر گام آغازین کارگاه، گامِ فعلیِ کاربرانی که پیش از این وارد کارگاه شده‌اند، تغییر نخواهد کرد.'}
         </Typography>
