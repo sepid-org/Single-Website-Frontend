@@ -22,7 +22,7 @@ const _convertToGraphNodeType = (backendState, currentState) => ({
 	dragHandle: '.custom-drag-handle',
 	data: {
 		label: backendState.title,
-        isCurrentState: (currentState === backendState.title ? true : false)
+		isCurrentState: (currentState === backendState.title ? true : false)
 	}
 });
 
@@ -37,7 +37,7 @@ const _convertToGraphEdgeType = (backendEdge) => ({
 		color: 'black',
 	},
 	markerStart: {
-		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none") ,
+		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none"),
 		orient: 'auto-start-reverse',
 		color: "black"
 	},
@@ -45,111 +45,107 @@ const _convertToGraphEdgeType = (backendEdge) => ({
 	targetHandle: "top-target",
 });
 
-const _findCurrentNode = (nodes, currentNodeTitel) => {
-    return nodes.filter((node) => {return node.title === currentNodeTitel})[0];
+const _findCurrentNode = (nodes, currentNodeTitle) => {
+	return nodes.filter((node) => { return node.title === currentNodeTitle })[0];
 }
 
-function FlowCanvas({fsmStates, fsmEdges, currentState}){
-    const { fitView } = useReactFlow();
-    useEffect(() => {
+function FlowCanvas({ fsmStates, fsmEdges, currentState }) {
+	const { fitView } = useReactFlow();
+	useEffect(() => {
 		if (currentState != null) {
-            console.log(currentState);
-            fitView({
-                nodes: [currentState],
-            });
-        }
+			console.log(currentState);
+			fitView({
+				nodes: [currentState],
+			});
+		}
 	}, [currentState]);
 
-    return(
-        <>
-            <ReactFlow 
-                edgeTypes={{floating: FloatingCustomEdge}} 
-                nodeTypes={{customNode: CustomNode}}
-                nodes={fsmStates} 
-                edges={fsmEdges}              
-            />
-            <IconButton 
-                onClick={() => {
-                    fitView({
-                        nodes: [currentState],
-                    });
-                }}
-                sx={{
-                    transform: "translateY(-120%)"
-                }}
-            >
-                <GpsFixedIcon />
-            </IconButton>
-        </>
-    );
+	return (
+		<Box height={200} position={'relative'}>
+			<ReactFlow
+				edgeTypes={{ floating: FloatingCustomEdge }}
+				nodeTypes={{ customNode: CustomNode }}
+				nodes={fsmStates}
+				edges={fsmEdges}
+			/>
+			<IconButton
+				onClick={() => {
+					fitView({
+						nodes: [currentState],
+					});
+				}}
+				sx={{
+					position: 'absolute',
+					bottom: 0,
+					left: 0,
+				}}
+			>
+				<GpsFixedIcon />
+			</IconButton>
+		</Box>
+	);
 }
 
 //useGetPlayerTransitedPathQuery
-export default function CourseMapViewMode({currentStateTitle}){
-    const { fsmId } = useParams();
-    const { data: fsm } = useGetFSMQuery({ fsmId });
-    const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
+export default function CourseMapViewMode({ currentStateTitle }) {
+	const { fsmId } = useParams();
+	const { data: fsm } = useGetFSMQuery({ fsmId });
+	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
-    const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
+	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
-    const [currentState, setCurrentState] = useState(null);
+	const [currentState, setCurrentState] = useState(null);
 
-    useEffect(() => {
+	useEffect(() => {
 		if (initialFsmStates && initialFsmStates.length > 0) {
 			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, currentStateTitle) });
 			setFsmStates(graphStates);
-            setCurrentState(_findCurrentNode(graphStates, currentStateTitle));
-        }
+			setCurrentState(_findCurrentNode(graphStates, currentStateTitle));
+		}
 	}, [initialFsmStates]);
 
-    useEffect(() => {
+	useEffect(() => {
 		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
 			const graphEdges = initialFsmEdges.map((edge) => { return _convertToGraphEdgeType(edge) });
 			setFSMEdges(graphEdges);
 		}
 	}, [initialFsmEdges, fsmStates])
-    
-    return(
-        <Container
-            sx={{ 
-                height: 200,
-            }}
-        >
-            <ReactFlowProvider>
-                <FlowCanvas fsmStates={fsmStates} fsmEdges={fsmEdges} currentState={currentState}/>
-            </ReactFlowProvider>
-        </Container>
-    );
+
+	return (
+		<ReactFlowProvider>
+			<FlowCanvas fsmStates={fsmStates} fsmEdges={fsmEdges} currentState={currentState} />
+		</ReactFlowProvider>
+	);
 }
 
-
-interface stateNodeProps extends NodeProps{
-    data: {
-        label: string,
-        isFirstNode: boolean,
-        isCurrentState: boolean
-    },
-    id:string
+interface stateNodeProps extends NodeProps {
+	data: {
+		label: string,
+		isFirstNode: boolean,
+		isCurrentState: boolean
+	},
+	id: string
 }
-const CustomNode: React.FC<stateNodeProps> = ({data, id}) => {
-    return(
-        <Box
-            sx={{
-                //backgroundColor: data.positionInMap === "currentNode"? "#55AD9B": (data.positionInMap === "seen"? "#ace3c7": "#C7C8CC"),
-                //border: data.positionInMap === "currentNode"? "4px dashed #aa5264":  data.isFirstNode? "3px solid #531c38": "0px",
-                borderRadius: "5px",
-                width: "100px",
-                height: "50px",
-                display: "flex",
-                flexDirection: "row-reverse",
-                alignItems: "center",
-                justifyContent: "space-around",
-                backgroundColor: (data.isCurrentState ? "green": "gray")
-            }}
-            id={id}
-        >
-            <Typography
-                sx={{
+
+const CustomNode: React.FC<stateNodeProps> = ({ data, id }) => {
+	return (
+		<Box
+			sx={{
+				//backgroundColor: data.positionInMap === "currentNode"? "#55AD9B": (data.positionInMap === "seen"? "#ace3c7": "#C7C8CC"),
+				//border: data.positionInMap === "currentNode"? "4px dashed #aa5264":  data.isFirstNode? "3px solid #531c38": "0px",
+				borderRadius: "5px",
+				width: "100px",
+				height: "50px",
+				display: "flex",
+				flexDirection: "row-reverse",
+				alignItems: "center",
+				justifyContent: "space-around",
+				backgroundColor: (data.isCurrentState ? "green" : "gray")
+			}}
+			id={id}
+		>
+			<Typography
+				sx={{
 					width: "90px",
 					flexShrink: 0,
 					overflow: "hidden",
@@ -161,11 +157,11 @@ const CustomNode: React.FC<stateNodeProps> = ({data, id}) => {
 					direction: "rtl",
 					textAlign: "right"
 				}}
-            >
-                {data.label}
-            </Typography>
-            <Handle type="source" position={Position.Top} style={{opacity: "0"}} id="top-source"/>
-            <Handle type="target" position={Position.Top} style={{opacity: "0"}} id="top-target"/>
-         </Box>
-    );
+			>
+				{data.label}
+			</Typography>
+			<Handle type="source" position={Position.Top} style={{ opacity: "0" }} id="top-source" />
+			<Handle type="target" position={Position.Top} style={{ opacity: "0" }} id="top-target" />
+		</Box>
+	);
 }
