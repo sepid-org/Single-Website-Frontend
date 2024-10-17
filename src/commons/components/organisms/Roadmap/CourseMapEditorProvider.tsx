@@ -1,49 +1,35 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Button, Container, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import '@xyflow/react/dist/style.css';
 import { MarkerType } from '@xyflow/react';
-import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowProvider, useReactFlow, reconnectEdge } from '@xyflow/react';
-import { CourseMapNodeInfo } from 'commons/types/global';
+import { ReactFlow, Controls, Background, applyNodeChanges, ReactFlowProvider, useReactFlow, reconnectEdge } from '@xyflow/react';
 import StateNodeEditMode from 'commons/components/molecules/FSMMap/StateNodeEditMode';
 import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/molecules/FSMMap/FloatingEdge';
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
-import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
+import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
-
-const FSM_STATE_WIDTH = 200;
-const FSM_STATE_HEIGHT = 50;
 const FSM_MAP_WIDTH = 600;
-const FSM_MAP_HEIGHT = 800;
-
-
-const _getRandomPosition = () => ({
-	x: Math.floor(Math.random() * FSM_MAP_HEIGHT),
-	y: Math.floor(Math.random() * FSM_MAP_WIDTH),
-	width: FSM_STATE_WIDTH,
-	height: FSM_STATE_HEIGHT,
-});
+const FSM_MAP_HEIGHT = 600;
 
 // Helper function to convert backend type to graph rendering type
-const _convertToGraphNodeType = (backendState, firstState) => ({
-	...backendState,
-	id: backendState.id.toString(),
-	position: backendState.position || _getRandomPosition(),
+const convertFSMStateToGraphNode = (fsmState: FSMStateType, isFirstNode) => ({
+	...fsmState,
+	id: fsmState.id.toString(),
+	position: fsmState.position,
 	type: "stateNode",
 	draggable: true,
 	dragHandle: '.custom-drag-handle',
 	data: {
-		label: backendState.title,
-		isFirstNode: (backendState.id === firstState)
+		label: fsmState.title,
+		isFirstNode,
 	}
 });
 
 // Helper function to convert graph type back to backend type
-
-const _convertToGraphEdgeType = (backendEdge, nodes) => ({
+const convertFSMEdgeToGraphEdge = (backendEdge, nodes) => ({
 	...backendEdge,
 	id: backendEdge.id.toString(),
 	source: backendEdge.head.toString(),
@@ -54,7 +40,7 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 		color: 'black',
 	},
 	markerStart: {
-		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none") ,
+		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none"),
 		orient: 'auto-start-reverse',
 		color: "black"
 	},
@@ -63,85 +49,82 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 	//reconnectable: "source"
 });
 
-const _convertToBackendEdgeType = (graphEdge) => ({
+const convertGraphEdgeToFSMEdgeType = (graphEdge) => ({
 	tail: graphEdge.target,
 	head: graphEdge.source,
 	is_visible: true,
 	is_back_enabled: false
 });
 
-function CourseMapEditor() {
+const CourseMapEditor = () => {
 	const [createFSMEdge] = useCreateFSMEdgeMutation();
-    //const [updateFSMEdge] = useUpdateFSMEdgeMutation();
+	//const [updateFSMEdge] = useUpdateFSMEdgeMutation();
 	const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
 	const { fsmId } = useParams();
-	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
-	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
+	const { data: initialFsmStates = [], isSuccess: isGetFSMStateSuccess } = useGetFSMStatesQuery({ fsmId });
+	const { data: fsm } = useGetFSMQuery({ fsmId });
+	const firstState = initialFsmStates.find(fsmState => fsmState.id === fsm?.first_state);
+	const [fsmStates, setFSMStates] = useState<Partial<FSMStateType>[]>([]);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
-	const { data: fsm } = useGetFSMQuery({ fsmId });
-	const firstState = fsm?.first_state;
 	const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
 
 	useEffect(() => {
-		if (initialFsmStates && initialFsmStates.length > 0 && firstState) {
-			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState) });
-			setFsmStates(graphStates);
+		if (isGetFSMStateSuccess) {
+			setFSMStates(initialFsmStates.map((state) => convertFSMStateToGraphNode(state, false)));
 		}
-	}, [initialFsmStates, firstState]);
+	}, [initialFsmStates]);
+
+	useEffect(() => {
+		if (firstState) {
+			setFSMStates(fsmStates => [
+				...fsmStates.filter((state) => state.id != firstState.id),
+				convertFSMStateToGraphNode(firstState, true),
+			])
+		}
+	}, [firstState])
 
 	useEffect(() => {
 		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
-			const graphEdges = initialFsmEdges.map((edge) => { return _convertToGraphEdgeType(edge, fsmStates) });
-			console.log(graphEdges);
+			const graphEdges = initialFsmEdges.map((edge) => convertFSMEdgeToGraphEdge(edge, fsmStates));
 			setFSMEdges(graphEdges);
 		}
 	}, [initialFsmEdges, fsmStates])
 
+	console.log(fsmStates)
+
 	return (
-		<Container
+		<Box
 			sx={{
 				width: "100%",
 				height: FSM_MAP_HEIGHT,
 			}}
-			maxWidth={false}
 		>
-			<FlowCanva 
-				nodes={fsmStates} 
-				setNodes={setFsmStates} 
-				edges={fsmEdges} 
-				setEdges={setFSMEdges} 
-				updatePositions={updatePositions} 
-				createFSMEdge={createFSMEdge} 
+			<FlowCanva
+				nodes={fsmStates}
+				setNodes={setFSMStates}
+				edges={fsmEdges}
+				setEdges={setFSMEdges}
+				updatePositions={updatePositions}
+				createFSMEdge={createFSMEdge}
 				deleteFSMEdge={deleteFSMEdge}
 			/>
-			<Grid
-				container
-				spacing={2}
-				justifyContent="space-between"
-				alignItems="center"
-				flexDirection={"row-reverse"}
-			>
-				<Grid item xs={3}>
-					<CreateStateButton />
-				</Grid>
-				<Grid item xs={3}>
-					<Button
-						sx={{ width: "100%" }}
-						variant="contained"
-					>
-						ذخیره
-					</Button>
-				</Grid>
-			</Grid>
-		</Container>
+		</Box>
 	);
 }
 
-function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFSMEdge, deleteFSMEdge }) {
-
+function FlowCanva({
+	nodes,
+	setNodes,
+	edges,
+	setEdges,
+	updatePositions,
+	createFSMEdge,
+	deleteFSMEdge,
+}) {
 	const { fitView } = useReactFlow();
 	const containerRef = useRef(null);
+
 	useEffect(() => {
 		const handleResize = () => {
 			if (containerRef.current) {
@@ -169,7 +152,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			if (doubleEdge.length > 0) {
 				return;
 			}
-			createFSMEdge(_convertToBackendEdgeType(connection));
+			createFSMEdge(convertGraphEdgeToFSMEdgeType(connection));
 		}),
 		[edges, setEdges],
 	);
@@ -184,12 +167,13 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 			node1.position.y + node1element.offsetHeight > node2.position.y
 		);
 	};
+
 	const avoidOverlap = (newNode, nodes) => {
 		newNode.position.x = Math.floor(newNode.position.x);
 		newNode.position.y = Math.floor(newNode.position.y);
-		let adjustedNode = { 
+		let adjustedNode = {
 			...newNode,
-			position:{
+			position: {
 				...(dragStartPosition.current as any),
 				...newNode.position,
 			}
@@ -202,6 +186,7 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		}
 		return adjustedNode;
 	};
+
 	const onNodeDragStop = useCallback(
 		(event, node) => {
 			const newNodes = nodes.map((n) => (n.id === node.id ? avoidOverlap(node, nodes) : n));
@@ -222,43 +207,40 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		style: { strokeWidth: 3, stroke: 'black' },
 		type: 'floating',
 		markerEnd: {
-		  type: MarkerType.ArrowClosed,
-		  color: 'black',
+			type: MarkerType.ArrowClosed,
+			color: 'black',
 		},
 	};
 
 	const onReconnect = useCallback(
-		(oldEdge, newConnection) =>{
-		  setEdges((els) => reconnectEdge(oldEdge, newConnection, els))
-		  console.log("reconnect")
+		(oldEdge, newConnection) => {
+			setEdges((els) => reconnectEdge(oldEdge, newConnection, els))
+			console.log("reconnect")
 		},
 		[],
 	);
 
+	// console.log("NNNNNNNNNNNNN", nodes)
+
 	return (
-		<Container
-			sx={{ height: "90%", width: "100%" }}
-			maxWidth={false}
+		<ReactFlow
 			ref={containerRef}
+			nodes={nodes}
+			edges={edges}
+			nodeTypes={{ stateNode: StateNodeEditMode }}
+			edgeTypes={{ floating: FloatingCustomEdge }}
+			onNodesChange={onNodesChange}
+			onConnect={onConnect}
+			onNodeDragStop={onNodeDragStop}
+			onNodeDragStart={onNodeDragStart}
+			connectionLineComponent={FloatingConnectionLine}
+			onReconnect={onReconnect}
+			defaultEdgeOptions={defaultEdgeOptions}
+			fitView
 		>
-			<ReactFlow
-				nodes={nodes}
-				edges={edges}
-				nodeTypes={{ stateNode: StateNodeEditMode }}
-				edgeTypes={{ floating: FloatingCustomEdge }}
-				onNodesChange={onNodesChange}
-				onConnect={onConnect}
-				onNodeDragStop={onNodeDragStop}
-				onNodeDragStart={onNodeDragStart}
-				connectionLineComponent={FloatingConnectionLine}
-				onReconnect={onReconnect}
-				defaultEdgeOptions={defaultEdgeOptions}
-				fitView
-			>
-				<Background />
-				<Controls />
-			</ReactFlow>
-		</Container>
+			<Background />
+			<Controls />
+		</ReactFlow>
 	);
 }
 
