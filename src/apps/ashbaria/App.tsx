@@ -7,7 +7,7 @@ import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
-import './styles/fonts.css';
+import { PinarFontWrapper } from './styles/fonts';
 
 const App = () => {
 
@@ -16,19 +16,21 @@ const App = () => {
       backgroundColor: DarkSecondary,
       minHeight: '100vh',
     }}>
-      <ThemeProvider theme={customTheme}>
-        <Routes>
+      <PinarFontWrapper>
+        <ThemeProvider theme={customTheme}>
+          <Routes>
 
-          <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-            <Route path="/" element={<GameMenu />} />
-            <Route path="/manage/" element={<ProgramManagement />} />
-          </Route>
+            <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
+              <Route path="/" element={<GameMenu />} />
+              <Route path="/manage/" element={<ProgramManagement />} />
+            </Route>
 
-          <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
-          </Route>
+            <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
+            </Route>
 
-        </Routes>
-      </ThemeProvider>
+          </Routes>
+        </ThemeProvider>
+      </PinarFontWrapper>
     </div>
   );
 };
