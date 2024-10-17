@@ -14,6 +14,8 @@ import ScoreBoard from './pages/ScoreBoard';
 import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from './styles/Theme';
 import MovieScreeningRequest from './pages/MovieScreeningRequest';
+import CssBaseline from '@mui/material/CssBaseline';
+
 
 const App = () => {
   return (
@@ -22,6 +24,7 @@ const App = () => {
       minHeight: '100vh',  // This ensures the color covers the full height of the viewport
     }}>
       <ThemeProvider theme={customTheme}>
+        <CssBaseline />
         <Routes>
           <Route path="/movie-screening-request/" element={<MovieScreeningRequest />} />
 

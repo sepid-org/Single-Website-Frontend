@@ -66,6 +66,7 @@ const App = ({ }) => {
         <CacheProvider value={createEmotionCache(dir)}>
           <GlobalStyles />
           <ThemeProvider theme={selectTheme(dir)}>
+            <CssBaseline />
             <ToastContainer
               rtl
               position="top-right"
@@ -81,7 +82,6 @@ const App = ({ }) => {
             />
             <DialogProvider />
             <ConfettiContainer />
-            <CssBaseline />
             <Root />
           </ThemeProvider>
         </CacheProvider>

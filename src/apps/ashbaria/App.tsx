@@ -3,11 +3,13 @@ import { Routes, Route } from 'react-router-dom';
 import { DarkSecondary } from '../ashbaria/constants/colors';
 import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from '../ashbaria/styles/Theme';
+import CssBaseline from '@mui/material/CssBaseline';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
-import { PinarFontWrapper } from './styles/fonts';
+import FSM from 'apps/fsm/pages/FSM';
+import FSMManagement from 'apps/fsm/pages/FSMManagement';
 
 const App = () => {
 
@@ -16,21 +18,22 @@ const App = () => {
       backgroundColor: DarkSecondary,
       minHeight: '100vh',
     }}>
-      <PinarFontWrapper>
-        <ThemeProvider theme={customTheme}>
-          <Routes>
+      <ThemeProvider theme={customTheme}>
+        <CssBaseline />
+        <Routes>
 
-            <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route path="/" element={<GameMenu />} />
-              <Route path="/manage/" element={<ProgramManagement />} />
-            </Route>
+          <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
+            <Route path="/" element={<GameMenu />} />
+            <Route path="/court/:fsmId/" element={<FSM />} />
+            <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
+            <Route path="/manage/" element={<ProgramManagement />} />
+          </Route>
 
-            <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
-            </Route>
+          <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
+          </Route>
 
-          </Routes>
-        </ThemeProvider>
-      </PinarFontWrapper>
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 };
