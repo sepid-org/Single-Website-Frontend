@@ -1,3 +1,4 @@
+import { NodeProps } from "@xyflow/react";
 import { HintType } from "./global";
 import { SchoolStudentshipType, UserInfoType } from "./profile";
 import { PositionType, WidgetType } from "./widgets/widget";
@@ -159,7 +160,7 @@ export type PaperType = ObjectType & {
   paper_type: string;
   widgets: WidgetType[]
 }
-export type FSMStateType = ObjectType & {
+export type FSMStateType = ObjectType & NodeProps & {
   hints: HintType[];
   papers: string[];
   name: string;
