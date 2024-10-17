@@ -1,77 +1,45 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { ReactFlow, ReactFlowProvider, Controls, NodeProps, useEdgesState, addEdge, useNodesState, Handle, Position } from "@xyflow/react";
 import { MarkerType } from '@xyflow/react';
 import { CourseViewMapNodeInfo } from "commons/types/global";
 import { Box, Container, Typography } from "@mui/material";
 import '@xyflow/react/dist/style.css';
 import { FloatingCustomEdge, FloatingConnectionLine } from "commons/components/molecules/FSMMap/FloatingEdge";
-import { Opacity } from "@mui/icons-material";
+import { useParams } from "react-router-dom";
+import { useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 
 
 const edgeTypes = {floating: FloatingCustomEdge};
 
-const sampleNodes: CourseViewMapNodeInfo[] = [
-    {
-        data: {label: "این استیت اوله", isFirstNode: true, positionInMap: "seen"},
-        id: "1",
-        position: {x: 100, y: 50},
-        type: "customNode",
-        draggable: false
-    },
-    {
-        data: {label: "این یک استیت است", isFirstNode: false, positionInMap: "seen"},
-        id: "2",
-        position: {x: 550, y: 50},
-        type: "customNode",
-        draggable: false
-    },
-    {
-        data: {label: " kjugilougpihiqoiejhf09q47rihاستیت رندوم", isFirstNode: false, positionInMap: "currentNode"},
-        id: "3",
-        position: {x: 500, y: 300},
-        type: "customNode",
-        draggable: false
-    },
-    {
-        data: {label: "state4", isFirstNode: false, positionInMap: "notSeen"},
-        id: "4",
-        position: {x: 230, y: 300},
-        type: "customNode",
-        draggable: false
-    },
-    {
-        data: {label: "state5", isFirstNode: false, positionInMap: "notSeen"},
-        id: "5",
-        position: {x: 0, y: 300},
-        type: "customNode",
-        draggable: false
-    },
-    {
-        data: {label: "state6", isFirstNode: false, positionInMap: "notSeen"},
-        id: "6",
-        position: {x: 80, y: 500},
-        type: "customNode",
-        draggable: false,
-    },
-    {
-        data: {label: "state7", isFirstNode: false, positionInMap: "notSeen"},
-        id: "7",
-        position: {x: 80, y: 700},
-        type: "customNode",
-        draggable: false
-    },
-];
+const _convertToGraphNodeType = (backendState, firstState) => ({
+	...backendState,
+	id: backendState.id.toString(),
+	position: backendState.position,
+	type: "stateNode",
+	draggable: true,
+	dragHandle: '.custom-drag-handle',
+	data: {
+		label: backendState.title,
+		isFirstNode: (backendState.id === firstState)
+	}
+});
 
-const sampleEdges = [
-    {id: "1-2", source: "1", target: "2", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }},
-    {id: "2-3", source: "2", target: "3", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }},
-    {id: "3-4", source: "3", target: "4", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }},
-    {id: "4-5", source: "4", target: "5", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }},
-    {id: "5-6", source: "5", target: "6", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }},
-    {id: "6-7", source: "6", target: "7", type: "floating", markerEnd: { type: MarkerType.Arrow, color: "black" }}
-]
-
+ 
 export default function CourseMapViewMode(){
+    const { fsmId } = useParams();
+    const { data: fsm } = useGetFSMQuery({ fsmId });
+    const firstState = fsm?.first_state;
+    const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
+	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
+    
+    useEffect(() => {
+		if (initialFsmStates && initialFsmStates.length > 0 && firstState) {
+			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState) });
+			setFsmStates(graphStates);
+		}
+	}, [initialFsmStates, firstState]);
+    
     return(
         <Container
             sx={{ 
@@ -84,9 +52,7 @@ export default function CourseMapViewMode(){
                 <ReactFlow 
                     edgeTypes={edgeTypes} 
                     nodeTypes={nodeTypes}
-                    nodes={sampleNodes}
-                    edges={sampleEdges}
-                    //connectionLineComponent={FloatingConnectionLine}
+                    nodes={fsmStates}
                 />
                 <Controls />
             </ReactFlowProvider>

@@ -15,58 +15,7 @@ interface stateNodeProps extends NodeProps {
 }
 
 const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
-	const [isDrawing, setIsDrawing] = useState(false);
-	const [startPos, setStartPos] = useState(null);
-	const [currentPos, setCurrentPos] = useState(null);
-	const { setEdges, getNodes, getEdges, setNodes } = useReactFlow();
 
-	const handleMouseDown = (event) => {
-		setIsDrawing(true);
-		setStartPos({ x: event.clientX, y: event.clientY });
-	};
-	const handleMouseMove = (event) => {
-		if (isDrawing) {
-			setCurrentPos({ x: event.clientX, y: event.clientY });
-		}
-	};
-
-	const handleMouseUp = (event) => {
-		if (isDrawing) {
-			setIsDrawing(false);
-			const nodes = getNodes();
-			const targetNode = findTargetNode(event.clientX, event.clientY, nodes);
-
-			if (targetNode) {
-				const newEdge = {
-					id: `edge-${id}-${targetNode.id}-${Math.random()}`,
-					source: id,
-					target: targetNode.id,
-					sourceX: startPos.x,
-					sourceY: startPos.y,
-					targetX: event.clientX,
-					targetY: event.clientY,
-					type: "floating"
-				};
-
-				setEdges([...getEdges(), newEdge]);
-			}
-		}
-	};
-	const findTargetNode = (mouseX, mouseY, nodes) => {
-		const boundingBox = document.getElementById('reactflow-wrapper').getBoundingClientRect();
-		const flowX = mouseX - boundingBox.left;
-		const flowY = mouseY - boundingBox.top;
-
-		return nodes.find((node) => {
-			const { positionAbsolute, width, height } = node;
-			return (
-				flowX >= positionAbsolute.x &&
-				flowX <= positionAbsolute.x + width &&
-				flowY >= positionAbsolute.y &&
-				flowY <= positionAbsolute.y + height
-			);
-		});
-	};
 
 	const [stateNodeIsSelected, setStateNodeIsSelected] = useState(false);
 
@@ -82,35 +31,75 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				flexDirection: "row-reverse",
 				alignItems: "center",
 				justifyContent: "space-around",
+				position: "relative"
 			}}
 			id={id}
-		//onMouseDown={handleMouseDown}
-		//onMouseMove={handleMouseMove}
-		//onMouseUp={handleMouseUp}
 		>
+			<Box
+				sx={{
+					position: "absolute",
+					top: "0px",
+					transform: "translateY(-50%)",
+					zIndex: "3",
+					width: "60px",
+					height: "20px",
+					backgroundColor: "#752b34",
+					borderRadius: "5px",
+					opacity: "0.8"
+				}}
+				className="custom-drag-handle"
+			/>
 			<Handle
 				type="target"
 				position={Position.Top}
 				isConnectable={true}
 				id="top-target"
-			/>
-			<Handle
-				type="target"
-				position={Position.Bottom}
-				isConnectable={true}
-				id="bottom-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<Handle
 				type="target"
 				position={Position.Right}
 				isConnectable={true}
 				id="right-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="target"
+				position={Position.Bottom}
+				isConnectable={true}
+				id="bottom-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<Handle
 				type="target"
 				position={Position.Left}
 				isConnectable={true}
 				id="left-target"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<Typography
 				sx={{
@@ -119,6 +108,8 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 					overflow: "hidden",
 					textOverflow: "ellipsis",
 					whiteSpace: "nowrap",
+					//pointerEvents: "auto",
+					zIndex: "1"
 				}}
 				style={{
 					direction: "rtl",
@@ -135,25 +126,52 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 				position={Position.Top}
 				isConnectable={true}
 				id="top-source"
-			/>
-			<Handle
-				type="source"
-				position={Position.Bottom}
-				isConnectable={true}
-				id="bottom-source"
-				onDrag={() => console.log("dragggggg")}
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<Handle
 				type="source"
 				position={Position.Right}
 				isConnectable={true}
 				id="right-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
+			/>
+			<Handle
+				type="source"
+				position={Position.Bottom}
+				isConnectable={true}
+				id="bottom-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<Handle
 				type="source"
 				position={Position.Left}
 				isConnectable={true}
 				id="left-source"
+				style={{
+					width: "100%",
+					height: "100%",
+					position: "absolute",
+					opacity: "0",
+					zIndex: "2"
+				}}
 			/>
 			<FullScreenDialog
 				fullWidth={true}
