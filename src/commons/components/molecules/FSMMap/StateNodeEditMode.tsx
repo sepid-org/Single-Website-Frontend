@@ -117,7 +117,7 @@ const StateNodeEditMode: React.FC<stateNodeProps> = ({ data, id }) => {
 			>
 				{data.label}
 			</Typography>
-			<IconButton onClick={() => setStateNodeIsSelected(true)}>
+			<IconButton onClick={() => setStateNodeIsSelected(true)} sx={{zIndex:10}}>
 				<SettingsIcon />
 			</IconButton>
 			<Handle

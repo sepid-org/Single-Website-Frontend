@@ -39,11 +39,11 @@ const convertFSMEdgeToGraphEdge = (backendEdge, nodes) => ({
 		type: MarkerType.ArrowClosed,
 		color: 'black',
 	},
-	markerStart: {
-		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none"),
+	markerStart: (backendEdge.is_back_enabled ? {
+		type: (MarkerType.ArrowClosed),
 		orient: 'auto-start-reverse',
 		color: "black"
-	},
+	} : null),
 	sourceHandle: "top-source",
 	targetHandle: "top-target",
 	//reconnectable: "source"
@@ -203,19 +203,9 @@ function FlowCanva({
 		dragStartPosition.current = node.position;
 	}, []);
 
-	const defaultEdgeOptions = {
-		style: { strokeWidth: 3, stroke: 'black' },
-		type: 'floating',
-		markerEnd: {
-			type: MarkerType.ArrowClosed,
-			color: 'black',
-		},
-	};
-
 	const onReconnect = useCallback(
 		(oldEdge, newConnection) => {
-			setEdges((els) => reconnectEdge(oldEdge, newConnection, els))
-			console.log("reconnect")
+			setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
 		},
 		[],
 	);
@@ -235,12 +225,11 @@ function FlowCanva({
 			onNodeDragStart={onNodeDragStart}
 			connectionLineComponent={FloatingConnectionLine}
 			onReconnect={onReconnect}
-			defaultEdgeOptions={defaultEdgeOptions}
 			fitView
 		>
 			<Background />
 			<Controls />
-		</ReactFlow>
+		</ReactFlow >
 	);
 }
 
