@@ -56,7 +56,7 @@ const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
         <Divider />
         {(!FSMRoadmap || !initialPlayerTransitedPath)
           ? <Skeleton variant='rectangular' height={200} sx={{ borderBottomLeftRadius: 8, borderBottomRightRadius: 8 }} />
-          : <CourseMapViewMode currentStateTitle={currentNodeName}/> 
+          : <RoadMapType1 currentNodeId={currentNodeName} firstStateTitle={FSMRoadmap.firstStateTitle} links={FSMRoadmap.links} highlightedPath={playerTransitedPath} />
         }
       </Collapse>
     </Box>
