@@ -7,6 +7,7 @@ import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
+import './styles/fonts.css';
 
 const App = () => {
 
