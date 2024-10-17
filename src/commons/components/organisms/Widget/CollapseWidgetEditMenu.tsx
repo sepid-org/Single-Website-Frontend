@@ -11,22 +11,37 @@ const CollapseWidgetEditMenu = ({
 }) => {
   const [expanded, setExpanded] = useState(false);
 
-  const handleToggle = () => {
-    setExpanded(!expanded);
-  };
+  const openMenu = () => {
+    setExpanded(true);
+    setTimeout(() => {
+      setExpanded(false);
+    }, 5000)
+  }
+
+  const closeMenu = () => {
+    setExpanded(false);
+  }
 
   return (
     <div style={{ position: 'absolute', left: 0, top: 0, zIndex: 1 }}>
-      <Collapse dir='ltr' orientation="horizontal" in={expanded} collapsedSize={34}>
+      <Collapse
+        dir='ltr'
+        orientation="horizontal"
+        in={expanded}
+        collapsedSize={34}
+        onMouseEnter={openMenu}
+        onMouseLeave={closeMenu}
+      >
         <Stack
           component={Paper}
-          borderRadius={0}
+          elevation={0}
+          sx={{ borderRadius: 0 }}
           width={'auto'}
           direction='row'
           alignItems='center'
           justifyContent='space-between'
         >
-          <IconButton size='small' onClick={handleToggle}>
+          <IconButton size='small'>
             {expanded ? <CloseIcon /> : <MoreVertIcon />}
           </IconButton>
           <WidgetEditMenu widget={widget} paperId={paperId} />

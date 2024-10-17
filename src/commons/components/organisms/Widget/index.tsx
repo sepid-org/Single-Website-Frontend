@@ -13,6 +13,7 @@ export enum WidgetModes {
   Edit,
   Review,
   InForm,
+  Disable,
 };
 
 export enum WidgetTypes {
@@ -69,7 +70,7 @@ const Widget: FC<WidgetPropsType> = ({
   return (
     <Cover>
       {mode === WidgetModes.Edit &&
-        <CollapseWidgetEditMenu widget={widget} paperId={paperId}/>
+        <CollapseWidgetEditMenu widget={widget} paperId={paperId} />
       }
       {(mode === WidgetModes.View && widget?.hints?.length) ? <WidgetHint hints={widget.hints} /> : null}
       <WidgetComponent

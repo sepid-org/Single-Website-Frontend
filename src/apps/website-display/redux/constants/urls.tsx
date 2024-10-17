@@ -12,15 +12,9 @@ export const validateRegistrationReceiptUrl = ({ receiptId }) => `/fsm/receipts/
 // Team:
 export const registerUsersViaCSVUrl = ({ registrationFormId }) => `fsm/registration_form_admin/${registrationFormId}/register_participants_via_list/`;
 
-// Program:
-export const addMentorToWorkshopUrl = ({ fsmId }) => `/fsm/fsm/${fsmId}/add_mentor/`;
-
-
 // workshop:
 export const reviewAnswersUrl = ({ fsmId }) => `fsm/fsm/${fsmId}/review/`;
 export const getFSMPlayersUrl = ({ fsmId }) => `fsm/fsm/${fsmId}/players/`;
-export const getAllWorkshopMentors = ({ fsmId }) => `/fsm/fsm/${fsmId}/get_mentors/`;
-export const removeMentorURL = ({ fsmId }) => `/fsm/fsm/${fsmId}/remove_mentor/`;
 
 // fsm:
 export const getPlayerFromTeamUrl = ({ id }) => `/fsm/fsm/${id}/get_player_from_team/`;

@@ -112,7 +112,7 @@ export type FSMType = ContentType & {
   is_mentor: boolean;
   id: string;
   name: string;
-  first_state: FSMStateType;
+  first_state: string;
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
@@ -164,13 +164,15 @@ export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
   fsm: string;
-  inward_edges: EdgeType[];
-  outward_edges: EdgeType[];
+  inward_edges: FSMEdgeType[];
+  outward_edges: FSMEdgeType[];
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;
+  type: string;
+  draggable: boolean;
+  data: Object;
 };
-export type FSMEdgeType = any;
 export type Answer = any
 export type WorkshopEdge = any
 export type Token = any
@@ -271,9 +273,14 @@ export type PlayerType = {
   last_visit?: string;
 }
 
-export type EdgeType = {
-  tail: any;
-  head: any;
+export type FSMStateMinimalType = {
+  id: string;
+  title: string;
+}
+
+export type FSMEdgeType = {
+  tail: string;
+  head: string;
   id: string;
   has_transition_lock?: boolean;
   is_visible: boolean;
@@ -317,17 +324,17 @@ export type ObjectType = {
   name: string;
   title: string;
   position: PositionType;
-
   order: string;
-  widget?: string;
 }
 
-export type ObjectLogicType = {
+export type ComplementaryObjectType = {
   title?: string;
   name: string;
-  onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-  onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  logics?: {
+    onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
+    onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
+    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
+  }
   sx?: any;
   substituteComponent?: any;
 }

@@ -7,14 +7,14 @@ import StatePasswordDialog from 'commons/components/organisms/dialogs/StatePassw
 import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
-import { useGetFSMStateOutwardEdgesQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type FSMNextStateButtonPropsType = {}
 
 const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
-  const { fsmStateId, isMentor } = useFSMContext();
+  const { fsmStateId, isMentor } = useFSMStateContext();
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);

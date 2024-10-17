@@ -8,7 +8,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
-import { useCreateFSMStateMutation } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
+import { useCreateFSMStateMutation } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 
 type CreateStateDialogPropsType = {
   open: boolean;

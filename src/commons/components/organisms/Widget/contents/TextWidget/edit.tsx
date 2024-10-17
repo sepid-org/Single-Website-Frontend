@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 

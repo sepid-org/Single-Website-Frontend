@@ -20,5 +20,5 @@ const Paper: FC<PaperPropsType> = (props) => {
   // todo: add FSM state here
 };
 
-export { PaperEditor as EditPaper };
+export { PaperEditor };
 export default Paper;

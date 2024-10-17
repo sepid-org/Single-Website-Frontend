@@ -3,16 +3,25 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import {
   useGoForwardMutation,
   useMentorMoveForwardMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
-import { useFSMContext } from './useFSMContext';
+  useTransitToStateMutation,
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useFSMStateContext } from './useFSMStateContext';
+import { FSMEdgeType } from 'commons/types/models';
 
 const useChangeState = () => {
   const t = useTranslate();
-  const { isMentor } = useFSMContext();
+  const { isMentor } = useFSMStateContext();
   const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
   const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
+  const [transitToState, result] = useTransitToStateMutation();
 
-  const changeState = (edge) => {
+  const changePlayerState = (stateId: string) => {
+    transitToState({
+      stateId,
+    })
+  }
+
+  const changeState = (edge: FSMEdgeType) => {
     if (isMentor) {
       mentorMoveForward({
         edgeId: edge.id,
@@ -26,6 +35,7 @@ const useChangeState = () => {
 
   return {
     changeState,
+    changePlayerState,
   };
 }
 

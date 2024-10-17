@@ -16,7 +16,7 @@ import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { toast } from 'react-toastify';
 import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
 import { FSMType } from 'commons/types/models';
-import { useCreateFSMMutation } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useCreateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 type CreateFSMDialog = {

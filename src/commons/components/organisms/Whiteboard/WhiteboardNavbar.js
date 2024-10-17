@@ -28,7 +28,7 @@ import DrawingModes from './Drawing/DrawingModes'
 import CircleMenu from './Components/CircleMenu'
 import RectangleMenu from './Components/RectangleMenu'
 import RemoveAllNodesDialog from './Components/RemoveAllNodesDialog'
-import { useFSMContext } from 'commons/hooks/useFSMContext'
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext'
 
 function WhiteboardNavbar({
   drawingMode,
@@ -45,7 +45,7 @@ function WhiteboardNavbar({
   setIsFullScreen
 }) {
   const [openRemoveNodes, setOpenRemoveNodes] = useState(false)
-  const { teamId } = useFSMContext();
+  const { teamId } = useFSMStateContext();
 
   return (
     <Grid

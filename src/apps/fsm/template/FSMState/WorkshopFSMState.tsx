@@ -6,16 +6,17 @@ import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
 import FSMStateRoadMap from 'commons/components/organisms/FSMStateRoadMap';
 import FSMStateHelpButton from 'commons/components/molecules/FSMStateHelpButton';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetFSMStateQuery } from 'apps/website-display/redux/features/fsm/FSMStateSlice';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
-export type WorkshopFSMStatePropsType = {}
+export type WorkshopFSMStatePropsType = {
+  fsmStateId: string;
+}
 
-const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ }) => {
-  const { fsmStateId } = useFSMContext()
+const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useParams();
   const { data: state } = useGetFSMStateQuery({ fsmStateId })
   const paperId = state.papers[0];

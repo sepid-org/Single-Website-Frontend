@@ -9,8 +9,8 @@ import {
   DialogTitle,
 } from '@mui/material';
 import React, { Fragment, useState } from 'react';
-import TinyEditorComponent from 'commons/components/organisms/TinyMCE/ReactTiny/TinyEditorComponent';
-import { EditPaper } from 'commons/template/Paper';
+import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
+import { PaperEditor } from 'commons/template/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
@@ -85,7 +85,7 @@ const DetailBoxEditDialog = ({
           <Fragment>
             <DialogContentText gutterBottom>ویجت‌هایی را که می‌خواهید به‌صورت پنهان‌شده باشند، اینجا بگذارید.</DialogContentText>
             {detailsId &&
-              <EditPaper
+              <PaperEditor
                 paperId={detailsId}
                 mode='contents'
               />

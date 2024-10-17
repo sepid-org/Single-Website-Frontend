@@ -22,7 +22,6 @@ export type DiscountCodeType = {
   max_uses: number;
   percentage: number;
   film: FilmType;
-  usageCount: number;
   start_date: string;
   end_date: string;
 }

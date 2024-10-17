@@ -7,7 +7,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 
 import CreateWidgetDialog from 'commons/components/organisms/dialogs/CreateWidgetDialog';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import { EditPaper } from './Paper';
+import { PaperEditor } from './Paper';
 import { useCreateFSMStateHintMutation, useCreateWidgetHintMutation, useDeleteFSMStateHintMutation, useDeleteWidgetHintMutation } from 'apps/website-display/redux/features/hint/HintSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 
@@ -48,7 +48,7 @@ const EditHints: FC<EditHintsPropsType> = ({
                         </Tooltip>
                       </Box>
                     </Stack>
-                    <EditPaper paperId={hint.id} />
+                    <PaperEditor paperId={hint.id} />
                   </Stack>
                 </Paper>
               </Grid>

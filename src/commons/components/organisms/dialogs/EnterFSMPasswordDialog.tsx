@@ -9,7 +9,7 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useNavigate } from 'react-router-dom';
-import { useEnterFSMMutation } from 'apps/website-display/redux/features/program/PlayerSlice';
+import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
 type EnterFSMPasswordDialogPropsType = {
   open: boolean;

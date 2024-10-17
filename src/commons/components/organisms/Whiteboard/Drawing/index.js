@@ -3,7 +3,7 @@ import { Layer, Line, Rect, Stage } from 'react-konva'
 
 import DrawingModes from './DrawingModes'
 import KonvaNode from './KonvaNode'
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 function Drawing({
   width,
@@ -80,7 +80,7 @@ function Drawing({
     }
   }
 
-  const { teamId } = useFSMContext();
+  const { teamId } = useFSMStateContext();
 
   const onTouchStageEnd = () => {
     if (activeLine) {

@@ -1,5 +1,5 @@
 import { Button, Typography } from '@mui/material';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import React, { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 

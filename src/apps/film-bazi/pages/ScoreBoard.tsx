@@ -1,10 +1,10 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useGetScoreBoard from '../hooks/useGetScoreBoard';
 import AppBarComponent from '../components/organisms/Appbar';
 import useGetMyRank from '../hooks/useGetMyRank';
 import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
-import { Box, Container } from '@mui/material';
+import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { ScoreBoardItemType } from '../types';
 import useGetMyBalances from '../hooks/useGetMyBalances';
@@ -15,8 +15,6 @@ interface ScoreRecordsStateProp {
 	currentUser: ScoreBoardItemType,
 	currentUserExistsInWinners: boolean
 }
-
-
 
 const App: React.FC = () => {
 	const { scoreBoard, loading: scoreBoardLoading } = useGetScoreBoard();
@@ -39,15 +37,14 @@ const App: React.FC = () => {
 		}
 	}, [scoreBoardLoading]);
 
-
 	useEffect(() => {
-		if (!scoreBoardLoading && myRank && !balancesLoading) {
+		if (!scoreBoardLoading && !myRankLoading && !balancesLoading) {
 			let newRecords = [...scoreBoard];
 			for (let i = 0; i < newRecords.length; i++) {
 				Object.defineProperty(newRecords[i], "currentUser", { value: false, writable: true });
 			}
 			let exists = false;
-			if (myRank.rank != null) {
+			if (myRank?.rank != null) {
 				let currentUserInRecords = (newRecords.find(record => (record.id === userAccount.userInfo.id)));
 				if (currentUserInRecords != null) {
 					currentUserInRecords.currentUser = true;
@@ -60,7 +57,7 @@ const App: React.FC = () => {
 				currentUser: {
 					first_name: userAccount.userInfo.first_name,
 					last_name: userAccount.userInfo.last_name,
-					rank: myRank.rank,
+					rank: myRank?.rank,
 					currentUser: true,
 					id: userAccount.userInfo.id,
 					score: balances["filmbazi-coin"]
@@ -69,7 +66,6 @@ const App: React.FC = () => {
 			});
 		}
 	}, [scoreBoardLoading, myRank, balancesLoading])
-
 
 	return (
 		<Box

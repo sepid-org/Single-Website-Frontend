@@ -9,12 +9,12 @@ import {
 } from 'apps/website-display/redux/slices/currentState';
 import DraggableChatRoom from 'commons/components/organisms/DraggableMeeting';
 import { toast } from 'react-toastify';
-import { useGetFSMQuery } from 'apps/website-display/redux/features/fsm/FSMSlice';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
   useEnterFSMMutation,
-} from 'apps/website-display/redux/features/program/PlayerSlice';
+} from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 
@@ -48,7 +48,6 @@ const FSM: FC<FSMPagePropsType> = ({
   teamId = new URLSearchParams(search).get('teamId') || teamId
   const [enterFSM, result] = useEnterFSMMutation();
   const { data: { fullName, id: mentorId } } = useUserProfile();
-
 
   let readyToAddMentor = false
   if (teamId !== undefined && mentorId !== undefined && fullName !== undefined) {
@@ -131,7 +130,7 @@ const FSM: FC<FSMPagePropsType> = ({
 
   return (
     <Fragment>
-      <FSMState />
+      <FSMState fsmStateId={(player?.current_state as any)} />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
         <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
       }

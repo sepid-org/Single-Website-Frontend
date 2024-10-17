@@ -9,13 +9,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import CustomJitsiMeeting from './CustomJitsiMeeting';
 import MeetingCustomSpinner from 'commons/components/atoms/MeetingCustomSpinner';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 function Meeting({ handleClose }) {
   const [random, setRandom] = useState(0);
   const [showWarning, setShowWarning] = useState(true);
   const { data: userProfile } = useUserProfile();
-  const { isMentor, teamId } = useFSMContext();
+  const { isMentor, teamId } = useFSMStateContext();
   const displayName = isMentor ?
     `${userProfile?.first_name} ${userProfile?.last_name} (همیار)` :
     userProfile?.first_name + ' ' + userProfile?.last_name;
