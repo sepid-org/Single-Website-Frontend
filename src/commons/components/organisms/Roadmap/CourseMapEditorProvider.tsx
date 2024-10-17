@@ -9,7 +9,7 @@ import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/
 import { useParams } from 'react-router-dom';
 import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
-import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
+import { useCreateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
 const FSM_MAP_WIDTH = 600;
 const FSM_MAP_HEIGHT = 600;
@@ -29,7 +29,7 @@ const convertFSMStateToGraphNode = (fsmState: FSMStateType, isFirstNode) => ({
 });
 
 // Helper function to convert graph type back to backend type
-const convertFSMEdgeToGraphEdge = (backendEdge, nodes) => ({
+const convertFSMEdgeToGraphEdge = (backendEdge) => ({
 	...backendEdge,
 	id: backendEdge.id.toString(),
 	source: backendEdge.head.toString(),
@@ -57,49 +57,30 @@ const convertGraphEdgeToFSMEdgeType = (graphEdge) => ({
 });
 
 const CourseMapEditor = () => {
-	const [createFSMEdge] = useCreateFSMEdgeMutation();
-	//const [updateFSMEdge] = useUpdateFSMEdgeMutation();
-	const [deleteFSMEdge] = useDeleteFSMEdgeMutation();
 	const { fsmId } = useParams();
-	const { data: initialFsmStates = [], isSuccess: isGetFSMStateSuccess } = useGetFSMStatesQuery({ fsmId });
+	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
+	const { data: initialFsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const firstState = initialFsmStates.find(fsmState => fsmState.id === fsm?.first_state);
 	const [fsmStates, setFSMStates] = useState<Partial<FSMStateType>[]>([]);
-	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
-	const [updatePositions, { isSuccess: isUpdatePositionsSuccess }] = useUpdatePositionsMutation();
+	const [updatePositions] = useUpdatePositionsMutation();
+	const [createFSMEdge] = useCreateFSMEdgeMutation();
 
 	useEffect(() => {
-		if (isGetFSMStateSuccess) {
-			setFSMStates(initialFsmStates.map((state) => convertFSMStateToGraphNode(state, false)));
+		if (initialFsmStates) {
+			setFSMStates(initialFsmStates.map(state => convertFSMStateToGraphNode(state, state.id == firstState?.id)));
 		}
-	}, [initialFsmStates]);
+	}, [initialFsmStates, firstState]);
 
 	useEffect(() => {
-		if (firstState) {
-			setFSMStates(fsmStates => [
-				...fsmStates.filter((state) => state.id != firstState.id),
-				convertFSMStateToGraphNode(firstState, true),
-			])
+		if (initialFsmEdges) {
+			setFSMEdges(initialFsmEdges.map((edge) => convertFSMEdgeToGraphEdge(edge)));
 		}
-	}, [firstState])
-
-	useEffect(() => {
-		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
-			const graphEdges = initialFsmEdges.map((edge) => convertFSMEdgeToGraphEdge(edge, fsmStates));
-			setFSMEdges(graphEdges);
-		}
-	}, [initialFsmEdges, fsmStates])
-
-	console.log(fsmStates)
+	}, [initialFsmEdges])
 
 	return (
-		<Box
-			sx={{
-				width: "100%",
-				height: FSM_MAP_HEIGHT,
-			}}
-		>
+		<Box sx={{ width: "100%", height: FSM_MAP_HEIGHT }}>
 			<FlowCanva
 				nodes={fsmStates}
 				setNodes={setFSMStates}
@@ -107,21 +88,19 @@ const CourseMapEditor = () => {
 				setEdges={setFSMEdges}
 				updatePositions={updatePositions}
 				createFSMEdge={createFSMEdge}
-				deleteFSMEdge={deleteFSMEdge}
 			/>
 		</Box>
 	);
 }
 
-function FlowCanva({
+const FlowCanva = ({
 	nodes,
 	setNodes,
 	edges,
 	setEdges,
 	updatePositions,
 	createFSMEdge,
-	deleteFSMEdge,
-}) {
+}) => {
 	const { fitView } = useReactFlow();
 	const containerRef = useRef(null);
 
@@ -209,8 +188,6 @@ function FlowCanva({
 		},
 		[],
 	);
-
-	// console.log("NNNNNNNNNNNNN", nodes)
 
 	return (
 		<ReactFlow
