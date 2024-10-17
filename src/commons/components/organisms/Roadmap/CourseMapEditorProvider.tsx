@@ -53,11 +53,11 @@ const _convertToGraphEdgeType = (backendEdge, nodes) => ({
 		type: MarkerType.ArrowClosed,
 		color: 'black',
 	},
-	markerStart: {
-		type: (backendEdge.is_back_enabled ? MarkerType.ArrowClosed : "none") ,
+	markerStart: (backendEdge.is_back_enabled ? {
+		type: (MarkerType.ArrowClosed),
 		orient: 'auto-start-reverse',
 		color: "black"
-	},
+	} : null),
 	sourceHandle: "top-source",
 	targetHandle: "top-target",
 	//reconnectable: "source"
@@ -93,7 +93,6 @@ function CourseMapEditor() {
 	useEffect(() => {
 		if (initialFsmEdges && fsmStates && fsmStates.length > 0) {
 			const graphEdges = initialFsmEdges.map((edge) => { return _convertToGraphEdgeType(edge, fsmStates) });
-			console.log(graphEdges);
 			setFSMEdges(graphEdges);
 		}
 	}, [initialFsmEdges, fsmStates])
@@ -218,19 +217,9 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 		dragStartPosition.current = node.position;
 	}, []);
 
-	const defaultEdgeOptions = {
-		style: { strokeWidth: 3, stroke: 'black' },
-		type: 'floating',
-		markerEnd: {
-		  type: MarkerType.ArrowClosed,
-		  color: 'black',
-		},
-	};
-
 	const onReconnect = useCallback(
 		(oldEdge, newConnection) =>{
-		  setEdges((els) => reconnectEdge(oldEdge, newConnection, els))
-		  console.log("reconnect")
+		  setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
 		},
 		[],
 	);
@@ -252,7 +241,6 @@ function FlowCanva({ nodes, setNodes, edges, setEdges, updatePositions, createFS
 				onNodeDragStart={onNodeDragStart}
 				connectionLineComponent={FloatingConnectionLine}
 				onReconnect={onReconnect}
-				defaultEdgeOptions={defaultEdgeOptions}
 				fitView
 			>
 				<Background />

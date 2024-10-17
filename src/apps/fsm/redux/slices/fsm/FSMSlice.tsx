@@ -106,7 +106,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     setFSMFirstState: builder.mutation<any, { fsmId: string; fsmStateId: string }>({
-      invalidatesTags: ['fsm'],
+      invalidatesTags: ['fsm', 'fsm-states'],
       query: ({ fsmId, fsmStateId }) => ({
         url: `/fsm/fsm/${fsmId}/first_state/`,
         method: 'POST',
