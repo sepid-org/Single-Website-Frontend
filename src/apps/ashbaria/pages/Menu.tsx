@@ -33,14 +33,16 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'دادگاه‌ها'}
             </Typography>
-            {fsms?.fsms?.map(fsm =>
-              <Grid item xs={12} sm={4} key={fsm.id}>
-                <FSMCard
-                  fsm={fsm}
-                  userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
-                />
-              </Grid>
-            )}
+            <Grid container spacing={2}>
+              {fsms?.fsms?.map(fsm =>
+                <Grid item xs={12} sm={4} key={fsm.id}>
+                  <FSMCard
+                    fsm={fsm}
+                    userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                  />
+                </Grid>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Layout>
