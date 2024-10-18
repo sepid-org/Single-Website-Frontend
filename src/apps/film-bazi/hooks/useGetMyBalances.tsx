@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { BalancesType } from 'apps/film-bazi/types';
-import { FilmBaziApiUrl } from '../constants/Urls';
+import { BankApiUrl } from '../constants/Urls';
 
 const useGetUserBalances = () => {
   const [balances, setBalances] = useState<BalancesType>({});
@@ -18,7 +18,7 @@ const useGetUserBalances = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}scores/my-balance/`, {
+        const response = await fetch(`${BankApiUrl}counter/my-balance/`, {
           headers: headers,
         });
         if (!response.ok) {
