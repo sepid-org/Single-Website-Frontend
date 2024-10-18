@@ -19,7 +19,7 @@ const useGetScoreBoard = (currencyName = GAME_CURRENCY_NAME) => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${BankApiUrl}counter/currency-scoreboard/?currency_name=${currencyName}`, {
+        const response = await fetch(`${BankApiUrl}counter/scoreboard/?currency_name=${currencyName}`, {
           headers: headers,
         });
         if (!response.ok) {
