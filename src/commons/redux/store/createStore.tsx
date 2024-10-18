@@ -4,6 +4,7 @@ import { ContentManagementServiceApi } from 'apps/website-display/redux/features
 import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
 import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApiSlice';
 import rootReducer from '../rootReducer';
+import { BankApi } from '../slices/BankApi';
 
 const createStore = (preloadedState) => {
   return configureStore({
@@ -15,7 +16,8 @@ const createStore = (preloadedState) => {
         .concat(PartyManagementServiceApi.middleware)
         .concat(ContentManagementServiceApi.middleware)
         .concat(WebsiteManagementServiceApi.middleware)
-        .concat(AshbariaApi.middleware),
+        .concat(AshbariaApi.middleware)
+        .concat(BankApi.middleware),
     devTools: process.env.NODE_ENV === 'development',
     preloadedState,
   });

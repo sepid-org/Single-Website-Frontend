@@ -4,6 +4,7 @@ import { PartyManagementServiceApi } from 'apps/website-display/redux/features/M
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
 import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
 import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApiSlice';
+import { BankApi } from './slices/BankApi';
 
 const appReducer = combineReducers({
   ...allReducers,
@@ -11,6 +12,7 @@ const appReducer = combineReducers({
   [ContentManagementServiceApi.reducerPath]: ContentManagementServiceApi.reducer,
   [WebsiteManagementServiceApi.reducerPath]: WebsiteManagementServiceApi.reducer,
   [AshbariaApi.reducerPath]: AshbariaApi.reducer,
+  [BankApi.reducerPath]: BankApi.reducer,
 });
 
 export default appReducer;
