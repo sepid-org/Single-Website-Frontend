@@ -54,8 +54,6 @@ const handleError = ({
       toast.error('ایراد سروری پیش آمده! لطفاً ما را در جریان بگذارید.');
       return;
   }
-
-  toast.error(errorMessage);
 };
 
 

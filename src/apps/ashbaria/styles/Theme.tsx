@@ -92,9 +92,11 @@ export const customTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: '#221F37',
           borderRadius: 24,
           borderTop: '2px solid rgba(255, 255, 255, 0.5)',
+          background: 'linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)',
+          backdropFilter: 'blur(5.822803020477295px)',
+          boxShadow: '0px 5.82px 5.82px 0px rgba(0, 0, 0, 0.25)',
         },
       },
     },

@@ -4,10 +4,11 @@ import StarIcon from "../icons/StarIcon"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import CustomBadge from "../CustomBadge"
-import useGetMyRank from "apps/film-bazi/hooks/useGetMyRank"
+import { useGetMyRankQuery } from "commons/redux/slices/my-info/MyInfo"
+import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 
 const MyRankBadge = ({ }) => {
-  const { rank } = useGetMyRank();
+  const { data: rank } = useGetMyRankQuery({ currencyName: FILMBAZI_COIN });
 
   return (
     <CustomBadge>

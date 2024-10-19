@@ -20,6 +20,7 @@ const App = () => {
     }}>
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
+
         <Routes>
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
@@ -33,8 +34,10 @@ const App = () => {
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
           </Route>
 
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
+
     </div>
   );
 };
