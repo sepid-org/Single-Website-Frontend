@@ -1,0 +1,1 @@
+export const ASHBARIA_COIN = 'ashbaria-coin';

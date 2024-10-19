@@ -2,14 +2,14 @@ import { Stack, Typography } from "@mui/material"
 import React from "react"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
-import useGetMyBalances from "apps/film-bazi/hooks/useGetMyBalances"
 import CustomBadge from "./CustomBadge"
-import { GAME_CURRENCY_NAME } from "apps/film-bazi/constants/game"
+import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 import BananaIcon from "./icons/BananaIcon"
+import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
 
 const MyScoresBadge = ({ }) => {
-  const { balances, loading } = useGetMyBalances();
-  const score = balances[GAME_CURRENCY_NAME] || 0;
+  const { data: balances } = useGetMyBalancesQuery();
+  const score = balances?.[FILMBAZI_COIN] || 0;
 
   return (
     <CustomBadge>

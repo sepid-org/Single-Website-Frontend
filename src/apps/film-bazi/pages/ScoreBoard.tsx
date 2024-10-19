@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import useGetScoreBoard from '../hooks/useGetScoreBoard';
 import AppBarComponent from '../components/organisms/Appbar';
-import useGetMyRank from '../hooks/useGetMyRank';
 import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
 import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
-import { ScoreBoardItemType } from '../types';
-import useGetMyBalances from '../hooks/useGetMyBalances';
+import { useGetMyBalancesQuery, useGetMyRankQuery } from 'commons/redux/slices/my-info/MyInfo';
+import { FILMBAZI_COIN } from '../constants/game';
+import { useGetScoreboardQuery } from 'commons/redux/slices/scoreboard/Scoreboard';
+import { ScoreBoardItemType } from 'commons/types/bank';
 
 interface ScoreRecordsStateProp {
 	winnerUsersInfo: ScoreBoardItemType[],
@@ -16,16 +16,16 @@ interface ScoreRecordsStateProp {
 	currentUserExistsInWinners: boolean
 }
 
-const App: React.FC = () => {
-	const { scoreBoard, loading: scoreBoardLoading } = useGetScoreBoard();
-	const { rank: myRank, loading: myRankLoading, error: myRankError } = useGetMyRank();
-	const { balances, loading: balancesLoading } = useGetMyBalances();
+const ScoreBoard: React.FC = () => {
+	const { data: scoreBoard, isLoading: isScoreBoardLoading } = useGetScoreboardQuery({ currencyName: FILMBAZI_COIN });
+	const { data: myRank, isLoading: isMyRankLoading } = useGetMyRankQuery({ currencyName: FILMBAZI_COIN });
+	const { data: balances, isLoading: isBalancesLoading } = useGetMyBalancesQuery();
 	const userAccount = useSelector((state: any) => state.account);
 	const [winnerScores, setWinnerScores] = useState([]);
 	const [scoreRecordsState, setScoreRecordsState] = useState<ScoreRecordsStateProp>({ winnerUsersInfo: [], winnerScoresInfo: [], currentUser: null, currentUserExistsInWinners: false });
 
 	useEffect(() => {
-		if (scoreBoard.length > 0) {
+		if (scoreBoard) {
 			const ranks = [];
 			for (let i = 1; i < 4; i++) {
 				let rank = scoreBoard.find(record => record.rank === i);
@@ -35,13 +35,16 @@ const App: React.FC = () => {
 			}
 			setWinnerScores(ranks);
 		}
-	}, [scoreBoardLoading]);
+	}, [isScoreBoardLoading]);
 
 	useEffect(() => {
-		if (!scoreBoardLoading && !myRankLoading && !balancesLoading) {
+		if (!isScoreBoardLoading && !isMyRankLoading && !isBalancesLoading) {
 			let newRecords = [...scoreBoard];
 			for (let i = 0; i < newRecords.length; i++) {
-				Object.defineProperty(newRecords[i], "currentUser", { value: false, writable: true });
+				newRecords[i] = {
+					...newRecords[i],
+					currentUser: false,
+				};
 			}
 			let exists = false;
 			if (myRank?.rank != null) {
@@ -60,12 +63,12 @@ const App: React.FC = () => {
 					rank: myRank?.rank,
 					currentUser: true,
 					id: userAccount.userInfo.id,
-					score: balances["filmbazi-coin"]
+					score: balances[FILMBAZI_COIN]
 				},
 				currentUserExistsInWinners: exists
 			});
 		}
-	}, [scoreBoardLoading, myRank, balancesLoading])
+	}, [isScoreBoardLoading, isMyRankLoading, isBalancesLoading])
 
 	return (
 		<Box
@@ -86,4 +89,4 @@ const App: React.FC = () => {
 	);
 };
 
-export default App;
+export default ScoreBoard;

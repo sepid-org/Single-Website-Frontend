@@ -14,6 +14,7 @@ import { Button } from "@mui/material";
 import MyScoresBadge from "../components/atoms/MyScoresBadge";
 import useLocalNavigate from "./useLocalNavigate";
 import MyChancesBadge from "../components/atoms/MyChancesBadge";
+import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -43,6 +44,7 @@ const useCinemaGameLogic = ({
   openLoading,
   setOpenLoading,
 }) => {
+  const { refetch } = useGetMyBalancesQuery();
   const { seatInfo, fetchSeatInfo } = useSeatInfo();
   const { loading: selectSeatLoading, selectedSeat, selectSeat: selectSeat, error: selectSeatError } = useSelectSeat();
   const { seatSelections, refetch: refetchSeatSelections, loading: getSeatSelectionsLoading } = useGetSeatSelections();
@@ -64,6 +66,7 @@ const useCinemaGameLogic = ({
     if (!selectSeatLoading) {
       if (selectedSeat) {
         if (selectedSeat.score_reward) {
+          refetch();
           dialogService.open({
             component:
               <CustomDialogContent
