@@ -12,7 +12,7 @@ type GetMyRankInputType = { currencyName: string };
 export const MyInfoSlice = BankApi.injectEndpoints({
   endpoints: (builder) => ({
     getMyBalances: builder.query<GetMyBalancesOutputType, void>({
-      query: () => 'counter/my-balance/',
+      query: () => 'counter/my-balances/',
     }),
 
     getMyRank: builder.query<GetMyRankOutputType, GetMyRankInputType>({
