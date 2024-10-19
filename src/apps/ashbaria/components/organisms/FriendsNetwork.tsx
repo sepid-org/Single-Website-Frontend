@@ -15,6 +15,7 @@ import heartIcon from "../../assets/Heart Angle.svg";
 import buttons from "../../assets/Buttons.svg";
 import profile2Users from "../../assets/profile-2user.svg";
 import verify from "../../assets/verify.svg";
+import copyIcon from "../../assets/copy.svg";
 
 const App = () => {
   const handleCopy = () => {
@@ -58,7 +59,7 @@ const App = () => {
             marginBottom: "10px",
           }}
         >
-          <IconButton sx={{color:"#FFA800"}}>
+          <IconButton sx={{ color: "#FFA800" }}>
             <ArrowRightAltIcon />
           </IconButton>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -81,8 +82,8 @@ const App = () => {
         </Box>
 
         {/* Main Content */}
-        <Grid 
-          container 
+        <Grid
+          container
           sx={{
             display: "flex",
             justifyContent: "space-between",
@@ -94,225 +95,284 @@ const App = () => {
           {/* Right Component */}
           <Grid
             sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
               width: "326px",
               height: "224px",
               borderRadius: "12px",
               backgroundColor: "rgba(0, 0, 0, 0.1)",
-            }}  
+            }}
           >
-            <Paper sx={{ padding: 2,}}>
-              <Container 
+            <Container
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "310px",
+                height: "36px",
+              }}
+            >
+              <Typography
                 sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  width: "310px",
-                  height: "36px",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  lineHeight: "24.92px",
+                  width: "185px",
+                }}
+                style={{
+                  direction: "rtl",
+                  textAlign: "right",
+                  //text align is not working
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    lineHeight: "24.92px",
-                    width: "185px",
-                  }}
-                  style={{
-                    direction: "rtl",
-                    textAlign: "right",
-                    //text align is not working
-                  }}
-                >
-                  کد دوستاتو بزن!
-                </Typography>
-                <Box //go to left
-                  sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    flexDirection: "row",
-                    width: "125px", 
-                    height: "36px", 
-                    borderRadius: "20px" ,
-                    backgroundColor: "#0000004D",
-                    padding: "4px 8px 4px 12px",
-                    gap: "8px",
-                    border: "2px",
-                  }}
-                >
-                  <Box //align items to center
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      12
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={verify}
-                      width="34px"
-                      height="34px"
-                    />
-                  </Box>
-                  <Box //align items to center
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={profile2Users}
-                      width="28px"
-                      height="28px"
-                    />
-                  </Box>
-                </Box>
-              </Container>
-              <Typography 
-                sx={{ //text align is still set to left
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  textAlign: "right",
-                  marginTop: "10px",
+                کد دوستاتو بزن!
+              </Typography>
+              <Box //go to left
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexDirection: "row",
+                  width: "125px",
+                  height: "36px",
+                  borderRadius: "20px",
+                  backgroundColor: "#0000004D",
+                  padding: "4px 8px 4px 12px",
+                  gap: "8px",
+                  border: "2px",
                 }}
-              >اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه</Typography>
-              <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
-              <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
-            </Paper>
+              >
+                <Box //align items to center
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 800,
+                      lineHeight: "26.38px",
+                      textAlign: "right"
+                    }}
+                  >
+                    12
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={verify}
+                    width="34px"
+                    height="34px"
+                  />
+                </Box>
+                <Box //align items to center
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 800,
+                      lineHeight: "26.38px",
+                      textAlign: "right"
+                    }}
+                  >
+                    2
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={profile2Users}
+                    width="28px"
+                    height="28px"
+                  />
+                </Box>
+              </Box>
+            </Container>
+            <Typography
+              sx={{ //text align is still set to left
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "24px",
+                textAlign: "right",
+                marginTop: "10px",
+              }}
+            >اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه</Typography>
+            <TextField 
+              variant="outlined" 
+              placeholder="کد ۱۰ رقمی" 
+              sx={{
+                width: "310px",
+                height: "44px",
+                marginTop: "10px"
+              }} 
+            />
+            <Button //layout problem
+              sx={{ 
+                marginTop: "10px",
+                width: "99px",
+                height: "42px",
+                minWidth: "80px",
+                borderRadius: "100px",
+                padding: "0px",
+                border: "1px"
+              }}>ثبتش کن</Button>
           </Grid>
 
           {/* Left Component */}
-          <Grid 
+          <Grid
             sx={{
+              display: "flex",
+              justifyContent: "center",
+              flexDirection: "column",
               width: "326px",
               height: "224px",
               borderRadius: "12px",
-              background: "linear-gradient(180 deg, rgba(0, 0, 0, 0.1) 10%, white 90%)",
-            }}    
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
+            }}
           >
-            <Paper sx={{ padding: 2}}>
-              <Container 
+            <Container
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "310px",
+                height: "36px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  lineHeight: "24.92px",
+                  width: "185px",
+                }}
+                style={{
+                  direction: "rtl",
+                  textAlign: "right",
+                  //text align is not working
+                }}
+              >
+                به دوستات کد بده!
+              </Typography>
+              <Box //go to left
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  flexDirection: "row",
+                  width: "125px",
+                  height: "36px",
+                  borderRadius: "20px",
+                  backgroundColor: "#0000004D",
+                  padding: "4px 8px 4px 12px",
+                  gap: "8px",
+                  border: "2px",
+                }}
+              >
+                <Box //align items to center
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 800,
+                      lineHeight: "26.38px",
+                      textAlign: "right"
+                    }}
+                  >
+                    12
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={verify}
+                    width="34px"
+                    height="34px"
+                  />
+                </Box>
+                <Box //align items to center
+                  sx={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center"
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      fontSize: "16px",
+                      fontWeight: 800,
+                      lineHeight: "26.38px",
+                      textAlign: "right"
+                    }}
+                  >
+                    2
+                  </Typography>
+                  <Box
+                    component="img"
+                    src={profile2Users}
+                    width="28px"
+                    height="28px"
+                  />
+                </Box>
+              </Box>
+            </Container>
+            <Typography
+              sx={{//text align is still set to left
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "24px",
+                textAlign: "right",
+                marginTop: "10px",
+              }}
+            >هر کسی کد اختصاصی تو رو بزنه، هم اون اعتبار میگیره هم تو!</Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                borderRadius: "12px",
+                marginTop: "10px",
+                width: "310px",
+                height: "44px"
+              }}
+            >
+              <Typography //text is still at left
+                sx={{
+                  width: "172px",
+                  heigh: "24px",
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  lineHeight: "23.86px",
+                  textAlign: "right",
+                }}
+              >
+                کد اختصاصی تو
+              </Typography>
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  width: "310px",
-                  height: "36px",
                 }}
               >
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    lineHeight: "24.92px",
-                    width: "185px",
-                  }}
-                  style={{
-                    direction: "rtl",
-                    textAlign: "right",
-                    //text align is not working
-                  }}
-                >
-                   به دوستات کد بده!
-                </Typography>
-                <Box //go to left
-                  sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    flexDirection: "row",
-                    width: "125px", 
-                    height: "36px", 
-                    borderRadius: "20px" ,
-                    backgroundColor: "#0000004D",
-                    padding: "4px 8px 4px 12px",
-                    gap: "8px",
-                    border: "2px",
-                  }}
-                >
-                  <Box //align items to center
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      12
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={verify}
-                      width="34px"
-                      height="34px"
-                    />
-                  </Box>
-                  <Box //align items to center
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center"
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={profile2Users}
-                      width="28px"
-                      height="28px"
-                    />
-                  </Box>
-                </Box>
-              </Container>
-              <Typography 
-                sx={{//text align is still set to left
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  textAlign: "right",
-                  marginTop: "10px",
-                }}
-              >هر کسی کد اختصاصی تو رو بزنه، هم اون اعتبار میگیره هم تو!</Typography>
-              <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
-              <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
-            </Paper>
+                <Typography>101001</Typography>
+                <IconButton onClick={handleCopy} color="inherit">
+                  <Box
+                    component="img"
+                    src={copyIcon}
+                  />
+                </IconButton>
+              </Box>
+            </Box>
+            <Button sx={{ mt: 2 }}>Submit</Button>
           </Grid>
         </Grid>
 
