@@ -13,6 +13,8 @@ import { CopyAll } from '@mui/icons-material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import heartIcon from "../../assets/Heart Angle.svg";
 import buttons from "../../assets/Buttons.svg";
+import profile2Users from "../../assets/profile-2user.svg";
+import verify from "../../assets/verify.svg";
 
 const App = () => {
   const handleCopy = () => {
@@ -82,17 +84,15 @@ const App = () => {
         <Grid 
           container 
           sx={{
+            display: "flex",
+            justifyContent: "space-between",
             width: "668px",
             height: "224px",
             gap: "16px",
           }}
         >
           {/* Right Component */}
-          <Grid 
-            item 
-            xs={6}
-            container 
-            spacing={2}
+          <Grid
             sx={{
               width: "326px",
               height: "224px",
@@ -100,17 +100,94 @@ const App = () => {
             }}  
           >
             <Paper sx={{ padding: 2, bgcolor: '#2a2a2a' }}>
-              <Typography variant="h6" color="white">Right Component Title</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <IconButton color="inherit">👍</IconButton>
-                  <Typography color="white">Score 1</Typography>
+              <Container 
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "310px",
+                  height: "36px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    lineHeight: "24.92px",
+                    width: "185px",
+                  }}
+                  style={{
+                    direction: "rtl",
+                    textAlign: "right",
+                    //text align is not working
+                  }}
+                >
+                  کد دوستاتو بزن!
+                </Typography>
+                <Box //go to left
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    flexDirection: "row",
+                    width: "125px", 
+                    height: "36px", 
+                    borderRadius: "20px" ,
+                    backgroundColor: "#0000004D",
+                    padding: "4px 8px 4px 12px",
+                    gap: "8px",
+                    border: "2px",
+                  }}
+                >
+                  <Box //align items to center
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        lineHeight: "26.38px",
+                        textAlign: "right"
+                      }}
+                    >
+                      12
+                    </Typography>
+                    <Box
+                      component="img"
+                      src={verify}
+                      width="34px"
+                      height="34px"
+                    />
+                  </Box>
+                  <Box //align items to center
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        lineHeight: "26.38px",
+                        textAlign: "right"
+                      }}
+                    >
+                      2
+                    </Typography>
+                    <Box
+                      component="img"
+                      src={profile2Users}
+                      width="28px"
+                      height="28px"
+                    />
+                  </Box>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-                  <IconButton color="inherit">👎</IconButton>
-                  <Typography color="white">Score 2</Typography>
-                </Box>
-              </Box>
+              </Container>
               <Typography color="white">Some descriptive text below.</Typography>
               <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
               <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
@@ -119,10 +196,6 @@ const App = () => {
 
           {/* Left Component */}
           <Grid 
-            item 
-            xs={6}
-            container 
-            spacing={2}
             sx={{
               width: "326px",
               height: "224px",
@@ -130,31 +203,97 @@ const App = () => {
             }}    
           >
             <Paper sx={{ padding: 2, bgcolor: '#2a2a2a' }}>
-              <Typography variant="h6" color="white">Left Component Title</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <IconButton color="inherit">👍</IconButton>
-                  <Typography color="white">Score A</Typography>
+              <Container 
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "310px",
+                  height: "36px",
+                }}
+              >
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    lineHeight: "24.92px",
+                    width: "185px",
+                  }}
+                  style={{
+                    direction: "rtl",
+                    textAlign: "right",
+                    //text align is not working
+                  }}
+                >
+                   به دوستات کد بده!
+                </Typography>
+                <Box //go to left
+                  sx={{ 
+                    display: 'flex', 
+                    alignItems: 'center', 
+                    flexDirection: "row",
+                    width: "125px", 
+                    height: "36px", 
+                    borderRadius: "20px" ,
+                    backgroundColor: "#0000004D",
+                    padding: "4px 8px 4px 12px",
+                    gap: "8px",
+                    border: "2px",
+                  }}
+                >
+                  <Box //align items to center
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        lineHeight: "26.38px",
+                        textAlign: "right"
+                      }}
+                    >
+                      12
+                    </Typography>
+                    <Box
+                      component="img"
+                      src={verify}
+                      width="34px"
+                      height="34px"
+                    />
+                  </Box>
+                  <Box //align items to center
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center"
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "16px",
+                        fontWeight: 800,
+                        lineHeight: "26.38px",
+                        textAlign: "right"
+                      }}
+                    >
+                      2
+                    </Typography>
+                    <Box
+                      component="img"
+                      src={profile2Users}
+                      width="28px"
+                      height="28px"
+                    />
+                  </Box>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-                  <IconButton color="inherit">👎</IconButton>
-                  <Typography color="white">Score B</Typography>
-                </Box>
-              </Box>
+              </Container>
               <Typography color="white">Some descriptive text below.</Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
-                <IconButton onClick={handleCopy} color="inherit">
-                  <CopyAll />
-                </IconButton>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  value="Fixed Text Value"
-                  InputProps={{ readOnly: true }}
-                  sx={{ ml: 1 }}
-                />
-              </Box>
-              <Button variant="contained" color="primary" fullWidth sx={{ mt: 2 }}>Full Width Button</Button>
+              <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
+              <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
             </Paper>
           </Grid>
         </Grid>
