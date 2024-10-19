@@ -3,7 +3,6 @@ import { Box, IconButton, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import HelpIcon from '@mui/icons-material/Help';
-import { createPortal } from 'react-dom';
 
 import DeleteWidgetDialog from 'commons/components/organisms/dialogs/DeleteWidgetDialog';
 import EditHintsDialog from 'commons/components/organisms/dialogs/EditHintsDialog';
@@ -54,40 +53,39 @@ const WidgetEditMenu = ({
           <DeleteIcon />
         </IconButton>
       </Tooltip>
-      {createPortal(
-        <Box
-          onMouseDown={preventPropagation}
-          onMouseUp={preventPropagation}
-          onClick={preventPropagation}
-        >
-          <CreateAttributeDialog
-            open={openAddAttributeDialog}
-            handleClose={() => setAddAttributeDialogOpen(!openAddAttributeDialog)}
-          />
-          <EditWidgetDialog
-            {...widget}
-            paperId={paperId}
-            open={openEditDialog}
-            handleClose={() => setOpenEditDialog(false)}
-            onMutate={onMutate}
-          />
-          <DeleteWidgetDialog
-            widgetId={widget.id}
-            open={openDeleteWidgetDialog}
-            handleClose={() => setOpenDeleteWidgetDialog(false)}
-            onDelete={onDelete}
-          />
-          <EditHintsDialog
-            paperId={paperId}
-            hints={widget.hints}
-            referenceId={widget.id}
-            open={openEditHintDialog}
-            handleClose={() => setEditHintDialog(false)}
-          />
-        </Box>,
-        document.body
-      )}
-    </Fragment>
+      <Box
+        onMouseDown={preventPropagation}
+        onMouseUp={preventPropagation}
+        onClick={preventPropagation}
+        onKeyDown={preventPropagation}
+        onKeyUp={preventPropagation}
+      >
+        <CreateAttributeDialog
+          open={openAddAttributeDialog}
+          handleClose={() => setAddAttributeDialogOpen(!openAddAttributeDialog)}
+        />
+        <EditWidgetDialog
+          {...widget}
+          paperId={paperId}
+          open={openEditDialog}
+          handleClose={() => setOpenEditDialog(false)}
+          onMutate={onMutate}
+        />
+        <DeleteWidgetDialog
+          widgetId={widget.id}
+          open={openDeleteWidgetDialog}
+          handleClose={() => setOpenDeleteWidgetDialog(false)}
+          onDelete={onDelete}
+        />
+        <EditHintsDialog
+          paperId={paperId}
+          hints={widget.hints}
+          referenceId={widget.id}
+          open={openEditHintDialog}
+          handleClose={() => setEditHintDialog(false)}
+        />
+      </Box>
+    </Fragment >
   );
 };
 

@@ -1,4 +1,5 @@
 export const MEDIA_BASE_URL = process.env.REACT_APP_MEDIA_BASE_URL || 'http://localhost:8000/';
+export const BANK_URL = process.env.REACT_APP_BANK_URL || 'http://localhost:20000/';
 export const CMS_URL = process.env.REACT_APP_CMS_URL || 'http://localhost:8000/';
 export const PMS_URL = process.env.REACT_APP_PMS_URL || 'http://localhost:9000/';
 export const WMS_URL = process.env.REACT_APP_WMS_URL || 'http://localhost:10000/';

@@ -9,7 +9,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetFSMQuery, useUpdateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { FSMType } from 'commons/types/models';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 
@@ -58,7 +57,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
           <Typography variant='h2' gutterBottom>
             {'مشخصات کارگاه'}
           </Typography>
-          <SoftDeleteFSMButton fsmId={fsmId} />
+          <SoftDeleteFSMButton />
         </Stack>
         <Stack>
           {properties &&

@@ -64,7 +64,10 @@ const Widget: FC<WidgetPropsType> = ({
         <Paper elevation={2} sx={{ padding: 1, width: '100%', height: '100%', position: 'relative' }}>
           {children}
         </Paper>
-      : ({ children }) => children
+      : ({ children }) =>
+        <Box width={'100%'} height={'100%'} position={'relative'}>
+          {children}
+        </Box>
     , [coveredWithPaper])
 
   return (

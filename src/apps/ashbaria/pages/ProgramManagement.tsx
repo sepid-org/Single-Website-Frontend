@@ -48,18 +48,18 @@ const tabs: DashboardTabType[] = [
     icon: AccountBalanceIcon,
     component: <FSMs />,
   },
-  {
-    slug: 'questions',
-    label: 'سوالات',
-    icon: HelpIcon,
-    component: <CustomWidgetsManagement />,
-  },
-  {
-    slug: 'scenarios',
-    label: 'سناریوها',
-    icon: HelpIcon,
-    component: <ScenariosManagement />,
-  },
+  // {
+  //   slug: 'questions',
+  //   label: 'سوالات',
+  //   icon: HelpIcon,
+  //   component: <CustomWidgetsManagement />,
+  // },
+  // {
+  //   slug: 'scenarios',
+  //   label: 'سناریوها',
+  //   icon: HelpIcon,
+  //   component: <ScenariosManagement />,
+  // },
 ];
 
 type ProgramManagementPropsType = {}

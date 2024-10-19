@@ -1,165 +1,109 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Button, Container, Grid } from '@mui/material';
+import { Box } from '@mui/material';
 import '@xyflow/react/dist/style.css';
 import { MarkerType } from '@xyflow/react';
-import { ReactFlow, Controls, Background, applyNodeChanges, addEdge, ReactFlowProvider, useReactFlow } from '@xyflow/react';
-import { CourseMapNodeInfo } from 'commons/types/global';
+import { ReactFlow, Controls, Background, applyNodeChanges, ReactFlowProvider, useReactFlow, reconnectEdge } from '@xyflow/react';
 import StateNodeEditMode from 'commons/components/molecules/FSMMap/StateNodeEditMode';
 import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/molecules/FSMMap/FloatingEdge';
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
-import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import { FSMEdgeType, FSMStateType } from 'commons/types/models';
+import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
+import { useCreateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 
-
-const FSM_STATE_WIDTH = 200;
-const FSM_STATE_HEIGHT = 50;
 const FSM_MAP_WIDTH = 600;
-const FSM_MAP_HEIGHT = 800;
-
-
-const _getRandomPosition = () => ({
-	x: Math.floor(Math.random() * FSM_MAP_HEIGHT),
-	y: Math.floor(Math.random() * FSM_MAP_WIDTH),
-	width: FSM_STATE_WIDTH,
-	height: FSM_STATE_HEIGHT,
-});
+const FSM_MAP_HEIGHT = 600;
 
 // Helper function to convert backend type to graph rendering type
-const _convertToGraphNodeType = (backendState, firstState) => ({
-	...backendState,
-	id: backendState.id.toString(),
-	position: backendState.position || _getRandomPosition(),
+const convertFSMStateToGraphNode = (fsmState: FSMStateType, isFirstNode) => ({
+	...fsmState,
+	id: fsmState.id.toString(),
+	position: fsmState.position,
 	type: "stateNode",
 	draggable: true,
-	connectable: true,
+	dragHandle: '.custom-drag-handle',
 	data: {
-		label: backendState.title,
-		isFirstNode: backendState.id === firstState
+		label: fsmState.title,
+		isFirstNode,
 	}
 });
 
 // Helper function to convert graph type back to backend type
-const _convertToBackendStateType = (graphState) => ({
-	...graphState,
-	id: parseInt(graphState.id),
-	title: graphState.data.label,
-	position: graphState.position,
-	// Preserve other backend properties
+const convertFSMEdgeToGraphEdge = (backendEdge) => ({
+	...backendEdge,
+	id: backendEdge.id.toString(),
+	source: backendEdge.head.toString(),
+	target: backendEdge.tail.toString(),
+	type: 'floating',
+	markerEnd: {
+		type: MarkerType.ArrowClosed,
+		color: 'black',
+	},
+	markerStart: (backendEdge.is_back_enabled ? {
+		type: (MarkerType.ArrowClosed),
+		orient: 'auto-start-reverse',
+		color: "black"
+	} : null),
+	sourceHandle: "top-source",
+	targetHandle: "top-target",
+	//reconnectable: "source"
 });
 
-function CourseMapEditor() {
+const convertGraphEdgeToFSMEdgeType = (graphEdge) => ({
+	tail: graphEdge.target,
+	head: graphEdge.source,
+	is_visible: true,
+	is_back_enabled: false
+});
+
+const CourseMapEditor = () => {
 	const { fsmId } = useParams();
-	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
-	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
-	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>(initialFsmEdges);
+	const { data: initialFsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 	const { data: fsm } = useGetFSMQuery({ fsmId });
-	const firstState = fsm?.first_state;
+	const firstState = initialFsmStates.find(fsmState => fsmState.id === fsm?.first_state);
+	const [fsmStates, setFSMStates] = useState<Partial<FSMStateType>[]>([]);
+	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
+	const [updatePositions] = useUpdatePositionsMutation();
+	const [createFSMEdge] = useCreateFSMEdgeMutation();
 
 	useEffect(() => {
-		console.log(initialFsmStates);
-		if (initialFsmStates && initialFsmStates.length > 0) {
-			const graphStates = initialFsmStates.map((state) => { return _convertToGraphNodeType(state, firstState)});
-			setFsmStates(graphStates);
+		if (initialFsmStates) {
+			setFSMStates(initialFsmStates.map(state => convertFSMStateToGraphNode(state, state.id == firstState?.id)));
 		}
-	}, [initialFsmStates]);
+	}, [initialFsmStates, firstState]);
 
-	const updateFsmStates = (newStates) => {
-		const backendStates = newStates?.map(_convertToBackendStateType);
-		setFsmStates(backendStates);
-	}
+	useEffect(() => {
+		if (initialFsmEdges) {
+			setFSMEdges(initialFsmEdges.map((edge) => convertFSMEdgeToGraphEdge(edge)));
+		}
+	}, [initialFsmEdges])
 
 	return (
-		<Container
-			sx={{
-				width: "100%",
-				height: FSM_MAP_HEIGHT,
-			}}
-			maxWidth={false}
-		>
-			<FlowCanva nodes={fsmStates} setNodes={updateFsmStates} edges={[]} setEdges={setFSMEdges} />
-			<Grid
-				container
-				spacing={2}
-				justifyContent="space-between"
-				alignItems="center"
-				flexDirection={"row-reverse"}
-			>
-				<Grid item xs={3}>
-					<CreateStateButton />
-				</Grid>
-				<Grid item xs={3}>
-					<Button
-						sx={{ width: "100%" }}
-						variant="contained"
-					>
-						ذخیره
-					</Button>
-				</Grid>
-			</Grid>
-		</Container>
+		<Box sx={{ width: "100%", height: FSM_MAP_HEIGHT }}>
+			<FlowCanva
+				nodes={fsmStates}
+				setNodes={setFSMStates}
+				edges={fsmEdges}
+				setEdges={setFSMEdges}
+				updatePositions={updatePositions}
+				createFSMEdge={createFSMEdge}
+			/>
+		</Box>
 	);
 }
 
-function FlowCanva({ nodes, setNodes, edges, setEdges }) {
-
-	const onNodesChange = (changes) => setNodes(applyNodeChanges(changes, nodes))
-
-	const onConnect = useCallback((connection) => {
-		console.log("on connect");
-		const doubleEdge = edges.filter((edge) => {
-			return (edge.source === connection.source && edge.target === connection.target) || (edge.source === connection.target && edge.target === connection.source);
-		});
-		if (doubleEdge.length > 0) {
-			return;
-		}
-		const newEdge = { ...connection, type: 'floating', markerEnd: { type: MarkerType.Arrow, color: "black" } };
-		setEdges((eds) => addEdge(newEdge, eds));
-	}, [edges, setEdges]);
-
-	const isOverlapping = (node1, node2) => {
-		const node1element = document.getElementById(node1.id);
-		const node2element = document.getElementById(node2.id);
-		return (
-			node1.position.x < node2.position.x + node2element.offsetWidth &&
-			node1.position.x + node1element.offsetWidth > node2.position.x &&
-			node1.position.y < node2.position.y + node2element.offsetHeight &&
-			node1.position.y + node1element.offsetHeight > node2.position.y
-		);
-	};
-	const avoidOverlap = (newNode, nodes) => {
-		let adjustedNode = { ...newNode };
-
-		for (const node of nodes) {
-			if (node.id != newNode.id && isOverlapping(newNode, node)) {
-				adjustedNode.position = dragStartPosition.current;
-			}
-		}
-		return adjustedNode;
-	};
-	const onNodeDragStop = useCallback(
-		(event, node) => {
-			const newNodes = nodes.map((n) => (n.id === node.id ? avoidOverlap(node, nodes) : n));
-			setNodes(newNodes);
-		},
-		[nodes]
-	);
-
-	const dragStartPosition = useRef(0);
-	const onNodeDragStart = useCallback((event, node) => {
-		dragStartPosition.current = node.position;
-	}, []);
-
-	const onEdgeContextMenu = (event, edge) => {
-		event.preventDefault();
-		if (window.confirm('آیا می‌خواهید یال را خذف کنید؟')) {
-			setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-		}
-	};
-
+const FlowCanva = ({
+	nodes,
+	setNodes,
+	edges,
+	setEdges,
+	updatePositions,
+	createFSMEdge,
+}) => {
 	const { fitView } = useReactFlow();
 	const containerRef = useRef(null);
+
 	useEffect(() => {
 		const handleResize = () => {
 			if (containerRef.current) {
@@ -175,32 +119,94 @@ function FlowCanva({ nodes, setNodes, edges, setEdges }) {
 		};
 	}, [fitView]);
 
+	const onNodesChange = (changes) => {
+		setNodes(applyNodeChanges(changes, nodes));
+	}
+
+	const onConnect = useCallback(
+		((connection) => {
+			const doubleEdge = edges.filter((edge) => {
+				return (edge.source === connection.source && edge.target === connection.target) || (edge.source === connection.target && edge.target === connection.source);
+			});
+			if (doubleEdge.length > 0) {
+				return;
+			}
+			createFSMEdge(convertGraphEdgeToFSMEdgeType(connection));
+		}),
+		[edges, setEdges],
+	);
+
+	const isOverlapping = (node1, node2) => {
+		const node1element = document.getElementById(node1.id);
+		const node2element = document.getElementById(node2.id);
+		return (
+			node1.position.x < node2.position.x + node2element.offsetWidth &&
+			node1.position.x + node1element.offsetWidth > node2.position.x &&
+			node1.position.y < node2.position.y + node2element.offsetHeight &&
+			node1.position.y + node1element.offsetHeight > node2.position.y
+		);
+	};
+
+	const avoidOverlap = (newNode, nodes) => {
+		newNode.position.x = Math.floor(newNode.position.x);
+		newNode.position.y = Math.floor(newNode.position.y);
+		let adjustedNode = {
+			...newNode,
+			position: {
+				...(dragStartPosition.current as any),
+				...newNode.position,
+			}
+		};
+
+		for (const node of nodes) {
+			if (node.id != newNode.id && isOverlapping(newNode, node)) {
+				adjustedNode.position = dragStartPosition.current;
+			}
+		}
+		return adjustedNode;
+	};
+
+	const onNodeDragStop = useCallback(
+		(event, node) => {
+			const newNodes = nodes.map((n) => (n.id === node.id ? avoidOverlap(node, nodes) : n));
+			setNodes(newNodes);
+			updatePositions({
+				positions: [newNodes.filter(n => n.id === node.id)[0].position]
+			});
+		},
+		[nodes]
+	);
+
+	const dragStartPosition = useRef(0);
+	const onNodeDragStart = useCallback((event, node) => {
+		dragStartPosition.current = node.position;
+	}, []);
+
+	const onReconnect = useCallback(
+		(oldEdge, newConnection) => {
+			setEdges((els) => reconnectEdge(oldEdge, newConnection, els));
+		},
+		[],
+	);
 
 	return (
-		<Container
-			sx={{ height: "90%", width: "100%" }}
-			maxWidth={false}
+		<ReactFlow
 			ref={containerRef}
+			nodes={nodes}
+			edges={edges}
+			nodeTypes={{ stateNode: StateNodeEditMode }}
+			edgeTypes={{ floating: FloatingCustomEdge }}
+			onNodesChange={onNodesChange}
+			onConnect={onConnect}
+			onNodeDragStop={onNodeDragStop}
+			onNodeDragStart={onNodeDragStart}
+			connectionLineComponent={FloatingConnectionLine}
+			onReconnect={onReconnect}
+			fitView
 		>
-			<ReactFlow
-				nodes={nodes}
-				edges={edges}
-				nodeTypes={{ stateNode: StateNodeEditMode }}
-				edgeTypes={{ floating: FloatingCustomEdge }}
-				connectOnClick={true}
-				onNodesChange={onNodesChange}
-				onConnectStart={() => console.log("start")}
-				onConnectEnd={() => console.log("end")}
-				onConnect={onConnect}
-				onNodeDragStop={onNodeDragStop}
-				onNodeDragStart={onNodeDragStart}
-				onEdgeContextMenu={onEdgeContextMenu}
-				connectionLineComponent={FloatingConnectionLine}
-			>
-				<Background />
-				<Controls />
-			</ReactFlow>
-		</Container>
+			<Background />
+			<Controls />
+		</ReactFlow >
 	);
 }
 

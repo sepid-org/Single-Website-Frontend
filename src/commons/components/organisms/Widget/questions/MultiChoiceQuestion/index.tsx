@@ -20,7 +20,9 @@ type MultiChoiceQuestionWidgetPropsType = {
   text: string;
   choices: ChoiceType[];
   mode: WidgetModes;
-  maximum_choices_could_be_chosen: number;
+  max_selections: number;
+  min_selections: number;
+  lock_after_answer: boolean;
   submittedAnswer: AnswerType;
 } & QuestionWidgetType;
 
@@ -32,7 +34,9 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   text: questionText,
   choices: questionChoices,
   mode,
-  maximum_choices_could_be_chosen: maximumChoicesCouldBeChosen,
+  max_selections: maxSelections,
+  min_selections: minSelections,
+  lock_after_answer: lockAfterAnswer,
   submittedAnswer,
   ...questionWidgetProps
 }) => {
@@ -46,7 +50,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
-    if (maximumChoicesCouldBeChosen === 1) {
+    if (maxSelections === 1) {
       setSelectedChoices([choice])
       if (mode === WidgetModes.View) {
         submitAnswer([choice]);
@@ -54,8 +58,8 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     } else {
       const choiceIndex = selectedChoices.indexOf(choice);
       if (choiceIndex === -1) {
-        if (selectedChoices.length === maximumChoicesCouldBeChosen) {
-          toast.error(`حداکثر ${toPersianNumber(maximumChoicesCouldBeChosen)} گزینه را می‌توانید انتخاب کنید.`)
+        if (selectedChoices.length === maxSelections) {
+          toast.error(`حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`)
           return;
         }
         setSelectedChoices([
@@ -93,11 +97,11 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             mode={WidgetModes.View}
             isSelected={selectedChoices.map(choice => choice.id).includes(choice.id)}
             onSelectionChange={() => onChoiceSelect(choice)}
-            variant={maximumChoicesCouldBeChosen > 1 ? 'checkbox' : 'radio'}
+            variant={maxSelections > 1 ? 'checkbox' : 'radio'}
           />
         )}
       </Stack>
-      {mode === WidgetModes.View && maximumChoicesCouldBeChosen > 1 && selectedChoices.length > 0 &&
+      {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
           variant='contained'

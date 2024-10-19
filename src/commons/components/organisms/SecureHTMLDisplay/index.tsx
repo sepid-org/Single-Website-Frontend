@@ -4,7 +4,6 @@ import { useSanitizedContent } from './hooks/useSanitizedContent';
 import { useContentParser } from './hooks/useContentParser';
 import { ContentRenderer } from './components/ContentRendered';
 import { frameStyles } from './styles/frame';
-import { fontsStyles } from './styles/fonts';
 
 interface SecureHTMLDisplayProps {
   content: string;
@@ -13,7 +12,6 @@ interface SecureHTMLDisplayProps {
 
 const StyledContentContainer = styled.div`
   ${frameStyles}
-  ${fontsStyles}
 `;
 
 const SecureHTMLDisplay: React.FC<SecureHTMLDisplayProps> = ({ content, customStyle = {} }) => {

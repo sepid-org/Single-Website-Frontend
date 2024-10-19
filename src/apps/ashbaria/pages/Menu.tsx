@@ -1,26 +1,27 @@
-import { Box, Grid, Stack, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import FSMsGrid from 'commons/components/organisms/FSMsGrid';
 import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
-import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetProgramFSMsUserPermissionsQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import Layout from 'commons/template/Layout';
+import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import FSMCard from '../components/organisms/cards/FSMCard';
 
 type GameMenuPropsType = {}
 
 const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
+  const { data: programFSMsUserPermissions } = useGetProgramFSMsUserPermissionsQuery({ programSlug });
 
   return (
     <Fragment>
-      {pageMetadata && program &&
+      {program &&
         <Helmet>
-          <title>{pageMetadata.header_data.title + ' | ' + program.name}</title>
+          <title>{program.name}</title>
         </Helmet>
       }
       <Layout appbarMode='PROGRAM'>
@@ -32,7 +33,16 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'دادگاه‌ها'}
             </Typography>
-            <FSMsGrid />
+            <Grid container spacing={2}>
+              {fsms?.fsms?.map(fsm =>
+                <Grid item xs={12} sm={4} key={fsm.id}>
+                  <FSMCard
+                    fsm={fsm}
+                    userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                  />
+                </Grid>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       </Layout>

@@ -14,6 +14,7 @@ import { Link } from 'commons/types/redux/Roadmap';
 import { useGetFSMRoadmapActionQuery, useGetPlayerTransitedPathQuery } from 'apps/website-display/redux/features/roadmap/RoadmapSlice';
 import { useParams } from 'react-router-dom';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import CourseMapViewMode from './Roadmap/CourseMapViewMode';
 
 type FSMStateRoadMapPropsType = {
   currentNodeName: string;

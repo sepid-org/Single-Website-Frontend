@@ -4,8 +4,10 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControlLabel,
   IconButton,
   Stack,
+  Switch,
   TextField,
   Typography,
 } from '@mui/material';
@@ -34,7 +36,9 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   choices: any[];
   paperId: any;
   id: string;
-  maximum_choices_could_be_chosen: number;
+  max_selections: number;
+  min_selections: number;
+  lock_after_answer: boolean;
 }
 
 const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> = ({
@@ -46,11 +50,15 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   id: widgetId,
   handleClose,
   open,
-  maximum_choices_could_be_chosen,
+  max_selections,
+  min_selections,
+  lock_after_answer,
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const [maximumChoicesCouldBeChosen, setMaximumChoicesCouldBeChosen] = useState(maximum_choices_could_be_chosen || 1);
+  const [lockAfterAnswer, setLockAfterAnswer] = useState(lock_after_answer || false);
+  const [minimumChoicesCouldBeChosen, setMinimumChoicesCouldBeChosen] = useState(min_selections || 1);
+  const [maximumChoicesCouldBeChosen, setMaximumChoicesCouldBeChosen] = useState(max_selections || 1);
   const [questionText, setQuestionText] = useState(previousQuestionText);
   const [questionChoices, setQuestionChoices] = useState<ChoiceType[]>(
     previousQuestionChoices ?
@@ -70,7 +78,9 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       choices: questionChoices,
       widgetId,
       onSuccess: handleClose,
-      maximum_choices_could_be_chosen: maximumChoicesCouldBeChosen,
+      min_selections: minimumChoicesCouldBeChosen,
+      max_selections: maximumChoicesCouldBeChosen,
+      lock_after_answer: lockAfterAnswer,
       ...widgetFields,
     });
   };
@@ -151,9 +161,10 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
           </Stack>
 
           <TextField
-            label='حداکثر تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
+            label='حداقل تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
             variant='outlined'
             fullWidth
+            autoComplete="off"
             onChange={(event) => {
               let value = parseInt(event.target.value);
               if (isNaN(value)) {
@@ -162,6 +173,36 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
               if (value < 1) {
                 value = 1;
               }
+              if (value >= maximumChoicesCouldBeChosen) {
+                value = maximumChoicesCouldBeChosen;
+              }
+              setMinimumChoicesCouldBeChosen(value);
+            }}
+            type='number'
+            inputMode='numeric'
+            inputProps={{
+              min: 1,
+              max: maximumChoicesCouldBeChosen,
+              step: 1,
+              autoComplete: "off",
+            }}
+            error={!minimumChoicesCouldBeChosen}
+            value={minimumChoicesCouldBeChosen}
+          />
+
+          <TextField
+            label='حداکثر تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
+            variant='outlined'
+            fullWidth
+            autoComplete="off"
+            onChange={(event) => {
+              let value = parseInt(event.target.value);
+              if (isNaN(value)) {
+                value = 1;
+              }
+              if (value < minimumChoicesCouldBeChosen) {
+                value = minimumChoicesCouldBeChosen;
+              }
               if (value >= questionChoices.length) {
                 value = questionChoices.length;
               }
@@ -169,9 +210,23 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
             }}
             type='number'
             inputMode='numeric'
-            inputProps={{ min: 1, max: questionChoices.length, step: 1 }}
+            inputProps={{
+              min: minimumChoicesCouldBeChosen,
+              max: questionChoices.length,
+              step: 1,
+              autoComplete: "off",
+            }}
             error={!maximumChoicesCouldBeChosen}
             value={maximumChoicesCouldBeChosen}
+          />
+
+          <FormControlLabel
+            name='lock_after_answer'
+            checked={lockAfterAnswer}
+            onChange={() => setLockAfterAnswer(lockAfterAnswer => !lockAfterAnswer)}
+            control={<Switch color="primary" />}
+            label="قفل‌شدن گزینه‌ها بعد از جواب‌دادن:"
+            labelPlacement='start'
           />
 
           <EditQuestionFields

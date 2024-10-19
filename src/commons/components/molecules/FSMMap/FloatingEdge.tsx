@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Position, getBezierPath, EdgeProps, useInternalNode } from '@xyflow/react';
+import EdgeEditorDialog from '../EdgeEditorDialog';
 
 
-export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd }) => {
+export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, markerEnd, markerStart }) => {
   const sourceNode = useInternalNode(source);
   const targetNode = useInternalNode(target);
+
+  const [editDialogueIsOpen, setEditDialogueIsOpen] = useState(false);
 
   if (!sourceNode || !targetNode) {
     return null;
@@ -25,12 +28,21 @@ export const FloatingCustomEdge: React.FC<EdgeProps> = ({ id, source, target, ma
   });
 
   return (
+    <>
     <path
       id={id}
       d={edgePath}
       markerEnd={markerEnd}
-      style={{ fill: "none", stroke: "#222", strokeWidth: "1.5", color: "#222" }}
+      markerStart={markerStart}
+      style={{ fill: "none", stroke: "#222", strokeWidth: "3", color: "#222" }}
+      onClick={() => setEditDialogueIsOpen(true)}
     />
+    <EdgeEditorDialog 
+      id={id}
+      open={editDialogueIsOpen}
+      onClose={setEditDialogueIsOpen}
+    />
+    </>
   );
 }
 
@@ -63,11 +75,20 @@ export function FloatingConnectionLine({ toX, toY, fromPosition, toPosition, fro
 
   return (
     <g>
-      <path
-        fill="none"
-        stroke="#222"
+      <path 
+        fill="none" 
+        d={edgePath} 
+        style={{
+          strokeWidth: 3, stroke: 'black'
+        }}
+      />
+      <circle
+        cx={toX}
+        cy={toY}
+        fill="black"
+        r={3}
+        stroke="black"
         strokeWidth={1.5}
-        d={edgePath}
       />
     </g>
   );

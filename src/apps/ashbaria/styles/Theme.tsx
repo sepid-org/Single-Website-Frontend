@@ -4,8 +4,40 @@ import { DarkSecondary, Gray, PrimaryColor, SecondaryColor } from '../constants/
 
 export const customTheme = createTheme({
   ...selectTheme('rtl'),
+  typography: {
+    allVariants: {
+      fontFamily: 'Pinar-FD, iranyekan',
+    },
+    h1: {
+      fontWeight: 800,
+    },
+    h2: {
+      fontWeight: 800,
+    },
+    h3: {
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 700,
+    },
+    h5: {
+      fontWeight: 700,
+    },
+    h6: {
+      fontWeight: 700,
+    },
+    body1: {
+      fontWeight: 400,
+    },
+    body2: {
+      fontWeight: 400,
+    },
+    button: {
+      fontWeight: 700,
+    },
+  },
   palette: {
-    mode: 'dark', // Set the theme to dark mode
+    mode: 'dark',
     primary: {
       main: PrimaryColor,
     },
@@ -13,21 +45,58 @@ export const customTheme = createTheme({
       main: SecondaryColor,
     },
     background: {
-      default: '#221F37', // Set default background color
-      paper: '#221F37', // Set Paper background color
+      default: '#221F37',
+      paper: '#221F37',
     },
     text: {
-      primary: '#FFFFFF', // Set primary text color to white
-      secondary: Gray, // Set secondary text color to Gray
+      primary: '#FFFFFF',
+      secondary: Gray,
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        @font-face {
+          font-family: 'Pinar-FD';
+          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Black.woff2') format('woff2');
+          font-weight: 900;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'Pinar-FD';
+          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-ExtraBold.woff2') format('woff2');
+          font-weight: 800;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'Pinar-FD';
+          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Bold.woff2') format('woff2');
+          font-weight: 700;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: 'Pinar-FD';
+          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Regular.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+        * {
+          font-family: 'Pinar-FD';
+        }
+      `
+    },
     MuiPaper: {
       styleOverrides: {
         root: {
-          backgroundColor: '#221F37',
           borderRadius: 24,
           borderTop: '2px solid rgba(255, 255, 255, 0.5)',
+          background: 'linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)',
+          backdropFilter: 'blur(5.822803020477295px)',
+          boxShadow: '0px 5.82px 5.82px 0px rgba(0, 0, 0, 0.25)',
         },
       },
     },
@@ -77,7 +146,7 @@ export const customTheme = createTheme({
       styleOverrides: {
         root: {
           color: 'white',
-          textTransform: 'none', // Prevent automatic uppercase transformation
+          textTransform: 'none',
         },
         contained: {
           background: 'linear-gradient(180deg, #26B7B4 0%, #1986A5 100%)',
@@ -99,10 +168,10 @@ export const customTheme = createTheme({
         root: {
           color: 'white',
           '&:hover': {
-            backgroundColor: 'rgba(25, 134, 165, 0.08)', // Slightly transparent hover effect
+            backgroundColor: 'rgba(25, 134, 165, 0.08)',
           },
           '&.Mui-selected': {
-            backgroundColor: 'rgba(25, 134, 165, 0.16)', // Selected item background
+            backgroundColor: 'rgba(25, 134, 165, 0.16)',
             '&:hover': {
               backgroundColor: 'rgba(25, 134, 165, 0.24)',
             },
@@ -127,7 +196,7 @@ export const customTheme = createTheme({
     MuiDivider: {
       styleOverrides: {
         root: {
-          backgroundColor: 'rgba(255, 255, 255, 0.12)', // Light divider color
+          backgroundColor: 'rgba(255, 255, 255, 0.12)',
         },
       },
     },

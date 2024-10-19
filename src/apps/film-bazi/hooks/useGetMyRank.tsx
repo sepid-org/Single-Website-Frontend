@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { FilmBaziApiUrl } from '../constants/Urls';
+import { BankApiUrl } from '../constants/Urls';
 import { GAME_CURRENCY_NAME } from '../constants/game';
 
 type GetRankResponseType = {
@@ -22,7 +22,7 @@ const useGetMyRank = (currencyName = GAME_CURRENCY_NAME) => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}scores/my-rank/?currency_name=${currencyName}`, {
+        const response = await fetch(`${BankApiUrl}counter/my-rank/?currency_name=${currencyName}`, {
           headers: headers,
         });
         if (!response.ok) {

@@ -2,19 +2,16 @@ import { IconButton, Tooltip } from '@mui/material';
 import React, { FC, Fragment, useEffect, useState } from 'react';
 
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
-import { useSoftDeleteFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useGetFSMQuery, useSoftDeleteFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-type SoftDeleteFSMButtonPropsType = {
-  fsmId: string;
-}
+type SoftDeleteFSMButtonPropsType = {}
 
-const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({
-  fsmId,
-}) => {
-  const { programSlug } = useParams();
+const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({ }) => {
+  const { fsmId } = useParams();
+  const { data: fsm } = useGetFSMQuery({ fsmId });
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
   const [softDelete, result] = useSoftDeleteFSMMutation();
@@ -22,7 +19,7 @@ const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({
   useEffect(() => {
     if (result?.isSuccess) {
       toast.success('کارگاه با موفقیت حذف شد.');
-      navigate(`/program/${programSlug}/`);
+      navigate(`/program/${fsm.program_slug}/`);
     }
   }, [result])
 
