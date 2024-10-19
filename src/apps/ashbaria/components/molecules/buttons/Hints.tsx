@@ -1,17 +1,18 @@
-import { Button, IconButton } from "@mui/material";
+import { IconButton } from "@mui/material";
 import React, { Fragment, useState } from "react";
-import DocumentsDialog from "../../organisms/DocumentsDialog";
-import DocumentIcon from "../../atoms/icons/Documents";
+import HintsIcon from "../../atoms/icons/Hints";
+import BuyHintDialog from "../../organisms/dialogs/BuyHint";
 
-const DocumentsButton = ({ }) => {
+const HintsButton = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   return (
     <Fragment>
       <IconButton disableRipple onClick={() => setOpenDialog(true)}>
-        <DocumentIcon />
+        <HintsIcon />
       </IconButton>
-      <DocumentsDialog
+      <BuyHintDialog
+        hintId="1234"
         open={openDialog}
         onClose={() => setOpenDialog(false)}
       />
@@ -19,4 +20,4 @@ const DocumentsButton = ({ }) => {
   )
 }
 
-export default DocumentsButton;
+export default HintsButton;
