@@ -7,7 +7,6 @@ import {
   TextField,
   Button,
   Grid,
-  Paper,
 } from '@mui/material';
 import { CopyAll, Gradient } from '@mui/icons-material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -16,6 +15,7 @@ import buttons from "../../assets/Buttons.svg";
 import profile2Users from "../../assets/profile-2user.svg";
 import verify from "../../assets/verify.svg";
 import copyIcon from "../../assets/copy.svg";
+import bg from "../../assets/friendsNetworkBg.svg";
 
 const App = () => {
   const handleCopy = () => {
@@ -36,7 +36,12 @@ const App = () => {
         justifyContent: "center",
         alignItems: "center",
         width: "100vw",
-        height: "100vh"
+        height: "100vh",
+        backgroundImage: `url(${bg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
       }}
     >
       <Container
@@ -210,16 +215,41 @@ const App = () => {
                 marginTop: "10px"
               }} 
             />
-            <Button //layout problem
-              sx={{ 
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "44px",
+                width: "101px",
                 marginTop: "10px",
-                width: "99px",
-                height: "42px",
-                minWidth: "80px",
                 borderRadius: "100px",
-                padding: "0px",
-                border: "1px"
-              }}>ثبتش کن</Button>
+                backgroundClip: "padding-box",
+                position: "relative",
+                overflow: "hidden",
+                background: "linear-gradient(to right, #FE9C42, #E25100)",
+              }}
+            >
+              <Button //layout problem
+                sx={{ 
+                  width: "99px",
+                  height: "42px",
+                  minWidth: "80px",
+                  borderRadius: "100px",
+                  padding: "0px",
+                  border: "1px",
+                  backgroundColor: "#130e15",
+                  backgroundClip: "padding-box",
+                  color: "#FE9C42",
+                  '&: hover':{
+                    background: "linear-gradient(180deg, #FE9C42, #E25100)",
+                    color: "black"
+                  }
+                }}
+              >
+                ثبتش کن
+              </Button>
+            </Box>
           </Grid>
 
           {/* Left Component */}
@@ -372,7 +402,40 @@ const App = () => {
                 </IconButton>
               </Box>
             </Box>
-            <Button sx={{ mt: 2 }}>Submit</Button>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: "44px",
+                width: "312px",
+                marginTop: "10px",
+                borderRadius: "100px",
+                backgroundClip: "padding-box",
+                position: "relative",
+                overflow: "hidden",
+                background: "linear-gradient(to right, #FE9C42, #E25100)",
+              }}
+            >
+              <Button 
+                sx={{
+                  height: "42px",
+                  width: "310px",
+                  padding: "10px 20px 10px 20px",
+                  gap: "4px",
+                  borderRadius: "100px",
+                  backgroundColor: "#130e15",
+                  backgroundClip: "padding-box",
+                  color: "#FE9C42",
+                  '&: hover':{
+                    background: "linear-gradient(180deg, #FE9C42, #E25100)",
+                    color: "black"
+                  }
+                }}
+              >
+                Submit
+              </Button>
+            </Box>
           </Grid>
         </Grid>
 
