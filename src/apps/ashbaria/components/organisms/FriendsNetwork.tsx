@@ -9,7 +9,7 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
-import { CopyAll } from '@mui/icons-material';
+import { CopyAll, Gradient } from '@mui/icons-material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import heartIcon from "../../assets/Heart Angle.svg";
 import buttons from "../../assets/Buttons.svg";
@@ -96,10 +96,11 @@ const App = () => {
             sx={{
               width: "326px",
               height: "224px",
-              borderRadius: "12px"
+              borderRadius: "12px",
+              backgroundColor: "rgba(0, 0, 0, 0.1)",
             }}  
           >
-            <Paper sx={{ padding: 2, bgcolor: '#2a2a2a' }}>
+            <Paper sx={{ padding: 2,}}>
               <Container 
                 sx={{
                   display: "flex",
@@ -188,7 +189,15 @@ const App = () => {
                   </Box>
                 </Box>
               </Container>
-              <Typography color="white">Some descriptive text below.</Typography>
+              <Typography 
+                sx={{ //text align is still set to left
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  lineHeight: "24px",
+                  textAlign: "right",
+                  marginTop: "10px",
+                }}
+              >اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه</Typography>
               <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
               <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
             </Paper>
@@ -199,10 +208,11 @@ const App = () => {
             sx={{
               width: "326px",
               height: "224px",
-              borderRadius: "12px"
+              borderRadius: "12px",
+              background: "linear-gradient(180 deg, rgba(0, 0, 0, 0.1) 10%, white 90%)",
             }}    
           >
-            <Paper sx={{ padding: 2, bgcolor: '#2a2a2a' }}>
+            <Paper sx={{ padding: 2}}>
               <Container 
                 sx={{
                   display: "flex",
@@ -291,7 +301,15 @@ const App = () => {
                   </Box>
                 </Box>
               </Container>
-              <Typography color="white">Some descriptive text below.</Typography>
+              <Typography 
+                sx={{//text align is still set to left
+                  fontSize: "16px",
+                  fontWeight: 400,
+                  lineHeight: "24px",
+                  textAlign: "right",
+                  marginTop: "10px",
+                }}
+              >هر کسی کد اختصاصی تو رو بزنه، هم اون اعتبار میگیره هم تو!</Typography>
               <TextField fullWidth variant="outlined" placeholder="Type here..." sx={{ mt: 1 }} />
               <Button variant="contained" color="primary" sx={{ mt: 2 }}>Submit</Button>
             </Paper>
