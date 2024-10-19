@@ -10,6 +10,7 @@ import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
+import Profile from './pages/Profile';
 
 const App = () => {
 
@@ -20,6 +21,7 @@ const App = () => {
     }}>
       <ThemeProvider theme={customTheme}>
         <CssBaseline />
+
         <Routes>
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
@@ -32,8 +34,10 @@ const App = () => {
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
           </Route>
 
+          <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
+
     </div>
   );
 };

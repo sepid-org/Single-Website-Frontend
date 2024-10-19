@@ -54,7 +54,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       [event.target.name]: toEnglishNumber(event.target.value),
     });
   }
-
+   
   return (
     <Grid container spacing={2}>
 
