@@ -19,6 +19,7 @@ const BuyHintDialog: FC<BuyHintDialogPropsType> = ({
 
   return (
     <Dialog
+      disableScrollLock
       open={open}
       onClose={onClose}
       maxWidth={'xs'}
