@@ -1,8 +1,6 @@
-import { Card, Grid } from "@mui/material";
-import { useGetFSMStatesQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import FSMVerticalCard from "commons/components/organisms/cards/FSMVerticalCard";
+import { Grid } from "@mui/material";
 import React from "react";
-import { useParams } from "react-router-dom";
+import CustomPaper from "../components/atoms/CustomPaper";
 
 const Documents = () => {
   const documents = [
@@ -27,10 +25,10 @@ const Documents = () => {
   return (
     <Grid container spacing={2} padding={2} alignItems={'center'} justifyContent={'start'}>
       {documents.map((document, index) =>
-        <Grid item key={index} xs={3}>
-          <Card sx={{ padding: 0 }}>
+        <Grid item key={index} xs={3} height={400}>
+          <CustomPaper>
             {'سلام'}
-          </Card>
+          </CustomPaper>
         </Grid>
       )}
     </Grid>
