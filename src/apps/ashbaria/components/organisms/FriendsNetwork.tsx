@@ -7,6 +7,7 @@ import {
   TextField,
   Button,
   Grid,
+  Paper,
 } from '@mui/material';
 import { CopyAll, Gradient } from '@mui/icons-material';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
@@ -44,7 +45,7 @@ const App = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      <Container
+      <Paper
         sx={{ //padding is not 0
           maxWidth: "sm",
           height: "auto",
@@ -457,7 +458,7 @@ const App = () => {
 
         {/* Records Section */}
 
-      </Container>
+      </Paper>
     </Box>
   );
 };

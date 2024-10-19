@@ -34,7 +34,6 @@ const App = () => {
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
           </Route>
 
-          <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
 
