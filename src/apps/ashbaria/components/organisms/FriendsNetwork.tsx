@@ -30,7 +30,7 @@ const App = () => {
   }));
 
   return (
-    <Container
+    <Box
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -45,13 +45,15 @@ const App = () => {
       }}
     >
       <Container
-        sx={{
-          width: "700px",
-          height: "475px",
+        sx={{ //padding is not 0
+          maxWidth: "sm",
+          height: "auto",
           display: 'flex',
           flexDirection: 'column',
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891)) 100%",
-          borderRadius: "20px"
+          borderRadius: "20px",
+          margin: "0px",
+          padding: 0
         }}
       >
         {/* Header */}
@@ -91,20 +93,20 @@ const App = () => {
           container
           sx={{
             display: "flex",
-            justifyContent: "space-between",
-            width: "668px",
-            height: "224px",
-            gap: "16px",
+            justifyContent: "space-evenly",
+            width: "100%",
+            margin: "0px"
           }}
         >
           {/* Right Component */}
           <Grid
+            item
+            xs={5}
             sx={{
               display: "flex",
-              justifyContent: "center",
+              alignItems: "center",
               flexDirection: "column",
-              width: "326px",
-              height: "224px",
+              height: "auto",
               borderRadius: "12px",
               backgroundColor: "rgba(0, 0, 0, 0.1)",
             }}
@@ -113,9 +115,11 @@ const App = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "space-between",
                 alignItems: "center",
-                width: "310px",
+                width: "100%",
                 height: "36px",
+                marginTop: "10px"
               }}
             >
               <Typography
@@ -128,30 +132,31 @@ const App = () => {
                 style={{
                   direction: "rtl",
                   textAlign: "right",
-                  //text align is not working
                 }}
               >
                 کد دوستاتو بزن!
               </Typography>
-              <Box //go to left
+              <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: "space-between",
                   flexDirection: "row",
-                  width: "125px",
                   height: "36px",
                   borderRadius: "20px",
                   backgroundColor: "#0000004D",
-                  padding: "4px 8px 4px 12px",
-                  gap: "8px",
                   border: "2px",
                 }}
               >
-                <Box //align items to center
+                <Box 
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: "8px",
+                    marginRight: "5px",
+                    marginTop: "5px",
                   }}
                 >
                   <Typography
@@ -167,15 +172,19 @@ const App = () => {
                   <Box
                     component="img"
                     src={verify}
-                    width="34px"
-                    height="34px"
+                    width="40px"
+                    height="40px"
                   />
                 </Box>
-                <Box //align items to center
+                <Box
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginRight: "8px",
+                    marginLeft: "5px",
+                    marginTop: "5px",
                   }}
                 >
                   <Typography
@@ -206,14 +215,14 @@ const App = () => {
                 marginTop: "10px",
               }}
             >اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه</Typography>
-            <TextField 
-              variant="outlined" 
-              placeholder="کد ۱۰ رقمی" 
+            <TextField
+              variant="outlined"
+              placeholder="کد ۱۰ رقمی"
               sx={{
                 width: "310px",
                 height: "44px",
                 marginTop: "10px"
-              }} 
+              }}
             />
             <Box
               sx={{
@@ -231,7 +240,7 @@ const App = () => {
               }}
             >
               <Button //layout problem
-                sx={{ 
+                sx={{
                   width: "99px",
                   height: "42px",
                   minWidth: "80px",
@@ -241,7 +250,7 @@ const App = () => {
                   backgroundColor: "#130e15",
                   backgroundClip: "padding-box",
                   color: "#FE9C42",
-                  '&: hover':{
+                  '&: hover': {
                     background: "linear-gradient(180deg, #FE9C42, #E25100)",
                     color: "black"
                   }
@@ -254,12 +263,13 @@ const App = () => {
 
           {/* Left Component */}
           <Grid
+            item
+            xs={5}
             sx={{
               display: "flex",
-              justifyContent: "center",
+              alignItems: "center",
               flexDirection: "column",
-              width: "326px",
-              height: "224px",
+              height: "auto",
               borderRadius: "12px",
               backgroundColor: "rgba(0, 0, 0, 0.1)",
             }}
@@ -268,9 +278,11 @@ const App = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "space-between",
                 alignItems: "center",
-                width: "310px",
+                width: "100%",
                 height: "36px",
+                marginTop: "10px"
               }}
             >
               <Typography
@@ -283,30 +295,31 @@ const App = () => {
                 style={{
                   direction: "rtl",
                   textAlign: "right",
-                  //text align is not working
                 }}
               >
                 به دوستات کد بده!
               </Typography>
-              <Box //go to left
+              <Box
                 sx={{
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: "space-between",
                   flexDirection: "row",
-                  width: "125px",
                   height: "36px",
                   borderRadius: "20px",
                   backgroundColor: "#0000004D",
-                  padding: "4px 8px 4px 12px",
-                  gap: "8px",
                   border: "2px",
                 }}
               >
-                <Box //align items to center
+                <Box 
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: "8px",
+                    marginRight: "5px",
+                    marginTop: "5px",
                   }}
                 >
                   <Typography
@@ -322,15 +335,19 @@ const App = () => {
                   <Box
                     component="img"
                     src={verify}
-                    width="34px"
-                    height="34px"
+                    width="40px"
+                    height="40px"
                   />
                 </Box>
-                <Box //align items to center
+                <Box
                   sx={{
                     display: "flex",
                     flexDirection: "row",
-                    alignItems: "center"
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginRight: "8px",
+                    marginLeft: "5px",
+                    marginTop: "5px",
                   }}
                 >
                   <Typography
@@ -417,17 +434,16 @@ const App = () => {
                 background: "linear-gradient(to right, #FE9C42, #E25100)",
               }}
             >
-              <Button 
+              <Button
                 sx={{
                   height: "42px",
                   width: "310px",
-                  padding: "10px 20px 10px 20px",
                   gap: "4px",
                   borderRadius: "100px",
                   backgroundColor: "#130e15",
                   backgroundClip: "padding-box",
                   color: "#FE9C42",
-                  '&: hover':{
+                  '&: hover': {
                     background: "linear-gradient(180deg, #FE9C42, #E25100)",
                     color: "black"
                   }
@@ -442,7 +458,7 @@ const App = () => {
         {/* Records Section */}
 
       </Container>
-    </Container>
+    </Box>
   );
 };
 
