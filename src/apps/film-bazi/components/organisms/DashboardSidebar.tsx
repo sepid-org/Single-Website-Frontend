@@ -11,10 +11,15 @@ import RankingIcon from '../atoms/icons/RankingIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
+import MovieIcon from '../atoms/icons/MovieIcon';
 
-type DashboardSidebarPropsType = {}
+type DashboardSidebarPropsType = {
+  tab: 'films' | 'games';
+}
 
-const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
+const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
+  tab,
+}) => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
@@ -30,7 +35,10 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
         <MyScoresBadge />
-        <DashboardButton2 label='بازی سینما' icon={<CupIcon />} onClick={() => { localNavigate(`/cinema-game/`) }} />
+        {tab === 'films' ?
+          <DashboardButton2 label='بازی‌ها' icon={<CupIcon />} onClick={() => { localNavigate(`/games/`) }} /> :
+          <DashboardButton2 label='فیلم‌ها' icon={<MovieIcon />} onClick={() => { localNavigate(`/films/`) }} />
+        }
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {programPermissions?.is_manager &&
           <DashboardButton label='مدیریت دوره' onClick={() => { localNavigate(`/admin-dashboard/`) }} />

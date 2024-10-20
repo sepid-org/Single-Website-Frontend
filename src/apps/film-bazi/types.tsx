@@ -39,3 +39,11 @@ export interface SeatSelectionType {
   created_at: string;
   updated_at: string;
 }
+
+export type GameType = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}
