@@ -13,7 +13,7 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
   border: '1px solid #4D4D4D',
   background: '#0D082A',
   width: '100%',
-  height: '105px',
+  height: '80px',
   borderWidth: '2px 0px 0px 0px',
   opacity: 1,
   position: 'static',

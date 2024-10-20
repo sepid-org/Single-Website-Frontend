@@ -4,8 +4,8 @@ import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import CustomBadge from "./CustomBadge"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
-import BananaIcon from "./icons/BananaIcon"
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
+import StarIcon from "./icons/StarIcon"
 
 const MyScoresBadge = ({ }) => {
   const { data: balances } = useGetMyBalancesQuery();
@@ -20,7 +20,7 @@ const MyScoresBadge = ({ }) => {
         <Typography fontWeight={600} fontSize={16} color={Golden}>
           {toPersianNumber(score)}
         </Typography>
-        <BananaIcon />
+        <StarIcon />
       </Stack>
     </CustomBadge >
   )
