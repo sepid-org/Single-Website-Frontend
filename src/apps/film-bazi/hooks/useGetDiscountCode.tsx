@@ -24,7 +24,7 @@ const useGetDiscountCode = () => {
         headers.append('Authorization', `JWT ${accessToken}`);
       }
 
-      const response = await fetch(`${FilmBaziApiUrl}films/discount-codes/get_discount_code/?film=${filmId}`, {
+      const response = await fetch(`${FilmBaziApiUrl}film/discount-codes/get_discount_code/?film=${filmId}`, {
         headers: headers,
       });
 
