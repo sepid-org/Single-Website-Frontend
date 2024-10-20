@@ -1,7 +1,6 @@
-import { IconButton, Stack, Typography, Paper, TextField, Button, ButtonGroup, Box } from "@mui/material";
+import { Stack, TextField, Button } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
-import DeleteIcon from '@mui/icons-material/Delete';
-import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
+import { toEnglishNumber } from "commons/utils/translateNumber";
 import { useAddPaperToFSMStateMutation, useCreateAndAddPaperToFSMStateMutation } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 
 type AddPaperToFSMStatePropsType = {
@@ -65,7 +64,7 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
         </Button>
       </Stack>
       <Button variant='contained' onClick={handleCreateAndAddPaperToFSMState}>
-        {'جدید'}
+        {'خالی'}
       </Button>
     </Stack>
   )
