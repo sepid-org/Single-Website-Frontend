@@ -21,7 +21,7 @@ export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     applyDiscountCode: builder.mutation<ApplyDiscountCodeOutputType, ApplyDiscountCodeInputType>({
       query: ({ ...body }) => ({
-        url: `sales/payment/apply_discount_code/`,
+        url: `sale/payment/apply_discount_code/`,
         method: 'POST',
         body: {
           merchandise: body.merchandiseId,
@@ -32,7 +32,7 @@ export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
 
     purchase: builder.mutation<PurchaseOutputType, PurchaseInputType>({
       query: ({ ...body }) => ({
-        url: `sales/payment/purchase/`,
+        url: `sale/payment/purchase/`,
         method: 'POST',
         body: {
           merchandise: body.merchandiseId,
