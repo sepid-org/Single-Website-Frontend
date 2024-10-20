@@ -47,3 +47,8 @@ export type GameType = {
   image: string;
   link: string;
 }
+
+export type CardType = {
+  id: string;
+  image: string;
+}

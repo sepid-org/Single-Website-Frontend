@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
-import { Card, CardContent, Grid, Typography, IconButton } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Typography } from '@mui/material';
+import Deck from '../components/molecules/Deck';
 
 type CardsGamePropsType = {
 
@@ -9,10 +9,22 @@ type CardsGamePropsType = {
 const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   const [upperList] = useState([
-    { id: 1, content: 'Card 1' },
-    { id: 2, content: 'Card 2' },
-    { id: 3, content: 'Card 3' },
-    { id: 4, content: 'Card 4' },
+    { id: "1", image: 'Card 1' },
+    { id: "2", image: 'Card 2' },
+    { id: "3", image: 'Card 3' },
+    { id: "4", image: 'Card 4' },
+    { id: "5", image: 'Card 5' },
+    { id: "6", image: 'Card 6' },
+    { id: "7", image: 'Card 7' },
+    { id: "8", image: 'Card 8' },
+    { id: "9", image: 'Card 9' },
+    { id: "10", image: 'Card 10' },
+    { id: "11", image: 'Card 11' },
+    { id: "12", image: 'Card 12' },
+    { id: "13", image: 'Card 13' },
+    { id: "14", image: 'Card 14' },
+    { id: "15", image: 'Card 15' },
+    { id: "16", image: 'Card 16' },
   ]);
 
   const [lowerList, setLowerList] = useState([]);
@@ -29,37 +41,12 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   return (
     <div style={{ padding: '20px' }}>
-      {/* Upper List of Cards */}
-      <Typography variant="h6">Upper List</Typography>
-      <Grid container spacing={2} direction="row">
-        {upperList.map(card => (
-          <Grid item key={card.id}>
-            <Card onClick={() => handleCardClick(card)} style={{ cursor: 'pointer', width: '150px' }}>
-              <CardContent>
-                <Typography>{card.content}</Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <Typography variant="h6" gutterBottom>{'کارت‌های داستان'}</Typography>
+      <Deck cards={upperList} onCardClick={handleCardClick} />
 
-      {/* Lower List of Cards */}
-      <Typography variant="h6" style={{ marginTop: '20px' }}>Lower List</Typography>
-      <Grid container spacing={2} direction="row">
-        {lowerList.map((card, index) => (
-          <Grid item key={index}>
-            <Card style={{ width: '150px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <CardContent>
-                <Typography>{card.content}</Typography>
-              </CardContent>
-              <IconButton onClick={() => handleRemoveCard(index)} aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+      <Typography variant="h6" gutterBottom sx={{ marginTop: 2 }}>{'داستان شما'}</Typography>
+      <Deck cards={lowerList} onRemoveCard={handleRemoveCard} />
+    </div >
   );
 };
 
