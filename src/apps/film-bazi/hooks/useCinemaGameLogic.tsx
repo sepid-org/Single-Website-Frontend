@@ -177,7 +177,7 @@ const useCinemaGameLogic = ({
         variant='outlined'
         fullWidth
         sx={{ height: 40 }}
-        onClick={() => localNavigate('/')}
+        onClick={() => localNavigate('/games/')}
       >
         {'بازگشت'}
       </Button>
