@@ -51,11 +51,12 @@ const UploadImage: FC<UploadImagePropsType> = ({
 
   return (
     <Fragment>
-      <Stack alignItems={'start'} spacing={1} justifyContent={'stretch'}>
+      <Stack direction={'row'} alignItems={'end'} spacing={1}>
         {showImageSelf &&
           <img src={file} width={100} style={{ borderRadius: 8 }} />
         }
         <Button
+          size='small'
           disabled={result.isLoading}
           endIcon={
             uploadProgress &&
@@ -64,7 +65,7 @@ const UploadImage: FC<UploadImagePropsType> = ({
           variant="contained"
           color="secondary"
           onClick={() => document.getElementById('userProfilePicture').click()}>
-          انتخاب تصویر
+          {'انتخاب تصویر (اختیاری)'}
         </Button>
       </Stack>
       <input
