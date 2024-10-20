@@ -18,7 +18,7 @@ const useGetFilms = () => {
           headers.append('Authorization', `JWT ${accessToken}`);
         }
 
-        const response = await fetch(`${FilmBaziApiUrl}film/films/`, {
+        const response = await fetch(`${FilmBaziApiUrl}films/films/`, {
           headers: headers,
         });
         if (!response.ok) {

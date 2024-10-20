@@ -3,7 +3,6 @@ import { Card, CardMedia, Typography, Box, Button, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { GameType } from '../../types';
 import { Golden, Orange, Yellow } from 'apps/film-bazi/constants/colors';
-import { useNavigate } from 'react-router-dom';
 
 const HoverCard = styled(Card)(() => ({
   borderRadius: '24px !important',
@@ -69,11 +68,10 @@ type GameCardPropsType = {
 }
 
 const GameCard: React.FC<GameCardPropsType> = ({ game }) => {
-  const navigate = useNavigate();
   const [isCardHovered, setIsCardHovered] = useState(false);
 
   const handleOpenDialog = () => {
-    navigate(game.link);
+    window.location.href = game.link;
   };
 
   return (
