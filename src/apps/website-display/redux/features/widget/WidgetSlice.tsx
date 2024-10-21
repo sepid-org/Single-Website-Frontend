@@ -1,6 +1,7 @@
 import { WidgetTypes } from 'commons/components/organisms/Widget';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type CreateWidgetInputType = {
   paperId: string;
@@ -22,7 +23,7 @@ type GetWidgetsByIdsInputType = {
 export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createWidget: builder.mutation<void, CreateWidgetInputType>({
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [{ type: 'paper', id: item.paperId }]),
       query: ({ widgetType, paperId, ...props }) => ({
         url: `/widgets/widget/`,
         method: 'POST',
@@ -35,7 +36,7 @@ export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateWidget: builder.mutation<void, UpdateWidgetInputType>({
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [{ type: 'paper', id: item.paperId }]),
       query: ({ widgetType, widgetId, paperId, ...props }) => ({
         url: `/widgets/widget/${widgetId}/`,
         method: 'PATCH',
@@ -48,7 +49,7 @@ export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getWidget: builder.query<GetWidgetOutputType, { widgetId: string }>({
-      providesTags: (result, error, item) => [{ type: 'widget', id: item.widgetId }],
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [{ type: 'widget', id: item.widgetId }]),
       query: ({ widgetId }) => `widgets/widget/${widgetId}/`,
       transformResponse: (response: any): GetWidgetOutputType => {
         return response;
@@ -56,7 +57,7 @@ export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     deleteWidget: builder.mutation<void, { widgetId: string, paperId: string }>({
-      invalidatesTags: (result, error, item) => [{ type: 'paper', id: item.paperId }],
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [{ type: 'paper', id: item.paperId }]),
       query: ({ widgetId }) => ({
         url: `/widgets/widget/${widgetId}/`,
         method: 'DELETE',
@@ -64,18 +65,19 @@ export const WidgetSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getWidgetsByIds: builder.query<GetWidgetOutputType[], GetWidgetsByIdsInputType>({
-      query: (args) => ({
-        url: '/widgets/widget/get_widgets_by_ids/',
-        method: 'POST',
-        body: args,
-      }),
-      providesTags: (result) =>
+      providesTags: tagGenerationWithErrorCheck((result) =>
         result
           ? [
             ...result.map(({ id }) => ({ type: 'widget' as const, id })),
             { type: 'widget', id: 'LIST' },
           ]
-          : [{ type: 'widget', id: 'LIST' }],
+          : [{ type: 'widget', id: 'LIST' }]
+      ),
+      query: (args) => ({
+        url: '/widgets/widget/get_widgets_by_ids/',
+        method: 'POST',
+        body: args,
+      }),
       transformResponse: (response: any[]): GetWidgetOutputType[] => {
         return response;
       },
