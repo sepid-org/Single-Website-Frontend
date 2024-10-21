@@ -1,10 +1,11 @@
 import React, { Fragment } from "react";
 import { DashboardTabType } from 'commons/types/global';
-import UserInfo from "../templates/UserInfo";
+import UserInfo from "../template/UserInfo";
 import { Box } from "@mui/material";
 import Dashboard from "commons/components/organisms/Dashboard";
 import backgroundImg from "../assets/profileBackgroun.svg"
 
+export default function Profile() {
 export default function Profile() {
 
     return (
