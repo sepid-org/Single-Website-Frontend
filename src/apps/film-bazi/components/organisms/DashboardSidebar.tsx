@@ -12,6 +12,7 @@ import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
 import MovieIcon from '../atoms/icons/MovieIcon';
+import TicketIcon from '../atoms/icons/Ticket';
 
 type DashboardSidebarPropsType = {
   tab: 'films' | 'games';
@@ -39,6 +40,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
           <DashboardButton2 label='بازی‌ها' icon={<CupIcon />} onClick={() => { localNavigate(`/games/`) }} /> :
           <DashboardButton2 label='فیلم‌ها' icon={<MovieIcon />} onClick={() => { localNavigate(`/films/`) }} />
         }
+        <DashboardButton label='کدهای من' icon={<TicketIcon />} onClick={() => { localNavigate(`/profile/?tab=assets`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {programPermissions?.is_manager &&
           <DashboardButton label='مدیریت دوره' onClick={() => { localNavigate(`/admin-dashboard/`) }} />

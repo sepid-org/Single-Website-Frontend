@@ -38,7 +38,7 @@ const AppBarComponent = () => {
 
   const DrawerContent = (
     <Stack spacing={2} padding={2}>
-      <Button startIcon={<NotificationIcon />} onClick={() => localNavigate('/')}>
+      <Button startIcon={<NotificationIcon />} onClick={() => { }}>
         <Typography fontWeight={700} fontSize={18}>
           {'اطلاعیه‌ها'}
         </Typography>
@@ -65,7 +65,7 @@ const AppBarComponent = () => {
               </IconButton>
             ) : (
               <Stack direction={'row-reverse'} spacing={2}>
-                <DashboardButton3 label='اطلاعیه‌ها' icon={<NotificationIcon />} onClick={() => { localNavigate(`/`) }} />
+                <DashboardButton3 label='اطلاعیه‌ها' icon={<NotificationIcon />} onClick={() => { }} />
                 <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
               </Stack>
             )}
