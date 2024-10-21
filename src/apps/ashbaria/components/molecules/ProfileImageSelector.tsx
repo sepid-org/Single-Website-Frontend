@@ -25,8 +25,9 @@ export default function ProfileImageSelector({profile_logo, setData, data}){
             تصویر نمایه
           </Typography>
             <Box display="flex" justifyContent="flex-start">
-            {[profilePic1, profilePic2, profilePic3].map((item) => (
+            {[profilePic1, profilePic2, profilePic3].map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   justifyContent: "center",

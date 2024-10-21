@@ -16,7 +16,7 @@ export default function GenderSelector({ gender }) {
 		<Grid
 			item
 			md={6}
-			xs={11}
+			xs={12}
 			sx={{
 				marginTop: "16px"
 			}}
@@ -39,7 +39,6 @@ export default function GenderSelector({ gender }) {
 					flexDirection: "row",
 					width: "100%",
 					padding: "0px 16px 0px 16px",
-
 					height: "44px"
 				}}
 			>
