@@ -104,14 +104,14 @@ export const customTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: PrimaryColor,
+            borderColor: "#60557E",
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: PrimaryColor,
+            borderColor: "#60557E",
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: PrimaryColor,
-          },
+            borderColor: "#60557E",
+          },  
         },
       },
     },
