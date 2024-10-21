@@ -48,7 +48,21 @@ export type GameType = {
   link: string;
 }
 
-export type CardType = {
-  id: string;
+export interface CardType {
+  id: number;
   image: string;
+}
+
+export interface StoryType {
+  id: number;
+  name: string;
+  order: Array<number>;
+  reward: number;
+}
+
+export interface AttemptTypw {
+  id: number;
+  story: StoryType | null;
+  user: string;
+  is_successful: boolean;
 }

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
 import { CardType } from 'apps/film-bazi/types';
 import DeckCard from '../organisms/cards/DeckCard';
 
@@ -22,7 +22,8 @@ const Deck: FC<DeckPropsType> = ({
       direction={'row'}
       overflow={'auto'}
       sx={{
-        paddingY: 2,
+        width: '100%',
+        paddingBottom: 2,
         borderRadius: '8px',
         boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
         '::-webkit-scrollbar': {
@@ -37,11 +38,16 @@ const Deck: FC<DeckPropsType> = ({
         },
       }}
     >
-      {cards.map((card) => (
-        <Box key={card.id} sx={{ flex: '0 0 auto' }}>
-          <DeckCard card={card} onCardClick={onCardClick} onRemoveCard={onRemoveCard} />
+      {cards.map((card, index) => (
+        <Box key={index} sx={{ flex: '0 0 auto' }}>
+          <DeckCard index={index} card={card} onCardClick={onCardClick} onRemoveCard={onRemoveCard} />
         </Box>
       ))}
+      {cards.length === 0 &&
+        <Typography variant='h2'>
+          {'کارتی وجود ندارد'}
+        </Typography>
+      }
     </Stack>
   );
 };

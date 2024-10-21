@@ -1,15 +1,16 @@
-import React, { FC, useState } from 'react';
-import { Card, CardContent, IconButton, Typography } from '@mui/material';
+import React, { FC } from 'react';
+import { Card, CardMedia } from '@mui/material';
 import { CardType } from 'apps/film-bazi/types';
-import DeleteIcon from '@mui/icons-material/Delete';
 
 type DeckCardPropsType = {
+  index: number;
   card: CardType;
   onCardClick?: any;
   onRemoveCard?: any;
 }
 
 const DeckCard: FC<DeckCardPropsType> = ({
+  index,
   card,
   onCardClick,
   onRemoveCard,
@@ -17,25 +18,30 @@ const DeckCard: FC<DeckCardPropsType> = ({
 
   return (
     <Card
-      onClick={() => onCardClick?.(card)}
+      onClick={() => onCardClick ? onCardClick(card) : onRemoveCard ? onRemoveCard(index) : null}
       sx={{
+        borderRadius: 0,
         cursor: 'pointer',
-        width: '150px',
+        width: 150,
+        height: '100%',
+        display: 'flex',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-        transition: 'transform 0.3s ease-in-out',
+        transition: 'transform 0.2s ease-in-out',
         '&:hover': {
-          transform: 'scale(1.05)',
+          transform: 'scale(1.02)',
         },
       }}
     >
-      <CardContent>
-        <Typography>{card.image}</Typography>
-      </CardContent>
-      {onRemoveCard &&
-        <IconButton onClick={() => onRemoveCard?.(card)} aria-label="delete">
-          <DeleteIcon />
-        </IconButton>
-      }
+      <CardMedia
+        component="img"
+        image={card.image}
+        alt="card-image"
+        sx={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+      />
     </Card>
   );
 };

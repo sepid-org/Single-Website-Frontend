@@ -1,52 +1,92 @@
-import React, { FC, useState } from 'react';
-import { Typography } from '@mui/material';
+import React, { FC, useEffect, useState } from 'react';
+import { Button, Stack, Typography } from '@mui/material';
 import Deck from '../components/molecules/Deck';
+import { useAttemptToAnswerMutation, useGetCardsQuery } from '../redux/slices/CardsGame';
+import dialogService from 'commons/components/organisms/PortalDialog';
+import CustomDialogContent from '../components/organisms/CustomDialogContent';
+import ScoreAnnouncement from '../components/atoms/icons/ScoreAnnouncement';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
-type CardsGamePropsType = {
-
-}
+type CardsGamePropsType = {}
 
 const CardsGame: FC<CardsGamePropsType> = ({ }) => {
+  const { data: initialCards = [] } = useGetCardsQuery();
+  const [attempt, result] = useAttemptToAnswerMutation();
+  const [cards, setUpperList] = useState([]);
+  const [selectedCards, setSelectedCards] = useState([]);
 
-  const [upperList] = useState([
-    { id: "1", image: 'Card 1' },
-    { id: "2", image: 'Card 2' },
-    { id: "3", image: 'Card 3' },
-    { id: "4", image: 'Card 4' },
-    { id: "5", image: 'Card 5' },
-    { id: "6", image: 'Card 6' },
-    { id: "7", image: 'Card 7' },
-    { id: "8", image: 'Card 8' },
-    { id: "9", image: 'Card 9' },
-    { id: "10", image: 'Card 10' },
-    { id: "11", image: 'Card 11' },
-    { id: "12", image: 'Card 12' },
-    { id: "13", image: 'Card 13' },
-    { id: "14", image: 'Card 14' },
-    { id: "15", image: 'Card 15' },
-    { id: "16", image: 'Card 16' },
-  ]);
-
-  const [lowerList, setLowerList] = useState([]);
+  useEffect(() => {
+    if (initialCards) {
+      setUpperList(initialCards);
+    }
+  }, [initialCards])
 
   const handleCardClick = (card) => {
-    setLowerList([...lowerList, card]);
+    setSelectedCards([...selectedCards, card]);
   };
 
   const handleRemoveCard = (index) => {
-    const updatedList = [...lowerList];
+    const updatedList = [...selectedCards];
     updatedList.splice(index, 1);
-    setLowerList(updatedList);
+    setSelectedCards(updatedList);
   };
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <Typography variant="h6" gutterBottom>{'کارت‌های داستان'}</Typography>
-      <Deck cards={upperList} onCardClick={handleCardClick} />
+  useEffect(() => {
+    if (result.isSuccess) {
+      if (result.data.message) {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              title={result.data.message}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      } else if (result.data.is_successful) {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              image={<ScoreAnnouncement />}
+              title={`آفرین! داستان جدیدی را کشف کردی. ${toPersianNumber(result.data.story.reward)} سکه بهت اضافه شد. `}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      } else {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              title={'داستانی با این ترتیب وجود ندارد'}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      }
 
-      <Typography variant="h6" gutterBottom sx={{ marginTop: 2 }}>{'داستان شما'}</Typography>
-      <Deck cards={lowerList} onRemoveCard={handleRemoveCard} />
-    </div >
+    }
+  }, [result])
+
+  const handleSubmit = () => {
+    attempt({
+      answer: selectedCards.map(selectedCard => selectedCard.id)
+    })
+  }
+
+  return (
+    <Stack padding={2} alignItems={'start'} spacing={2}>
+      <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
+      <Deck cards={cards} onCardClick={handleCardClick} />
+
+      <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
+      <Deck cards={selectedCards} onRemoveCard={handleRemoveCard} />
+
+      <Button variant='contained' onClick={handleSubmit}>
+        {'ارسال پاسخ'}
+      </Button>
+    </Stack>
   );
 };
 
