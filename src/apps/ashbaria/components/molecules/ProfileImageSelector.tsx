@@ -11,7 +11,7 @@ export default function ProfileImageSelector({profile_logo, setData, data}){
         return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
     }
     return(
-        <Grid item xs={11} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 

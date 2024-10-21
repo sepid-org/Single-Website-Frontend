@@ -16,7 +16,7 @@ export default function GenderSelector({gender}){
         <Grid
             item
             md={6}
-            xs={11}
+            xs={12}
             sx={{
                 marginTop: "16px"
             }}

@@ -10,6 +10,7 @@ import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
+import Profile from './pages/Profile';
 
 const App = () => {
 

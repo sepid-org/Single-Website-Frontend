@@ -205,7 +205,7 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
           {/* Eighth Row */}
           <ProfileImageSelector profile_logo={data.profile_logo} setData={setData} data={data} />
           {/* Last Row */}
-          <Grid item xs={11} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
+          <Grid item xs={12} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
             <Box
               sx={{
                 display: "flex",
@@ -244,7 +244,7 @@ const UserInfo: FC<UserSettingPropsType> = ({onSuccessfulSubmission, isInForm,})
               </Button>
             </Box>
             </Grid>
-            <Grid item xs={11} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
+            <Grid item xs={12} md={6} sx={{marginTop: "16px", marginBottom: "16px"}}>
               <Box
                 sx={{
                   display: "flex",
