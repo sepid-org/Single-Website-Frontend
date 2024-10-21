@@ -13,6 +13,10 @@ export const CardsGameSlice = FilmbaziApi.injectEndpoints({
     }),
 
     attemptToAnswer: builder.mutation<any, { answer: Array<number> }>({
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'rank', id: 'MY' },
+        { type: 'balances', id: 'MY' },
+      ]),
       query: ({ answer }) => ({
         url: `cards-game/attempt/`,
         method: 'POST',

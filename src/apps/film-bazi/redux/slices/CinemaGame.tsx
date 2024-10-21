@@ -29,7 +29,9 @@ export const CinemaGameSlice = FilmbaziApi.injectEndpoints({
 
     selectSeat: builder.mutation<SeatType, { seatName: string }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'filmbazi-seat-selection', id: 'LIST' }
+        { type: 'filmbazi-seat-selection', id: 'LIST' },
+        { type: 'rank', id: 'MY' },
+        { type: 'balances', id: 'MY' },
       ]),
       query: ({ seatName }) => ({
         url: `cinema-game/select-seat/?seat_name=${seatName}`,

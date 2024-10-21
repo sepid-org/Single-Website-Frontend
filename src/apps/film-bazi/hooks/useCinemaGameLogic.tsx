@@ -42,7 +42,6 @@ const useCinemaGameLogic = ({
   openLoading,
   setOpenLoading,
 }) => {
-  const { refetch } = useGetMyBalancesQuery();
   const [selectSeat, { data: selectedSeat, isLoading: selectSeatLoading, error: selectSeatError }] = useSelectSeatMutation();
   const { data: seatSelections = [], refetch: refetchSeatSelections, isLoading: getSeatSelectionsLoading } = useGetSeatSelectionsQuery();
   const localNavigate = useLocalNavigate();
@@ -63,7 +62,6 @@ const useCinemaGameLogic = ({
     if (!selectSeatLoading) {
       if (selectedSeat) {
         if (selectedSeat.score_reward) {
-          refetch();
           dialogService.open({
             component:
               <CustomDialogContent
