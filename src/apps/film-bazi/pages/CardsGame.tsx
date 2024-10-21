@@ -1,15 +1,18 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import Deck from '../components/molecules/Deck';
 import { useAttemptToAnswerMutation, useGetCardsQuery } from '../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from '../components/organisms/CustomDialogContent';
 import ScoreAnnouncement from '../components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import MyScoresChip from '../components/atoms/MyScoresChip';
+import useLocalNavigate from '../hooks/useLocalNavigate';
 
 type CardsGamePropsType = {}
 
 const CardsGame: FC<CardsGamePropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
   const { data: initialCards = [] } = useGetCardsQuery();
   const [attempt, result] = useAttemptToAnswerMutation();
   const [cards, setUpperList] = useState([]);
@@ -77,6 +80,20 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   return (
     <Stack padding={2} alignItems={'start'} spacing={2}>
+      <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
+        <Box width={200}>
+          <MyScoresChip />
+        </Box>
+
+        <Button
+          variant='outlined'
+          sx={{ height: 40 }}
+          onClick={() => localNavigate('/games/')}
+        >
+          {'بازگشت'}
+        </Button>
+      </Stack>
+
       <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
       <Deck cards={cards} onCardClick={handleCardClick} />
 
