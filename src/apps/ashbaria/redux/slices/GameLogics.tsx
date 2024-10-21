@@ -1,4 +1,4 @@
-import { AshbariaApi } from '../AshbariaApiSlice';
+import { AshbariaApi } from '../AshbariaApi';
 
 type FinishCourtInputType = {
   fsmId: string;

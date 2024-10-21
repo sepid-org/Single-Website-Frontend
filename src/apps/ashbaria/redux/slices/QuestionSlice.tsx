@@ -1,5 +1,5 @@
 import { QuestionType } from 'apps/ashbaria/types';
-import { AshbariaApi } from '../AshbariaApiSlice';
+import { AshbariaApi } from '../AshbariaApi';
 
 export const QuestionsSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({

@@ -3,7 +3,7 @@ import allReducers from 'apps/website-display/redux/slices/allReducers';
 import { PartyManagementServiceApi } from 'apps/website-display/redux/features/ManagePartyServiceApiSlice'
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice'
 import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
-import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApiSlice';
+import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApi';
 import { BankApi } from './slices/BankApi';
 import { FilmbaziApi } from 'apps/film-bazi/redux/FilmbaziApi';
 

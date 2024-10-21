@@ -1,4 +1,4 @@
-import { AshbariaApi } from "apps/ashbaria/redux/AshbariaApiSlice";
+import { AshbariaApi } from "apps/ashbaria/redux/AshbariaApi";
 import { ContentManagementServiceApi } from "apps/website-display/redux/features/ManageContentServiceApiSlice";
 import { PartyManagementServiceApi } from "apps/website-display/redux/features/ManagePartyServiceApiSlice";
 import { WebsiteManagementServiceApi } from "apps/website-display/redux/features/ManageWebsiteServiceApiSlice";
