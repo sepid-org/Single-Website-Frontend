@@ -3,7 +3,7 @@ import React from "react"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import { FILMBAZI_EXTRA_CHANCE } from "apps/film-bazi/constants/game"
-import CustomBadge from "./CustomBadge"
+import CustomChip from "./CustomChip"
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
 import BananaIcon from "./icons/BananaIcon"
 import { useGetMyDiscountCodesQuery } from "apps/film-bazi/redux/slices/DiscountCode"
@@ -21,7 +21,7 @@ const MyChancesChip = ({ }) => {
   const chancesCount = Math.max(myDiscountCodeUsages + extraChances - seatSelectionsCount, 0);
 
   return (
-    <CustomBadge>
+    <CustomChip>
       <Typography fontWeight={700} fontSize={18}>
         {'فرصت بازی'}
       </Typography>
@@ -31,7 +31,7 @@ const MyChancesChip = ({ }) => {
         </Typography>
         <BananaIcon />
       </Stack>
-    </CustomBadge >
+    </CustomChip >
   )
 }
 

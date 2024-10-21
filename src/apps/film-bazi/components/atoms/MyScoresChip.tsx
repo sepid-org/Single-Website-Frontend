@@ -2,7 +2,7 @@ import { Stack, Typography } from "@mui/material"
 import React from "react"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
-import CustomBadge from "./CustomBadge"
+import CustomChip from "./CustomChip"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
 import StarIcon from "./icons/StarIcon"
@@ -12,7 +12,7 @@ const MyScoresChip = ({ }) => {
   const score = balances?.[FILMBAZI_COIN] || 0;
 
   return (
-    <CustomBadge>
+    <CustomChip>
       <Typography fontWeight={700} fontSize={18}>
         {'امتیاز من'}
       </Typography>
@@ -22,7 +22,7 @@ const MyScoresChip = ({ }) => {
         </Typography>
         <StarIcon />
       </Stack>
-    </CustomBadge >
+    </CustomChip >
   )
 }
 

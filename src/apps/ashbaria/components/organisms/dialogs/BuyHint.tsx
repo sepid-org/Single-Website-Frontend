@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { Button, Dialog, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
-import ScoreBadge from "../../molecules/chips/Score";
+import ScoreChip from "../../molecules/chips/Score";
 import { useSpendFundsOnObjectMutation } from "commons/redux/slices/currency/Spend";
 
 type BuyHintDialogPropsType = {
@@ -44,7 +44,7 @@ const BuyHintDialog: FC<BuyHintDialogPropsType> = ({
             </Typography>
           </Stack>
 
-          <ScoreBadge value={34} />
+          <ScoreChip value={34} />
         </Stack>
 
         <Typography textAlign={'center'} color={'white'}>

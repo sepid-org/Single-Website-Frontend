@@ -3,11 +3,11 @@ import { Paper, Stack, Typography } from "@mui/material";
 import VerifyIcon from "../../atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
 
-type ScoreBadgePropsType = {
+type ScoreChipPropsType = {
   value: number;
 }
 
-const ScoreBadge: FC<ScoreBadgePropsType> = ({
+const ScoreChip: FC<ScoreChipPropsType> = ({
   value,
 }) => {
   return (
@@ -33,4 +33,4 @@ const ScoreBadge: FC<ScoreBadgePropsType> = ({
   )
 }
 
-export default ScoreBadge;
+export default ScoreChip;
