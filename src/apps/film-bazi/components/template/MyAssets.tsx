@@ -3,15 +3,15 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import useGetMyDiscountCodes from 'apps/film-bazi/hooks/useGetMyDiscountCodes';
 import MyScoresBadge from '../atoms/MyScoresBadge';
 import DiscountCodeInfo from '../organisms/DiscountCodeInfoCard';
 import MyRankBadge from '../atoms/buttons/MyRankBadge';
+import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/DiscountCode';
 
 type MyAssetsPropsType = {}
 
 const MyAssets: FC<MyAssetsPropsType> = ({ }) => {
-  const { discountCodes } = useGetMyDiscountCodes();
+  const { data: discountCodes = [] } = useGetMyDiscountCodesQuery();
 
   return (
     <Grid container spacing={2}>

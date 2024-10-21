@@ -4,14 +4,14 @@ import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import { FILMBAZI_EXTRA_CHANCE } from "apps/film-bazi/constants/game"
 import CustomBadge from "./CustomBadge"
-import useGetMyDiscountCodes from "apps/film-bazi/hooks/useGetMyDiscountCodes"
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
 import BananaIcon from "./icons/BananaIcon"
-import useGetSeatSelections from "apps/film-bazi/hooks/useGetSeatSelections"
+import { useGetMyDiscountCodesQuery } from "apps/film-bazi/redux/slices/DiscountCode"
+import { useGetSeatSelectionsQuery } from "apps/film-bazi/redux/slices/CinemaGame"
 
 const MyChancesBadge = ({ }) => {
-  const { discountCodes } = useGetMyDiscountCodes();
-  const { seatSelections = [] } = useGetSeatSelections();
+  const { data: discountCodes = [] } = useGetMyDiscountCodesQuery();
+  const { data: seatSelections = [] } = useGetSeatSelectionsQuery();
   const { data: balances } = useGetMyBalancesQuery();
   const seatSelectionsCount = seatSelections.length;
   const extraChances = balances?.[FILMBAZI_EXTRA_CHANCE] || 0;

@@ -6,8 +6,8 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import useGetDiscountCode from 'apps/film-bazi/hooks/useGetDiscountCode';
 import { FilmType } from 'apps/film-bazi/types';
+import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 
 
 type DiscountDialogProps = {
@@ -21,7 +21,7 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
   onClose,
   film,
 }) => {
-  const { getDiscountCode, discountCode, error } = useGetDiscountCode();
+  const [getDiscountCode, { data: discountCode, error }] = useGetDiscountCodeMutation();
 
   useEffect(() => {
     if (open) {
@@ -49,7 +49,7 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
   if (error) {
     dialogContent =
       <DialogContentText>
-        {error}
+        {`${error}`}
       </DialogContentText>;
   }
 

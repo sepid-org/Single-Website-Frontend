@@ -42,10 +42,17 @@ export const tagTypes = [
   'team-invitations',
   'Position',
   'user-specific-data',
+  // Bank
+
   // Ashbaria
   'question',
   'questions',
   'Scenarios',
+  // Filmbazi
+  'filmbazi-discount-code',
+  'filmbazi-film',
+  'filmbazi-seat',
+  'filmbazi-seat-selection',
 ]
 
 // Define a type for the tag types used in your app

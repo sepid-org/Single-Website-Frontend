@@ -7,15 +7,15 @@ import { Helmet } from "react-helmet";
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import GameCard from '../organisms/GameCard';
-import useGetGames from 'apps/film-bazi/hooks/useGetGames';
 import FilmSkeletonCard from '../organisms/FilmSkeletonCard';
+import { useGetGamesQuery } from 'apps/film-bazi/redux/slices/Game';
 
 type GamesPropsType = {}
 
 const Games: FC<GamesPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { games, loading: isGetGamesLoading } = useGetGames();
+  const { data: games = [], isLoading: isGetGamesLoading } = useGetGamesQuery();
 
   return (
     <Fragment>

@@ -8,7 +8,7 @@ import FilmSkeletonCard from '../organisms/FilmSkeletonCard';
 import FilmCard from '../organisms/FilmCard';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import useGetFilms from 'apps/film-bazi/hooks/useGetFilms';
+import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
 
 
 type FilmsPropsType = {}
@@ -16,7 +16,7 @@ type FilmsPropsType = {}
 const Films: FC<FilmsPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { films, loading: getFilmsLoading } = useGetFilms();
+  const { data: films = [], isLoading } = useGetFilmsQuery();
 
   return (
     <Fragment>
@@ -27,7 +27,7 @@ const Films: FC<FilmsPropsType> = ({ }) => {
       }
       <Stack>
         <Grid container spacing={2}>
-          {getFilmsLoading &&
+          {isLoading &&
             [1, 2, 3].map((index) => (
               <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'}>
                 <FilmSkeletonCard />

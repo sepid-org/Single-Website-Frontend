@@ -1,8 +1,5 @@
 import React from "react";
 import { ComplementaryObjectType } from "commons/types/models";
-import { useSeatInfo } from "./useSeatInfo";
-import { useSelectSeat } from "./useSelectSeat";
-import useGetSeatSelections from "./useGetSeatSelections";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "../components/organisms/CustomDialogContent";
@@ -15,6 +12,7 @@ import MyScoresBadge from "../components/atoms/MyScoresBadge";
 import useLocalNavigate from "./useLocalNavigate";
 import MyChancesBadge from "../components/atoms/MyChancesBadge";
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo";
+import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -45,9 +43,8 @@ const useCinemaGameLogic = ({
   setOpenLoading,
 }) => {
   const { refetch } = useGetMyBalancesQuery();
-  const { seatInfo, fetchSeatInfo } = useSeatInfo();
-  const { loading: selectSeatLoading, selectedSeat, selectSeat: selectSeat, error: selectSeatError } = useSelectSeat();
-  const { seatSelections, refetch: refetchSeatSelections, loading: getSeatSelectionsLoading } = useGetSeatSelections();
+  const [selectSeat, { data: selectedSeat, isLoading: selectSeatLoading, error: selectSeatError }] = useSelectSeatMutation();
+  const { data: seatSelections = [], refetch: refetchSeatSelections, isLoading: getSeatSelectionsLoading } = useGetSeatSelectionsQuery();
   const localNavigate = useLocalNavigate();
 
   const isSeatSelected = (seatName: string) => {
@@ -129,7 +126,7 @@ const useCinemaGameLogic = ({
                   onClickTitle={'آره مطمئنم'}
                   onClick={() => {
                     dialogService.close();
-                    selectSeat(seatName);
+                    selectSeat({ seatName });
                   }}
                 />
             })
