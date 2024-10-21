@@ -8,9 +8,7 @@ const BananaIcon = (props) => {
       component="img"
       src={bananaSvg}
       sx={{
-        width: "28px",
-        height: "28px",
-        marginRight: "10px"
+        width: 21,
       }}
     />
   );

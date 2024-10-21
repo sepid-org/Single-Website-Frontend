@@ -18,7 +18,7 @@ const MyChancesBadge = ({ }) => {
   const myDiscountCodeUsages = discountCodes
     .map(discountCode => discountCode.usage_count)
     .reduce((acc, curr) => acc + curr, 0)
-  const chancesCount = myDiscountCodeUsages + extraChances - seatSelectionsCount;
+  const chancesCount = Math.max(myDiscountCodeUsages + extraChances - seatSelectionsCount, 0);
 
   return (
     <CustomBadge>
