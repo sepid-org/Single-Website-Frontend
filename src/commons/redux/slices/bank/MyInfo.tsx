@@ -1,5 +1,5 @@
 import { BalancesType } from 'commons/types/bank';
-import { BankApi } from '../BankApi';
+import { BankApi } from './BankApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetMyBalancesOutputType = BalancesType;

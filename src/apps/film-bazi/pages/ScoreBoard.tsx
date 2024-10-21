@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import CompetitionScores from '../components/organisms/CompetitionScores';
 import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
-import { useGetMyBalancesQuery, useGetMyRankQuery } from 'commons/redux/slices/my-info/MyInfo';
+import { useGetMyBalancesQuery, useGetMyRankQuery } from 'commons/redux/slices/bank/MyInfo';
 import { FILMBAZI_COIN } from '../constants/game';
-import { useGetScoreboardQuery } from 'commons/redux/slices/scoreboard/Scoreboard';
+import { useGetScoreboardQuery } from 'commons/redux/slices/bank/scoreboard/Scoreboard';
 import { ScoreBoardItemType } from 'commons/types/bank';
 
 interface ScoreRecordsStateProp {

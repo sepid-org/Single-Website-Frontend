@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import MyScoresChip from "../components/atoms/MyScoresChip";
 import useLocalNavigate from "./useLocalNavigate";
 import MyChancesChip from "../components/atoms/MyChancesChip";
-import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo";
+import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
 import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
 
 const hoverOnMouseEnter = (target) => {

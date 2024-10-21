@@ -2,7 +2,7 @@ import { AshbariaApi } from "apps/ashbaria/redux/AshbariaApi";
 import { ContentManagementServiceApi } from "apps/website-display/redux/features/ManageContentServiceApiSlice";
 import { PartyManagementServiceApi } from "apps/website-display/redux/features/ManagePartyServiceApiSlice";
 import { WebsiteManagementServiceApi } from "apps/website-display/redux/features/ManageWebsiteServiceApiSlice";
-import { BankApi } from "../slices/BankApi";
+import { BankApi } from "../slices/bank/BankApi";
 import { FilmbaziApi } from "apps/film-bazi/redux/FilmbaziApi";
 
 export const createInvalidationCallback = (tags) => {
