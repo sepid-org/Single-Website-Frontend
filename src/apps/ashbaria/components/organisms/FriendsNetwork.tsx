@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -23,11 +23,12 @@ const App = () => {
     navigator.clipboard.writeText("Fixed Text Value");
   };
 
-  const records = Array.from({ length: 10 }, (_, index) => ({
+  const records = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
     // text: Record ${index + 1},
     //score: Math.floor(Math.random() * 100),
   }));
+
 
   return (
     <Fragment>
@@ -483,6 +484,7 @@ const App = () => {
                     src={sendIcon}
                     width="20px"
                     height="20px"
+                    color="rgba(255, 168, 0, 1)"
                   />
                   ارسال دعوت‌نامه
                 </Button>
@@ -506,9 +508,9 @@ const App = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "center",
+              justifyContent: "space-evenly",
               margin: "10px",
-              overflowX: "scroll",
+              overflowX: "auto",
             }}
           >
             {records.map(record => (
