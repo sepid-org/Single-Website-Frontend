@@ -7,7 +7,7 @@ import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
 import StarIcon from "./icons/StarIcon"
 
-const MyScoresBadge = ({ }) => {
+const MyScoresChip = ({ }) => {
   const { data: balances } = useGetMyBalancesQuery();
   const score = balances?.[FILMBAZI_COIN] || 0;
 
@@ -26,4 +26,4 @@ const MyScoresBadge = ({ }) => {
   )
 }
 
-export default MyScoresBadge;
+export default MyScoresChip;

@@ -9,7 +9,7 @@ import BananaIcon from "./icons/BananaIcon"
 import { useGetMyDiscountCodesQuery } from "apps/film-bazi/redux/slices/DiscountCode"
 import { useGetSeatSelectionsQuery } from "apps/film-bazi/redux/slices/CinemaGame"
 
-const MyChancesBadge = ({ }) => {
+const MyChancesChip = ({ }) => {
   const { data: discountCodes = [] } = useGetMyDiscountCodesQuery();
   const { data: seatSelections = [] } = useGetSeatSelectionsQuery();
   const { data: balances } = useGetMyBalancesQuery();
@@ -35,4 +35,4 @@ const MyChancesBadge = ({ }) => {
   )
 }
 
-export default MyChancesBadge;
+export default MyChancesChip;

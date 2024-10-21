@@ -3,7 +3,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import MyScoresBadge from '../atoms/MyScoresBadge';
+import MyScoresChip from '../atoms/MyScoresChip';
 import DiscountCodeInfo from '../organisms/DiscountCodeInfoCard';
 import MyRankBadge from '../atoms/buttons/MyRankBadge';
 import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/DiscountCode';
@@ -19,7 +19,7 @@ const MyAssets: FC<MyAssetsPropsType> = ({ }) => {
         <Typography variant="h2" gutterBottom>دارایی‌ها</Typography>
       </Grid>
       <Grid xs={12} sm={6} item>
-        <MyScoresBadge />
+        <MyScoresChip />
       </Grid>
       <Grid xs={12} sm={6} item>
         <MyRankBadge />

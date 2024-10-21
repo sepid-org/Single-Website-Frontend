@@ -8,9 +8,9 @@ import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 import { Button } from "@mui/material";
-import MyScoresBadge from "../components/atoms/MyScoresBadge";
+import MyScoresChip from "../components/atoms/MyScoresChip";
 import useLocalNavigate from "./useLocalNavigate";
-import MyChancesBadge from "../components/atoms/MyChancesBadge";
+import MyChancesChip from "../components/atoms/MyChancesChip";
 import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo";
 import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
 
@@ -157,14 +157,14 @@ const useCinemaGameLogic = ({
     return seatAndItsFullSeat;
   }
 
-  const myScoreBadge: ComplementaryObjectType = {
+  const myScoreChip: ComplementaryObjectType = {
     name: 'filmbazi-my-score-badge',
-    substituteComponent: <MyScoresBadge />
+    substituteComponent: <MyScoresChip />
   }
 
-  const myChancesBadge: ComplementaryObjectType = {
+  const myChancesChip: ComplementaryObjectType = {
     name: 'filmbazi-my-chances-badge',
-    substituteComponent: <MyChancesBadge />
+    substituteComponent: <MyChancesChip />
   }
 
   const returnToDashboardButton: ComplementaryObjectType = {
@@ -186,8 +186,8 @@ const useCinemaGameLogic = ({
   return {
     complementaryObjects: [
       ...seats,
-      myScoreBadge,
-      myChancesBadge,
+      myScoreChip,
+      myChancesChip,
       returnToDashboardButton,
     ]
   }
