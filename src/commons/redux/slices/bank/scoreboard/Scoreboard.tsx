@@ -1,9 +1,9 @@
 import { ScoreBoardItemType } from 'commons/types/bank';
 import { BankApi } from '../BankApi';
 
-type GetScoreboardOutputType = ScoreBoardItemType[];
-
 type GetScoreboardInputType = { currencyName: string };
+
+type GetScoreboardOutputType = ScoreBoardItemType[];
 
 export const ScoreboardSlice = BankApi.injectEndpoints({
   endpoints: (builder) => ({
