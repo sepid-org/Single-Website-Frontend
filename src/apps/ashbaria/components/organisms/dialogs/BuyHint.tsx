@@ -1,6 +1,5 @@
 import React, { FC, Fragment } from "react";
 import { Button, Dialog, Stack, Typography } from "@mui/material";
-import CustomPaper from "../../atoms/CustomPaper";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreBadge from "../../molecules/chips/Score";
 
