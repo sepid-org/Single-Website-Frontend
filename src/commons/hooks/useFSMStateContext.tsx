@@ -6,10 +6,9 @@ interface FSMStateContextType {
   isMentor?: boolean;
   teamId?: string;
   playerId?: string;
-
 }
 
-const FSMStateContext = createContext<FSMStateContextType>(null);
+const FSMStateContext = createContext<FSMStateContextType | null>(null);
 
 interface FSMProviderPropsType extends FSMStateContextType {
   children: ReactNode;
@@ -29,7 +28,12 @@ export const FSMStateProvider: FC<FSMProviderPropsType> = ({
 export const useFSMStateContext = (): FSMStateContextType => {
   const context = useContext(FSMStateContext);
   if (!context) {
-    throw new Error('useFSMStateContext must be used within an FSMStateProvider');
+    return {
+      fsmStateId: '',
+      isMentor: null,
+      teamId: null,
+      playerId: null,
+    };
   }
   return context;
 };
