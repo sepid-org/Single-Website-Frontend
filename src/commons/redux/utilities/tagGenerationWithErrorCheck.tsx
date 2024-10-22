@@ -50,6 +50,9 @@ export const tagTypes = [
   'questions',
   'Scenarios',
   'Profile',
+  'Network',
+  'Missions',
+  'MissionProgress',
   // Filmbazi
   'filmbazi-discount-code',
   'filmbazi-film',
