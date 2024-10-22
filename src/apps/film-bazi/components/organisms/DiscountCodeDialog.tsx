@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { FilmType } from 'apps/film-bazi/types';
 import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 
 
 type DiscountDialogProps = {
@@ -49,7 +50,7 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
   if (error) {
     dialogContent =
       <DialogContentText>
-        {`${error}`}
+        {(error as FetchBaseQueryError)?.data?.['error']}
       </DialogContentText>;
   }
 
