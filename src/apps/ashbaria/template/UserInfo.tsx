@@ -5,19 +5,19 @@ import React, {FC, useEffect, useState} from "react";
 import { toast } from "react-toastify";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { UserInfoType } from 'commons/types/profile';
-import GenderSelector from "../components/molecules/GenderSelector";
+import GenderSelector from "../components/molecules/profileInputs/GenderSelector";
 import profileIcon from "../assets/profile.svg";
 import verifyIcon from "../assets/verify.svg";
-import NameInput from "../components/molecules/NameInput";
-import LastNameInput from "../components/molecules/LastNameInput";
-import NationalIDInput from "../components/molecules/NationalIDInput";
-import BirthDayInput from "../components/molecules/BirthDayInput";
-import IntroductionSelector from "../components/molecules/IntroductionSelector";
-import RegionSelector from "../components/molecules/RegionSelector";
-import PhoneNumberInput from "../components/molecules/PhoneNumberInput";
-import PostNumberInput from "../components/molecules/PostNumberInput";
-import AddressInput from "../components/molecules/AddressInput";
-import ProfileImageSelector from "../components/molecules/ProfileImageSelector";
+import NameInput from "../components/molecules/profileInputs/NameInput";
+import LastNameInput from "../components/molecules/profileInputs/LastNameInput";
+import NationalIDInput from "../components/molecules/profileInputs/NationalIDInput";
+import BirthDayInput from "../components/molecules/profileInputs/BirthDayInput";
+import IntroductionSelector from "../components/molecules/profileInputs/IntroductionSelector";
+import RegionSelector from "../components/molecules/profileInputs/RegionSelector";
+import PhoneNumberInput from "../components/molecules/profileInputs/PhoneNumberInput";
+import PostNumberInput from "../components/molecules/profileInputs/PostNumberInput";
+import AddressInput from "../components/molecules/profileInputs/AddressInput";
+import ProfileImageSelector from "../components/molecules/profileInputs/ProfileImageSelector";
 
 
 type UserSettingPropsType = {
