@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import UserInfo from "../template/UserInfo";
 import { Box } from "@mui/material";
 import backgroundImg from "../assets/profileBackgroun.svg"

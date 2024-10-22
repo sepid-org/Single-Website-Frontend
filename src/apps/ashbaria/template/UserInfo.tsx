@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
@@ -54,7 +54,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   if (!userProfile) return null;
 
   return (
-    <Paper>
+    <Container maxWidth='lg' component={Paper}>
       <Grid container item padding={2} spacing={2}>
         {/* First Row */}
         <Grid
@@ -187,7 +187,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Box>
         </Grid>
       </Grid>
-    </Paper>
+    </Container>
   );
 }
 
