@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { DarkSecondary } from '../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
+import bg from "../assets/loginBG.jpg";
 
 type LoginPagePropsType = {};
 
@@ -47,7 +48,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: 'url("/images/filmbazi/desktop.jpg")',
+        backgroundImage: `url(${bg})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
