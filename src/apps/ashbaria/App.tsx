@@ -29,8 +29,8 @@ const App = () => {
             <Route path="/court/:fsmId/" element={<FSM />} />
             <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
             <Route path="/manage/" element={<ProgramManagement />} />
-            <Route path='/friends' element={<FriendsNetwork />} />
-            <Route path='/profile' element={<Profile/>} />
+            <Route path='/friendship-network/' element={<FriendsNetwork />} />
+            <Route path='/profile/' element={<Profile />} />
           </Route>
 
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>

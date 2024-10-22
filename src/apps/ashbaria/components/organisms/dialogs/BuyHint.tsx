@@ -44,7 +44,7 @@ const BuyHintDialog: FC<BuyHintDialogPropsType> = ({
             </Typography>
           </Stack>
 
-          <ScoreChip value={34} />
+          <ScoreChip value={"34"} />
         </Stack>
 
         <Typography textAlign={'center'} color={'white'}>

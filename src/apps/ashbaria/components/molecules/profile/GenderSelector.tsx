@@ -1,8 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import girlSelectedIcon from "../../assets/girl-yellow-head.svg";
-import girlUnselectedIcon from "../../assets/girl-purple-head.svg"
-import boyUnselectedIcon from "../../assets/boy-purple-head.svg";
+import girlSelectedIcon from "../../../assets/girl-yellow-head.svg";
+import girlUnselectedIcon from "../../../assets/girl-purple-head.svg"
+import boyUnselectedIcon from "../../../assets/boy-purple-head.svg";
 
 export default function GenderSelector({ gender }) {
 	const [selectedGender, setSelectedGender] = useState(gender);

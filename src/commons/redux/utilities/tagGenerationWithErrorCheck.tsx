@@ -49,6 +49,7 @@ export const tagTypes = [
   'question',
   'questions',
   'Scenarios',
+  'Profile',
   // Filmbazi
   'filmbazi-discount-code',
   'filmbazi-film',

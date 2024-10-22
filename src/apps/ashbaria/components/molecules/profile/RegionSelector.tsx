@@ -1,10 +1,10 @@
 import { FormControl, Grid, MenuItem, Select, Typography } from "@mui/material";
 import Iran from "commons/utils/iran";
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function RegionSelector({ data, setData }) {
   return (
-    <>
+    <Fragment>
       <Grid item xs={12} md={6} sx={{ marginTop: "16px" }}>
         <Typography
           sx={{
@@ -86,7 +86,6 @@ export default function RegionSelector({ data, setData }) {
           </Select>
         </FormControl>
       </Grid>
-
-    </>
+    </Fragment>
   );
 }
