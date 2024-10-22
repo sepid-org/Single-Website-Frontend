@@ -6,7 +6,7 @@ import moment from "moment";
 
 export default function BirthDayInput({data, setData}){
     return(
-        <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
             <Typography
               sx={{
                 paddingBottom: "4px", 

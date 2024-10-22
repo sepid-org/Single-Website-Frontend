@@ -4,7 +4,7 @@ import { Grid, TextField, Typography } from "@mui/material";
 
 export default function NationalIDInput({handleChange, national_id}){
     return(
-        <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} md={6} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 

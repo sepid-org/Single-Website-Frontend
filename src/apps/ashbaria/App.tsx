@@ -10,8 +10,8 @@ import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
+import FriendsNetwork from './components/organisms/FriendsNetwork';
 import Profile from './pages/Profile';
-
 const App = () => {
 
   return (
@@ -29,12 +29,13 @@ const App = () => {
             <Route path="/court/:fsmId/" element={<FSM />} />
             <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
             <Route path="/manage/" element={<ProgramManagement />} />
+            <Route path='/friends' element={<FriendsNetwork />} />
+            <Route path='/profile' element={<Profile/>} />
           </Route>
 
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
           </Route>
 
-          <Route path='/profile' element={<Profile />} />
         </Routes>
       </ThemeProvider>
 

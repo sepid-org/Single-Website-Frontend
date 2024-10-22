@@ -3,7 +3,7 @@ import React from "react";
 
 export default function({handleChange, address}){
     return(
-        <Grid item xs={11} md={12} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} sx={{marginTop: "16px"}}>
         <Typography
           sx={{
             paddingBottom: "4px", 

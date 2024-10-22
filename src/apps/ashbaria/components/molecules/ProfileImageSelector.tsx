@@ -11,7 +11,7 @@ export default function ProfileImageSelector({profile_logo, setData, data}){
         return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
     }
     return(
-        <Grid item xs={11} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} sx={{marginTop: "16px"}}>
           <Typography
             sx={{
               paddingBottom: "4px", 
@@ -25,8 +25,9 @@ export default function ProfileImageSelector({profile_logo, setData, data}){
             تصویر نمایه
           </Typography>
             <Box display="flex" justifyContent="flex-start">
-            {[profilePic1, profilePic2, profilePic3].map((item) => (
+            {[profilePic1, profilePic2, profilePic3].map((item, index) => (
               <Box
+                key={index}
                 sx={{
                   display: "flex",
                   justifyContent: "center",

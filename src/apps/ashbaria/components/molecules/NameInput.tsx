@@ -3,7 +3,7 @@ import React from "react";
 
 export default function NameInput({handleChange, first_name}){
     return(
-        <Grid item xs={11} md={6} sx={{marginTop: "16px"}}>
+        <Grid item xs={12} md={6} sx={{marginTop: "16px", padding: "0px"}}>
             <Typography 
               sx={{
                 paddingBottom: "4px", 
