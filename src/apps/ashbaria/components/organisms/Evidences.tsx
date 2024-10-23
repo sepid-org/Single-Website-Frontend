@@ -5,7 +5,9 @@ import archive from "../../assets/archive.svg";
 import closeButtonIcon from "../../assets/close-circle.svg";
 import evidence from "../../assets/evidence.svg";
 import unaccessableEvidence from "../../assets/unaccessableEvidence.svg";
-import lockIcon from "../../assets/lock.svg";
+import AccessableEvidence from "../molecules/AccessableEvidence";
+import UnaccessableEvidence from "../molecules/UnaccessableEvidence";
+import BackButton from "../atoms/BackButton";
 
 
 const Evidences = () => {
@@ -47,12 +49,7 @@ const Evidences = () => {
 							margin: "10px",
 						}}
 					>
-						<IconButton
-							sx={{ color: "#FE9C42", fontSize: "40px" }}
-							onClick={() => { }}
-						>
-							→
-						</IconButton>
+						<BackButton />
 						<Box
 							sx={{
 								display: "flex",
@@ -76,7 +73,7 @@ const Evidences = () => {
 						</Box>
 						<IconButton
 							onClick={() => { setVisibility("hidden") }}
-							sx={{marginRight: "15px"}}
+							sx={{ marginRight: "15px" }}
 						>
 							<Box
 								component="img"
@@ -119,53 +116,7 @@ const Evidences = () => {
 						</Box>
 						<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
 							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-								return (
-									<Grid
-										item
-										xs={2}
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											height: "148px",
-											minWidth: "80px",
-										}}
-									>
-										<Box
-											sx={{
-												width: "100%",
-												minHeight: "100%",
-												maxWidth: "124px",
-												padding: "12px 4px 12px 4px",
-												gap: "4px",
-												borderRadius: "12px",
-												display: "flex",
-												flexDirection: "column",
-												justifyContent: "center",
-												alignItems: "center",
-												boxShadow: "0px 2px 6px 0px #0000001A",
-												backgroundColor: "#00000066"
-											}}
-										>
-											<Box
-												component="img"
-												src={evidence}
-												width="69px"
-												height="69px"
-											/>
-											<Typography
-												sx={{
-													color: "#FFA800",
-													fontSize: "16px",
-													fontWeight: 400,
-													lineHeight: "23.86px",
-													textAlign: "center",
-												}}
-											>
-												مکالمات چپق‌فروشان
-											</Typography>
-										</Box>
-									</Grid>
-								);
+								return (<AccessableEvidence />)
 							})}
 						</Grid>
 					</Box>
@@ -204,51 +155,7 @@ const Evidences = () => {
 						<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
 							{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
 								return (
-									<Grid
-										item
-										xs={2}
-										sx={{
-											display: "flex",
-											justifyContent: "center",
-											height: "148px",
-											minWidth: "80px",
-										}}
-									>
-										<Box
-											sx={{
-												width: "100%",
-												minHeight: "100%",
-												maxWidth: "124px",
-												padding: "12px 4px 12px 4px",
-												gap: "4px",
-												borderRadius: "12px",
-												display: "flex",
-												flexDirection: "column",
-												justifyContent: "center",
-												alignItems: "center",
-												boxShadow: "0px 2px 6px 0px #0000001A",
-												backgroundColor: "#00000066"
-											}}
-										>
-											<Box
-												component="img"
-												src={lockIcon}
-												width="69px"
-												height="69px"
-											/>
-											<Typography
-												sx={{
-													color: "#60557E",
-													fontSize: "16px",
-													fontWeight: 400,
-													lineHeight: "23.86px",
-													textAlign: "center",
-												}}
-											>
-												مکالمات چپق‌فروشان
-											</Typography>
-										</Box>
-									</Grid>
+									<UnaccessableEvidence />
 								);
 							})}
 						</Grid>
