@@ -28,11 +28,11 @@ const useWidgetFactory = ({
 
   let onDelete, onMutate, onAnswerChange, onQuery, onAnswerSubmit;
 
-  const {
-    WidgetComponent,
-    EditWidgetDialog,
-    useSubmitAnswerMutation,
-  } = WIDGET_TYPE_MAPPER[widgetType];
+  const widgetToolkit = WIDGET_TYPE_MAPPER[widgetType];
+  const WidgetComponent = widgetToolkit?.WidgetComponent;
+  const EditWidgetDialog = widgetToolkit?.EditWidgetDialog;
+  const useSubmitAnswerMutation = widgetToolkit?.useSubmitAnswerMutation;
+
 
   const submitAnswerToolkit = useSubmitAnswerMutation?.();
   const submitAnswer = submitAnswerToolkit?.[0];
