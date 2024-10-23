@@ -1,23 +1,19 @@
 import { Button, IconButton, Stack, Typography } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import React, { useEffect, useState, FC } from 'react';
-import { connect } from 'react-redux';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import {
-  clearQuestionAnswerAction,
-} from 'apps/website-display/redux/slices/Answer';
 import UploadFileProblemEditWidget from './edit';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
+import { useClearQuestionAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
 
 type UploadFileProblemWidgetPropsType = {
   onAnswerChange: any;
   onAnswerSubmit: any;
 
-  clearQuestionAnswer: any;
   id: number;
   text: string;
   answer_file: string;
@@ -29,7 +25,6 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   onAnswerChange,
   onAnswerSubmit,
 
-  clearQuestionAnswer,
   id: questionId,
   text = 'محل بارگذاری فایل:',
   mode,
@@ -38,6 +33,7 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
 }) => {
   const t = useTranslate();
   const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
+  const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
 
   useEffect(() => {
     if (fileLink) {
@@ -53,13 +49,15 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
 
   const clearFile = (e) => {
     e.preventDefault();
-    clearQuestionAnswer({ question: questionId }).then((response) => {
-      if (response.type?.endsWith('fulfilled')) {
-        setFileLink('');
-        onAnswerChange({ answer_file: '' });
-      }
-    });
+    clearQuestionAnswer({ questionId });
   }
+
+  useEffect(() => {
+    if (clearQuestionAnswerResult.isSuccess) {
+      setFileLink('');
+      onAnswerChange({ answer_file: '' });
+    }
+  }, [clearQuestionAnswerResult])
 
   return (
     <Stack alignItems='center' justifyContent='space-between' direction='row' spacing={1}>
@@ -99,8 +97,6 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   );
 };
 
-export default connect(null, {
-  clearQuestionAnswer: clearQuestionAnswerAction,
-})(UploadFileProblemWidget);
+export default UploadFileProblemWidget;
 
 export { UploadFileProblemEditWidget };

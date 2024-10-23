@@ -5,7 +5,6 @@ import { translatorReducer } from './translator';
 import { whiteboardReducer } from './whiteboard';
 import { workshopReducer } from './workshop';
 import { assessmentReducer } from './assessment';
-import { AnswerReducer } from './Answer';
 import { WebsiteReducer } from './Website';
 import { GlobalReducer } from './Global';
 import { websocketReducer } from 'apps/chat/redux/websocket';
@@ -21,7 +20,6 @@ const allReducers = {
   workshop: workshopReducer,
   Intl: translatorReducer,
   scoring: assessmentReducer,
-  answer: AnswerReducer,
 };
 
 export default allReducers;
