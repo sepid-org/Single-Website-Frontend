@@ -4,7 +4,7 @@ import { ContentManagementServiceApi } from 'apps/website-display/redux/features
 import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice'
 import { AshbariaApi } from 'apps/ashbaria/redux/AshbariaApi';
 import rootReducer from '../rootReducer';
-import { BankApi } from '../slices/BankApi';
+import { BankApi } from '../slices/bank/BankApi';
 import { FilmbaziApi } from 'apps/film-bazi/redux/FilmbaziApi';
 
 const createStore = (preloadedState) => {

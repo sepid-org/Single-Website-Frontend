@@ -1,6 +1,6 @@
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLoaderData, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
@@ -8,10 +8,13 @@ import { useGetProgramFSMsUserPermissionsQuery, useGetProgramQuery } from 'apps/
 import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
+import useLocalNavigate from '../hooks/useLocalNavigate';
+import MyScoreChip from '../components/molecules/chips/MyScore';
 
 type GameMenuPropsType = {}
 
 const GameMenu: FC<GameMenuPropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
@@ -27,7 +30,17 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
       <Layout appbarMode='PROGRAM'>
         <Grid container spacing={4} alignItems='flex-start'>
           <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
-            <ProgramPageSidebar />
+            <ProgramPageSidebar
+              otherButtons={[
+                <MyScoreChip />,
+                <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
+                  {'پروفایل'}
+                </Button>,
+                <Button variant='outlined' onClick={() => localNavigate('/friendship-network/')}>
+                  {'حلقه دوستان'}
+                </Button>
+              ]}
+            />
           </Grid>
           <Grid item xs={12} sm={9}>
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>

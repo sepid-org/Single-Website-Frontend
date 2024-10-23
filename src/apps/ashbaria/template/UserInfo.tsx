@@ -1,117 +1,75 @@
-import { Box, Button, Container, FormControl, Grid, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { useUpdateUserProfileMutation } from "apps/website-display/redux/features/party/ProfileSlice";
-import useUserProfile from "commons/hooks/useUserProfile";
+import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
-import { UserInfoType } from 'commons/types/profile';
-import GenderSelector from "../components/molecules/GenderSelector";
-import profileIcon from "../assets/profile.svg";
-import verifyIcon from "../assets/verify.svg";
-import NameInput from "../components/molecules/NameInput";
-import LastNameInput from "../components/molecules/LastNameInput";
-import NationalIDInput from "../components/molecules/NationalIDInput";
-import BirthDayInput from "../components/molecules/BirthDayInput";
-import IntroductionSelector from "../components/molecules/IntroductionSelector";
-import RegionSelector from "../components/molecules/RegionSelector";
-import PhoneNumberInput from "../components/molecules/PhoneNumberInput";
-import PostNumberInput from "../components/molecules/PostNumberInput";
-import AddressInput from "../components/molecules/AddressInput";
-import ProfileImageSelector from "../components/molecules/ProfileImageSelector";
+import { toEnglishNumber } from "commons/utils/translateNumber";
+import GenderSelector from "../components/molecules/profile/GenderSelector";
+import NameInput from "../components/molecules/profile/NameInput";
+import LastNameInput from "../components/molecules/profile/LastNameInput";
+import NationalIDInput from "../components/molecules/profile/NationalIDInput";
+import BirthDayInput from "../components/molecules/profile/BirthDayInput";
+import IntroductionSelector from "../components/molecules/profile/IntroductionSelector";
+import RegionSelector from "../components/molecules/profile/RegionSelector";
+import PhoneNumberInput from "../components/molecules/profile/PhoneNumberInput";
+import PostNumberInput from "../components/molecules/profile/PostNumberInput";
+import AddressInput from "../components/molecules/profile/AddressInput";
+import ProfileImageSelector from "../components/molecules/profile/ProfileImageSelector";
+import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
+import BackButton from "../components/molecules/buttons/Back";
+import PersonIcon from "../components/atoms/icons/Person";
+import ScoreChip from "../components/molecules/chips/Score";
+import useLocalNavigate from "../hooks/useLocalNavigate";
+import { ProfileType } from "../types";
+import dialogService from "commons/components/organisms/PortalDialog";
+import CustomDialogContent from "apps/film-bazi/components/organisms/CustomDialogContent";
+import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 
+type UserSettingPropsType = {}
 
-type UserSettingPropsType = {
-  onSuccessfulSubmission?: any;
-  isInForm?: boolean;
-  //data:  Partial<UserInfoType>;
-  //setData: Function;
-}
-
-
-const hasUserCompletedPrimaryInformation = (userInfo) => {
-  const { first_name, last_name, birth_date, gender, province, city } = userInfo;
-  return first_name && last_name && birth_date && gender && province && city;
-}
-
-
-const UserInfo: FC<UserSettingPropsType> = ({ onSuccessfulSubmission, isInForm, }) => {
-  const [updateUserProfile, updateUserProfileResult] = useUpdateUserProfileMutation();
-  const { isFetching, isSuccess, data: initialUserProfile } = useUserProfile();
-  const [userProfile, setUserProfile] = useState(initialUserProfile);
+const UserInfo: FC<UserSettingPropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
+  const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
+  const { data: initialProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
+  const [userProfile, setUserProfile] = useState<ProfileType>(initialProfile);
 
   useEffect(() => {
-    if (!isFetching && isSuccess) {
-      setUserProfile(initialUserProfile);
+    if (initialProfile) {
+      setUserProfile(initialProfile);
     }
-  }, [isFetching]);
+  }, [isGetProfileLoading]);
 
   useEffect(() => {
-    if (updateUserProfileResult?.isSuccess) {
+    if (updateProfileResult?.data?.has_received_reward) {
+      dialogService.open({
+        component:
+          <CustomDialogContent
+            image={<ScoreAnnouncement />}
+            title={`تبریک! با تکمیل نمایه ۱۵۰ سکه به شما اضافه شد.`}
+            onClick={() => {
+              dialogService.close();
+            }}
+          />
+      })
+    } else if (updateProfileResult?.isSuccess) {
       toast.success('اطلاعات با موفقیت ثبت شد');
-      onSuccessfulSubmission?.()
     }
-  }, [updateUserProfileResult]);
-
-
-  const submitUserInfo = () => {
-    if (!hasUserCompletedPrimaryInformation(userProfile)) {
-      toast.error('لطفاً همه‌ی اطلاعات خواسته‌شده را وارد کنید');
-      return;
-    }
-
-    updateUserProfile({
-      userId: userProfile.id,
-      ...userProfile,
-    });
-  }
-
-  const [gender, setGender] = useState('boy');
-
-  const [data, setData] = useState({
-    first_name: "سیده فاطمه",
-    last_name: "احمدزاده",
-    national_id: "",
-    birth_date: "",
-    city: "",
-    province: "",
-    phone_number: "",
-    gender: "",
-    address: "",
-    post_number: "",
-    profile_logo: "",
-    introduction: ""
-  });
+  }, [updateProfileResult.isSuccess]);
 
   const handleChange = (event) => {
-    setData({
-      ...data,
+    setUserProfile({
+      ...userProfile,
       [event.target.name]: toEnglishNumber(event.target.value),
     });
-
   }
 
-  const [currentScore, setCurrentScore] = useState(150);
+  const handleSubmit = () => {
+    updateProfile(userProfile);
+  }
 
   if (!userProfile) return null;
 
   return (
-    <Container
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        width: "85%",
-        padding: "16px 0px 0px 0px",
-        gap: "16px",
-        borderRadius: "20px",
-        border: "2px",
-        marginTop: "20px",
-        marginBottom: "20px",
-        borderTop: "2px solid #FFFFFF80",
-        background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)"
-      }}
-    >
-      <Grid container item xs={11} spacing={2}>
+    <Container maxWidth='lg' component={Paper}>
+      <Grid container item padding={2} spacing={2}>
         {/* First Row */}
         <Grid
           item
@@ -119,12 +77,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ onSuccessfulSubmission, isInForm, 
           justifyContent="space-between"
           alignItems="center"
         >
-          <Button
-            sx={{ color: "#FE9C42", fontSize: "30px" }}
-            onClick={() => { }}
-          >
-            →
-          </Button>
+          <BackButton />
           <Box
             sx={{
               display: "flex",
@@ -133,79 +86,82 @@ const UserInfo: FC<UserSettingPropsType> = ({ onSuccessfulSubmission, isInForm, 
               justifyContent: "center"
             }}
           >
-            <Box
-              component="img"
-              src={profileIcon}
-              width="28px"
-              height="28px"
-            />
-            <Typography
-              variant="h6"
-              sx={{ fontSize: "18px", fontWeight: 800, color: "white" }}
-            >
+            <PersonIcon />
+            <Typography variant="h6" sx={{ fontSize: 24, fontWeight: 800 }}>
               نمایه
             </Typography>
           </Box>
-          <Box
-            sx={{
-              width: "85px",
-              height: "36px",
-              padding: "4px 8px 4px 12px",
-              gap: "4px",
-              borderRadius: "20px",
-              border: "2px",
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: "#00000080",
-              backdropFilter: "blur(4px)",
-              boxShadow: "0px 4px 4px 0px #00000040",
-            }}
-          >
-            <Typography
-              variant="body2"
-              sx={{
-                fontSize: "16px",
-                fontWeight: 800,
-                color: "white"
-              }}
-            >
-              {toPersianNumber(currentScore)}+
-            </Typography>
-            <Box
-              component="img"
-              src={verifyIcon}
-              width="28px"
-              height="28px"
-            />
-          </Box>
+          <ScoreChip value={"150+"} />
         </Grid>
 
         {/* Second Row */}
-        <NameInput handleChange={handleChange} first_name={data.first_name} />
-        <LastNameInput handleChange={handleChange} last_name={data.last_name} />
+        <Grid item xs={12} md={6}>
+          <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <LastNameInput handleChange={handleChange} last_name={userProfile.last_name} />
+        </Grid>
 
         {/* Third Row */}
-        <NationalIDInput handleChange={handleChange} national_id={data.national_id} />
-        <BirthDayInput data={data} setData={setData} />
+        <NationalIDInput handleChange={handleChange} national_code={userProfile.national_code} />
+        <BirthDayInput data={userProfile} setData={setUserProfile} />
 
         {/* Fourth Row */}
-        <GenderSelector gender={data.gender} />
-        <IntroductionSelector handleChange={handleChange} introduction={data.introduction} />
+        <GenderSelector gender={userProfile.gender} />
+        <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
+
         {/* Fifth Row */}
-        <RegionSelector data={data} setData={setData} />
+        <RegionSelector data={userProfile} setData={setUserProfile} />
+
         {/* Sixth Row */}
-        <PhoneNumberInput handleChange={handleChange} phone_number={data.phone_number} />
-        <PostNumberInput handleChange={handleChange} post_number={data.post_number} />
+        <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
+        <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
 
         {/* Seventh Row */}
-        <AddressInput handleChange={handleChange} address={data.address} />
+        <AddressInput handleChange={handleChange} address={userProfile.address} />
 
         {/* Eighth Row */}
-        <ProfileImageSelector profile_logo={data.profile_logo} setData={setData} data={data} />
+        <ProfileImageSelector profile_image={userProfile.profile_image} setData={setUserProfile} data={userProfile} />
+
         {/* Last Row */}
-        <Grid item xs={11} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
+        <Grid item xs={12} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              height: "44px",
+              minWidth: "82px",
+              borderRadius: "100px",
+              backgroundClip: "padding-box",
+              position: "relative",
+              overflow: "hidden",
+              background: "linear-gradient(to right, #FE9C42, #E25100)",
+            }}
+          >
+            <Button
+              fullWidth
+              sx={{
+                height: "42px",
+                minWidth: "80px",
+                padding: "10px 20px 10px 20px",
+                gap: "4px",
+                borderRadius: "100px",
+                backgroundColor: "#130e15",
+                backgroundClip: "padding-box",
+                color: "#FE9C42",
+                '&: hover': {
+                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
+                  color: "black"
+                }
+              }}
+              onClick={() => localNavigate('/')}
+            >
+              {'ولش کن'}
+            </Button>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
           <Box
             sx={{
               display: "flex",
@@ -238,53 +194,15 @@ const UserInfo: FC<UserSettingPropsType> = ({ onSuccessfulSubmission, isInForm, 
               style={{
                 borderRadius: "100px"
               }}
-              onClick={() => { }}
+              onClick={handleSubmit}
             >
-              ذخیره
-            </Button>
-          </Box>
-        </Grid>
-        <Grid item xs={11} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "44px",
-              minWidth: "82px",
-              borderRadius: "100px",
-              backgroundClip: "padding-box",
-              position: "relative",
-              overflow: "hidden",
-              background: "linear-gradient(to right, #FE9C42, #E25100)",
-            }}
-          >
-            <Button
-              fullWidth
-              sx={{
-                height: "42px",
-                minWidth: "80px",
-                padding: "10px 20px 10px 20px",
-                gap: "4px",
-                borderRadius: "100px",
-                backgroundColor: "#130e15",
-                backgroundClip: "padding-box",
-                color: "#FE9C42",
-                '&: hover': {
-                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                  color: "black"
-                }
-              }}
-              onClick={() => { }}
-            >
-              انصراف
+              {'همینو ذخیره کن'}
             </Button>
           </Box>
         </Grid>
       </Grid>
     </Container>
   );
-
 }
 
 export default UserInfo;

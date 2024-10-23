@@ -43,11 +43,16 @@ export const tagTypes = [
   'Position',
   'user-specific-data',
   // Bank
-
+  'balances',
+  'rank',
   // Ashbaria
   'question',
   'questions',
   'Scenarios',
+  'Profile',
+  'Network',
+  'Missions',
+  'MissionProgress',
   // Filmbazi
   'filmbazi-discount-code',
   'filmbazi-film',

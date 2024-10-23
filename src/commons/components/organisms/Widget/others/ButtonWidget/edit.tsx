@@ -17,12 +17,14 @@ import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 const ButtonWidgetEditor = ({
   onMutate,
   handleClose,
 
   paperId,
+  object_id: objectId,
   open,
   id: widgetId,
   ...widgetProps
@@ -50,7 +52,7 @@ const ButtonWidgetEditor = ({
 
   return (
     <Dialog disableScrollLock open={open}>
-      <DialogTitle>{'دکمه'}</DialogTitle>
+      <DialogTitle>{`دکمه ${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack spacing={3}>
           <EditObjectFields

@@ -25,7 +25,7 @@ const MyAssets: FC<MyAssetsPropsType> = ({ }) => {
         <MyRankBadge />
       </Grid>
       <Grid item xs={12} marginTop={2}>
-        <Typography variant="h3" gutterBottom>کدهای تخفیف گرفته‌شده</Typography>
+        <Typography variant="h2" gutterBottom>کدهای تخفیف من</Typography>
       </Grid>
       <Grid container item xs={12} spacing={2}>
         {discountCodes.map(discountCode =>

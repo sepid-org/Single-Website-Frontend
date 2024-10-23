@@ -4,7 +4,7 @@ import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import CustomChip from "./CustomChip"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
-import { useGetMyBalancesQuery } from "commons/redux/slices/my-info/MyInfo"
+import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo"
 import StarIcon from "./icons/StarIcon"
 
 const MyScoresChip = ({ }) => {

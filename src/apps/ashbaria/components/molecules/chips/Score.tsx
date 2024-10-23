@@ -4,7 +4,7 @@ import VerifyIcon from "../../atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
 
 type ScoreChipPropsType = {
-  value: number;
+  value: string;
 }
 
 const ScoreChip: FC<ScoreChipPropsType> = ({
@@ -13,7 +13,9 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
   return (
     <Stack
       sx={{
-        background: '#00000080'
+        backgroundColor: "#00000080",
+        backdropFilter: "blur(4px)",
+        boxShadow: "0px 4px 4px 0px #00000040",
       }}
       component={Paper}
       padding={1}
@@ -34,3 +36,4 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
 }
 
 export default ScoreChip;
+

@@ -1,8 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
-import girlSelectedIcon from "../../assets/girl-yellow-head.svg";
-import girlUnselectedIcon from "../../assets/girl-purple-head.svg"
-import boyUnselectedIcon from "../../assets/boy-purple-head.svg";
+import girlSelectedIcon from "../../../assets/girl-yellow-head.svg";
+import girlUnselectedIcon from "../../../assets/girl-purple-head.svg"
+import boyUnselectedIcon from "../../../assets/boy-purple-head.svg";
 
 export default function GenderSelector({ gender }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
@@ -16,7 +16,7 @@ export default function GenderSelector({ gender }) {
 		<Grid
 			item
 			md={6}
-			xs={11}
+			xs={12}
 			sx={{
 				marginTop: "16px"
 			}}
@@ -39,7 +39,6 @@ export default function GenderSelector({ gender }) {
 					flexDirection: "row",
 					width: "100%",
 					padding: "0px 16px 0px 16px",
-
 					height: "44px"
 				}}
 			>

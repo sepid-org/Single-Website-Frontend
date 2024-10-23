@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Box, Grid } from "@mui/material";
 import WinnerCard from "../molecules/WinnerCard";
 import ScoreRecord from "../molecules/ScoreRecord";
@@ -34,7 +34,7 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					}}
 				>
 					{winnerScores.length > 0 ?
-						(<>
+						<Fragment>
 							<Grid>
 								<WinnerCard score={winnerScores[2]?.score} rank={winnerScores[2]?.rank} />
 							</Grid>
@@ -44,12 +44,9 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 							<Grid>
 								<WinnerCard score={winnerScores[1]?.score} rank={winnerScores[1]?.rank} />
 							</Grid>
-						</>) :
-						(<>
-							<WinnerCardsSkeleton />
-						</>)
+						</Fragment> :
+						<WinnerCardsSkeleton />
 					}
-
 				</Grid>
 			</Box>
 			<Grid
