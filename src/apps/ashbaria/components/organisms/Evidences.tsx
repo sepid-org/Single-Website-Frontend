@@ -1,6 +1,5 @@
 import { Box, Button, Container, Dialog, Grid, IconButton, Paper, Typography } from "@mui/material";
 import React, { Fragment, useState } from "react";
-import bg from "../../assets/evidenceBG.svg";
 import archive from "../../assets/archive.svg";
 import closeButtonIcon from "../../assets/close-circle.svg";
 import evidence from "../../assets/evidence.svg";
