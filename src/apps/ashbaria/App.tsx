@@ -11,6 +11,7 @@ import ProgramManagement from './pages/ProgramManagement';
 import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import Profile from './pages/Profile';
+import Evidences from './components/organisms/Evidences';
 
 const App = () => {
 
@@ -35,6 +36,7 @@ const App = () => {
           </Route>
 
           <Route path='/profile' element={<Profile />} />
+          <Route path='evidences' element={<Evidences/>} />
         </Routes>
       </ThemeProvider>
 
