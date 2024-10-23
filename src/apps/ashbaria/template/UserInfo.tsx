@@ -38,7 +38,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }, [isGetProfileLoading]);
 
   useEffect(() => {
-    if (updateProfileResult.data.has_received_reward) {
+    if (updateProfileResult?.data?.has_received_reward) {
       dialogService.open({
         component:
           <CustomDialogContent
@@ -52,7 +52,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     } else if (updateProfileResult?.isSuccess) {
       toast.success('اطلاعات با موفقیت ثبت شد');
     }
-  }, [updateProfileResult]);
+  }, [updateProfileResult.isSuccess]);
 
   const handleChange = (event) => {
     setUserProfile({
