@@ -1,22 +1,22 @@
-export type AttributeBase = {
+export type AttributeType = {
   id: number;
   title: string;
   description: string | null;
   order: number;
-  model_type: string;
-  attributes: AttributeBase[];
+  type: string;
+  attributes: AttributeType[];
 };
 
-export type IntrinsicAttribute = AttributeBase & {
-  model_type: 'IntrinsicAttribute';
+export type IntrinsicAttributeType = AttributeType & {
+  type: 'IntrinsicAttribute';
   value: any;
 };
 
-export type Transition = AttributeBase & {
-  model_type: 'Transition';
+export type PerformableActionType = AttributeType & {
+  type: 'PerformableAction';
+}
+
+export type Transition = PerformableActionType & {
+  type: 'Transition';
   destination_state_id: number;
-  destination_state: {
-    id: number;
-    title: string;
-  };
 };
