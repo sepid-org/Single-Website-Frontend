@@ -19,6 +19,9 @@ import PersonIcon from "../components/atoms/icons/Person";
 import ScoreChip from "../components/molecules/chips/Score";
 import useLocalNavigate from "../hooks/useLocalNavigate";
 import { ProfileType } from "../types";
+import dialogService from "commons/components/organisms/PortalDialog";
+import CustomDialogContent from "apps/film-bazi/components/organisms/CustomDialogContent";
+import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 
 type UserSettingPropsType = {}
 
@@ -35,7 +38,18 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }, [isGetProfileLoading]);
 
   useEffect(() => {
-    if (updateProfileResult?.isSuccess) {
+    if (updateProfileResult.data.has_received_reward) {
+      dialogService.open({
+        component:
+          <CustomDialogContent
+            image={<ScoreAnnouncement />}
+            title={`تبریک! با تکمیل نمایه ۱۵۰ سکه به شما اضافه شد.`}
+            onClick={() => {
+              dialogService.close();
+            }}
+          />
+      })
+    } else if (updateProfileResult?.isSuccess) {
       toast.success('اطلاعات با موفقیت ثبت شد');
     }
   }, [updateProfileResult]);
