@@ -26,7 +26,7 @@ type ClearAnswerType = {
   questionId: string;
 };
 
-export const AnswerApiSlice = ContentManagementServiceApi.injectEndpoints({
+export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
 
     submitShortAnswer: builder.mutation<void, ShortAnswerType>({
@@ -104,4 +104,4 @@ export const {
   useSubmitMultiChoiceAnswerMutation,
   useSubmitUploadFileAnswerMutation,
   useClearQuestionAnswerMutation,
-} = AnswerApiSlice;
+} = AnswerSlice;
