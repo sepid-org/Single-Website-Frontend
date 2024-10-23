@@ -2,16 +2,12 @@ import React from "react";
 import { Grid, TextField, Typography } from "@mui/material";
 
 
-export default function NationalIDInput({ handleChange, national_code }) {
+export default function NationalCodeInput({ handleChange, national_code }) {
   return (
     <Grid item xs={12} md={6} sx={{ marginTop: "16px" }}>
-      <Typography
+      <Typography fontWeight={400} fontSize={14}
         sx={{
           paddingBottom: "4px",
-          gap: "10px",
-          fontSize: "14px",
-          fonWeight: "400",
-          lineHeight: "20.88px",
           textAlign: "left"
         }}
       >

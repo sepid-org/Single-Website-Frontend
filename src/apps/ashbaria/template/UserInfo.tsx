@@ -5,7 +5,7 @@ import { toEnglishNumber } from "commons/utils/translateNumber";
 import GenderSelector from "../components/molecules/profile/GenderSelector";
 import NameInput from "../components/molecules/profile/NameInput";
 import LastNameInput from "../components/molecules/profile/LastNameInput";
-import NationalIDInput from "../components/molecules/profile/NationalIDInput";
+import NationalCodeInput from "../components/molecules/profile/NationalIDInput";
 import BirthDayInput from "../components/molecules/profile/BirthDayInput";
 import IntroductionSelector from "../components/molecules/profile/IntroductionSelector";
 import RegionSelector from "../components/molecules/profile/RegionSelector";
@@ -29,7 +29,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
   const { data: initialProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
-  const [userProfile, setUserProfile] = useState<ProfileType>(initialProfile);
+  const [userProfile, setUserProfile] = useState<ProfileType>(null);
 
   useEffect(() => {
     if (initialProfile) {
@@ -68,8 +68,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   if (!userProfile) return null;
 
   return (
-    <Container maxWidth='lg' component={Paper}>
-      <Grid container item padding={2} spacing={2}>
+    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2 }}>
+      <Grid container item spacing={2}>
         {/* First Row */}
         <Grid
           item
@@ -87,8 +87,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             }}
           >
             <PersonIcon />
-            <Typography variant="h6" sx={{ fontSize: 24, fontWeight: 800 }}>
-              نمایه
+            <Typography variant="h6" fontSize={24} fontWeight={800}>
+              {'نمایه'}
             </Typography>
           </Box>
           <ScoreChip value={"150+"} />
@@ -103,7 +103,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
 
         {/* Third Row */}
-        <NationalIDInput handleChange={handleChange} national_code={userProfile.national_code} />
+        <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
         <BirthDayInput data={userProfile} setData={setUserProfile} />
 
         {/* Fourth Row */}
