@@ -134,7 +134,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       fullWidth
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{`سوال چندگزینه‌ای${objectId ? ` ${objectId}#` : ''}`}</DialogTitle>
+      <DialogTitle>{`سوال چندگزینه‌ای${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <EditObjectFields
           fields={widgetFields}
