@@ -1,4 +1,4 @@
-import { TextField, InputAdornment, Tooltip, IconButton, Checkbox } from '@mui/material';
+import { TextField, InputAdornment, Tooltip, IconButton, Checkbox, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ChoiceType } from 'commons/types/widgets';
@@ -29,6 +29,9 @@ const ChoiceEdit: FC<ChoiceEditPropsType> = ({
           </InputAdornment>,
         endAdornment:
           <InputAdornment position='end'>
+            <Typography variant='caption'>
+              {`#${choice.id}`}
+            </Typography>
             <Tooltip title='حذف' arrow>
               <IconButton onClick={onDelete}>
                 <DeleteIcon />

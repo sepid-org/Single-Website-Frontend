@@ -14,7 +14,7 @@ import {
 import {
   AddCircle as AddCircleIcon,
 } from '@mui/icons-material';
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
@@ -36,6 +36,7 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   choices: any[];
   paperId: any;
   id: string;
+  object_id: string;
   max_selections: number;
   min_selections: number;
   lock_after_answer: boolean;
@@ -48,6 +49,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   choices: previousQuestionChoices,
   paperId,
   id: widgetId,
+  object_id: objectId,
   handleClose,
   open,
   max_selections,
@@ -68,6 +70,13 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
         { text: 'گزینه ۲' }
       ]
   );
+
+  useEffect(() => {
+    if (previousQuestionChoices) {
+      setQuestionChoices(previousQuestionChoices);
+    }
+  }, [previousQuestionChoices])
+
   const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
 
@@ -125,7 +134,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       fullWidth
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{t('multipleChoiceQuestions')}</DialogTitle>
+      <DialogTitle>{`سوال چندگزینه‌ای${objectId ? ` ${objectId}#` : ''}`}</DialogTitle>
       <DialogContent>
         <EditObjectFields
           fields={widgetFields}
