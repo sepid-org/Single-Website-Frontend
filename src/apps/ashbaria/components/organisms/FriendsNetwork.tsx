@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import {
   Box,
   Container,
@@ -17,8 +17,17 @@ import copyIcon from "../../assets/copy.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
 import sendIcon from "../../assets/sms.svg";
 import BackButton from '../molecules/buttons/Back';
+import { useFollowMutation, useGetMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 
 const App = () => {
+  const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
+  const { data: missions } = useGetMissionsQuery()
+  const [follow, followResult] = useFollowMutation();
+
+  useEffect(() => {
+    follow({ code: 'V7KP86CFJQ' })
+  }, [])
+
   const handleCopy = () => {
     navigator.clipboard.writeText("Fixed Text Value");
   };

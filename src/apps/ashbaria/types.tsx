@@ -43,3 +43,36 @@ export type DocumentType = {
   fsm: string;
   papers: string[];
 }
+
+export type FriendshipNetworkType = {
+  user: string; // UUID string
+  follow_reward_score: number;
+  be_followed_reward_score: number;
+};
+
+export type CodeType = {
+  user: string;
+  code: string;
+  code_type: 'FRIENDSHIP' | 'REFERRAL';
+  created_at: string;
+};
+
+export type FollowType = {
+  follower: string;
+  following: string;
+  code?: CodeType | null;
+  created_at: string;
+};
+
+export type MissionType = {
+  title: string;
+  required_invitations: number;
+  reward_score: number;
+};
+
+export type CompletedMissionType = {
+  user: string;
+  mission: MissionType;
+  completed_at: string;
+};
+
