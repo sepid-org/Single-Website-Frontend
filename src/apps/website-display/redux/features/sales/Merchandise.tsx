@@ -34,7 +34,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getProgramMerchandises: builder.query<GetProgramMerchandisesOutputType, GetProgramMerchandisesInputType>({
       providesTags: ['merchandises'],
-      query: ({ programSlug }) => `sales/merchandise/program_merchandises/?program=${programSlug}`,
+      query: ({ programSlug }) => `sale/merchandise/program_merchandises/?program=${programSlug}`,
       transformResponse: (response: any): GetProgramMerchandisesOutputType => {
         return response;
       },
@@ -42,7 +42,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
 
     getMerchandise: builder.query<GetMerchandiseOutputType, GetMerchandiseInputType>({
       providesTags: ['merchandise'],
-      query: ({ merchandiseId }) => `sales/merchandise/${merchandiseId}/`,
+      query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/`,
       transformResponse: (response: any): GetMerchandiseOutputType => {
         return response;
       },
@@ -51,7 +51,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     createMerchandise: builder.mutation<AddMerchandiseToProgramOutputType, AddMerchandiseToProgramInputType>({
       invalidatesTags: ['merchandises', 'programs'],
       query: ({ programSlug, ...body }) => ({
-        url: `sales/merchandise/`,
+        url: `sale/merchandise/`,
         method: 'POST',
         body: {
           program: programSlug,
@@ -63,7 +63,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     updateMerchandise: builder.mutation<UpdateMerchandiseOutputType, UpdateMerchandiseInputType>({
       invalidatesTags: ['merchandises', 'merchandise', 'programs'],
       query: ({ id, ...body }) => ({
-        url: `sales/merchandise/${id}/`,
+        url: `sale/merchandise/${id}/`,
         method: 'PATCH',
         body,
       }),
@@ -71,7 +71,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
 
     softDeleteMerchandise: builder.mutation<SoftDeleteOutputType, SoftDeleteInputType>({
       invalidatesTags: ['merchandises', 'merchandise', 'programs'],
-      query: ({ merchandiseId }) => `sales/merchandise/${merchandiseId}/soft_delete/`,
+      query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/soft_delete/`,
     }),
 
   })

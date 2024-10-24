@@ -13,6 +13,7 @@ import { useLoginMutation } from 'apps/website-display/redux/features/user/UserS
 import { DarkSecondary } from '../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import bg from "../assets/loginBG.jpg";
+import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type LoginPagePropsType = {};
 
@@ -22,6 +23,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     username: '',
   });
   const [login, { isLoading }] = useLoginMutation();
+  const { data: website } = useGetWebsiteQuery();
 
   const collectData = (event) => {
     setData({
@@ -79,7 +81,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
             component="h1"
             variant="h3"
             textAlign={'center'}>
-            {'ورود به سامانه'}
+            {`ورود به ${website?.display_name}`}
           </Typography>
 
           <Stack width={'100%'} spacing={2.5}>
@@ -126,7 +128,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 helperText={
                   <Typography component="span">
                     <Link style={{ textDecoration: 'none' }} to={'/program/filmbazi/reset-password/'}>
-                      {'فراموشی گذر‌واژه'}
+                      {'رمز عبور را فراموش کرده‌ام'}
                     </Link>
                   </Typography>
                 }

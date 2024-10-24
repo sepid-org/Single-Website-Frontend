@@ -28,6 +28,8 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
 
   if (!program) return null;
 
+  const MAX_DESCRIPTION_LENGTH = 90;
+
   return (
     <ButtonBase
       disableRipple
@@ -105,14 +107,10 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
                 </Tooltip>
               </Stack>
 
-              <Typography
-                sx={{
-                  whiteSpace: 'normal',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-                textAlign={'start'} variant="body2" color="textSecondary">
-                {program.description}
+              <Typography textAlign={'start'} variant="body2" color="textSecondary">
+                {program.description.length > MAX_DESCRIPTION_LENGTH
+                  ? `${program.description.slice(0, program.description.slice(0, MAX_DESCRIPTION_LENGTH).lastIndexOf(' '))}...`
+                  : program.description}
               </Typography>
 
               <Box display="flex" flexWrap="wrap" gap={1}>

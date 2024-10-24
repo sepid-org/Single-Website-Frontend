@@ -64,13 +64,20 @@ const ProgramContactInfo: FC<ProgramContactInfoPropsType> = ({
     <Stack alignItems={'center'} spacing={3}>
       <Stack width={'100%'} direction={'row'} justifyContent={'space-evenly'} alignContent={'space-between'}>
         {socialMedias.filter(socialMedia => socialMedia.href).map((socialMedia, index) =>
-          <IconButton key={index} href={socialMedia.href} sx={{
-            padding: 0,
-            transition: 'transform 0.1s ease-in-out',
-            ":hover": {
-              transform: 'translateY(-0.1rem) scale(1.05)',
-            }
-          }}>
+          <IconButton
+            key={index}
+            component="a"
+            href={socialMedia.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              padding: 0,
+              transition: 'transform 0.1s ease-in-out',
+              ":hover": {
+                transform: 'translateY(-0.1rem) scale(1.05)',
+              }
+            }}
+          >
             <SvgIcon sx={{ fontSize: 30 }}>
               {socialMedia.icon}
             </SvgIcon>

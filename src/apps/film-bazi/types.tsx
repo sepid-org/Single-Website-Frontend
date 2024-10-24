@@ -39,3 +39,30 @@ export interface SeatSelectionType {
   created_at: string;
   updated_at: string;
 }
+
+export type GameType = {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+}
+
+export interface CardType {
+  id: number;
+  image: string;
+}
+
+export interface StoryType {
+  id: number;
+  name: string;
+  order: Array<number>;
+  reward: number;
+}
+
+export interface AttemptTypw {
+  id: number;
+  story: StoryType | null;
+  user: string;
+  is_successful: boolean;
+}

@@ -4,7 +4,7 @@ export interface ScoreBoardItemType {
   last_name: string;
   score: number;
   currentUser: boolean;
-  id: boolean
+  id: string;
 }
 
 export type BalancesType = {

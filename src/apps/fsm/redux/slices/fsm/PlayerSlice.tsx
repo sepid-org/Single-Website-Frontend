@@ -1,4 +1,4 @@
-import { FSMStateType, PlayerType, UserPublicInfoType } from 'commons/types/models';
+import { PlayerType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type TransitToStateInputType = {
@@ -6,14 +6,6 @@ type TransitToStateInputType = {
 }
 
 type TransitToStateOutputType = void;
-
-
-type GoForwardInputType = {
-  edgeId: string;
-  password?: string;
-}
-
-type GoForwardOutputType = void;
 
 type GoBackwardInputType = {
   playerId: string;
@@ -61,17 +53,6 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body: {
           state: stateId,
-        },
-      }),
-    }),
-
-    goForward: builder.mutation<GoForwardOutputType, GoForwardInputType>({
-      invalidatesTags: ['player'],
-      query: ({ edgeId, password }) => ({
-        url: `/fsm/edge/${edgeId}/transit_player_on_edge/`,
-        method: 'POST',
-        body: {
-          password,
         },
       }),
     }),
@@ -129,7 +110,6 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useGoForwardMutation,
   useGoBackwardMutation,
   useMentorMoveForwardMutation,
   useMentorMoveBackwardMutation,

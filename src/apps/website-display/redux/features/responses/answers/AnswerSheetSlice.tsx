@@ -19,7 +19,7 @@ export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
     getAnswerSheetAnswers: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ answerSheetId }) => ({
-        url: `responses/answers/answer_sheet_answers/?answer_sheet=${answerSheetId}`,
+        url: `response/answers/answer_sheet_answers/?answer_sheet=${answerSheetId}`,
         method: 'GET',
       }),
     }),
@@ -27,7 +27,7 @@ export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
     getWidgetAnswers: builder.query<GetQuestionAnswersOutputType, GetQuestionAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ questionId }) => ({
-        url: `responses/answers/question_answers/?question=${questionId}/`,
+        url: `response/answers/question_answers/?question=${questionId}/`,
         method: 'GET',
       }),
     }),

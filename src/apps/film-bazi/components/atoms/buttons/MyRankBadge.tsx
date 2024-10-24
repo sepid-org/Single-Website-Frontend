@@ -3,15 +3,15 @@ import React from "react"
 import StarIcon from "../icons/StarIcon"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
-import CustomBadge from "../CustomBadge"
-import { useGetMyRankQuery } from "commons/redux/slices/my-info/MyInfo"
+import CustomChip from "../CustomChip"
+import { useGetMyRankQuery } from "commons/redux/slices/bank/MyInfo"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 
 const MyRankBadge = ({ }) => {
   const { data: rank } = useGetMyRankQuery({ currencyName: FILMBAZI_COIN });
 
   return (
-    <CustomBadge>
+    <CustomChip>
       <Typography fontWeight={700} fontSize={18}>
         {'رتبه من'}
       </Typography>
@@ -21,7 +21,7 @@ const MyRankBadge = ({ }) => {
         </Typography>
         <StarIcon />
       </Stack>
-    </CustomBadge >
+    </CustomChip >
   )
 }
 

@@ -22,7 +22,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     createDiscountCode: builder.mutation<CreateDiscountCodeOutputType, CreateDiscountCodeInputType>({
       invalidatesTags: ['discount-codes'],
       query: ({ ...body }) => ({
-        url: `sales/discount_code/`,
+        url: `sale/discount_code/`,
         method: 'POST',
         body: {
           ...body,
@@ -33,14 +33,14 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     deleteDiscountCode: builder.mutation<DeleteDiscountCodeOutputType, DeleteDiscountCodeInputType>({
       invalidatesTags: ['discount-codes'],
       query: ({ discountCodeId }) => ({
-        url: `sales/discount_code/${discountCodeId}/`,
+        url: `sale/discount_code/${discountCodeId}/`,
         method: 'DELETE',
       }),
     }),
 
     getProgramDiscountCodes: builder.query<GetProgramDiscountCodesOutputType, GetProgramDiscountCodesInputType>({
       providesTags: ['discount-codes'],
-      query: ({ programSlug }) => `sales/discount_code/program_discount_codes/?program=${programSlug}`,
+      query: ({ programSlug }) => `sale/discount_code/program_discount_codes/?program=${programSlug}`,
       transformResponse: (response: any): GetProgramDiscountCodesOutputType => {
         return response;
       },

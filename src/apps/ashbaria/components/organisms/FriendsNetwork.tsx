@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import {
   Box,
   Container,
@@ -9,7 +9,6 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import heartIcon from "../../assets/Heart Angle.svg";
 import buttons from "../../assets/Buttons.svg";
 import profile2Users from "../../assets/profile-2user.svg";
@@ -17,6 +16,7 @@ import verify from "../../assets/verify.svg";
 import copyIcon from "../../assets/copy.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
 import sendIcon from "../../assets/sms.svg";
+import BackButton from '../molecules/buttons/Back';
 
 const App = () => {
   const handleCopy = () => {
@@ -28,7 +28,6 @@ const App = () => {
     // text: Record ${index + 1},
     //score: Math.floor(Math.random() * 100),
   }));
-
 
   return (
     <Fragment>
@@ -46,18 +45,8 @@ const App = () => {
           backgroundAttachment: "fixed",
         }}
       >
-        <Paper
-          sx={{
-            maxWidth: "md",
-            width: "100%",
-            minHeight: "475px",
-            height: "auto",
-            display: 'flex',
-            flexDirection: 'column',
-            margin: "0px",
-            padding: 0,
-          }}
-        >
+        <Container maxWidth='lg' component={Paper}>
+
           {/* Header */}
           <Box
             sx={{
@@ -68,9 +57,7 @@ const App = () => {
               marginBottom: "10px",
             }}
           >
-            <IconButton sx={{ color: "#FFA800" }}>
-              <ArrowRightAltIcon />
-            </IconButton>
+            <BackButton />
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box
                 component="img"
@@ -580,7 +567,7 @@ const App = () => {
               </Box>
             ))}
           </Box>
-        </Paper>
+        </Container >
       </Box>
     </Fragment>
   );

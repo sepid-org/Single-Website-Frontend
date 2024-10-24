@@ -8,13 +8,12 @@ import UploadFileProblemWidget, { UploadFileProblemEditWidget } from '../questio
 import VideoWidget, { VideoEditWidget } from '../contents/VideoWidget';
 import AudioWidget, { AudioEditWidget } from '../contents/AudioWidget';
 import DetailBoxWidget, { DetailBoxEditDialog } from '../contents/DetailBoxWidget';
-
 import {
-  sendSmallAnswerAction,
-  sendBigAnswerAction,
-  sendMultiChoiceAnswerAction,
-  sendUploadFileAnswerAction,
-} from 'apps/website-display/redux/slices/Answer';
+  useSubmitShortAnswerMutation,
+  useSubmitLongAnswerMutation,
+  useSubmitMultiChoiceAnswerMutation,
+  useSubmitUploadFileAnswerMutation,
+} from 'commons/redux/slices/cms/response/Answer';
 import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
 import ButtonWidget from '../others/ButtonWidget';
 import ButtonWidgetEditor from '../others/ButtonWidget/edit';
@@ -25,28 +24,28 @@ const WIDGET_TYPE_MAPPER = {
     EditWidgetDialog: SmallAnswerProblemEditWidget,
     label: 'سوال کوتاه‌پاسخ',
     backendType: 'SmallAnswerProblem',
-    submitAnswerAction: sendSmallAnswerAction,
+    useSubmitAnswerMutation: useSubmitShortAnswerMutation,
   },
   BigAnswerProblem: {
     WidgetComponent: BigAnswerProblemWidget,
     EditWidgetDialog: BigAnswerQuestionEditWidget,
     label: 'سوال تشریحی',
     backendType: 'BigAnswerProblem',
-    submitAnswerAction: sendBigAnswerAction,
+    useSubmitAnswerMutation: useSubmitLongAnswerMutation,
   },
   MultiChoiceProblem: {
     WidgetComponent: MultiChoiceQuestionWidget,
     EditWidgetDialog: MultiChoiceQuestionEditWidget,
     label: 'سوال چند‌گزینه‌ای',
     backendType: 'MultiChoiceProblem',
-    submitAnswerAction: sendMultiChoiceAnswerAction,
+    useSubmitAnswerMutation: useSubmitMultiChoiceAnswerMutation,
   },
   UploadFileProblem: {
     WidgetComponent: UploadFileProblemWidget,
     EditWidgetDialog: UploadFileProblemEditWidget,
     label: 'ارسال فایل',
     backendType: 'UploadFileProblem',
-    submitAnswerAction: sendUploadFileAnswerAction,
+    useSubmitAnswerMutation: useSubmitUploadFileAnswerMutation,
   },
   TextWidget: {
     WidgetComponent: TextWidget,

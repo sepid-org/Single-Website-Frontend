@@ -1,5 +1,5 @@
 import { CreateScenarioRequestType, EvaluateSubmissionRequestType, EvaluateSubmissionResponseType, ScenarioType, UpdateScenarioRequestType } from 'apps/ashbaria/types';
-import { AshbariaApi } from '../AshbariaApiSlice';
+import { AshbariaApi } from '../AshbariaApi';
 
 
 export const ScenarioSlice = AshbariaApi.injectEndpoints({

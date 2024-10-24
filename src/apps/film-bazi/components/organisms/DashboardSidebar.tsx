@@ -5,16 +5,22 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import ProgramContactInfo from 'commons/components/molecules/ProgramContactInfo';
 import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import MyScoresBadge from '../atoms/MyScoresBadge';
+import MyScoresChip from '../atoms/MyScoresChip';
 import DashboardButton from '../atoms/buttons/DashboardButton';
 import RankingIcon from '../atoms/icons/RankingIcon';
 import DashboardButton2 from '../atoms/buttons/DashboardButton2';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import CupIcon from '../atoms/icons/CupIcon';
+import MovieIcon from '../atoms/icons/MovieIcon';
+import TicketIcon from '../atoms/icons/Ticket';
 
-type DashboardSidebarPropsType = {}
+type DashboardSidebarPropsType = {
+  tab: 'films' | 'games';
+}
 
-const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
+const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
+  tab,
+}) => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
@@ -29,8 +35,12 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({ }) => {
       </Stack>
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
-        <MyScoresBadge />
-        <DashboardButton2 label='بازی سینما' icon={<CupIcon />} onClick={() => { localNavigate(`/cinema-game/`) }} />
+        <MyScoresChip />
+        {tab === 'films' ?
+          <DashboardButton2 label='بازی‌ها' icon={<CupIcon />} onClick={() => { localNavigate(`/games/`) }} /> :
+          <DashboardButton2 label='فیلم‌ها' icon={<MovieIcon />} onClick={() => { localNavigate(`/films/`) }} />
+        }
+        <DashboardButton label='کدهای من' icon={<TicketIcon />} onClick={() => { localNavigate(`/profile/?tab=assets`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {programPermissions?.is_manager &&
           <DashboardButton label='مدیریت دوره' onClick={() => { localNavigate(`/admin-dashboard/`) }} />

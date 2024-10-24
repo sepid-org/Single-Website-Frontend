@@ -3,30 +3,55 @@ import {
   DialogTitle,
   List,
   ListItemButton,
-  Typography,
 } from '@mui/material';
+import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useChangeState from 'commons/hooks/useChangeState';
-import React from 'react';
+import React, { FC, useEffect } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
+import { useParams } from 'react-router-dom';
 
-function ChangeStateDialog({ open, handleClose, edges }) {
+type ChangeStateDialogPropsType = {
+  open: boolean;
+  handleClose: any;
+  stateIds: string[];
+  widgetId?: string;
+}
+
+const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
+  open,
+  handleClose,
+  stateIds,
+  widgetId,
+}) => {
   const t = useTranslate();
-  const { changeState } = useChangeState();
+  const { fsmId } = useParams();
+  const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
+  const { changeState, result } = useChangeState();
+  const states = fsmStates.filter(state => stateIds.includes(state.id))
+
+  console.log(stateIds)
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      handleClose();
+    }
+  }, [result.isLoading])
 
   return (
     <Dialog disableScrollLock open={open} onClose={handleClose}>
       <DialogTitle variant='h3'>{t('chooseNextState')}</DialogTitle>
       <List>
-        {edges.slice().sort((e1, e2) => e1.head.title < e2.head.title ? 1 : -1).map((edge) => (
-          <ListItemButton
-            onClick={() => {
-              changeState(edge);
-              handleClose();
-            }}
-            key={edge.id}>
-            {edge.head.title}
-          </ListItemButton>
-        ))}
+        {states
+          .slice()
+          .sort((state1, state2) => state1.title < state2.title ? 1 : -1)
+          .map(state => (
+            <ListItemButton
+              onClick={() => changeState({ stateId: state.id, widgetId })}
+              key={state.id}
+            >
+              {state.title}
+            </ListItemButton>
+          ))}
       </List>
     </Dialog>
   );
