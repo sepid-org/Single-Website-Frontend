@@ -15,9 +15,7 @@ const useGetMenuCourts = (): MenuCourtsType => {
   const { data: programUserFSMsStatus = [] } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
   const { data: balances = {} } = useGetMyBalancesQuery();
-  const { data: courts } = useGetCourtsQuery();
-
-  console.log(courts.map(court => calculateCourtFinalScore({ fsmId, balances, court })))
+  const { data: courts = [] } = useGetCourtsQuery();
 
   return ({
     courts: fsmsData?.fsms.map(fsm => ({
