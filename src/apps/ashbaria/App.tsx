@@ -33,7 +33,7 @@ const App = () => {
             <Route path='/profile/' element={<Profile />} />
           </Route>
 
-          <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
+          <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
           </Route>
 
         </Routes>

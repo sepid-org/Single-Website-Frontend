@@ -14,8 +14,6 @@ import Admins from 'commons/template/program/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import FSMs from 'commons/template/program/management/FSMs';
-import CustomWidgetsManagement from './CustomWidgetsManagement';
-import ScenariosManagement from './ScenariosManagement';
 
 const tabs: DashboardTabType[] = [
   {
@@ -48,18 +46,6 @@ const tabs: DashboardTabType[] = [
     icon: AccountBalanceIcon,
     component: <FSMs />,
   },
-  // {
-  //   slug: 'questions',
-  //   label: 'سوالات',
-  //   icon: HelpIcon,
-  //   component: <CustomWidgetsManagement />,
-  // },
-  // {
-  //   slug: 'scenarios',
-  //   label: 'سناریوها',
-  //   icon: HelpIcon,
-  //   component: <ScenariosManagement />,
-  // },
 ];
 
 type ProgramManagementPropsType = {}
