@@ -18,6 +18,9 @@ import bg from "../../assets/friendsNetworkBg.svg";
 import sendIcon from "../../assets/sms.svg";
 import BackButton from '../molecules/buttons/Back';
 import { useFollowMutation, useGetMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
+import dialogService from 'commons/components/organisms/PortalDialog';
+import CustomDialogContent from 'apps/film-bazi/components/organisms/CustomDialogContent';
+import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
 
 const App = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -27,6 +30,34 @@ const App = () => {
   useEffect(() => {
     follow({ code: 'V7KP86CFJQ' })
   }, [])
+
+  useEffect(() => {
+    if (followResult.isSuccess) {
+      if (followResult.data.created) {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              image={<ScoreAnnouncement />}
+              title={`تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا`}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      } else {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              image={<ScoreAnnouncement />}
+              title={`این کد رو از قبل زده بودی`}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      }
+    }
+  }, [followResult])
 
   const handleCopy = () => {
     navigator.clipboard.writeText("Fixed Text Value");

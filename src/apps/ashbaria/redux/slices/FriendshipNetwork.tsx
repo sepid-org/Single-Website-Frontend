@@ -1,4 +1,4 @@
-import { FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
+import { FollowType, FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 
 export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
@@ -14,7 +14,7 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
       providesTags: [{ type: 'Missions', id: 'ALL' }],
     }),
 
-    follow: builder.mutation<MissionType[], { code: string }>({
+    follow: builder.mutation<FollowType & { created: boolean }, { code: string }>({
       invalidatesTags: [{ type: 'Missions', id: 'MY' }],
       query: ({ code }) => ({
         url: '/friendship-network/follows/follow/',
