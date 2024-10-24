@@ -3,7 +3,7 @@ import { WidgetType } from "./widget";
 import { AnswerType } from "commons/types/models";
 
 export type QuestionWidgetType = WidgetType & {
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
   onAnswerChange: any;
   id: number;
   text: string;

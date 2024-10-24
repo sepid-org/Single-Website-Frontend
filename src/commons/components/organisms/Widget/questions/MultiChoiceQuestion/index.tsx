@@ -14,7 +14,7 @@ import IsRequired from 'commons/components/atoms/IsRequired';
 export { MultiChoiceQuestionEditWidget };
 
 type MultiChoiceQuestionWidgetPropsType = {
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
   onAnswerChange: any;
   id: string;
   text: string;
@@ -27,7 +27,7 @@ type MultiChoiceQuestionWidgetPropsType = {
 } & QuestionWidgetType;
 
 const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
   onAnswerChange,
 
   id: questionId,
@@ -41,6 +41,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   ...questionWidgetProps
 }) => {
   const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>(submittedAnswer?.choices || []);
+  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
   const setSelectedChoices = (newSelectedChoices) => {
     onAnswerChange({ choices: newSelectedChoices });
     _setSelectedChoices(newSelectedChoices);
@@ -76,7 +77,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   const submitAnswer = (selectedChoices) => {
     if (mode === WidgetModes.View) {
-      onAnswerSubmit({ questionId, selectedChoices });
+      onSubmitAnswer({ questionId, selectedChoices });
     }
   }
 

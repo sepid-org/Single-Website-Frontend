@@ -5,6 +5,7 @@ import {
   useUpdateWidgetMutation,
 } from 'apps/website-display/redux/features/widget/WidgetSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import { useSubmitUploadFileAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
 
 type WidgetFactoryType = {
   widgetId?: string;
@@ -24,17 +25,12 @@ const useWidgetFactory = ({
   const [createWidget] = useCreateWidgetMutation();
   const [updateWidget] = useUpdateWidgetMutation();
 
-  let onDelete, onMutate, onAnswerChange, onQuery, onAnswerSubmit;
+  let onDelete, onMutate, onAnswerChange;
 
   const widgetToolkit = WIDGET_TYPE_MAPPER[widgetType];
   const WidgetComponent = widgetToolkit?.WidgetComponent;
   const EditWidgetDialog = widgetToolkit?.EditWidgetDialog;
   const useSubmitAnswerMutation = widgetToolkit?.useSubmitAnswerMutation;
-
-
-  const submitAnswerToolkit = useSubmitAnswerMutation?.();
-  const submitAnswer = submitAnswerToolkit?.[0];
-  const submitAnswerResult = submitAnswerToolkit?.[1];
 
   onMutate =
     widgetId ?
@@ -47,22 +43,13 @@ const useWidgetFactory = ({
 
   onAnswerChange = collectAnswer ? collectAnswer : () => { };
 
-  onAnswerSubmit = (props) => {
-    submitAnswer({
-      ...props,
-      playerId,
-    });
-  }
-
   onDelete = (props) => deleteWidget(props);
 
   return {
     onDelete,
     onMutate,
     onAnswerChange,
-    onQuery,
-    onAnswerSubmit,
-    submitAnswerResult,
+    useSubmitAnswerMutation,
     WidgetComponent,
     EditWidgetDialog,
   };

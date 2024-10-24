@@ -12,7 +12,7 @@ import { useClearQuestionAnswerMutation } from 'commons/redux/slices/cms/respons
 
 type UploadFileProblemWidgetPropsType = {
   onAnswerChange: any;
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
 
   id: number;
   text: string;
@@ -23,7 +23,7 @@ type UploadFileProblemWidgetPropsType = {
 
 const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   onAnswerChange,
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
 
   id: questionId,
   text = 'محل بارگذاری فایل:',
@@ -34,12 +34,13 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   const t = useTranslate();
   const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
   const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
+  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
 
   useEffect(() => {
     if (fileLink) {
       onAnswerChange({ answer_file: fileLink });
       if (mode === WidgetModes.View) {
-        onAnswerSubmit({
+        onSubmitAnswer({
           questionId,
           answerFile: fileLink,
         })

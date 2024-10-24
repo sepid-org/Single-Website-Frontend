@@ -13,7 +13,7 @@ export { BigAnswerProblemEditWidget as BigAnswerQuestionEditWidget };
 type BigAnswerProblemWidgetPropsType = QuestionWidgetType;
 
 const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
   onAnswerChange,
   id: questionId,
   text,
@@ -25,6 +25,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
   const [answer, setAnswer] = useState<string>(submittedAnswer?.text || '');
   const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
   const [isButtonDisabled, setButtonDisable] = useState(false);
+  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
 
   const onChangeWrapper = (val: string) => {
     if (mode === WidgetModes.InForm) {
@@ -38,7 +39,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     setTimeout(() => {
       setButtonDisable(false);
     }, 20000)
-    onAnswerSubmit({ questionId, text: answer })
+    onSubmitAnswer({ questionId, text: answer })
   }
 
   return (

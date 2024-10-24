@@ -8,8 +8,8 @@ import IsRequired from 'commons/components/atoms/IsRequired';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 
 type SmallAnswerProblemWidgetPropsType = {
-  onAnswerChange: any;
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
+  on: any;
 
   id: number;
   mode: WidgetModes;
@@ -20,7 +20,7 @@ type SmallAnswerProblemWidgetPropsType = {
 
 const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   onAnswerChange,
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
 
   id: questionId,
   mode,
@@ -33,6 +33,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
+  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
 
   const changeText = (e) => {
     if (mode === WidgetModes.InForm) {
@@ -46,7 +47,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
       return;
     }
     setIsSubmitting(true);
-    onAnswerSubmit({
+    onSubmitAnswer({
       questionId,
       text: answer,
       onSuccess: () => {

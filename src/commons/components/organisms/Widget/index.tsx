@@ -49,7 +49,7 @@ const Widget: FC<WidgetPropsType> = ({
 
   const {
     onAnswerChange,
-    onAnswerSubmit,
+    useSubmitAnswerMutation,
     WidgetComponent,
   } = useWidgetFactory({
     widgetId: widget.id,
@@ -81,7 +81,7 @@ const Widget: FC<WidgetPropsType> = ({
         mode={mode}
         paperId={paperId}
         submittedAnswer={submittedAnswer}
-        onAnswerSubmit={onAnswerSubmit}
+        useSubmitAnswerMutation={useSubmitAnswerMutation}
         onAnswerChange={onAnswerChange}
       />
     </Cover>
