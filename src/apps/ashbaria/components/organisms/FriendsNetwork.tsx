@@ -57,8 +57,7 @@ const App = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginTop: 1,
-              marginBottom: 1,
+              margin: 1,
             }}
           >
             <BackButton />
@@ -87,22 +86,22 @@ const App = () => {
               sm={5}
               sx={{
                 display: "flex",
-                alignItems: "center",
                 flexDirection: "column",
+                alignItems: "end",
                 height: "auto",
                 borderRadius: 2,
                 backgroundColor: "rgba(0, 0, 0, 0.1)",
+                padding: 1,
               }}
             >
-              <Container
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: "space-around",
                   alignItems: "center",
                   width: "100%",
                   height: 36,
-                  marginTop: 1,
                 }}
               >
                 <Typography
@@ -115,14 +114,13 @@ const App = () => {
                   کد دوستاتو بزن!
                 </Typography>
                 <FriendsNetworkPoints points={129} numberOfFriends={12} />
-              </Container>
+              </Box>
               <Typography
-              fontSize={16}
-              fontWeight={400}
+                fontSize={16}
+                fontWeight={400}
                 sx={{
-                  margin: "15px",
-                  textAlign: "right",
-                  direction: "rtl"
+                  marginTop: 3,
+                  height: 60
                 }}
                 style={{
                   direction: "rtl",
@@ -131,19 +129,26 @@ const App = () => {
               >
                 اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه
               </Typography>
-              <TextField
-                variant="outlined"
-                placeholder="کد ۱۰ رقمی"
+              <Box
                 sx={{
-                  margin: "10px",
-                  '& .MuiOutlinedInput-root': {
-                    height: 44,
-                    minWidth: 255,
-                    width: "100%",
-                  }
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
-              />
-              <CustomOutlinedButton buttonText='ثبتش کن' handleClick={() => {}} minWidth={80} fullWidth={false} />
+              >
+                <TextField
+                  variant="outlined"
+                  placeholder="کد ۱۰ رقمی"
+                  sx={{
+                    margin: 1,
+                    '& .MuiOutlinedInput-root': {
+                      height: 44,
+                      width: 255,
+                    }
+                  }}
+                />
+              </Box>
+              <CustomOutlinedButton buttonText='ثبتش کن' handleClick={() => { }} minWidth={80} fullWidth={false} />
             </Grid>
 
             {/* Left Component */}
@@ -158,9 +163,10 @@ const App = () => {
                 height: "auto",
                 borderRadius: 2,
                 backgroundColor: "rgba(0, 0, 0, 0.1)",
+                padding: 1,
               }}
             >
-              <Container
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -168,7 +174,6 @@ const App = () => {
                   alignItems: "center",
                   width: "100%",
                   height: 36,
-                  marginTop: 1,
                 }}
               >
                 <Typography
@@ -181,14 +186,13 @@ const App = () => {
                   به دوستات کد بده!
                 </Typography>
                 <FriendsNetworkPoints numberOfFriends={1} points={9} />
-              </Container>
+              </Box>
               <Typography
+                fontSize={16}
+                fontWeight={400}
                 sx={{
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  textAlign: "right",
-                  margin: "15px"
+                  marginTop: 3,
+                  height: 60,
                 }}
                 style={{
                   direction: "rtl",
@@ -204,10 +208,10 @@ const App = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  borderRadius: "12px",
-                  margin: "10px",
-                  minWidth: "255px",
-                  height: "44px"
+                  borderRadius: 1,
+                  minWidth: 255,
+                  height: 44,
+                  margin: 1,
                 }}
               >
                 <Typography
