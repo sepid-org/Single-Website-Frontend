@@ -1,10 +1,12 @@
-import { Box, Dialog, Typography } from "@mui/material";
+import { Box, Button, Dialog, IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import BackButton from "../atoms/BackButton";
 import archive from "../../assets/archive.svg";
 import outlinedArchive from "../../assets/outlinedArchive.svg";
 import Paper from "commons/template/Paper";
-
+import Back from "../molecules/buttons/Back";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import CustomEvidencePagination from "../molecules/CustomEvidencePagination";
 
 const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 
@@ -30,7 +32,7 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 					margin: "10px",
 				}}
 			>
-				<BackButton />
+				<Back />
 				<Box
 					sx={{
 						display: "flex",
@@ -74,7 +76,7 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 					</Typography>
 				</Box>
 			</Box>
-			<Box 
+			<Box
 				sx={{
 					margin: "15px",
 					fontSize: "12px",
@@ -85,6 +87,73 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 				}}
 			>
 				<Paper mode="general" paperId="6775" /> {/*change id value to pageIDs[currentPage].toString() */}
+				<Box
+					sx={{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+					}}
+				>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							height: 42,
+							width: 42,
+							borderRadius: "100%",
+							backgroundClip: "padding-box",
+							position: "relative",
+							overflow: "hidden",
+							background: "linear-gradient(to right, #FE9C42, #E25100)",
+							visibility: (currentPage < pageIDs.length ? "visible" : "hidden"),
+						}}
+					>
+						<Button
+							sx={{
+								height: 40,
+								width: 40,
+								borderRadius: "100%",
+								backgroundColor: "#130e15",
+								backgroundClip: "padding-box",
+								color: "#FE9C42",
+							}}
+							onClick={() => setCurrentPage(currentPage + 1)}
+						>
+							<ArrowForwardIcon/>
+						</Button>
+					</Box>
+					<CustomEvidencePagination numberOfPages={3} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							height: 42,
+							width: 42,
+							borderRadius: "100%",
+							backgroundClip: "padding-box",
+							position: "relative",
+							overflow: "hidden",
+							background: "linear-gradient(to right, #FE9C42, #E25100)",
+							visibility: (currentPage > 1 ? "visible" : "hidden"),
+						}}
+					>
+						<Button
+							sx={{
+								height: 40,
+								width: 40,
+								borderRadius: "100%",
+								backgroundColor: "#130e15",
+								backgroundClip: "padding-box",
+								color: "#FE9C42",
+							}}
+							onClick={() => setCurrentPage(currentPage - 1)}
+						>
+							<ArrowBackIcon/>
+						</Button>
+					</Box>
+				</Box>
 			</Box>
 		</Dialog>
 	);

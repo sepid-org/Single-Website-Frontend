@@ -6,7 +6,8 @@ import evidence from "../../assets/evidence.svg";
 import unaccessableEvidence from "../../assets/unaccessableEvidence.svg";
 import AccessableEvidence from "../molecules/AccessableEvidence";
 import UnaccessableEvidence from "../molecules/UnaccessableEvidence";
-import BackButton from "../atoms/BackButton";
+import Back from "../molecules/buttons/Back";
+
 
 
 const Evidences = () => {
@@ -34,7 +35,7 @@ const Evidences = () => {
 					margin: "10px",
 				}}
 			>
-				<BackButton />
+				<Back />
 				<Box
 					sx={{
 						display: "flex",
