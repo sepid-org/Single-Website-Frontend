@@ -48,7 +48,6 @@ const App = () => {
         dialogService.open({
           component:
             <CustomDialogContent
-              image={<ScoreAnnouncement />}
               title={`این کد رو از قبل زده بودی`}
               onClick={() => {
                 dialogService.close();
