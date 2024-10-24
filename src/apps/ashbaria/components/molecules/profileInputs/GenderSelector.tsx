@@ -1,5 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import girlSelectedIcon from "../../../assets/girl-yellow-head.svg";
 import girlUnselectedIcon from "../../../assets/girl-purple-head.svg"
 import boyUnselectedIcon from "../../../assets/boy-purple-head.svg";
@@ -13,22 +13,12 @@ export default function GenderSelector({ gender }) {
 		return selectedGender === genderValue ? "#FFC66F33" : "#00000080";
 	}
 	return (
-		<Grid
-			item
-			md={6}
-			xs={12}
-			sx={{
-				marginTop: "16px"
-			}}
-		>
+		<Fragment>
 			<Typography
 				sx={{
-					paddingBottom: "4px",
-					gap: "10px",
-					fontSize: "14px",
-					fonWeight: "400",
-					lineHeight: "20.88px",
-					textAlign: "left"
+					marginBottom: '4px',
+          fontSize: 14,
+          fonWeight: 400,
 				}}
 			>
 				جنسیت
@@ -38,17 +28,15 @@ export default function GenderSelector({ gender }) {
 					display: "flex",
 					flexDirection: "row",
 					width: "100%",
-					padding: "0px 16px 0px 16px",
-					height: "44px"
+					height: 56
 				}}
 			>
 				<Box
 					onClick={() => setSelectedGender("boy")}
 					sx={{
 						width: "50%",
-						height: "44px",
-						padding: "0px 12px 0px 12px",
-						gap: "4px",
+						height: 56,
+						gap: 1,
 						borderRadius: "12px 0px 0px 12px",
 						border: "1px solid",
 						borderColor: selectColor("boy"),
@@ -61,10 +49,8 @@ export default function GenderSelector({ gender }) {
 					<Box
 						component="img"
 						src={boyUnselectedIcon}
-						width="20px"
-						height="20px"
-						padding="1.67px"
-
+						width={20}
+						height={20}
 					/>
 					<Typography sx={{ color: selectColor("boy") }}>پسر</Typography>
 				</Box>
@@ -72,9 +58,8 @@ export default function GenderSelector({ gender }) {
 					onClick={() => setSelectedGender("girl")}
 					sx={{
 						width: "50%",
-						height: "44px",
-						padding: "0px 12px 0px 12px",
-						gap: "4px",
+						height: 56,
+						gap: 1,
 						borderRadius: "0px 12px 12px 0px",
 						border: "1px solid",
 						borderColor: selectColor("girl"),
@@ -87,13 +72,12 @@ export default function GenderSelector({ gender }) {
 					<Box
 						component="img"
 						src={selectedGender === "girl" ? girlSelectedIcon : girlUnselectedIcon}
-						width="20px"
-						height="20px"
-						padding="1.67px"
+						width={20}
+						height={20}
 					/>
 					<Typography sx={{ color: selectColor("girl") }}>دختر</Typography>
 				</Box>
 			</Box>
-		</Grid>
+		</Fragment>
 	);
 }

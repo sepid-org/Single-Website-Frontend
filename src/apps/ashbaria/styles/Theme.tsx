@@ -151,15 +151,9 @@ export const customTheme = createTheme({
         contained: {
           background: 'linear-gradient(180deg, #26B7B4 0%, #1986A5 100%)',
           color: DarkSecondary,
-          '&:hover': {
-            background: 'linear-gradient(180deg, #1986A5 0%, #26B7B4 100%)',
-          },
         },
         outlined: {
           borderColor: PrimaryColor,
-          '&:hover': {
-            borderColor: SecondaryColor,
-          },
         },
       },
     },

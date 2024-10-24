@@ -22,6 +22,8 @@ import { ProfileType } from "../types";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "apps/film-bazi/components/organisms/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+import CustomOutlinedButton from "../components/molecules/buttons/CustomOutlinedButton";
+import CustomContainedButton from "../components/molecules/buttons/CustomContainedButton";
 
 type UserSettingPropsType = {}
 
@@ -70,7 +72,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   return (
     <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2 }}>
       <Grid container item spacing={2}>
-        {/* First Row */}
         <Grid
           item
           container
@@ -93,112 +94,42 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Box>
           <ScoreChip value={"150+"} />
         </Grid>
-
-        {/* Second Row */}
         <Grid item xs={12} md={6}>
           <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
         </Grid>
         <Grid item xs={12} md={6}>
           <LastNameInput handleChange={handleChange} last_name={userProfile.last_name} />
         </Grid>
-
-        {/* Third Row */}
-        <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
-        <BirthDayInput data={userProfile} setData={setUserProfile} />
-
-        {/* Fourth Row */}
-        <GenderSelector gender={userProfile.gender} />
-        <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
-
-        {/* Fifth Row */}
-        <RegionSelector data={userProfile} setData={setUserProfile} />
-
-        {/* Sixth Row */}
-        <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
-        <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
-
-        {/* Seventh Row */}
-        <AddressInput handleChange={handleChange} address={userProfile.address} />
-
-        {/* Eighth Row */}
-        <ProfileImageSelector profile_image={userProfile.profile_image} setData={setUserProfile} data={userProfile} />
-
-        {/* Last Row */}
-        <Grid item xs={12} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "44px",
-              minWidth: "82px",
-              borderRadius: "100px",
-              backgroundClip: "padding-box",
-              position: "relative",
-              overflow: "hidden",
-              background: "linear-gradient(to right, #FE9C42, #E25100)",
-            }}
-          >
-            <Button
-              fullWidth
-              sx={{
-                height: "42px",
-                minWidth: "80px",
-                padding: "10px 20px 10px 20px",
-                gap: "4px",
-                borderRadius: "100px",
-                backgroundColor: "#130e15",
-                backgroundClip: "padding-box",
-                color: "#FE9C42",
-                '&: hover': {
-                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                  color: "black"
-                }
-              }}
-              onClick={() => localNavigate('/')}
-            >
-              {'ولش کن'}
-            </Button>
-          </Box>
+        <Grid item xs={12} md={6}>
+          <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
         </Grid>
-        <Grid item xs={12} md={6} sx={{ marginTop: "16px", marginBottom: "16px" }}>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              height: "44px",
-              minWidth: "82px",
-              borderRadius: "100px",
-              backgroundClip: "padding-box",
-              position: "relative",
-              overflow: "hidden",
-              background: "linear-gradient(to right, #FE9C42, #E25100)",
-            }}
-          >
-            <Button
-              fullWidth
-              sx={{
-                height: "42px",
-                minWidth: "80px",
-                padding: "10px 20px 10px 20px",
-                gap: "4px",
-                borderRadius: "100px",
-                backgroundColor: "#130e15",
-                color: "#FE9C42",
-                '&: hover': {
-                  background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                  color: "black"
-                }
-              }}
-              style={{
-                borderRadius: "100px"
-              }}
-              onClick={handleSubmit}
-            >
-              {'همینو ذخیره کن'}
-            </Button>
-          </Box>
+        <Grid item xs={12} md={6}>
+          <BirthDayInput data={userProfile} setData={setUserProfile} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <GenderSelector gender={userProfile.gender} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
+        </Grid>
+        <RegionSelector data={userProfile} setData={setUserProfile} />
+        <Grid item xs={12} md={6}>
+          <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
+        </Grid>
+        <Grid item xs={12}>
+          <AddressInput handleChange={handleChange} address={userProfile.address} />
+        </Grid>
+        <Grid item xs={12}>
+          <ProfileImageSelector profile_image={userProfile.profile_image} setData={setUserProfile} data={userProfile} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomOutlinedButton minWidth={80} handleClick={() => localNavigate('/')} buttonText={"ولش کن"} fullWidth={true} />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <CustomContainedButton minWidth={80} handleClick={handleSubmit} buttonText={'همینو ذخیره کن'} fullWidth={true} />
         </Grid>
       </Grid>
     </Container>

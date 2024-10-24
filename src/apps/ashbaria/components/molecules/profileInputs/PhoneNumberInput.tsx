@@ -1,17 +1,14 @@
 import { Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function ({ handleChange, phone_number }) {
   return (
-    <Grid item xs={12} md={6} sx={{ marginTop: "16px" }}>
+    <Fragment>
       <Typography
         sx={{
-          paddingBottom: "4px",
-          gap: "10px",
-          fontSize: "14px",
-          fonWeight: "400",
-          lineHeight: "20.88px",
-          textAlign: "left"
+          marginBottom: '4px',
+          fontSize: 14,
+          fonWeight: 400,
         }}
       >
         تلفن
@@ -22,18 +19,8 @@ export default function ({ handleChange, phone_number }) {
         value={phone_number || ''}
         name="phone_number"
         onChange={handleChange}
-        sx={{
-          padding: "0px 16px 0px 16px",
-          gap: "10px",
-          borderRadius: "8px",
-          border: "1px",
-          '& .MuiOutlinedInput-root': {
-            height: "44px",
-            width: "100%"
-          }
-        }}
         placeholder="شماره تلفن خود را وارد کنید."
       />
-    </Grid>
+    </Fragment>
   );
 }

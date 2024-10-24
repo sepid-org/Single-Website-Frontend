@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Fragment, useState } from "react";
 import profilePic1 from "../../../assets/profile1.svg";
 import profilePic2 from "../../../assets/profile2.svg";
 import profilePic3 from "../../../assets/profile3.svg";
@@ -11,20 +11,17 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
     return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
   }
   return (
-    <Grid item xs={12} sx={{ marginTop: "16px" }}>
+    <Fragment>
       <Typography
         sx={{
-          paddingBottom: "4px",
-          gap: "10px",
-          fontSize: "14px",
-          fonWeight: "400",
-          lineHeight: "20.88px",
-          textAlign: "left"
+          marginBottom: '4px',
+          fontSize: 14,
+          fonWeight: 400,
         }}
       >
         تصویر نمایه
       </Typography>
-      <Box display="flex" justifyContent="flex-start">
+      <Box display="flex" paddingX={1}>
         {[profilePic1, profilePic2, profilePic3].map((item, index) => (
           <Box
             key={index}
@@ -35,11 +32,10 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
               position: "relative",
               borderRadius: "50%",
               overflow: "hidden",
-              width: "84px",
-              height: "84px",
+              width: 84,
+              height: 84,
               background: selectBorderColor(item),
               backgroundClip: "padding-box",
-              margin: "15px",
             }}
             onClick={() => {
               setSelectedProfilePic(item);
@@ -54,9 +50,8 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
             <Box
               component="img"
               src={item}
-              width="80px"
-              height="80px"
-              padding="1.67px"
+              width={80}
+              height={80}
               sx={{
                 borderRadius: "50%",
               }}
@@ -64,6 +59,6 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
           </Box>
         ))}
       </Box>
-    </Grid>
+    </Fragment>
   );
 }
