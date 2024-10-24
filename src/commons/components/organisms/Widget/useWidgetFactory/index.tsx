@@ -5,8 +5,6 @@ import {
   useUpdateWidgetMutation,
 } from 'apps/website-display/redux/features/widget/WidgetSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
 
 type WidgetFactoryType = {
   widgetId?: string;

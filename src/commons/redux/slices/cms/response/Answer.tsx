@@ -1,107 +1,110 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
-type AnswerBaseType = {
+// Answer Types
+type AnswerType = 'SmallAnswer' | 'BigAnswer' | 'MultiChoiceAnswer' | 'UploadFileAnswer';
+
+interface BaseAnswer {
   questionId: string;
   playerId?: string;
-};
+  answerType: AnswerType;
+}
 
-type LongAnswerType = AnswerBaseType & {
+interface SmallAnswer extends BaseAnswer {
+  answerType: 'SmallAnswer';
   text: string;
-};
+}
 
-type ShortAnswerType = AnswerBaseType & {
+interface BigAnswer extends BaseAnswer {
+  answerType: 'BigAnswer';
   text: string;
-};
+}
 
-type MultiChoiceAnswerType = AnswerBaseType & {
+interface MultiChoiceAnswer extends BaseAnswer {
+  answerType: 'MultiChoiceAnswer';
   selectedChoices: string[];
-};
+}
 
-type UploadFileAnswerType = AnswerBaseType & {
+interface FileAnswer extends BaseAnswer {
+  answerType: 'UploadFileAnswer';
   answerFile: File;
+}
+
+type Answer = SmallAnswer | BigAnswer | MultiChoiceAnswer | FileAnswer;
+
+// Helper Functions
+const DEFAULT_INVALIDATION_TAGS = [
+  { type: 'rank' as const, id: 'MY' },
+  { type: 'balances' as const, id: 'MY' },
+];
+
+const createAnswerBody = (answer: Answer) => {
+  const base = {
+    question: answer.questionId,
+    player: answer.playerId,
+    answer_type: answer.answerType,
+  };
+
+  switch (answer.answerType) {
+    case 'SmallAnswer':
+    case 'BigAnswer':
+      return { ...base, text: answer.text };
+    case 'MultiChoiceAnswer':
+      return { ...base, choices: answer.selectedChoices };
+    case 'UploadFileAnswer':
+      return { ...base, answer_file: answer.answerFile };
+  }
 };
 
-type ClearAnswerType = {
-  questionId: string;
-};
-
+// API Slice
 export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
-
-    submitShortAnswer: builder.mutation<void, ShortAnswerType>({
+    submitAnswer: builder.mutation<void, Answer>({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      query: ({ questionId, text, playerId }) => ({
+      onQueryStarted: createInvalidationCallback(DEFAULT_INVALIDATION_TAGS),
+      query: (answer) => ({
         url: '/response/answers/submit_answer/',
         method: 'POST',
-        body: {
-          question: questionId,
-          text,
-          player: playerId,
-          answer_type: 'SmallAnswer',
-        },
+        body: createAnswerBody(answer),
       }),
     }),
 
-    submitLongAnswer: builder.mutation<void, LongAnswerType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      query: ({ questionId, text, playerId }) => ({
-        url: '/response/answers/submit_answer/',
-        method: 'POST',
-        body: {
-          question: questionId,
-          text,
-          player: playerId,
-          answer_type: 'BigAnswer',
-        },
-      }),
-    }),
-
-    submitMultiChoiceAnswer: builder.mutation<void, MultiChoiceAnswerType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      query: ({ questionId, selectedChoices, playerId }) => ({
-        url: '/response/answers/submit_answer/',
-        method: 'POST',
-        body: {
-          question: questionId,
-          choices: selectedChoices,
-          player: playerId,
-          answer_type: 'MultiChoiceAnswer',
-        },
-      }),
-    }),
-
-    submitUploadFileAnswer: builder.mutation<void, UploadFileAnswerType>({
-      invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      query: ({ questionId, answerFile, playerId }) => ({
-        url: '/response/answers/submit_answer/',
-        method: 'POST',
-        body: {
-          question: questionId,
-          answer_file: answerFile,
-          player: playerId,
-          answer_type: 'UploadFileAnswer',
-        },
-      }),
-    }),
-
-    clearQuestionAnswer: builder.mutation<void, ClearAnswerType>({
+    clearQuestionAnswer: builder.mutation<void, { questionId: string }>({
       query: ({ questionId }) => ({
         url: '/response/answers/clear_question_answer/',
         method: 'POST',
-        body: {
-          question: questionId,
-        },
+        body: { question: questionId },
       }),
     }),
-
   }),
 });
 
+// Custom hooks with type safety
+export const useSubmitShortAnswerMutation = () => {
+  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
+  return [(answer: Omit<SmallAnswer, 'answerType'>) =>
+    submitAnswer({ ...answer, answerType: 'SmallAnswer' })] as const;
+};
+
+export const useSubmitLongAnswerMutation = () => {
+  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
+  return [(answer: Omit<BigAnswer, 'answerType'>) =>
+    submitAnswer({ ...answer, answerType: 'BigAnswer' })] as const;
+};
+
+export const useSubmitMultiChoiceAnswerMutation = () => {
+  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
+  return [(answer: Omit<MultiChoiceAnswer, 'answerType'>) =>
+    submitAnswer({ ...answer, answerType: 'MultiChoiceAnswer' })] as const;
+};
+
+export const useSubmitUploadFileAnswerMutation = () => {
+  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
+  return [(answer: Omit<FileAnswer, 'answerType'>) =>
+    submitAnswer({ ...answer, answerType: 'UploadFileAnswer' })] as const;
+};
+
 export const {
-  useSubmitShortAnswerMutation,
-  useSubmitLongAnswerMutation,
-  useSubmitMultiChoiceAnswerMutation,
-  useSubmitUploadFileAnswerMutation,
   useClearQuestionAnswerMutation,
 } = AnswerSlice;
