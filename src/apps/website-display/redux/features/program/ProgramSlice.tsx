@@ -1,4 +1,4 @@
-import { FSMUserPermissions, ProgramType, ProgramUserPermissions } from 'commons/types/models';
+import { UserFSMStatus, ProgramType, ProgramUserPermissions } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -23,11 +23,11 @@ type GetProgramUserPermissionsInputType = {
 
 type GetProgramUserPermissionsOutputType = ProgramUserPermissions;
 
-type GetProgramFSMsUserPermissionsInputType = {
+type GetProgramUserFSMsStatusInputType = {
   programSlug: string;
 }
 
-type GetProgramFSMsUserPermissionsOutputType = FSMUserPermissions[];
+type GetProgramUserFSMsStatusOutputType = UserFSMStatus[];
 
 type UpdateProgramInputType = {
   programSlug: string;
@@ -107,10 +107,10 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    getProgramFSMsUserPermissions: builder.query<GetProgramFSMsUserPermissionsOutputType, GetProgramFSMsUserPermissionsInputType>({
+    getProgramUserFSMsStatus: builder.query<GetProgramUserFSMsStatusOutputType, GetProgramUserFSMsStatusInputType>({
       providesTags: ['fsms', 'user-specific-data'],
-      query: ({ programSlug }) => `fsm/program/${programSlug}/get_fsms_user_permissions/`,
-      transformResponse: (response: any): GetProgramFSMsUserPermissionsOutputType => {
+      query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_fsms_status/`,
+      transformResponse: (response: any): GetProgramUserFSMsStatusOutputType => {
         return response;
       },
     }),
@@ -141,5 +141,5 @@ export const {
   useSoftDeleteProgramMutation,
   useRegisterUserInProgramMutation,
   useGetProgramUserPermissionsQuery,
-  useGetProgramFSMsUserPermissionsQuery,
+  useGetProgramUserFSMsStatusQuery,
 } = ProgramSlice;

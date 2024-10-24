@@ -1,3 +1,4 @@
+import { CourtType, DocumentType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 
 type FinishCourtInputType = {
@@ -10,6 +11,22 @@ type FinishCourtOutputType = {
 
 export const GameLogicsSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
+
+    getCourts: builder.query<CourtType[], void>({
+      providesTags: ['Court'],
+      query: () => ({
+        url: '/game-logic/documents/',
+        method: 'GET',
+      }),
+    }),
+
+    getDocuments: builder.query<DocumentType[], void>({
+      providesTags: ['Document'],
+      query: () => ({
+        url: '/game-logic/documents/',
+        method: 'GET',
+      }),
+    }),
 
     finishCourt: builder.mutation<FinishCourtOutputType, FinishCourtInputType>({
       invalidatesTags: (result, error, item) => [],
@@ -27,5 +44,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 });
 
 export const {
+  useGetCourtsQuery,
+  useGetDocumentsQuery,
   useFinishCourtMutation,
 } = GameLogicsSlice;

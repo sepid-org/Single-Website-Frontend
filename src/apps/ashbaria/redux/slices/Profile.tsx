@@ -5,6 +5,7 @@ type UpdateProfileInput = Partial<Omit<ProfileType, 'created_at' | 'updated_at'>
 
 export const ProfileSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
+    
     getProfile: builder.query<ProfileType, void>({
       providesTags: ['Profile'],
       query: () => ({
@@ -21,6 +22,7 @@ export const ProfileSlice = AshbariaApi.injectEndpoints({
         body: profileData,
       }),
     }),
+
   }),
   overrideExisting: false,
 });

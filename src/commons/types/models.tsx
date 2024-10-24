@@ -313,9 +313,10 @@ export type ProgramUserPermissions = {
   is_manager: boolean;
 }
 
-export type FSMUserPermissions = {
+export type UserFSMStatus = {
   fsm_id: string;
   is_mentor: boolean;
+  is_finished: boolean;
 }
 
 /////////////// OBJECT ///////////////
