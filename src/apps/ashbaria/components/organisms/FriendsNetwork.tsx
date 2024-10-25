@@ -9,8 +9,6 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
-import heartIcon from "../../assets/Heart Angle.svg";
-import buttons from "../../assets/Buttons.svg";
 import profile2Users from "../../assets/profile-2user.svg";
 import verify from "../../assets/verify.svg";
 import copyIcon from "../../assets/copy.svg";
@@ -22,6 +20,12 @@ import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'apps/film-bazi/components/organisms/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import HeartIcon from '../atoms/icons/Heart';
+import ExclamationIcon from '../atoms/icons/Exclamation';
+import VerifyIcon from '../atoms/icons/Verify';
+import TwoPeopleIcon from '../atoms/icons/TwoPeople';
+import FriendsNetworkPoints from '../molecules/FriedndsNetworkPoint';
+import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
 
 const App = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -92,11 +96,43 @@ const App = () => {
     navigator.clipboard.writeText("Fixed Text Value");
   };
 
+  const myCode = 12121212;
+
   const records = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
     // text: Record ${index + 1},
     //score: Math.floor(Math.random() * 100),
   }));
+
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const shareOnMobile = (text: string) => {
+    if (navigator.share) {
+      navigator.share({
+        text: text,
+      }).then(() => {
+        console.log('Successful share');
+      }).catch((error) => {
+        console.log('Error sharing', error);
+      });
+    } else {
+      alert('Your browser does not support the Web Share API');
+    }
+  };
+
+  const handleShare = () => {
+    if (isMobileDevice()) {
+      shareOnMobile(myCode.toString());
+    } else {
+      copyToClipboard(myCode.toString());
+    }
+  }
 
   return (
     <Fragment>
@@ -122,38 +158,26 @@ const App = () => {
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
-              marginTop: "10px",
-              marginBottom: "10px",
+              margin: 1,
             }}
           >
             <BackButton />
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box
-                component="img"
-                src={heartIcon}
-                width="24px"
-                height="24px"
-              />
+              <HeartIcon />
               <Typography variant="h6" color="white" sx={{ ml: 1 }}>حلقه دوستان</Typography>
             </Box>
             <IconButton color="inherit">
-              <Box
-                component="img"
-                src={buttons}
-                width="40px"
-                height="28px"
-              />
+              <ExclamationIcon />
             </IconButton>
           </Box>
 
-          {/* Main Content */}
           <Grid
             container
             sx={{
               display: "flex",
               justifyContent: "space-evenly",
               width: "100%",
-              margin: "0px"
+              margin: 0
             }}
           >
             {/* Right Component */}
@@ -163,112 +187,41 @@ const App = () => {
               sm={5}
               sx={{
                 display: "flex",
-                alignItems: "center",
                 flexDirection: "column",
+                alignItems: "end",
                 height: "auto",
-                borderRadius: "12px",
+                borderRadius: 2,
                 backgroundColor: "rgba(0, 0, 0, 0.1)",
+                padding: 1,
               }}
             >
-              <Container
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  justifyContent: "space-between",
+                  justifyContent: "space-around",
                   alignItems: "center",
                   width: "100%",
-                  height: "36px",
-                  marginTop: "10px"
+                  height: 36,
                 }}
               >
                 <Typography
+                  fontSize={16}
+                  fontWeight={600}
                   sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    lineHeight: "24.92px",
                     width: "100%",
                   }}
                 >
                   کد دوستاتو بزن!
                 </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    height: "36px",
-                    borderRadius: "20px",
-                    backgroundColor: "#0000004D",
-                    border: "2px",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginLeft: "8px",
-                      marginRight: "5px",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      12
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={verify}
-                      width="40px"
-                      height="40px"
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "8px",
-                      marginLeft: "5px",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={profile2Users}
-                      width="28px"
-                      height="28px"
-                    />
-                  </Box>
-                </Box>
-              </Container>
+                <FriendsNetworkPoints points={129} numberOfFriends={12} />
+              </Box>
               <Typography
+                fontSize={16}
+                fontWeight={400}
                 sx={{
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  margin: "15px",
-                  textAlign: "right",
-                  direction: "rtl"
+                  marginTop: 3,
+                  height: 60
                 }}
                 style={{
                   direction: "rtl",
@@ -277,57 +230,26 @@ const App = () => {
               >
                 اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه
               </Typography>
-              <TextField
-                variant="outlined"
-                placeholder="کد ۱۰ رقمی"
-                sx={{
-                  margin: "10px",
-                  '& .MuiOutlinedInput-root': {
-                    height: "44px",
-                    minWidth: "255px",
-                    width: "100%",
-                  }
-                }}
-              />
               <Box
                 sx={{
+                  width: "100%",
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "center",
-                  height: "44px",
-                  width: "101px",
-                  left: {
-                    xs: "32%",
-                    sm: "27%"
-                  },
-                  margin: "15px",
-                  borderRadius: "100px",
-                  backgroundClip: "padding-box",
-                  position: "relative",
-                  overflow: "hidden",
-                  background: "linear-gradient(to right, #FE9C42, #E25100)",
                 }}
               >
-                <Button
+                <TextField
+                  variant="outlined"
+                  placeholder="کد ۱۰ رقمی"
                   sx={{
-                    width: "99px",
-                    height: "42px",
-                    minWidth: "80px",
-                    borderRadius: "100px",
-                    padding: "0px",
-                    border: "1px",
-                    backgroundColor: "#130e15",
-                    backgroundClip: "padding-box",
-                    color: "#FE9C42",
-                    '&: hover': {
-                      background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                      color: "black"
+                    margin: 1,
+                    '& .MuiOutlinedInput-root': {
+                      height: 44,
+                      width: 255,
                     }
                   }}
-                >
-                  ثبتش کن
-                </Button>
+                />
               </Box>
+              <CustomOutlinedButton buttonText='ثبتش کن' handleClick={() => { }} minWidth={80} fullWidth={false} />
             </Grid>
 
             {/* Left Component */}
@@ -340,116 +262,38 @@ const App = () => {
                 alignItems: "center",
                 flexDirection: "column",
                 height: "auto",
-                borderRadius: "12px",
+                borderRadius: 2,
                 backgroundColor: "rgba(0, 0, 0, 0.1)",
-                marginTop: {
-                  xs: "15px",
-                  sm: "0px"
-                }
+                padding: 1,
               }}
             >
-              <Container
+              <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
                   justifyContent: "space-between",
                   alignItems: "center",
                   width: "100%",
-                  height: "36px",
-                  marginTop: "10px"
+                  height: 36,
                 }}
               >
                 <Typography
+                  fontSize={16}
+                  fontWeight={600}
                   sx={{
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    lineHeight: "24.92px",
-                    width: "185px",
-                  }}
-                  style={{
-                    direction: "rtl",
-                    textAlign: "right",
+                    width: "100%",
                   }}
                 >
                   به دوستات کد بده!
                 </Typography>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: "space-between",
-                    flexDirection: "row",
-                    height: "36px",
-                    borderRadius: "20px",
-                    backgroundColor: "#0000004D",
-                    border: "2px",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginLeft: "8px",
-                      marginRight: "5px",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      12
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={verify}
-                      width="40px"
-                      height="40px"
-                    />
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: "8px",
-                      marginLeft: "5px",
-                      marginTop: "5px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "16px",
-                        fontWeight: 800,
-                        lineHeight: "26.38px",
-                        textAlign: "right"
-                      }}
-                    >
-                      2
-                    </Typography>
-                    <Box
-                      component="img"
-                      src={profile2Users}
-                      width="28px"
-                      height="28px"
-                    />
-                  </Box>
-                </Box>
-              </Container>
+                <FriendsNetworkPoints numberOfFriends={1} points={9} />
+              </Box>
               <Typography
+                fontSize={16}
+                fontWeight={400}
                 sx={{
-                  fontSize: "16px",
-                  fontWeight: 400,
-                  lineHeight: "24px",
-                  textAlign: "right",
-                  margin: "15px"
+                  marginTop: 3,
+                  height: 60,
                 }}
                 style={{
                   direction: "rtl",
@@ -465,10 +309,10 @@ const App = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  borderRadius: "12px",
-                  margin: "10px",
-                  minWidth: "255px",
-                  height: "44px"
+                  borderRadius: 1,
+                  minWidth: 255,
+                  height: 44,
+                  margin: 1,
                 }}
               >
                 <Typography
@@ -496,7 +340,7 @@ const App = () => {
                   }}
                 >
                   <Typography>101001</Typography>
-                  <IconButton onClick={handleCopy} color="inherit">
+                  <IconButton onClick={handleShare} color="inherit">
                     <Box
                       component="img"
                       src={copyIcon}

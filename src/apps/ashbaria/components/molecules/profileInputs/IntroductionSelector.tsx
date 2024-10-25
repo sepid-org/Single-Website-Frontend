@@ -1,17 +1,14 @@
 import { FormControl, Grid, MenuItem, Select, Typography } from "@mui/material";
-import React from "react";
+import React, { Fragment } from "react";
 
 export default function ({ handleChange, referral_method }) {
   return (
-    <Grid item xs={12} md={6} sx={{ marginTop: "16px" }}>
+    <Fragment>
       <Typography
         sx={{
-          paddingBottom: "4px",
-          gap: "10px",
-          fontSize: "14px",
-          fonWeight: "400",
-          lineHeight: "20.88px",
-          textAlign: "left"
+          marginBottom: '4px',
+          fontSize: 14,
+          fonWeight: 400,
         }}
       >
         نحوه‌ی آشنایی
@@ -19,16 +16,6 @@ export default function ({ handleChange, referral_method }) {
       <FormControl
         required
         fullWidth
-        sx={{
-          padding: "0px 16px 0px 16px",
-          gap: "10px",
-          borderRadius: "8px",
-          border: "1px",
-          '& .MuiOutlinedInput-root': {
-            height: "44px",
-            width: "100%"
-          }
-        }}
       >
         <Select
           name="referral_method"
@@ -39,6 +26,6 @@ export default function ({ handleChange, referral_method }) {
           <MenuItem value="2">option</MenuItem>
         </Select>
       </FormControl>
-    </Grid>
+    </Fragment>
   );
 }
