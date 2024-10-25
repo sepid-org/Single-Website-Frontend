@@ -4,13 +4,12 @@ import Widget from 'commons/components/organisms/Widget';
 import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
 import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
 import FSMStateRoadMap from 'commons/components/organisms/FSMStateRoadMap';
-import FSMStateHelpButton from 'commons/components/molecules/FSMStateHelpButton';
+import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHints';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
@@ -24,11 +23,9 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
-  const hints = [...(state?.hints || [])];
   const inward_edges = state?.inward_edges || [];
   const outward_edges = state?.outward_edges || [];
 
-  hints.sort((a, b) => parseInt(a.id) - parseInt(b.id));
   visibleWidgets.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
   const questions = visibleWidgets.filter((widget) =>
@@ -65,7 +62,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
           <Stack spacing={2}>
             <Stack spacing={2} component={Paper} sx={{ padding: 2 }} position={'relative'}>
               <Box sx={{ position: 'absolute', left: -26, top: -24, rotate: '24deg' }}>
-                <FSMStateHelpButton hints={hints} />
+                <FSMStateHintsButton fsmStateId={fsmStateId} />
               </Box>
               <Typography component="h2" variant="h3" align='center' alignSelf={'center'}>
                 {state?.title}

@@ -160,8 +160,7 @@ export type PaperType = ObjectType & {
   paper_type: string;
   widgets: WidgetType[]
 }
-export type FSMStateType = ObjectType & NodeProps & {
-  hints: HintType[];
+export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
   fsm: string;

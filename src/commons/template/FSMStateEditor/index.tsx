@@ -7,6 +7,8 @@ import BoardStateEditor from './BoardStateEditor';
 import { Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -30,8 +32,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
     {
       slug: 'info',
       label: 'مشخصات گام',
-      component:
-        <StateInfoEditor />
+      component: <StateInfoEditor />
     },
     {
       slug: 'papers',
@@ -41,6 +42,12 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
         fsmState.template === 'normal' ?
           <NormalStateEditor fsmStateId={fsmStateId} /> :
           <BoardStateEditor fsmStateId={fsmStateId} />,
+    },
+    {
+      slug: 'hints',
+      label: 'راهنمایی‌ها',
+      icon: HelpCenterIcon,
+      component: <HintsEditor type='state' referenceId={fsmStateId} />
     },
   ];
 

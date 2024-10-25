@@ -1,24 +1,23 @@
 import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import React from 'react';
-import EditHints from 'commons/template/EditHints';
+import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
 import { DialogTitle } from '@mui/material';
 
-const EditHintsDialog = ({
+const EditWidgetHintsDialog = ({
   handleClose,
-  hints,
   open,
   referenceId,
-  paperId,
 }) => {
+
   return (
     <Dialog disableScrollLock open={open} onClose={handleClose} fullWidth>
       <DialogTitle>{'راهنمایی‌ها'}</DialogTitle>
       <DialogContent>
-        <EditHints referenceId={referenceId} type='widget' hints={hints} />
+        <HintsEditor referenceId={referenceId} type='widget' />
       </DialogContent>
     </Dialog>
   );
 }
 
-export default EditHintsDialog;
+export default EditWidgetHintsDialog;

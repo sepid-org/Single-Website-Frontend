@@ -1,13 +1,16 @@
 import React, { FC, Fragment, useState } from 'react';
 import { IconButton, Tooltip } from '@mui/material';
-import HelpDialog from 'commons/components/organisms/dialogs/FSMStateHelpDialog';
+import HintDialog from 'commons/components/organisms/dialogs/HintDialog';
+import { useGetFSMStateHintsQuery } from 'apps/website-display/redux/features/hint/HintSlice';
 
-
-type FSMStateHelpButtonPropsType = {
-  hints: any[]
+type FSMStateHintsButtonPropsType = {
+  fsmStateId: string;
 }
 
-const FSMStateHelpButton: FC<FSMStateHelpButtonPropsType> = ({ hints }) => {
+const FSMStateHintsButton: FC<FSMStateHintsButtonPropsType> = ({
+  fsmStateId,
+}) => {
+  const { data: hints = [] } = useGetFSMStateHintsQuery({ fsmStateId });
   const [openDialog, setOpenDialog] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
@@ -20,13 +23,13 @@ const FSMStateHelpButton: FC<FSMStateHelpButtonPropsType> = ({ hints }) => {
           <img width={40} src={process.env.PUBLIC_URL + ((isHover || openDialog) ? '/images/idea-on.png' : '/images/idea-off.png')} />
         </IconButton>
       </Tooltip>
-      <HelpDialog
+      <HintDialog
         open={openDialog}
         handleClose={() => setOpenDialog(false)}
-        helps={hints}
+        hints={hints}
       />
     </Fragment>
   );
 };
 
-export default FSMStateHelpButton;
+export default FSMStateHintsButton;

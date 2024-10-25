@@ -1,14 +1,18 @@
 import React, { FC, Fragment, useState } from 'react';
 import { IconButton, Tooltip, Box } from '@mui/material';
 
-import HelpDialog from 'commons/components/organisms/dialogs/FSMStateHelpDialog';
+import HintDialog from 'commons/components/organisms/dialogs/HintDialog';
+import { useGetWidgetHintsQuery } from 'apps/website-display/redux/features/hint/HintSlice';
 
-type WidgetHintPropsType = {
-  hints: any[],
+type WidgetHintsButtonPropsType = {
+  widgetId: string;
 }
 
-const WidgetHint: FC<WidgetHintPropsType> = ({ hints }) => {
+const WidgetHintsButton: FC<WidgetHintsButtonPropsType> = ({
+  widgetId,
+}) => {
   const [openViewHintDialog, setViewHintDialog] = useState(false);
+  const { data: hints = [] } = useGetWidgetHintsQuery({ widgetId });
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -28,13 +32,13 @@ const WidgetHint: FC<WidgetHintPropsType> = ({ hints }) => {
           </IconButton>
         </Tooltip>
       </Box>
-      <HelpDialog
+      <HintDialog
         open={openViewHintDialog}
         handleClose={() => setViewHintDialog(false)}
-        helps={hints}
+        hints={hints}
       />
     </Fragment >
   );
 };
 
-export default WidgetHint;
+export default WidgetHintsButton;

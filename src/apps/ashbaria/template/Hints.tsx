@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button, Card, Grid, Paper, Typography } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import Hint from "../components/organisms/hint/Hint";
 import NoHintFound from "../components/organisms/hint/NoHintFound";
+import { useGetFSMStateHintsQuery } from "apps/website-display/redux/features/hint/HintSlice";
 
 type HintsTemplatePropsType = {
   onClose: any;
@@ -16,10 +16,8 @@ const HintsTemplate: FC<HintsTemplatePropsType> = ({
   const { fsmId } = useParams();
   const { data: currentUserPlayer } = useGetMyPlayerQuery({ fsmId });
   const fsmStateId = currentUserPlayer?.current_state;
-  const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { data: hints } = useGetFSMStateHintsQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const [selectedHintId, setSelectedHinId] = useState<string>(null);
-
-  const hints = state?.hints;
 
   useEffect(() => {
     if (hints?.length === 1) {
@@ -27,7 +25,7 @@ const HintsTemplate: FC<HintsTemplatePropsType> = ({
     }
   }, [hints])
 
-  if (hints && hints.length === 0) {
+  if (hints?.length === 0) {
     return (
       <NoHintFound onClose={onClose} />
     )
@@ -41,10 +39,10 @@ const HintsTemplate: FC<HintsTemplatePropsType> = ({
 
   return (
     <Grid container spacing={2} padding={2} alignItems={'center'} justifyContent={'start'}>
-      {hints.map(hint =>
+      {hints?.map(hint =>
         <Grid item key={hint.id} xs={3}>
           <Button onClick={() => setSelectedHinId(hint.id)}>
-            {hint.id}
+            {"hint.id"}
           </Button>
         </Grid>
       )}

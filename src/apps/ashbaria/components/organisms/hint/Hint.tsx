@@ -3,6 +3,7 @@ import { Button, Container, Dialog, Paper, Stack, Typography } from "@mui/materi
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
 import { useSpendFundsOnObjectMutation } from "commons/redux/slices/cms/currency/Spend";
+import HintDialog from "commons/components/organisms/dialogs/HintDialog";
 
 type HintPropsType = {
   hintId: string;
@@ -14,7 +15,6 @@ const Hint: FC<HintPropsType> = ({
   onClose,
 }) => {
   const [spendFundsOnObject, result] = useSpendFundsOnObjectMutation();
-  // const { data = hint } = useGetHint({ hintId });
 
   const handleBuyHint = () => {
     spendFundsOnObject({
@@ -24,6 +24,11 @@ const Hint: FC<HintPropsType> = ({
       }
     })
   }
+
+  // todo:
+  // return (
+  //   <HintDialog open={true} handleClose={onClose} hints={[]} />
+  // )
 
   return (
     <Stack padding={3} spacing={2} component={Paper} maxWidth={'xs'}>
