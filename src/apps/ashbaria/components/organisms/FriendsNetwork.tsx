@@ -23,15 +23,44 @@ import FriendsNetworkPoints from '../molecules/FriedndsNetworkPoint';
 import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
 
 const App = () => {
-  const handleCopy = () => {
-    navigator.clipboard.writeText("Fixed Text Value");
-  };
+
+  const myCode = 12121212;
 
   const records = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
     // text: Record ${index + 1},
     //score: Math.floor(Math.random() * 100),
   }));
+
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
+
+  const shareOnMobile = (text: string) => {
+    if (navigator.share) {
+      navigator.share({
+        text: text,
+      }).then(() => {
+        console.log('Successful share');
+      }).catch((error) => {
+        console.log('Error sharing', error);
+      });
+    } else {
+      alert('Your browser does not support the Web Share API');
+    }
+  };
+
+  const handleShare = () => {
+    if (isMobileDevice()) {
+      shareOnMobile(myCode.toString());
+    } else {
+      copyToClipboard(myCode.toString());
+    }
+  }
 
   return (
     <Fragment>
@@ -239,7 +268,7 @@ const App = () => {
                   }}
                 >
                   <Typography>101001</Typography>
-                  <IconButton onClick={handleCopy} color="inherit">
+                  <IconButton onClick={handleShare} color="inherit">
                     <Box
                       component="img"
                       src={copyIcon}
