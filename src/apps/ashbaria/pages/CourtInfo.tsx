@@ -19,29 +19,28 @@ const CourtInfo = () => {
   }
 
   return (
-    <Fragment>
-      <Box
-        sx={{
-          display: "flex",
-          minHeight: "100vh",
-          minWidth: "100vw",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundImage: `url(${backgroundImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
-        {
-          dialogSlug === 'hints' && <HintsTemplate onClose={backToCourt} />
-        }
-        {
-          dialogSlug === 'documents' && <DocumentsTemplate />
-        }
-      </Box>
-    </Fragment>
+    <Box
+      sx={{
+        padding: 2,
+        display: "flex",
+        minHeight: "100vh",
+        minWidth: "100vw",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundImage: `url(${backgroundImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      {
+        dialogSlug === 'hints' && <HintsTemplate onClose={backToCourt} />
+      }
+      {
+        dialogSlug === 'documents' && <DocumentsTemplate />
+      }
+    </Box>
   )
 }
 
