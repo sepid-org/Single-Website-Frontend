@@ -10,7 +10,7 @@ import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
-import FriendsNetwork from './components/organisms/FriendsNetwork';
+import FriendshipNetwork from './components/organisms/FriendsNetwork';
 import Profile from './pages/Profile';
 import Evidences from './components/organisms/Evidences';
 import EvidenceContent from './components/organisms/EvidenceContent';
@@ -32,7 +32,7 @@ const App = () => {
             <Route path="/court/:fsmId/" element={<FSM />} />
             <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
             <Route path="/manage/" element={<ProgramManagement />} />
-            <Route path='/friendship-network/' element={<FriendsNetwork />} />
+            <Route path='/friendship-network/' element={<FriendshipNetwork />} />
             <Route path='/profile/' element={<Profile />} />
           </Route>
 

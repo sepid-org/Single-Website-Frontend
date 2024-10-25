@@ -3,12 +3,15 @@ import React from "react";
 import VerifyIcon from "../atoms/icons/Verify";
 import TwoPeopleIcon from "../atoms/icons/TwoPeople";
 
-interface FriedndsNetworkPointProps{
-	points: number, 
+interface FriendshipNetworkPointProps {
+	points: number,
 	numberOfFriends: number
 }
 
-const FriendsNetworkPoints: React.FC<FriedndsNetworkPointProps> = ({points, numberOfFriends}) => {
+const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
+	points,
+	numberOfFriends,
+}) => {
 	return (
 		<Box
 			sx={{
@@ -65,4 +68,4 @@ const FriendsNetworkPoints: React.FC<FriedndsNetworkPointProps> = ({points, numb
 	);
 }
 
-export default FriendsNetworkPoints;
+export default FriendshipNetworkPoints;

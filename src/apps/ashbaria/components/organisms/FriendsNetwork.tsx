@@ -9,7 +9,6 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
-import profile2Users from "../../assets/profile-2user.svg";
 import verify from "../../assets/verify.svg";
 import copyIcon from "../../assets/copy.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
@@ -22,12 +21,10 @@ import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnoun
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../atoms/icons/Heart';
 import ExclamationIcon from '../atoms/icons/Exclamation';
-import VerifyIcon from '../atoms/icons/Verify';
-import TwoPeopleIcon from '../atoms/icons/TwoPeople';
-import FriendsNetworkPoints from '../molecules/FriedndsNetworkPoint';
+import FriendshipNetworkPoints from '../molecules/FriendsNetworkPoint';
 import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
 
-const App = () => {
+const FriendshipNetwork = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
   const { data: missions } = useGetMissionsQuery()
   const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
@@ -214,7 +211,7 @@ const App = () => {
                 >
                   کد دوستاتو بزن!
                 </Typography>
-                <FriendsNetworkPoints points={129} numberOfFriends={12} />
+                <FriendshipNetworkPoints points={129} numberOfFriends={12} />
               </Box>
               <Typography
                 fontSize={16}
@@ -286,7 +283,7 @@ const App = () => {
                 >
                   به دوستات کد بده!
                 </Typography>
-                <FriendsNetworkPoints numberOfFriends={1} points={9} />
+                <FriendshipNetworkPoints numberOfFriends={1} points={9} />
               </Box>
               <Typography
                 fontSize={16}
@@ -486,4 +483,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default FriendshipNetwork;
