@@ -1,15 +1,16 @@
 import { Box, Button, Container, Dialog, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
 import React, { FC, Fragment, useState } from "react";
-import archive from "../../assets/archive.svg";
-import closeButtonIcon from "../../assets/close-circle.svg";
-import evidence from "../../assets/evidence.svg";
-import unaccessibleEvidence from "../../assets/unaccessibleEvidence.svg";
-import AccessibleDocument from "../molecules/AccessibleDocument";
-import UnaccessibleDocument from "../molecules/UnaccessibleDocument";
-import Back from "../molecules/buttons/Back";
+import archive from "../../../assets/archive.svg";
+import closeButtonIcon from "../../../assets/close-circle.svg";
+import evidence from "../../../assets/evidence.svg";
+import unaccessibleEvidence from "../../../assets/unaccessibleEvidence.svg";
+import AccessibleDocument from "../../molecules/AccessibleDocument";
+import UnaccessibleDocument from "../../molecules/UnaccessibleDocument";
+import Back from "../../molecules/buttons/Back";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { useParams } from "react-router-dom";
 import { DocumentType } from "apps/ashbaria/types";
+import CloseIcon from "../../atoms/icons/Close";
 
 type DocumentsPropsType = {
 	documents: DocumentType[];
@@ -42,12 +43,7 @@ const Documents: FC<DocumentsPropsType> = ({
 						</Typography>
 					</Stack>
 					<IconButton onClick={backToCourt}>
-						<Box
-							component="img"
-							src={closeButtonIcon}
-							width="28px"
-							height="28px"
-						/>
+						<CloseIcon />
 					</IconButton>
 				</Stack>
 				<Box

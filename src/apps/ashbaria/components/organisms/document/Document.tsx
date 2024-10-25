@@ -1,12 +1,12 @@
 import { Box, Button, Dialog, IconButton, Typography } from "@mui/material";
 import React, { useState } from "react";
-import archive from "../../assets/archive.svg";
-import outlinedArchive from "../../assets/outlinedArchive.svg";
+import archive from "../../../assets/archive.svg";
+import outlinedArchive from "../../../assets/outlinedArchive.svg";
 import Paper from "commons/template/Paper";
-import Back from "../molecules/buttons/Back";
+import Back from "../../molecules/buttons/Back";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CustomDocumentPagination from "../molecules/CustomDocumentsPagination";
+import CustomDocumentPagination from "../../molecules/CustomDocumentsPagination";
 
 const Document = ({ pageIDs = [1, 2, 3] }) => {
 

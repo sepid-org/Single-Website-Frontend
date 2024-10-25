@@ -28,7 +28,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const inward_edges = state?.inward_edges || [];
   const outward_edges = state?.outward_edges || [];
 
-  hints.sort((a, b) => a.id - b.id);
+  hints.sort((a, b) => parseInt(a.id) - parseInt(b.id));
   visibleWidgets.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
   const questions = visibleWidgets.filter((widget) =>

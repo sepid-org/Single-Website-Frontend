@@ -12,7 +12,7 @@ import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendsNetwork';
 import Profile from './pages/Profile';
-import Court from './pages/Court';
+import CourtInfo from './pages/CourtInfo';
 
 const App = () => {
 
@@ -28,7 +28,7 @@ const App = () => {
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
             <Route path="/" element={<GameMenu />} />
-            <Route path='/court/:fsmId/plate/' element={<Court />} />
+            <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
             <Route path="/court/:fsmId/" element={<FSM />} />
             <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
             <Route path="/manage/" element={<ProgramManagement />} />

@@ -270,7 +270,7 @@ export type PlayerType = {
   user?: string;
   id: string;
   team: TeamType;
-  current_state: FSMStateType;
+  current_state: string;
   last_visit?: string;
 }
 

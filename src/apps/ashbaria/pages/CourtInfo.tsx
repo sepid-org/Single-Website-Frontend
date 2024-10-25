@@ -1,13 +1,22 @@
 import React, { Fragment } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import backgroundImg from "../assets/profileBackground.svg"
 import DocumentsTemplate from "../template/Documents";
+import HintsTemplate from "../template/Hints";
+import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
+import useLocalNavigate from "../hooks/useLocalNavigate";
 
 
-const Court = () => {
+const CourtInfo = () => {
+  const { fsmId } = useParams();
+  const localNavigate = useLocalNavigate();
   const [searchParams] = useSearchParams();
   const dialogSlug = searchParams.get('dialog');
+
+  const backToCourt = () => {
+    localNavigate(`/court/${fsmId}/`);
+  }
 
   return (
     <Fragment>
@@ -26,6 +35,9 @@ const Court = () => {
         }}
       >
         {
+          dialogSlug === 'hints' && <HintsTemplate onClose={backToCourt} />
+        }
+        {
           dialogSlug === 'documents' && <DocumentsTemplate />
         }
       </Box>
@@ -33,4 +45,4 @@ const Court = () => {
   )
 }
 
-export default Court;
+export default CourtInfo;
