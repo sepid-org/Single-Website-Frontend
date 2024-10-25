@@ -4,8 +4,6 @@ import {
   useDeleteWidgetMutation,
   useUpdateWidgetMutation,
 } from 'apps/website-display/redux/features/widget/WidgetSlice';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import { useSubmitUploadFileAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
 
 type WidgetFactoryType = {
   widgetId?: string;
@@ -20,7 +18,6 @@ const useWidgetFactory = ({
   widgetType,
   collectAnswer,
 }: WidgetFactoryType) => {
-  const { playerId } = useFSMStateContext();
   const [deleteWidget] = useDeleteWidgetMutation();
   const [createWidget] = useCreateWidgetMutation();
   const [updateWidget] = useUpdateWidgetMutation();
@@ -35,10 +32,10 @@ const useWidgetFactory = ({
   onMutate =
     widgetId ?
       (props) => {
-        updateWidget({ widgetId, widgetType, paperId, playerId, ...props });
+        updateWidget({ widgetId, widgetType, paperId, ...props });
       } :
       (props) => {
-        createWidget({ widgetType, paperId, playerId, ...props });
+        createWidget({ widgetType, paperId, ...props });
       }
 
   onAnswerChange = collectAnswer ? collectAnswer : () => { };

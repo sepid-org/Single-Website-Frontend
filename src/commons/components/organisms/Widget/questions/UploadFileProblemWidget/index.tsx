@@ -9,6 +9,7 @@ import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import { useClearQuestionAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type UploadFileProblemWidgetPropsType = {
   onAnswerChange: any;
@@ -34,13 +35,15 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   const t = useTranslate();
   const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
   const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
-  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const { playerId } = useFSMStateContext();
 
   useEffect(() => {
     if (fileLink) {
       onAnswerChange({ answer_file: fileLink });
       if (mode === WidgetModes.View) {
-        onSubmitAnswer({
+        submitAnswer({
+          playerId,
           questionId,
           answerFile: fileLink,
         })

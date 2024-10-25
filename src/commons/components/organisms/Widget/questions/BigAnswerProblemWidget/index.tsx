@@ -7,6 +7,7 @@ import { WidgetModes } from 'commons/components/organisms/Widget';
 import BigAnswerProblemEditWidget from './edit';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 export { BigAnswerProblemEditWidget as BigAnswerQuestionEditWidget };
 
@@ -25,7 +26,8 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
   const [answer, setAnswer] = useState<string>(submittedAnswer?.text || '');
   const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
   const [isButtonDisabled, setButtonDisable] = useState(false);
-  const [onSubmitAnswer, onSubmitAnswerResult] = useSubmitAnswerMutation();
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const { playerId } = useFSMStateContext();
 
   const onChangeWrapper = (val: string) => {
     if (mode === WidgetModes.InForm) {
@@ -39,7 +41,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     setTimeout(() => {
       setButtonDisable(false);
     }, 20000)
-    onSubmitAnswer({ questionId, text: answer })
+    submitAnswer({ questionId, text: answer, playerId })
   }
 
   return (
