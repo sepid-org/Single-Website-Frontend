@@ -1,38 +1,14 @@
 import { Grid } from "@mui/material";
 import React from "react";
-import CustomPaper from "../components/atoms/CustomPaper";
+import Documents from "../components/organisms/Documents";
+import useDocuments from "../hooks/useDocuments";
 
-const Documents = () => {
-  const documents = [
-    {
-
-    },
-    {
-
-    },
-
-    {
-
-    },
-    {
-
-    },
-    {
-
-    },
-  ];
+const DocumentsTemplate = () => {
+  const { } = useDocuments();
 
   return (
-    <Grid container spacing={2} padding={2} alignItems={'center'} justifyContent={'start'}>
-      {documents.map((document, index) =>
-        <Grid item key={index} xs={3} height={400}>
-          <CustomPaper>
-            {'سلام'}
-          </CustomPaper>
-        </Grid>
-      )}
-    </Grid>
+    <Documents documents={[]} />
   )
 }
 
-export default Documents;
+export default DocumentsTemplate;

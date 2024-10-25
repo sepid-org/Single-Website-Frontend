@@ -10,7 +10,7 @@ import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import MyScoreChip from '../components/molecules/chips/MyScore';
-import useGetMenuCourts from '../hooks/useGetMenuCourts';
+import useMenuCourts from '../hooks/useMenuCourts';
 
 type GameMenuPropsType = {}
 
@@ -20,7 +20,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { courts } = useGetMenuCourts();
+  const { courts } = useMenuCourts();
 
   return (
     <Fragment>

@@ -1,10 +1,8 @@
 import { Box, Grid, Typography } from "@mui/material";
 import React from "react";
 import evidence from "../../assets/evidence.svg";
-import Paper from "commons/template/Paper";
 
-
-const AccessableEvidence = () => {
+const AccessibleDocument = () => {
 	return (
 		<Grid
 			item
@@ -15,7 +13,7 @@ const AccessableEvidence = () => {
 				height: "148px",
 				minWidth: "80px",
 			}}
-			onClick={() => {}}
+			onClick={() => { }}
 		>
 			<Box
 				sx={{
@@ -55,4 +53,4 @@ const AccessableEvidence = () => {
 	);
 }
 
-export default AccessableEvidence;
+export default AccessibleDocument;

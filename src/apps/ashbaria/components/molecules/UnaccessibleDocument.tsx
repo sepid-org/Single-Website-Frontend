@@ -3,7 +3,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import lockIcon from "../../assets/lock.svg";
 
 
-const UnaccessableEvidence = () => {
+const UnaccessibleDocument = () => {
 	return (
 		<Fragment>
 			<Grid
@@ -55,4 +55,4 @@ const UnaccessableEvidence = () => {
 	)
 }
 
-export default UnaccessableEvidence;
+export default UnaccessibleDocument;

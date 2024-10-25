@@ -21,7 +21,7 @@ import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnoun
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../atoms/icons/Heart';
 import ExclamationIcon from '../atoms/icons/Exclamation';
-import FriendshipNetworkPoints from '../molecules/FriendsNetworkPoint';
+import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
 import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
 
 const FriendshipNetwork = () => {

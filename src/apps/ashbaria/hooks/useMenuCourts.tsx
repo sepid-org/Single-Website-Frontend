@@ -4,13 +4,12 @@ import { useGetCourtsQuery } from "../redux/slices/GameLogics";
 import { useGetFSMsQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { FSMType } from "commons/types/models";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
-import calculateCourtFinalScore from "../utils/calculateCourtFinalScore";
 
-type MenuCourtsType = {
+type useMenuCourtsType = {
   courts: FSMType[]
 }
 
-const useGetMenuCourts = (): MenuCourtsType => {
+const useMenuCourts = (): useMenuCourtsType => {
   const { programSlug, fsmId } = useParams();
   const { data: programUserFSMsStatus = [] } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
@@ -24,4 +23,4 @@ const useGetMenuCourts = (): MenuCourtsType => {
   })
 };
 
-export default useGetMenuCourts;
+export default useMenuCourts;

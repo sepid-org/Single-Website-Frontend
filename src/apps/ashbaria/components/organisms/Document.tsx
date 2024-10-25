@@ -6,9 +6,9 @@ import Paper from "commons/template/Paper";
 import Back from "../molecules/buttons/Back";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import CustomEvidencePagination from "../molecules/CustomEvidencePagination";
+import CustomDocumentPagination from "../molecules/CustomDocumentsPagination";
 
-const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
+const Document = ({ pageIDs = [1, 2, 3] }) => {
 
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -120,10 +120,10 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 							}}
 							onClick={() => setCurrentPage(currentPage + 1)}
 						>
-							<ArrowForwardIcon/>
+							<ArrowForwardIcon />
 						</Button>
 					</Box>
-					<CustomEvidencePagination numberOfPages={3} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+					<CustomDocumentPagination numberOfPages={3} currentPage={currentPage} setCurrentPage={setCurrentPage} />
 					<Box
 						sx={{
 							display: "flex",
@@ -150,7 +150,7 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 							}}
 							onClick={() => setCurrentPage(currentPage - 1)}
 						>
-							<ArrowBackIcon/>
+							<ArrowBackIcon />
 						</Button>
 					</Box>
 				</Box>
@@ -159,4 +159,4 @@ const EvidenceContent = ({ pageIDs = [1, 2, 3] }) => {
 	);
 }
 
-export default EvidenceContent;
+export default Document;

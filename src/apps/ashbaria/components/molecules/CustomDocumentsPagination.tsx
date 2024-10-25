@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 
 
-const CustomEvidencePagination = ({ numberOfPages, currentPage, setCurrentPage }) => {
+const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }) => {
 	return (
 		<Box
 			sx={{
@@ -45,7 +45,7 @@ const CustomEvidencePagination = ({ numberOfPages, currentPage, setCurrentPage }
 						}}
 						onClick={() => {
 							setCurrentPage(currentPage + index + 1);
-						}} 
+						}}
 					/>
 				))
 			}
@@ -53,4 +53,4 @@ const CustomEvidencePagination = ({ numberOfPages, currentPage, setCurrentPage }
 	);
 }
 
-export default CustomEvidencePagination;
+export default CustomDocumentPagination;

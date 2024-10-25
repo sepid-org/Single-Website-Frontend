@@ -12,8 +12,7 @@ import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendsNetwork';
 import Profile from './pages/Profile';
-import Evidences from './components/organisms/Evidences';
-import EvidenceContent from './components/organisms/EvidenceContent';
+import Court from './pages/Court';
 
 const App = () => {
 
@@ -29,6 +28,7 @@ const App = () => {
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
             <Route path="/" element={<GameMenu />} />
+            <Route path='/court/:fsmId/plate/' element={<Court />} />
             <Route path="/court/:fsmId/" element={<FSM />} />
             <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
             <Route path="/manage/" element={<ProgramManagement />} />
@@ -38,10 +38,6 @@ const App = () => {
 
           <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
           </Route>
-
-          <Route path='/profile' element={<Profile />} />
-          <Route path='evidences' element={<Evidences/>} />
-          <Route path='evidence' element={<EvidenceContent />} />
         </Routes>
       </ThemeProvider>
 
