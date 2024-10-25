@@ -17,19 +17,46 @@ import copyIcon from "../../assets/copy.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
 import sendIcon from "../../assets/sms.svg";
 import BackButton from '../molecules/buttons/Back';
-import { useFollowMutation, useGetMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
+import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'apps/film-bazi/components/organisms/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 const App = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
   const { data: missions } = useGetMissionsQuery()
+  const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
   const [follow, followResult] = useFollowMutation();
+  const [completeMission, completeMissionResult] = useCompleteMissionMutation();
 
   useEffect(() => {
-    follow({ code: 'V7KP86CFJQ' })
-  }, [])
+    if (completeMissionResult.isError) {
+      if (completeMissionResult.error?.['data']?.error) {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              title={completeMissionResult.error['data'].error}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      }
+    }
+    if (completeMissionResult.isSuccess) {
+      dialogService.open({
+        component:
+          <CustomDialogContent
+            image={<ScoreAnnouncement />}
+            title={`تبریک! این ماموریت رو با موفقیت انجام دادی. ${toPersianNumber(completeMissionResult.data.mission.reward_score)} امتیاز بهت اضافه شد`}
+            onClick={() => {
+              dialogService.close();
+            }}
+          />
+      })
+    }
+  }, [completeMissionResult])
 
   useEffect(() => {
     if (followResult.isSuccess) {
@@ -44,11 +71,14 @@ const App = () => {
               }}
             />
         })
-      } else {
+      }
+    }
+    if (followResult.isError) {
+      if (followResult.error?.['data']?.error) {
         dialogService.open({
           component:
             <CustomDialogContent
-              title={`این کد رو از قبل زده بودی`}
+              title={followResult.error['data'].error}
               onClick={() => {
                 dialogService.close();
               }}
