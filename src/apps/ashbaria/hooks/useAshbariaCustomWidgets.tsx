@@ -8,8 +8,8 @@ const useAshbariaCustomWidgets = () => {
 
   const complementaryObjects: ComplementaryObjectType[] = [
     {
-      name: 'ashbaria-finish-court-4',
-      substituteComponent: <FinishCourt fsmId={'4'} />
+      name: 'ashbaria-finish-court',
+      substituteComponent: <FinishCourt />
     },
     {
       name: 'ashbaria-documents-button',

@@ -6,13 +6,14 @@ const useFinishFSM = () => {
   const { fsmId } = useParams();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const programSlug = fsm?.program_slug;
+  const result = null;
 
   const finishFSM = () => {
     if (programSlug) {
       navigate(`/program/${programSlug}/`);
     }
   };
-  return { finishFSM };
+  return { finishFSM, result };
 }
 
 export default useFinishFSM;

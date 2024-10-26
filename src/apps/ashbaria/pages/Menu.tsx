@@ -9,8 +9,9 @@ import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import MyScoreChip from '../components/molecules/chips/MyScore';
+import MyLastScoreInFSM from '../components/molecules/chips/MyLastScoreInFSM';
 import useMenuCourts from '../hooks/useMenuCourts';
+import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 
 type GameMenuPropsType = {}
 
@@ -34,7 +35,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
           <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
             <ProgramPageSidebar
               otherButtons={[
-                <MyScoreChip />,
+                <MyTotalScoreChip />,
                 <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
                   {'پروفایل'}
                 </Button>,

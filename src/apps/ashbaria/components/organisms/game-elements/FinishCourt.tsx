@@ -3,24 +3,17 @@ import React, { FC, useEffect } from "react";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
 import { Paper, Stack, Typography } from "@mui/material";
 import { Gold } from "apps/ashbaria/constants/colors";
-import ScoreChip from "../../molecules/chips/Score";
-import SupportChip from "../../molecules/chips/Support";
-import calculateCourtFinalScore from "apps/ashbaria/utils/calculateCourtFinalScore";
-import calculateCourtFinalSupportPercentage from "apps/ashbaria/utils/calculateCourtFinalSupportPercentage";
+import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
+import { useParams } from "react-router-dom";
+import useFinishFSM from "commons/hooks/useFinishFSM";
+import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
 
-type FinishCourtPropsType = {
-  fsmId: string;
-}
+type FinishCourtPropsType = {}
 
-const FinishCourt: FC<FinishCourtPropsType> = ({
-  fsmId,
-}) => {
+const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
+  const { fsmId } = useParams();
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
-  const { data: balances } = useGetMyBalancesQuery();
-  const { data: courts } = useGetCourtsQuery();
-
-  const courtFinalScore = calculateCourtFinalScore({ fsmId, balances, court: courts?.find(court => court.corresponding_fsm === parseInt(fsmId)) })
-  const courtFinalSupportPercentage = calculateCourtFinalSupportPercentage({ fsmId, balances })
+  const { finishFSM, result: finishFSMResult } = useFinishFSM();
 
   useEffect(() => {
     finishCourt({ fsmId });
@@ -50,8 +43,8 @@ const FinishCourt: FC<FinishCourtPropsType> = ({
       </Typography>
 
       <Stack direction={'row'} spacing={2}>
-        <SupportChip value={courtFinalSupportPercentage} />
-        <ScoreChip value={courtFinalScore} />
+        <MyLastSupportInFSM />
+        <MyLastScoreInFSM />
       </Stack>
 
     </Stack>

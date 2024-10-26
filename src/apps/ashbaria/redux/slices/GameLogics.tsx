@@ -39,6 +39,14 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
+    getUserLastResultInFSM: builder.query<{ support_percentage: number; score: number }, { correspondingFsmId: string }>({
+      providesTags: ['Balances'],
+      query: ({ correspondingFsmId }) => ({
+        url: '/game-logic/last-result-in-court/',
+        params: { corresponding_fsm_id: correspondingFsmId },
+      }),
+    }),
+
   }),
   overrideExisting: false,
 });
@@ -47,4 +55,5 @@ export const {
   useGetCourtsQuery,
   useGetDocumentsQuery,
   useFinishCourtMutation,
+  useGetUserLastResultInFSMQuery,
 } = GameLogicsSlice;

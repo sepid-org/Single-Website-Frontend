@@ -2,14 +2,15 @@ import React, { FC } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import LikeIcon from "../../atoms/icons/LikeIcon";
+import { useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameLogics";
+import { useParams } from "react-router-dom";
 
-type SupportChipPropsType = {
-  value: number;
-}
+type MyLastSupportInFSMPropsType = {}
 
-const SupportChip: FC<SupportChipPropsType> = ({
-  value,
-}) => {
+const MyLastSupportInFSM: FC<MyLastSupportInFSMPropsType> = ({ }) => {
+  const { fsmId } = useParams();
+  const { data } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
+
   return (
     <Stack
       sx={{
@@ -25,9 +26,9 @@ const SupportChip: FC<SupportChipPropsType> = ({
       justifyContent={'center'}
       spacing={0.5}
     >
-      {value ?
+      {data?.support_percentage ?
         <Typography fontSize={16} fontWeight={800}>
-          {`+${toPersianNumber(value)}`}
+          {`+${toPersianNumber(data.support_percentage)}`}
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
       }
@@ -36,5 +37,5 @@ const SupportChip: FC<SupportChipPropsType> = ({
   )
 }
 
-export default SupportChip;
+export default MyLastSupportInFSM;
 
