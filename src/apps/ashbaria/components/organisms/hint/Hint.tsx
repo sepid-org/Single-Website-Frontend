@@ -50,7 +50,7 @@ const Hint: FC<HintPropsType> = ({
       <Button variant='contained' fullWidth onClick={handleBuyHint}>
         {'خرید تقلب'}
       </Button>
-      <Button variant='outlined' fullWidth>
+      <Button variant='outlined' fullWidth onClick={onClose}>
         {'بی‌خیال'}
       </Button>
     </Stack>
