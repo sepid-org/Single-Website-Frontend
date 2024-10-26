@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import LikeIcon from "../../atoms/icons/LikeIcon";
+import DislikeIcon from "../../atoms/icons/DislikeIcon";
 
 type SupportChipPropsType = {
   value: number;
@@ -31,7 +32,7 @@ const SupportChip: FC<SupportChipPropsType> = ({
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
       }
-      <LikeIcon />
+      {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
     </Stack>
   )
 }
