@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
-import VerifyIcon from "../../atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
+import LikeIcon from "../../atoms/icons/LikeIcon";
 
-type ScoreChipPropsType = {
+type SupportChipPropsType = {
   value: number;
 }
 
-const ScoreChip: FC<ScoreChipPropsType> = ({
+const SupportChip: FC<SupportChipPropsType> = ({
   value,
 }) => {
+
   return (
     <Stack
       sx={{
@@ -27,14 +28,14 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
     >
       {value !== null ?
         <Typography fontSize={16} fontWeight={800}>
-          {toPersianNumber(value)}
+          {`${toPersianNumber(value)} ${value >= 0 ? '+' : '-'}`}
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
       }
-      <VerifyIcon />
+      <LikeIcon />
     </Stack>
   )
 }
 
-export default ScoreChip;
+export default SupportChip;
 

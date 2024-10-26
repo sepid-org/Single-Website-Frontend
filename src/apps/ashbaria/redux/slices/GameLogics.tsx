@@ -9,6 +9,12 @@ type FinishCourtOutputType = {
 
 }
 
+type GetUserLastResultInFSMOutputType = {
+  support_change: number;
+  support_percentage: number;
+  score: number
+}
+
 export const GameLogicsSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
@@ -39,7 +45,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    getUserLastResultInFSM: builder.query<{ support_percentage: number; score: number }, { correspondingFsmId: string }>({
+    getUserLastResultInFSM: builder.query<GetUserLastResultInFSMOutputType, { correspondingFsmId: string }>({
       providesTags: ['Balances'],
       query: ({ correspondingFsmId }) => ({
         url: '/game-logic/last-result-in-court/',

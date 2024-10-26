@@ -3,16 +3,18 @@ import { useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameL
 import { useParams } from "react-router-dom";
 import SupportChip from "./Support";
 
-type MyLastSupportInFSMPropsType = {}
+type MyLastSupportChangeInFSMPropsType = {}
 
-const MyLastSupportInFSM: FC<MyLastSupportInFSMPropsType> = ({ }) => {
+const MyLastSupportChangeInFSM: FC<MyLastSupportChangeInFSMPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const { data } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
 
+  console.log(data?.support_change)
+
   return (
-    <SupportChip value={data?.support_percentage} />
+    <SupportChip value={data?.support_change} />
   )
 }
 
-export default MyLastSupportInFSM;
+export default MyLastSupportChangeInFSM;
 
