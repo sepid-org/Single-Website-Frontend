@@ -2,7 +2,7 @@ import React from "react";
 import { ComplementaryObjectType } from "commons/types/models";
 import DocumentsButton from "../components/molecules/buttons/Documents";
 import HintsButton from "../components/molecules/buttons/Hints";
-import FinishCourt from "../components/organisms/chips/FinishCourt";
+import FinishCourt from "../components/organisms/game-elements/FinishCourt";
 
 const useAshbariaCustomWidgets = () => {
 

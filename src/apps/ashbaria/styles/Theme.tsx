@@ -111,7 +111,7 @@ export const customTheme = createTheme({
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: "#60557E",
-          },  
+          },
         },
       },
     },

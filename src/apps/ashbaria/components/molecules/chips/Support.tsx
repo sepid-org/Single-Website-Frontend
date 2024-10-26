@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import { Paper, Stack, Typography } from "@mui/material";
-import VerifyIcon from "../../atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
+import LikeIcon from "../../atoms/icons/LikeIcon";
 
-type ScoreChipPropsType = {
+type SupportChipPropsType = {
   value: string;
 }
 
-const ScoreChip: FC<ScoreChipPropsType> = ({
+const SupportChip: FC<SupportChipPropsType> = ({
   value,
 }) => {
   return (
@@ -28,10 +28,10 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       <Typography fontSize={16} fontWeight={800}>
         {toPersianNumber(value)}
       </Typography>
-      <VerifyIcon />
+      <LikeIcon />
     </Stack>
   )
 }
 
-export default ScoreChip;
+export default SupportChip;
 
