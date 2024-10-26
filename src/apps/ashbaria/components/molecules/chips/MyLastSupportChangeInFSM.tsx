@@ -9,8 +9,6 @@ const MyLastSupportChangeInFSM: FC<MyLastSupportChangeInFSMPropsType> = ({ }) =>
   const { fsmId } = useParams();
   const { data } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
 
-  console.log(data?.support_change)
-
   return (
     <SupportChip value={data?.support_change} />
   )

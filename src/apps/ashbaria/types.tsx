@@ -3,6 +3,7 @@ export interface CourtType {
   title: string;
   reward_score: number;
   corresponding_fsm: number;
+  judge_verdict: string;
 }
 
 export type ProfileType = {

@@ -1,7 +1,7 @@
-import { useFinishCourtMutation, useGetCourtsQuery } from "apps/ashbaria/redux/slices/GameLogics";
-import React, { FC, useEffect } from "react";
+import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameLogics";
+import React, { FC, Fragment, useEffect } from "react";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
-import { Paper, Stack, Typography } from "@mui/material";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { Gold } from "apps/ashbaria/constants/colors";
 import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
@@ -14,10 +14,20 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
   const { finishFSM, result: finishFSMResult } = useFinishFSM();
+  const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
+  const { data: courts } = useGetCourtsQuery();
+
+  const currentCourt = courts?.find(court => court.corresponding_fsm === parseInt(fsmId))
+
+  const handleFinishCourt = () => {
+    finishCourt({ fsmId });
+  }
 
   useEffect(() => {
-    finishCourt({ fsmId });
-  }, [])
+    if (finishCourtResult.isSuccess) {
+      finishFSM();
+    }
+  }, [finishCourtResult])
 
   return (
     <Stack
@@ -35,18 +45,28 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       </Typography>
 
       <Typography variant="h4" textAlign={'center'}>
-        {'قاضی چلویی را در این پرونده مجرم دانست.'}
+        {userLastResultInFSM?.support_percentage < 0 ?
+          'دلایل کافی نیست و چلویی تبرئه می‌شود' :
+          currentCourt?.judge_verdict
+        }
       </Typography>
 
-      <Typography color={Gold} variant="h4">
-        {'نتیجه'}
-      </Typography>
+      {userLastResultInFSM?.support_percentage > 5 &&
+        <Fragment>
+          <Typography color={Gold} variant="h4">
+            {'نتیجه'}
+          </Typography>
 
-      <Stack direction={'row'} spacing={2}>
-        <MyLastSupportInFSM />
-        <MyLastScoreInFSM />
-      </Stack>
+          <Stack direction={'row'} spacing={2}>
+            <MyLastSupportInFSM />
+            <MyLastScoreInFSM />
+          </Stack>
+        </Fragment>
+      }
 
+      <Button onClick={handleFinishCourt}>
+        {'پایان دادگاه'}
+      </Button>
     </Stack>
   )
 }

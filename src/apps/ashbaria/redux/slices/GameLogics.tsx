@@ -21,7 +21,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
     getCourts: builder.query<CourtType[], void>({
       providesTags: ['Court'],
       query: () => ({
-        url: '/game-logic/documents/',
+        url: '/game-logic/courts/',
         method: 'GET',
       }),
     }),
