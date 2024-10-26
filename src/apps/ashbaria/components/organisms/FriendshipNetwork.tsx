@@ -10,9 +10,7 @@ import {
   Paper,
 } from '@mui/material';
 import verify from "../../assets/verify.svg";
-import copyIcon from "../../assets/copy.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
-import sendIcon from "../../assets/sms.svg";
 import BackButton from '../molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -23,6 +21,9 @@ import HeartIcon from '../atoms/icons/Heart';
 import ExclamationIcon from '../atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
 import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
+import CopyIcon from '../atoms/icons/Copy';
+import CustomContainedButton from '../molecules/buttons/CustomContainedButton';
+import CodingMission from '../molecules/CodingMission';
 
 const FriendshipNetwork = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -149,7 +150,6 @@ const FriendshipNetwork = () => {
       >
         <Container maxWidth='lg' component={Paper}>
 
-          {/* Header */}
           <Box
             sx={{
               display: 'flex',
@@ -174,7 +174,8 @@ const FriendshipNetwork = () => {
               display: "flex",
               justifyContent: "space-evenly",
               width: "100%",
-              margin: 0
+              margin: 0,
+              gap: 2
             }}
           >
             {/* Right Component */}
@@ -213,20 +214,28 @@ const FriendshipNetwork = () => {
                 </Typography>
                 <FriendshipNetworkPoints points={129} numberOfFriends={12} />
               </Box>
-              <Typography
-                fontSize={16}
-                fontWeight={400}
+              <Box
                 sx={{
-                  marginTop: 3,
-                  height: 60
-                }}
-                style={{
-                  direction: "rtl",
-                  textAlign: "right"
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
                 }}
               >
-                اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه
-              </Typography>
+                <Typography
+                  fontSize={16}
+                  fontWeight={400}
+                  sx={{
+                    marginTop: 3,
+                    height: 60,
+                  }}
+                  style={{
+                    direction: "rtl",
+                    textAlign: "right"
+                  }}
+                >
+                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه
+                </Typography>
+              </Box>
               <Box
                 sx={{
                   width: "100%",
@@ -313,14 +322,12 @@ const FriendshipNetwork = () => {
                 }}
               >
                 <Typography
+                  fontSize={16}
+                  fontWeight={400}
                   sx={{
-                    width: "172px",
-                    heigh: "24px",
-                    fontSize: "16px",
-                    fontWeight: 400,
-                    lineHeight: "23.86px",
-                    textAlign: "right",
-                    marginLeft: "5px"
+                    width: 172,
+                    heigh: 24,
+                    marginLeft: 1
                   }}
                   style={{
                     direction: "rtl",
@@ -336,67 +343,23 @@ const FriendshipNetwork = () => {
                     alignItems: "center",
                   }}
                 >
-                  <Typography>101001</Typography>
+                  <Typography>{myCode}</Typography>
                   <IconButton onClick={handleShare} color="inherit">
-                    <Box
-                      component="img"
-                      src={copyIcon}
-                    />
+                    <CopyIcon />
                   </IconButton>
                 </Box>
               </Box>
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "44px",
-                  width: "257px",
-                  margin: "15px",
-                  borderRadius: "100px",
-                  backgroundClip: "padding-box",
-                  position: "relative",
-                  overflow: "hidden",
-                  background: "linear-gradient(to right, #FE9C42, #E25100)",
-                }}
-              >
-                <Button
-                  sx={{
-                    height: "42px",
-                    width: "255px",
-                    gap: "4px",
-                    borderRadius: "100px",
-                    backgroundColor: "#130e15",
-                    backgroundClip: "padding-box",
-                    color: "#FE9C42",
-                    fill: "#FE9C42",
-                    '&: hover': {
-                      background: "linear-gradient(180deg, #FE9C42, #E25100)",
-                      color: "black"
-                    }
-                  }}
-                >
-                  <Box
-                    component="img"
-                    src={sendIcon}
-                    width="20px"
-                    height="20px"
-                    color="rgba(255, 168, 0, 1)"
-                  />
-                  ارسال دعوت‌نامه
-                </Button>
-              </Box>
+              <CustomContainedButton minWidth={255} handleClick={() => { }} fullWidth={false} buttonText={"ارسال دعوت‌نامه"} />
             </Grid>
           </Grid>
 
           {/* Records Section */}
           <Typography
+            fontSize={16}
+            fontWeight={600}
             sx={{
-              fontSize: "16px",
-              fontWeight: 600,
-              lineHeight: "24.92px",
               textAlign: "left",
-              margin: "20px"
+              margin: 2
             }}
           >
             ماموریت‌های کدزنی
@@ -406,75 +369,12 @@ const FriendshipNetwork = () => {
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-evenly",
-              margin: "10px",
+              margin: 2,
               overflowX: "auto",
             }}
           >
             {records.map(record => (
-              <Box
-                key={record.id}
-                sx={{
-                  bgcolor: 'rgba(0, 0, 0, 0.4)',
-                  heigh: "110px",
-                  minWidth: "80px",
-                  borderRadius: "12px",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                  flexShrink: 0
-                }}
-              >
-                <Typography
-                  align="center"
-                  sx={{
-                    color: "rgba(255, 168, 0, 1)",
-                    fontSize: "22px",
-                    fontWeight: 800,
-                    lineHeight: "36.27px",
-                    textAlign: "center",
-                  }}
-                >
-                  {record.id}
-                </Typography>
-                <Typography
-                  align="center"
-                  sx={{
-                    fontSize: "16px",
-                    fontWeight: 400,
-                    lineHeight: "23.86px",
-                    textAlign: "center"
-                  }}
-                >
-                  {"ثبت موفق"}
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    marginLeft: "8px",
-                    marginRight: "5px",
-                    marginTop: "5px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: 800,
-                      lineHeight: "26.38px",
-                      textAlign: "right"
-                    }}
-                  >
-                    180
-                  </Typography>
-                  <Box
-                    component="img"
-                    src={verify}
-                    width="40px"
-                    height="40px"
-                  />
-                </Box>
-              </Box>
+              <CodingMission missionID={record.id} />
             ))}
           </Box>
         </Container >
