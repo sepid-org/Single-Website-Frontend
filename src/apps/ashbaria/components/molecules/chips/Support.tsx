@@ -24,10 +24,9 @@ const SupportChip: FC<SupportChipPropsType> = ({
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
-      spacing={0.5}
     >
       {value !== null ?
-        <Typography fontSize={16} fontWeight={800}>
+        <Typography fontSize={24} fontWeight={800}>
           {`${toPersianNumber(value)} ${value >= 0 ? '+' : '-'}`}
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
