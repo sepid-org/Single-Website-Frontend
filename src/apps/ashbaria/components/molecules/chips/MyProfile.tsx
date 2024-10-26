@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import { Box, Stack, Typography } from "@mui/material";
+import { Gold } from "apps/ashbaria/constants/colors";
 
 type MyProfilePropsType = {}
 
@@ -20,7 +21,7 @@ const MyProfile: FC<MyProfilePropsType> = ({ }) => {
           border: '4px solid transparent', // Adjust the thickness here
         }}
       />
-      <Typography noWrap maxWidth={200}>
+      <Typography noWrap maxWidth={180} fontSize={20} fontWeight={600} color={Gold}>
         {(myProfile?.first_name && myProfile?.first_name) ?
           `${myProfile.first_name} ${myProfile.last_name}`
           : 'بی‌نام بی‌نام‌زاده'
