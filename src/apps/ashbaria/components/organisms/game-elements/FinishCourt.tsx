@@ -1,11 +1,12 @@
-import { useFinishCourtMutation } from "apps/ashbaria/redux/slices/GameLogics";
+import { useFinishCourtMutation, useGetCourtsQuery } from "apps/ashbaria/redux/slices/GameLogics";
 import React, { FC, useEffect } from "react";
-import CustomPaper from "../../atoms/CustomPaper";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
 import { Paper, Stack, Typography } from "@mui/material";
 import { Gold } from "apps/ashbaria/constants/colors";
 import ScoreChip from "../../molecules/chips/Score";
 import SupportChip from "../../molecules/chips/Support";
+import calculateCourtFinalScore from "apps/ashbaria/utils/calculateCourtFinalScore";
+import calculateCourtFinalSupportPercentage from "apps/ashbaria/utils/calculateCourtFinalSupportPercentage";
 
 type FinishCourtPropsType = {
   fsmId: string;
@@ -14,8 +15,12 @@ type FinishCourtPropsType = {
 const FinishCourt: FC<FinishCourtPropsType> = ({
   fsmId,
 }) => {
-  const [finishCourt, result] = useFinishCourtMutation();
-  const { } = useGetMyBalancesQuery();
+  const [finishCourt, finishCourtResult] = useFinishCourtMutation();
+  const { data: balances } = useGetMyBalancesQuery();
+  const { data: courts } = useGetCourtsQuery();
+
+  const courtFinalScore = calculateCourtFinalScore({ fsmId, balances, court: courts?.find(court => court.corresponding_fsm === parseInt(fsmId)) })
+  const courtFinalSupportPercentage = calculateCourtFinalSupportPercentage({ fsmId, balances })
 
   useEffect(() => {
     finishCourt({ fsmId });
@@ -23,7 +28,8 @@ const FinishCourt: FC<FinishCourtPropsType> = ({
 
   return (
     <Stack
-      width={360}
+      height={'100%'}
+      width={'100%'}
       component={Paper}
       alignItems={'center'}
       justifyContent={'center'}
@@ -42,9 +48,10 @@ const FinishCourt: FC<FinishCourtPropsType> = ({
       <Typography color={Gold} variant="h4">
         {'نتیجه'}
       </Typography>
+
       <Stack direction={'row'} spacing={2}>
-        <SupportChip value="+75" />
-        <ScoreChip value="+128" />
+        <SupportChip value={courtFinalSupportPercentage} />
+        <ScoreChip value={courtFinalScore} />
       </Stack>
 
     </Stack>

@@ -6,6 +6,9 @@ type inputType = {
 }
 
 const calculateCourtFinalSupportPercentage = ({ fsmId, balances }: inputType) => {
+  if (!fsmId || !balances) {
+    return;
+  }
   const supportPercentagesSum = balances[`ashbaria-support-fsm${fsmId}`] || 0
   const supportPercentagesCount = balances[`ashbaria-support-fsm${fsmId}-count`] || 0
 

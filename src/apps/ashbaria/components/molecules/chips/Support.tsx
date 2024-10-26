@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { Paper, Stack, Typography } from "@mui/material";
+import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import LikeIcon from "../../atoms/icons/LikeIcon";
 
 type SupportChipPropsType = {
-  value: string;
+  value: number;
 }
 
 const SupportChip: FC<SupportChipPropsType> = ({
@@ -25,9 +25,12 @@ const SupportChip: FC<SupportChipPropsType> = ({
       justifyContent={'center'}
       spacing={0.5}
     >
-      <Typography fontSize={16} fontWeight={800}>
-        {toPersianNumber(value)}
-      </Typography>
+      {value ?
+        <Typography fontSize={16} fontWeight={800}>
+          {`+${toPersianNumber(value)}`}
+        </Typography> :
+        <Skeleton variant="rounded" width={50} height={24} />
+      }
       <LikeIcon />
     </Stack>
   )

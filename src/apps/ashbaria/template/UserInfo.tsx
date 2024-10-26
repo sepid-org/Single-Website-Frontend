@@ -92,7 +92,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
               {'نمایه'}
             </Typography>
           </Box>
-          <ScoreChip value={"150+"} />
+          <ScoreChip value={150} />
         </Grid>
         <Grid item xs={12} md={6}>
           <NameInput handleChange={handleChange} first_name={userProfile.first_name} />

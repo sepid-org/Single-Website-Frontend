@@ -9,6 +9,9 @@ type inputType = {
 }
 
 const calculateCourtFinalScore = ({ fsmId, balances, court }: inputType) => {
+  if (!fsmId || !balances || !court) {
+    return;
+  }
   const courtFinalSupportPercentage = calculateCourtFinalSupportPercentage({ fsmId, balances });
   const courtTotalScore = Math.round(court.reward_score * courtFinalSupportPercentage / 100)
   return courtTotalScore

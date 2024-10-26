@@ -93,9 +93,31 @@ export const customTheme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 24,
+          position: 'relative',
+          overflow: 'hidden',
+          backgroundColor: 'transparent', // Make the main Paper background transparent
+
+          // Background overlay
+          '&::before': {
+            borderRadius: 24,
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)',
+            backdropFilter: 'blur(5.8px)',
+            zIndex: 0,
+          },
+
+          // Content styling
+          '& > *': {
+            position: 'relative',
+            zIndex: 1, // Keeps content above the background
+          },
+
           borderTop: '2px solid rgba(255, 255, 255, 0.5)',
-          background: 'linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)',
-          backdropFilter: 'blur(5.822803020477295px)',
           boxShadow: '0px 5.82px 5.82px 0px rgba(0, 0, 0, 0.25)',
         },
       },
