@@ -1,14 +1,19 @@
 import { Button } from "@mui/material";
 import React, { MouseEventHandler } from "react";
 
-interface CustomButtonProps{
-	minWidth: number,
+interface CustomButtonProps {
+	minWidth?: number,
 	handleClick: MouseEventHandler,
-	buttonText: string,
-	fullWidth: boolean
+	label: string,
+	fullWidth?: boolean
 }
 
-const CustomContainedButton:React.FC<CustomButtonProps> = ({ minWidth, handleClick, buttonText, fullWidth }) => {
+const CustomContainedButton: React.FC<CustomButtonProps> = ({
+	minWidth,
+	handleClick,
+	label,
+	fullWidth = true,
+}) => {
 	return (
 		<Button
 			fullWidth={fullWidth}
@@ -22,7 +27,7 @@ const CustomContainedButton:React.FC<CustomButtonProps> = ({ minWidth, handleCli
 			}}
 			onClick={handleClick}
 		>
-			{buttonText}
+			{label}
 		</Button>
 	);
 }

@@ -101,7 +101,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
           { type: 'program', id: item.programSlug }
         ]
       ),
-      query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_permissions/`,
+      query: ({ programSlug }) => `fsm/program/${programSlug}/user-permissions/`,
       transformResponse: (response: any): GetProgramUserPermissionsOutputType => {
         return response;
       },
@@ -109,7 +109,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
 
     getProgramUserFSMsStatus: builder.query<GetProgramUserFSMsStatusOutputType, GetProgramUserFSMsStatusInputType>({
       providesTags: ['fsms', 'user-specific-data'],
-      query: ({ programSlug }) => `fsm/program/${programSlug}/get_user_fsms_status/`,
+      query: ({ programSlug }) => `fsm/program/${programSlug}/user-fsms-status/`,
       transformResponse: (response: any): GetProgramUserFSMsStatusOutputType => {
         return response;
       },

@@ -7,13 +7,14 @@ import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
 import useFinishFSM from "commons/hooks/useFinishFSM";
 import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
+import CustomContainedButton from "../../molecules/buttons/CustomContainedButton";
 
 type FinishCourtPropsType = {}
 
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
-  const { finishFSM, result: finishFSMResult } = useFinishFSM();
+  const [finishFSM, finishFSMResult] = useFinishFSM();
   const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
   const { data: courts } = useGetCourtsQuery();
 
@@ -64,9 +65,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         </Fragment>
       }
 
-      <Button onClick={handleFinishCourt}>
-        {'پایان دادگاه'}
-      </Button>
+      <CustomContainedButton handleClick={handleFinishCourt} label="پایان دادگاه" />
     </Stack>
   )
 }

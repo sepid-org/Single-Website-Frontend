@@ -349,7 +349,7 @@ const FriendshipNetwork = () => {
                   </IconButton>
                 </Box>
               </Box>
-              <CustomContainedButton minWidth={255} handleClick={() => { }} fullWidth={false} buttonText={"ارسال دعوت‌نامه"} />
+              <CustomContainedButton minWidth={255} handleClick={() => { }} fullWidth={false} label={"ارسال دعوت‌نامه"} />
             </Grid>
           </Grid>
 
