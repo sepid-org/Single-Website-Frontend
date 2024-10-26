@@ -46,10 +46,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       </Typography>
 
       <Typography variant="h4" textAlign={'center'}>
-        {userLastResultInFSM?.support_percentage < 0 ?
-          'دلایل کافی نیست و چلویی تبرئه می‌شود' :
-          currentCourt?.judge_verdict
-        }
+        {currentCourt?.judge_verdict}
       </Typography>
 
       {userLastResultInFSM?.support_percentage > 5 &&
