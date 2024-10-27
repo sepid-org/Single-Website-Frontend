@@ -29,7 +29,7 @@ import { toast } from 'react-toastify';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import ProgramTeamSettingBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramTeamSetting';
-import ProgramPageWrapper from 'commons/template/program/ProgramPageWrapper';
+import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 import { useCreateAndJoinTeamMutation, useDeleteTeamMutation, useGetTeamQuery } from '../../website-display/redux/features/team/TeamSlice';
 import { useDeleteInvitationMutation, useGetMyInvitationsQuery, useGetTeamInvitationsQuery, useInviteMemberMutation } from '../../website-display/redux/features/team/InvitationSlice';
 

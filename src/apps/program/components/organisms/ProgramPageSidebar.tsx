@@ -89,7 +89,11 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
             {'مدیریت دوره'}
           </Button>
         }
-        {otherButtons.map((button, index) => <Fragment key={index}>{button}</Fragment>)}
+        {otherButtons.map((button, index) =>
+          <Fragment key={index}>
+            {button}
+          </Fragment>)
+        }
       </Stack>
       <Stack alignItems={'center'}>
         <ShareProgramButton />

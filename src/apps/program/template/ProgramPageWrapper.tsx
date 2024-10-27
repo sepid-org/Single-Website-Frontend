@@ -1,6 +1,5 @@
 import React, { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';

@@ -3,7 +3,7 @@ import React, { FC, Fragment } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
+import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
 import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
