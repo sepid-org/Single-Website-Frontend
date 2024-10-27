@@ -26,7 +26,7 @@ const HelpButton2 = ({ }) => {
         disableScrollLock
       >
         <DialogContent>
-          <Paper mode='general' paperId={program.site_help_paper_id} />
+          <Paper mode='general' paperId={program?.site_help_paper_id} />
         </DialogContent>
       </Dialog>
     </Fragment >
