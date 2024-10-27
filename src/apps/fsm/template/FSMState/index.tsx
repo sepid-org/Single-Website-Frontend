@@ -1,14 +1,12 @@
-import React, { FC, useRef } from 'react';
+import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
 import Layout from 'commons/template/Layout';
 import { useLocation, useParams } from 'react-router-dom';
-import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useEnterFSMMutation, useGetMyPlayerQuery, useGetPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
-import useUserProfile from 'commons/hooks/useUserProfile';
+import { useGetMyPlayerQuery, useGetPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
-import { FSMStateType } from 'commons/types/models';
+import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 
@@ -31,6 +29,7 @@ const FSMState: FC<FSMStatePropsType> = ({
       isMentor={isMentor}
       teamId={teamId}
       playerId={player?.id}
+      WIDGET_TYPE_MAPPER={WIDGET_TYPE_MAPPER}
     >
       {fsmState?.template === 'board' &&
         <BoardFSMState fsmStateId={fsmStateId} />
