@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import CourtInfo from './pages/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
 import CustomStylesWrapper from './styles/CustomStylesWrapper';
+import EnterPhoneNumber from './pages/login/EnterPhoneNumber';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route path='/profile/' element={<Profile />} />
             </Route>
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
+              <Route path='/login/' element={<EnterPhoneNumber />} />
             </Route>
           </Routes>
 
