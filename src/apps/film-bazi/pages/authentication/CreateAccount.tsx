@@ -7,6 +7,10 @@ import {
   Stack,
   Typography,
   Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -125,6 +129,24 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             />
 
             <PasswordField collectData={collectData} />
+
+            <FormControl fullWidth>
+              <InputLabel>گروه انتخابی</InputLabel>
+              <Select
+                name="audience-type"
+                defaultValue={''}
+                label="گروه انتخابی">
+                <MenuItem value={'general'}>
+                  {'عام'}
+                </MenuItem>
+                <MenuItem value={'hoze-honari'}>
+                  {'حوزه هنری'}
+                </MenuItem>
+                <MenuItem value={'basij'}>
+                  {'بسیج'}
+                </MenuItem>
+              </Select>
+            </FormControl>
 
             <Button
               onClick={handleCreatingAccount}
