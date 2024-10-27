@@ -26,9 +26,7 @@ const HelpButton2 = ({ }) => {
         disableScrollLock
       >
         <DialogContent>
-          {/* <Box position={'relative'} width={{ xs: 300, sm: 400, md: 600 }} padding={2} sx={{ overflowX: 'hidden' }}> */}
           <Paper mode='general' paperId={program.site_help_paper_id} />
-          {/* </Box> */}
         </DialogContent>
       </Dialog>
     </Fragment >
