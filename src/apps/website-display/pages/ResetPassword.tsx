@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useChangeUserPasswordMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
+import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type ResetPasswordPropsType = {}
 
@@ -84,29 +85,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
               verificationType='change-user-phone-number'
             />
 
-            <TextField
-              autoComplete="on"
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="گذر‌واژه جدید"
-              name="password"
-              inputProps={{ className: 'ltr-input' }}
-              type="password"
-              inputMode='text'
-            />
-
-            <TextField
-              autoComplete="on"
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="تکرار گذر‌واژه جدید"
-              inputProps={{ className: 'ltr-input' }}
-              name="confirmationPassword"
-              type="password"
-              inputMode='text'
-            />
+            <PasswordField label='گذرواژه جدید' collectData={collectData} />
 
             <Button
               onClick={doChangePassword}

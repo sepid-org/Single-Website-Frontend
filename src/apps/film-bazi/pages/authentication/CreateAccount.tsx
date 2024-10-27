@@ -15,6 +15,7 @@ import { useCreateAccountMutation } from 'apps/website-display/redux/features/us
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import bg from "../../assets/loginBG.jpg";
+import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type CreateAccountPropsType = {}
 
@@ -123,27 +124,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
               verificationType='create-user-account'
             />
 
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="گذر‌واژه"
-              name="password"
-              inputProps={{ className: 'ltr-input' }}
-              type="password"
-              inputMode='text'
-            />
-
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="تکرار گذر‌واژه"
-              inputProps={{ className: 'ltr-input' }}
-              name="confirmationPassword"
-              type="password"
-              inputMode='text'
-            />
+            <PasswordField collectData={collectData} />
 
             <Button
               onClick={handleCreatingAccount}

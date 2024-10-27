@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useCreateAccountMutation } from '../redux/features/user/UserSlice';
+import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type CreateAccountPropsType = {}
 
@@ -115,27 +116,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
               verificationType='create-user-account'
             />
 
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="گذر‌واژه"
-              name="password"
-              inputProps={{ className: 'ltr-input' }}
-              type="password"
-              inputMode='text'
-            />
-
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="تکرار گذر‌واژه"
-              inputProps={{ className: 'ltr-input' }}
-              name="confirmationPassword"
-              type="password"
-              inputMode='text'
-            />
+            <PasswordField collectData={collectData} />
 
             <Button
               onClick={handleCreatingAccount}
