@@ -10,11 +10,11 @@ interface FSMStateContextType {
 
 const FSMStateContext = createContext<FSMStateContextType | null>(null);
 
-interface FSMProviderPropsType extends FSMStateContextType {
+interface FSMStateProviderPropsType extends FSMStateContextType {
   children: ReactNode;
 }
 
-export const FSMStateProvider: FC<FSMProviderPropsType> = ({
+export const FSMStateProvider: FC<FSMStateProviderPropsType> = ({
   children,
   ...props
 }) => {

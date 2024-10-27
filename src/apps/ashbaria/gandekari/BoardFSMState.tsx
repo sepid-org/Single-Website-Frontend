@@ -1,16 +1,14 @@
-import React, { useState, useEffect, useRef, FC, Fragment } from 'react';
+import React, { useState, useEffect, useRef, FC } from 'react';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box } from '@mui/material';
-import Appbar from 'commons/components/organisms/Appbar';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import useAshbariaCustomWidgets from '../hooks/useAshbariaCustomWidgets';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
 };
 
 const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
-  const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
@@ -31,14 +29,12 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
     };
   }, [fsmState]);
 
+  const { complementaryObjects } = useAshbariaCustomWidgets();
+
   return (
     <Box position={'relative'}>
-      {fsmState?.show_appbar && (
-        <Box ref={appbarRef}>
-          <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
-        </Box>
-      )}
       <PapersBoardScene
+        complementaryObjects={complementaryObjects}
         sceneHeight={containerHeight}
         paperIds={fsmState?.papers}
       />

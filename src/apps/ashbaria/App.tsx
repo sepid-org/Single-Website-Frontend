@@ -7,7 +7,6 @@ import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import GameMenu from './pages/Menu';
 import ProgramManagement from './pages/ProgramManagement';
-import FSM from 'apps/fsm/pages/FSM';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendshipNetwork';
 import Profile from './pages/Profile';
@@ -15,6 +14,7 @@ import CourtInfo from './pages/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
 import CustomStylesWrapper from './styles/CustomStylesWrapper';
 import EnterPhoneNumber from './pages/login/EnterPhoneNumber';
+import FSM from './gandekari/FSM';
 
 const App = () => {
 

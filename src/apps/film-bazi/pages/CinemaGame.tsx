@@ -3,7 +3,7 @@ import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
 import { Backdrop, Stack } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import CustomDialogPaper from '../components/atoms/CustomDialogPaper';
-import BoardPaper from 'commons/template/Paper/BoardPaper';
+import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 
 type SeatsGamePropsType = {}
 
@@ -31,7 +31,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <BoardPaper
+      <PapersBoardScene
         complementaryObjects={complementaryObjects}
         paperIds={[paperId]}
       />

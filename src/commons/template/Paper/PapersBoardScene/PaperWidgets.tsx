@@ -4,16 +4,16 @@ import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { ComplementaryObjectType } from 'commons/types/models';
 
-export type BoardPaperWidgetsPropsType = {
+export type PaperWidgetsPropsType = {
   paperId: string;
   complementaryObjects?: ComplementaryObjectType[];
-  mode: WidgetModes;
+  widgetsMode: WidgetModes;
 }
 
-const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
+const PaperWidgets: FC<PaperWidgetsPropsType> = ({
   paperId,
   complementaryObjects = [],
-  mode,
+  widgetsMode,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
 
@@ -35,7 +35,7 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
         >
           <ObjectWrapper complementaryObject={complementaryObject}>
             {complementaryObject?.substituteComponent ||
-              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={mode} />}
+              <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={widgetsMode} />}
           </ObjectWrapper>
         </div>
       );
@@ -46,4 +46,4 @@ const BoardPaperWidgets: FC<BoardPaperWidgetsPropsType> = ({
   return <>{widgetsComponents}</>;
 };
 
-export default React.memo(BoardPaperWidgets);
+export default React.memo(PaperWidgets);

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef, FC, useCallback, memo } from 'react';
 import { Stack } from '@mui/material';
 
-export type BoardFramePropsType = {
-  containerWidth?: number;
-  containerHeight?: number;
+export type BoardScenePropsType = {
+  sceneWidth?: number;
+  sceneHeight?: number;
   children: React.ReactNode;
 }
 
-const BoardFrame: FC<BoardFramePropsType> = memo(({
-  containerWidth = window.innerWidth,
-  containerHeight = window.innerHeight,
+const BoardScene: FC<BoardScenePropsType> = memo(({
+  sceneWidth = window.innerWidth,
+  sceneHeight = window.innerHeight,
   children,
 }) => {
   const boardRef = useRef<HTMLDivElement>(null);
@@ -22,12 +22,12 @@ const BoardFrame: FC<BoardFramePropsType> = memo(({
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
       const appbarHeight = appbarRef.current?.offsetHeight || 0;
-      const scale = (containerHeight - appbarHeight) / BOARD_HEIGHT;
+      const scale = (sceneHeight - appbarHeight) / BOARD_HEIGHT;
 
       const scaledWidth = BOARD_WIDTH * scale;
       const scaledHeight = BOARD_HEIGHT * scale;
 
-      const isScrollNeeded = scaledWidth > containerWidth;
+      const isScrollNeeded = scaledWidth > sceneWidth;
       setIsScrollNeeded(isScrollNeeded);
 
       Object.assign(boardRef.current.style, {
@@ -40,10 +40,10 @@ const BoardFrame: FC<BoardFramePropsType> = memo(({
       Object.assign(containerRef.current.style, {
         overflowX: isScrollNeeded ? 'auto' : 'hidden',
         overflowY: 'hidden',
-        height: `${containerHeight - appbarHeight}px`,
+        height: `${sceneHeight - appbarHeight}px`,
       });
     }
-  }, [containerHeight, containerWidth]);
+  }, [sceneHeight, sceneWidth]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -91,4 +91,4 @@ const BoardFrame: FC<BoardFramePropsType> = memo(({
   );
 });
 
-export default BoardFrame;
+export default BoardScene;
