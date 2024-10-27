@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { DarkSecondary } from '../ashbaria/constants/colors';
 import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from '../ashbaria/styles/Theme';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,35 +12,34 @@ import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendshipNetwork';
 import Profile from './pages/Profile';
 import CourtInfo from './pages/CourtInfo';
+import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
+import CustomStylesWrapper from './styles/CustomStylesWrapper';
 
 const App = () => {
 
   return (
-    <div style={{
-      backgroundColor: DarkSecondary,
-      minHeight: '100vh',
-    }}>
-      <ThemeProvider theme={customTheme}>
+    <ThemeProvider theme={customTheme}>
+      <CustomStylesWrapper>
         <CssBaseline />
+        <LandscapeCheckWrapper>
 
-        <Routes>
+          <Routes>
+            <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
+              <Route path="/" element={<GameMenu />} />
+              <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
+              <Route path="/court/:fsmId/" element={<FSM />} />
+              <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
+              <Route path="/manage/" element={<ProgramManagement />} />
+              <Route path='/friendship-network/' element={<FriendshipNetwork />} />
+              <Route path='/profile/' element={<Profile />} />
+            </Route>
+            <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
+            </Route>
+          </Routes>
 
-          <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-            <Route path="/" element={<GameMenu />} />
-            <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
-            <Route path="/court/:fsmId/" element={<FSM />} />
-            <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
-            <Route path="/manage/" element={<ProgramManagement />} />
-            <Route path='/friendship-network/' element={<FriendshipNetwork />} />
-            <Route path='/profile/' element={<Profile />} />
-          </Route>
-
-          <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
-          </Route>
-        </Routes>
-      </ThemeProvider>
-
-    </div>
+        </LandscapeCheckWrapper>
+      </CustomStylesWrapper>
+    </ThemeProvider>
   );
 };
 
