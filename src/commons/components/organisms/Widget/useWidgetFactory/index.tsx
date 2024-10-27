@@ -1,4 +1,4 @@
-import WIDGET_TYPE_MAPPER from './WidgetTypeMapper';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import {
   useCreateWidgetMutation,
   useDeleteWidgetMutation,
@@ -21,6 +21,7 @@ const useWidgetFactory = ({
   const [deleteWidget] = useDeleteWidgetMutation();
   const [createWidget] = useCreateWidgetMutation();
   const [updateWidget] = useUpdateWidgetMutation();
+  const { WIDGET_TYPE_MAPPER } = useFSMStateContext();
 
   let onDelete, onMutate, onAnswerChange;
 
