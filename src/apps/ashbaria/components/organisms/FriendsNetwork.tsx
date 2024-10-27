@@ -9,7 +9,6 @@ import {
   Grid,
   Paper,
 } from '@mui/material';
-import verify from "../../assets/verify.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
 import BackButton from '../molecules/buttons/Back';
 import HeartIcon from '../atoms/icons/Heart';

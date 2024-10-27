@@ -11,10 +11,10 @@ interface CustomButtonProps{
 const CustomContainedButton:React.FC<CustomButtonProps> = ({ minWidth, handleClick, buttonText, fullWidth }) => {
 	return (
 		<Button
-			fullWidth={fullWidth}
 			sx={{
 				height: 44,
 				minWidth: minWidth,
+				width: (fullWidth ? "100%" : minWidth),
 				borderRadius: 100,
 				backgroundColor: "#130e15",
 				color: "black",

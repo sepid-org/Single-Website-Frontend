@@ -8,7 +8,7 @@ interface CustomButtonProps{
 	buttonText: string,
 	fullWidth: boolean
 }
-
+ 
 const CustomOutlinedButton: React.FC<CustomButtonProps> = ({ minWidth, handleClick, buttonText, fullWidth }) => {
 	return (
 		<Box
@@ -17,7 +17,8 @@ const CustomOutlinedButton: React.FC<CustomButtonProps> = ({ minWidth, handleCli
 				justifyContent: "center",
 				alignItems: "center",
 				height: 44,
-				width: minWidth + 2,
+				minWidth: minWidth + 2,
+				width: (fullWidth ? "100%" : minWidth + 2),
 				borderRadius: 100,
 				backgroundClip: "padding-box",
 				position: "relative",
@@ -26,13 +27,16 @@ const CustomOutlinedButton: React.FC<CustomButtonProps> = ({ minWidth, handleCli
 			}}
 		>
 			<Button
-				fullWidth={fullWidth}
 				sx={{
 					height: 42,
 					minWidth: minWidth,
+					width: (fullWidth ? "100%" : minWidth),
 					borderRadius: 100,
 					backgroundColor: "#130e15",
 					color: "#FE9C42",
+					'&:hover': {
+            backgroundColor: "#130e15",
+          },
 				}}
 				onClick={handleClick}
 			>
