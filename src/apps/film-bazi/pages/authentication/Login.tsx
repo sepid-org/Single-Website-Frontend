@@ -10,9 +10,9 @@ import {
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
-import { DarkSecondary } from '../constants/colors';
+import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import bg from "../assets/loginBG.jpg";
+import bg from "../../assets/loginBG.jpg";
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type LoginPagePropsType = {};

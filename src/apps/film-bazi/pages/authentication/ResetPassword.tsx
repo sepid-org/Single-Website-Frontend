@@ -1,32 +1,24 @@
-import React, { FC, useState } from 'react';
-import {
-  Button,
-  TextField,
-  Container,
-  Paper,
-  Stack,
-  Typography,
-  Box,
-} from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Button, TextField, Container, Paper, Typography, Stack, Box } from '@mui/material';
+import React, { useState, FC, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useChangeUserPasswordMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
-import { useCreateAccountMutation } from 'apps/website-display/redux/features/user/UserSlice';
-import { DarkSecondary } from '../constants/colors';
+import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
+import bg from "../../assets/loginBG.jpg";
 
-type CreateAccountPropsType = {}
+type ResetPasswordPropsType = {}
 
-const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
-  const [createAccount, { isLoading }] = useCreateAccountMutation();
+const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
+  const navigate = useNavigate();
   const [data, setData] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
     password: '',
     confirmationPassword: '',
+    phoneNumber: '',
     verificationCode: '',
   });
+  const [changePassword, { isLoading, isSuccess }] = useChangeUserPasswordMutation();
 
   const collectData = (event) => {
     setData({
@@ -35,19 +27,25 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
     });
   };
 
-  const handleCreatingAccount = () => {
-    const { phoneNumber, password, confirmationPassword, firstName, lastName } = data;
-    if (!phoneNumber || !password || !confirmationPassword || !firstName || !lastName) {
-      toast.error('همه‌ی موارد خواسته شده را پر کن');
+  const doChangePassword = () => {
+    const { phoneNumber, password, confirmationPassword } = data;
+    if (!phoneNumber || !password) {
+      toast.error('لطفاً همه‌ی مواردی که ازت خواسته شده رو پر کن');
       return;
     }
-
     if (password !== confirmationPassword) {
-      toast.error('رمزهای وارد شده مشابه نیستند');
+      toast.error('رمزهایی که وارد کردی مشابه هم نیستند');
       return;
     }
-    createAccount(data);
+    changePassword(data);
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success('گذر‌واژه‌ی شما با موفقیت تغییر یافت.')
+      navigate('/program/filmbazi/login/');
+    }
+  }, [isSuccess])
 
   return (
     <Container
@@ -57,7 +55,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: 'url("/images/filmbazi/desktop.jpg")',
+        backgroundImage: `url(${bg})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -79,54 +77,26 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             <ProgramLogo size='large' destination='http://filmbazi.ir/' />
           </Box>
 
-          <Stack
-            onKeyDown={(event) => {
-              if (event.key === 'Enter') {
-                handleCreatingAccount();
-              }
-            }}
-            width={'100%'}
-            spacing={1.5}>
+          <Stack width={'100%'} spacing={1.5}>
 
             <Typography
               paddingBottom={2}
               component='h1' variant='h3' align='center'>
-              {'ایجاد حساب کاربری'}
+              {'بازنشانی گذر‌واژه'}
             </Typography>
-
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              value={data.firstName}
-              name="firstName"
-              label="نام"
-              type='text'
-              inputMode='text'
-            />
-
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              value={data.lastName}
-              name="lastName"
-              label="نام خانوادگی"
-              type='text'
-              inputMode='text'
-            />
 
             <VerifyPhoneNumber
               data={data}
               setData={setData}
-              verificationType='create-user-account'
+              verificationType='change-user-phone-number'
             />
 
             <TextField
+              autoComplete="on"
               variant="outlined"
               fullWidth
               onChange={collectData}
-              label="گذر‌واژه"
+              label="گذر‌واژه جدید"
               name="password"
               inputProps={{ className: 'ltr-input' }}
               type="password"
@@ -134,10 +104,11 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             />
 
             <TextField
+              autoComplete="on"
               variant="outlined"
               fullWidth
               onChange={collectData}
-              label="تکرار گذر‌واژه"
+              label="تکرار گذر‌واژه جدید"
               inputProps={{ className: 'ltr-input' }}
               name="confirmationPassword"
               type="password"
@@ -145,14 +116,14 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             />
 
             <Button
-              onClick={handleCreatingAccount}
+              onClick={doChangePassword}
               variant="contained"
               color="primary"
               disabled={isLoading}
               size='large'
               fullWidth>
               <Typography fontWeight={700} color={DarkSecondary}>
-                {'ثبت'}
+                {'تغییر'}
               </Typography>
             </Button>
 
@@ -162,12 +133,11 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
                 {'ورود'}
               </Link>
             </Typography>
-
           </Stack>
         </Stack>
       </Stack>
-    </Container >
+    </Container>
   )
 }
 
-export default CreateAccount;
+export default ResetPassword;
