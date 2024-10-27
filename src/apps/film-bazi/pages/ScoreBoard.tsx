@@ -17,7 +17,7 @@ interface ScoreRecordsStateProp {
 }
 
 const ScoreBoard: React.FC = () => {
-	const { data: scoreBoard, isLoading: isScoreBoardLoading } = useGetScoreboardQuery({ currencyName: FILMBAZI_COIN });
+	const { data: scoreBoard = [], isLoading: isScoreBoardLoading } = useGetScoreboardQuery({ currencyName: FILMBAZI_COIN });
 	const { data: myRank, isLoading: isMyRankLoading } = useGetMyRankQuery({ currencyName: FILMBAZI_COIN });
 	const { data: balances, isLoading: isBalancesLoading } = useGetMyBalancesQuery();
 	const { data: userProfile } = useUserProfile();
@@ -56,7 +56,7 @@ const ScoreBoard: React.FC = () => {
 
 		let exists = false;
 		if (myRank?.rank) {
-			let currentUserInRecords = (newRecords.find(record => (record.id == userProfile.id)));
+			let currentUserInRecords = (newRecords.find(record => (record.id == userProfile?.id)));
 			if (currentUserInRecords != null) {
 				currentUserInRecords.currentUser = true;
 				exists = true;
@@ -66,16 +66,16 @@ const ScoreBoard: React.FC = () => {
 			...scoreRecordsState,
 			winnerUsersInfo: newRecords,
 			currentUser: {
-				first_name: userProfile.first_name,
-				last_name: userProfile.last_name,
+				first_name: userProfile?.first_name,
+				last_name: userProfile?.last_name,
 				rank: myRank?.rank,
 				currentUser: true,
-				id: userProfile.id,
-				score: balances[FILMBAZI_COIN]
+				id: userProfile?.id,
+				score: balances?.[FILMBAZI_COIN] || 0,
 			},
 			currentUserExistsInWinners: exists
 		});
-	}, [isScoreBoardLoading, isMyRankLoading, isBalancesLoading])
+	}, [isScoreBoardLoading, isMyRankLoading, isBalancesLoading, userProfile])
 
 	return (
 		<Box
