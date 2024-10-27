@@ -14,6 +14,7 @@ export type FilmType = {
   image: string;
   director: ArtistType;
   description: string;
+  gisheh7_link: string;
 }
 
 export type DiscountCodeType = {

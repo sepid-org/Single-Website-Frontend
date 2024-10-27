@@ -10,6 +10,7 @@ import { FilmType } from 'apps/film-bazi/types';
 import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import { Link } from 'react-router-dom';
 
 
 type DiscountDialogProps = {
@@ -40,7 +41,22 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
     dialogContent =
       <Fragment>
         <DialogContentText>
-          {`از کد تخفیف ${toPersianNumber(discountCode?.percentage)}% زیر برای دعوت دوستان خود به تماشای فیلم ${film.name} استفاده کنید:`}
+          {`از کد تخفیف ${toPersianNumber(discountCode?.percentage)}% زیر برای دعوت دوستان خود به تماشای فیلم ${film.name}`}
+          {film.gisheh7_link ?
+            <Fragment>
+              {' از طریق سایت '}
+              <Link
+                to={film.gisheh7_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: '#ff4759', textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}
+              >
+                گیشه۷
+              </Link>
+            </Fragment> :
+            null
+          }
+          {' استفاده کنید:'}
         </DialogContentText>
         <Typography variant="h3" component="div" sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
           {discountCode?.code}
