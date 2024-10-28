@@ -151,15 +151,11 @@ export const customTheme = createTheme({
         contained: {
           color: Black,
           background: 'linear-gradient(180deg, #FE9C42, #E25100)',
-          '&:hover': {
-            background: 'linear-gradient(180deg, #FE9C42, #E25100)',
-            filter: 'brightness(0.9)'
-          }
         },
         outlined: {
-          backgroundColor: '#00000066',
           color: Golden,
-        }
+          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        },
       },
     },
     MuiMenuItem: {
