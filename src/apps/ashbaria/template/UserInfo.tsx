@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
@@ -35,6 +35,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     if (initialProfile) {
       setUserProfile(initialProfile);
     }
+    console.log(isGetProfileLoading);
   }, [isGetProfileLoading]);
 
   useEffect(() => {
@@ -82,72 +83,75 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   if (!userProfile) return null;
 
   return (
-    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2 }}>
-      <Grid container item spacing={2}>
-        <Grid
-          item
-          container
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <BackButton />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center"
-            }}
+    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2, height:'90vh' }}>
+      {isGetProfileLoading ?
+        <Skeleton variant="rectangular" width="100%" height="100%" /> :
+        (<Grid container item spacing={2}>
+          <Grid
+            item
+            container
+            justifyContent="space-between"
+            alignItems="center"
           >
-            <PersonIcon />
-            <Typography variant="h6" fontSize={24} fontWeight={800}>
-              {'نمایه'}
-            </Typography>
-          </Box>
-          <ScoreChip value={150} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <LastNameInput handleChange={handleChange} last_name={userProfile.last_name} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <BirthDayInput data={userProfile} setData={setUserProfile} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <GenderSelector gender={userProfile.gender} handleChange={handleGenderChange} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
-        </Grid>
-        <RegionSelector data={userProfile} setData={setUserProfile} />
-        <Grid item xs={12} md={6}>
-          <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
-        </Grid>
-        <Grid item xs={12}>
-          <AddressInput handleChange={handleChange} address={userProfile.address} />
-        </Grid>
-        <Grid item xs={12}>
-          <ProfileImageSelector profile_image={userProfile.profile_image} handleChange={handleProfileImgChange} />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Button onClick={() => localNavigate('/')} fullWidth={true} variant='outlined'>
-            {'ولش کن'}
-          </Button>
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <Button onClick={handleSubmit} fullWidth={true} variant='contained'>
-            {'همینو ذخیره کن'}
-          </Button>
-        </Grid>
-      </Grid>
+            <BackButton />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center"
+              }}
+            >
+              <PersonIcon />
+              <Typography variant="h6" fontSize={24} fontWeight={800}>
+                {'نمایه'}
+              </Typography>
+            </Box>
+            <ScoreChip value={150} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <LastNameInput handleChange={handleChange} last_name={userProfile.last_name} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <BirthDayInput data={userProfile} setData={setUserProfile} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <GenderSelector gender={userProfile.gender} handleChange={handleGenderChange} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
+          </Grid>
+          <RegionSelector data={userProfile} setData={setUserProfile} />
+          <Grid item xs={12} md={6}>
+            <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
+          </Grid>
+          <Grid item xs={12}>
+            <AddressInput handleChange={handleChange} address={userProfile.address} />
+          </Grid>
+          <Grid item xs={12}>
+            <ProfileImageSelector profile_image={userProfile.profile_image} handleChange={handleProfileImgChange} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
+              {'ولش کن'}
+            </Button>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Button onClick={handleSubmit} size="large" fullWidth={true} variant='contained'>
+              {'همینو ذخیره کن'}
+            </Button>
+          </Grid>
+        </Grid>)
+      }
     </Container>
   );
 }

@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 
 export default function ProfileImageSelector({ profile_image, handleChange }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
@@ -22,7 +22,7 @@ export default function ProfileImageSelector({ profile_image, handleChange }) {
       >
         تصویر نمایه
       </Typography>
-      <Box display="flex" paddingX={1}>
+      <Stack direction={"row"} spacing={1}>
         {profileOptions.map((item, index) => (
           <Box
             key={index}
@@ -38,23 +38,35 @@ export default function ProfileImageSelector({ profile_image, handleChange }) {
               background: selectBorderColor(item),
               backgroundClip: "padding-box",
             }}
-            onClick={() => {
-              setSelectedProfilePic(item);
-              handleChange(item);
-            }}
+            
           >
             <Box
               component="img"
               src={item}
               width={80}
               height={80}
+              onClick={() => {
+                setSelectedProfilePic(item);
+                handleChange(item);
+              }}
               sx={{
                 borderRadius: "50%",
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                  padding: 2,
+                  borderRadius: 24,
+                  background: 'linear-gradient(to right, #FE9C42, #E25100)',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                }
               }}
             />
           </Box>
         ))}
-      </Box>
+      </Stack>
     </Fragment>
   );
 }
