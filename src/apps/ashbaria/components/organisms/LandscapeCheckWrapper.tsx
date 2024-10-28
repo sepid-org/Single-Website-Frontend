@@ -51,7 +51,7 @@ const LandscapeCheckWrapper: FC<LandscapeCheckWrapperPropsType> = ({
     >
       <Stack component={Paper} padding={4}>
         <Typography variant="h4" textAlign="center">
-          {'لطفاً گوشی را در به‌صورت افقی بگیرید!'}
+          {'لطفاً گوشی را به‌صورت افقی بگیر!'}
         </Typography>
       </Stack>
     </Box>
