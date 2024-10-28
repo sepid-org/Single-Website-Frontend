@@ -1,4 +1,4 @@
-import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Paper, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
@@ -63,6 +63,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     });
   }
 
+  const handleGenderChange = (selectedGender) => {
+    setUserProfile({
+      ...userProfile,
+      gender: selectedGender,
+    })
+  }
+
   const handleSubmit = () => {
     updateProfile(userProfile);
   }
@@ -107,7 +114,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <BirthDayInput data={userProfile} setData={setUserProfile} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <GenderSelector gender={userProfile.gender} />
+          <GenderSelector gender={userProfile.gender} handleChange={handleGenderChange} />
         </Grid>
         <Grid item xs={12} md={6}>
           <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />

@@ -1,12 +1,13 @@
 import React, { Fragment, useState } from "react";
-import profilePic1 from "../../../assets/profile1.svg";
-import profilePic2 from "../../../assets/profile2.svg";
-import profilePic3 from "../../../assets/profile3.svg";
-import { Box, Grid, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function ProfileImageSelector({ profile_image, setData, data }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
-
+  const profileOptions = [
+    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile1.svg",
+    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile2.svg",
+    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile3.svg",
+  ]
   const selectBorderColor = (profilePic: string) => {
     return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
   }
@@ -22,7 +23,7 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
         تصویر نمایه
       </Typography>
       <Box display="flex" paddingX={1}>
-        {[profilePic1, profilePic2, profilePic3].map((item, index) => (
+        {profileOptions.map((item, index) => (
           <Box
             key={index}
             sx={{

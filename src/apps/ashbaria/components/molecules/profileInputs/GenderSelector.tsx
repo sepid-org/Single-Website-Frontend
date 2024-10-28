@@ -4,10 +4,10 @@ import girlSelectedIcon from "../../../assets/girl-yellow-head.svg";
 import girlUnselectedIcon from "../../../assets/girl-purple-head.svg"
 import boyUnselectedIcon from "../../../assets/boy-purple-head.svg";
 
-export default function GenderSelector({ gender }) {
+export default function GenderSelector({ gender, handleChange }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
 	const selectColor = (genderValue: string) => {
-		return selectedGender === genderValue ? "#FFA800" : "#A198BB";
+		return selectedGender === genderValue ? "#FFA800" : "#60557E";
 	}
 	const selectBackgroundColor = (genderValue: string) => {
 		return selectedGender === genderValue ? "#FFC66F33" : "#00000080";
@@ -32,15 +32,18 @@ export default function GenderSelector({ gender }) {
 				}}
 			>
 				<Box
-					onClick={() => setSelectedGender("boy")}
+					onClick={() => {
+						setSelectedGender("M");
+						handleChange("M");
+					}}
 					sx={{
 						width: "50%",
 						height: 56,
 						gap: 1,
 						borderRadius: "12px 0px 0px 12px",
 						border: "1px solid",
-						borderColor: selectColor("boy"),
-						backgroundColor: selectBackgroundColor("boy"),
+						borderColor: selectColor("M"),
+						backgroundColor: selectBackgroundColor("M"),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
@@ -52,18 +55,21 @@ export default function GenderSelector({ gender }) {
 						width={20}
 						height={20}
 					/>
-					<Typography sx={{ color: selectColor("boy") }}>پسر</Typography>
+					<Typography sx={{ color: selectColor("M") }}>پسر</Typography>
 				</Box>
 				<Box
-					onClick={() => setSelectedGender("girl")}
+					onClick={() => {
+						setSelectedGender("F");
+						handleChange("F");
+					}}
 					sx={{
 						width: "50%",
 						height: 56,
 						gap: 1,
 						borderRadius: "0px 12px 12px 0px",
 						border: "1px solid",
-						borderColor: selectColor("girl"),
-						backgroundColor: selectBackgroundColor("girl"),
+						borderColor: selectColor("F"),
+						backgroundColor: selectBackgroundColor("F"),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
@@ -71,11 +77,11 @@ export default function GenderSelector({ gender }) {
 				>
 					<Box
 						component="img"
-						src={selectedGender === "girl" ? girlSelectedIcon : girlUnselectedIcon}
+						src={selectedGender === "F" ? girlSelectedIcon : girlUnselectedIcon}
 						width={20}
 						height={20}
 					/>
-					<Typography sx={{ color: selectColor("girl") }}>دختر</Typography>
+					<Typography sx={{ color: selectColor("F") }}>دختر</Typography>
 				</Box>
 			</Box>
 		</Fragment>

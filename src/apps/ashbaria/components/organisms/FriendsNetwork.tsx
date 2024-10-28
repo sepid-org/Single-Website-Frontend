@@ -5,7 +5,6 @@ import {
   IconButton,
   Typography,
   TextField,
-  Button,
   Grid,
   Paper,
 } from '@mui/material';
@@ -25,8 +24,6 @@ const App = () => {
 
   const records = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
-    // text: Record ${index + 1},
-    //score: Math.floor(Math.random() * 100),
   }));
 
   const isMobileDevice = () => {
