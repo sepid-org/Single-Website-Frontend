@@ -1,12 +1,12 @@
 import { Box, Button, Container, Dialog, Grid, IconButton, Paper, Typography } from "@mui/material";
 import React, { Fragment, useState } from "react";
-import archive from "../../assets/archive.svg";
 import closeButtonIcon from "../../assets/close-circle.svg";
 import evidence from "../../assets/evidence.svg";
 import unaccessableEvidence from "../../assets/unaccessableEvidence.svg";
-import AccessableEvidence from "../molecules/AccessableEvidence";
+import AccessableEvidenceDocument from "../molecules/AccessableEvidence";
 import UnaccessableEvidence from "../molecules/UnaccessableEvidence";
 import Back from "../molecules/buttons/Back";
+import ArchiveIcon from "../atoms/icons/Archive";
 
 
 
@@ -44,12 +44,7 @@ const Evidences = () => {
 						justifyContent: "center"
 					}}
 				>
-					<Box
-						component="img"
-						src={archive}
-						width="28px"
-						height="28px"
-					/>
+					<ArchiveIcon />
 					<Typography
 						variant="h6"
 						sx={{ fontSize: "18px", fontWeight: 800, color: "white" }}
@@ -102,7 +97,7 @@ const Evidences = () => {
 				</Box>
 				<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
 					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-						return (<AccessableEvidence />)
+						return (<AccessableEvidenceDocument />)
 					})}
 				</Grid>
 			</Box>

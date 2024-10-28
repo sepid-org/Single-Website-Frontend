@@ -4,7 +4,7 @@ import evidence from "../../assets/evidence.svg";
 import Paper from "commons/template/Paper";
 
 
-const AccessableEvidence = () => {
+const AccessableEvidenceDocument = () => {
 	return (
 		<Grid
 			item
@@ -55,4 +55,4 @@ const AccessableEvidence = () => {
 	);
 }
 
-export default AccessableEvidence;
+export default AccessableEvidenceDocument;
