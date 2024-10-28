@@ -34,11 +34,11 @@ const App = () => {
               <Route path="/manage/" element={<ProgramManagement />} />
               <Route path='/friendship-network/' element={<FriendshipNetwork />} />
               <Route path='/profile/' element={<Profile />} />
-              <Route path='/login/' element={<Login />} />
               <Route path='/introduction/' element={<Introduction />} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
+              <Route path='/login/' element={<Login />} />
             </Route>
           </Routes>
 
