@@ -15,7 +15,6 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
   const navigate = useNavigate();
   const [data, setData] = useState({
     password: '',
-    confirmationPassword: '',
     phoneNumber: '',
     verificationCode: '',
   });
@@ -29,13 +28,9 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
   };
 
   const doChangePassword = () => {
-    const { phoneNumber, password, confirmationPassword } = data;
+    const { phoneNumber, password } = data;
     if (!phoneNumber || !password) {
       toast.error('لطفاً همه‌ی مواردی که ازت خواسته شده رو پر کن');
-      return;
-    }
-    if (password !== confirmationPassword) {
-      toast.error('رمزهایی که وارد کردی مشابه هم نیستند');
       return;
     }
     changePassword(data);

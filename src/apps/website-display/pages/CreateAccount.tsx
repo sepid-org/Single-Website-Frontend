@@ -24,7 +24,6 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
     lastName: '',
     phoneNumber: '',
     password: '',
-    confirmationPassword: '',
     verificationCode: '',
   });
 
@@ -36,14 +35,9 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
   };
 
   const handleCreatingAccount = () => {
-    const { phoneNumber, password, confirmationPassword, firstName, lastName } = data;
-    if (!phoneNumber || !password || !confirmationPassword || !firstName || !lastName) {
+    const { phoneNumber, password, firstName, lastName } = data;
+    if (!phoneNumber || !password || !firstName || !lastName) {
       toast.error('همه‌ی موارد خواسته شده را پر کن');
-      return;
-    }
-
-    if (password !== confirmationPassword) {
-      toast.error('رمزهای وارد شده مشابه نیستند');
       return;
     }
     createAccount(data);
