@@ -9,9 +9,9 @@ import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import MyLastScoreInFSM from '../components/molecules/chips/MyLastScoreInFSM';
 import useMenuCourts from '../hooks/useMenuCourts';
 import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
+import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 
 type GameMenuPropsType = {}
 
@@ -24,45 +24,47 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { courts } = useMenuCourts();
 
   return (
-    <Fragment>
-      {program &&
-        <Helmet>
-          <title>{program.name}</title>
-        </Helmet>
-      }
-      <Layout appbarMode='PROGRAM'>
-        <Grid container spacing={4} alignItems='flex-start'>
-          <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
-            <ProgramPageSidebar
-              otherButtons={[
-                <MyTotalScoreChip />,
-                <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
-                  {'پروفایل'}
-                </Button>,
-                <Button variant='outlined' onClick={() => localNavigate('/friendship-network/')}>
-                  {'حلقه دوستان'}
-                </Button>
-              ]}
-            />
-          </Grid>
-          <Grid item xs={12} sm={9}>
-            <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
-              {'دادگاه‌ها'}
-            </Typography>
-            <Grid container spacing={2}>
-              {fsms?.fsms?.map(fsm =>
-                <Grid item xs={12} sm={4} key={fsm.id}>
-                  <FSMCard
-                    fsm={fsm}
-                    userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
-                  />
-                </Grid>
-              )}
+    <ProgramPageWrapper>
+      <Fragment>
+        {program &&
+          <Helmet>
+            <title>{program.name}</title>
+          </Helmet>
+        }
+        <Layout appbarMode='PROGRAM'>
+          <Grid container spacing={4} alignItems='flex-start'>
+            <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
+              <ProgramPageSidebar
+                otherButtons={[
+                  <MyTotalScoreChip />,
+                  <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
+                    {'پروفایل'}
+                  </Button>,
+                  <Button variant='outlined' onClick={() => localNavigate('/friendship-network/')}>
+                    {'حلقه دوستان'}
+                  </Button>
+                ]}
+              />
+            </Grid>
+            <Grid item xs={12} sm={9}>
+              <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
+                {'دادگاه‌ها'}
+              </Typography>
+              <Grid container spacing={2}>
+                {fsms?.fsms?.map(fsm =>
+                  <Grid item xs={12} sm={4} key={fsm.id}>
+                    <FSMCard
+                      fsm={fsm}
+                      userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    />
+                  </Grid>
+                )}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Layout>
-    </Fragment>
+        </Layout>
+      </Fragment>
+    </ProgramPageWrapper>
   );
 }
 
