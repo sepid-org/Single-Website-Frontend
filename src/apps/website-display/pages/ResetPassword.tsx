@@ -3,7 +3,7 @@ import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import React, { useState, FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useChangeUserPasswordMutation } from 'commons/redux/slices/party/UserSlice';
+import { useChangeUserPasswordMutation } from 'commons/redux/slices/party/UserApi';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
 

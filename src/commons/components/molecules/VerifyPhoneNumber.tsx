@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
-import { useGetVerificationCodeMutation } from 'commons/redux/slices/party/UserSlice';
+import { useGetVerificationCodeMutation } from 'commons/redux/slices/party/UserApi';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
 

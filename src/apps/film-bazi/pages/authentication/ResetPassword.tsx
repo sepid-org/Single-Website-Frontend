@@ -2,7 +2,7 @@ import { Button, TextField, Container, Paper, Typography, Stack, Box } from '@mu
 import React, { useState, FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useChangeUserPasswordMutation } from 'commons/redux/slices/party/UserSlice';
+import { useChangeUserPasswordMutation } from 'commons/redux/slices/party/UserApi';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';

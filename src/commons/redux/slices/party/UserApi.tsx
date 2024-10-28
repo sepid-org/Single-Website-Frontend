@@ -10,7 +10,7 @@ type CreateAccountInputType = {
 }
 
 type CreateAccountOutputType = {
-  account: any;
+  user: any;
   access: string;
   refresh: string;
 };
@@ -22,7 +22,7 @@ type GoogleLoginUserInputType = {
 }
 
 type GoogleLoginUserOutputType = {
-  account: any;
+  user: any;
   access: string;
   refresh: string;
 };
@@ -55,18 +55,18 @@ type SimpleLoginInput = {
 type SimpleLoginOutputType = {
   access: string;
   refresh: string;
-  account: any;
+  user: any;
 }
 
 type OTPLoginInputType = {
-  username: string;
+  phoneNumber: string;
   verificationCode: string;
 }
 
 type OTPLoginOutputType = {
   access: string;
   refresh: string;
-  account: any;
+  user: any;
 }
 
 type ChangeUserPasswordInputType = {
@@ -85,7 +85,7 @@ type GetVerificationCodeInputType = {
 
 type GetVerificationCodeOutputType = void;
 
-export const UserSlice = ContentManagementServiceApi.injectEndpoints({
+export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
@@ -141,10 +141,13 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
-      query: (body) => ({
+      query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/otp-login/',
         method: 'POST',
-        body,
+        body: {
+          phone_number: phoneNumber,
+          code: verificationCode,
+        },
       }),
       onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
@@ -159,7 +162,7 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
 
     changeUserPassword: builder.mutation<ChangeUserPasswordOutputType, ChangeUserPasswordInputType>({
       query: ({ phoneNumber, verificationCode, ...body }) => ({
-        url: 'auth/accounts/change_pass/',
+        url: 'auth/accounts/change-password/',
         method: 'POST',
         body: {
           phone_number: phoneNumber,
@@ -174,7 +177,7 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
 
     getVerificationCode: builder.mutation<GetVerificationCodeOutputType, GetVerificationCodeInputType>({
       query: ({ phoneNumber, codeType, websiteDisplayName }) => ({
-        url: 'auth/accounts/verification_code/',
+        url: 'auth/accounts/verification-code/',
         method: 'POST',
         body: {
           phone_number: phoneNumber,
@@ -193,10 +196,9 @@ export const {
   useSimpleLoginMutation,
   useGoogleLoginMutation,
   useOtpLoginMutation,
-
   useCreateAccountMutation,
   useGetGoogleUserProfileQuery,
   useChangePhoneNumberMutation,
   useChangeUserPasswordMutation,
   useGetVerificationCodeMutation,
-} = UserSlice;
+} = UserApi;

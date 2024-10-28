@@ -5,7 +5,6 @@ export const SecondaryColor = '#463e73';
 export const Golden = '#FFA800';
 export const Black = 'black';
 export const Gray = '#ACACAC';
-export const Gold = '#FFA800';
 export const Green = '#00D387';
 export const Yellow = '#FFCD20';
 export const Orange = '#FFA95A';

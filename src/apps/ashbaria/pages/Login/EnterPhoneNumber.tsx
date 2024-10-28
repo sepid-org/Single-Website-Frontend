@@ -1,42 +1,41 @@
 import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
-import { toEnglishNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserSlice";
+import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserApi";
 import { LoginTabs } from ".";
 import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";
+import { toEnglishNumber } from "commons/utils/translateNumber";
 
-type EnterPhoneNumberPropsType = {
-  phoneNumber: string;
-  setPhoneNumber: any;
-}
+type EnterPhoneNumberPropsType = {}
 
-const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({
-  phoneNumber,
-  setPhoneNumber,
-}) => {
+const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [getVerificationCode, getVerificationCodeResult] = useGetVerificationCodeMutation();
 
   useEffect(() => {
     if (getVerificationCodeResult.isSuccess) {
-      setSearchParams({ tab: LoginTabs.EnterVerificationNumber });
+      setSearchParams({
+        tab: LoginTabs.EnterVerificationNumber,
+        phoneNumber,
+      });
     }
   }, [getVerificationCodeResult]);
 
   const handleGetVerificationCode = () => {
     if (!isPhoneNumber(phoneNumber)) {
-      toast.error('شماره تلفن وارد شده، معتبر نیست')
+      toast.error('بی‌خیال، یه شماره تلفن معتبر وارد کن')
       return;
     }
     getVerificationCode({ phoneNumber, websiteDisplayName: 'آشباریا', codeType: 'create-user-account' });
   };
 
   const handleChangePhoneNumber = (e) => {
-    setPhoneNumber(toEnglishNumber(e.target.value))
+    setSearchParams({ phoneNumber: toEnglishNumber(e.target.value) })
   }
+
+  const phoneNumber = searchParams.get('phoneNumber') || '';
 
   return (
     <Stack width={300} component={Paper} padding={2} spacing={4}>

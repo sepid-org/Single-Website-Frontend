@@ -2,7 +2,7 @@ import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastResultInFSMQue
 import React, { FC, Fragment, useEffect } from "react";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
 import { Button, Paper, Stack, Typography } from "@mui/material";
-import { Gold } from "apps/ashbaria/constants/colors";
+import { Golden } from "apps/ashbaria/constants/colors";
 import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
 import useFinishFSM from "commons/hooks/useFinishFSM";
@@ -40,7 +40,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       spacing={2}
     >
 
-      <Typography color={Gold} variant="h4">
+      <Typography color={Golden} variant="h4">
         {'اتمام پرونده'}
       </Typography>
 
@@ -50,7 +50,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
 
       {userLastResultInFSM?.support_percentage > 5 &&
         <Fragment>
-          <Typography color={Gold} variant="h4">
+          <Typography color={Golden} variant="h4">
             {'نتیجه'}
           </Typography>
 

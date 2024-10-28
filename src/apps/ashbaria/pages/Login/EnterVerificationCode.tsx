@@ -3,20 +3,17 @@ import React, { FC, useState } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
-import { Gold } from "apps/ashbaria/constants/colors";
-import { Golden } from "apps/film-bazi/constants/colors";
+import { Golden } from "apps/ashbaria/constants/colors";
 import { LoginTabs } from ".";
+import { useOtpLoginMutation } from "commons/redux/slices/party/UserApi";
 
-type EnterVerificationCodePropsType = {
-  phoneNumber: string;
-}
+type EnterVerificationCodePropsType = {}
 
-const EnterVerificationCode: FC<EnterVerificationCodePropsType> = ({
-  phoneNumber,
-}) => {
+const EnterVerificationCode: FC<EnterVerificationCodePropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [verificationCode, setVerificationCode] = useState<string>('');
-  // const [] = submitVerificationCode();
+  const [otpLogin, otpLoginResult] = useOtpLoginMutation();
+  const phoneNumber = searchParams.get('phoneNumber');
 
   const handleChangeVerificationCode = (event) => {
     setVerificationCode(event.target.value);
@@ -26,7 +23,12 @@ const EnterVerificationCode: FC<EnterVerificationCodePropsType> = ({
     setSearchParams({ tab: LoginTabs.EnterPhoneNumber })
   }
 
-  // start here
+  const handleLogin = () => {
+    otpLogin({
+      phoneNumber,
+      verificationCode,
+    })
+  }
 
   return (
     <Stack width={300} component={Paper} padding={2} spacing={2}>
@@ -42,7 +44,7 @@ const EnterVerificationCode: FC<EnterVerificationCodePropsType> = ({
           inputProps={{ dir: 'ltr' }}
         />
       </Stack>
-      <Button variant='contained'>
+      <Button variant='contained' onClick={handleLogin}>
         {'نیومد که، دوباره بفرست!'}
       </Button>
       <Button onClick={handleGoToPreviousPage}>

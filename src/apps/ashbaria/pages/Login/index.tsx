@@ -15,7 +15,6 @@ export type LoginPropsType = {};
 const Login: FC<LoginPropsType> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentTabSlug = (searchParams.get('tab') as LoginTabs) || LoginTabs.EnterPhoneNumber;
-  const [phoneNumber, setPhoneNumber] = useState<string>('');
 
   return (
     <Box
@@ -34,13 +33,10 @@ const Login: FC<LoginPropsType> = () => {
       }}
     >
       {currentTabSlug === LoginTabs.EnterPhoneNumber &&
-        <EnterPhoneNumber
-          phoneNumber={phoneNumber}
-          setPhoneNumber={setPhoneNumber}
-        />
+        <EnterPhoneNumber />
       }
       {currentTabSlug === LoginTabs.EnterVerificationNumber &&
-        <EnterVerificationCode phoneNumber={phoneNumber} />
+        <EnterVerificationCode />
       }
     </Box>
   );
