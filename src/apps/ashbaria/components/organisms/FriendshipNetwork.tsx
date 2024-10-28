@@ -7,6 +7,7 @@ import {
   TextField,
   Grid,
   Paper,
+  Button,
 } from '@mui/material';
 import bg from "../../assets/friendsNetworkBg.svg";
 import BackButton from '../molecules/buttons/Back';
@@ -343,9 +344,16 @@ const FriendshipNetwork = () => {
                   </IconButton>
                 </Box>
               </Box>
-              <Button variant='contained' size='large' onClick={() => { }} fullWidth>
-                {'ارسال دعوت‌نامه'}
-              </Button>
+              <Box
+                sx={{
+                  minWidth: 255,
+                  maxWidth: "100%",
+                }}
+              >
+                <Button variant='contained' size='large' onClick={handleShare} fullWidth>
+                  {'ارسال دعوت‌نامه'}
+                </Button>
+              </Box>
             </Grid>
           </Grid>
 
