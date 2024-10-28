@@ -2,19 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserApi } from 'commons/redux/slices/party/UserApi';
 import { UserInfoType } from 'commons/types/profile';
 
+// Types
 interface AccountState {
-  id: string;
-  userInfo: UserInfoType;
+  id: string | null;
+  userInfo: UserInfoType | null;
   accessToken: string;
   refreshToken: string;
 }
-
-const initialState: AccountState = {
-  id: null,
-  userInfo: null,
-  accessToken: '',
-  refreshToken: '',
-};
 
 interface TokenPayload {
   accessToken: string;
@@ -27,7 +21,34 @@ interface AccountPayload {
   refresh: string;
 }
 
-const UserSlice = createSlice({
+// Initial state
+const initialState: AccountState = {
+  id: null,
+  userInfo: null,
+  accessToken: '',
+  refreshToken: '',
+};
+
+// Helper function to handle common login success pattern
+const handleLoginSuccess = (
+  state: AccountState,
+  payload: AccountPayload
+): void => {
+  state.userInfo = { ...state.userInfo, ...payload.user };
+  state.id = payload.user.id;
+  state.accessToken = payload.access;
+  state.refreshToken = payload.refresh;
+};
+
+// Login endpoints that need to be matched
+const loginEndpoints = [
+  'createAccount',
+  'otpLogin',
+  'simpleLogin',
+  'googleLogin',
+] as const;
+
+const AccountSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -38,50 +59,21 @@ const UserSlice = createSlice({
       window.location.reload();
     },
   },
-
   extraReducers: (builder) => {
-    builder.addMatcher(
-      UserApi.endpoints.createAccount.matchFulfilled,
-      (state, { payload }: PayloadAction<AccountPayload>) => {
-        state.userInfo = { ...state.userInfo, ...payload.user };
-        state.id = payload.user.id;
-        state.accessToken = payload.access;
-        state.refreshToken = payload.refresh;
-      }
-    );
-
-    builder.addMatcher(
-      UserApi.endpoints.otpLogin.matchFulfilled,
-      (state, { payload }: PayloadAction<AccountPayload>) => {
-        state.userInfo = { ...state.userInfo, ...payload.user };
-        state.id = payload.user.id;
-        state.accessToken = payload.access;
-        state.refreshToken = payload.refresh;
-      }
-    );
-
-    builder.addMatcher(
-      UserApi.endpoints.simpleLogin.matchFulfilled,
-      (state, { payload }: PayloadAction<AccountPayload>) => {
-        state.userInfo = { ...state.userInfo, ...payload.user };
-        state.id = payload.user.id;
-        state.accessToken = payload.access;
-        state.refreshToken = payload.refresh;
-      }
-    );
-
-    builder.addMatcher(
-      UserApi.endpoints.googleLogin.matchFulfilled,
-      (state, { payload }: PayloadAction<AccountPayload>) => {
-        state.userInfo = { ...state.userInfo, ...payload.user };
-        state.id = payload.user.id;
-        state.accessToken = payload.access;
-        state.refreshToken = payload.refresh;
-      }
-    );
-  }
+    // Dynamically add matchers for all login endpoints
+    loginEndpoints.forEach((endpoint) => {
+      builder.addMatcher(
+        UserApi.endpoints[endpoint].matchFulfilled,
+        (state, { payload }: PayloadAction<AccountPayload>) => {
+          handleLoginSuccess(state, payload);
+        }
+      );
+    });
+  },
 });
 
-export const { logout: logoutAction } = UserSlice.actions;
+// Export actions
+export const { logout: logoutAction, refreshToken } = AccountSlice.actions;
 
-export const { reducer: AccountReducer } = UserSlice;
+// Export reducer
+export const { reducer: AccountReducer } = AccountSlice;
