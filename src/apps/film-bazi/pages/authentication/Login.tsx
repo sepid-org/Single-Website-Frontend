@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLoginMutation } from 'commons/redux/slices/party/UserSlice';
+import { useSimpleLoginMutation } from 'commons/redux/slices/party/UserSlice';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import bg from "../../assets/loginBG.jpg";
@@ -22,7 +22,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     password: '',
     username: '',
   });
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useSimpleLoginMutation();
   const { data: website } = useGetWebsiteQuery();
 
   const collectData = (event) => {

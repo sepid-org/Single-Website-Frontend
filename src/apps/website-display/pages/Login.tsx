@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { useLoginMutation } from 'commons/redux/slices/party/UserSlice';
+import { useSimpleLoginMutation } from 'commons/redux/slices/party/UserSlice';
 
 type LoginPagePropsType = {};
 
@@ -22,7 +22,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     username: '',
   });
   const { data: website } = useGetWebsiteQuery();
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading }] = useSimpleLoginMutation();
 
   const collectData = (event) => {
     setData({

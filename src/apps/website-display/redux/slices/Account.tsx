@@ -51,7 +51,7 @@ const AccountSlice = createSlice({
     );
 
     builder.addMatcher(
-      UserSlice.endpoints.login.matchFulfilled,
+      UserSlice.endpoints.simpleLogin.matchFulfilled,
       (state, { payload }: PayloadAction<AccountPayload>) => {
         state.userInfo = { ...state.userInfo, ...payload.account };
         state.id = payload.account.id;
@@ -61,7 +61,7 @@ const AccountSlice = createSlice({
     );
 
     builder.addMatcher(
-      UserSlice.endpoints.loginGoogleUser.matchFulfilled,
+      UserSlice.endpoints.googleLogin.matchFulfilled,
       (state, { payload }: PayloadAction<AccountPayload>) => {
         state.userInfo = { ...state.userInfo, ...payload.account };
         state.id = payload.account.id;

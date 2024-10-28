@@ -15,13 +15,13 @@ type CreateAccountOutputType = {
   refresh: string;
 };
 
-type LoginGoogleUserInputType = {
+type GoogleLoginUserInputType = {
   first_name: string;
   last_name: string;
   email: string;
 }
 
-type LoginGoogleUserOutputType = {
+type GoogleLoginUserOutputType = {
   account: any;
   access: string;
   refresh: string;
@@ -47,12 +47,23 @@ type ChangePhoneNumberInput = {
   code: string;
 }
 
-type LoginInput = {
+type SimpleLoginInput = {
   username: string;
   password: string;
 }
 
-type LoginOutputType = {
+type SimpleLoginOutputType = {
+  access: string;
+  refresh: string;
+  account: any;
+}
+
+type OTPLoginInputType = {
+  username: string;
+  verificationCode: string;
+}
+
+type OTPLoginOutputType = {
   access: string;
   refresh: string;
   account: any;
@@ -105,16 +116,36 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
       })
     }),
 
-    loginGoogleUser: builder.mutation<LoginGoogleUserOutputType, LoginGoogleUserInputType>({
+    googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
       query: (body) => ({
-        url: 'auth/accounts/login-with-google/',
+        url: 'auth/accounts/google-login/',
         method: 'POST',
         body,
       }),
-      transformResponse: (response: any): LoginGoogleUserOutputType => {
+      transformResponse: (response: any): GoogleLoginUserOutputType => {
         return response;
       },
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
+    }),
+
+    simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      query: (body) => ({
+        url: 'auth/accounts/simple-login/',
+        method: 'POST',
+        body,
+      }),
+      onQueryStarted: createInvalidationCallback(['user-specific-data'])
+    }),
+
+    otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      query: (body) => ({
+        url: 'auth/accounts/otp-login/',
+        method: 'POST',
+        body,
+      }),
       onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
@@ -124,16 +155,6 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-    }),
-
-    login: builder.mutation<LoginOutputType, LoginInput>({
-      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
-      query: (body) => ({
-        url: 'auth/accounts/login/',
-        method: 'POST',
-        body,
-      }),
-      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     changeUserPassword: builder.mutation<ChangeUserPasswordOutputType, ChangeUserPasswordInputType>({
@@ -169,11 +190,13 @@ export const UserSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useSimpleLoginMutation,
+  useGoogleLoginMutation,
+  useOtpLoginMutation,
+
   useCreateAccountMutation,
   useGetGoogleUserProfileQuery,
-  useLoginGoogleUserMutation,
   useChangePhoneNumberMutation,
-  useLoginMutation,
   useChangeUserPasswordMutation,
   useGetVerificationCodeMutation,
 } = UserSlice;
