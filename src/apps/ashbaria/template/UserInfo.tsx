@@ -68,6 +68,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     })
   }
 
+  const handleProfileImgChange = (selecedImg) => {
+    setUserProfile({
+      ...userProfile,
+      profile_image: selecedImg,
+    });
+  }
+
   const handleSubmit = () => {
     updateProfile(userProfile);
   }
@@ -128,7 +135,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <AddressInput handleChange={handleChange} address={userProfile.address} />
         </Grid>
         <Grid item xs={12}>
-          <ProfileImageSelector profile_image={userProfile.profile_image} setData={setUserProfile} data={userProfile} />
+          <ProfileImageSelector profile_image={userProfile.profile_image} handleChange={handleProfileImgChange} />
         </Grid>
         <Grid item xs={12} md={6}>
           <Button onClick={() => localNavigate('/')} fullWidth={true} variant='outlined'>

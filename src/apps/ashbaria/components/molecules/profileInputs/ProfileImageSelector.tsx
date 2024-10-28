@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
-export default function ProfileImageSelector({ profile_image, setData, data }) {
+export default function ProfileImageSelector({ profile_image, handleChange }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
   const profileOptions = [
     "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile1.svg",
@@ -40,12 +40,7 @@ export default function ProfileImageSelector({ profile_image, setData, data }) {
             }}
             onClick={() => {
               setSelectedProfilePic(item);
-              setData(
-                {
-                  ...data,
-                  profile_logo: item
-                }
-              )
+              handleChange(item);
             }}
           >
             <Box
