@@ -5,11 +5,10 @@ import {
   IconButton,
   Typography,
   TextField,
-  Button,
   Grid,
   Paper,
+  Button,
 } from '@mui/material';
-import verify from "../../assets/verify.svg";
 import bg from "../../assets/friendsNetworkBg.svg";
 import BackButton from '../molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
@@ -88,30 +87,24 @@ const FriendshipNetwork = () => {
     }
   }, [followResult])
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("Fixed Text Value");
-  };
-
   const myCode = 12121212;
 
   const records = Array.from({ length: 2 }, (_, index) => ({
     id: index + 1,
-    // text: Record ${index + 1},
-    //score: Math.floor(Math.random() * 100),
   }));
 
   const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(myCode.toString());
   };
 
-  const shareOnMobile = (text: string) => {
+  const shareOnMobile = () => {
     if (navigator.share) {
       navigator.share({
-        text: text,
+        text: myCode.toString(),
       }).then(() => {
         console.log('Successful share');
       }).catch((error) => {
@@ -124,9 +117,9 @@ const FriendshipNetwork = () => {
 
   const handleShare = () => {
     if (isMobileDevice()) {
-      shareOnMobile(myCode.toString());
+      shareOnMobile();
     } else {
-      copyToClipboard(myCode.toString());
+      copyToClipboard();
     }
   }
 
@@ -249,6 +242,7 @@ const FriendshipNetwork = () => {
                     '& .MuiOutlinedInput-root': {
                       height: 44,
                       width: 255,
+                      maxWidth: "100%",
                     }
                   }}
                 />
@@ -317,6 +311,7 @@ const FriendshipNetwork = () => {
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
                   borderRadius: 1,
                   minWidth: 255,
+                  maxWidth: "100%",
                   height: 44,
                   margin: 1,
                 }}
@@ -344,14 +339,21 @@ const FriendshipNetwork = () => {
                   }}
                 >
                   <Typography>{myCode}</Typography>
-                  <IconButton onClick={handleShare} color="inherit">
+                  <IconButton onClick={copyToClipboard} color="inherit">
                     <CopyIcon />
                   </IconButton>
                 </Box>
               </Box>
-              <Button variant='contained' size='large' onClick={() => { }} fullWidth>
-                {'ارسال دعوت‌نامه'}
-              </Button>
+              <Box
+                sx={{
+                  minWidth: 255,
+                  maxWidth: "100%",
+                }}
+              >
+                <Button variant='contained' size='large' onClick={handleShare} fullWidth>
+                  {'ارسال دعوت‌نامه'}
+                </Button>
+              </Box>
             </Grid>
           </Grid>
 

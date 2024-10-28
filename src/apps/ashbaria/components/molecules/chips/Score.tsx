@@ -27,7 +27,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
     >
       {value !== null ?
         <Typography fontSize={24} fontWeight={800}>
-          {toPersianNumber(value)}
+          {toPersianNumber(value) + "+"}
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
       }
