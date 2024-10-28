@@ -10,9 +10,9 @@ import {
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import GoogleLogin from 'commons/components/molecules/GoogleLogin';
-import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
+import { useLoginMutation } from 'commons/redux/slices/party/UserSlice';
 
 type LoginPagePropsType = {};
 

@@ -3,7 +3,7 @@ import React, { FC, useEffect } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation } from "apps/website-display/redux/features/user/UserSlice";
+import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserSlice";
 import { LoginTabs } from ".";
 import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";

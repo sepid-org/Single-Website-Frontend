@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
-import { useGetVerificationCodeMutation } from 'apps/website-display/redux/features/user/UserSlice';
+import { useGetVerificationCodeMutation } from 'commons/redux/slices/party/UserSlice';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
 
@@ -28,7 +28,13 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
 }) => {
   const [isButtonDisabled, setIsButtonDisable] = useState(false);
   const { data: website } = useGetWebsiteQuery();
-  const [getVerificationCode, { isLoading: isGetVerificationCodeLoading, isSuccess: isGetVerificationCodeSuccess }] = useGetVerificationCodeMutation();
+  const [
+    getVerificationCode,
+    {
+      isLoading: isGetVerificationCodeLoading,
+      isSuccess: isGetVerificationCodeSuccess,
+    }
+  ] = useGetVerificationCodeMutation();
 
   const handleGettingVerificationCode = () => {
     if (!isPhoneNumber(data.phoneNumber)) {

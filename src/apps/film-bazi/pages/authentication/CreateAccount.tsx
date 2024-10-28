@@ -15,7 +15,7 @@ import {
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
-import { useCreateAccountMutation } from 'apps/website-display/redux/features/user/UserSlice';
+import { useCreateAccountMutation } from 'commons/redux/slices/party/UserSlice';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import bg from "../../assets/loginBG.jpg";

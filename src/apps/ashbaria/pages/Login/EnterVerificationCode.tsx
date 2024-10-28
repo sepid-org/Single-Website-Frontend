@@ -26,6 +26,7 @@ const EnterVerificationCode: FC<EnterVerificationCodePropsType> = ({
     setSearchParams({ tab: LoginTabs.EnterPhoneNumber })
   }
 
+  // start here
 
   return (
     <Stack width={300} component={Paper} padding={2} spacing={2}>

@@ -4,7 +4,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
-import { useGetGoogleUserProfileQuery, useLoginGoogleUserMutation } from 'apps/website-display/redux/features/user/UserSlice';
+import { useGetGoogleUserProfileQuery, useLoginGoogleUserMutation } from 'commons/redux/slices/party/UserSlice';
 
 const GoogleLogin = () => {
   const [googleUser, setGoogleUser] = useState(null);

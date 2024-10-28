@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
+import { useLoginMutation } from 'commons/redux/slices/party/UserSlice';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import bg from "../../assets/loginBG.jpg";

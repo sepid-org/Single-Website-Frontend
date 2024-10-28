@@ -7,14 +7,12 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import {
-  useUpdateSchoolStudentshipMutation,
-} from 'apps/website-display/redux/features/party/ProfileSlice';
 import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import SchoolSettingInfoForm from 'commons/components/organisms/forms/SchoolSettingInfoForm';
 import { SchoolType } from 'commons/types/models';
 import useUserProfile from 'commons/hooks/useUserProfile';
+import { useUpdateSchoolStudentshipMutation } from 'commons/redux/slices/party/ProfileSlice';
 
 type SchoolSettingPropsType = {
   onSuccessfulSubmission?: any;

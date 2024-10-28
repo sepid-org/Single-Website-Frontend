@@ -11,10 +11,8 @@ import {
   Select,
   Stack,
   TextField,
-  Typography,
 } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { FC, useState } from 'react';
 import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -24,20 +22,13 @@ import { toEnglishNumber } from 'commons/utils/translateNumber';
 import isNumber from 'commons/utils/validators/isNumber';
 import { toast } from 'react-toastify';
 import ChangePhoneNumberDialog from 'commons/components/organisms/dialogs/ChangePhoneNumberDialog';
-import { useGetUserProfileQuery, useUpdateUserProfileMutation } from 'apps/website-display/redux/features/party/ProfileSlice';
 import UploadImage from 'commons/components/molecules/UploadImage';
-import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import { UserInfoType } from 'commons/types/profile';
 
 
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
   setData: Function;
-}
-
-const hasUserCompletedPrimaryInformation = (userInfo) => {
-  const { first_name, last_name, birth_date, gender, province, city } = userInfo;
-  return first_name && last_name && birth_date && gender && province && city;
 }
 
 const PROFILE_PICTURE = process.env.PUBLIC_URL + '/images/profile.png';
@@ -54,7 +45,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       [event.target.name]: toEnglishNumber(event.target.value),
     });
   }
-   
+
   return (
     <Grid container spacing={2}>
 

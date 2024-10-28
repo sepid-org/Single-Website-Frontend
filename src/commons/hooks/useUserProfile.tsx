@@ -1,5 +1,5 @@
+import { useGetUserProfileQuery } from "commons/redux/slices/party/ProfileSlice";
 import { useSelector } from "react-redux";
-import { useGetUserProfileQuery } from "apps/website-display/redux/features/party/ProfileSlice";
 
 const useUserProfile = () => {
   const userInfo = useSelector((state: any) => state.account.userInfo);

@@ -1,8 +1,7 @@
 import { SchoolStudentshipType, UserInfoType } from 'commons/types/profile';
-import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import { WebsiteType } from 'commons/types/global';
 import { WMS_URL } from 'commons/configs/Constants';
-import jsonToFormData from 'commons/utils/jsonToFromDate';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type GetUserProfileInputType = {
   userId: string;

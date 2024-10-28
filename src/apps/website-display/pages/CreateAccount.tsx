@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { useCreateAccountMutation } from '../redux/features/user/UserSlice';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
+import { useCreateAccountMutation } from 'commons/redux/slices/party/UserSlice';
 
 type CreateAccountPropsType = {}
 

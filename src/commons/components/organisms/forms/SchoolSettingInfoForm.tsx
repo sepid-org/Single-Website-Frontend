@@ -14,10 +14,10 @@ import React, { FC, Fragment, useState } from 'react';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import AddInstitute from 'commons/components/organisms/dialogs/AddInstitute';
 import Iran from 'commons/utils/iran';
-import { useGetSchoolsQuery } from 'apps/website-display/redux/features/party/InstituteSlice';
 import { SchoolStudentshipType } from 'commons/types/profile';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import useUserProfile from 'commons/hooks/useUserProfile';
+import { useGetSchoolsQuery } from 'commons/redux/slices/party/InstituteSlice';
 
 const GRADES = [
   { value: 1, name: 'اول' },

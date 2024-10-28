@@ -6,10 +6,10 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useUpdateUserProfileMutation } from 'apps/website-display/redux/features/party/ProfileSlice';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
 import useUserProfile from 'commons/hooks/useUserProfile';
+import { useUpdateUserProfileMutation } from 'commons/redux/slices/party/ProfileSlice';
 
 type UserSettingPropsType = {
   onSuccessfulSubmission?: any;

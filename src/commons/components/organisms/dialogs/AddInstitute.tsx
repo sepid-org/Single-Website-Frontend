@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useCreateInstituteMutation } from 'apps/website-display/redux/features/party/InstituteSlice';
 import { SchoolType } from 'commons/types/models';
 import { GenderType } from 'commons/types/profile';
 import isNumber from 'commons/utils/validators/isNumber';
+import { useCreateInstituteMutation } from 'commons/redux/slices/party/InstituteSlice';
 
 type AddInstituteDialogPropsType = {
   open: boolean;

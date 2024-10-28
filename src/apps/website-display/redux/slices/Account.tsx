@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserSlice } from 'apps/website-display/redux/features/user/UserSlice';
+import { UserSlice } from 'commons/redux/slices/party/UserSlice';
 import { UserInfoType } from 'commons/types/profile';
-import { toast } from 'react-toastify';
 
 interface AccountState {
   id: string;
