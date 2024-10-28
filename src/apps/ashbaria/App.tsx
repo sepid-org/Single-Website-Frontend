@@ -13,8 +13,9 @@ import Profile from './pages/Profile';
 import CourtInfo from './pages/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
 import CustomStylesWrapper from './styles/CustomStylesWrapper';
-import EnterPhoneNumber from './pages/login/EnterPhoneNumber';
 import FSM from './gandekari/FSM';
+import Login from './pages/Login';
+import Introduction from './pages/Introduction';
 
 const App = () => {
 
@@ -33,7 +34,8 @@ const App = () => {
               <Route path="/manage/" element={<ProgramManagement />} />
               <Route path='/friendship-network/' element={<FriendshipNetwork />} />
               <Route path='/profile/' element={<Profile />} />
-              <Route path='/login/' element={<EnterPhoneNumber />} />
+              <Route path='/login/' element={<Login />} />
+              <Route path='/introduction/' element={<Introduction />} />
             </Route>
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
             </Route>
