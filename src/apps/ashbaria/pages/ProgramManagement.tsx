@@ -1,10 +1,9 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import PeopleIcon from '@mui/icons-material/People';
 import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import HelpIcon from '@mui/icons-material/Help';
 
 import Info from 'apps/program/template/management/Info';
 import Registration from 'apps/program/template/management/Registration';

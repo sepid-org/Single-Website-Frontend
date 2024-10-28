@@ -7,7 +7,6 @@ import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
 import useFinishFSM from "commons/hooks/useFinishFSM";
 import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
-import CustomContainedButton from "../../molecules/buttons/CustomContainedButton";
 
 type FinishCourtPropsType = {}
 
@@ -62,7 +61,9 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         </Fragment>
       }
 
-      <CustomContainedButton handleClick={handleFinishCourt} label="پایان دادگاه" />
+      <Button onClick={handleFinishCourt} variant='contained'>
+        {'پایان دادگاه'}
+      </Button>
     </Stack>
   )
 }

@@ -148,12 +148,44 @@ export const customTheme = createTheme({
           textTransform: 'none',
         },
         contained: {
-          background: 'linear-gradient(180deg, #26B7B4 0%, #1986A5 100%)',
-          color: DarkSecondary,
+          borderRadius: 24,
+          backgroundColor: '#130e15',
+          color: 'black',
+          background: 'linear-gradient(to right, #FE9C42, #E25100)',
+          '&:hover': {
+            background: 'linear-gradient(to right, #FE9C42, #E25100)',
+            filter: 'brightness(0.9)'
+          }
         },
         outlined: {
-          borderColor: PrimaryColor,
-        },
+          position: 'relative',
+          border: 'none',
+
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            padding: 2,
+            borderRadius: 24,
+            background: 'linear-gradient(to right, #FE9C42, #E25100)',
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
+          },
+
+          // Inner button styles
+          borderRadius: 24,
+          backgroundColor: '#130e15',
+          color: '#FE9C42',
+
+          '&:hover': {
+            backgroundColor: '#130e15',
+            border: 'none',
+            '&::before': {
+              opacity: 0.8,
+            }
+          }
+        }
       },
     },
     MuiMenuItem: {
