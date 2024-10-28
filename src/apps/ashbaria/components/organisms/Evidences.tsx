@@ -57,42 +57,9 @@ const Evidences = () => {
 			</Box>
 			<CourtEvidences courtName={"اسناد پرونده‌ی چپق‌فروشان ۱"} documents={[1,2,3,4,5,6,7,8]} accessable={true} />
 			<CourtEvidences courtName={"اسناد پرونده‌ی چپق‌فروشان ۱"} documents={[1,2,3,4,5,6,7,8,9,10]} accessable={false} />
-			<Box
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
-					height: "44px",
-					width: "148px",
-					margin: "15px",
-					borderRadius: "100px",
-					backgroundClip: "padding-box",
-					position: "relative",
-					overflow: "hidden",
-					background: "linear-gradient(to right, #FE9C42, #E25100)",
-				}}
-			>
-				<Button
-					fullWidth
-					sx={{
-						height: "42px",
-						width: "146px",
-						padding: "10px 20px 10px 20px",
-						gap: "4px",
-						borderRadius: "100px",
-						backgroundColor: "#130e15",
-						backgroundClip: "padding-box",
-						color: "#FE9C42",
-						'&: hover': {
-							background: "linear-gradient(180deg, #FE9C42, #E25100)",
-							color: "black"
-						}
-					}}
-					onClick={() => { }}
-				>
-					بازگشت به دادگاه
-				</Button>
-			</Box>
+			<Button variant="outlined">
+				{"بازگشت به دادگاه"}
+			</Button>
 		</Dialog>
 	);
 }

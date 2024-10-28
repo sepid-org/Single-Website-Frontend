@@ -15,6 +15,7 @@ import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper'
 import CustomStylesWrapper from './styles/CustomStylesWrapper';
 import EnterPhoneNumber from './pages/login/EnterPhoneNumber';
 import FSM from './gandekari/FSM';
+import Evidences from './components/organisms/Evidences';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
               <Route path='/friendship-network/' element={<FriendshipNetwork />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/login/' element={<EnterPhoneNumber />} />
+              <Route path='evidences' element={<Evidences/>} />
             </Route>
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
             </Route>

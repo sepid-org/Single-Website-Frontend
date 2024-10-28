@@ -1,5 +1,5 @@
 import React from "react";
-import evidenc from "../../../assets/unaccessableEvidence.svg";
+import evidenc from "../../../assets/unaccessibleEvidence.svg";
 import { Box } from "@mui/material";
 
 const UnaccessableEvidenceIcon = () => {

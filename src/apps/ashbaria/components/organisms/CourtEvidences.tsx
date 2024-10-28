@@ -1,19 +1,19 @@
 import { Box, Grid, Typography } from "@mui/material";
-import AccessableEvidenceDocument from "../molecules/AccessableEvidence";
+import AccessibleDocument from "../molecules/AccessibleDocument";
 import React from "react";
 import AccessableEvidenceIcon from "../atoms/icons/AccessableEvidence";
 import UnaccessableEvidenceIcon from "../atoms/icons/UnaccessableEvidence";
-import UnaccessableEvidence from "../molecules/UnaccessableEvidence";
+import UnaccessibleDocument from "../molecules/UnaccessibleDocument";
 
 
 interface CourtEvidencesProps {
 	courtName: string,
-	documents: [],
+	documents: number[],
 	accessable: boolean,
 }
 
 
-const CourtEvidences = ({ courtName, documents, accessable }) => {
+const CourtEvidences: React.FC<CourtEvidencesProps> = ({ courtName, documents, accessable }) => {
 	return (
 		<Box
 			sx={{
@@ -48,8 +48,8 @@ const CourtEvidences = ({ courtName, documents, accessable }) => {
 				{documents.map((item) => {
 					return (
 						accessable ?
-							(<AccessableEvidenceDocument />) :
-							(<UnaccessableEvidence />)
+							(<AccessibleDocument />) :
+							(<UnaccessibleDocument />)
 					);
 				})}
 			</Grid>
