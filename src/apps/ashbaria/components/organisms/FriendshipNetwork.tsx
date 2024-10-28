@@ -20,7 +20,8 @@ import HeartIcon from '../atoms/icons/Heart';
 import ExclamationIcon from '../atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
 import CopyIcon from '../atoms/icons/Copy';
-import CodingMission from '../molecules/CodingMission';
+import CompletedCodingMission from '../molecules/CompletedCodingMission';
+import UncompletedCodingMission from '../molecules/UncompleteddingMission';
 
 const FriendshipNetwork = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -29,15 +30,26 @@ const FriendshipNetwork = () => {
   const [follow, followResult] = useFollowMutation();
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
 
-  console.log("missions: ", missions);
-  console.log("completed missions: ", completeMission);
-
+  //create skeleton istead and delete states and useEffect
   const [unCompletedMissions, setUnCompletedMisssions] = useState([]);
   useEffect(() => {
     if(missions){
       setUnCompletedMisssions(missions);
+      console.log(missions);
     }
   }, [missions]);
+
+  
+  //create skeleton istead and delete states and useEffect
+  const [completedMissions, setCompletedMissions] = useState([]);
+  useEffect(() => {
+    if(myCompletedMissions){
+      setCompletedMissions(myCompletedMissions);
+      if(missions){
+        setUnCompletedMisssions(missions.filter(item1 => !myCompletedMissions.some(item2 => item2.id === item1.id)));
+      }
+    }
+  }, [myCompletedMissions, missions]);
 
   //create skeleton istead and delete states and useEffect
   const [myCode, setMyCode] = useState("");
@@ -406,7 +418,10 @@ const FriendshipNetwork = () => {
             }}
           >
             {unCompletedMissions.map(record => (
-              <CodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score}/>
+              <UncompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id}/>
+            ))}
+            {completedMissions.map(record => (
+              <CompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} />
             ))}
           </Box>
         </Container >

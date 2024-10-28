@@ -3,26 +3,25 @@ import React from "react";
 import VerifyIcon from "../atoms/icons/Verify";
 
 
-const CodingMission = ({ requiredFollows, rewardScore }) => {
+const CompletedCodingMission = ({ requiredFollows, rewardScore }) => {
 	return (
 		<Box
 			sx={{
-				bgcolor: 'rgba(0, 0, 0, 0.4)',
+				background: "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)",
 				heigh: "110px",
 				minWidth: "80px",
-				borderRadius: "12px",
 				marginLeft: "10px",
 				marginRight: "10px",
-				flexShrink: 0
+				flexShrink: 0,
+				borderRadius: "12px",
 			}}
 		>
 			<Typography
 				align="center"
 				sx={{
-					color: "rgba(255, 168, 0, 1)",
+					color: "black",
 					fontSize: "22px",
 					fontWeight: 800,
-					lineHeight: "36.27px",
 					textAlign: "center",
 				}}
 			>
@@ -34,7 +33,8 @@ const CodingMission = ({ requiredFollows, rewardScore }) => {
 					fontSize: "16px",
 					fontWeight: 400,
 					lineHeight: "23.86px",
-					textAlign: "center"
+					textAlign: "center",
+					color: "#2B1A42",
 				}}
 			>
 				{"ثبت موفق"}
@@ -48,6 +48,11 @@ const CodingMission = ({ requiredFollows, rewardScore }) => {
 					marginLeft: "8px",
 					marginRight: "5px",
 					marginTop: "5px",
+					marginBottom: "5px",
+					backdropFilter: "blur(4px)",
+					boxShadow: "0px 4px 4px 0px #00000040",
+					backgroundColor: "#00000080",
+					borderRadius: "20px",
 				}}
 			>
 				<Typography
@@ -65,4 +70,4 @@ const CodingMission = ({ requiredFollows, rewardScore }) => {
 	);
 }
 
-export default CodingMission;
+export default CompletedCodingMission;
