@@ -6,15 +6,15 @@ import PersonIcon from '@mui/icons-material/Person';
 import ClassIcon from '@mui/icons-material/Class';
 import VideocamIcon from '@mui/icons-material/Videocam';
 
-import Info from 'commons/template/program/management/Info';
-import Registration from 'commons/template/program/management/Registration';
-import RegistrationReceipts from 'commons/template/program/management/RegistrationReceipts';
+import Info from 'apps/program/template/management/Info';
+import Registration from 'apps/program/template/management/Registration';
+import RegistrationReceipts from 'apps/program/template/management/RegistrationReceipts';
 import { DashboardTabType } from 'commons/types/global';
-import Admins from 'commons/template/program/management/Admins';
+import Admins from 'apps/program/template/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
-import FSMs from 'commons/template/program/management/FSMs';
+import FSMs from 'apps/program/template/management/FSMs';
 import ManageMovieScreeningResponds from '../components/template/ManageMovieScreeningResponds';
 
 const tabs: DashboardTabType[] = [

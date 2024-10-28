@@ -15,19 +15,19 @@ import React, { useState, Fragment, FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
-import { FSMType, FSMUserPermissions } from 'commons/types/models';
+import { FSMType, UserFSMStatus } from 'commons/types/models';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
   isLoading?: boolean;
-  userPermissions?: FSMUserPermissions;
+  userFSMStatus?: UserFSMStatus;
 }
 
 export const FSMCard: FC<FSMCardPropsType> = ({
   fsm,
   isLoading = false,
-  userPermissions,
+  userFSMStatus,
 }) => {
   const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
@@ -96,7 +96,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
                   {fsm.name}
                 </Typography>
-                {userPermissions?.is_mentor &&
+                {userFSMStatus?.is_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
                       component={Link}

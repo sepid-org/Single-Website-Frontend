@@ -1,41 +1,31 @@
-import { useTranslate } from 'react-redux-multilingual/lib/context';
-
 import {
-  useGoForwardMutation,
   useMentorMoveForwardMutation,
-  useTransitToStateMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { useFSMStateContext } from './useFSMStateContext';
-import { FSMEdgeType } from 'commons/types/models';
+import { useSubmitButtonMutation } from 'commons/redux/slices/cms/response/ButtonWidget';
 
 const useChangeState = () => {
-  const t = useTranslate();
   const { isMentor } = useFSMStateContext();
-  const [goForward, { isLoading: isGoForwardLoading }] = useGoForwardMutation();
-  const [mentorMoveForward, { isLoading: isMentorMoveForwardLoading }] = useMentorMoveForwardMutation();
-  const [transitToState, result] = useTransitToStateMutation();
+  const [submitButton, submitButtonResult] = useSubmitButtonMutation();
+  const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
 
-  const changePlayerState = (stateId: string) => {
-    transitToState({
-      stateId,
-    })
-  }
-
-  const changeState = (edge: FSMEdgeType) => {
+  const changeState = ({ stateId, widgetId = null }) => {
     if (isMentor) {
-      mentorMoveForward({
-        edgeId: edge.id,
-      });
+      // todo:
+      // mentorMoveForward({
+      //   edgeId: edge.id,
+      // });
     } else {
-      goForward({
-        edgeId: edge.id,
+      submitButton({
+        stateId,
+        widgetId,
       });
     }
   };
 
   return {
     changeState,
-    changePlayerState,
+    result: submitButtonResult,
   };
 }
 

@@ -3,6 +3,7 @@ import { Card, CardContent, Typography } from '@mui/material';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { DiscountCodeType } from 'apps/film-bazi/types';
 import moment from 'moment-jalaali';
+import { Link } from 'react-router-dom';
 
 moment.loadPersian({ usePersianDigits: true });
 
@@ -36,11 +37,22 @@ const DiscountCodeInfo: FC<DiscountCodeInfoPropsType> = ({ discountCode }) => {
         <Typography variant="body2" color="text.secondary">
           تعداد استفاده: {toPersianNumber(usage_count)} از {toPersianNumber(max_uses)}
         </Typography>
-        {end_date && (
+        {end_date &&
           <Typography variant="body2" color="text.secondary">
             تاریخ انقضا: {moment(end_date).format('jYYYY/jMM/jDD')}
           </Typography>
-        )}
+        }
+        <Typography variant="body2" color="text.secondary">
+          {'لینک خرید از سایت '}
+          <Link
+            to={film.gisheh7_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: '#ff4759', textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}
+          >
+            {'گیشه۷'}
+          </Link>
+        </Typography>
       </CardContent>
     </Card>
   );

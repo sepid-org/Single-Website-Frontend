@@ -1,92 +1,68 @@
+import { CodeType, CompletedMissionType, FollowType, FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
+import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 
-type Network = {
-  beFollowedRewardScore: number;
-  // Add other network properties as needed
-}
-
-type Mission = {
-  title: string;
-  requiredInvitations: number;
-  rewardScore: number;
-}
-
-type Follow = {
-  code: string;
-}
-
-type MissionProgress = {
-  invitationsMade: number;
-  missionProgress: Array<{
-    title: string;
-    requiredInvitations: number;
-    rewardScore: number;
-    invitationsMade: number;
-    completed: boolean;
-  }>;
-}
-
-type CreateCodeResponse = {
-  userUuid: string;
-  code: string;
+type GetMyFriendshipNetworkOutputType = {
+  network: FriendshipNetworkType;
+  code: CodeType;
 }
 
 export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    // Get my code info
-    getMyCodeInfo: builder.query<Network, void>({
-      query: () => ({
-        url: '/friendship-network/my-code-info/',
-        method: 'GET',
-      }),
-      providesTags: ['Network'],
+    getMyFriendshipNetwork: builder.query<GetMyFriendshipNetworkOutputType, void>({
+      providesTags: [{ type: 'Network', id: 'MY' }],
+      query: () => '/friendship-network/my-network/',
     }),
 
-    // Get mission list
-    getMissions: builder.query<Mission[], void>({
-      query: () => ({
-        url: '/friendship-network/missions/',
-        method: 'GET',
-      }),
-      providesTags: ['Missions'],
+    getMissions: builder.query<MissionType[], void>({
+      providesTags: [{ type: 'Missions', id: 'ALL' }],
+      query: () => '/friendship-network/missions/',
     }),
 
-    // Register follow
-    registerFollow: builder.mutation<{ detail: string }, { code: string }>({
-      query: (body) => ({
-        url: '/friendship-network/register-follow/',
+    follow: builder.mutation<FollowType & { created: boolean }, { code: string }>({
+      invalidatesTags: [{ type: 'Missions', id: 'MY' }],
+      onQueryStarted: createInvalidationCallback([
+        { type: 'rank', id: 'MY' },
+        { type: 'balances', id: 'MY' },
+      ]),
+      query: ({ code }) => ({
+        url: '/friendship-network/follow/',
         method: 'POST',
-        body,
+        body: {
+          code,
+        }
       }),
-      invalidatesTags: ['Network', 'MissionProgress'],
     }),
 
-    // Get mission progress
-    getMissionProgress: builder.query<MissionProgress, void>({
-      query: () => ({
-        url: '/friendship-network/my-mission-progress/',
-        method: 'GET',
-      }),
-      providesTags: ['MissionProgress'],
+    getMyCompletedMissions: builder.query<MissionType[], void>({
+      providesTags: [{ type: 'Missions', id: 'MY-COMPLETED-MISSIONS' }],
+      query: () => '/friendship-network/my-completed-missions/',
     }),
 
-    // Create code
-    createCode: builder.mutation<CreateCodeResponse, void>({
-      query: () => ({
-        url: '/friendship-network/create-code/',
-        method: 'GET',  // Note: This is a GET request that creates a resource
+    completeMission: builder.mutation<CompletedMissionType, { missionId: string }>({
+      invalidatesTags: [{ type: 'Missions', id: 'MY' }],
+      onQueryStarted: createInvalidationCallback([
+        { type: 'rank', id: 'MY' },
+        { type: 'balances', id: 'MY' },
+      ]),
+      query: ({ missionId }) => ({
+        url: '/friendship-network/complete-mission/',
+        method: 'POST',
+        body: {
+          mission: missionId,
+        }
       }),
-      invalidatesTags: ['Network'],
     }),
+
   }),
   overrideExisting: false,
 });
 
 export const {
-  useGetMyCodeInfoQuery,
+  useGetMyFriendshipNetworkQuery,
   useGetMissionsQuery,
-  useRegisterFollowMutation,
-  useGetMissionProgressQuery,
-  useCreateCodeMutation,
+  useFollowMutation,
+  useGetMyCompletedMissionsQuery,
+  useCompleteMissionMutation,
 } = FriendshipNetworkSlice;

@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import HelpIcon from '@mui/icons-material/Help';
 
 import DeleteWidgetDialog from 'commons/components/organisms/dialogs/DeleteWidgetDialog';
-import EditHintsDialog from 'commons/components/organisms/dialogs/EditHintsDialog';
+import EditWidgetHintsDialog from 'commons/components/organisms/dialogs/EditWidgetHintsDialog';
 import useWidgetFactory from './useWidgetFactory';
 import CreateAttributeDialog from '../dialogs/CreateAttributeDialog';
 
@@ -66,7 +66,6 @@ const WidgetEditMenu = ({
         />
         <EditWidgetDialog
           {...widget}
-          paperId={paperId}
           open={openEditDialog}
           handleClose={() => setOpenEditDialog(false)}
           onMutate={onMutate}
@@ -77,9 +76,7 @@ const WidgetEditMenu = ({
           handleClose={() => setOpenDeleteWidgetDialog(false)}
           onDelete={onDelete}
         />
-        <EditHintsDialog
-          paperId={paperId}
-          hints={widget.hints}
+        <EditWidgetHintsDialog
           referenceId={widget.id}
           open={openEditHintDialog}
           handleClose={() => setEditHintDialog(false)}

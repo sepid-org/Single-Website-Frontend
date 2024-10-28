@@ -25,7 +25,6 @@ const Deck: FC<DeckPropsType> = ({
         width: '100%',
         paddingBottom: 2,
         borderRadius: '8px',
-        boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
         '::-webkit-scrollbar': {
           height: '8px',
         },

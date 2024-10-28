@@ -86,7 +86,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
 
     getFSMStates: builder.query<GetFSMStatesOutputType, { fsmId: string }>({
       providesTags: ['fsm-states'],
-      query: ({ fsmId }) => `fsm/fsm/${fsmId}/get_states/`,
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/states/`,
       transformResponse: (response: any): GetFSMStatesOutputType => {
         return response;
       },

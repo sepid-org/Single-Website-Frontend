@@ -53,7 +53,6 @@ function FlowCanvas({ fsmStates, fsmEdges, currentState }) {
 	const { fitView } = useReactFlow();
 	useEffect(() => {
 		if (currentState != null) {
-			console.log(currentState);
 			fitView({
 				nodes: [currentState],
 			});

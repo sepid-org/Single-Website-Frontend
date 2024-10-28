@@ -6,10 +6,11 @@ import { WidgetModes } from 'commons/components/organisms/Widget';
 import SmallAnswerProblemEditWidget from './edit';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type SmallAnswerProblemWidgetPropsType = {
-  onAnswerChange: any;
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
+  on: any;
 
   id: number;
   mode: WidgetModes;
@@ -20,7 +21,7 @@ type SmallAnswerProblemWidgetPropsType = {
 
 const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   onAnswerChange,
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
 
   id: questionId,
   mode,
@@ -33,6 +34,8 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const { playerId } = useFSMStateContext();
 
   const changeText = (e) => {
     if (mode === WidgetModes.InForm) {
@@ -46,7 +49,8 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
       return;
     }
     setIsSubmitting(true);
-    onAnswerSubmit({
+    submitAnswer({
+      playerId,
       questionId,
       text: answer,
       onSuccess: () => {

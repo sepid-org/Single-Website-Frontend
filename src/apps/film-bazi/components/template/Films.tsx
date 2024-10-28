@@ -29,13 +29,13 @@ const Films: FC<FilmsPropsType> = ({ }) => {
         <Grid container spacing={2}>
           {isLoading &&
             [1, 2, 3].map((index) => (
-              <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'}>
+              <Grid container item xs={12} sm={6} lg={4} key={index} justifyContent={'center'}>
                 <FilmSkeletonCard />
               </Grid>
             ))
           }
           {films.map((film) => (
-            <Grid container item xs={12} sm={6} md={4} key={film.name} justifyContent={'center'}>
+            <Grid container item xs={12} sm={6} lg={4} key={film.name} justifyContent={'center'}>
               <FilmCard film={film} />
             </Grid>
           ))}

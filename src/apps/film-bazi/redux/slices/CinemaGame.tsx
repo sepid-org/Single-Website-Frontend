@@ -1,6 +1,7 @@
 import { SeatSelectionType, SeatType } from 'apps/film-bazi/types';
 import { FilmbaziApi } from '../FilmbaziApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
+import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 
 type FinishCourtInputType = {
   fsmId: string;
@@ -30,6 +31,8 @@ export const CinemaGameSlice = FilmbaziApi.injectEndpoints({
     selectSeat: builder.mutation<SeatType, { seatName: string }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
         { type: 'filmbazi-seat-selection', id: 'LIST' },
+      ]),
+      onQueryStarted: createInvalidationCallback([
         { type: 'rank', id: 'MY' },
         { type: 'balances', id: 'MY' },
       ]),

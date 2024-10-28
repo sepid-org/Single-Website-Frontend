@@ -95,7 +95,6 @@ export const customTheme = createTheme({
           borderRadius: 24,
           borderTop: '2px solid rgba(255, 255, 255, 0.5)',
           background: 'linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)',
-          backdropFilter: 'blur(5.822803020477295px)',
           boxShadow: '0px 5.82px 5.82px 0px rgba(0, 0, 0, 0.25)',
         },
       },
@@ -111,7 +110,7 @@ export const customTheme = createTheme({
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
             borderColor: "#60557E",
-          },  
+          },
         },
       },
     },
@@ -149,18 +148,44 @@ export const customTheme = createTheme({
           textTransform: 'none',
         },
         contained: {
-          background: 'linear-gradient(180deg, #26B7B4 0%, #1986A5 100%)',
-          color: DarkSecondary,
+          borderRadius: 24,
+          backgroundColor: '#130e15',
+          color: 'black',
+          background: 'linear-gradient(to right, #FE9C42, #E25100)',
           '&:hover': {
-            background: 'linear-gradient(180deg, #1986A5 0%, #26B7B4 100%)',
-          },
+            background: 'linear-gradient(to right, #FE9C42, #E25100)',
+            filter: 'brightness(0.9)'
+          }
         },
         outlined: {
-          borderColor: PrimaryColor,
-          '&:hover': {
-            borderColor: SecondaryColor,
+          position: 'relative',
+          border: 'none',
+
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            padding: 2,
+            borderRadius: 24,
+            background: 'linear-gradient(to right, #FE9C42, #E25100)',
+            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+            WebkitMaskComposite: 'xor',
+            maskComposite: 'exclude',
           },
-        },
+
+          // Inner button styles
+          borderRadius: 24,
+          backgroundColor: '#130e15',
+          color: '#FE9C42',
+
+          '&:hover': {
+            backgroundColor: '#130e15',
+            border: 'none',
+            '&::before': {
+              opacity: 0.8,
+            }
+          }
+        }
       },
     },
     MuiMenuItem: {

@@ -11,10 +11,11 @@ import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 export { MultiChoiceQuestionEditWidget };
 
 type MultiChoiceQuestionWidgetPropsType = {
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
   onAnswerChange: any;
   id: string;
   text: string;
@@ -27,7 +28,7 @@ type MultiChoiceQuestionWidgetPropsType = {
 } & QuestionWidgetType;
 
 const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
   onAnswerChange,
 
   id: questionId,
@@ -41,10 +42,13 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   ...questionWidgetProps
 }) => {
   const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>(submittedAnswer?.choices || []);
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const setSelectedChoices = (newSelectedChoices) => {
     onAnswerChange({ choices: newSelectedChoices });
     _setSelectedChoices(newSelectedChoices);
   }
+  const { playerId } = useFSMStateContext();
+
 
   const onChoiceSelect = (choice) => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -53,7 +57,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     if (maxSelections === 1) {
       setSelectedChoices([choice])
       if (mode === WidgetModes.View) {
-        submitAnswer([choice]);
+        handleSubmitAnswer([choice]);
       }
     } else {
       const choiceIndex = selectedChoices.indexOf(choice);
@@ -74,9 +78,9 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     }
   }
 
-  const submitAnswer = (selectedChoices) => {
+  const handleSubmitAnswer = (selectedChoices) => {
     if (mode === WidgetModes.View) {
-      onAnswerSubmit({ questionId, selectedChoices });
+      submitAnswer({ questionId, selectedChoices, playerId });
     }
   }
 
@@ -105,7 +109,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
           variant='contained'
-          onClick={() => submitAnswer(selectedChoices)}>
+          onClick={() => handleSubmitAnswer(selectedChoices)}>
           <Typography fontWeight={400}>
             {'ثبت'}
           </Typography>

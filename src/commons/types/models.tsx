@@ -160,8 +160,7 @@ export type PaperType = ObjectType & {
   paper_type: string;
   widgets: WidgetType[]
 }
-export type FSMStateType = ObjectType & NodeProps & {
-  hints: HintType[];
+export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
   fsm: string;
@@ -270,7 +269,7 @@ export type PlayerType = {
   user?: string;
   id: string;
   team: TeamType;
-  current_state: FSMStateType;
+  current_state: string;
   last_visit?: string;
 }
 
@@ -313,9 +312,10 @@ export type ProgramUserPermissions = {
   is_manager: boolean;
 }
 
-export type FSMUserPermissions = {
+export type UserFSMStatus = {
   fsm_id: string;
   is_mentor: boolean;
+  is_finished: boolean;
 }
 
 /////////////// OBJECT ///////////////

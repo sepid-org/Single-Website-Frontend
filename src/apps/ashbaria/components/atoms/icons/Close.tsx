@@ -1,16 +1,16 @@
-import React from "react";
-import closeButtonIcon from "../../../assets/close-circle.svg";
-import { Box } from "@mui/material";
+import React from 'react';
+import CloseSVG from "../../../assets/close-circle.svg";
+import { Box } from '@mui/material';
 
-const CloseIcon = () => {
-	return (
-		<Box
-			component="img"
-			src={closeButtonIcon}
-			width={28}
-			height={28}
-		/>
-	);
-}
+const CloseIcon = ({ width = 30, height = 30 }) => {
+  return (
+    <Box
+      component="img"
+      src={CloseSVG}
+      width={width}
+      height={height}
+    />
+  );
+};
 
 export default CloseIcon;

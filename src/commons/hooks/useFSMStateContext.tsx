@@ -1,4 +1,4 @@
-import { FSMStateType } from 'commons/types/models';
+import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
 interface FSMStateContextType {
@@ -6,15 +6,16 @@ interface FSMStateContextType {
   isMentor?: boolean;
   teamId?: string;
   playerId?: string;
+  WIDGET_TYPE_MAPPER?: any;
 }
 
 const FSMStateContext = createContext<FSMStateContextType | null>(null);
 
-interface FSMProviderPropsType extends FSMStateContextType {
+interface FSMStateProviderPropsType extends FSMStateContextType {
   children: ReactNode;
 }
 
-export const FSMStateProvider: FC<FSMProviderPropsType> = ({
+export const FSMStateProvider: FC<FSMStateProviderPropsType> = ({
   children,
   ...props
 }) => {
@@ -33,6 +34,7 @@ export const useFSMStateContext = (): FSMStateContextType => {
       isMentor: null,
       teamId: null,
       playerId: null,
+      WIDGET_TYPE_MAPPER: WIDGET_TYPE_MAPPER,
     };
   }
   return context;

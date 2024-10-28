@@ -13,7 +13,6 @@ import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useLoginMutation } from 'apps/website-display/redux/features/user/UserSlice';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { toast } from 'react-toastify';
 
 type LoginPagePropsType = {};
 
@@ -75,7 +74,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
             component="h1"
             variant="h3"
             textAlign={'center'}>
-            {'ورود به سامانه'}
+            {`ورود به ${website?.display_name}`}
           </Typography>
 
           <Stack width={'100%'} spacing={2.5}>
@@ -122,7 +121,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 helperText={
                   <Typography component="span">
                     <Link style={{ textDecoration: 'none' }} to={'/reset-password/'}>
-                      {'فراموشی گذر‌واژه'}
+                      {'رمز عبور را فراموش کرده‌ام'}
                     </Link>
                   </Typography>
                 }

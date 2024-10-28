@@ -6,7 +6,7 @@ import useFinishFSM from 'commons/hooks/useFinishFSM';
 type FinishFSMButtonPropsType = {}
 
 const FinishFSMButton: FC<FinishFSMButtonPropsType> = ({ }) => {
-  const { finishFSM } = useFinishFSM();
+  const [finishFSM] = useFinishFSM();
 
   return (
     <Button
