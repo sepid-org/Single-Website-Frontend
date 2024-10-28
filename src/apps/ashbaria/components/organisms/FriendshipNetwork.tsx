@@ -88,10 +88,6 @@ const FriendshipNetwork = () => {
     }
   }, [followResult])
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText("Fixed Text Value");
-  };
-
   const myCode = 12121212;
 
   const records = Array.from({ length: 2 }, (_, index) => ({
@@ -102,14 +98,14 @@ const FriendshipNetwork = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
   };
 
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(myCode.toString());
   };
 
-  const shareOnMobile = (text: string) => {
+  const shareOnMobile = () => {
     if (navigator.share) {
       navigator.share({
-        text: text,
+        text: myCode.toString(),
       }).then(() => {
         console.log('Successful share');
       }).catch((error) => {
@@ -122,9 +118,9 @@ const FriendshipNetwork = () => {
 
   const handleShare = () => {
     if (isMobileDevice()) {
-      shareOnMobile(myCode.toString());
+      shareOnMobile();
     } else {
-      copyToClipboard(myCode.toString());
+      copyToClipboard();
     }
   }
 
@@ -247,6 +243,7 @@ const FriendshipNetwork = () => {
                     '& .MuiOutlinedInput-root': {
                       height: 44,
                       width: 255,
+                      maxWidth: "100%",
                     }
                   }}
                 />
@@ -313,6 +310,7 @@ const FriendshipNetwork = () => {
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
                   borderRadius: 1,
                   minWidth: 255,
+                  maxWidth: "100%",
                   height: 44,
                   margin: 1,
                 }}
@@ -340,12 +338,12 @@ const FriendshipNetwork = () => {
                   }}
                 >
                   <Typography>{myCode}</Typography>
-                  <IconButton onClick={handleShare} color="inherit">
+                  <IconButton onClick={copyToClipboard} color="inherit">
                     <CopyIcon />
                   </IconButton>
                 </Box>
               </Box>
-              <CustomContainedButton minWidth={255} handleClick={() => { }} fullWidth={false} label={"ارسال دعوت‌نامه"} />
+              <CustomContainedButton minWidth={255} handleClick={handleShare} fullWidth={false} label={"ارسال دعوت‌نامه"} />
             </Grid>
           </Grid>
 
