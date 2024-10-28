@@ -98,7 +98,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     getMyPlayer: builder.query<GetMyPlayerOutputType, GetMyPlayerInputType>({
       providesTags: ['player'],
       query: ({ fsmId }) => ({
-        url: `/fsm/fsm/${fsmId}/current_user_fsm_player/`,
+        url: `/fsm/fsm/${fsmId}/user-player/`,
         method: 'GET',
       }),
     }),
