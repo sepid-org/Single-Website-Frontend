@@ -3,7 +3,7 @@ import React from "react";
 import VerifyIcon from "../atoms/icons/Verify";
 
 
-const CodingMission = ({ missionID }) => {
+const CodingMission = ({ requiredFollows, rewardScore }) => {
 	return (
 		<Box
 			sx={{
@@ -26,7 +26,7 @@ const CodingMission = ({ missionID }) => {
 					textAlign: "center",
 				}}
 			>
-				{missionID}
+				{requiredFollows}
 			</Typography>
 			<Typography
 				align="center"
@@ -57,7 +57,7 @@ const CodingMission = ({ missionID }) => {
 						textAlign: "right"
 					}}
 				>
-					180
+					{rewardScore}
 				</Typography>
 				<VerifyIcon />
 			</Box>

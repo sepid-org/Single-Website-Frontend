@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -28,6 +28,36 @@ const FriendshipNetwork = () => {
   const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
   const [follow, followResult] = useFollowMutation();
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
+
+  console.log("missions: ", missions);
+  console.log("completed missions: ", completeMission);
+
+  const [unCompletedMissions, setUnCompletedMisssions] = useState([]);
+  useEffect(() => {
+    if(missions){
+      setUnCompletedMisssions(missions);
+    }
+  }, [missions]);
+
+  //create skeleton istead and delete states and useEffect
+  const [myCode, setMyCode] = useState("");
+  const [followingInfo, setFollowingInfo] = useState({
+    be_followed_reward_score: "",
+    follow_reward_score: "",
+    user_followers_count: "",
+    user_followings_count: "",
+  });
+  useEffect(() => {
+    if(myFriendshipNetwork){
+      setMyCode(myFriendshipNetwork.code.code);
+      setFollowingInfo({
+        be_followed_reward_score: myFriendshipNetwork.network.be_followed_reward_score.toString(),
+        follow_reward_score: myFriendshipNetwork.network.follow_reward_score.toString(),
+        user_followers_count: myFriendshipNetwork.network.user_followers_count.toString(),
+        user_followings_count: myFriendshipNetwork.network.user_followings_count.toString(),
+      });
+    }
+  }, [myFriendshipNetwork]);
 
   useEffect(() => {
     if (completeMissionResult.isError) {
@@ -87,24 +117,18 @@ const FriendshipNetwork = () => {
     }
   }, [followResult])
 
-  const myCode = 12121212;
-
-  const records = Array.from({ length: 2 }, (_, index) => ({
-    id: index + 1,
-  }));
-
   const isMobileDevice = () => {
     return /Mobi|Android/i.test(navigator.userAgent);
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(myCode.toString());
+    navigator.clipboard.writeText(myCode);
   };
 
   const shareOnMobile = () => {
     if (navigator.share) {
       navigator.share({
-        text: myCode.toString(),
+        text: myCode,
       }).then(() => {
         console.log('Successful share');
       }).catch((error) => {
@@ -122,6 +146,8 @@ const FriendshipNetwork = () => {
       copyToClipboard();
     }
   }
+
+  const [inputCode, setInputCode] = useState("");
 
   return (
     <Fragment>
@@ -162,18 +188,19 @@ const FriendshipNetwork = () => {
           <Grid
             container
             sx={{
-              display: "flex",
-              justifyContent: "space-evenly",
+              //display: "flex",
+              //justifyContent: "space-evenly",
               width: "100%",
               margin: 0,
-              gap: 2
             }}
+            spacing={3}
+            columnSpacing={3}
           >
             {/* Right Component */}
             <Grid
               item
               xs={11}
-              sm={5}
+              sm={6}
               sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -203,7 +230,7 @@ const FriendshipNetwork = () => {
                 >
                   کد دوستاتو بزن!
                 </Typography>
-                <FriendshipNetworkPoints points={129} numberOfFriends={12} />
+                <FriendshipNetworkPoints points={followingInfo.follow_reward_score} numberOfFriends={followingInfo.user_followings_count} />
               </Box>
               <Box
                 sx={{
@@ -245,9 +272,10 @@ const FriendshipNetwork = () => {
                       maxWidth: "100%",
                     }
                   }}
+                  onChange={(event) => setInputCode(event.target.value)}
                 />
               </Box>
-              <Button variant='outlined' size='large'>
+              <Button variant='outlined' size='large' onClick={() => follow({code: inputCode})}>
                 {'ثبتش کن'}
               </Button>
             </Grid>
@@ -256,7 +284,7 @@ const FriendshipNetwork = () => {
             <Grid
               item
               xs={11}
-              sm={5}
+              sm={6}
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -286,7 +314,7 @@ const FriendshipNetwork = () => {
                 >
                   به دوستات کد بده!
                 </Typography>
-                <FriendshipNetworkPoints numberOfFriends={1} points={9} />
+                <FriendshipNetworkPoints numberOfFriends={followingInfo.user_followers_count} points={followingInfo.follow_reward_score} />
               </Box>
               <Typography
                 fontSize={16}
@@ -377,8 +405,8 @@ const FriendshipNetwork = () => {
               overflowX: "auto",
             }}
           >
-            {records.map(record => (
-              <CodingMission missionID={record.id} />
+            {unCompletedMissions.map(record => (
+              <CodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score}/>
             ))}
           </Box>
         </Container >
