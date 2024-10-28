@@ -1,5 +1,5 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import AshbariaPoster from "apps/ashbaria/components/atoms/icons/AshbariaPoster";
@@ -9,11 +9,11 @@ type IntroductionPage3PropsType = {}
 const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+
   return (
-    <Stack width={500} component={Paper} padding={2} spacing={2}>
-      {/* <ProgramLogo /> */}
+    <Fragment>
       <Stack direction={'row'} spacing={2} alignItems={'start'}>
-        <Stack spacing={2} alignItems={'start'}>
+        <Stack spacing={2} alignItems={'start'} justifyContent={'space-between'}>
           <Typography align='justify'>
             لازمه بگم که اگه کتاب رو هنوز نخوندید هم می‌تونید مسابقه رو شروع کنید، ولی اگه دوست دارین توی کورس رقابت باقی بمونین، لازمه قبل از بازی اون رو مطالعه کنید، چون که خیلی جاها به اطلاعاتی که داخل کتاب اومده نیاز پیدا می‌کنید.
             از این لینک می‌تونید کتاب رو تهیه کنید.
@@ -33,7 +33,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
           {'بعدی'}
         </Button>
       </Stack>
-    </Stack>
+    </Fragment>
   );
 };
 

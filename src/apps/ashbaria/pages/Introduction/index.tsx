@@ -1,15 +1,11 @@
-import { Box } from "@mui/material";
-import React, { FC, useEffect, useState } from "react";
+import { Box, Stack } from "@mui/material";
+import React, { FC } from "react";
 import backgroundImg from "../../assets/profileBackground.svg";
-import { useGetVerificationCodeMutation } from "apps/website-display/redux/features/user/UserSlice";
-import EnterVerificationCode from "../Login/EnterVerificationCode";
-import EnterPhoneNumber from "../Login/EnterPhoneNumber";
 import { useSearchParams } from "react-router-dom";
-import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
-import { toast } from "react-toastify";
 import IntroductionPage1 from "./IntroductionPage1";
 import IntroductionPage2 from "./IntroductionPage2";
 import IntroductionPage3 from "./IntroductionPage3";
+import FullScreenPaper from "commons/components/atoms/FullScreenPaper";
 
 export enum LoginTabs {
   EnterPhoneNumber = 'EnterPhoneNumber',
@@ -19,7 +15,7 @@ export enum LoginTabs {
 export type LoginPropsType = {};
 
 const Introduction: FC<LoginPropsType> = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const currentPage = parseInt(searchParams.get('page')) || 1;
 
   return (
@@ -30,7 +26,6 @@ const Introduction: FC<LoginPropsType> = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: 4,
         backgroundImage: `url(${backgroundImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -38,15 +33,11 @@ const Introduction: FC<LoginPropsType> = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      {currentPage === 1 &&
-        <IntroductionPage1 />
-      }
-      {currentPage === 2 &&
-        <IntroductionPage2 />
-      }
-      {currentPage === 3 &&
-        <IntroductionPage3 />
-      }
+      <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
+        {currentPage === 1 && <IntroductionPage1 />}
+        {currentPage === 2 && <IntroductionPage2 />}
+        {currentPage === 3 && <IntroductionPage3 />}
+      </Stack>
     </Box>
   );
 };
