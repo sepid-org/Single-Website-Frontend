@@ -1,6 +1,9 @@
-export const PrimaryColor = '#26B7B4';
-export const DarkSecondary = '#17132D';
-export const SecondaryColor = '#221F37FA';
+export const Primary = '#ff7a38';
+export const DarkPrimary = '#ff6b21';
+export const DarkSecondary = '#221F37FA';
+export const SecondaryColor = '#463e73';
+export const Golden = '#FFA800';
+export const Black = 'black';
 export const Gray = '#ACACAC';
 export const Gold = '#FFA800';
 export const Green = '#00D387';

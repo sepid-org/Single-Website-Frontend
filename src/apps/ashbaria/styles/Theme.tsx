@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import selectTheme from 'commons/configs/themes';
-import { DarkSecondary, Gray, PrimaryColor, SecondaryColor } from '../constants/colors';
+import { Black, DarkSecondary, Golden, Gray, Primary, SecondaryColor } from '../constants/colors';
 
 export const customTheme = createTheme({
   ...selectTheme('rtl'),
@@ -39,7 +39,7 @@ export const customTheme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: PrimaryColor,
+      main: Primary,
     },
     secondary: {
       main: SecondaryColor,
@@ -144,47 +144,21 @@ export const customTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
+          borderRadius: 24,
           color: 'white',
           textTransform: 'none',
         },
         contained: {
-          borderRadius: 24,
-          backgroundColor: '#130e15',
-          color: 'black',
-          background: 'linear-gradient(to right, #FE9C42, #E25100)',
+          color: Black,
+          background: 'linear-gradient(180deg, #FE9C42, #E25100)',
           '&:hover': {
-            background: 'linear-gradient(to right, #FE9C42, #E25100)',
+            background: 'linear-gradient(180deg, #FE9C42, #E25100)',
             filter: 'brightness(0.9)'
           }
         },
         outlined: {
-          position: 'relative',
-          border: 'none',
-
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            inset: 0,
-            padding: 2,
-            borderRadius: 24,
-            background: 'linear-gradient(to right, #FE9C42, #E25100)',
-            WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-            WebkitMaskComposite: 'xor',
-            maskComposite: 'exclude',
-          },
-
-          // Inner button styles
-          borderRadius: 24,
-          backgroundColor: '#130e15',
-          color: '#FE9C42',
-
-          '&:hover': {
-            backgroundColor: '#130e15',
-            border: 'none',
-            '&::before': {
-              opacity: 0.8,
-            }
-          }
+          backgroundColor: '#00000066',
+          color: Golden,
         }
       },
     },
