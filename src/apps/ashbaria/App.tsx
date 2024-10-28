@@ -37,6 +37,7 @@ const App = () => {
               <Route path='/login/' element={<Login />} />
               <Route path='/introduction/' element={<Introduction />} />
             </Route>
+
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
             </Route>
           </Routes>
