@@ -27,7 +27,7 @@ const App = () => {
 
     if (hostname === "ashbaria.ir") {
       navigate("/program/ashbaria/");
-    } else if (hostname === "filmbazi.ir") {
+    } else if (hostname === "platform.filmbazi.ir") {
       navigate("/program/filmbazi/");
     }
   }, [navigate]);
