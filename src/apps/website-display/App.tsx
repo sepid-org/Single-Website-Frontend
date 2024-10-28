@@ -1,5 +1,5 @@
-import React from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import ResetPassword from 'apps/website-display/pages/ResetPassword';
 import CreateAccount from 'apps/website-display/pages/CreateAccount';
@@ -19,6 +19,18 @@ import Notifications from 'apps/chat/pages/Notifications';
 import NotFoundPage from 'commons/pages/NotFoundPage';
 
 const App = () => {
+  const navigate = useNavigate();
+
+  // todo: TOF
+  useEffect(() => {
+    const hostname = window.location.hostname;
+
+    if (hostname === "ashbaria.ir") {
+      navigate("/program/ashbaria/");
+    } else if (hostname === "filmbazi.ir") {
+      navigate("/program/filmbazi/");
+    }
+  }, [navigate]);
 
   return (
     <Routes>
