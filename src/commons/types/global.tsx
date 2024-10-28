@@ -115,25 +115,27 @@ export type AppbarMenuItemType = {
 }
 
 
-export type HintType = any;
+export type HintType = {
+  id: string;
+};
 
-export interface CourseMapNodeInfo{
+export interface CourseMapNodeInfo {
   data: {
-      label: string, 
-      isFirstNode: boolean
+    label: string,
+    isFirstNode: boolean
   },
   id: string,
   position: {
-      x: number,
-      y: number
+    x: number,
+    y: number
   },
   type: string,
   draggable: boolean
 }
 
-export interface CourseViewMapNodeInfo extends CourseMapNodeInfo{
+export interface CourseViewMapNodeInfo extends CourseMapNodeInfo {
   data: {
-    label: string, 
+    label: string,
     isFirstNode: boolean,
     positionInMap: "currentNode" | "seen" | "notSeen"
   }

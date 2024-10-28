@@ -28,13 +28,13 @@ const Games: FC<GamesPropsType> = ({ }) => {
         <Grid container spacing={2}>
           {isGetGamesLoading &&
             [1, 2, 3].map((index) => (
-              <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'}>
+              <Grid container item xs={12} sm={6} lg={4} key={index} justifyContent={'center'}>
                 <FilmSkeletonCard />
               </Grid>
             ))
           }
           {games.map((game) => (
-            <Grid container item xs={12} sm={6} md={4} key={game.id} justifyContent={'center'}>
+            <Grid container item xs={12} sm={6} lg={4} key={game.id} justifyContent={'center'}>
               <GameCard game={game} />
             </Grid>
           ))}

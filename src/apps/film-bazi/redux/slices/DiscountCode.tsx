@@ -17,7 +17,7 @@ export const FilmsSlice = FilmbaziApi.injectEndpoints({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
         { type: 'filmbazi-discount-code', id: 'MY' }
       ]),
-      query: () => `films/discount-codes/get_my_discount_codes`,
+      query: () => `films/discount-codes/get_my_discount_codes/`,
     }),
 
   }),

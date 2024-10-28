@@ -1,7 +1,7 @@
 import { Box, Paper } from '@mui/material';
 import React, { FC, useMemo } from 'react';
 
-import WidgetHint from 'commons/components/molecules/WidgetHint';
+import WidgetHintsButton from 'commons/components/molecules/buttons/WidgetHints';
 import useWidgetFactory from './useWidgetFactory';
 import { AnswerType } from 'commons/types/models';
 import { WidgetType } from 'commons/types/widgets/widget';
@@ -49,7 +49,7 @@ const Widget: FC<WidgetPropsType> = ({
 
   const {
     onAnswerChange,
-    onAnswerSubmit,
+    useSubmitAnswerMutation,
     WidgetComponent,
   } = useWidgetFactory({
     widgetId: widget.id,
@@ -72,16 +72,14 @@ const Widget: FC<WidgetPropsType> = ({
 
   return (
     <Cover>
-      {mode === WidgetModes.Edit &&
-        <CollapseWidgetEditMenu widget={widget} paperId={paperId} />
-      }
-      {(mode === WidgetModes.View && widget?.hints?.length) ? <WidgetHint hints={widget.hints} /> : null}
+      {mode === WidgetModes.Edit && <CollapseWidgetEditMenu widget={widget} paperId={paperId} />}
+      {mode === WidgetModes.View && widget?.hints?.length > 0 && <WidgetHintsButton widgetId={widget.id} />}
       <WidgetComponent
         {...widget}
         mode={mode}
         paperId={paperId}
         submittedAnswer={submittedAnswer}
-        onAnswerSubmit={onAnswerSubmit}
+        useSubmitAnswerMutation={useSubmitAnswerMutation}
         onAnswerChange={onAnswerChange}
       />
     </Cover>

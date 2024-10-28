@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useCreateAccountMutation } from '../redux/features/user/UserSlice';
+import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type CreateAccountPropsType = {}
 
@@ -23,7 +24,6 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
     lastName: '',
     phoneNumber: '',
     password: '',
-    confirmationPassword: '',
     verificationCode: '',
   });
 
@@ -35,14 +35,9 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
   };
 
   const handleCreatingAccount = () => {
-    const { phoneNumber, password, confirmationPassword, firstName, lastName } = data;
-    if (!phoneNumber || !password || !confirmationPassword || !firstName || !lastName) {
+    const { phoneNumber, password, firstName, lastName } = data;
+    if (!phoneNumber || !password || !firstName || !lastName) {
       toast.error('همه‌ی موارد خواسته شده را پر کن');
-      return;
-    }
-
-    if (password !== confirmationPassword) {
-      toast.error('رمزهای وارد شده مشابه نیستند');
       return;
     }
     createAccount(data);
@@ -115,27 +110,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
               verificationType='create-user-account'
             />
 
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="گذر‌واژه"
-              name="password"
-              inputProps={{ className: 'ltr-input' }}
-              type="password"
-              inputMode='text'
-            />
-
-            <TextField
-              variant="outlined"
-              fullWidth
-              onChange={collectData}
-              label="تکرار گذر‌واژه"
-              inputProps={{ className: 'ltr-input' }}
-              name="confirmationPassword"
-              type="password"
-              inputMode='text'
-            />
+            <PasswordField collectData={collectData} />
 
             <Button
               onClick={handleCreatingAccount}

@@ -40,7 +40,8 @@ const GeneralPaper: FC<GeneralPaperPropsType> = ({
           key={widget.id}
           paperId={paper?.id}
           mode={WidgetModes.View}
-          coveredWithPaper={false} widget={widget} />
+          coveredWithPaper={false} widget={widget}
+        />
       ))}
     </Fragment>
   );

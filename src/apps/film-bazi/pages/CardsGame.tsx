@@ -8,6 +8,7 @@ import ScoreAnnouncement from '../components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import MyScoresChip from '../components/atoms/MyScoresChip';
 import useLocalNavigate from '../hooks/useLocalNavigate';
+import backgroundImg from "../assets/cards-game.jpg";
 
 type CardsGamePropsType = {}
 
@@ -79,31 +80,43 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   }
 
   return (
-    <Stack padding={2} alignItems={'start'} spacing={2}>
-      <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
-        <Box width={200}>
-          <MyScoresChip />
-        </Box>
+    <Box
+      sx={{
+        backgroundImage: `url(${backgroundImg})`,
+        backgroundSize: "cover",
+        backgroundPosition: `center calc(100% - 80%)`,
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        minHeight: '100vh',
+        minWidth: "100vw",
+      }}
+    >
+      <Stack padding={2} alignItems={'start'} spacing={2}>
+        <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
+          <Box width={200}>
+            <MyScoresChip />
+          </Box>
 
-        <Button
-          variant='outlined'
-          sx={{ height: 40 }}
-          onClick={() => localNavigate('/games/')}
-        >
-          {'بازگشت'}
+          <Button
+            variant='outlined'
+            sx={{ height: 40 }}
+            onClick={() => localNavigate('/games/')}
+          >
+            {'بازگشت'}
+          </Button>
+        </Stack>
+
+        <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
+        <Deck cards={cards} onCardClick={handleCardClick} />
+
+        <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
+        <Deck cards={selectedCards} onRemoveCard={handleRemoveCard} />
+
+        <Button variant='contained' onClick={handleSubmit}>
+          {'ارسال پاسخ'}
         </Button>
       </Stack>
-
-      <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
-      <Deck cards={cards} onCardClick={handleCardClick} />
-
-      <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
-      <Deck cards={selectedCards} onRemoveCard={handleRemoveCard} />
-
-      <Button variant='contained' onClick={handleSubmit}>
-        {'ارسال پاسخ'}
-      </Button>
-    </Stack>
+    </Box>
   );
 };
 

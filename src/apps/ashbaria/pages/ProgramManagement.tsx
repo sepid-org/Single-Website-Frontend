@@ -6,16 +6,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import HelpIcon from '@mui/icons-material/Help';
 
-import Info from 'commons/template/program/management/Info';
-import Registration from 'commons/template/program/management/Registration';
-import RegistrationReceipts from 'commons/template/program/management/RegistrationReceipts';
+import Info from 'apps/program/template/management/Info';
+import Registration from 'apps/program/template/management/Registration';
+import RegistrationReceipts from 'apps/program/template/management/RegistrationReceipts';
 import { DashboardTabType } from 'commons/types/global';
-import Admins from 'commons/template/program/management/Admins';
+import Admins from 'apps/program/template/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
-import FSMs from 'commons/template/program/management/FSMs';
-import CustomWidgetsManagement from './CustomWidgetsManagement';
-import ScenariosManagement from './ScenariosManagement';
+import FSMs from 'apps/program/template/management/FSMs';
 
 const tabs: DashboardTabType[] = [
   {
@@ -48,18 +46,6 @@ const tabs: DashboardTabType[] = [
     icon: AccountBalanceIcon,
     component: <FSMs />,
   },
-  // {
-  //   slug: 'questions',
-  //   label: 'سوالات',
-  //   icon: HelpIcon,
-  //   component: <CustomWidgetsManagement />,
-  // },
-  // {
-  //   slug: 'scenarios',
-  //   label: 'سناریوها',
-  //   icon: HelpIcon,
-  //   component: <ScenariosManagement />,
-  // },
 ];
 
 type ProgramManagementPropsType = {}

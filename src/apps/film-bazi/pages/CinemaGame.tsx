@@ -3,12 +3,12 @@ import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
 import { Backdrop, Stack } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import CustomDialogPaper from '../components/atoms/CustomDialogPaper';
-import BoardPaper from 'commons/template/Paper/BoardPaper';
+import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 
 type SeatsGamePropsType = {}
 
 const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = process.env.NODE_ENV === 'production' ? '6195' : '11';
+  const paperId = process.env.NODE_ENV === 'production' ? '6195' : '94';
   const [openLoading, setOpenLoading] = React.useState(false);
   const { complementaryObjects } = useCinemaGameLogic({
     openLoading,
@@ -31,7 +31,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <BoardPaper
+      <PapersBoardScene
         complementaryObjects={complementaryObjects}
         paperIds={[paperId]}
       />

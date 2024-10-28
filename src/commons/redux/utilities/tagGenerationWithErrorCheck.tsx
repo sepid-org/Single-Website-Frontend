@@ -5,6 +5,8 @@ export const tagTypes = [
   'website',
   'user-specific-data',
   // Content Management
+  'Hint',
+  'WidgetHint',
   'program',
   'programs',
   'fsm',
@@ -72,7 +74,7 @@ const tagGenerationWithErrorCheck = (
   tags: TagTypes[] | ((result: any, error: any, arg: any) => TagDescription<TagTypes>[])
 ) =>
   (result: any, error: any, arg: any): TagDescription<TagTypes>[] => {
-    if (result && !error && typeof tags === 'function') {
+    if (!error && typeof tags === 'function') {
       return tags(result, error, arg);
     }
     if (!error && typeof tags === 'object') {

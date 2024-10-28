@@ -3,13 +3,15 @@ import React, { FC, Fragment } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import ProgramPageSidebar from 'commons/components/organisms/ProgramPageSidebar';
-import { useGetProgramFSMsUserPermissionsQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
+import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import MyScoreChip from '../components/molecules/chips/MyScore';
+import MyLastScoreInFSM from '../components/molecules/chips/MyLastScoreInFSM';
+import useMenuCourts from '../hooks/useMenuCourts';
+import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 
 type GameMenuPropsType = {}
 
@@ -18,7 +20,8 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
-  const { data: programFSMsUserPermissions } = useGetProgramFSMsUserPermissionsQuery({ programSlug });
+  const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
+  const { courts } = useMenuCourts();
 
   return (
     <Fragment>
@@ -32,7 +35,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
           <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
             <ProgramPageSidebar
               otherButtons={[
-                <MyScoreChip />,
+                <MyTotalScoreChip />,
                 <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
                   {'پروفایل'}
                 </Button>,
@@ -51,7 +54,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
                 <Grid item xs={12} sm={4} key={fsm.id}>
                   <FSMCard
                     fsm={fsm}
-                    userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
                   />
                 </Grid>
               )}

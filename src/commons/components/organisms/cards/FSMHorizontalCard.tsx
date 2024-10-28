@@ -6,7 +6,7 @@ import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 
-const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
+const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
   const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
   const [enterFSM, result] = useEnterFSMMutation();
@@ -62,7 +62,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userPermissions }) => {
             <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
               {fsm.name}
             </Typography>
-            {userPermissions?.is_mentor && (
+            {userStatus?.is_mentor && (
               <Tooltip title="ورود به بخش همیاران" arrow>
                 <IconButton component={Link} to={`/fsm/${fsm?.id}/manage/`} size='small'>
                   <ModeEditTwoToneIcon />

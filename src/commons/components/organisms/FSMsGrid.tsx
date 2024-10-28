@@ -7,7 +7,7 @@ import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import { useParams } from 'react-router-dom';
-import { useGetProgramFSMsUserPermissionsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FSMHorizontalCard from './cards/FSMHorizontalCard';
 
 type FSMsGridPropsType = {}
@@ -17,7 +17,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
   const width = useWidth();
   const [pageNumber, setPageNumber] = useState(1);
   const { data: FSMsData, isLoading } = useGetFSMsQuery({ programSlug, pageNumber })
-  const { data: programFSMsUserPermissions } = useGetProgramFSMsUserPermissionsQuery({ programSlug });
+  const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
 
   const numberOfSkeleton = width === 'sm' || width === 'md' ? 4 : 3;
 
@@ -46,7 +46,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
                   <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
                     <VerticalFSMCard
                       fsm={fsm}
-                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id === fsm.id)}
                     />
                   </Grid>
                 )
@@ -55,7 +55,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
                   <Grid item key={fsm.id} xs={12}>
                     <FSMHorizontalCard
                       fsm={fsm}
-                      userPermissions={programFSMsUserPermissions?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id === fsm.id)}
                     />
                   </Grid>
                 )

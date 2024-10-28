@@ -83,37 +83,37 @@ const FSM: FC<FSMPagePropsType> = ({
     setParseTeamStateId(teamState.get('fsmStateId'));
 
   useEffect(() => {
-    if (!player?.current_state?.id || !parseTeamStateId) return;
-    if (+parseTeamStateId !== +player?.current_state.id) {
-      if (isMentor) {
-        toast.info('یکی از دانش‌آموزان مکان تیم رو جا‌به‌جا کرد');
-        mentorGetCurrentState({ id: teamHeadPlayerId });
-      } else {
-        // با حرکت خود بازیکن هم، اینجا اجرا میشه!‌ نباید اینطوری باشه
-        // toast.info('جابه‌جا شدید');
-        refetchMyPlayer();
-      }
-    }
+    // if (!player?.current_state?.id || !parseTeamStateId) return;
+    // if (+parseTeamStateId !== +player?.current_state.id) {
+    //   if (isMentor) {
+    //     toast.info('یکی از دانش‌آموزان مکان تیم رو جا‌به‌جا کرد');
+    //     mentorGetCurrentState({ id: teamHeadPlayerId });
+    //   } else {
+    //     // با حرکت خود بازیکن هم، اینجا اجرا میشه!‌ نباید اینطوری باشه
+    //     // toast.info('جابه‌جا شدید');
+    //     refetchMyPlayer();
+    //   }
+    // }
   }, [parseTeamStateId]);
 
   useEffect(() => {
-    if (!teamId || !player?.current_state) return;
-    const subscribe = async (teamId) => {
-      const teamState = await getTeamState(teamId)
-      if (!teamState) {
-        await createTeamState(teamId, player?.current_state.toString(), player?.current_state.title, moment().format('HH:mm:ss'))
-      }
-      const subscriber = await getChangeTeamStateSubscription({
-        uuid: teamId,
-      });
-      subscriber.on('create', onUpdateStateFromParse);
-      subscriber.on('update', onUpdateStateFromParse);
-      subscriberRef.current = subscriber;
-    }
-    subscribe(teamId);
-    return () => {
-      subscriberRef.current?.unsubscribe();
-    }
+    // if (!teamId || !player?.current_state) return;
+    // const subscribe = async (teamId) => {
+    //   const teamState = await getTeamState(teamId)
+    //   if (!teamState) {
+    //     await createTeamState(teamId, player?.current_state.toString(), player?.current_state.title, moment().format('HH:mm:ss'))
+    //   }
+    //   const subscriber = await getChangeTeamStateSubscription({
+    //     uuid: teamId,
+    //   });
+    //   subscriber.on('create', onUpdateStateFromParse);
+    //   subscriber.on('update', onUpdateStateFromParse);
+    //   subscriberRef.current = subscriber;
+    // }
+    // subscribe(teamId);
+    // return () => {
+    //   subscriberRef.current?.unsubscribe();
+    // }
   }, [teamId, player]);
 
   useEffect(() => {

@@ -7,6 +7,8 @@ import MenuIcon from '@mui/icons-material/Menu'; // Menu icon for mobile drawer 
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import { useTheme } from '@mui/material/styles'; // To get theme breakpoints
 import DashboardButton3 from '../atoms/buttons/DashboardButton3';
+import HelpButton from '../atoms/buttons/HelpButton';
+import HelpButton2 from '../atoms/buttons/HelpButton2';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0px 4px 4px 0px #00000040',
@@ -38,6 +40,7 @@ const AppBarComponent = () => {
 
   const DrawerContent = (
     <Stack spacing={2} padding={2}>
+      <HelpButton2 />
       <Button startIcon={<NotificationIcon />} onClick={() => { }}>
         <Typography fontWeight={700} fontSize={18}>
           {'اطلاعیه‌ها'}
@@ -67,6 +70,7 @@ const AppBarComponent = () => {
               <Stack direction={'row-reverse'} spacing={2}>
                 <DashboardButton3 label='اطلاعیه‌ها' icon={<NotificationIcon />} onClick={() => { }} />
                 <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
+                <HelpButton />
               </Stack>
             )}
           </Stack>

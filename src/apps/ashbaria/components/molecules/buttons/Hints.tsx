@@ -1,21 +1,18 @@
 import { IconButton } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import HintsIcon from "../../atoms/icons/Hints";
-import BuyHintDialog from "../../organisms/dialogs/BuyHint";
+import { useParams } from "react-router-dom";
+import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
 const HintsButton = () => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const { fsmId } = useParams();
+  const localNavigate = useLocalNavigate();
 
   return (
     <Fragment>
-      <IconButton disableRipple onClick={() => setOpenDialog(true)}>
+      <IconButton disableRipple onClick={() => localNavigate(`/court/${fsmId}/plate/?dialog=hints`)}>
         <HintsIcon />
       </IconButton>
-      <BuyHintDialog
-        hintId="1234"
-        open={openDialog}
-        onClose={() => setOpenDialog(false)}
-      />
     </Fragment>
   )
 }

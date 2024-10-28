@@ -7,6 +7,9 @@ import BoardStateEditor from './BoardStateEditor';
 import { Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
+import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -30,8 +33,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
     {
       slug: 'info',
       label: 'مشخصات گام',
-      component:
-        <StateInfoEditor />
+      component: <StateInfoEditor />
     },
     {
       slug: 'papers',
@@ -41,6 +43,12 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
         fsmState.template === 'normal' ?
           <NormalStateEditor fsmStateId={fsmStateId} /> :
           <BoardStateEditor fsmStateId={fsmStateId} />,
+    },
+    {
+      slug: 'hints',
+      label: 'راهنمایی‌ها',
+      icon: HelpCenterIcon,
+      component: <HintsEditor type='state' referenceId={fsmStateId} />
     },
   ];
 
@@ -58,7 +66,10 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
           <Tab key={tab.slug} label={tab.label} />
         )}
       </Tabs>
-      <FSMStateProvider fsmStateId={fsmStateId}>
+      <FSMStateProvider
+        fsmStateId={fsmStateId}
+        WIDGET_TYPE_MAPPER={WIDGET_TYPE_MAPPER}
+      >
         {selectedTab.component}
       </FSMStateProvider>
     </Fragment>

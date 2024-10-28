@@ -1,12 +1,9 @@
-import WIDGET_TYPE_MAPPER from './WidgetTypeMapper';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import {
   useCreateWidgetMutation,
   useDeleteWidgetMutation,
   useUpdateWidgetMutation,
 } from 'apps/website-display/redux/features/widget/WidgetSlice';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import { useEffect } from 'react';
-import { toast } from 'react-toastify';
 
 type WidgetFactoryType = {
   widgetId?: string;
@@ -21,40 +18,28 @@ const useWidgetFactory = ({
   widgetType,
   collectAnswer,
 }: WidgetFactoryType) => {
-  const { playerId } = useFSMStateContext();
   const [deleteWidget] = useDeleteWidgetMutation();
   const [createWidget] = useCreateWidgetMutation();
   const [updateWidget] = useUpdateWidgetMutation();
+  const { WIDGET_TYPE_MAPPER } = useFSMStateContext();
 
-  let onDelete, onMutate, onAnswerChange, onQuery, onAnswerSubmit;
+  let onDelete, onMutate, onAnswerChange;
 
   const widgetToolkit = WIDGET_TYPE_MAPPER[widgetType];
   const WidgetComponent = widgetToolkit?.WidgetComponent;
   const EditWidgetDialog = widgetToolkit?.EditWidgetDialog;
   const useSubmitAnswerMutation = widgetToolkit?.useSubmitAnswerMutation;
 
-
-  const submitAnswerToolkit = useSubmitAnswerMutation?.();
-  const submitAnswer = submitAnswerToolkit?.[0];
-  const submitAnswerResult = submitAnswerToolkit?.[1];
-
   onMutate =
     widgetId ?
       (props) => {
-        updateWidget({ widgetId, widgetType, paperId, playerId, ...props });
+        updateWidget({ widgetId, widgetType, paperId, ...props });
       } :
       (props) => {
-        createWidget({ widgetType, paperId, playerId, ...props });
+        createWidget({ widgetType, paperId, ...props });
       }
 
   onAnswerChange = collectAnswer ? collectAnswer : () => { };
-
-  onAnswerSubmit = (props) => {
-    submitAnswer({
-      ...props,
-      playerId,
-    });
-  }
 
   onDelete = (props) => deleteWidget(props);
 
@@ -62,9 +47,7 @@ const useWidgetFactory = ({
     onDelete,
     onMutate,
     onAnswerChange,
-    onQuery,
-    onAnswerSubmit,
-    submitAnswerResult,
+    useSubmitAnswerMutation,
     WidgetComponent,
     EditWidgetDialog,
   };

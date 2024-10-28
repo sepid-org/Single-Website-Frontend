@@ -29,8 +29,6 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
   const { changeState, result } = useChangeState();
   const states = fsmStates.filter(state => stateIds.includes(state.id))
 
-  console.log(stateIds)
-
   useEffect(() => {
     if (result.isSuccess) {
       handleClose();

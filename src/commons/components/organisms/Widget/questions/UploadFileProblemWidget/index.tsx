@@ -9,10 +9,11 @@ import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import { useClearQuestionAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type UploadFileProblemWidgetPropsType = {
   onAnswerChange: any;
-  onAnswerSubmit: any;
+  useSubmitAnswerMutation: any;
 
   id: number;
   text: string;
@@ -23,7 +24,7 @@ type UploadFileProblemWidgetPropsType = {
 
 const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   onAnswerChange,
-  onAnswerSubmit,
+  useSubmitAnswerMutation,
 
   id: questionId,
   text = 'محل بارگذاری فایل:',
@@ -34,12 +35,15 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   const t = useTranslate();
   const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
   const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const { playerId } = useFSMStateContext();
 
   useEffect(() => {
     if (fileLink) {
       onAnswerChange({ answer_file: fileLink });
       if (mode === WidgetModes.View) {
-        onAnswerSubmit({
+        submitAnswer({
+          playerId,
           questionId,
           answerFile: fileLink,
         })

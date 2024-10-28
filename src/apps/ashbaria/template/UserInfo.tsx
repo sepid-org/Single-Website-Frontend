@@ -99,7 +99,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
               {'نمایه'}
             </Typography>
           </Box>
-          <ScoreChip value={"150+"} />
+          <ScoreChip value={150} />
         </Grid>
         <Grid item xs={12} md={6}>
           <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
@@ -136,7 +136,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <CustomOutlinedButton minWidth={80} handleClick={() => localNavigate('/')} buttonText={"ولش کن"} fullWidth={true} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <CustomContainedButton minWidth={80} handleClick={handleSubmit} buttonText={'همینو ذخیره کن'} fullWidth={true} />
+          <CustomContainedButton minWidth={80} handleClick={handleSubmit} label={'همینو ذخیره کن'} fullWidth={true} />
         </Grid>
       </Grid>
     </Container>

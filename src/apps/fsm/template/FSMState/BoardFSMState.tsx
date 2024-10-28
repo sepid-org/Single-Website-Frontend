@@ -3,7 +3,7 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import BoardPaper from 'commons/template/Paper/BoardPaper';
+import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -38,9 +38,9 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
         </Box>
       )}
-      <BoardPaper
-        containerHeight={containerHeight}
-        paperIds={fsmState.papers}
+      <PapersBoardScene
+        sceneHeight={containerHeight}
+        paperIds={fsmState?.papers}
       />
     </Box>
   );

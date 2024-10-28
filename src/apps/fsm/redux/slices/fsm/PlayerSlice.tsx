@@ -44,6 +44,13 @@ type GetMyPlayerInputType = {
 
 type GetMyPlayerOutputType = PlayerType;
 
+type FinishFSMInputType = {
+  playerId: string;
+}
+
+type FinishFSMOutputType = void;
+
+
 export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     transitToState: builder.mutation<TransitToStateOutputType, TransitToStateInputType>({
@@ -106,6 +113,16 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
         }
       }),
     }),
+
+    finishFSM: builder.mutation<FinishFSMOutputType, FinishFSMInputType>({
+      invalidatesTags: ['player'],
+      query: ({ playerId }) => ({
+        url: `/fsm/player/${playerId}/finish-fsm/`,
+        method: 'GET',
+      }),
+    }),
+
+
   })
 });
 
@@ -117,4 +134,5 @@ export const {
   useGetMyPlayerQuery,
   useEnterFSMMutation,
   useTransitToStateMutation,
+  useFinishFSMMutation,
 } = PlayerSlice;
