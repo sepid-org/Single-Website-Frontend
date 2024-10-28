@@ -20,9 +20,7 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../atoms/icons/Heart';
 import ExclamationIcon from '../atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
-import CustomOutlinedButton from '../molecules/buttons/CustomOutlinedButton';
 import CopyIcon from '../atoms/icons/Copy';
-import CustomContainedButton from '../molecules/buttons/CustomContainedButton';
 import CodingMission from '../molecules/CodingMission';
 
 const FriendshipNetwork = () => {
@@ -255,7 +253,9 @@ const FriendshipNetwork = () => {
                   }}
                 />
               </Box>
-              <CustomOutlinedButton buttonText='ثبتش کن' handleClick={() => { }} minWidth={80} fullWidth={false} />
+              <Button variant='outlined' size='large'>
+                {'ثبتش کن'}
+              </Button>
             </Grid>
 
             {/* Left Component */}
@@ -349,7 +349,9 @@ const FriendshipNetwork = () => {
                   </IconButton>
                 </Box>
               </Box>
-              <CustomContainedButton minWidth={255} handleClick={() => { }} fullWidth={false} label={"ارسال دعوت‌نامه"} />
+              <Button variant='contained' size='large' onClick={() => { }} fullWidth>
+                {'ارسال دعوت‌نامه'}
+              </Button>
             </Grid>
           </Grid>
 

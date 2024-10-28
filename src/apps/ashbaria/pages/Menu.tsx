@@ -24,7 +24,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { courts } = useMenuCourts();
 
   return (
-    <ProgramPageWrapper>
+    <ProgramPageWrapper registrationPath={`/program/${programSlug}/login/`}>
       <Fragment>
         {program &&
           <Helmet>

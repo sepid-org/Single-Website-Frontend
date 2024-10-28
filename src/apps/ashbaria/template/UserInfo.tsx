@@ -22,8 +22,6 @@ import { ProfileType } from "../types";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "apps/film-bazi/components/organisms/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
-import CustomOutlinedButton from "../components/molecules/buttons/CustomOutlinedButton";
-import CustomContainedButton from "../components/molecules/buttons/CustomContainedButton";
 
 type UserSettingPropsType = {}
 
@@ -126,10 +124,14 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <ProfileImageSelector profile_image={userProfile.profile_image} setData={setUserProfile} data={userProfile} />
         </Grid>
         <Grid item xs={12} md={6}>
-          <CustomOutlinedButton minWidth={80} handleClick={() => localNavigate('/')} buttonText={"ولش کن"} fullWidth={true} />
+          <Button onClick={() => localNavigate('/')} fullWidth={true} variant='outlined'>
+            {'ولش کن'}
+          </Button>
         </Grid>
         <Grid item xs={12} md={6}>
-          <CustomContainedButton minWidth={80} handleClick={handleSubmit} label={'همینو ذخیره کن'} fullWidth={true} />
+          <Button onClick={handleSubmit} fullWidth={true} variant='contained'>
+            {'همینو ذخیره کن'}
+          </Button>
         </Grid>
       </Grid>
     </Container>

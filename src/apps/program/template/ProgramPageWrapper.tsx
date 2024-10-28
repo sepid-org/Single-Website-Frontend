@@ -6,10 +6,12 @@ import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 
 type ProgramPageWrapperPropsType = {
   children: any;
+  registrationPath?: string;
 }
 
 const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({
   children,
+  registrationPath,
 }) => {
   const { isAuthenticated } = useUserAuthentication();
   const { programSlug } = useParams();
@@ -31,7 +33,7 @@ const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({
   useEffect(() => {
     if (isGettingRegistrationReceiptSuccess) {
       if (!isGettingRegistrationReceiptFetching && !registrationReceipt?.is_participating) {
-        navigate(`/program/${programSlug}/form/`);
+        navigate(registrationPath || `/program/${programSlug}/form/`);
       }
     }
   }, [registrationReceipt])
