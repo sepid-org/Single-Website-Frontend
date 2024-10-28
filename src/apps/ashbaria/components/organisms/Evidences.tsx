@@ -1,13 +1,9 @@
-import { Box, Button, Container, Dialog, Grid, IconButton, Paper, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
-import closeButtonIcon from "../../assets/close-circle.svg";
-import evidence from "../../assets/evidence.svg";
-import unaccessableEvidence from "../../assets/unaccessableEvidence.svg";
-import AccessableEvidenceDocument from "../molecules/AccessableEvidence";
-import UnaccessableEvidence from "../molecules/UnaccessableEvidence";
+import { Box, Button, Dialog, Grid, IconButton, Typography } from "@mui/material";
+import React, { useState } from "react";
 import Back from "../molecules/buttons/Back";
 import ArchiveIcon from "../atoms/icons/Archive";
-
+import CloseIcon from "../atoms/icons/Close";
+import CourtEvidences from "./CourtEvidences";
 
 
 const Evidences = () => {
@@ -56,91 +52,11 @@ const Evidences = () => {
 					onClick={() => { setVisibility("hidden") }}
 					sx={{ marginRight: "15px" }}
 				>
-					<Box
-						component="img"
-						src={closeButtonIcon}
-						width="28px"
-						height="28px"
-					/>
+					<CloseIcon />
 				</IconButton>
 			</Box>
-			<Box
-				sx={{
-					minWidth: "100%",
-					height: "auto",
-					padding: "10px",
-					display: "flex",
-					flexDirection: "column",
-				}}
-			>
-				<Box sx={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-					<Box
-						component="img"
-						src={evidence}
-						width="28px"
-						height="28px"
-					/>
-					<Typography
-						sx={{
-							minWidth: "100%",
-							fontSize: "16px",
-							fontWeight: 700,
-							lineHeight: "25.59px",
-						}}
-						style={{
-							direction: "rtl",
-							textAlign: "right"
-						}}
-					>
-						اسناد پرونده‌ی چپق‌فروشان ۱
-					</Typography>
-				</Box>
-				<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-						return (<AccessableEvidenceDocument />)
-					})}
-				</Grid>
-			</Box>
-			<Box
-				sx={{
-					minWidth: "100%",
-					height: "auto",
-					padding: "10px",
-					display: "flex",
-					flexDirection: "column",
-				}}
-			>
-				<Box sx={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-					<Box
-						component="img"
-						src={unaccessableEvidence}
-						width="28px"
-						height="28px"
-					/>
-					<Typography
-						sx={{
-							minWidth: "100%",
-							fontSize: "16px",
-							fontWeight: 700,
-							lineHeight: "25.59px",
-							color: "#A198BB",
-						}}
-						style={{
-							direction: "rtl",
-							textAlign: "right"
-						}}
-					>
-						اسناد پرونده‌ی چپق‌فروشان
-					</Typography>
-				</Box>
-				<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-						return (
-							<UnaccessableEvidence />
-						);
-					})}
-				</Grid>
-			</Box>
+			<CourtEvidences courtName={"اسناد پرونده‌ی چپق‌فروشان ۱"} documents={[1,2,3,4,5,6,7,8]} accessable={true} />
+			<CourtEvidences courtName={"اسناد پرونده‌ی چپق‌فروشان ۱"} documents={[1,2,3,4,5,6,7,8,9,10]} accessable={false} />
 			<Box
 				sx={{
 					display: "flex",
