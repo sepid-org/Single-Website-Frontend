@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from "react";
-import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
+import React, { FC, Fragment, useEffect, useState } from "react";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
@@ -29,7 +29,7 @@ const EnterVerificationCode: FC = () => {
   useEffect(() => {
     if (getVerificationCodeResult.isSuccess) {
       setVerificationCode(Array(5).fill(""));
-      
+
       toast.success('کد تایید دوباره برات ارسال شد');
       const endTime = Date.now() + (90 * 1000);
       localStorage.setItem(TIMER_KEY, endTime.toString());
@@ -90,7 +90,7 @@ const EnterVerificationCode: FC = () => {
   };
 
   return (
-    <Stack width={300} component={Paper} padding={2} spacing={2}>
+    <Fragment>
       <ProgramLogo />
       <Stack spacing={1}>
         <Typography textAlign="center" gutterBottom>
@@ -117,7 +117,7 @@ const EnterVerificationCode: FC = () => {
           {'شمارمو اشتباه نوشتم!'}
         </Typography>
       </Button>
-    </Stack >
+    </Fragment>
   );
 };
 

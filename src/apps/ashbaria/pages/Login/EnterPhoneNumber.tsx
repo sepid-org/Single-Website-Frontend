@@ -1,5 +1,5 @@
-import { Button, Paper, Stack, TextField, Typography } from "@mui/material";
-import React, { FC, useEffect, useState } from "react";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import React, { FC, Fragment, useEffect } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserApi";
@@ -38,7 +38,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
   const phoneNumber = searchParams.get('phoneNumber') || '';
 
   return (
-    <Stack width={300} component={Paper} padding={2} spacing={4}>
+    <Fragment>
       <ProgramLogo />
       <Stack spacing={1}>
         <Typography textAlign={'center'}>
@@ -54,7 +54,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
       <Button variant='contained' onClick={handleGetVerificationCode}>
         {'دریافت کد تایید'}
       </Button>
-    </Stack>
+    </Fragment>
   );
 };
 

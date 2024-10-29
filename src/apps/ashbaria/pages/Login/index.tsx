@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import React, { FC, useState } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import EnterVerificationCode from "./EnterVerificationCode";
@@ -24,7 +24,7 @@ const Login: FC<LoginPropsType> = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: 4,
+        padding: 2,
         backgroundImage: `url(${backgroundImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -32,12 +32,14 @@ const Login: FC<LoginPropsType> = () => {
         backgroundAttachment: "fixed",
       }}
     >
-      {currentTabSlug === LoginTabs.EnterPhoneNumber &&
-        <EnterPhoneNumber />
-      }
-      {currentTabSlug === LoginTabs.EnterVerificationNumber &&
-        <EnterVerificationCode />
-      }
+      <Stack width={300} component={Paper} padding={2} spacing={2} marginRight={-20}>
+        {currentTabSlug === LoginTabs.EnterPhoneNumber &&
+          <EnterPhoneNumber />
+        }
+        {currentTabSlug === LoginTabs.EnterVerificationNumber &&
+          <EnterVerificationCode />
+        }
+      </Stack>
     </Box>
   );
 };
