@@ -1,5 +1,5 @@
-import { Button, Grid, Typography } from '@mui/material';
-import React, { FC, Fragment } from 'react';
+import { Button, Grid, Pagination, Stack, Typography } from '@mui/material';
+import React, { FC, Fragment, useState } from 'react';
 import { useLoaderData, useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
@@ -18,8 +18,9 @@ type GameMenuPropsType = {}
 const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
+  const [pageNumber, setPageNumber] = useState(1);
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: fsms } = useGetFSMsQuery({ programSlug, pageNumber: 1 })
+  const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber })
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { courts } = useMenuCourts();
 
@@ -45,13 +46,26 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
               ]}
             />
           </Grid>
-          <Grid item xs={12} sm={9}>
-            <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
-              {'دادگاه‌ها'}
-            </Typography>
-            <Grid container spacing={2}>
-              {fsms?.fsms?.map(fsm =>
-                <Grid item xs={12} sm={4} key={fsm.id}>
+          <Grid container item xs={12} sm={9} spacing={2}>
+            <Grid item xs={12}>
+              <Stack direction={'row'} alignItems={'center'} spacing={2}>
+                <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
+                  {'دادگاه‌ها'}
+                </Typography>
+                <Pagination
+                  variant="outlined"
+                  color="primary"
+                  shape='rounded'
+                  count={Math.ceil((fsmsData?.count || 0) / 12)}
+                  page={pageNumber}
+                  onChange={(e, value) => setPageNumber(value)}
+                  sx={{ marginBottom: 1 }}
+                />
+              </Stack>
+            </Grid>
+            <Grid container item spacing={2}>
+              {fsmsData?.fsms?.map(fsm =>
+                <Grid item xs={12} sm={6} md={4} key={fsm.id}>
                   <FSMCard
                     fsm={fsm}
                     userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
