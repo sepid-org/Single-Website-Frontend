@@ -26,7 +26,7 @@ const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
           </Typography>
         </Button>
       </Typography>
-      <Collapse in={open} sx={{ paddingBottom: 1 }}>
+      <Collapse in={open} sx={{ paddingY: 1 }}>
         {children}
       </Collapse>
     </Fragment>
