@@ -25,7 +25,8 @@ import { toast } from 'react-toastify';
 import { WidgetModes } from '../..';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 type MultiChoiceQuestionEditWidgetPropsType = {
   onMutate: any;
@@ -136,10 +137,12 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       disableEnforceFocus>
       <DialogTitle>{`سوال چندگزینه‌ای${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <EditObjectFields
-          fields={widgetFields}
-          setFields={setWidgetFields}
-        />
+        <CollapsibleTitle title='مشخصات شئ'>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
+        </CollapsibleTitle>
         <Stack spacing={4} alignItems={'start'}>
           <Stack width={'100%'}>
             <label>{'صورت سوال:'}</label>

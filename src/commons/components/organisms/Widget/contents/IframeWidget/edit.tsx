@@ -9,7 +9,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -43,10 +44,12 @@ function IframeEditWidget({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{'لینک'}</DialogTitle>
       <DialogContent>
-        <EditObjectFields
-          fields={widgetFields}
-          setFields={setWidgetFields}
-        />
+        <CollapsibleTitle title='مشخصات شئ'>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
+        </CollapsibleTitle>
         <Stack spacing={1}>
           <Typography>
             {'لطفاً لینک مورد نظر خود را قرار دهید. '}

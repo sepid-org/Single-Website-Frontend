@@ -12,12 +12,13 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import UploadFileButton from 'commons/components/molecules/UploadFileButton';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 const ButtonWidgetEditor = ({
   onMutate,
@@ -55,10 +56,12 @@ const ButtonWidgetEditor = ({
       <DialogTitle>{`دکمه ${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack spacing={3}>
-          <EditObjectFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
+          <CollapsibleTitle title='مشخصات شئ'>
+            <EditObjectFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
           <Stack>
             <FormLabel>{'متن دکمه'}</FormLabel>
             <TinyEditorComponent

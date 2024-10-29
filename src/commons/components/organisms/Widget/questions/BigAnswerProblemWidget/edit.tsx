@@ -13,7 +13,8 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 type BigAnswerProblemEditWidgetPropsType = {
   handleClose: any;
@@ -66,11 +67,13 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       <DialogTitle>{'سوال تشریحی'}</DialogTitle>
       <DialogContent>
         <Stack alignItems={'start'} spacing={1}>
+          <CollapsibleTitle title='مشخصات شئ'>
+            <EditObjectFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
           <label>{'صورت سوال'}</label>
-          <EditObjectFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
           <TinyEditorComponent
             content={text}
             onChange={(val: string) => setText(val)}

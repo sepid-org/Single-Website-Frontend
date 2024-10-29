@@ -13,8 +13,9 @@ import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEdi
 import { PaperEditor } from 'commons/template/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 const DetailBoxEditDialog = ({
   paperId,
@@ -70,10 +71,12 @@ const DetailBoxEditDialog = ({
       <DialogContent>
         {activeStep === 0 &&
           <Fragment>
-            <EditObjectFields
-              fields={widgetFields}
-              setFields={setWidgetFields}
-            />
+            <CollapsibleTitle title='مشخصات شئ'>
+              <EditObjectFields
+                fields={widgetFields}
+                setFields={setWidgetFields}
+              />
+            </CollapsibleTitle>
             <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
             <TinyEditorComponent
               content={title}

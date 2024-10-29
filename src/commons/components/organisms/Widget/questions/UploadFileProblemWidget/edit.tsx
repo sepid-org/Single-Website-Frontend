@@ -13,7 +13,8 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 type UploadFileProblemEditWidgetPropsType = {
   onMutate: any;
@@ -57,10 +58,12 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
     <Dialog disableScrollLock open={open} maxWidth='md'>
       <DialogTitle>{'ارسال فایل'}</DialogTitle>
       <DialogContent>
-        <EditObjectFields
-          fields={widgetFields}
-          setFields={setWidgetFields}
-        />
+        <CollapsibleTitle title='مشخصات شئ'>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
+        </CollapsibleTitle>
         <Stack spacing={1} alignItems={'start'}>
           <Typography>
             متن درخواستی را که برای ارسال فایل دارید، در قسمت زیر وارد کنید.

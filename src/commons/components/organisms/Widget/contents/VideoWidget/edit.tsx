@@ -12,8 +12,9 @@ import {
 import React, { useState } from 'react'
 import { useTranslate } from 'react-redux-multilingual/lib/context'
 import UploadFileButton from 'commons/components/molecules/UploadFileButton'
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields'
+import EditObjectFields from 'commons/components/organisms/forms/EditObject'
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget'
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle'
 
 const VideoEditWidget = ({
   onMutate,
@@ -44,10 +45,12 @@ const VideoEditWidget = ({
       <DialogTitle>فیلم</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <EditObjectFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
+          <CollapsibleTitle title='مشخصات شئ'>
+            <EditObjectFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
           <UploadFileButton setFileLink={setLink} />
           <Divider>یا</Divider>
           <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>

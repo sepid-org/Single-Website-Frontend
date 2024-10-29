@@ -9,8 +9,9 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 function TextEditWidget({
   onMutate,
@@ -40,10 +41,12 @@ function TextEditWidget({
     <Dialog disableScrollLock fullWidth open={open} maxWidth='md'>
       <DialogTitle>{t('text')}</DialogTitle>
       <DialogContent>
-        <EditObjectFields
-          fields={widgetFields}
-          setFields={setWidgetFields}
-        />
+        <CollapsibleTitle title='مشخصات شئ'>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
+        </CollapsibleTitle>
         <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
         <TinyEditorComponent
           content={text}

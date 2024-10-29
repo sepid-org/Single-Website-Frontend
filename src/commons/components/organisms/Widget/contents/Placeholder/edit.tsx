@@ -7,8 +7,9 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import EditObjectFields from 'commons/components/organisms/forms/EditObjectFields';
+import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 
 const EditablePlaceholder = ({
@@ -36,10 +37,12 @@ const EditablePlaceholder = ({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>جانگهدار</DialogTitle>
       <DialogContent>
-        <EditObjectFields
-          fields={widgetFields}
-          setFields={setWidgetFields}
-        />
+        <CollapsibleTitle title='مشخصات شئ'>
+          <EditObjectFields
+            fields={widgetFields}
+            setFields={setWidgetFields}
+          />
+        </CollapsibleTitle>
       </DialogContent>
       <DialogActions>
         <Button
