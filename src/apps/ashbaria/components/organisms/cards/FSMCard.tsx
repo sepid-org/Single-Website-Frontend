@@ -12,11 +12,11 @@ import {
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import React, { useState, Fragment, FC, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatus } from 'commons/types/models';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import useLocalNavigate from 'apps/ashbaria/hooks/useLocalNavigate';
 
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -29,13 +29,13 @@ export const FSMCard: FC<FSMCardPropsType> = ({
   isLoading = false,
   userFSMStatus,
 }) => {
-  const navigate = useNavigate();
+  const localNavigate = useLocalNavigate();
   const [openPassword, setOpenPassword] = useState(false);
   const [enterFSM, result] = useEnterFSMMutation();
 
   useEffect(() => {
     if (result.isSuccess)
-      navigate(`court/${fsm.id}/`)
+      localNavigate(`/court/${fsm.id}/`)
   }, [result])
 
   const handleCardClick = () => {
@@ -99,9 +99,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 {userFSMStatus?.is_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
-                      component={Link}
-                      to={`court/${fsm?.id}/manage/`}
-                      onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
+                      onClick={(e) => localNavigate(`/court/${fsm?.id}/manage/`)}
                       size="small"
                     >
                       <ModeEditTwoToneIcon />

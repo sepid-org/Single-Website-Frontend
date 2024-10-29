@@ -16,6 +16,7 @@ import CustomStylesWrapper from './styles/CustomStylesWrapper';
 import FSM from './gandekari/FSM';
 import Login from './pages/Login';
 import Introduction from './pages/Introduction';
+import ComingSoon from './pages/ComingSoon';
 
 const App = () => {
 
@@ -27,7 +28,8 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route path="/" element={<GameMenu />} />
+              <Route index element={<ComingSoon />} />
+              <Route path='/mentors/' element={<GameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<FSM />} />
               <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
