@@ -49,7 +49,7 @@ const loginEndpoints = [
 ] as const;
 
 const AccountSlice = createSlice({
-  name: 'user',
+  name: 'account',
   initialState,
   reducers: {
     logout: () => initialState,
