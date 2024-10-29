@@ -83,9 +83,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   if (!userProfile) return null;
 
   return (
-    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2, height:'90vh' }}>
+    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2 }}>
       {isGetProfileLoading ?
-        <Skeleton variant="rectangular" width="100%" height="100%" /> :
+        (<Container sx={{minWidth: "80vw", minHeight: "90vh"}}>
+          <Skeleton variant="rectangular" width="100%" height="100%" />
+        </Container>) :
         (<Grid container item spacing={2}>
           <Grid
             item

@@ -50,6 +50,8 @@ export type FriendshipNetworkType = {
   user: string; // UUID string
   follow_reward_score: number;
   be_followed_reward_score: number;
+  user_followers_count:number;
+  user_followings_count: number;
 };
 
 export type CodeType = {
@@ -68,8 +70,9 @@ export type FollowType = {
 
 export type MissionType = {
   title: string;
-  required_invitations: number;
+  required_follows: number;
   reward_score: number;
+  id: number;
 };
 
 export type CompletedMissionType = {
