@@ -10,7 +10,7 @@ const useUserProfile = () => {
     isLoading,
     isFetching,
   } = useGetUserProfileQuery({ userId: userInfo.id });
-  const fullName = `${data?.first_name} ${data?.last_name}`;
+  const fullName = data?.first_name && data?.first_name ? `${data?.first_name} ${data?.last_name}` : '';
 
   return {
     isSuccess,
