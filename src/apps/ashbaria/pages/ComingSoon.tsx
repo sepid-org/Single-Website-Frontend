@@ -15,6 +15,7 @@ const ComingSoon: FC<ComingSoonPropsType> = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        padding: 2,
         backgroundImage: `url(${backgroundImg})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
