@@ -21,12 +21,19 @@ const MyProfile: FC<MyProfilePropsType> = ({ }) => {
           border: '4px solid transparent', // Adjust the thickness here
         }}
       />
-      <Typography noWrap maxWidth={180} fontSize={20} fontWeight={600} color={Golden}>
-        {(myProfile?.first_name && myProfile?.first_name) ?
-          `${myProfile.first_name} ${myProfile.last_name}`
-          : 'بی‌نام بی‌نام‌زاده'
-        }
-      </Typography>
+      <Stack direction={'row'} alignItems={'center'} spacing={1}>
+        <Typography noWrap fontSize={20} fontWeight={600} color={Golden}>
+          {'دادبستان '}
+          {(myProfile?.first_name && myProfile?.first_name) ?
+            `${myProfile.first_name} ${myProfile.last_name}`
+            : 'بی‌نام بی‌نام‌زاده'
+          }
+          {':'}
+        </Typography>
+        <Typography noWrap fontSize={18} fontWeight={400}>
+          {'جناب غازی...'}
+        </Typography>
+      </Stack>
     </Stack>
   )
 }
