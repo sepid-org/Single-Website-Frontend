@@ -32,7 +32,7 @@ const SupportChip: FC<SupportChipPropsType> = ({
         <Skeleton variant="rounded" width={70} height={36} /> :
         <Fragment>
           <Typography fontSize={24} fontWeight={800}>
-            {`${toPersianNumber(value)} ${value >= 0 ? '+' : null}`}
+            {`${toPersianNumber(value)}${value >= 0 ? ' +' : ''}`}
           </Typography>
           {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
         </Fragment>
