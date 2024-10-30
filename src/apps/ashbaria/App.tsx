@@ -5,7 +5,7 @@ import { customTheme } from '../ashbaria/styles/Theme';
 import CssBaseline from '@mui/material/CssBaseline';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
-import GameMenu from './pages/Menu';
+import OldGameMenu from './pages/OldGameMenu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendshipNetwork';
@@ -17,6 +17,7 @@ import FSM from './gandekari/FSM';
 import Login from './pages/Login';
 import Introduction from './pages/Introduction';
 import ComingSoon from './pages/ComingSoon';
+import GameMenu from './pages/GameMenu';
 
 const App = () => {
 
@@ -29,7 +30,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
               <Route index element={<ComingSoon />} />
-              <Route path='/mentors/' element={<GameMenu />} />
+              <Route path='/menu/' element={<GameMenu />} />
+              <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<FSM />} />
               <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />

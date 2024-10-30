@@ -13,9 +13,9 @@ import useMenuCourts from '../hooks/useMenuCourts';
 import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 
-type GameMenuPropsType = {}
+type OldGameMenuPropsType = {}
 
-const GameMenu: FC<GameMenuPropsType> = ({ }) => {
+const OldGameMenu: FC<OldGameMenuPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
@@ -80,4 +80,4 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   );
 }
 
-export default GameMenu;
+export default OldGameMenu;

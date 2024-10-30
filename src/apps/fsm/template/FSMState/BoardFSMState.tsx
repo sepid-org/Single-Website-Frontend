@@ -32,17 +32,17 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
   }, [fsmState]);
 
   return (
-    <Box position={'relative'}>
+    <Fragment>
       {fsmState?.show_appbar && (
         <Box ref={appbarRef}>
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
         </Box>
       )}
       <PapersBoardScene
-        sceneHeight={containerHeight}
+        parentHeight={containerHeight}
         paperIds={fsmState?.papers}
       />
-    </Box>
+    </Fragment>
   );
 };
 

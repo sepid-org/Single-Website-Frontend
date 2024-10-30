@@ -6,20 +6,29 @@ import { WidgetModes } from 'commons/components/organisms/Widget';
 
 export type PapersBoardScenePropsType = {
   paperIds: string[];
-  sceneWidth?: number;
-  sceneHeight?: number;
+  parentWidth?: number;
+  parentHeight?: number;
+  boardWidth?: number;
+  boardHeight?: number;
   complementaryObjects?: ComplementaryObjectType[];
 };
 
 const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
   paperIds = [],
-  sceneWidth = window.innerWidth,
-  sceneHeight = window.innerHeight,
+  parentWidth = window.innerWidth,
+  parentHeight = window.innerHeight,
+  boardWidth = 1600,
+  boardHeight = 900,
   complementaryObjects = [],
 }) => {
 
   return (
-    <BoardScene sceneHeight={sceneHeight} sceneWidth={sceneWidth}>
+    <BoardScene
+      boardHeight={boardHeight}
+      boardWidth={boardWidth}
+      parentHeight={parentHeight}
+      parentWidth={parentWidth}
+    >
       {paperIds.map(paperId => (
         <PaperWidgets complementaryObjects={complementaryObjects} key={paperId} paperId={paperId} widgetsMode={WidgetModes.View} />
       ))}

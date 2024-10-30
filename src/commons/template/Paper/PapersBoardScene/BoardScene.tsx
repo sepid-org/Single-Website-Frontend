@@ -2,32 +2,34 @@ import React, { useState, useEffect, useRef, FC, useCallback, memo } from 'react
 import { Stack } from '@mui/material';
 
 export type BoardScenePropsType = {
-  sceneWidth?: number;
-  sceneHeight?: number;
+  parentWidth?: number;
+  parentHeight?: number;
+  boardWidth?: number;
+  boardHeight?: number;
   children: React.ReactNode;
 }
 
 const BoardScene: FC<BoardScenePropsType> = memo(({
-  sceneWidth = window.innerWidth,
-  sceneHeight = window.innerHeight,
+  parentWidth = window.innerWidth,
+  parentHeight = window.innerHeight,
+  boardWidth = 1600,
+  boardHeight = 900,
   children,
 }) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const appbarRef = useRef<HTMLDivElement>(null);
-  const BOARD_HEIGHT = 900;
-  const BOARD_WIDTH = 1600;
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
 
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
       const appbarHeight = appbarRef.current?.offsetHeight || 0;
-      const scale = (sceneHeight - appbarHeight) / BOARD_HEIGHT;
+      const scale = (parentHeight - appbarHeight) / boardHeight;
 
-      const scaledWidth = BOARD_WIDTH * scale;
-      const scaledHeight = BOARD_HEIGHT * scale;
+      const scaledWidth = boardWidth * scale;
+      const scaledHeight = boardHeight * scale;
 
-      const isScrollNeeded = scaledWidth > sceneWidth;
+      const isScrollNeeded = scaledWidth > parentWidth;
       setIsScrollNeeded(isScrollNeeded);
 
       Object.assign(boardRef.current.style, {
@@ -40,10 +42,10 @@ const BoardScene: FC<BoardScenePropsType> = memo(({
       Object.assign(containerRef.current.style, {
         overflowX: isScrollNeeded ? 'auto' : 'hidden',
         overflowY: 'hidden',
-        height: `${sceneHeight - appbarHeight}px`,
+        height: `${parentHeight - appbarHeight}px`,
       });
     }
-  }, [sceneHeight, sceneWidth]);
+  }, [parentHeight, parentWidth]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
