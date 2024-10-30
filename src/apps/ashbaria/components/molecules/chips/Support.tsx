@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import LikeIcon from "../../atoms/icons/LikeIcon";
@@ -29,12 +29,14 @@ const SupportChip: FC<SupportChipPropsType> = ({
       justifyContent={'center'}
     >
       {isLoading || value === null ?
-        <Skeleton variant="rounded" width={50} height={30} /> :
-        <Typography fontSize={24} fontWeight={800}>
-          {`${toPersianNumber(value)} ${value >= 0 ? '+' : null}`}
-        </Typography>
+        <Skeleton variant="rounded" width={70} height={36} /> :
+        <Fragment>
+          <Typography fontSize={24} fontWeight={800}>
+            {`${toPersianNumber(value)} ${value >= 0 ? '+' : null}`}
+          </Typography>
+          {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
+        </Fragment>
       }
-      {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
     </Stack>
   )
 }
