@@ -18,9 +18,11 @@ const FSMState: FC<FSMStatePropsType> = ({
   }
 
   if (fsmState?.template === 'normal') {
-    <Layout appbarMode={isMentor ? 'MENTOR_FSM' : 'FSM'}>
-      <WorkshopFSMState fsmStateId={fsmStateId} />
-    </Layout>
+    return (
+      <Layout appbarMode={isMentor ? 'MENTOR_FSM' : 'FSM'}>
+        <WorkshopFSMState fsmStateId={fsmStateId} />
+      </Layout>
+    );
   }
 }
 
