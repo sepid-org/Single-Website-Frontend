@@ -1,15 +1,14 @@
 import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-
 import {
   useGetMyPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
+import FSMState from 'apps/fsm/template/FSMState';
 
 
 type CourtPagePropsType = {}
@@ -39,11 +38,9 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
         fsmStateId={player?.current_state}
         playerId={player?.id}
         WIDGET_TYPE_MAPPER={CUSTOM_WIDGET_TYPE_MAPPER}
+        complementaryObjects={complementaryObjects}
       >
-        <BoardFSMState
-          complementaryObjects={complementaryObjects}
-          fsmStateId={(player?.current_state)}
-        />
+        <FSMState fsmStateId={player?.current_state} />
       </FSMStateProvider>
     </Fragment>
   );

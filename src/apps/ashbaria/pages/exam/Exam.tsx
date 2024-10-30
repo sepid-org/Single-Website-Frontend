@@ -18,7 +18,6 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   const [transitBack, transitBackResult] = useTransitionBack({ playerId: player?.id })
   const [finishFSM, finishFSMResult] = useFinishFSM();
 
-
   return (
     <Box
       sx={{

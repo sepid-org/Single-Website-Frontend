@@ -2,26 +2,24 @@ import React, { FC, useMemo } from 'react';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
-import { ComplementaryObjectType } from 'commons/types/models';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 export type PaperWidgetsPropsType = {
   paperId: string;
-  complementaryObjects?: ComplementaryObjectType[];
   widgetsMode: WidgetModes;
 }
 
 const PaperWidgets: FC<PaperWidgetsPropsType> = ({
   paperId,
-  complementaryObjects = [],
   widgetsMode,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
-
+  const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
 
   const widgetsComponents = useMemo(() =>
     widgets.map((widget, index) => {
-      const complementaryObject = complementaryObjects.find(complementaryObject => complementaryObject.name === widget.name);
+      const complementaryObject = complementaryObjects?.find(complementaryObject => complementaryObject.name === widget.name);
       return (
         <div
           key={widget.id}

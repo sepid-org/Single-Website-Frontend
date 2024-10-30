@@ -1,9 +1,10 @@
 import React, { FC, Fragment } from 'react';
 import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
-import { Backdrop, Stack } from '@mui/material';
+import { Backdrop } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
-import CustomDialogPaper from '../components/atoms/CustomDialogPaper';
-import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import FSMState from 'apps/fsm/template/FSMState';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 type SeatsGamePropsType = {}
 
@@ -21,6 +22,8 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
     setOpenLoading(true);
   };
 
+  const fsmId = process.env.NODE_ENV === 'development' ? '1' : '191';
+  const fsmStateId = process.env.NODE_ENV === 'development' ? '102' : '5743';
 
   return (
     <Fragment>
@@ -31,10 +34,14 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <PapersBoardScene
-        complementaryObjects={complementaryObjects}
-        paperIds={[paperId]}
-      />
+      <FSMProvider fsmId={fsmId}>
+        <FSMStateProvider
+          fsmStateId={fsmStateId}
+          complementaryObjects={complementaryObjects}
+        >
+          <FSMState fsmStateId={fsmStateId} />
+        </FSMStateProvider>
+      </FSMProvider>
     </Fragment>
   );
 };

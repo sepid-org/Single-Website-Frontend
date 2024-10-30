@@ -85,7 +85,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                 </Grid>
               </Stack>
             </Stack>
-            {(state && fsm.show_roadmap) &&
+            {(state && fsm?.show_roadmap) &&
               <FSMStateRoadMap currentNodeName={state?.title} />
             }
             {notQuestions.length === 0 &&

@@ -1,14 +1,12 @@
-import React, { FC, Fragment, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
 
 import { initParseServer } from 'apps/website-display/parse/init';
-import { createTeamState, getChangeTeamStateSubscription, getTeamState } from 'apps/website-display/parse/team';
 import {
   changeOpenChatRoomAction,
 } from 'apps/website-display/redux/slices/currentState';
 import DraggableChatRoom from 'commons/components/organisms/DraggableMeeting';
-import { toast } from 'react-toastify';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
@@ -17,6 +15,8 @@ import {
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
+import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 
 var moment = require('moment');
 
@@ -129,12 +129,18 @@ const FSM: FC<FSMPagePropsType> = ({
   if (!player?.current_state || !fsm) return null;
 
   return (
-    <Fragment>
+    <FSMStateProvider
+      fsmStateId={player?.current_state}
+      isMentor={isMentor}
+      teamId={teamId}
+      playerId={player?.id}
+      WIDGET_TYPE_MAPPER={WIDGET_TYPE_MAPPER}
+    >
       <FSMState fsmStateId={(player?.current_state as any)} />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
         <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
       }
-    </Fragment>
+    </FSMStateProvider>
   );
 };
 

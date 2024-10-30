@@ -1,4 +1,5 @@
 import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import { ComplementaryObjectType } from 'commons/types/models';
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
 interface FSMStateContextType {
@@ -7,6 +8,7 @@ interface FSMStateContextType {
   teamId?: string;
   playerId?: string;
   WIDGET_TYPE_MAPPER?: any;
+  complementaryObjects?: ComplementaryObjectType[];
 }
 
 const FSMStateContext = createContext<FSMStateContextType | null>(null);
@@ -35,6 +37,7 @@ export const useFSMStateContext = (): FSMStateContextType => {
       teamId: null,
       playerId: null,
       WIDGET_TYPE_MAPPER: WIDGET_TYPE_MAPPER,
+      complementaryObjects: [],
     };
   }
   return context;

@@ -10,7 +10,6 @@ export type PapersBoardScenePropsType = {
   parentHeight?: number;
   boardWidth?: number;
   boardHeight?: number;
-  complementaryObjects?: ComplementaryObjectType[];
 };
 
 const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
@@ -19,7 +18,6 @@ const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
   parentHeight = window.innerHeight,
   boardWidth = 1600,
   boardHeight = 900,
-  complementaryObjects = [],
 }) => {
 
   return (
@@ -30,7 +28,7 @@ const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
       parentWidth={parentWidth}
     >
       {paperIds.map(paperId => (
-        <PaperWidgets complementaryObjects={complementaryObjects} key={paperId} paperId={paperId} widgetsMode={WidgetModes.View} />
+        <PaperWidgets key={paperId} paperId={paperId} widgetsMode={WidgetModes.View} />
       ))}
     </BoardScene>
   );

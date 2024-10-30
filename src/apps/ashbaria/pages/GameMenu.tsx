@@ -1,18 +1,16 @@
-import { Box, Button, Grid, Pagination, Paper, Stack, Typography } from '@mui/material';
-import React, { FC, Fragment, useState } from 'react';
+import { Box, Paper, Stack, Typography } from '@mui/material';
+import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
 import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import useMenuCourts from '../hooks/useMenuCourts';
-import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
-import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
+import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
+import FSMState from 'apps/fsm/template/FSMState';
 
 type GameMenuPropsType = {}
 
@@ -25,6 +23,9 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { courts } = useMenuCourts();
 
+  const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
+  const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
+
   return (
     <Box position={'relative'}>
       {program &&
@@ -32,10 +33,11 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
           <title>{program.name}</title>
         </Helmet>
       }
-      <PapersBoardScene
-        complementaryObjects={[]}
-        paperIds={["120", "90"]}
-      />
+      <FSMProvider fsmId={fsmId}>
+        <FSMStateProvider fsmStateId={fsmStateId}>
+          <FSMState fsmStateId={fsmStateId} />
+        </FSMStateProvider>
+      </FSMProvider>
       <Stack component={Paper} spacing={2} padding={2} top={0} left={0} position={'absolute'}>
         <ProgramLogo />
         <Typography>
