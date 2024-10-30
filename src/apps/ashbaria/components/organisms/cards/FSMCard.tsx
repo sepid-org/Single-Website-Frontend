@@ -17,6 +17,7 @@ import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFS
 import { FSMType, UserFSMStatus } from 'commons/types/models';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useLocalNavigate from 'apps/ashbaria/hooks/useLocalNavigate';
+import { Link } from 'react-router-dom';
 
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -98,10 +99,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 </Typography>
                 {userFSMStatus?.is_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton
-                      onClick={(e) => localNavigate(`/court/${fsm?.id}/manage/`)}
-                      size="small"
-                    >
+                    <IconButton component={Link} to={`/program/ashbaria/court/${fsm?.id}/manage/`} size='small'>
                       <ModeEditTwoToneIcon />
                     </IconButton>
                   </Tooltip>
