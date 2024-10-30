@@ -12,6 +12,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
   value,
   isLoading,
 }) => {
+
   return (
     <Stack
       sx={{
@@ -27,11 +28,11 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       justifyContent={'center'}
       spacing={0.5}
     >
-      {isLoading || value !== null ?
+      {isLoading || value === null ?
+        <Skeleton variant="rounded" width={50} height={30} /> :
         <Typography fontSize={24} fontWeight={800}>
           {toPersianNumber(value) + "+"}
-        </Typography> :
-        <Skeleton variant="rounded" width={50} height={24} />
+        </Typography>
       }
       <VerifyIcon />
     </Stack>

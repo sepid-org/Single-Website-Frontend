@@ -28,11 +28,11 @@ const SupportChip: FC<SupportChipPropsType> = ({
       alignItems={'center'}
       justifyContent={'center'}
     >
-      {isLoading || value !== null ?
+      {isLoading || value === null ?
+        <Skeleton variant="rounded" width={50} height={30} /> :
         <Typography fontSize={24} fontWeight={800}>
           {`${toPersianNumber(value)} ${value >= 0 ? '+' : null}`}
-        </Typography> :
-        <Skeleton variant="rounded" width={50} height={24} />
+        </Typography>
       }
       {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
     </Stack>
