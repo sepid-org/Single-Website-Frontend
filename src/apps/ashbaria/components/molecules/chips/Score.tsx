@@ -22,6 +22,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       component={Paper}
       padding={1}
       paddingX={2}
+      paddingBottom={0.5}
       borderRadius={3}
       direction={'row'}
       alignItems={'center'}
