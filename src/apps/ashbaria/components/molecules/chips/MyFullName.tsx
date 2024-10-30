@@ -3,9 +3,9 @@ import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import { Box, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
 
-type MyProfilePropsType = {}
+type MyFullNamePropsType = {}
 
-const MyProfile: FC<MyProfilePropsType> = ({ }) => {
+const MyFullName: FC<MyFullNamePropsType> = ({ }) => {
   const { data: myProfile } = useGetProfileQuery();
 
   return (
@@ -28,14 +28,10 @@ const MyProfile: FC<MyProfilePropsType> = ({ }) => {
             `${myProfile.first_name} ${myProfile.last_name}`
             : 'بی‌نام بی‌نام‌زاده'
           }
-          {':'}
-        </Typography>
-        <Typography noWrap fontSize={18} fontWeight={400}>
-          {'جناب غازی...'}
         </Typography>
       </Stack>
     </Stack>
   )
 }
 
-export default MyProfile;
+export default MyFullName;

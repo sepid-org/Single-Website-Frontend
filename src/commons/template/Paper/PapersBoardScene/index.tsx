@@ -10,18 +10,21 @@ export type PapersBoardScenePropsType = {
   parentHeight?: number;
   boardWidth?: number;
   boardHeight?: number;
+  mode?: 'fit-height' | 'fit-width';
 };
 
 const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
   paperIds = [],
-  parentWidth = window.innerWidth,
-  parentHeight = window.innerHeight,
-  boardWidth = 1600,
-  boardHeight = 900,
+  parentWidth,
+  parentHeight,
+  boardWidth,
+  boardHeight,
+  mode,
 }) => {
 
   return (
     <BoardScene
+      mode={mode}
       boardHeight={boardHeight}
       boardWidth={boardWidth}
       parentHeight={parentHeight}

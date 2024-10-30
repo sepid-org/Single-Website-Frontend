@@ -7,10 +7,16 @@ import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
+  boardWidth?: number;
+  boardHeight?: number;
+  mode?: 'fit-height' | 'fit-width';
 };
 
 const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   fsmStateId,
+  boardWidth,
+  boardHeight,
+  mode,
 }) => {
   const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
@@ -41,6 +47,9 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         </Box>
       )}
       <PapersBoardScene
+        mode={mode}
+        boardWidth={boardWidth}
+        boardHeight={boardHeight}
         parentHeight={containerHeight}
         paperIds={fsmState?.papers}
       />

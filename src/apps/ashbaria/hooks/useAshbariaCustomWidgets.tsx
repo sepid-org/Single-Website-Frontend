@@ -7,7 +7,7 @@ import MyLastSupportInFSM from "../components/molecules/chips/MyLastSupportInFSM
 import MyLastScoreInFSM from "../components/molecules/chips/MyLastScoreInFSM";
 import MyLastSupportChangeInFSM from "../components/molecules/chips/MyLastSupportChangeInFSM";
 import MyTotalScore from "../components/molecules/chips/MyTotalScore";
-import MyProfile from "../components/molecules/chips/MyProfile";
+import MyFullName from "../components/molecules/chips/MyFullName";
 
 const useAshbariaCustomWidgets = () => {
 
@@ -42,7 +42,7 @@ const useAshbariaCustomWidgets = () => {
     },
     {
       name: 'ashbaria-my-profile',
-      substituteComponent: <MyProfile />,
+      substituteComponent: <MyFullName />,
     }
   ];
 

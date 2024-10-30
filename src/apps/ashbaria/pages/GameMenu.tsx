@@ -3,6 +3,7 @@ import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
+import backgroundImg from "../assets/profileBackground.svg";
 import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useLocalNavigate from '../hooks/useLocalNavigate';
@@ -10,7 +11,10 @@ import useMenuCourts from '../hooks/useMenuCourts';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
-import FSMState from 'apps/fsm/template/FSMState';
+import MyTotalScore from '../components/molecules/chips/MyTotalScore';
+import MyFirstName from '../components/molecules/chips/MyFirstName';
+import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
+import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 
 type GameMenuPropsType = {}
 
@@ -27,7 +31,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
 
   return (
-    <Box position={'relative'}>
+    <FullScreenBackgroundImage image={backgroundImg}>
       {program &&
         <Helmet>
           <title>{program.name}</title>
@@ -35,22 +39,38 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
       }
       <FSMProvider fsmId={fsmId}>
         <FSMStateProvider fsmStateId={fsmStateId}>
-          <FSMState fsmStateId={fsmStateId} />
+          <BoardFSMState
+            mode='fit-width'
+            boardWidth={900}
+            boardHeight={2000}
+            fsmStateId={fsmStateId} />
         </FSMStateProvider>
       </FSMProvider>
-      <Stack component={Paper} spacing={2} padding={2} top={0} left={0} position={'absolute'}>
+      <Box position={'absolute'} right={10} top={10}>
+        <MyTotalScore />
+      </Box>
+      <Stack
+        component={Paper}
+        spacing={2}
+        padding={2}
+        top={10}
+        left={0}
+        position={'absolute'}
+        sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+      >
         <ProgramLogo />
+        <MyFirstName />
         <Typography textAlign={'center'}>
-          {'مهلت تا پایان دوره: ۵۰ روز'}
+          {'مهلت تا پایان دوره: ۱۸ روز'}
         </Typography>
-        <Button variant='contained'>
+        <Button variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}
         </Button>
-        <Button variant='outlined'>
+        <Button variant='outlined' onClick={() => localNavigate('/scoreboard/')}>
           {'شاخ‌ترین‌ها'}
         </Button>
       </Stack>
-    </Box>
+    </FullScreenBackgroundImage>
   );
 }
 
