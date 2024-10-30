@@ -1,11 +1,10 @@
 import React, { Fragment } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Box } from "@mui/material";
-import backgroundImg from "../assets/profileBackground.svg"
-import DocumentsTemplate from "../template/Documents";
-import HintsTemplate from "../template/Hints";
-import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
-import useLocalNavigate from "../hooks/useLocalNavigate";
+import backgroundImg from "../../assets/profileBackground.svg"
+import DocumentsTemplate from "../../template/Documents";
+import HintsTemplate from "../../template/Hints";
+import useLocalNavigate from "../../hooks/useLocalNavigate";
 
 
 const CourtInfo = () => {

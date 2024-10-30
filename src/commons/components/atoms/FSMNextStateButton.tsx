@@ -15,7 +15,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
   const t = useTranslate();
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [selectedEdge, setSelectedEdge] = useState(null);
-  const { changeState, result: changeStateResult } = useChangeState();
+  const [changeState, changeStateResult] = useChangeState();
   const { data: outwardEdges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })
 
   const edges = isMentor

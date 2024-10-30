@@ -5,18 +5,20 @@ import { Helmet } from "react-helmet";
 import {
   useGetMyPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
-import BoardFSMState from './BoardFSMState';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
+import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
 
 
-type FSMPagePropsType = {}
+type CourtPagePropsType = {}
 
-const FSM: FC<FSMPagePropsType> = ({ }) => {
+const CourtPage: FC<CourtPagePropsType> = ({ }) => {
   const { fsmId } = useParams();
   const { data: player } = useGetMyPlayerQuery({ fsmId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { complementaryObjects } = useAshbariaCustomWidgets();
 
   const CUSTOM_WIDGET_TYPE_MAPPER = {
     ...WIDGET_TYPE_MAPPER,
@@ -38,10 +40,13 @@ const FSM: FC<FSMPagePropsType> = ({ }) => {
         playerId={player?.id}
         WIDGET_TYPE_MAPPER={CUSTOM_WIDGET_TYPE_MAPPER}
       >
-        <BoardFSMState fsmStateId={(player?.current_state as any)} />
+        <BoardFSMState
+          complementaryObjects={complementaryObjects}
+          fsmStateId={(player?.current_state)}
+        />
       </FSMStateProvider>
     </Fragment>
   );
 };
 
-export default FSM;
+export default CourtPage;

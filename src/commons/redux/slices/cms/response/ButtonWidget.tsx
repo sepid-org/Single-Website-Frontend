@@ -4,7 +4,7 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 
 type SubmitButtonInputType = {
   stateId?: string;
-  widgetId: string;
+  clickedButtonId: string;
 };
 
 export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
@@ -16,12 +16,12 @@ export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
         { type: 'rank', id: 'MY' },
         { type: 'balances', id: 'MY' },
       ]),
-      query: ({ stateId, widgetId }) => ({
+      query: ({ stateId, clickedButtonId }) => ({
         url: '/response/submit-button/',
         method: 'POST',
         body: {
           state: stateId,
-          button: widgetId,
+          button: clickedButtonId,
         },
       }),
     }),

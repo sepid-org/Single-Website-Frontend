@@ -4,12 +4,17 @@ import { Box } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import { ComplementaryObjectType } from 'commons/types/models';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
+  complementaryObjects?: ComplementaryObjectType[];
 };
 
-const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
+const BoardFSMState: FC<BoardFSMStatePropsType> = ({
+  fsmStateId,
+  complementaryObjects = [],
+}) => {
   const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const appbarRef = useRef<HTMLDivElement>(null);
@@ -39,6 +44,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId }) => {
         </Box>
       )}
       <PapersBoardScene
+        complementaryObjects={complementaryObjects}
         parentHeight={containerHeight}
         paperIds={fsmState?.papers}
       />

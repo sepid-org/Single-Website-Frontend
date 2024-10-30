@@ -26,7 +26,7 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
   const t = useTranslate();
   const { fsmId } = useParams();
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
-  const { changeState, result } = useChangeState();
+  const [changeState, result] = useChangeState();
   const states = fsmStates.filter(state => stateIds.includes(state.id))
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
           .sort((state1, state2) => state1.title < state2.title ? 1 : -1)
           .map(state => (
             <ListItemButton
-              onClick={() => changeState({ stateId: state.id, widgetId })}
+              onClick={() => changeState({ stateId: state.id, clickedButtonId: widgetId })}
               key={state.id}
             >
               {state.title}

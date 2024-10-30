@@ -10,10 +10,10 @@ import ProgramManagement from './pages/ProgramManagement';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
 import FriendshipNetwork from './components/organisms/FriendshipNetwork';
 import Profile from './pages/Profile';
-import CourtInfo from './pages/CourtInfo';
+import CourtInfo from './pages/court/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
 import CustomStylesWrapper from './styles/CustomStylesWrapper';
-import FSM from './gandekari/FSM';
+import CourtPage from './pages/court/Court';
 import Login from './pages/Login';
 import Introduction from './pages/Introduction';
 import ComingSoon from './pages/ComingSoon';
@@ -33,7 +33,7 @@ const App = () => {
               <Route path='/menu/' element={<GameMenu />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
-              <Route path="/court/:fsmId/" element={<FSM />} />
+              <Route path="/court/:fsmId/" element={<CourtPage />} />
               <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
               <Route path="/manage/" element={<ProgramManagement />} />
               <Route path='/friendship-network/' element={<FriendshipNetwork />} />

@@ -27,7 +27,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   attributes,
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
-  const { changeState } = useChangeState();
+  const [changeState, changeStateResult] = useChangeState();
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -36,7 +36,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     if (destination_states.length === 1) {
       changeState({
         stateId: destination_states[0],
-        widgetId,
+        clickedButtonId: widgetId,
       })
       return;
     }
