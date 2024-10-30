@@ -8,7 +8,7 @@ type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId })
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
 
   if (fsmState?.template === 'board') {
     return (

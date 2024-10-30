@@ -18,7 +18,7 @@ export type WorkshopFSMStatePropsType = {
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useParams();
-  const { data: state } = useGetFSMStateQuery({ fsmStateId })
+  const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state.papers[0];
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });

@@ -12,7 +12,7 @@ type BoardStateEditorPropsType = {
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
 
   if (isMobile) {
     return (

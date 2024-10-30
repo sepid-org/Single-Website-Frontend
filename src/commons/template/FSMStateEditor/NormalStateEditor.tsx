@@ -13,7 +13,7 @@ type NormalStateEditorPropsType = {
 }
 
 const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ fsmStateId }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const paperId = fsmState.papers[0];
 
   return (
