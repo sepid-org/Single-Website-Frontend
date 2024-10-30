@@ -15,6 +15,7 @@ import MyTotalScore from '../components/molecules/chips/MyTotalScore';
 import MyFirstName from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
+import useAshbariaCustomWidgets from '../hooks/useAshbariaCustomWidgets';
 
 type GameMenuPropsType = {}
 
@@ -30,6 +31,8 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
 
+  const { complementaryObjects } = useAshbariaCustomWidgets()
+
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       {program &&
@@ -38,12 +41,15 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
         </Helmet>
       }
       <FSMProvider fsmId={fsmId}>
-        <FSMStateProvider fsmStateId={fsmStateId}>
+        <FSMStateProvider
+          complementaryObjects={complementaryObjects}
+          fsmStateId={fsmStateId}>
           <BoardFSMState
             mode='fit-width'
             boardWidth={900}
             boardHeight={2000}
-            fsmStateId={fsmStateId} />
+            fsmStateId={fsmStateId}
+          />
         </FSMStateProvider>
       </FSMProvider>
       <Box position={'absolute'} right={10} top={10}>

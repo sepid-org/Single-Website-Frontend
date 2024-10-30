@@ -2,11 +2,11 @@ import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/fea
 import { useParams } from "react-router-dom";
 import { useGetCourtsQuery } from "../redux/slices/GameLogics";
 import { useGetFSMsQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import { FSMType } from "commons/types/models";
 import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
+import { CourtType } from "../types";
 
 type useMenuCourtsType = {
-  courts: FSMType[]
+  courts: CourtType[]
 }
 
 const useMenuCourts = (): useMenuCourtsType => {
@@ -17,8 +17,8 @@ const useMenuCourts = (): useMenuCourtsType => {
   const { data: courts = [] } = useGetCourtsQuery();
 
   return ({
-    courts: fsmsData?.fsms.map(fsm => ({
-      ...fsm,
+    courts: courts?.map(court => ({
+      ...court,
     }))
   })
 };

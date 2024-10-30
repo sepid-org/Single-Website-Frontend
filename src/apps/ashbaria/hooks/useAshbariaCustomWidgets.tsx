@@ -8,9 +8,11 @@ import MyLastScoreInFSM from "../components/molecules/chips/MyLastScoreInFSM";
 import MyLastSupportChangeInFSM from "../components/molecules/chips/MyLastSupportChangeInFSM";
 import MyTotalScore from "../components/molecules/chips/MyTotalScore";
 import MyFullName from "../components/molecules/chips/MyFullName";
+import useMenuCourts from "./useMenuCourts";
+import ActiveCourtCard from "../components/organisms/cards/ActiveCourt";
 
 const useAshbariaCustomWidgets = () => {
-
+  const { courts } = useMenuCourts();
   const complementaryObjects: ComplementaryObjectType[] = [
     {
       name: 'ashbaria-finish-court',
@@ -45,6 +47,13 @@ const useAshbariaCustomWidgets = () => {
       substituteComponent: <MyFullName />,
     }
   ];
+  
+  courts.forEach(court => {
+    complementaryObjects.push({
+      name: `ashbaria-court-fsmId${court.corresponding_fsm}`,
+      substituteComponent: <ActiveCourtCard court={court} />
+    })
+  })
 
   return {
     complementaryObjects,
