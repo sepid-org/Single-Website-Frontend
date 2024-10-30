@@ -6,10 +6,12 @@ import DislikeIcon from "../../atoms/icons/DislikeIcon";
 
 type SupportChipPropsType = {
   value: number;
+  isLoading?: boolean;
 }
 
 const SupportChip: FC<SupportChipPropsType> = ({
   value,
+  isLoading,
 }) => {
 
   return (
@@ -26,9 +28,9 @@ const SupportChip: FC<SupportChipPropsType> = ({
       alignItems={'center'}
       justifyContent={'center'}
     >
-      {value !== null ?
+      {isLoading || value !== null ?
         <Typography fontSize={24} fontWeight={800}>
-          {`${toPersianNumber(value)} ${value >= 0 ? '+' : '-'}`}
+          {`${toPersianNumber(value)} ${value >= 0 ? '+' : null}`}
         </Typography> :
         <Skeleton variant="rounded" width={50} height={24} />
       }

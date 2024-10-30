@@ -6,11 +6,11 @@ import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
 type MyTotalScorePropsType = {}
 
 const MyTotalScore: FC<MyTotalScorePropsType> = ({ }) => {
-  const { data: myBalances } = useGetMyBalancesQuery();
+  const { data: myBalances, isLoading } = useGetMyBalancesQuery();
   const myScore = myBalances?.[ASHBARIA_COIN] || 0;
 
   return (
-    <ScoreChip value={myScore} />
+    <ScoreChip value={myScore} isLoading={isLoading} />
   )
 }
 
