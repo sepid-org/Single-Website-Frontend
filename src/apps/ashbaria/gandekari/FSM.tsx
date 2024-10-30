@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 import {
   useGetMyPlayerQuery,
@@ -7,6 +8,7 @@ import {
 import BoardFSMState from './BoardFSMState';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 
 type FSMPagePropsType = {}
@@ -14,6 +16,7 @@ type FSMPagePropsType = {}
 const FSM: FC<FSMPagePropsType> = ({ }) => {
   const { fsmId } = useParams();
   const { data: player } = useGetMyPlayerQuery({ fsmId });
+  const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const CUSTOM_WIDGET_TYPE_MAPPER = {
     ...WIDGET_TYPE_MAPPER,
@@ -24,13 +27,20 @@ const FSM: FC<FSMPagePropsType> = ({ }) => {
   }
 
   return (
-    <FSMStateProvider
-      fsmStateId={player?.current_state}
-      playerId={player?.id}
-      WIDGET_TYPE_MAPPER={CUSTOM_WIDGET_TYPE_MAPPER}
-    >
-      <BoardFSMState fsmStateId={(player?.current_state as any)} />
-    </FSMStateProvider>
+    <Fragment>
+      {fsm &&
+        <Helmet>
+          <title>{fsm.name}</title>
+        </Helmet>
+      }
+      <FSMStateProvider
+        fsmStateId={player?.current_state}
+        playerId={player?.id}
+        WIDGET_TYPE_MAPPER={CUSTOM_WIDGET_TYPE_MAPPER}
+      >
+        <BoardFSMState fsmStateId={(player?.current_state as any)} />
+      </FSMStateProvider>
+    </Fragment>
   );
 };
 
