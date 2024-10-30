@@ -52,7 +52,8 @@ type ProgramManagementPropsType = {}
 const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
 
   return (
-    <Container maxWidth='lg'
+    <Container
+      maxWidth='lg'
       sx={{
         display: 'flex',
         paddingTop: 4,

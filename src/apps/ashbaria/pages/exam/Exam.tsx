@@ -1,4 +1,4 @@
-import { Box, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/profileBackground.svg";
 import FullScreenPaper from "commons/components/atoms/FullScreenPaper";
@@ -12,6 +12,7 @@ import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import Paper from "commons/template/Paper";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
+import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 
 type ExamPagePropsType = {};
 
@@ -34,20 +35,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   }
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        minWidth: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <FullScreenBackgroundImage image={backgroundImg}>
       <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
         <FSMStateProvider
           fsmStateId={player?.current_state}
@@ -56,7 +44,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
           <Paper mode='general' paperId={paperId} />
         </FSMStateProvider>
       </Stack>
-    </Box>
+    </FullScreenBackgroundImage>
   );
 };
 
