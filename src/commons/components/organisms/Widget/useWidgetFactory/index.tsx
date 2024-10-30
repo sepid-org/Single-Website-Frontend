@@ -21,11 +21,11 @@ const useWidgetFactory = ({
   const [deleteWidget] = useDeleteWidgetMutation();
   const [createWidget] = useCreateWidgetMutation();
   const [updateWidget] = useUpdateWidgetMutation();
-  const { WIDGET_TYPE_MAPPER } = useFSMStateContext();
+  const { widgetRegistry } = useFSMStateContext();
 
   let onDelete, onMutate, onAnswerChange;
 
-  const widgetToolkit = WIDGET_TYPE_MAPPER[widgetType];
+  const widgetToolkit = widgetRegistry[widgetType];
   const WidgetComponent = widgetToolkit?.WidgetComponent;
   const EditWidgetDialog = widgetToolkit?.EditWidgetDialog;
   const useSubmitAnswerMutation = widgetToolkit?.useSubmitAnswerMutation;

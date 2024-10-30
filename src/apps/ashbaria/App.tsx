@@ -18,6 +18,9 @@ import Login from './pages/Login';
 import Introduction from './pages/Introduction';
 import ComingSoon from './pages/ComingSoon';
 import GameMenu from './pages/GameMenu';
+import ExamPage from './pages/exam/Exam';
+import StartExamPage from './pages/exam/Start';
+import ExamResultPage from './pages/exam/Result';
 
 const App = () => {
 
@@ -30,6 +33,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
               <Route index element={<ComingSoon />} />
+              <Route path='/exam-result/' element={<ExamResultPage />} />
+              <Route path='/start-exam/' element={<StartExamPage />} />
+              <Route path='/exam/' element={<ExamPage />} />
               <Route path='/menu/' element={<GameMenu />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />

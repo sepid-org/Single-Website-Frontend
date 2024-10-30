@@ -10,9 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import React, { FC, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 
-import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import WIDGET_REGISTRY from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import useWidgetFactory from 'commons/components/organisms/Widget/useWidgetFactory';
-import { WidgetModes } from 'commons/components/organisms/Widget';
 
 type CreateWidgetDialogPropsType = {
   handleClose: any;
@@ -71,11 +70,11 @@ const CreateWidgetDialog: FC<CreateWidgetDialogPropsType> = ({
             name='fsmId'
             value={widgetType}
             label={t('widgetType')}>
-            {Object.keys(WIDGET_TYPE_MAPPER)
+            {Object.keys(WIDGET_REGISTRY)
               .filter((option, index) => (!option.includes('Problem') && showContent) || (option.includes('Problem') && showProblems))
               .map((option, index) => (
                 <MenuItem key={index} value={option}>
-                  {WIDGET_TYPE_MAPPER[option].label}
+                  {WIDGET_REGISTRY[option].label}
                 </MenuItem>
               ))}
           </Select>

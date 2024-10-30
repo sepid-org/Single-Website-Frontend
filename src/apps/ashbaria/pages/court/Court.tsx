@@ -5,7 +5,7 @@ import {
   useGetMyPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
-import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
 import FSMState from 'apps/fsm/template/FSMState';
@@ -19,11 +19,11 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { complementaryObjects } = useAshbariaCustomWidgets();
 
-  const CUSTOM_WIDGET_TYPE_MAPPER = {
-    ...WIDGET_TYPE_MAPPER,
+  const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
+    ...WIDGET_REGISTRY,
     MultiChoiceProblem: {
-      ...WIDGET_TYPE_MAPPER['MultiChoiceProblem'],
-      WidgetComponent: WIDGET_TYPE_MAPPER['MultiChoiceProblem'].WidgetComponent,
+      ...WIDGET_REGISTRY['MultiChoiceProblem'],
+      WidgetComponent: WIDGET_REGISTRY['MultiChoiceProblem'].WidgetComponent,
     },
   }
 
@@ -37,7 +37,7 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
       <FSMStateProvider
         fsmStateId={player?.current_state}
         playerId={player?.id}
-        WIDGET_TYPE_MAPPER={CUSTOM_WIDGET_TYPE_MAPPER}
+        widgetRegistry={CUSTOM_WIDGET_REGISTRY}
         complementaryObjects={complementaryObjects}
       >
         <FSMState fsmStateId={player?.current_state} />

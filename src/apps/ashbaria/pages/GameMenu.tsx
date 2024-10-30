@@ -1,4 +1,4 @@
-import { Box, Paper, Stack, Typography } from '@mui/material';
+import { Box, Button, Paper, Stack, Typography } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
@@ -40,9 +40,15 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
       </FSMProvider>
       <Stack component={Paper} spacing={2} padding={2} top={0} left={0} position={'absolute'}>
         <ProgramLogo />
-        <Typography>
+        <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۵۰ روز'}
         </Typography>
+        <Button variant='contained'>
+          {'حلقه دوستان'}
+        </Button>
+        <Button variant='outlined'>
+          {'شاخ‌ترین‌ها'}
+        </Button>
       </Stack>
     </Box>
   );

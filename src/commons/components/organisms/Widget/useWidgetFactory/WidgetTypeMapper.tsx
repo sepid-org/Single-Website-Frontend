@@ -1,3 +1,4 @@
+import { FC } from 'react';
 import BigAnswerProblemWidget, { BigAnswerQuestionEditWidget } from '../questions/BigAnswerProblemWidget';
 import ImageWidget, { ImageEditWidget } from '../contents/ImageWidget';
 import IframeWidget, { IframeEditWidget } from '../contents/IframeWidget';
@@ -18,7 +19,20 @@ import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
 import ButtonWidget from '../others/ButtonWidget';
 import ButtonWidgetEditor from '../others/ButtonWidget/edit';
 
-const WIDGET_TYPE_MAPPER = {
+// Define types for widget configuration
+interface WidgetConfig {
+  WidgetComponent: FC<any>;
+  EditWidgetDialog: FC<any>;
+  label: string;
+  backendType: string;
+  useSubmitAnswerMutation?: () => any;
+}
+
+type WidgetRegistryType = {
+  [key: string]: WidgetConfig;
+}
+
+const WIDGET_REGISTRY: WidgetRegistryType = {
   SmallAnswerProblem: {
     WidgetComponent: SmallAnswerProblemWidget,
     EditWidgetDialog: SmallAnswerProblemEditWidget,
@@ -96,4 +110,6 @@ const WIDGET_TYPE_MAPPER = {
     backendType: 'ButtonWidget',
   },
 };
-export default WIDGET_TYPE_MAPPER;
+
+export type { WidgetConfig, WidgetRegistryType };
+export default WIDGET_REGISTRY;

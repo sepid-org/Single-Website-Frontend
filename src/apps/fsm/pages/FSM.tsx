@@ -16,7 +16,6 @@ import {
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
-import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 
 var moment = require('moment');
 
@@ -134,7 +133,6 @@ const FSM: FC<FSMPagePropsType> = ({
       isMentor={isMentor}
       teamId={teamId}
       playerId={player?.id}
-      WIDGET_TYPE_MAPPER={WIDGET_TYPE_MAPPER}
     >
       <FSMState fsmStateId={(player?.current_state as any)} />
       {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&

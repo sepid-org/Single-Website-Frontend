@@ -4,10 +4,9 @@ import { useFinishFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { useFSMStateContext } from "./useFSMStateContext";
 import { useEffect } from "react";
 
-const useFinishFSM = () => {
+const useFinishFSM = ({ fsmId }) => {
   const navigate = useNavigate();
   const { playerId } = useFSMStateContext();
-  const { fsmId } = useParams();
   const [finishFSM, finishFSMResult] = useFinishFSMMutation()
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const programSlug = fsm?.program_slug;

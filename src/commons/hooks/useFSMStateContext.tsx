@@ -1,4 +1,4 @@
-import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import { ComplementaryObjectType } from 'commons/types/models';
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
@@ -7,7 +7,7 @@ interface FSMStateContextType {
   isMentor?: boolean;
   teamId?: string;
   playerId?: string;
-  WIDGET_TYPE_MAPPER?: any;
+  widgetRegistry?: WidgetRegistryType;
   complementaryObjects?: ComplementaryObjectType[];
 }
 
@@ -19,10 +19,16 @@ interface FSMStateProviderPropsType extends FSMStateContextType {
 
 export const FSMStateProvider: FC<FSMStateProviderPropsType> = ({
   children,
+  widgetRegistry: providedWidgetRegistry,
   ...props
 }) => {
   return (
-    <FSMStateContext.Provider value={{ ...props }}>
+    <FSMStateContext.Provider
+      value={{
+        ...props,
+        widgetRegistry: providedWidgetRegistry
+      }}
+    >
       {children}
     </FSMStateContext.Provider>
   );
@@ -33,12 +39,17 @@ export const useFSMStateContext = (): FSMStateContextType => {
   if (!context) {
     return {
       fsmStateId: '',
-      isMentor: null,
-      teamId: null,
-      playerId: null,
-      WIDGET_TYPE_MAPPER: WIDGET_TYPE_MAPPER,
+      isMentor: undefined,
+      teamId: undefined,
+      playerId: undefined,
+      widgetRegistry: WIDGET_REGISTRY,
       complementaryObjects: [],
     };
   }
-  return context;
+
+  // Return context with default widget registry if not provided
+  return {
+    ...context,
+    widgetRegistry: context.widgetRegistry ?? WIDGET_REGISTRY,
+  };
 };

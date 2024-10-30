@@ -13,7 +13,7 @@ type FinishCourtPropsType = {}
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const { fsmId } = useParams();
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
-  const [finishFSM, finishFSMResult] = useFinishFSM();
+  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
   const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
   const { data: courts } = useGetCourtsQuery();
 

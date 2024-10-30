@@ -9,7 +9,6 @@ import StateInfoEditor from './StateInfoEditor';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
-import WIDGET_TYPE_MAPPER from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -66,10 +65,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
           <Tab key={tab.slug} label={tab.label} />
         )}
       </Tabs>
-      <FSMStateProvider
-        fsmStateId={fsmStateId}
-        WIDGET_TYPE_MAPPER={WIDGET_TYPE_MAPPER}
-      >
+      <FSMStateProvider fsmStateId={fsmStateId}>
         {selectedTab.component}
       </FSMStateProvider>
     </Fragment>
