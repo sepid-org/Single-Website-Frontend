@@ -5,6 +5,7 @@ import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateD
 import { WidgetModes } from '../..';
 import { Attribute } from 'commons/types/models';
 import useChangeState from 'commons/hooks/useChangeState';
+import { useSubmitButtonMutation } from 'commons/redux/slices/cms/response/ButtonWidget';
 
 type ButtonWidgetPropsType = {
   label: string;
@@ -28,6 +29,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [changeState, changeStateResult] = useChangeState();
+  const [submitButton, submitButtonResult] = useSubmitButtonMutation();
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -48,6 +50,10 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       window.location.href = destination_page_url;
       return;
     }
+    // If none of the above conditions were met, just submit the button:
+    submitButton({
+      clickedButtonId: widgetId,
+    });
   };
 
   return (

@@ -4,7 +4,7 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 
 type SubmitButtonInputType = {
   stateId?: string;
-  clickedButtonId: string;
+  clickedButtonId?: string;
 };
 
 export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
