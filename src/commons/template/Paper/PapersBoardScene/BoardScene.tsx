@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC, useCallback, memo } from 'react';
+import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import { Stack } from '@mui/material';
 
 export type BoardScenePropsType = {
@@ -10,7 +10,7 @@ export type BoardScenePropsType = {
   children: React.ReactNode;
 }
 
-const BoardScene: FC<BoardScenePropsType> = memo(({
+const BoardScene: FC<BoardScenePropsType> = ({
   parentWidth = window.innerWidth,
   parentHeight = window.innerHeight,
   boardWidth = 1600,
@@ -52,7 +52,7 @@ const BoardScene: FC<BoardScenePropsType> = memo(({
         width: `${parentWidth}px`,
       });
     }
-  }, [parentHeight, parentWidth]);
+  }, [parentHeight, parentWidth, boardWidth, boardHeight]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -98,6 +98,6 @@ const BoardScene: FC<BoardScenePropsType> = memo(({
       )}
     </>
   );
-});
+};
 
 export default BoardScene;

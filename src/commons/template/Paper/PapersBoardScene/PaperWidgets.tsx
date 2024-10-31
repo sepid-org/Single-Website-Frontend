@@ -44,4 +44,4 @@ const PaperWidgets: FC<PaperWidgetsPropsType> = ({
   return <>{widgetsComponents}</>;
 };
 
-export default React.memo(PaperWidgets);
+export default PaperWidgets;
