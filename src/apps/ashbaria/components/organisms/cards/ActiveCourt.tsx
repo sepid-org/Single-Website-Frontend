@@ -33,17 +33,17 @@ const ActiveCourtCard: FC<ActiveCourtCardPropsType> = ({
       onClick={onClick}
     >
       <Stack width={'100%'} height={'100%'} component={Paper} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
-        <Typography fontSize={12} fontWeight={400} color={Golden}>
+        <Typography fontSize={10} fontWeight={400} color={Golden} textAlign={'center'}>
           {'دادگاه'}
         </Typography>
-        <Typography fontSize={16} fontWeight={600}>
+        <Typography fontSize={12} fontWeight={600} textAlign={'center'}>
           {court.title}
         </Typography>
-        <Stack alignItems={'center'} direction={'row'}>
-          <Typography fontSize={12} fontWeight={800}>
+        <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
+          <Typography fontSize={10} fontWeight={800}>
             {toPersianNumber(court.reward_score) + "+"}
           </Typography>
-          <VerifyIcon size={28} />
+          <VerifyIcon size={20} />
         </Stack>
       </Stack>
     </Box>
