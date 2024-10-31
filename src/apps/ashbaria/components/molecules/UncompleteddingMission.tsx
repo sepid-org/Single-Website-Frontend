@@ -4,7 +4,7 @@ import VerifyIcon from "../atoms/icons/Verify";
 
 
 const UncompletedCodingMission = ({ requiredFollows, rewardScore, completable, handleClick, id}) => {
-	console.log(id);
+
 	return (
 		<Box
 			sx={{

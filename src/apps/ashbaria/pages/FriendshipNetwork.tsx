@@ -36,7 +36,6 @@ const FriendshipNetworkPage = () => {
   useEffect(() => {
     if (missions) {
       setUnCompletedMissions(missions);
-      console.log(missions);
     }
   }, [missions]);
 
