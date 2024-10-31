@@ -16,6 +16,7 @@ import MyFirstName from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import useGetMenuItems from '../hooks/useGetMenuItems';
+import useLogout from 'commons/hooks/useLogout';
 
 type GameMenuPropsType = {}
 
@@ -28,6 +29,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { courts } = useMenuCourts();
   const { complementaryObjects } = useGetMenuItems();
+  const { logout } = useLogout();
 
   const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
@@ -68,6 +70,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         top={10}
         left={0}
         position={'absolute'}
+        alignItems={'center'}
         sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
       >
         <ProgramLogo />
@@ -75,11 +78,14 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۱۷ روز'}
         </Typography>
-        <Button variant='contained' onClick={() => localNavigate('/friendship-network/')}>
+        <Button fullWidth variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}
         </Button>
-        <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
+        <Button fullWidth variant='outlined' onClick={() => localNavigate('/profile/')}>
           {'پروفایل'}
+        </Button>
+        <Button variant='outlined' onClick={() => logout()}>
+          {'خروج'}
         </Button>
       </Stack>
     </FullScreenBackgroundImage>
