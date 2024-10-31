@@ -13,7 +13,7 @@ export type ProfileType = {
   national_code: string | null;
   birth_date: string | null;
   gender: 'M' | 'F' | null;
-  referral_method: 'FRIENDS' | 'SOCIAL' | 'SEARCH' | 'OTHER' | null;
+  referral_method: string;
   province: string | null;
   city: string | null;
   phone_number: string | null;
@@ -23,7 +23,6 @@ export type ProfileType = {
   created_at: string;
   updated_at: string;
   has_received_reward: boolean;
-  is_profile_complete: boolean;
 }
 
 export type UpdateProfileResponse = ProfileType & {
@@ -50,7 +49,7 @@ export type FriendshipNetworkType = {
   user: string; // UUID string
   follow_reward_score: number;
   be_followed_reward_score: number;
-  user_followers_count:number;
+  user_followers_count: number;
   user_followings_count: number;
 };
 

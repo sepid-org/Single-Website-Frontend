@@ -4,7 +4,7 @@ import React, { Fragment } from "react";
 import { AdapterDateFnsJalali } from "@mui/x-date-pickers/AdapterDateFnsJalali";
 import moment from "moment";
 
-export default function BirthDayInput({ data, setData }) {
+export default function BirthDateInput({ birthDate, setBirthDate }) {
   return (
     <Fragment>
       <Typography
@@ -24,8 +24,8 @@ export default function BirthDayInput({ data, setData }) {
           <DatePicker
             openTo='year'
             views={['year', 'month', 'day']}
-            value={data.birth_date ? new Date(data.birth_date) : null}
-            onChange={(date) => setData({ ...data, birth_date: moment(date).format('YYYY-MM-DD') })}
+            value={birthDate ? new Date(birthDate) : null}
+            onChange={(value) => setBirthDate(moment(value).format('YYYY-MM-DD'))}
             sx={{ overflow: "visible" }}
           />
         </LocalizationProvider>

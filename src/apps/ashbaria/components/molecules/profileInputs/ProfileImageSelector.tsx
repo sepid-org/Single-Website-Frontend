@@ -1,16 +1,15 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
 export default function ProfileImageSelector({ profile_image, handleChange }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
-  const profileOptions = [
-    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile1.svg",
-    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile2.svg",
-    "https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile3.svg",
-  ]
-  const selectBorderColor = (profilePic: string) => {
-    return selectedProfilePic === profilePic ? "linear-gradient(to right, #FE9C42, #E25100)" : "none";
-  }
+
+  useEffect(() => {
+    if (profile_image) {
+      setSelectedProfilePic(profile_image);
+    }
+  }, [profile_image]);
+
   return (
     <Fragment>
       <Typography
@@ -23,50 +22,52 @@ export default function ProfileImageSelector({ profile_image, handleChange }) {
         تصویر نمایه
       </Typography>
       <Stack direction={"row"} spacing={1}>
-        {profileOptions.map((item, index) => (
-          <Box
-            key={index}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              position: "relative",
-              borderRadius: "50%",
-              overflow: "hidden",
-              width: 84,
-              height: 84,
-              background: selectBorderColor(item),
-              backgroundClip: "padding-box",
-            }}
-            
-          >
+        {[1, 2, 3, 4, 5, 6, 7, 8].map(item => {
+          const imageSrc = `https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/profile${item}.png`;
+          return (
             <Box
-              component="img"
-              src={item}
-              width={80}
-              height={80}
-              onClick={() => {
-                setSelectedProfilePic(item);
-                handleChange(item);
-              }}
+              key={item}
               sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
                 borderRadius: "50%",
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  inset: 0,
-                  padding: 2,
-                  borderRadius: 24,
-                  background: 'linear-gradient(to right, #FE9C42, #E25100)',
-                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                  WebkitMaskComposite: 'xor',
-                  maskComposite: 'exclude',
-                }
+                overflow: "hidden",
+                width: 88,
+                height: 88,
+                background: selectedProfilePic === imageSrc ? "linear-gradient(to right, #FE9C42, #E25100)" : null,
+                backgroundClip: "padding-box",
               }}
-            />
-          </Box>
-        ))}
+            >
+              <Box
+                component="img"
+                src={imageSrc}
+                width={80}
+                height={80}
+                onClick={() => {
+                  setSelectedProfilePic(imageSrc);
+                  handleChange(imageSrc);
+                }}
+                sx={{
+                  borderRadius: "50%",
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: 0,
+                    padding: 2,
+                    borderRadius: 24,
+                    background: 'linear-gradient(to right, #FE9C42, #E25100)',
+                    WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                    WebkitMaskComposite: 'xor',
+                    maskComposite: 'exclude',
+                  }
+                }}
+              />
+            </Box>
+          )
+        })}
       </Stack>
-    </Fragment>
+    </Fragment >
   );
 }

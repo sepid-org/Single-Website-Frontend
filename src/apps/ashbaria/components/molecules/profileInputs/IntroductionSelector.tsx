@@ -20,11 +20,14 @@ export default function ({ handleChange, referral_method }) {
       >
         <Select
           name="referral_method"
-          defaultValue={referral_method || ''}
+          value={referral_method || ''}
           onChange={handleChange}
         >
-          <MenuItem value="1">Select Option</MenuItem>
-          <MenuItem value="2">option</MenuItem>
+          <MenuItem value="دوستان">دوستان</MenuItem>
+          <MenuItem value="مدرسه">مدرسه</MenuItem>
+          <MenuItem value="تبلیغات تلوزیونی">تبلیغات تلوزیونی</MenuItem>
+          <MenuItem value="پیامک">پیامک</MenuItem>
+          <MenuItem value="سایر">سایر</MenuItem>
         </Select>
       </FormControl>
     </Fragment>

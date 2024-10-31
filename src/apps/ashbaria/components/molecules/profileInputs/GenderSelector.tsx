@@ -1,11 +1,19 @@
-import { Box, Grid, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import React, { Fragment, useEffect, useState } from "react";
 import girlSelectedIcon from "../../../assets/girl-yellow-head.svg";
-import girlUnselectedIcon from "../../../assets/girl-purple-head.svg"
+import girlUnselectedIcon from "../../../assets/girl-purple-head.svg";
+import boySelectedIcon from "../../../assets/boy-yellow-head.svg";
 import boyUnselectedIcon from "../../../assets/boy-purple-head.svg";
 
 export default function GenderSelector({ gender, handleChange }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
+
+	useEffect(() => {
+		if (gender) {
+			setSelectedGender(gender);
+		}
+	}, [gender])
+
 	const selectColor = (genderValue: string) => {
 		return selectedGender === genderValue ? "#FFA800" : "#60557E";
 	}
@@ -17,8 +25,8 @@ export default function GenderSelector({ gender, handleChange }) {
 			<Typography
 				sx={{
 					marginBottom: '4px',
-          fontSize: 14,
-          fonWeight: 400,
+					fontSize: 14,
+					fonWeight: 400,
 				}}
 			>
 				جنسیت
@@ -51,7 +59,7 @@ export default function GenderSelector({ gender, handleChange }) {
 				>
 					<Box
 						component="img"
-						src={boyUnselectedIcon}
+						src={selectedGender === "M" ? boySelectedIcon : boyUnselectedIcon}
 						width={20}
 						height={20}
 					/>

@@ -15,7 +15,7 @@ export const ProfileSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    updateProfile: builder.mutation<UpdateProfileResponse, UpdateProfileInput>({
+    updateProfile: builder.mutation<{ reward_granted: boolean }, UpdateProfileInput>({
       invalidatesTags: ['Profile'],
       onQueryStarted: createInvalidationCallback([
         { type: 'rank', id: 'MY' },
