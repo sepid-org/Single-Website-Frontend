@@ -32,7 +32,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       {isLoading || value === null ?
         <Skeleton variant="rounded" width={50} height={30} /> :
         <Typography fontSize={24} fontWeight={800}>
-          {toPersianNumber(value) + "+"}
+          {toPersianNumber(value) + (value > 0 ? "+" : '')}
         </Typography>
       }
       <VerifyIcon />
