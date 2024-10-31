@@ -124,7 +124,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
 
             <PasswordField collectData={collectData} />
 
-            <FormControl fullWidth>
+            {/* <FormControl fullWidth>
               <InputLabel>گروه انتخابی</InputLabel>
               <Select
                 name="audience-type"
@@ -140,7 +140,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
                   {'بسیج'}
                 </MenuItem>
               </Select>
-            </FormControl>
+            </FormControl> */}
 
             <Button
               onClick={handleCreatingAccount}
