@@ -40,7 +40,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   }, []);
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg}>
+    <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 0 }}>
       {program &&
         <Helmet>
           <title>{program.name}</title>

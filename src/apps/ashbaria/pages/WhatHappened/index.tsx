@@ -19,7 +19,7 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
             autoPlay
           />
           <Button variant="contained" onClick={() => localNavigate('/')}>
-            {'ادامه'}
+            {'حله...'}
           </Button>
         </Stack>
       </Stack>

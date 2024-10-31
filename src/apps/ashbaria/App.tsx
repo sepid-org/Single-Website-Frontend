@@ -8,7 +8,7 @@ import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import OldGameMenu from './pages/OldGameMenu';
 import ProgramManagement from './pages/ProgramManagement';
 import FSMManagement from 'apps/fsm/pages/FSMManagement';
-import FriendshipNetwork from './components/organisms/FriendshipNetwork';
+import FriendshipNetworkPage from './pages/FriendshipNetwork';
 import Profile from './pages/Profile';
 import CourtInfo from './pages/court/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
@@ -43,7 +43,7 @@ const App = () => {
               <Route path="/court/:fsmId/" element={<CourtPage />} />
               <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
               <Route path="/manage/" element={<ProgramManagement />} />
-              <Route path='/friendship-network/' element={<FriendshipNetwork />} />
+              <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
             </Route>

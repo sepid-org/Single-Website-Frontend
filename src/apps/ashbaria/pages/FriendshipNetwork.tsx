@@ -9,22 +9,22 @@ import {
   Paper,
   Button,
 } from '@mui/material';
-import background from "../../assets/friendsNetworkBg.svg";
-import BackButton from '../molecules/buttons/Back';
+import background from "../assets/friendsNetworkBg.svg";
+import BackButton from '../components/molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'apps/film-bazi/components/organisms/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import HeartIcon from '../atoms/icons/Heart';
-import ExclamationIcon from '../atoms/icons/Exclamation';
-import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
-import CopyIcon from '../atoms/icons/Copy';
-import CompletedCodingMission from '../molecules/CompletedCodingMission';
-import UncompletedCodingMission from '../molecules/UncompleteddingMission';
-import FullScreenBackgroundImage from '../molecules/FullScreenBackgroundImage';
+import HeartIcon from '../components/atoms/icons/Heart';
+import ExclamationIcon from '../components/atoms/icons/Exclamation';
+import FriendshipNetworkPoints from '../components/molecules/FriendshipNetworkPoint';
+import CopyIcon from '../components/atoms/icons/Copy';
+import CompletedCodingMission from '../components/molecules/CompletedCodingMission';
+import UncompletedCodingMission from '../components/molecules/UncompleteddingMission';
+import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 
-const FriendshipNetwork = () => {
+const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
   const { data: missions } = useGetMissionsQuery()
   const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
@@ -32,10 +32,10 @@ const FriendshipNetwork = () => {
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
 
   //create skeleton istead and delete states and useEffect
-  const [unCompletedMissions, setUnCompletedMisssions] = useState([]);
+  const [unCompletedMissions, setUnCompletedMissions] = useState([]);
   useEffect(() => {
     if (missions) {
-      setUnCompletedMisssions(missions);
+      setUnCompletedMissions(missions);
       console.log(missions);
     }
   }, [missions]);
@@ -47,7 +47,7 @@ const FriendshipNetwork = () => {
     if (myCompletedMissions) {
       setCompletedMissions(myCompletedMissions);
       if (missions) {
-        setUnCompletedMisssions(missions.filter(item1 => !myCompletedMissions.some(item2 => item2.id === item1.id)));
+        setUnCompletedMissions(missions.filter(item1 => !myCompletedMissions.some(item2 => item2.id === item1.id)));
       }
     }
   }, [myCompletedMissions, missions]);
@@ -418,4 +418,4 @@ const FriendshipNetwork = () => {
   );
 };
 
-export default FriendshipNetwork;
+export default FriendshipNetworkPage;

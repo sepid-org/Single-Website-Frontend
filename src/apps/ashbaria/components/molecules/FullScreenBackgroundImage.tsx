@@ -5,11 +5,13 @@ import React, { FC, ReactNode } from 'react';
 type FullScreenBackgroundImagePropsType = {
   image: any;
   children: ReactNode;
+  styles?: any;
 }
 
 const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
   image,
   children,
+  styles,
 }) => {
 
   return (
@@ -27,6 +29,7 @@ const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
+        ...styles,
       }}
     >
       {children}
