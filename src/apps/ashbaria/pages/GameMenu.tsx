@@ -15,7 +15,7 @@ import MyTotalScore from '../components/molecules/chips/MyTotalScore';
 import MyFirstName from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import useAshbariaCustomWidgets from '../hooks/useAshbariaCustomWidgets';
+import useGetMenuItems from '../hooks/useGetMenuItems';
 
 type GameMenuPropsType = {}
 
@@ -31,7 +31,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
   const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
 
-  const { complementaryObjects } = useAshbariaCustomWidgets()
+  const { complementaryObjects } = useGetMenuItems()
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
@@ -67,7 +67,7 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
         <ProgramLogo />
         <MyFirstName />
         <Typography textAlign={'center'}>
-          {'مهلت تا پایان دوره: ۱۸ روز'}
+          {'مهلت تا پایان دوره: ۱۷ روز'}
         </Typography>
         <Button variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}

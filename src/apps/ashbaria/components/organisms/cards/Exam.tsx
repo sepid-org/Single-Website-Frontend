@@ -6,17 +6,13 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 import VerifyIcon from "../../atoms/icons/Verify";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
-type ActiveCourtCardPropsType = {
-  court: CourtType;
-}
+type ExamCardPropsType = {}
 
-const ActiveCourtCard: FC<ActiveCourtCardPropsType> = ({
-  court,
-}) => {
+const ExamCard: FC<ExamCardPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
 
   const onClick = () => {
-    localNavigate(`/court/${court.corresponding_fsm}/`)
+    localNavigate(`/start-exam/`)
   }
 
   return (
@@ -33,21 +29,17 @@ const ActiveCourtCard: FC<ActiveCourtCardPropsType> = ({
       onClick={onClick}
     >
       <Stack width={'100%'} height={'100%'} component={Paper} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
-        <Typography fontSize={10} fontWeight={400} color={Golden} textAlign={'center'}>
-          {'دادگاه'}
-        </Typography>
-        <Typography fontSize={12} fontWeight={600} textAlign={'center'}>
-          {court.title}
+        <Typography fontSize={14} fontWeight={600} color={Golden} textAlign={'center'}>
+          {'آزمونک'}
         </Typography>
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
           <Typography fontSize={10} fontWeight={800}>
-            {toPersianNumber(court.reward_score) + "+"}
+            {'دو فرصت باقی‌مانده'}
           </Typography>
-          <VerifyIcon size={20} />
         </Stack>
       </Stack>
     </Box>
   )
 }
 
-export default ActiveCourtCard;
+export default ExamCard;
