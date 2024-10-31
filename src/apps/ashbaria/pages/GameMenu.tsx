@@ -1,6 +1,6 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
-import React, { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FC, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import backgroundImg from "../assets/profileBackground.svg";
@@ -19,19 +19,25 @@ import useGetMenuItems from '../hooks/useGetMenuItems';
 
 type GameMenuPropsType = {}
 
-const GameMenu: FC<GameMenuPropsType> = ({ }) => {
+const GameMenu: FC<GameMenuPropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber })
+  const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber });
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { courts } = useMenuCourts();
+  const { complementaryObjects } = useGetMenuItems();
 
   const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
 
-  const { complementaryObjects } = useGetMenuItems()
+  useEffect(() => {
+    const hasSeenPage = localStorage.getItem('hasSeenWhatHappenedPage');
+    if (!hasSeenPage) {
+      localNavigate('/introduction/');
+    }
+  }, []);
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>

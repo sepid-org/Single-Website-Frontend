@@ -16,6 +16,7 @@ const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
     <Box
       position={'relative'}
       sx={{
+        padding: 4,
         minHeight: "100vh",
         minWidth: "100vw",
         display: "flex",

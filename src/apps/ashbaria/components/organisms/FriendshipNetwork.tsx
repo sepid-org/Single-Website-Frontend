@@ -9,7 +9,7 @@ import {
   Paper,
   Button,
 } from '@mui/material';
-import bg from "../../assets/friendsNetworkBg.svg";
+import background from "../../assets/friendsNetworkBg.svg";
 import BackButton from '../molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -22,6 +22,7 @@ import FriendshipNetworkPoints from '../molecules/FriendshipNetworkPoint';
 import CopyIcon from '../atoms/icons/Copy';
 import CompletedCodingMission from '../molecules/CompletedCodingMission';
 import UncompletedCodingMission from '../molecules/UncompleteddingMission';
+import FullScreenBackgroundImage from '../molecules/FullScreenBackgroundImage';
 
 const FriendshipNetwork = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -33,19 +34,19 @@ const FriendshipNetwork = () => {
   //create skeleton istead and delete states and useEffect
   const [unCompletedMissions, setUnCompletedMisssions] = useState([]);
   useEffect(() => {
-    if(missions){
+    if (missions) {
       setUnCompletedMisssions(missions);
       console.log(missions);
     }
   }, [missions]);
 
-  
+
   //create skeleton istead and delete states and useEffect
   const [completedMissions, setCompletedMissions] = useState([]);
   useEffect(() => {
-    if(myCompletedMissions){
+    if (myCompletedMissions) {
       setCompletedMissions(myCompletedMissions);
-      if(missions){
+      if (missions) {
         setUnCompletedMisssions(missions.filter(item1 => !myCompletedMissions.some(item2 => item2.id === item1.id)));
       }
     }
@@ -60,7 +61,7 @@ const FriendshipNetwork = () => {
     user_followings_count: "",
   });
   useEffect(() => {
-    if(myFriendshipNetwork){
+    if (myFriendshipNetwork) {
       setMyCode(myFriendshipNetwork.code.code);
       setFollowingInfo({
         be_followed_reward_score: myFriendshipNetwork.network.be_followed_reward_score.toString(),
@@ -163,20 +164,7 @@ const FriendshipNetwork = () => {
 
   return (
     <Fragment>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          minWidth: "100vw",
-          minHeight: "100vh",
-          backgroundImage: `url(${bg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <FullScreenBackgroundImage image={background}>
         <Container maxWidth='lg' component={Paper}>
 
           <Box
@@ -287,7 +275,7 @@ const FriendshipNetwork = () => {
                   onChange={(event) => setInputCode(event.target.value)}
                 />
               </Box>
-              <Button variant='outlined' size='large' onClick={() => follow({code: inputCode})}>
+              <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
                 {'ثبتش کن'}
               </Button>
             </Grid>
@@ -418,14 +406,14 @@ const FriendshipNetwork = () => {
             }}
           >
             {unCompletedMissions.map(record => (
-              <UncompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id}/>
+              <UncompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id} />
             ))}
             {completedMissions.map(record => (
               <CompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} />
             ))}
           </Box>
         </Container >
-      </Box>
+      </FullScreenBackgroundImage>
     </Fragment>
   );
 };
