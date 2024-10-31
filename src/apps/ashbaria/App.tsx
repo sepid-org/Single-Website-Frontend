@@ -21,6 +21,7 @@ import GameMenu from './pages/GameMenu';
 import ExamPage from './pages/exam/Exam';
 import StartExamPage from './pages/exam/Start';
 import ExamResultPage from './pages/exam/Result';
+import WhatHappenedPage from './pages/WhatHappened';
 
 const App = () => {
 
@@ -32,11 +33,11 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route index element={<ComingSoon />} />
+              <Route index element={<GameMenu />} />
               <Route path='/exam-result/' element={<ExamResultPage />} />
               <Route path='/start-exam/' element={<StartExamPage />} />
               <Route path='/exam/' element={<ExamPage />} />
-              <Route path='/menu/' element={<GameMenu />} />
+              <Route path='/what-happened/' element={<WhatHappenedPage />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<CourtPage />} />

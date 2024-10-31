@@ -1,9 +1,10 @@
-import { Paper, Stack } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import { Golden } from "apps/film-bazi/constants/colors";
 
 type StartExamPagePropsType = {};
 
@@ -16,7 +17,9 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack width={300} component={Paper} padding={2} spacing={2}>
-        {/* todo */}
+        <Typography color={Golden} fontWeight={600} textAlign={'center'}>
+          {'آزمون'}
+        </Typography>
       </Stack>
     </FullScreenBackgroundImage>
   );

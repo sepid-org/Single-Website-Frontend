@@ -72,8 +72,8 @@ const GameMenu: FC<GameMenuPropsType> = ({ }) => {
         <Button variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}
         </Button>
-        <Button variant='outlined' onClick={() => localNavigate('/scoreboard/')}>
-          {'شاخ‌ترین‌ها'}
+        <Button variant='outlined' onClick={() => localNavigate('/profile/')}>
+          {'پروفایل'}
         </Button>
       </Stack>
     </FullScreenBackgroundImage>
