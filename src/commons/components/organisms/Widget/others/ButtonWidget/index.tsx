@@ -5,7 +5,7 @@ import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateD
 import { WidgetModes } from '../..';
 import { Attribute } from 'commons/types/models';
 import useChangeState from 'commons/hooks/useChangeState';
-import { useSubmitButtonMutation } from 'commons/redux/slices/cms/response/ButtonWidget';
+import useSubmitButton from 'commons/hooks/useSubmitButton';
 
 type ButtonWidgetPropsType = {
   label: string;
@@ -29,7 +29,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [changeState, changeStateResult] = useChangeState();
-  const [submitButton, submitButtonResult] = useSubmitButtonMutation();
+  const [submitButton, submitButtonResult] = useSubmitButton();
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
