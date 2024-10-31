@@ -17,6 +17,7 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
             width={'100%'}
             src="https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/what-happened.mp4"
             autoPlay
+            controls
           />
           <Button variant="contained" onClick={() => localNavigate('/')}>
             {'حله...'}
