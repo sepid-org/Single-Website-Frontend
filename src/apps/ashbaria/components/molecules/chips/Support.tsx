@@ -31,8 +31,8 @@ const SupportChip: FC<SupportChipPropsType> = ({
       {isLoading || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :
         <Fragment>
-          <Typography fontSize={24} fontWeight={800}>
-            {`${toPersianNumber(value)}${value >= 0 ? ' +' : ''}`}
+          <Typography fontSize={24} fontWeight={800} sx={{ direction: 'rtl' }}>
+            {`${value > 0 ? ' +' : ''} ${toPersianNumber(value)}`}
           </Typography>
           {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
         </Fragment>
