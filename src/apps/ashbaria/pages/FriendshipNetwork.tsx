@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -24,7 +24,8 @@ import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
 import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import SMSIcon from '../components/atoms/icons/SMS';
+import { toast } from 'react-toastify';
+import SendInvitation from '../components/molecules/SendInvitation';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -33,7 +34,6 @@ const FriendshipNetworkPage = () => {
   const [follow, followResult] = useFollowMutation();
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
   const [inputCode, setInputCode] = useState('');
-  const [myCode, setMyCode] = useState('');
 
   //create skeleton istead and delete states and useEffect
   const [unCompletedMissions, setUnCompletedMissions] = useState([]);
@@ -53,25 +53,6 @@ const FriendshipNetworkPage = () => {
       }
     }
   }, [myCompletedMissions, missions]);
-
-  //create skeleton istead and delete states and useEffect
-  const [followingInfo, setFollowingInfo] = useState({
-    be_followed_reward_score: "",
-    follow_reward_score: "",
-    user_followers_count: "",
-    user_followings_count: "",
-  });
-  useEffect(() => {
-    if (myFriendshipNetwork) {
-      setMyCode(myFriendshipNetwork.code.code);
-      setFollowingInfo({
-        be_followed_reward_score: myFriendshipNetwork.network.be_followed_reward_score.toString(),
-        follow_reward_score: myFriendshipNetwork.network.follow_reward_score.toString(),
-        user_followers_count: myFriendshipNetwork.network.user_followers_count.toString(),
-        user_followings_count: myFriendshipNetwork.network.user_followings_count.toString(),
-      });
-    }
-  }, [myFriendshipNetwork]);
 
   useEffect(() => {
     if (completeMissionResult.isError) {
@@ -131,35 +112,11 @@ const FriendshipNetworkPage = () => {
     }
   }, [followResult])
 
-  const isMobileDevice = () => {
-    return /Mobi|Android/i.test(navigator.userAgent);
-  };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(myCode);
+    toast.success('کد دعوت با موفقیت کپی شد');
+    navigator.clipboard.writeText(myFriendshipNetwork.code.code);
   };
-
-  const shareOnMobile = () => {
-    if (navigator.share) {
-      navigator.share({
-        text: myCode,
-      }).then(() => {
-        console.log('Successful share');
-      }).catch((error) => {
-        console.log('Error sharing', error);
-      });
-    } else {
-      alert('Your browser does not support the Web Share API');
-    }
-  };
-
-  const handleShare = () => {
-    if (isMobileDevice()) {
-      shareOnMobile();
-    } else {
-      copyToClipboard();
-    }
-  }
 
   return (
     <FullScreenBackgroundImage image={background}>
@@ -175,7 +132,7 @@ const FriendshipNetworkPage = () => {
                 {'حلقه دوستان'}
               </Typography>
             </Stack>
-            <Box position={'absolute'} right={10} top={5}>
+            <Box position={'absolute'} right={10} top={2}>
               <IconButton color="inherit">
                 <ExclamationIcon />
               </IconButton>
@@ -198,8 +155,8 @@ const FriendshipNetworkPage = () => {
                     {'کد دوستاتو بزن!'}
                   </Typography>
                   <FriendshipNetworkPoints
-                    points={followingInfo.follow_reward_score}
-                    numberOfFriends={followingInfo.user_followings_count}
+                    points={myFriendshipNetwork?.network.follow_reward_score}
+                    numberOfFriends={myFriendshipNetwork?.network.user_followings_count}
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
@@ -231,8 +188,8 @@ const FriendshipNetworkPage = () => {
                     {'به دوستات کد بده!'}
                   </Typography>
                   <FriendshipNetworkPoints
-                    numberOfFriends={followingInfo.user_followers_count}
-                    points={followingInfo.follow_reward_score}
+                    numberOfFriends={myFriendshipNetwork?.network.user_followers_count}
+                    points={myFriendshipNetwork?.network.be_followed_reward_score}
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
@@ -250,15 +207,13 @@ const FriendshipNetworkPage = () => {
                     {'کد اختصاصی تو:'}
                   </Typography>
                   <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
-                    <Typography>{myCode}</Typography>
+                    <Typography>{myFriendshipNetwork?.code?.code}</Typography>
                     <IconButton onClick={copyToClipboard} color="inherit">
                       <CopyIcon />
                     </IconButton>
                   </Stack>
                 </Stack>
-                <Button startIcon={<SMSIcon />} variant='contained' size='large' onClick={handleShare} fullWidth>
-                  {'ارسال دعوت‌نامه'}
-                </Button>
+                <SendInvitation />
               </Stack>
             </Grid>
           </Grid>
@@ -289,10 +244,20 @@ const FriendshipNetworkPage = () => {
               }}
             >
               {unCompletedMissions.map(record => (
-                <UncompletedMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id} />
+                <UncompletedMission
+                  key={record.id}
+                  requiredFollows={record.required_follows}
+                  rewardScore={record.reward_score}
+                  completable={record.required_follows <= myFriendshipNetwork?.network.user_followings_count}
+                  handleClick={completeMission} id={record.id}
+                />
               ))}
               {completedMissions.map(record => (
-                <CompletedMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} />
+                <CompletedMission
+                  key={record.id}
+                  requiredFollows={record.required_follows}
+                  rewardScore={record.reward_score}
+                />
               ))}
             </Stack>
           </Grid>

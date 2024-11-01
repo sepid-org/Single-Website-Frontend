@@ -4,8 +4,8 @@ import VerifyIcon from "../atoms/icons/Verify";
 import TwoPeopleIcon from "../atoms/icons/TwoPeople";
 
 interface FriendshipNetworkPointProps {
-	points: string,
-	numberOfFriends: string
+	points: number,
+	numberOfFriends: number
 }
 
 const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
@@ -43,7 +43,7 @@ const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
 				>
 					{points}
 				</Typography>
-				<VerifyIcon />
+				<VerifyIcon size={30} />
 			</Box>
 			<Box
 				sx={{
