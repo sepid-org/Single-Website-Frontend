@@ -5,7 +5,6 @@ import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import Choice from 'commons/components/molecules/Choice';
-import { toast } from 'react-toastify';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
@@ -62,10 +61,6 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     } else {
       const choiceIndex = selectedChoices.indexOf(choice);
       if (choiceIndex === -1) {
-        if (selectedChoices.length === maxSelections) {
-          toast.error(`حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`)
-          return;
-        }
         setSelectedChoices([
           ...selectedChoices,
           choice,
@@ -105,15 +100,22 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
           />
         )}
       </Stack>
-      {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
-        <Button
-          sx={{ width: 80, alignSelf: 'end' }}
-          variant='contained'
-          onClick={() => handleSubmitAnswer(selectedChoices)}>
-          <Typography fontWeight={400}>
-            {'ثبت'}
+      {mode === WidgetModes.View && maxSelections > 1 &&
+        <Stack alignItems={'end'}>
+          <Button
+            disabled={selectedChoices?.length < minSelections || selectedChoices.length > maxSelections}
+            sx={{ width: 80, alignSelf: 'end' }}
+            variant='contained'
+            onClick={() => handleSubmitAnswer(selectedChoices)}>
+            <Typography fontWeight={400}>
+              {'ثبت'}
+            </Typography>
+          </Button>
+          <Typography variant='caption' color={'error'}>
+            {selectedChoices?.length < minSelections && `حداقل ${toPersianNumber(minSelections)} گزینه را باید انتخاب کنید.`}
+            {selectedChoices?.length > maxSelections && `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`}
           </Typography>
-        </Button>
+        </Stack>
       }
     </Stack>
   );
