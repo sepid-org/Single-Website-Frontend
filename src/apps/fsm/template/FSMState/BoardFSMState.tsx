@@ -4,9 +4,9 @@ import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
-import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
+import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -60,12 +60,16 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
       />
       {isMentor &&
         <Box position={'absolute'} top={10} left={10} component={Paper} padding={2}>
-          <Typography>
-            {`${fsm?.id}. ${fsm?.name}`}
-          </Typography>
-          <Typography>
-            {`${fsmState?.id}. ${fsmState?.title}`}
-          </Typography>
+          <CollapsibleTitle title='راهنمای همیاران'>
+            <Fragment>
+              <Typography>
+                {`گام ${fsm?.id}: ${fsm?.name}`}
+              </Typography>
+              <Typography>
+                {`کارگاه ${fsmState?.id}: ${fsmState?.title}`}
+              </Typography>
+            </Fragment>
+          </CollapsibleTitle>
         </Box>
       }
     </Box>
