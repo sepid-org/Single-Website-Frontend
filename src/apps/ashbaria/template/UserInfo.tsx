@@ -107,29 +107,29 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             {userProfile?.has_received_reward === false && <ScoreChip value={150} />}
           </Box>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <NameInput handleChange={handleChange} first_name={userProfile?.first_name} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <LastNameInput handleChange={handleChange} last_name={userProfile?.last_name} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <NationalCodeInput handleChange={handleChange} national_code={userProfile?.national_code} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <BirthDateInput birthDate={userProfile?.birth_date} setBirthDate={(value) => setUserProfile({ ...userProfile, birth_date: value })} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <GenderSelector gender={userProfile?.gender} handleChange={handleGenderChange} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <IntroductionSelector handleChange={handleChange} referral_method={userProfile?.referral_method} />
         </Grid>
         <RegionSelector data={userProfile} setData={setUserProfile} />
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <PhoneNumberInput handleChange={handleChange} phone_number={userProfile?.phone_number} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <PostNumberInput handleChange={handleChange} postal_code={userProfile?.postal_code} />
         </Grid>
         <Grid item xs={12}>
@@ -138,12 +138,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12}>
           <ProfileImageSelector profile_image={userProfile?.profile_image} handleChange={handleProfileImgChange} />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
             {'ولش کن'}
           </Button>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <Button onClick={handleSubmit} size="large" fullWidth={true} variant='contained'>
             {'همینو ذخیره کن'}
           </Button>
