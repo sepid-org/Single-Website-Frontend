@@ -58,14 +58,16 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         parentHeight={containerHeight}
         paperIds={fsmState?.papers}
       />
-      <Box position={'absolute'} top={10} left={10} component={Paper} padding={2}>
-        <Typography>
-          {`${fsm?.id}. ${fsm?.name}`}
-        </Typography>
-        <Typography>
-          {`${fsmState?.id}. ${fsmState?.title}`}
-        </Typography>
-      </Box>
+      {isMentor &&
+        <Box position={'absolute'} top={10} left={10} component={Paper} padding={2}>
+          <Typography>
+            {`${fsm?.id}. ${fsm?.name}`}
+          </Typography>
+          <Typography>
+            {`${fsmState?.id}. ${fsmState?.title}`}
+          </Typography>
+        </Box>
+      }
     </Box>
   );
 };
