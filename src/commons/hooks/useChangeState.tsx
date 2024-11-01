@@ -28,17 +28,17 @@ const useChangeState = (): [
   const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
 
   const changeState = async ({ stateId, clickedButtonId = null }: ChangeStateParams) => {
-    if (isMentor) {
-      // todo: Implement mentor move forward
-      // await mentorMoveForward({
-      //   edgeId: edge.id,
-      // });
-    } else {
-      submitButton({
-        stateId,
-        clickedButtonId,
-      });
-    }
+    // if (isMentor) {
+    //   todo: Implement mentor move forward
+    //   await mentorMoveForward({
+    //     edgeId: edge.id,
+    //   });
+    //   return;
+    // } 
+    submitButton({
+      stateId,
+      clickedButtonId,
+    });
   };
 
   // Return the result that matches the current mode (mentor or student)
