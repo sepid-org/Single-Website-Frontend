@@ -16,6 +16,7 @@ import {
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 var moment = require('moment');
 
@@ -128,17 +129,19 @@ const FSM: FC<FSMPagePropsType> = ({
   if (!player?.current_state || !fsm) return null;
 
   return (
-    <FSMStateProvider
-      fsmStateId={player?.current_state}
-      isMentor={isMentor}
-      teamId={teamId}
-      playerId={player?.id}
-    >
-      <FSMState fsmStateId={player?.current_state} />
-      {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
-        <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
-      }
-    </FSMStateProvider>
+    <FSMProvider fsmId={fsmId}>
+      <FSMStateProvider
+        fsmStateId={player?.current_state}
+        isMentor={isMentor}
+        teamId={teamId}
+        playerId={player?.id}
+      >
+        <FSMState fsmStateId={player?.current_state} />
+        {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
+          <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
+        }
+      </FSMStateProvider>
+    </FSMProvider>
   );
 };
 

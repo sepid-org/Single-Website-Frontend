@@ -6,6 +6,7 @@ import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
 import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -20,7 +21,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   boardHeight,
   mode,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });

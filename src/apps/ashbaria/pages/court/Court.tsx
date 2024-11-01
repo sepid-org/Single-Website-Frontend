@@ -10,6 +10,7 @@ import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
 import FSMState from 'apps/fsm/template/FSMState';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 
 type CourtPagePropsType = {}
@@ -39,15 +40,17 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
           <title>{fsm.name}</title>
         </Helmet>
       }
-      <FSMStateProvider
-        isMentor={currentUserFSMStatus?.is_mentor}
-        fsmStateId={player?.current_state}
-        playerId={player?.id}
-        widgetRegistry={CUSTOM_WIDGET_REGISTRY}
-        complementaryObjects={complementaryObjects}
-      >
-        <FSMState fsmStateId={player?.current_state} />
-      </FSMStateProvider>
+      <FSMProvider fsmId={fsmId}>
+        <FSMStateProvider
+          isMentor={currentUserFSMStatus?.is_mentor}
+          fsmStateId={player?.current_state}
+          playerId={player?.id}
+          widgetRegistry={CUSTOM_WIDGET_REGISTRY}
+          complementaryObjects={complementaryObjects}
+        >
+          <FSMState fsmStateId={player?.current_state} />
+        </FSMStateProvider>
+      </FSMProvider>
     </Fragment>
   );
 };

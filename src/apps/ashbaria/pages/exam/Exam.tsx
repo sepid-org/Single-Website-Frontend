@@ -13,6 +13,7 @@ import Paper from "commons/template/Paper";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import { FSMProvider } from "commons/hooks/useFSMContext";
 
 type ExamPagePropsType = {};
 
@@ -37,12 +38,14 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
-        <FSMStateProvider
-          fsmStateId={player?.current_state}
-          widgetRegistry={CUSTOM_WIDGET_REGISTRY}
-        >
-          <Paper mode='general' paperId={paperId} />
-        </FSMStateProvider>
+        <FSMProvider fsmId={fsmId}>
+          <FSMStateProvider
+            fsmStateId={player?.current_state}
+            widgetRegistry={CUSTOM_WIDGET_REGISTRY}
+          >
+            <Paper mode='general' paperId={paperId} />
+          </FSMStateProvider>
+        </FSMProvider>
       </Stack>
     </FullScreenBackgroundImage>
   );
