@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef, FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
-import { Box } from '@mui/material';
+import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import { useParams } from 'react-router-dom';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -18,8 +20,10 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   boardHeight,
   mode,
 }) => {
+  const { fsmId } = useParams();
   const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { data: fsm } = useGetFSMQuery({ fsmId });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
 
@@ -40,7 +44,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   }, [fsmState]);
 
   return (
-    <Fragment>
+    <Box position={'relative'}>
       {fsmState?.show_appbar && (
         <Box ref={appbarRef}>
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
@@ -53,7 +57,15 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         parentHeight={containerHeight}
         paperIds={fsmState?.papers}
       />
-    </Fragment>
+      <Box position={'absolute'} top={10} left={10} component={Paper} padding={2}>
+        <Typography>
+          {`${fsm.id}. ${fsm.name}`}
+        </Typography>
+        <Typography>
+          {`${fsmState.id}. ${fsmState.title}`}
+        </Typography>
+      </Box>
+    </Box>
   );
 };
 

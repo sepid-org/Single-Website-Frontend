@@ -68,7 +68,7 @@ const OldGameMenu: FC<OldGameMenuPropsType> = ({ }) => {
                 <Grid item xs={12} sm={6} md={4} key={fsm.id}>
                   <FSMCard
                     fsm={fsm}
-                    userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id === fsm.id)}
+                    userFSMStatus={programUserFSMsStatus?.find(programFSMsUserPermissions => programFSMsUserPermissions.fsm_id.toString() === fsm.id)}
                   />
                 </Grid>
               )}

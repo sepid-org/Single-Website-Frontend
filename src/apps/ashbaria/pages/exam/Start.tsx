@@ -12,7 +12,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const fsmId = process.env.NODE_ENV === 'development' ? "7" : "213";
   const { programSlug } = useParams();
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const userExamStatus = userFSMsStatus.find(status => status.fsm_id === fsmId);
+  const userExamStatus = userFSMsStatus.find(status => status.fsm_id.toString() === fsmId);
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>

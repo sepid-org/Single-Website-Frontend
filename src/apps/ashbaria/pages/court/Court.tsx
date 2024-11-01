@@ -9,15 +9,19 @@ import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organism
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
 import FSMState from 'apps/fsm/template/FSMState';
+import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 
 type CourtPagePropsType = {}
 
 const CourtPage: FC<CourtPagePropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const { fsmId, programSlug } = useParams();
   const { data: player } = useGetMyPlayerQuery({ fsmId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { complementaryObjects } = useAshbariaCustomWidgets();
+
+  const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id.toString() === fsmId);
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,
@@ -35,6 +39,7 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
         </Helmet>
       }
       <FSMStateProvider
+        isMentor={currentUserFSMStatus?.is_mentor}
         fsmStateId={player?.current_state}
         playerId={player?.id}
         widgetRegistry={CUSTOM_WIDGET_REGISTRY}

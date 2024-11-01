@@ -46,7 +46,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
                   <Grid item key={fsm.id} xs={12} sm={6} lg={4}>
                     <VerticalFSMCard
                       fsm={fsm}
-                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id === fsm.id)}
+                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id.toString() === fsm.id)}
                     />
                   </Grid>
                 )
@@ -55,7 +55,7 @@ const FSMsGrid: FC<FSMsGridPropsType> = ({ }) => {
                   <Grid item key={fsm.id} xs={12}>
                     <FSMHorizontalCard
                       fsm={fsm}
-                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id === fsm.id)}
+                      userStatus={programUserFSMsStatus?.find(status => status.fsm_id.toString() === fsm.id)}
                     />
                   </Grid>
                 )

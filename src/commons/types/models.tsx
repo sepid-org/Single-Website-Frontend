@@ -312,7 +312,7 @@ export type ProgramUserPermissions = {
 }
 
 export type UserFSMStatus = {
-  fsm_id: string;
+  fsm_id: number;
   is_mentor: boolean;
   is_finished: boolean;
 }
