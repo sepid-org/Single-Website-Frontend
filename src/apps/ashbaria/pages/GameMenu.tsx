@@ -50,8 +50,10 @@ const GameMenu: FC<GameMenuPropsType> = () => {
       }
       <FSMProvider fsmId={fsmId}>
         <FSMStateProvider
+          isMentor={false}
           complementaryObjects={complementaryObjects}
-          fsmStateId={fsmStateId}>
+          fsmStateId={fsmStateId}
+        >
           <BoardFSMState
             mode='fit-width'
             boardWidth={900}

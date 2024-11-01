@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import VerifyIcon from "../atoms/icons/Verify";
+import VerifyIcon from "../../atoms/icons/Verify";
 
 
-const CompletedCodingMission = ({ requiredFollows, rewardScore }) => {
+const CompletedMission = ({ requiredFollows, rewardScore }) => {
 	return (
 		<Box
 			sx={{
@@ -70,4 +70,4 @@ const CompletedCodingMission = ({ requiredFollows, rewardScore }) => {
 	);
 }
 
-export default CompletedCodingMission;
+export default CompletedMission;

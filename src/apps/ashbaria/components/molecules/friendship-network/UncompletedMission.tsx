@@ -1,9 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import React, { Fragment } from "react";
-import VerifyIcon from "../atoms/icons/Verify";
+import VerifyIcon from "../../atoms/icons/Verify";
 
 
-const UncompletedCodingMission = ({ requiredFollows, rewardScore, completable, handleClick, id}) => {
+const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleClick, id }) => {
 
 	return (
 		<Box
@@ -54,7 +54,7 @@ const UncompletedCodingMission = ({ requiredFollows, rewardScore, completable, h
 			>
 				{completable ?
 					(
-						<Button variant="outlined" fullWidth size="small" onClick={() => handleClick({missionId: id})}>
+						<Button variant="outlined" fullWidth size="small" onClick={() => handleClick({ missionId: id })}>
 							<Typography
 								fontSize={16}
 								fontWeight={800}
@@ -87,4 +87,4 @@ const UncompletedCodingMission = ({ requiredFollows, rewardScore, completable, h
 	);
 }
 
-export default UncompletedCodingMission;
+export default UncompletedMission;

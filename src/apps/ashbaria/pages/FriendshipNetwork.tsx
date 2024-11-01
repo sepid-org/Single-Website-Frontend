@@ -8,6 +8,7 @@ import {
   Grid,
   Paper,
   Button,
+  Stack,
 } from '@mui/material';
 import background from "../assets/friendsNetworkBg.svg";
 import BackButton from '../components/molecules/buttons/Back';
@@ -20,8 +21,8 @@ import HeartIcon from '../components/atoms/icons/Heart';
 import ExclamationIcon from '../components/atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../components/molecules/FriendshipNetworkPoint';
 import CopyIcon from '../components/atoms/icons/Copy';
-import CompletedCodingMission from '../components/molecules/CompletedCodingMission';
-import UncompletedCodingMission from '../components/molecules/UncompleteddingMission';
+import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
+import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 
 const FriendshipNetworkPage = () => {
@@ -30,6 +31,8 @@ const FriendshipNetworkPage = () => {
   const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
   const [follow, followResult] = useFollowMutation();
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
+  const [inputCode, setInputCode] = useState('');
+  const [myCode, setMyCode] = useState('');
 
   //create skeleton istead and delete states and useEffect
   const [unCompletedMissions, setUnCompletedMissions] = useState([]);
@@ -38,7 +41,6 @@ const FriendshipNetworkPage = () => {
       setUnCompletedMissions(missions);
     }
   }, [missions]);
-
 
   //create skeleton istead and delete states and useEffect
   const [completedMissions, setCompletedMissions] = useState([]);
@@ -52,7 +54,6 @@ const FriendshipNetworkPage = () => {
   }, [myCompletedMissions, missions]);
 
   //create skeleton istead and delete states and useEffect
-  const [myCode, setMyCode] = useState("");
   const [followingInfo, setFollowingInfo] = useState({
     be_followed_reward_score: "",
     follow_reward_score: "",
@@ -159,261 +160,144 @@ const FriendshipNetworkPage = () => {
     }
   }
 
-  const [inputCode, setInputCode] = useState("");
-
   return (
-    <Fragment>
-      <FullScreenBackgroundImage image={background}>
-        <Container maxWidth='lg' component={Paper}>
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              margin: 1,
-            }}
-          >
-            <BackButton />
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <HeartIcon />
-              <Typography variant="h6" color="white" sx={{ ml: 1 }}>حلقه دوستان</Typography>
+    <FullScreenBackgroundImage image={background}>
+      <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
+        <Grid container spacing={2}>
+          <Grid container item alignItems={'center'} justifyContent={'center'}>
+            <Box position={'absolute'} left={10} top={10}>
+              <BackButton />
             </Box>
-            <IconButton color="inherit">
-              <ExclamationIcon />
-            </IconButton>
-          </Box>
+            <Stack direction={'row'} alignItems={'center'}>
+              <HeartIcon />
+              <Typography variant="h6" fontSize={24} fontWeight={800}>
+                {'حلقه دوستان'}
+              </Typography>
+            </Stack>
+            <Box position={'absolute'} right={10} top={5}>
+              <IconButton color="inherit">
+                <ExclamationIcon />
+              </IconButton>
+            </Box>
+          </Grid>
 
-          <Grid
-            container
-            sx={{
-              //display: "flex",
-              //justifyContent: "space-evenly",
-              width: "100%",
-              margin: 0,
-            }}
-            spacing={3}
-            columnSpacing={3}
-          >
+          <Grid container item spacing={3} alignItems={'stretch'} justifyContent={'center'}>
             {/* Right Component */}
-            <Grid
-              item
-              xs={11}
-              sm={6}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "end",
-                height: "auto",
-                borderRadius: 2,
-                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                padding: 1,
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-around",
-                  alignItems: "center",
-                  width: "100%",
-                  height: 36,
-                }}
+            <Grid item xs={12} sm={6}>
+              <Stack
+                height={'100%'}
+                spacing={2}
+                padding={2}
+                borderRadius={2}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+                justifyContent={'space-between'}
               >
-                <Typography
-                  fontSize={16}
-                  fontWeight={600}
-                  sx={{
-                    width: "100%",
-                  }}
-                >
-                  کد دوستاتو بزن!
+                <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                  <Typography fontSize={16} fontWeight={600}>
+                    {'کد دوستاتو بزن!'}
+                  </Typography>
+                  <FriendshipNetworkPoints
+                    points={followingInfo.follow_reward_score}
+                    numberOfFriends={followingInfo.user_followings_count}
+                  />
+                </Stack>
+                <Typography fontSize={16} fontWeight={400}>
+                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ۱۰ تا اعتبار می‌ارزه
                 </Typography>
-                <FriendshipNetworkPoints points={followingInfo.follow_reward_score} numberOfFriends={followingInfo.user_followings_count} />
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
-                <Typography
-                  fontSize={16}
-                  fontWeight={400}
-                  sx={{
-                    marginTop: 3,
-                    height: 60,
-                  }}
-                  style={{
-                    direction: "rtl",
-                    textAlign: "right"
-                  }}
-                >
-                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی 10 تا اعتبار می‌ارزه
-                </Typography>
-              </Box>
-              <Box
-                sx={{
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "center",
-                }}
-              >
                 <TextField
                   variant="outlined"
                   placeholder="کد ۱۰ رقمی"
-                  sx={{
-                    margin: 1,
-                    '& .MuiOutlinedInput-root': {
-                      height: 44,
-                      width: 255,
-                      maxWidth: "100%",
-                    }
-                  }}
                   onChange={(event) => setInputCode(event.target.value)}
                 />
-              </Box>
-              <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
-                {'ثبتش کن'}
-              </Button>
+                <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
+                  {'ثبتش کن'}
+                </Button>
+              </Stack>
             </Grid>
 
             {/* Left Component */}
-            <Grid
-              item
-              xs={11}
-              sm={6}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                flexDirection: "column",
-                height: "auto",
-                borderRadius: 2,
-                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                padding: 1,
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  width: "100%",
-                  height: 36,
-                }}
+            <Grid item xs={12} sm={6}>
+              <Stack
+                height={'100%'}
+                spacing={2}
+                padding={2}
+                borderRadius={2}
+                sx={{ backgroundColor: "rgba(0, 0, 0, 0.1)" }}
+                justifyContent={'space-between'}
               >
-                <Typography
-                  fontSize={16}
-                  fontWeight={600}
-                  sx={{
-                    width: "100%",
-                  }}
-                >
-                  به دوستات کد بده!
+                <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                  <Typography fontSize={16} fontWeight={600}>
+                    {'به دوستات کد بده!'}
+                  </Typography>
+                  <FriendshipNetworkPoints
+                    numberOfFriends={followingInfo.user_followers_count}
+                    points={followingInfo.follow_reward_score}
+                  />
+                </Stack>
+                <Typography fontSize={16} fontWeight={400}>
+                  هر کسی کد اختصاصی تو رو بزنه، هم اون اعتبار میگیره هم تو!
                 </Typography>
-                <FriendshipNetworkPoints numberOfFriends={followingInfo.user_followers_count} points={followingInfo.follow_reward_score} />
-              </Box>
-              <Typography
-                fontSize={16}
-                fontWeight={400}
-                sx={{
-                  marginTop: 3,
-                  height: 60,
-                }}
-                style={{
-                  direction: "rtl",
-                  textAlign: "right"
-                }}
-              >
-                هر کسی کد اختصاصی تو رو بزنه، هم اون اعتبار میگیره هم تو!
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                  borderRadius: 1,
-                  minWidth: 255,
-                  maxWidth: "100%",
-                  height: 44,
-                  margin: 1,
-                }}
-              >
-                <Typography
-                  fontSize={16}
-                  fontWeight={400}
-                  sx={{
-                    width: 172,
-                    heigh: 24,
-                    marginLeft: 1
-                  }}
-                  style={{
-                    direction: "rtl",
-                    textAlign: "right"
-                  }}
+                <Stack
+                  paddingLeft={1}
+                  direction={'row'}
+                  borderRadius={1}
+                  sx={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+                  alignItems={'center'}
+                  justifyContent={'space-between'}
                 >
-                  کد اختصاصی تو
-                </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Typography>{myCode}</Typography>
-                  <IconButton onClick={copyToClipboard} color="inherit">
-                    <CopyIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-              <Box
-                sx={{
-                  minWidth: 255,
-                  maxWidth: "100%",
-                }}
-              >
+                  <Typography fontSize={16} fontWeight={400}>
+                    {'کد اختصاصی تو:'}
+                  </Typography>
+                  <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+                    <Typography>{myCode}</Typography>
+                    <IconButton onClick={copyToClipboard} color="inherit">
+                      <CopyIcon />
+                    </IconButton>
+                  </Stack>
+                </Stack>
                 <Button variant='contained' size='large' onClick={handleShare} fullWidth>
                   {'ارسال دعوت‌نامه'}
                 </Button>
-              </Box>
+              </Stack>
             </Grid>
           </Grid>
 
-          {/* Records Section */}
-          <Typography
-            fontSize={16}
-            fontWeight={600}
-            sx={{
-              textAlign: "left",
-              margin: 2
-            }}
-          >
-            ماموریت‌های کدزنی
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-evenly",
-              margin: 2,
-              overflowX: "auto",
-            }}
-          >
-            {unCompletedMissions.map(record => (
-              <UncompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id} />
-            ))}
-            {completedMissions.map(record => (
-              <CompletedCodingMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} />
-            ))}
-          </Box>
-        </Container >
-      </FullScreenBackgroundImage>
-    </Fragment>
+          {/* Missions Section */}
+          <Grid item xs={12}>
+            <Typography fontSize={16} fontWeight={600} gutterBottom>
+              {'ماموریت‌های کدزنی'}
+            </Typography>
+            <Stack
+              spacing={2}
+              direction={'row-reverse'}
+              overflow={'auto'}
+              sx={{
+                width: '100%',
+                paddingBottom: 2,
+                borderRadius: '8px',
+                '::-webkit-scrollbar': {
+                  height: '8px',
+                },
+                '::-webkit-scrollbar-thumb': {
+                  backgroundColor: '#b0bec5',
+                  borderRadius: '8px',
+                },
+                '::-webkit-scrollbar-thumb:hover': {
+                  backgroundColor: '#90a4ae',
+                },
+              }}
+            >
+              {unCompletedMissions.map(record => (
+                <UncompletedMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} completable={record.required_follows <= parseInt(followingInfo.user_followings_count)} handleClick={completeMission} id={record.id} />
+              ))}
+              {completedMissions.map(record => (
+                <CompletedMission key={record.id} requiredFollows={record.required_follows} rewardScore={record.reward_score} />
+              ))}
+            </Stack>
+          </Grid>
+        </Grid>
+      </Container>
+    </FullScreenBackgroundImage>
   );
 };
 

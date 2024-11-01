@@ -86,8 +86,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }
 
   return (
-    <Container maxWidth='lg' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
-      <Grid container item spacing={2}>
+    <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
+      <Grid container spacing={2}>
         <Grid
           item
           container
