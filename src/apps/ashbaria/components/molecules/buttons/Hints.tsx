@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
 const HintsButton = () => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const localNavigate = useLocalNavigate();
 
   return (

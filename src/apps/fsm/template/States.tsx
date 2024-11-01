@@ -17,7 +17,7 @@ import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
 type StatesPropsType = {}
 
 const States: FC<StatesPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [selectedStateId, setSelectedStateId] = useState(null);
   const { data: fsmStates, isLoading } = useGetFSMStatesQuery({ fsmId });
 

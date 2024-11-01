@@ -38,7 +38,7 @@ const LargeLink = styled(RouterLink)(({ theme }) => ({
 }));
 
 const FSMManagementBreadcrumbs = () => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: program } = useGetProgramQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
 

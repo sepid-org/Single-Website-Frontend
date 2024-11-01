@@ -1,7 +1,7 @@
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
 interface FSMContextType {
-  fsmId: string;
+  fsmId: number;
 }
 
 const FSMContext = createContext<FSMContextType | null>(null);
@@ -25,7 +25,7 @@ export const useFSMContext = (): FSMContextType => {
   const context = useContext(FSMContext);
   if (!context) {
     return {
-      fsmId: '',
+      fsmId: undefined,
     };
   }
   return context;

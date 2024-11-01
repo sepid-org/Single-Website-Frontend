@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom';
 type FinishFSMButtonPropsType = {}
 
 const FinishFSMButton: FC<FinishFSMButtonPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [finishFSM] = useFinishFSM({ fsmId });
 
   return (

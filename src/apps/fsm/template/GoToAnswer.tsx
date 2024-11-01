@@ -12,7 +12,7 @@ import isNumber from 'commons/utils/validators/isNumber';
 
 const GoToAnswer = () => {
   const navigate = useNavigate();
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [answerId, setAnswerId] = useState<string>('');
 
   return (

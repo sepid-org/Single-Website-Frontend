@@ -111,7 +111,7 @@ export type ContentType = {
 export type FSMType = ContentType & {
   players_count: number;
   is_mentor: boolean;
-  id: string;
+  id: number;
   name: string;
   first_state: string;
   description: string;

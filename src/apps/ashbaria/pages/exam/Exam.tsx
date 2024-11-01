@@ -17,7 +17,7 @@ import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullSc
 type ExamPagePropsType = {};
 
 const ExamPage: FC<ExamPagePropsType> = () => {
-  const fsmId = process.env.NODE_ENV === 'development' ? "7" : "213";
+  const fsmId = process.env.NODE_ENV === 'development' ? 7 : 213;
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: player } = useGetMyPlayerQuery({ fsmId });
   const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })

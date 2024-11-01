@@ -15,13 +15,14 @@ import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/fea
 type CourtPagePropsType = {}
 
 const CourtPage: FC<CourtPagePropsType> = ({ }) => {
-  const { fsmId, programSlug } = useParams();
+  const { programSlug } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: player } = useGetMyPlayerQuery({ fsmId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { complementaryObjects } = useAshbariaCustomWidgets();
 
-  const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id.toString() === fsmId);
+  const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,

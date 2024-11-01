@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 type BackToProgramButtonPropsType = {};
 
 const BackToProgramButton: FC<BackToProgramButtonPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const navigate = useNavigate();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 

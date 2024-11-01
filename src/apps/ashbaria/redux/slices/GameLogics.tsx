@@ -4,7 +4,7 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 
 type FinishCourtInputType = {
-  fsmId: string;
+  fsmId: number;
 }
 
 type FinishCourtOutputType = {
@@ -51,7 +51,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    getUserLastResultInFSM: builder.query<GetUserLastResultInFSMOutputType, { correspondingFsmId: string }>({
+    getUserLastResultInFSM: builder.query<GetUserLastResultInFSMOutputType, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
         { type: 'balances', id: 'MY' }
       ]),

@@ -8,7 +8,7 @@ type GetPlayerTransitedPathInputType = {
 type GetPlayerTransitedPathOutputType = Link[];
 
 type GetFSMRoadmapInputType = {
-  fsmId: string;
+  fsmId: number;
 };
 
 type GetFSMRoadmapOutputType = {

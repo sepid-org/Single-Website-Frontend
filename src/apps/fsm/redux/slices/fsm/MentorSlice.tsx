@@ -3,7 +3,7 @@ import { ContentManagementServiceApi } from 'apps/website-display/redux/features
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type AddMentorInputType = {
-  fsmId: string;
+  fsmId: number;
   username: string;
 }
 
@@ -12,7 +12,7 @@ type AddMentorOutputType = {
 }
 
 type DeleteMentorInputType = {
-  fsmId: string;
+  fsmId: number;
   username: string;
 }
 
@@ -21,7 +21,7 @@ type DeleteMentorOutputType = {
 }
 
 type GetFSMMentorsInputType = {
-  fsmId: string;
+  fsmId: number;
 }
 
 type GetFSMMentorsOutputType = UserPublicInfoType[];

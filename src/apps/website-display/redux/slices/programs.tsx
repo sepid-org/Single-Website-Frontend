@@ -101,7 +101,7 @@ export const getRequestMentorAction = createAsyncThunk(
   }
 );
 
-export const deleteRequestMentorAction = createAsyncThunk<any, { teamId: string, fsmId: string }>(
+export const deleteRequestMentorAction = createAsyncThunk<any, { teamId: string, fsmId: number }>(
   'requestMentor/delete',
   async ({ teamId, fsmId }, { rejectWithValue }) => {
     try {

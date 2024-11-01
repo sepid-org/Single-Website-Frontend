@@ -57,7 +57,7 @@ const convertGraphEdgeToFSMEdgeType = (graphEdge) => ({
 });
 
 const CourseMapEditor = () => {
-	const { fsmId } = useParams();
+	const fsmId = parseInt(useParams().fsmId);
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const { data: initialFsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 	const { data: fsm } = useGetFSMQuery({ fsmId });

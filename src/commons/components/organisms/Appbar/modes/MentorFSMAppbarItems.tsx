@@ -10,7 +10,7 @@ import { announceMentorDeparture } from 'apps/website-display/parse/mentorsInRoo
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 const MentorFSMAppbarItems = ({ mentorId }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const search = useLocation().search;

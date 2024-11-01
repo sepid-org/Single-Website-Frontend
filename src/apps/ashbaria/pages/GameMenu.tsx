@@ -31,7 +31,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   const { complementaryObjects } = useGetMenuItems();
   const { logout } = useLogout();
 
-  const fsmId = process.env.NODE_ENV === 'development' ? '6' : '214';
+  const fsmId = process.env.NODE_ENV === 'development' ? 6 : 214;
   const fsmStateId = process.env.NODE_ENV === 'development' ? '318' : '19870';
 
   useEffect(() => {

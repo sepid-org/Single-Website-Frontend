@@ -11,13 +11,13 @@ import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
 type FinishCourtPropsType = {}
 
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
   const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
   const { data: courts } = useGetCourtsQuery();
 
-  const currentCourt = courts?.find(court => court.corresponding_fsm === parseInt(fsmId))
+  const currentCourt = courts?.find(court => court.corresponding_fsm === fsmId);
 
   const handleFinishCourt = () => {
     finishCourt({ fsmId });

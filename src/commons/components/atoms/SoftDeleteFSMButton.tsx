@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 type SoftDeleteFSMButtonPropsType = {}
 
 const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);

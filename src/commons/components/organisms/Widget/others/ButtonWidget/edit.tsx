@@ -31,7 +31,7 @@ const ButtonWidgetEditor = ({
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',

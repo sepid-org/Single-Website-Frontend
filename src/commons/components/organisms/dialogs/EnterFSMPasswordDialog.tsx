@@ -14,7 +14,7 @@ import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 type EnterFSMPasswordDialogPropsType = {
   open: boolean;
   handleClose: any;
-  fsmId: string;
+  fsmId: number;
 }
 
 const EnterFSMPasswordDialog: FC<EnterFSMPasswordDialogPropsType> = ({

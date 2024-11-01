@@ -31,7 +31,7 @@ const ReviewAnswers: FC<ReviewAnswersPropsType> = ({
   getAnswersForReview,
   answers,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
 
   useEffect(() => {
     if (open) {

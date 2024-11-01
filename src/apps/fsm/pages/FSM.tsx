@@ -35,7 +35,7 @@ const FSM: FC<FSMPagePropsType> = ({
   changeOpenChatRoom,
   teamId,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const subscriberRef = useRef(null);
   const search = useLocation().search;

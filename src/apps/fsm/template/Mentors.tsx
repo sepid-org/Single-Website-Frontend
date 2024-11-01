@@ -18,7 +18,7 @@ import { useAddMentorToFSMMutation, useGetFSMMentorsQuery, useRemoveMentorFromFS
 type MentorsPropsType = {}
 
 const Mentors: FC<MentorsPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [username, setUsername] = useState<string>('');
   const [addMentorToFSM, addMentorToFSMResult] = useAddMentorToFSMMutation()
   const [removeMentorFromFSM] = useRemoveMentorFromFSMMutation()

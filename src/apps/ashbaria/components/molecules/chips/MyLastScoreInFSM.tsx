@@ -6,7 +6,7 @@ import { useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameL
 type MyLastScoreInFSMPropsType = {}
 
 const MyLastScoreInFSM: FC<MyLastScoreInFSMPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data, isLoading } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
 
   return (

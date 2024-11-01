@@ -15,7 +15,7 @@ import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import BackToProgramButton from '../components/BackToProgramButton';
 
 const FSMAppbarItems = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   // todo: refactor: fetch program minimal info (not whole program info!)
   // const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsm } = useGetFSMQuery({ fsmId });

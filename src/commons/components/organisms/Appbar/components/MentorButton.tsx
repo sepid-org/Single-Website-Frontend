@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 
 function MentorButton({ callMentor }) {
   const t = useTranslate();
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { playerId, teamId } = useFSMStateContext();
   const [isEnable, setEnable] = useState(true);
   const width = useWidth();

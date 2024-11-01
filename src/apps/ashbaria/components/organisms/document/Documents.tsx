@@ -19,7 +19,7 @@ type DocumentsPropsType = {
 const Documents: FC<DocumentsPropsType> = ({
 	documents,
 }) => {
-	const { fsmId } = useParams();
+	const fsmId = parseInt(useParams().fsmId);
 	const localNavigate = useLocalNavigate();
 
 	const backToCourt = () => {

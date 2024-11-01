@@ -59,7 +59,7 @@ const TeamWorkshopInfo: FC<TeamWorkshopInfoPropsType> = ({
   isStarred,
   toggleStar,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [click, setClick] = useState(false);
   const stateChangeSubscriberRef = useRef(null);
   const mentorsInRoomSubscriberRef = useRef(null);

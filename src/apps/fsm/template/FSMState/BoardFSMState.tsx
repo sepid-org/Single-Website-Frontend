@@ -20,7 +20,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   boardHeight,
   mode,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { isMentor } = useFSMStateContext()
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
