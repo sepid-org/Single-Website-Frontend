@@ -56,7 +56,6 @@ export default function ProfileImageSelector({ profile_image, handleChange }) {
                     position: 'absolute',
                     inset: 0,
                     padding: 2,
-                    borderRadius: 24,
                     background: 'linear-gradient(to right, #FE9C42, #E25100)',
                     WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                     WebkitMaskComposite: 'xor',
