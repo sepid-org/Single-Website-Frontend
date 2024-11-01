@@ -19,13 +19,13 @@ import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnoun
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../components/atoms/icons/Heart';
 import ExclamationIcon from '../components/atoms/icons/Exclamation';
-import FriendshipNetworkPoints from '../components/molecules/FriendshipNetworkPoint';
+import FriendshipNetworkPoints from '../components/molecules/friendship-network/FriendshipNetworkPoint';
 import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
 import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import { toast } from 'react-toastify';
-import SendInvitation from '../components/molecules/SendInvitation';
+import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()

@@ -1,9 +1,9 @@
 import { Box, Grid, Typography } from "@mui/material";
-import AccessibleDocument from "../molecules/AccessibleDocument";
+import AccessibleDocument from "../molecules/documents/AccessibleDocument";
 import React from "react";
 import AccessableEvidenceIcon from "../atoms/icons/AccessableEvidence";
 import UnaccessableEvidenceIcon from "../atoms/icons/UnaccessableEvidence";
-import UnaccessibleDocument from "../molecules/UnaccessibleDocument";
+import UnaccessibleDocument from "../molecules/documents/UnaccessibleDocument";
 
 
 interface CourtEvidencesProps {

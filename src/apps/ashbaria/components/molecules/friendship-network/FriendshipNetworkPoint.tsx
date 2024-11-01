@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import VerifyIcon from "../atoms/icons/Verify";
-import TwoPeopleIcon from "../atoms/icons/TwoPeople";
+import VerifyIcon from "../../atoms/icons/Verify";
+import TwoPeopleIcon from "../../atoms/icons/TwoPeople";
 
 interface FriendshipNetworkPointProps {
 	points: number,

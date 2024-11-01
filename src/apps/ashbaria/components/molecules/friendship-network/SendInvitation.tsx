@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useGetMyFriendshipNetworkQuery } from "apps/ashbaria/redux/slices/FriendshipNetwork";
 import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import React from "react";
-import SMSIcon from "../atoms/icons/SMS";
+import SMSIcon from "../../atoms/icons/SMS";
 import { toast } from "react-toastify";
 
 const getInvitationText = (myCode, myFullName) => {
