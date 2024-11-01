@@ -104,7 +104,13 @@ const EnterVerificationCode: FC = () => {
               value={digit}
               onChange={handleChangeVerificationCode(index)}
               variant="outlined"
-              inputProps={{ dir: 'ltr', maxLength: 1, style: { padding: 0, textAlign: "center", height: 40, width: 40 } }}
+              inputProps={{
+                dir: 'ltr',
+                maxLength: 1,
+                style: { padding: 0, textAlign: "center", height: 40, width: 40 },
+                inputMode: 'numeric',
+                type: 'tel',
+              }}
             />
           ))}
         </Stack>
