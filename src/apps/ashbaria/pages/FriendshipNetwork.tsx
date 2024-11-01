@@ -24,6 +24,7 @@ import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
 import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
+import SMSIcon from '../components/atoms/icons/SMS';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -255,7 +256,7 @@ const FriendshipNetworkPage = () => {
                     </IconButton>
                   </Stack>
                 </Stack>
-                <Button variant='contained' size='large' onClick={handleShare} fullWidth>
+                <Button startIcon={<SMSIcon />} variant='contained' size='large' onClick={handleShare} fullWidth>
                   {'ارسال دعوت‌نامه'}
                 </Button>
               </Stack>
