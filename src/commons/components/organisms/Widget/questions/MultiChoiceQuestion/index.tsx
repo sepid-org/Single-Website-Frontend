@@ -112,7 +112,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             </Typography>
           </Button>
           <Typography variant='caption' color={'error'}>
-            {selectedChoices?.length < minSelections && `حداقل ${toPersianNumber(minSelections)} گزینه را باید انتخاب کنید.`}
+            {selectedChoices?.length < minSelections && `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`}
             {selectedChoices?.length > maxSelections && `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`}
           </Typography>
         </Stack>
