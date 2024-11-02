@@ -14,18 +14,14 @@ import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organism
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
+import WorkshopFSMState from "apps/fsm/template/FSMState/WorkshopFSMState";
 
 type ExamPagePropsType = {};
 
 const ExamPage: FC<ExamPagePropsType> = () => {
-  const fsmId = process.env.NODE_ENV === 'development' ? 7 : 213;
+  const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: player } = useGetMyPlayerQuery({ fsmId });
-  const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
-  const paperId = currentFSMState?.papers?.[0];
-  const [changeState, changeStateResult] = useChangeState();
-  const [transitBack, transitBackResult] = useTransitionBack({ playerId: player?.id });
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,
@@ -43,7 +39,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
             fsmStateId={player?.current_state}
             widgetRegistry={CUSTOM_WIDGET_REGISTRY}
           >
-            <Paper mode='general' paperId={paperId} />
+            <WorkshopFSMState fsmStateId={player?.current_state} />
           </FSMStateProvider>
         </FSMProvider>
       </Stack>
