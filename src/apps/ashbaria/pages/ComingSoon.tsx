@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import backgroundImg from "../assets/profileBackground.svg";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
+import BuyBookButton from "../components/molecules/buttons/BuyBook";
 
 export type ComingSoonPropsType = {};
 
@@ -17,6 +18,7 @@ const ComingSoon: FC<ComingSoonPropsType> = () => {
           به‌زودی شروع ماجرای آشباریا رو بهت خبر می‌دیم.
           تا اون موقع، فرصت مطالعه کتاب رو از دست نده
         </Typography>
+        <BuyBookButton />
       </Stack>
     </FullScreenBackgroundImage>
   );

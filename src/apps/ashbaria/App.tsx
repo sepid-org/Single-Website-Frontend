@@ -33,11 +33,12 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route index element={<GameMenu />} />
+              <Route index element={<ComingSoon />} />
               <Route path='/exam-result/' element={<ExamResultPage />} />
               <Route path='/start-exam/' element={<StartExamPage />} />
               <Route path='/exam/' element={<ExamPage />} />
               <Route path='/what-happened/' element={<WhatHappenedPage />} />
+              <Route path='/menu/' element={<GameMenu />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<CourtPage />} />
