@@ -3,6 +3,7 @@ import { useGetScoreboardQuery } from 'commons/redux/slices/bank/scoreboard/Scor
 import { useGetMyRankQuery } from 'commons/redux/slices/bank/MyInfo';
 import { useGetMyBalancesQuery } from 'commons/redux/slices/bank/MyInfo';
 import useUserProfile from './useUserProfile';
+import { Scoreboard } from '@mui/icons-material';
 
 const useGetScoreBoardData = (currencyName) => {
   // Fetch data from API
@@ -35,7 +36,7 @@ const useGetScoreBoardData = (currencyName) => {
       }
       setWinnerScores(ranks);
     }
-  }, [scoreBoard]);
+  }, [isScoreBoardLoading]);
 
   // Set score records state
   useEffect(() => {
@@ -53,7 +54,7 @@ const useGetScoreBoardData = (currencyName) => {
         exists = true;
       }
     }
-
+    
     setScoreRecordsState({
       winnerUsersInfo: newRecords,
       winnerScoresInfo: winnerScores,

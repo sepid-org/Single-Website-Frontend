@@ -17,6 +17,7 @@ export default function CompetitionScores() {
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(ASHBARIA_COIN);
+	//console.log(scoreRecordsState);
 
 	return (
 		<Stack justifyContent={'center'} paddingY={2}>
@@ -67,7 +68,7 @@ export default function CompetitionScores() {
 								width: '482px',
 							}}
 						>
-							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", bottom: '-50px', left: '120px'}}>
+							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", bottom: '-50px', left: '120px' }}>
 								{winnerScores[1]["score"]}
 							</Typography>
 							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", top: '-20px', left: "230px" }}>
@@ -95,7 +96,7 @@ export default function CompetitionScores() {
 					)) :
 					<ScoreRecordSkeleton />
 				}
-				{(scoreRecordsState.currentUser != null && !scoreRecordsState.currentUserExistsInWinners) &&
+				{(scoreRecordsState.currentUser != null && scoreRecordsState.winnerUsersInfo && !scoreRecordsState.currentUserExistsInWinners) &&
 					<>
 						<Box sx={{ marginTop: 2, marginBottom: 2 }}>
 							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
@@ -103,7 +104,6 @@ export default function CompetitionScores() {
 							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
 						</Box>
 						<ScoreRecord
-							key={scoreRecordsState.currentUser.id}
 							rank={scoreRecordsState.currentUser.rank}
 							first_name={scoreRecordsState.currentUser.first_name}
 							last_name={scoreRecordsState.currentUser.last_name}
