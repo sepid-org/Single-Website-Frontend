@@ -4,11 +4,11 @@ import { Button, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import Choice from '../molecules/Choice';
+import CourtMultiChoiceQuestionChoice from '../molecules/CourtMultiChoiceQuestionChoice';
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
 
-const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
+const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
 
@@ -49,7 +49,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
       />
       <Stack spacing={1}>
         {displayChoices.map((choice) =>
-          <Choice
+          <CourtMultiChoiceQuestionChoice
             disabled={mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
@@ -80,4 +80,4 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   );
 };
 
-export default MultiChoiceQuestionWidget;
+export default CourtMultiChoiceQuestion;

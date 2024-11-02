@@ -45,7 +45,7 @@ type ChoicePropsType = {
   disabled: boolean;
 }
 
-const Choice: FC<ChoicePropsType> = ({
+const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
   choice,
   isSelected,
   onSelectionChange,
@@ -60,11 +60,11 @@ const Choice: FC<ChoicePropsType> = ({
       disabled={disabled}
       onClick={!disabled ? onSelectionChange : undefined}
     >
-      <Typography color={'black'}>
+      <Typography color={'black'} fontSize={16} fontWeight={500}>
         {choice.text}
       </Typography>
     </Stack>
   );
 };
 
-export default Choice;
+export default CourtMultiChoiceQuestionChoice;

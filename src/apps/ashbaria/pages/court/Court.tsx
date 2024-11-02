@@ -11,7 +11,7 @@ import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
 import FSMState from 'apps/fsm/template/FSMState';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
-import MultiChoiceQuestionWidget from 'apps/ashbaria/components/organisms/MultiChoiceQuestion';
+import CourtMultiChoiceQuestion from 'apps/ashbaria/components/organisms/CourtMultiChoiceQuestion';
 
 
 type CourtPagePropsType = {}
@@ -30,7 +30,7 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
     ...WIDGET_REGISTRY,
     MultiChoiceProblem: {
       ...WIDGET_REGISTRY['MultiChoiceProblem'],
-      WidgetComponent: MultiChoiceQuestionWidget,
+      WidgetComponent: CourtMultiChoiceQuestion,
     },
   }
 
