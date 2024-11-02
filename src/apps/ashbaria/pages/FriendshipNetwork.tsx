@@ -26,6 +26,7 @@ import UncompletedMission from '../components/molecules/friendship-network/Uncom
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import { toast } from 'react-toastify';
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
+import { Golden } from '../constants/colors';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -35,24 +36,7 @@ const FriendshipNetworkPage = () => {
   const [completeMission, completeMissionResult] = useCompleteMissionMutation();
   const [inputCode, setInputCode] = useState('');
 
-  //create skeleton istead and delete states and useEffect
-  const [unCompletedMissions, setUnCompletedMissions] = useState([]);
-  useEffect(() => {
-    if (missions) {
-      setUnCompletedMissions(missions);
-    }
-  }, [missions]);
-
-  //create skeleton istead and delete states and useEffect
-  const [completedMissions, setCompletedMissions] = useState([]);
-  useEffect(() => {
-    if (myCompletedMissions) {
-      setCompletedMissions(myCompletedMissions);
-      if (missions) {
-        setUnCompletedMissions(missions.filter(item1 => !myCompletedMissions.some(item2 => item2.id === item1.id)));
-      }
-    }
-  }, [myCompletedMissions, missions]);
+  const unCompletedMissions = missions?.filter(mission => !myCompletedMissions?.some(completedMission => completedMission.id === mission.id));
 
   useEffect(() => {
     if (completeMissionResult.isError) {
@@ -111,7 +95,6 @@ const FriendshipNetworkPage = () => {
       }
     }
   }, [followResult])
-
 
   const copyToClipboard = () => {
     toast.success('کد دعوت با موفقیت کپی شد');
@@ -203,12 +186,12 @@ const FriendshipNetworkPage = () => {
                   alignItems={'center'}
                   justifyContent={'space-between'}
                 >
-                  <Typography fontSize={16} fontWeight={400}>
+                  <Typography fontSize={12} fontWeight={400} color={Golden}>
                     {'کد اختصاصی تو:'}
                   </Typography>
-                  <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
+                  <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} padding={1} spacing={0.5}>
                     <Typography>{myFriendshipNetwork?.code?.code}</Typography>
-                    <IconButton onClick={copyToClipboard} color="inherit">
+                    <IconButton sx={{ padding: 0 }} onClick={copyToClipboard} color="inherit">
                       <CopyIcon />
                     </IconButton>
                   </Stack>
@@ -243,7 +226,7 @@ const FriendshipNetworkPage = () => {
                 },
               }}
             >
-              {unCompletedMissions.map(record => (
+              {unCompletedMissions?.map(record => (
                 <UncompletedMission
                   key={record.id}
                   requiredFollows={record.required_follows}
@@ -252,7 +235,7 @@ const FriendshipNetworkPage = () => {
                   handleClick={completeMission} id={record.id}
                 />
               ))}
-              {completedMissions.map(record => (
+              {myCompletedMissions?.map(record => (
                 <CompletedMission
                   key={record.id}
                   requiredFollows={record.required_follows}

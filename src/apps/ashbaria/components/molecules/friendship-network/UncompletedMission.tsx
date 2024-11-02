@@ -1,26 +1,22 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 import VerifyIcon from "../../atoms/icons/Verify";
-
+import { Golden } from "apps/ashbaria/constants/colors";
 
 const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleClick, id }) => {
 
 	return (
-		<Box
-			sx={{
-				bgcolor: 'rgba(0, 0, 0, 0.4)',
-				heigh: "110px",
-				minWidth: "80px",
-				borderRadius: "12px",
-				marginLeft: "10px",
-				marginRight: "10px",
-				flexShrink: 0
-			}}
+		<Stack
+			alignItems={'center'}
+			justifyContent={'space-between'}
+			borderRadius={2}
+			sx={{ backgroundColor: 'rgba(0, 0, 0, 0.4)' }}
+			padding={1}
 		>
 			<Typography
 				align="center"
 				sx={{
-					color: "rgba(255, 168, 0, 1)",
+					color: Golden,
 					fontSize: "22px",
 					fontWeight: 800,
 					lineHeight: "36.27px",
@@ -38,52 +34,34 @@ const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleC
 					textAlign: "center"
 				}}
 			>
-				{"ثبت موفق"}
+				{'دنبال‌کردن'}
 			</Typography>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					alignItems: "center",
-					justifyContent: "center",
-					marginLeft: "8px",
-					marginRight: "5px",
-					marginTop: "5px",
-					marginBottom: "5px",
-				}}
-			>
+			<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} marginTop={1}>
 				{completable ?
 					(
-						<Button variant="outlined" fullWidth size="small" onClick={() => handleClick({ missionId: id })}>
-							<Typography
-								fontSize={16}
-								fontWeight={800}
-								sx={{
-									textAlign: "right"
-								}}
-							>
-								{"دریافت" + rewardScore}
+						<Button
+							variant="outlined"
+							fullWidth
+							size="small"
+							onClick={() => handleClick({ missionId: id })}
+						>
+							<Typography noWrap fontSize={16} fontWeight={800}>
+								{`دریافت ${rewardScore}`}
 							</Typography>
 							<VerifyIcon />
 						</Button>
 					) :
 					(
 						<Fragment>
-							<Typography
-								fontSize={16}
-								fontWeight={800}
-								sx={{
-									textAlign: "right"
-								}}
-							>
+							<Typography fontSize={16} fontWeight={800}>
 								{rewardScore}
 							</Typography>
 							<VerifyIcon />
 						</Fragment>
 					)
 				}
-			</Box>
-		</Box>
+			</Stack>
+		</Stack >
 	);
 }
 
