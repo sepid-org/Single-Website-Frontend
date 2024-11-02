@@ -18,7 +18,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   mode,
   max_selections: maxSelections,
   min_selections: minSelections,
-  lock_after_answer: lockAfterAnswer,
+  lock_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
 }) => {
@@ -31,6 +31,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     submitAnswer,
     submitAnswerResult,
   } = useMultiChoiceQuestionProperties({
+    questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
     id: questionId,
@@ -38,8 +39,10 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     mode,
     maxSelections,
     randomizeChoices,
-    submittedAnswer,
+    disableAfterAnswer,
   });
+
+  console.log(displayChoices)
 
   return (
     <Stack spacing={1}>

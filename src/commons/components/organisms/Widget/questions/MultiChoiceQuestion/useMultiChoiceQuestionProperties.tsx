@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
-import { ChoiceType } from 'commons/types/widgets';
+import { ChoiceType, DisplayChoiceType } from 'commons/types/widgets';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 export { MultiChoiceQuestionEditWidget };
 
@@ -21,6 +21,18 @@ const seededRandom = (seed: string) => {
   };
 };
 
+type PropsType = {
+  questionId: string;
+  useSubmitAnswerMutation: any;
+  onAnswerChange: any;
+  id: number;
+  choices: ChoiceType[];
+  mode: WidgetModes;
+  maxSelections: number;
+  randomizeChoices: boolean;
+  disableAfterAnswer: boolean;
+}
+
 const useMultiChoiceQuestionProperties = ({
   useSubmitAnswerMutation,
   onAnswerChange,
@@ -29,14 +41,13 @@ const useMultiChoiceQuestionProperties = ({
   mode,
   maxSelections,
   randomizeChoices,
-  submittedAnswer,
-}) => {
-  const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>(submittedAnswer?.choices || []);
+}: PropsType) => {
+  const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>([]);
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { playerId } = useFSMStateContext();
 
   // Create deterministic random ordering based on playerId and questionId
-  const displayChoices = useMemo(() => {
+  const displayChoices: ChoiceType[] = useMemo(() => {
     if (randomizeChoices && mode === WidgetModes.View && playerId) {
       const seed = `${playerId}-${questionId}`;
       const random = seededRandom(seed);

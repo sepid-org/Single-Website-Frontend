@@ -37,7 +37,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   mode,
   max_selections: maxSelections,
   min_selections: minSelections,
-  lock_after_answer: lockAfterAnswer,
+  lock_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
   ...questionWidgetProps
@@ -51,6 +51,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     submitAnswer,
     submitAnswerResult,
   } = useMultiChoiceQuestionProperties({
+    questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
     id: questionId,
@@ -58,7 +59,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     mode,
     maxSelections,
     randomizeChoices,
-    submittedAnswer,
+    disableAfterAnswer,
   });
 
   return (

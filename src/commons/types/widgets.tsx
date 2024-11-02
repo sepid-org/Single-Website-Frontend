@@ -5,3 +5,7 @@ export type ChoiceType = {
   text: string;
   is_correct?: boolean;
 }
+
+export type DisplayChoiceType = ChoiceType & {
+  disabled: boolean;
+}
