@@ -59,14 +59,14 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         paperIds={fsmState?.papers}
       />
       {isMentor &&
-        <Box position={'absolute'} top={10} left={10} component={Paper} padding={2}>
+        <Box position={'absolute'} top={10} left={10} component={Paper} paddingX={1}>
           <CollapsibleTitle title='راهنمای همیاران'>
             <Fragment>
               <Typography>
-                {`گام ${fsm?.id}: ${fsm?.name}`}
+                {`کارگاه ${fsm?.id}: ${fsm?.name}`}
               </Typography>
               <Typography>
-                {`کارگاه ${fsmState?.id}: ${fsmState?.title}`}
+                {`گام ${fsmState?.id}: ${fsmState?.title}`}
               </Typography>
             </Fragment>
           </CollapsibleTitle>
