@@ -21,6 +21,7 @@ import GameMenu from './pages/GameMenu';
 import ExamPage from './pages/exam/Exam';
 import StartExamPage from './pages/exam/Start';
 import ExamResultPage from './pages/exam/Result';
+import ScoreBoard from './pages/ScoreBoard';
 
 const App = () => {
 
@@ -45,6 +46,7 @@ const App = () => {
               <Route path='/friendship-network/' element={<FriendshipNetwork />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
+              <Route path='/scoreboard' element={<ScoreBoard/>} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
