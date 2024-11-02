@@ -17,6 +17,7 @@ import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 var moment = require('moment');
 
@@ -48,6 +49,10 @@ const FSM: FC<FSMPagePropsType> = ({
   teamId = new URLSearchParams(search).get('teamId') || teamId
   const [startFSM, result] = useStartFSM();
   const { data: { fullName, id: mentorId } } = useUserProfile();
+
+  const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
+  const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
+  // const isMentor = currentUserFSMStatus?.is_mentor;
 
   let readyToAddMentor = false
   if (teamId !== undefined && mentorId !== undefined && fullName !== undefined) {
@@ -133,7 +138,7 @@ const FSM: FC<FSMPagePropsType> = ({
     <FSMProvider fsmId={fsmId}>
       <FSMStateProvider
         fsmStateId={player?.current_state}
-        isMentor={isMentor}
+        isMentor={false}
         teamId={teamId}
         playerId={player?.id}
       >

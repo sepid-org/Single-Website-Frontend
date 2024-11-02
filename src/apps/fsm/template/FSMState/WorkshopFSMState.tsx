@@ -10,7 +10,8 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
-import Layout from '../Layout';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import Layout from 'commons/template/Layout';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
@@ -23,7 +24,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   // todo:
-  const isMentor = false;
+  const { isMentor } = useFSMStateContext();
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
   const inward_edges = state?.inward_edges || [];
