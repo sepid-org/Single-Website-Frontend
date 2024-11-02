@@ -15,8 +15,9 @@ import React, { useState, Fragment, FC, useEffect } from 'react';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatus } from 'commons/types/models';
-import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useLocalNavigate from 'apps/ashbaria/hooks/useLocalNavigate';
+import { Link } from 'react-router-dom';
+import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -31,22 +32,14 @@ export const FSMCard: FC<FSMCardPropsType> = ({
 }) => {
   const localNavigate = useLocalNavigate();
   const [openPassword, setOpenPassword] = useState(false);
-  const [enterFSM, result] = useEnterFSMMutation();
+  const [_startFSM, result] = useStartFSM();
 
-  useEffect(() => {
-    if (result.isSuccess)
-      localNavigate(`/court/${fsm.id}/`)
-  }, [result])
-
-  const handleCardClick = () => {
-    if (!isLoading && fsm?.is_active) {
-      if (fsm?.has_entrance_lock) {
-        setOpenPassword(true);
-      } else if (fsm.id) {
-        enterFSM({ fsmId: fsm.id });
-      }
-    }
-  };
+  const startFSM = () => {
+    _startFSM({
+      fsmId: fsm.id,
+      redirectPath: `/program/ashbaria/court/${fsm.id}/`,
+    })
+  }
 
   return (
     <Card
@@ -63,7 +56,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
           boxShadow: fsm?.is_active ? 6 : 3,
         },
       }}
-      onClick={handleCardClick}
+      onClick={startFSM}
     >
       {isLoading ? (
         <Skeleton
@@ -98,10 +91,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 </Typography>
                 {userFSMStatus?.is_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton
-                      onClick={(e) => localNavigate(`/court/${fsm?.id}/manage/`)}
-                      size="small"
-                    >
+                    <IconButton component={Link} to={`/program/ashbaria/court/${fsm?.id}/manage/`} size='small'>
                       <ModeEditTwoToneIcon />
                     </IconButton>
                   </Tooltip>
@@ -134,11 +124,6 @@ export const FSMCard: FC<FSMCardPropsType> = ({
           </CardContent>
         </Fragment>
       )}
-      <EnterFSMPasswordDialog
-        open={openPassword}
-        handleClose={() => setOpenPassword(false)}
-        fsmId={fsm?.id}
-      />
     </Card>
   );
 };

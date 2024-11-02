@@ -22,7 +22,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
     setOpenLoading(true);
   };
 
-  const fsmId = process.env.NODE_ENV === 'development' ? '1' : '191';
+  const fsmId = process.env.NODE_ENV === 'development' ? 1 : 191;
   const fsmStateId = process.env.NODE_ENV === 'development' ? '102' : '5743';
 
   return (

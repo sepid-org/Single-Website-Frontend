@@ -9,7 +9,7 @@ type UpdateFSMStateInputType = {
 type UpdateFSMStateOutputType = Partial<FSMStateType>;
 
 type CreateFSMStateInputType = {
-  fsmId: string;
+  fsmId: number;
 } & any;
 
 type CreateFSMStateOutputType = {

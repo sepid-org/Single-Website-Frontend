@@ -24,7 +24,7 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
   widgetId,
 }) => {
   const t = useTranslate();
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
   const [changeState, result] = useChangeState();
   const states = fsmStates.filter(state => stateIds.includes(state.id))

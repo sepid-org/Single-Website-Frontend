@@ -11,11 +11,13 @@ import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
-  useEnterFSMMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
+import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 var moment = require('moment');
 
@@ -35,7 +37,7 @@ const FSM: FC<FSMPagePropsType> = ({
   changeOpenChatRoom,
   teamId,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const subscriberRef = useRef(null);
   const search = useLocation().search;
@@ -45,8 +47,12 @@ const FSM: FC<FSMPagePropsType> = ({
   const player = teamHeadPlayer || myPlayer;
   const isMentor = Boolean(teamHeadPlayerId);
   teamId = new URLSearchParams(search).get('teamId') || teamId
-  const [enterFSM, result] = useEnterFSMMutation();
+  const [startFSM, result] = useStartFSM();
   const { data: { fullName, id: mentorId } } = useUserProfile();
+
+  const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
+  const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
+  // const isMentor = currentUserFSMStatus?.is_mentor;
 
   let readyToAddMentor = false
   if (teamId !== undefined && mentorId !== undefined && fullName !== undefined) {
@@ -119,26 +125,29 @@ const FSM: FC<FSMPagePropsType> = ({
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }, [player])
 
+  // todo:
   useEffect(() => {
     if (player && !player.current_state) {
-      enterFSM({ fsmId: fsm.id });
+      startFSM({ fsmId: fsm.id });
     }
   }, [player]);
 
   if (!player?.current_state || !fsm) return null;
 
   return (
-    <FSMStateProvider
-      fsmStateId={player?.current_state}
-      isMentor={isMentor}
-      teamId={teamId}
-      playerId={player?.id}
-    >
-      <FSMState fsmStateId={player?.current_state} />
-      {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
-        <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
-      }
-    </FSMStateProvider>
+    <FSMProvider fsmId={fsmId}>
+      <FSMStateProvider
+        fsmStateId={player?.current_state}
+        isMentor={false}
+        teamId={teamId}
+        playerId={player?.id}
+      >
+        <FSMState fsmStateId={player?.current_state} />
+        {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&
+          <DraggableChatRoom open={openChatRoom} handleClose={() => changeOpenChatRoom()} />
+        }
+      </FSMStateProvider>
+    </FSMProvider>
   );
 };
 

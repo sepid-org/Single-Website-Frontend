@@ -23,8 +23,8 @@ type FSMStateRoadMapPropsType = {
 const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
   currentNodeName,
 }) => {
+  const fsmId = parseInt(useParams().fsmId);
   const { playerId } = useFSMStateContext();
-  const { fsmId } = useParams();
   const [openRoadMap, setOpenRoadMap] = useState(true);
   const [lastTransitedNode, setLastTransitedNode] = useState<string>(currentNodeName);
   const [playerTransitedPath, setPlayerTransitedPath] = useState<Link[]>([]);

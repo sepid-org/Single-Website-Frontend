@@ -111,7 +111,7 @@ export type ContentType = {
 export type FSMType = ContentType & {
   players_count: number;
   is_mentor: boolean;
-  id: string;
+  id: number;
   name: string;
   first_state: string;
   description: string;
@@ -312,7 +312,7 @@ export type ProgramUserPermissions = {
 }
 
 export type UserFSMStatus = {
-  fsm_id: string;
+  fsm_id: number;
   is_mentor: boolean;
   is_finished: boolean;
 }

@@ -5,11 +5,14 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 
 type ScoreChipPropsType = {
   value: number;
+  isLoading?: boolean;
 }
 
 const ScoreChip: FC<ScoreChipPropsType> = ({
   value,
+  isLoading,
 }) => {
+
   return (
     <Stack
       sx={{
@@ -19,17 +22,18 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       component={Paper}
       padding={1}
       paddingX={2}
+      paddingBottom={0.5}
       borderRadius={3}
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
       spacing={0.5}
     >
-      {value !== null ?
+      {isLoading || value === null ?
+        <Skeleton variant="rounded" width={50} height={30} /> :
         <Typography fontSize={24} fontWeight={800}>
-          {toPersianNumber(value) + "+"}
-        </Typography> :
-        <Skeleton variant="rounded" width={50} height={24} />
+          {toPersianNumber(value) + (value > 0 ? "+" : '')}
+        </Typography>
       }
       <VerifyIcon />
     </Stack>

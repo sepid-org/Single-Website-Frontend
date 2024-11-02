@@ -2,7 +2,7 @@ import {
   useMentorMoveForwardMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { useFSMStateContext } from './useFSMStateContext';
-import { useSubmitButtonMutation } from 'commons/redux/slices/cms/response/ButtonWidget';
+import useSubmitButton from './useSubmitButton';
 
 interface ChangeStateParams {
   stateId: string;
@@ -24,21 +24,21 @@ const useChangeState = (): [
   MutationResult<unknown>
 ] => {
   const { isMentor } = useFSMStateContext();
-  const [submitButton, submitButtonResult] = useSubmitButtonMutation();
+  const [submitButton, submitButtonResult] = useSubmitButton();
   const [mentorMoveForward, mentorMoveForwardResult] = useMentorMoveForwardMutation();
 
   const changeState = async ({ stateId, clickedButtonId = null }: ChangeStateParams) => {
-    if (isMentor) {
-      // todo: Implement mentor move forward
-      // await mentorMoveForward({
-      //   edgeId: edge.id,
-      // });
-    } else {
-      await submitButton({
-        stateId,
-        clickedButtonId,
-      }).unwrap();
-    }
+    // if (isMentor) {
+    //   todo: Implement mentor move forward
+    //   await mentorMoveForward({
+    //     edgeId: edge.id,
+    //   });
+    //   return;
+    // } 
+    submitButton({
+      stateId,
+      clickedButtonId,
+    });
   };
 
   // Return the result that matches the current mode (mentor or student)

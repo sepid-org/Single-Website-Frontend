@@ -32,14 +32,14 @@ type GetPlayerInputType = {
 type GetPlayerOutputType = PlayerType;
 
 type EnterFSMInputType = {
-  fsmId: string;
+  fsmId: number;
   password?: string;
 }
 
 type EnterFSMOutputType = PlayerType;
 
 type GetMyPlayerInputType = {
-  fsmId: string;
+  fsmId: number;
 }
 
 type GetMyPlayerOutputType = PlayerType;

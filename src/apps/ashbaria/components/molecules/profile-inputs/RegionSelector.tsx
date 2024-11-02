@@ -20,7 +20,7 @@ export default function RegionSelector({ data, setData }) {
           fullWidth
         >
           <Select
-            defaultValue={data.province || ''}
+            value={data?.province || ''}
             onChange={(event) => { setData({ ...data, province: event.target.value }) }}
           >
             {Iran.Provinces.map((province) => (
@@ -46,12 +46,12 @@ export default function RegionSelector({ data, setData }) {
           fullWidth
         >
           <Select
-            disabled={!data.province && !data.city}
-            value={data.city || ''}
+            disabled={!data?.province && !data?.city}
+            value={data?.city || ''}
             onChange={(event) => { setData({ ...data, city: event.target.value }) }}
           >
             {Iran.Cities.filter((city) =>
-              city.province_id == Iran.Provinces.find(province => province.title == data.province)?.id)
+              city.province_id == Iran.Provinces.find(province => province.title == data?.province)?.id)
               .map((city) => (
                 <MenuItem key={city.id} value={city.title}>
                   {city.title}

@@ -14,7 +14,7 @@ import FSMManagement from './pages/FSMManagement';
 type FSMPagePropsType = {}
 
 const App: FC<FSMPagePropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   return (

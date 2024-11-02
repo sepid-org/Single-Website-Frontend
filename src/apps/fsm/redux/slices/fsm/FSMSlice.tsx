@@ -2,7 +2,7 @@ import { FSMEdgeType, FSMStateType, FSMType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
-  fsmId: string;
+  fsmId: number;
 } & FSMType;
 
 type UpdateFSMOutputType = {
@@ -28,7 +28,7 @@ type GetFSMsOutputType = {
 }
 
 type GetFSMInputType = {
-  fsmId: string;
+  fsmId: number;
 };
 
 type GetFSMOutputType = FSMType;
@@ -84,7 +84,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    getFSMStates: builder.query<GetFSMStatesOutputType, { fsmId: string }>({
+    getFSMStates: builder.query<GetFSMStatesOutputType, { fsmId: number }>({
       providesTags: ['fsm-states'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/states/`,
       transformResponse: (response: any): GetFSMStatesOutputType => {
@@ -92,7 +92,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    getFSMEdges: builder.query<GetFSMEdgesOutputType, { fsmId: string }>({
+    getFSMEdges: builder.query<GetFSMEdgesOutputType, { fsmId: number }>({
       providesTags: ['fsm-edges'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/get_edges/`,
       transformResponse: (response: any): GetFSMEdgesOutputType => {
@@ -100,12 +100,12 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    softDeleteFSM: builder.mutation<any, { fsmId: string }>({
+    softDeleteFSM: builder.mutation<any, { fsmId: number }>({
       invalidatesTags: ['fsms'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/soft_delete/`
     }),
 
-    setFSMFirstState: builder.mutation<any, { fsmId: string; fsmStateId: string }>({
+    setFSMFirstState: builder.mutation<any, { fsmId: number; fsmStateId: string }>({
       invalidatesTags: ['fsm', 'fsm-states'],
       query: ({ fsmId, fsmStateId }) => ({
         url: `/fsm/fsm/${fsmId}/first_state/`,

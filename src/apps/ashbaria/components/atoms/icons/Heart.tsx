@@ -7,8 +7,8 @@ const HeartIcon = () => {
 		<Box
 			component="img"
 			src={heartIcon}
-			width={24}
-			height={24}
+			width={30}
+			height={30}
 		/>
 	);
 }

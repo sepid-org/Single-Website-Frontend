@@ -3,7 +3,7 @@ import ImageEditWidget from './edit';
 export { ImageEditWidget };
 
 const ImageWidget = ({ link }) => {
-  const [aspectRatio, setAspectRatio] = useState(1);
+  const [aspectRatio, setAspectRatio] = useState(null);
 
   useEffect(() => {
     const img = new Image();
@@ -12,6 +12,10 @@ const ImageWidget = ({ link }) => {
       setAspectRatio(img.height / img.width);
     };
   }, [link]);
+
+  if (aspectRatio === null) {
+    return null;
+  }
 
   return (
     <div

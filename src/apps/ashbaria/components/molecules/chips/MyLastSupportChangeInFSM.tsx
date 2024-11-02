@@ -6,11 +6,11 @@ import SupportChip from "./Support";
 type MyLastSupportChangeInFSMPropsType = {}
 
 const MyLastSupportChangeInFSM: FC<MyLastSupportChangeInFSMPropsType> = ({ }) => {
-  const { fsmId } = useParams();
-  const { data } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
+  const fsmId = parseInt(useParams().fsmId);
+  const { data, isLoading } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
 
   return (
-    <SupportChip value={data?.support_change} />
+    <SupportChip value={data?.support_change} isLoading={isLoading} />
   )
 }
 

@@ -3,8 +3,9 @@ import { createInvalidationCallback } from 'commons/redux/utilities/createInvali
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type SubmitButtonInputType = {
+  playerId: string;
   stateId?: string;
-  clickedButtonId: string;
+  clickedButtonId?: string;
 };
 
 export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
@@ -16,12 +17,13 @@ export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
         { type: 'rank', id: 'MY' },
         { type: 'balances', id: 'MY' },
       ]),
-      query: ({ stateId, clickedButtonId }) => ({
+      query: ({ playerId, stateId, clickedButtonId }) => ({
         url: '/response/submit-button/',
         method: 'POST',
         body: {
-          state: stateId,
-          button: clickedButtonId,
+          player_id: playerId,
+          state_id: stateId,
+          button_id: clickedButtonId,
         },
       }),
     }),

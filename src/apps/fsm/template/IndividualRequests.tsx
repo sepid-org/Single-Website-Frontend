@@ -45,7 +45,7 @@ const Teams: FC<InfoPropsType> = ({
   createRequestMentor,
   removeRequestMentor,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const subscriptionRef = useRef(null);
 
   useEffect(() => {

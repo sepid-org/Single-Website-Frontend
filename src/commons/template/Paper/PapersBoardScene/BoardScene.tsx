@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC, useCallback, memo } from 'react';
+import React, { useState, useEffect, useRef, FC, useCallback } from 'react';
 import { Stack } from '@mui/material';
 
 export type BoardScenePropsType = {
@@ -6,30 +6,36 @@ export type BoardScenePropsType = {
   parentHeight?: number;
   boardWidth?: number;
   boardHeight?: number;
+  mode: 'fit-width' | 'fit-height';
   children: React.ReactNode;
 }
 
-const BoardScene: FC<BoardScenePropsType> = memo(({
+const BoardScene: FC<BoardScenePropsType> = ({
   parentWidth = window.innerWidth,
   parentHeight = window.innerHeight,
   boardWidth = 1600,
   boardHeight = 900,
+  mode = 'fit-height',
   children,
 }) => {
   const boardRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const appbarRef = useRef<HTMLDivElement>(null);
   const [isScrollNeeded, setIsScrollNeeded] = useState(false);
 
   const handleResize = useCallback(() => {
     if (boardRef.current && containerRef.current) {
-      const appbarHeight = appbarRef.current?.offsetHeight || 0;
-      const scale = (parentHeight - appbarHeight) / boardHeight;
+      const scaleHeight = parentHeight / boardHeight;
+      const scaleWidth = parentWidth / boardWidth;
+
+      const scale = mode === 'fit-height' ? scaleHeight : scaleWidth;
 
       const scaledWidth = boardWidth * scale;
       const scaledHeight = boardHeight * scale;
 
-      const isScrollNeeded = scaledWidth > parentWidth;
+      const isScrollNeeded = mode === 'fit-height' ?
+        scaledWidth > parentWidth :
+        scaledHeight > parentHeight;
+
       setIsScrollNeeded(isScrollNeeded);
 
       Object.assign(boardRef.current.style, {
@@ -40,12 +46,13 @@ const BoardScene: FC<BoardScenePropsType> = memo(({
       });
 
       Object.assign(containerRef.current.style, {
-        overflowX: isScrollNeeded ? 'auto' : 'hidden',
-        overflowY: 'hidden',
-        height: `${parentHeight - appbarHeight}px`,
+        overflowX: isScrollNeeded && mode === 'fit-height' ? 'auto' : 'hidden',
+        overflowY: isScrollNeeded && mode === 'fit-width' ? 'auto' : 'hidden',
+        height: `${parentHeight}px`,
+        width: `${parentWidth}px`,
       });
     }
-  }, [parentHeight, parentWidth]);
+  }, [parentHeight, parentWidth, boardWidth, boardHeight]);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
@@ -91,6 +98,6 @@ const BoardScene: FC<BoardScenePropsType> = memo(({
       )}
     </>
   );
-});
+};
 
 export default BoardScene;

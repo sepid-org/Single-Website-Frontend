@@ -20,7 +20,7 @@ const CreateFSMStateDialog: FC<CreateStateDialogPropsType> = ({
   handleClose,
 }) => {
   const [title, setTitle] = useState('');
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const t = useTranslate();
   const [createFSMState, result] = useCreateFSMStateMutation();
 

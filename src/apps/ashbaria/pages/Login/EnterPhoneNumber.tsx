@@ -48,7 +48,12 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
           value={phoneNumber}
           placeholder='09123456789'
           onChange={handleChangePhoneNumber}
-          inputProps={{ dir: 'ltr' }}
+          inputProps={{
+            dir: 'ltr',
+            maxLength: 11,
+            inputMode: 'numeric',
+            type: 'tel',
+          }}
         />
       </Stack>
       <Button variant='contained' onClick={handleGetVerificationCode}>

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import lockIcon from "../../assets/lock.svg";
+import lockIcon from "../../../assets/lock.svg";
 
 
 const UnaccessibleDocument = () => {

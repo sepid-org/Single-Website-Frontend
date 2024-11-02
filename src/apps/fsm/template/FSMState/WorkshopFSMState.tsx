@@ -10,17 +10,21 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
+import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import Layout from 'commons/template/Layout';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
-  const { fsmId } = useParams();
-  const { data: state } = useGetFSMStateQuery({ fsmStateId })
+  const fsmId = parseInt(useParams().fsmId);
+  const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state.papers[0];
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  // todo:
+  const { isMentor } = useFSMStateContext();
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
   const inward_edges = state?.inward_edges || [];
@@ -52,7 +56,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
     )), [notQuestions]);
 
   return (
-    <Fragment>
+    <Layout appbarMode={isMentor ? 'MENTOR_FSM' : 'FSM'}>
       <Grid container spacing={2} justifyContent="center" alignItems='flex-start'>
         <Grid
           item xs={12}
@@ -128,7 +132,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
           </Grid>
         )}
       </Grid >
-    </Fragment>
+    </Layout>
   );
 }
 

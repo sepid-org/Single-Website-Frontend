@@ -1,9 +1,10 @@
-import { Box, Paper, Stack } from "@mui/material";
-import React, { FC, useState } from "react";
+import { Paper, Stack } from "@mui/material";
+import React, { FC } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import EnterVerificationCode from "./EnterVerificationCode";
 import EnterPhoneNumber from "./EnterPhoneNumber";
 import { useSearchParams } from "react-router-dom";
+import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 
 export enum LoginTabs {
   EnterPhoneNumber = 'EnterPhoneNumber',
@@ -17,21 +18,7 @@ const Login: FC<LoginPropsType> = () => {
   const currentTabSlug = (searchParams.get('tab') as LoginTabs) || LoginTabs.EnterPhoneNumber;
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        minWidth: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 2,
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <FullScreenBackgroundImage image={backgroundImg}>
       <Stack width={300} component={Paper} padding={2} spacing={2} marginRight={-20}>
         {currentTabSlug === LoginTabs.EnterPhoneNumber &&
           <EnterPhoneNumber />
@@ -40,7 +27,7 @@ const Login: FC<LoginPropsType> = () => {
           <EnterVerificationCode />
         }
       </Stack>
-    </Box>
+    </FullScreenBackgroundImage >
   );
 };
 

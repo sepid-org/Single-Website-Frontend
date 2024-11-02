@@ -8,7 +8,7 @@ import useLocalNavigate from "../../hooks/useLocalNavigate";
 
 
 const CourtInfo = () => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const localNavigate = useLocalNavigate();
   const [searchParams] = useSearchParams();
   const dialogSlug = searchParams.get('dialog');

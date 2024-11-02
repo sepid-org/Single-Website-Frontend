@@ -26,15 +26,14 @@ const useTransitionBack = ({ playerId }: TransitionBackParams): [
   const [mentorMoveBackward, mentorMoveBackwardResult] = useMentorMoveBackwardMutation();
 
   const transitBack = async () => {
-    if (isMentor) {
-      await mentorMoveBackward({
-        playerId,
-      }).unwrap();
-    } else {
-      await goBackward({
-        playerId,
-      }).unwrap();
-    }
+    // if (isMentor) {
+    //   await mentorMoveBackward({
+    //     playerId,
+    //   }).unwrap();
+    // }
+    await goBackward({
+      playerId,
+    }).unwrap();
   };
 
   // Use the appropriate result based on whether it's mentor or student

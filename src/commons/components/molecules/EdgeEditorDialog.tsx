@@ -18,7 +18,7 @@ const EdgeEditorDialog: FC<EdgeEditorDialogPropsType> = ({
   open,
   onClose,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: initialEdge } = useGetFSMEdgeQuery({ edgeId: id }, { skip: !Boolean(id) || !Boolean(open) });
   const [createFSMEdge, createFSMEdgeResult] = useCreateFSMEdgeMutation();
   const [updateFSMEdge, updateFSMEdgeResult] = useUpdateFSMEdgeMutation();

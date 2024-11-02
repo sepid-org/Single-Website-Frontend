@@ -3,12 +3,13 @@ import React, { FC, Fragment } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import AshbariaPoster from "apps/ashbaria/components/atoms/icons/AshbariaPoster";
+import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
 type IntroductionPage3PropsType = {}
 
 const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-
+  const localNavigate = useLocalNavigate();
 
   return (
     <Fragment>
@@ -29,7 +30,10 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
         <Button onClick={() => setSearchParams({ page: "2" })}>
           {'بازگشت'}
         </Button>
-        <Button onClick={() => setSearchParams({ page: "3" })}>
+        <Button onClick={() => {
+          localNavigate('/');
+          localStorage.setItem('hasSeenWhatHappenedPage', 'true');
+        }}>
           {'بعدی'}
         </Button>
       </Stack>

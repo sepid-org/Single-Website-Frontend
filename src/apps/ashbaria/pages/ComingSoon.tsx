@@ -1,28 +1,15 @@
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../assets/profileBackground.svg";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
+import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
 
 export type ComingSoonPropsType = {};
 
 const ComingSoon: FC<ComingSoonPropsType> = () => {
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        minWidth: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: 2,
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <FullScreenBackgroundImage image={backgroundImg}>
       <Stack maxWidth={'sm'} component={Paper} padding={2} spacing={2} alignItems={'center'} justifyContent={'space-between'}>
         <ProgramLogo />
         <Typography textAlign={'center'}>
@@ -31,7 +18,7 @@ const ComingSoon: FC<ComingSoonPropsType> = () => {
           تا اون موقع، فرصت مطالعه کتاب رو از دست نده
         </Typography>
       </Stack>
-    </Box>
+    </FullScreenBackgroundImage>
   );
 };
 

@@ -1,17 +1,19 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
-import { Button, Collapse, IconButton, Typography } from '@mui/material';
+import { Button, Collapse, IconButton, Stack, Typography } from '@mui/material';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 
 type CollapsibleTitlePropsType = {
   title: string;
   children: ReactNode;
+  defaultOpen?: boolean;
 }
 
 const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
   title,
   children,
+  defaultOpen = true,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
 
   return (
     <Fragment>
@@ -26,8 +28,10 @@ const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
           </Typography>
         </Button>
       </Typography>
-      <Collapse in={open} sx={{ paddingY: 1 }}>
-        {children}
+      <Collapse in={open}>
+        <Stack paddingY={1}>
+          {children}
+        </Stack>
       </Collapse>
     </Fragment>
   );

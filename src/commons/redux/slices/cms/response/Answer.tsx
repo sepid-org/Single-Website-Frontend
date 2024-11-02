@@ -42,7 +42,7 @@ const DEFAULT_INVALIDATION_TAGS = [
 const createAnswerBody = (answer: Answer) => {
   const base = {
     question: answer.questionId,
-    player: answer.playerId,
+    player_id: answer.playerId,
     answer_type: answer.answerType,
   };
 
@@ -64,7 +64,7 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
       onQueryStarted: createInvalidationCallback(DEFAULT_INVALIDATION_TAGS),
       query: (answer) => ({
-        url: '/response/answers/submit_answer/',
+        url: '/response/answers/submit-answer/',
         method: 'POST',
         body: createAnswerBody(answer),
       }),

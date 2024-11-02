@@ -24,7 +24,7 @@ import EdgeEditorButton from 'commons/components/molecules/EdgeEditorButton';
 type IndexPropsType = {}
 
 const Edges: FC<IndexPropsType> = ({ }) => {
-  const { fsmId } = useParams()
+  const fsmId = parseInt(useParams().fsmId);
   const newEdgeInitialValue = {
     tail: '',
     head: '',

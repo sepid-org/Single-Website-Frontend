@@ -8,7 +8,7 @@ type FSMLogoPropsType = {}
 
 const FSMLogo: FC<FSMLogoPropsType> = ({ }) => {
   const width = useWidth();
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   if (!fsm) {

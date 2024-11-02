@@ -5,11 +5,13 @@ import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
+import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
   const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
-  const [enterFSM, result] = useEnterFSMMutation();
+  const [startFSM, result] = useStartFSM();
+
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const isTablet = useMediaQuery(theme.breakpoints.up('sm'));
@@ -20,9 +22,9 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
     }
   }, [result, navigate, fsm.id]);
 
-  const handleEnterFSM = () => {
+  const handleStartFSM = () => {
     if (!result.isLoading) {
-      enterFSM({ fsmId: fsm.id });
+      startFSM({ fsmId: fsm.id });
     }
   };
 
@@ -97,7 +99,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
             variant='outlined'
             color="primary"
             disabled={!fsm?.is_active}
-            onClick={fsm?.has_entrance_lock ? () => setOpenPassword(true) : handleEnterFSM}
+            onClick={fsm?.has_entrance_lock ? () => setOpenPassword(true) : handleStartFSM}
             startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
             size={isDesktop ? 'medium' : 'small'}
           >

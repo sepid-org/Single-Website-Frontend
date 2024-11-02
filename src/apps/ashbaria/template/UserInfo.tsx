@@ -1,18 +1,18 @@
-import { Box, Button, Container, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
+import { Box, Button, Container, Grid, Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
-import GenderSelector from "../components/molecules/profileInputs/GenderSelector";
-import NameInput from "../components/molecules/profileInputs/NameInput";
-import LastNameInput from "../components/molecules/profileInputs/LastNameInput";
-import NationalCodeInput from "../components/molecules/profileInputs/NationalIDInput";
-import BirthDayInput from "../components/molecules/profileInputs/BirthDayInput";
-import IntroductionSelector from "../components/molecules/profileInputs/IntroductionSelector";
-import RegionSelector from "../components/molecules/profileInputs/RegionSelector";
-import PhoneNumberInput from "../components/molecules/profileInputs/PhoneNumberInput";
-import PostNumberInput from "../components/molecules/profileInputs/PostNumberInput";
-import AddressInput from "../components/molecules/profileInputs/AddressInput";
-import ProfileImageSelector from "../components/molecules/profileInputs/ProfileImageSelector";
+import GenderSelector from "../components/molecules/profile-inputs/GenderSelector";
+import NameInput from "../components/molecules/profile-inputs/NameInput";
+import LastNameInput from "../components/molecules/profile-inputs/LastNameInput";
+import NationalCodeInput from "../components/molecules/profile-inputs/NationalIDInput";
+import BirthDateInput from "../components/molecules/profile-inputs/BirthDateInput";
+import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
+import RegionSelector from "../components/molecules/profile-inputs/RegionSelector";
+import PhoneNumberInput from "../components/molecules/profile-inputs/PhoneNumberInput";
+import PostNumberInput from "../components/molecules/profile-inputs/PostNumberInput";
+import AddressInput from "../components/molecules/profile-inputs/AddressInput";
+import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
 import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
 import BackButton from "../components/molecules/buttons/Back";
 import PersonIcon from "../components/atoms/icons/Person";
@@ -35,11 +35,10 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     if (initialProfile) {
       setUserProfile(initialProfile);
     }
-    console.log(isGetProfileLoading);
-  }, [isGetProfileLoading]);
+  }, [initialProfile]);
 
   useEffect(() => {
-    if (updateProfileResult?.data?.has_received_reward) {
+    if (updateProfileResult?.data?.reward_granted) {
       dialogService.open({
         component:
           <CustomDialogContent
@@ -51,7 +50,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           />
       })
     } else if (updateProfileResult?.isSuccess) {
-      toast.success('اطلاعات با موفقیت ثبت شد');
+      toast.success('اطلاعات با موفقیت به‌روز شد');
     }
   }, [updateProfileResult.isSuccess]);
 
@@ -69,93 +68,106 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     })
   }
 
-  const handleProfileImgChange = (selecedImg) => {
+  const handleProfileImgChange = (selectedImg) => {
     setUserProfile({
       ...userProfile,
-      profile_image: selecedImg,
+      profile_image: selectedImg,
     });
   }
 
   const handleSubmit = () => {
+    if (userProfile?.has_received_reward) {
+      if (checkForBlankFields(userProfile)) {
+        toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
+        return;
+      }
+    }
     updateProfile(userProfile);
   }
 
-  if (!userProfile) return null;
-
   return (
-    <Container maxWidth='lg' component={Paper} sx={{ paddingY: 2 }}>
-      {isGetProfileLoading ?
-        (<Container sx={{minWidth: "80vw", minHeight: "90vh"}}>
-          <Skeleton variant="rectangular" width="100%" height="100%" />
-        </Container>) :
-        (<Grid container item spacing={2}>
-          <Grid
-            item
-            container
-            justifyContent="space-between"
-            alignItems="center"
-          >
+    <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
+      <Grid container spacing={2}>
+        <Grid
+          item
+          container
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Box position={'absolute'} left={10} top={10}>
             <BackButton />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "center"
-              }}
-            >
-              <PersonIcon />
-              <Typography variant="h6" fontSize={24} fontWeight={800}>
-                {'نمایه'}
-              </Typography>
-            </Box>
-            <ScoreChip value={150} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <NameInput handleChange={handleChange} first_name={userProfile.first_name} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <LastNameInput handleChange={handleChange} last_name={userProfile.last_name} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <NationalCodeInput handleChange={handleChange} national_code={userProfile.national_code} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <BirthDayInput data={userProfile} setData={setUserProfile} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <GenderSelector gender={userProfile.gender} handleChange={handleGenderChange} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <IntroductionSelector handleChange={handleChange} referral_method={userProfile.referral_method} />
-          </Grid>
-          <RegionSelector data={userProfile} setData={setUserProfile} />
-          <Grid item xs={12} md={6}>
-            <PhoneNumberInput handleChange={handleChange} phone_number={userProfile.phone_number} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <PostNumberInput handleChange={handleChange} postal_code={userProfile.postal_code} />
-          </Grid>
-          <Grid item xs={12}>
-            <AddressInput handleChange={handleChange} address={userProfile.address} />
-          </Grid>
-          <Grid item xs={12}>
-            <ProfileImageSelector profile_image={userProfile.profile_image} handleChange={handleProfileImgChange} />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
-              {'ولش کن'}
-            </Button>
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <Button onClick={handleSubmit} size="large" fullWidth={true} variant='contained'>
-              {'همینو ذخیره کن'}
-            </Button>
-          </Grid>
-        </Grid>)
-      }
+          </Box>
+          <Stack direction={'row'}>
+            <PersonIcon />
+            <Typography variant="h6" fontSize={24} fontWeight={800}>
+              {'نمایه'}
+            </Typography>
+          </Stack>
+          <Box position={'absolute'} right={10} top={10}>
+            {userProfile?.has_received_reward === false && <ScoreChip value={150} />}
+          </Box>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <NameInput handleChange={handleChange} first_name={userProfile?.first_name} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <LastNameInput handleChange={handleChange} last_name={userProfile?.last_name} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <NationalCodeInput handleChange={handleChange} national_code={userProfile?.national_code} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <BirthDateInput birthDate={userProfile?.birth_date} setBirthDate={(value) => setUserProfile({ ...userProfile, birth_date: value })} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <GenderSelector gender={userProfile?.gender} handleChange={handleGenderChange} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <IntroductionSelector handleChange={handleChange} referral_method={userProfile?.referral_method} />
+        </Grid>
+        <RegionSelector data={userProfile} setData={setUserProfile} />
+        <Grid item xs={12} sm={6}>
+          <PhoneNumberInput handleChange={handleChange} phone_number={userProfile?.phone_number} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PostNumberInput handleChange={handleChange} postal_code={userProfile?.postal_code} />
+        </Grid>
+        <Grid item xs={12}>
+          <AddressInput handleChange={handleChange} address={userProfile?.address} />
+        </Grid>
+        <Grid item xs={12}>
+          <ProfileImageSelector profile_image={userProfile?.profile_image} handleChange={handleProfileImgChange} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
+            {'ولش کن'}
+          </Button>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Button onClick={handleSubmit} size="large" fullWidth={true} variant='contained'>
+            {'همینو ذخیره کن'}
+          </Button>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
 
 export default UserInfo;
+
+const checkForBlankFields = (profile: ProfileType): boolean => {
+  const requiredFields = [
+    'first_name',
+    'last_name',
+    'national_code',
+    'birth_date',
+    'gender',
+    'province',
+    'city',
+    'phone_number',
+    'postal_code',
+    'address',
+  ];
+
+  return requiredFields.some((field) => profile[field as keyof ProfileType] === null || profile[field as keyof ProfileType] === '');
+};

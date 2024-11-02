@@ -17,6 +17,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatus } from 'commons/types/models';
 import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 type VerticalFSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -31,7 +32,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
 }) => {
   const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
-  const [enterFSM, result] = useEnterFSMMutation();
+  const [startFSM, result] = useStartFSM();
 
   useEffect(() => {
     if (result.isSuccess)
@@ -43,7 +44,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
       if (fsm?.has_entrance_lock) {
         setOpenPassword(true);
       } else if (fsm.id) {
-        enterFSM({ fsmId: fsm.id });
+        startFSM({ fsmId: fsm.id });
       }
     }
   };

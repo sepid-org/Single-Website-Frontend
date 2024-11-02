@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Box, Grid, Typography } from "@mui/material";
-import openEvidence from "../../assets/evidence.svg";
+import openEvidence from "../../../assets/evidence.svg";
 
 
 const AccessibleDocument = () => {

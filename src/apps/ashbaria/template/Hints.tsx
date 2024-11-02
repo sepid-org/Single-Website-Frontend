@@ -13,7 +13,7 @@ type HintsTemplatePropsType = {
 const HintsTemplate: FC<HintsTemplatePropsType> = ({
   onClose,
 }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: currentUserPlayer } = useGetMyPlayerQuery({ fsmId });
   const fsmStateId = currentUserPlayer?.current_state;
   const { data: hints } = useGetFSMStateHintsQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });

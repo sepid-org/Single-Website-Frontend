@@ -87,7 +87,7 @@ function FlowCanvas({ fsmStates, fsmEdges, currentState }) {
 
 //useGetPlayerTransitedPathQuery
 export default function CourseMapViewMode({ currentStateTitle }) {
-	const { fsmId } = useParams();
+	const fsmId = parseInt(useParams().fsmId);
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);

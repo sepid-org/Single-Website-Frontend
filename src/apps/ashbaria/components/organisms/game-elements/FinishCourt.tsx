@@ -5,19 +5,19 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
 import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
-import useFinishFSM from "commons/hooks/useFinishFSM";
+import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
 
 type FinishCourtPropsType = {}
 
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
   const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
   const { data: courts } = useGetCourtsQuery();
 
-  const currentCourt = courts?.find(court => court.corresponding_fsm === parseInt(fsmId))
+  const currentCourt = courts?.find(court => court.corresponding_fsm === fsmId);
 
   const handleFinishCourt = () => {
     finishCourt({ fsmId });

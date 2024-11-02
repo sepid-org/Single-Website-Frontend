@@ -73,7 +73,7 @@ const initialTabs: DashboardTabType[] = [
 type FSMManagementPropsType = {}
 
 const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const tabs: DashboardTabType[] =

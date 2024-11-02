@@ -8,6 +8,8 @@ import {
   DialogTitle,
   TextField,
   Stack,
+  Checkbox,
+  FormControlLabel,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -16,26 +18,27 @@ import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
-
 const AudioEditWidget = ({
   onMutate,
   handleClose,
-
   paperId,
   open,
-  link: previousLink,
+  link: initialLink,
   id: widgetId,
+  autoplay: initialAutoplay = false,
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const [link, setLink] = useState<string>(previousLink || '');
+  const [link, setLink] = useState<string>(initialLink || '');
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
+  const [autoplay, setAutoplay] = useState<boolean>(initialAutoplay);
 
   const handleClick = () => {
     onMutate({
       paper: paperId,
       link,
       widgetId,
+      autoplay,
       onSuccess: handleClose,
       ...widgetFields,
     });
@@ -62,6 +65,15 @@ const AudioEditWidget = ({
             inputProps={{ className: 'ltr-input' }}
             placeholder="http://example.com/example.mp3"
             onChange={(e) => setLink(e.target.value)}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={autoplay} // Controlled state
+                onChange={(e) => setAutoplay(e.target.checked)}
+              />
+            }
+            label="پخش خودکار"
           />
         </Stack>
       </DialogContent>

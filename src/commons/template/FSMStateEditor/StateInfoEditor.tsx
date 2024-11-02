@@ -26,7 +26,7 @@ type StateInfoEditorPropsType = {}
 
 const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
   const { fsmStateId } = useFSMStateContext();
-  const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const [updateFSMState, { isSuccess, isLoading }] = useUpdateFSMStateMutation();
 

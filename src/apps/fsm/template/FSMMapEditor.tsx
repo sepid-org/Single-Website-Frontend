@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const FSMMapEditor = () => {
-  const { fsmId } = useParams();
+  const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId })
   const { data: fsmStates } = useGetFSMStatesQuery({ fsmId })
   const [setFSMFirstState, result] = useSetFSMFirstStateMutation()

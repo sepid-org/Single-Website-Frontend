@@ -6,6 +6,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
+import MovieScreeningRequestSVG from "../assets/movie-screening-request.jpg";
 
 type MovieScreeningRequestPropsType = {}
 
@@ -34,48 +36,50 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
 
   return (
     <Fragment>
-      <Container maxWidth='md'
-        sx={{
-          display: 'flex',
-          paddingTop: 4,
-          paddingBottom: 2,
-          justifyContent: 'center',
-          marginRight: 'auto !important',
-          marginLeft: 'auto !important',
-        }}>
-        <Stack width={'100%'}>
-          <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-            <Box
-              component="img"
-              src={program?.cover_page}
-              alt="program-cover-page"
-              width={200}
-              sx={{ borderRadius: 1, cursor: 'pointer' }}
-              onClick={() => window.open('http://filmbazi.ir/')}
-            />
-            <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
-          </Stack>
+      <FullScreenBackgroundImage image={MovieScreeningRequestSVG}>
+        <Container maxWidth='md'
+          sx={{
+            display: 'flex',
+            paddingTop: 4,
+            paddingBottom: 2,
+            justifyContent: 'center',
+            marginRight: 'auto !important',
+            marginLeft: 'auto !important',
+          }}>
+          <Stack width={'100%'}>
+            <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
+              <Box
+                component="img"
+                src={program?.cover_page}
+                alt="program-cover-page"
+                width={200}
+                sx={{ borderRadius: 1, cursor: 'pointer' }}
+                onClick={() => window.open('http://filmbazi.ir/')}
+              />
+              <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
+            </Stack>
 
-          {isUserSubmittedForm ?
-            <Paper sx={{ padding: 2, marginTop: 4 }}>
-              <Typography textAlign={'center'} fontWeight={700} fontSize={18}>
-                {'درخواست شما با موفقیت ثبت شد. پس از بررسی اطلاعات با شما تماس خواهیم گرفت😊'}
-              </Typography>
-            </Paper>
-            :
-            <Fragment>
-              <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
-                <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
-              </Stack>
-              <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
-                <Typography fontWeight={700} fontSize={18}>
-                  {'ثبت درخواست'}
+            {isUserSubmittedForm ?
+              <Paper sx={{ padding: 2, marginTop: 4 }}>
+                <Typography textAlign={'center'} fontWeight={700} fontSize={18}>
+                  {'درخواست شما با موفقیت ثبت شد. پس از بررسی اطلاعات با شما تماس خواهیم گرفت😊'}
                 </Typography>
-              </Button>
-            </Fragment>
-          }
-        </Stack>
-      </Container>
+              </Paper>
+              :
+              <Fragment>
+                <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
+                  <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
+                </Stack>
+                <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
+                  <Typography fontWeight={700} fontSize={18}>
+                    {'ثبت درخواست'}
+                  </Typography>
+                </Button>
+              </Fragment>
+            }
+          </Stack>
+        </Container>
+      </FullScreenBackgroundImage>
     </Fragment>
   );
 
