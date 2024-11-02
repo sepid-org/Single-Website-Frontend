@@ -22,6 +22,7 @@ import ExamPage from './pages/exam/Exam';
 import StartExamPage from './pages/exam/Start';
 import ExamResultPage from './pages/exam/Result';
 import WhatHappenedPage from './pages/WhatHappened';
+import ScoreBoard from './pages/ScoreBoard';
 
 const App = () => {
 
