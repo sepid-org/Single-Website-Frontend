@@ -14,7 +14,6 @@ const ScoresDialogButton: FC<ScoresDialogButtonPropsType> = ({
   const [openScoresDialog, setOpenScoresDialog] = useState(false);
   const { programSlug } = useParams();
   const { data: website } = useGetWebsiteQuery();
-  // const { data: currencies } = useGetCurrenciesQuery({});
 
   return (
     <Fragment>

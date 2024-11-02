@@ -1,6 +1,6 @@
 import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameLogics";
 import React, { FC, Fragment, useEffect } from "react";
-import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
+import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
 import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";

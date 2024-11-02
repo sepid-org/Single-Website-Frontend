@@ -1,5 +1,5 @@
 import { useFSMStateContext } from './useFSMStateContext';
-import { useSubmitButtonMutation } from 'commons/redux/slices/cms/response/ButtonWidget';
+import { useSubmitButtonMutation } from 'commons/redux/apis/cms/response/ButtonWidget';
 
 interface SubmitButtonParams {
   stateId?: string;

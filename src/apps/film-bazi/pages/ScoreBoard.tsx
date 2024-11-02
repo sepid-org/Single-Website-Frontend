@@ -3,9 +3,9 @@ import AppBarComponent from '../components/organisms/Appbar';
 import CompetitionScores from '../components/organisms/CompetitionScores';
 import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
-import { useGetMyBalancesQuery, useGetMyRankQuery } from 'commons/redux/slices/bank/MyInfo';
+import { useGetMyBalancesQuery, useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
 import { FILMBAZI_COIN } from '../constants/game';
-import { useGetScoreboardQuery } from 'commons/redux/slices/bank/scoreboard/Scoreboard';
+import { useGetScoreboardQuery } from 'commons/redux/apis/bank/scoreboard/Scoreboard';
 import { ScoreBoardItemType } from 'commons/types/bank';
 import useUserProfile from 'commons/hooks/useUserProfile';
 

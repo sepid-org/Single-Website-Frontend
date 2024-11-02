@@ -6,7 +6,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
-import { useChangePhoneNumberMutation } from 'commons/redux/slices/party/UserApi';
+import { useChangePhoneNumberMutation } from 'commons/redux/apis/party/UserApi';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 

@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { useSimpleLoginMutation } from 'commons/redux/slices/party/UserApi';
+import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
 
 type LoginPagePropsType = {};
 

@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 import { SchoolType } from 'commons/types/models';
 import { GenderType } from 'commons/types/profile';
 import isNumber from 'commons/utils/validators/isNumber';
-import { useCreateInstituteMutation } from 'commons/redux/slices/party/InstituteSlice';
+import { useCreateInstituteMutation } from 'commons/redux/apis/party/InstituteSlice';
 
 type AddInstituteDialogPropsType = {
   open: boolean;

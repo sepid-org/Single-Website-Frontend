@@ -2,7 +2,7 @@ import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/fea
 import { useParams } from "react-router-dom";
 import { useGetCourtsQuery } from "../redux/slices/GameLogics";
 import { useGetFSMsQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
+import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { CourtType } from "../types";
 
 type useMenuCourtsType = {

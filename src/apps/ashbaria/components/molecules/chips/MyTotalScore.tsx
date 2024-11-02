@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import ScoreChip from "./Score";
-import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
+import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
 
 type MyTotalScorePropsType = {}

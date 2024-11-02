@@ -12,7 +12,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { fakeNotifications } from 'apps/chat/fakeNotifications';
 import NotificationsList from '../organisms/NotificationsList';
 import useWebSocket from '../../hooks/useWebsocket';
-import { useGetUserProfileSummaryQuery, useGetWebsiteProfileSummaryQuery } from 'commons/redux/slices/party/ProfileSlice';
+import { useGetUserProfileSummaryQuery, useGetWebsiteProfileSummaryQuery } from 'commons/redux/apis/party/ProfileSlice';
 
 type NotificationButtonPropsType = {
 }

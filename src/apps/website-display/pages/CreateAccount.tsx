@@ -13,7 +13,7 @@ import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
-import { useCreateAccountMutation } from 'commons/redux/slices/party/UserApi';
+import { useCreateAccountMutation } from 'commons/redux/apis/party/UserApi';
 
 type CreateAccountPropsType = {}
 

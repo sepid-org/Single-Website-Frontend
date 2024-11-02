@@ -3,7 +3,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation, useOtpLoginMutation } from "commons/redux/slices/party/UserApi";
+import { useGetVerificationCodeMutation, useOtpLoginMutation } from "commons/redux/apis/party/UserApi";
 import { LoginTabs } from ".";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { Golden } from "apps/ashbaria/constants/colors";

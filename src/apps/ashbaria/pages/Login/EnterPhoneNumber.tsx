@@ -2,7 +2,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { FC, Fragment, useEffect } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserApi";
+import { useGetVerificationCodeMutation } from "commons/redux/apis/party/UserApi";
 import { LoginTabs } from ".";
 import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";
