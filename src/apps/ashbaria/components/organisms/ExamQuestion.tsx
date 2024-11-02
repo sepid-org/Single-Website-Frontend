@@ -1,31 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import Choice from 'commons/components/molecules/Choice';
-import { toast } from 'react-toastify';
-import { toPersianNumber } from 'commons/utils/translateNumber';
-import { AnswerType } from 'commons/types/models';
-import { ChoiceType } from 'commons/types/widgets';
-import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
+import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 
-type ExamQuestionPropsType = {
-  useSubmitAnswerMutation: any;
-  onAnswerChange: any;
-  id: string;
-  text: string;
-  choices: ChoiceType[];
-  mode: WidgetModes;
-  max_selections: number;
-  min_selections: number;
-  lock_after_answer: boolean;
-  submittedAnswer: AnswerType;
-} & QuestionWidgetType;
-
-const ExamQuestion: FC<ExamQuestionPropsType> = ({
+const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
 
@@ -36,51 +19,27 @@ const ExamQuestion: FC<ExamQuestionPropsType> = ({
   max_selections: maxSelections,
   min_selections: minSelections,
   lock_after_answer: lockAfterAnswer,
+  randomize_choices: randomizeChoices,
   submittedAnswer,
   ...questionWidgetProps
 }) => {
-  const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>(submittedAnswer?.choices || []);
-  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const setSelectedChoices = (newSelectedChoices) => {
-    onAnswerChange({ choices: newSelectedChoices });
-    _setSelectedChoices(newSelectedChoices);
-  }
-  const { playerId } = useFSMStateContext();
+  const {
+    selectedChoices,
+    displayChoices,
 
-
-  const onChoiceSelect = (choice) => {
-    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
-      return;
-    }
-    if (maxSelections === 1) {
-      setSelectedChoices([choice])
-      if (mode === WidgetModes.View) {
-        handleSubmitAnswer([choice]);
-      }
-    } else {
-      const choiceIndex = selectedChoices.indexOf(choice);
-      if (choiceIndex === -1) {
-        if (selectedChoices.length === maxSelections) {
-          toast.error(`حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`)
-          return;
-        }
-        setSelectedChoices([
-          ...selectedChoices,
-          choice,
-        ]);
-      } else {
-        const selectedChoicesCopy = [...selectedChoices]
-        selectedChoicesCopy.splice(choiceIndex, 1);
-        setSelectedChoices(selectedChoicesCopy);
-      }
-    }
-  }
-
-  const handleSubmitAnswer = (selectedChoices) => {
-    if (mode === WidgetModes.View) {
-      submitAnswer({ questionId, selectedChoices, playerId });
-    }
-  }
+    onChoiceSelect,
+    submitAnswer,
+    submitAnswerResult,
+  } = useMultiChoiceQuestionProperties({
+    useSubmitAnswerMutation,
+    onAnswerChange,
+    id: questionId,
+    choices: questionChoices,
+    mode,
+    maxSelections,
+    randomizeChoices,
+    submittedAnswer,
+  });
 
   return (
     <Stack spacing={1}>
@@ -91,7 +50,7 @@ const ExamQuestion: FC<ExamQuestionPropsType> = ({
         />
       </IsRequired>
       <Stack spacing={1}>
-        {questionChoices.map((choice) =>
+        {displayChoices.map((choice) =>
           <Choice
             disabled={mode === WidgetModes.Review}
             key={choice.id}
@@ -107,7 +66,7 @@ const ExamQuestion: FC<ExamQuestionPropsType> = ({
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
           variant='contained'
-          onClick={() => handleSubmitAnswer(selectedChoices)}>
+          onClick={() => submitAnswer(selectedChoices)}>
           <Typography fontWeight={400}>
             {'ثبت'}
           </Typography>

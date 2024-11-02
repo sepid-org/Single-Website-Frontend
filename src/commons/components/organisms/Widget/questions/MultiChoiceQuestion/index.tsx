@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
@@ -10,10 +10,10 @@ import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import useMultiChoiceQuestionProperties from './useMultiChoiceQuestionProperties';
 export { MultiChoiceQuestionEditWidget };
 
-type MultiChoiceQuestionWidgetPropsType = {
+export type MultiChoiceQuestionWidgetPropsType = {
   useSubmitAnswerMutation: any;
   onAnswerChange: any;
   id: string;
@@ -23,6 +23,7 @@ type MultiChoiceQuestionWidgetPropsType = {
   max_selections: number;
   min_selections: number;
   lock_after_answer: boolean;
+  randomize_choices: boolean;
   submittedAnswer: AnswerType;
 } & QuestionWidgetType;
 
@@ -37,47 +38,28 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   max_selections: maxSelections,
   min_selections: minSelections,
   lock_after_answer: lockAfterAnswer,
+  randomize_choices: randomizeChoices,
   submittedAnswer,
   ...questionWidgetProps
 }) => {
-  const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>(submittedAnswer?.choices || []);
-  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const setSelectedChoices = (newSelectedChoices) => {
-    onAnswerChange({ choices: newSelectedChoices });
-    _setSelectedChoices(newSelectedChoices);
-  }
-  const { playerId } = useFSMStateContext();
 
+  const {
+    selectedChoices,
+    displayChoices,
 
-  const onChoiceSelect = (choice) => {
-    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
-      return;
-    }
-    if (maxSelections === 1) {
-      setSelectedChoices([choice])
-      if (mode === WidgetModes.View) {
-        handleSubmitAnswer([choice]);
-      }
-    } else {
-      const choiceIndex = selectedChoices.indexOf(choice);
-      if (choiceIndex === -1) {
-        setSelectedChoices([
-          ...selectedChoices,
-          choice,
-        ]);
-      } else {
-        const selectedChoicesCopy = [...selectedChoices]
-        selectedChoicesCopy.splice(choiceIndex, 1);
-        setSelectedChoices(selectedChoicesCopy);
-      }
-    }
-  }
-
-  const handleSubmitAnswer = (selectedChoices) => {
-    if (mode === WidgetModes.View) {
-      submitAnswer({ questionId, selectedChoices, playerId });
-    }
-  }
+    onChoiceSelect,
+    submitAnswer,
+    submitAnswerResult,
+  } = useMultiChoiceQuestionProperties({
+    useSubmitAnswerMutation,
+    onAnswerChange,
+    id: questionId,
+    choices: questionChoices,
+    mode,
+    maxSelections,
+    randomizeChoices,
+    submittedAnswer,
+  });
 
   return (
     <Stack spacing={1}>
@@ -88,7 +70,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
         />
       </IsRequired>
       <Stack spacing={1}>
-        {questionChoices.map((choice) =>
+        {displayChoices.map((choice) =>
           <Choice
             disabled={mode === WidgetModes.Review}
             key={choice.id}
@@ -106,7 +88,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             disabled={selectedChoices?.length < minSelections || selectedChoices.length > maxSelections}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
-            onClick={() => handleSubmitAnswer(selectedChoices)}>
+            onClick={() => submitAnswer(selectedChoices)}>
             <Typography fontWeight={400}>
               {'ثبت'}
             </Typography>

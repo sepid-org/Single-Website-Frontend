@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
@@ -41,6 +42,7 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   max_selections: number;
   min_selections: number;
   lock_after_answer: boolean;
+  randomize_choices: boolean;
 }
 
 const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> = ({
@@ -56,10 +58,12 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   max_selections,
   min_selections,
   lock_after_answer,
+  randomize_choices,
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const [lockAfterAnswer, setLockAfterAnswer] = useState(lock_after_answer || false);
+  const [lockAfterAnswer, setLockAfterAnswer] = useState(lock_after_answer);
+  const [randomizeChoices, setRandomizeChoices] = useState(randomize_choices);
   const [minimumChoicesCouldBeChosen, setMinimumChoicesCouldBeChosen] = useState(min_selections || 1);
   const [maximumChoicesCouldBeChosen, setMaximumChoicesCouldBeChosen] = useState(max_selections || 1);
   const [questionText, setQuestionText] = useState(previousQuestionText);
@@ -91,6 +95,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       min_selections: minimumChoicesCouldBeChosen,
       max_selections: maximumChoicesCouldBeChosen,
       lock_after_answer: lockAfterAnswer,
+      randomize_choices: randomizeChoices,
       ...widgetFields,
     });
   };
@@ -233,12 +238,23 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
           />
 
           <FormControlLabel
-            name='lock_after_answer'
-            checked={lockAfterAnswer}
-            onChange={() => setLockAfterAnswer(lockAfterAnswer => !lockAfterAnswer)}
-            control={<Switch color="primary" />}
-            label="قفل‌شدن گزینه‌ها بعد از جواب‌دادن:"
-            labelPlacement='start'
+            control={
+              <Checkbox
+                checked={lockAfterAnswer}
+                onChange={(e) => setLockAfterAnswer(e.target.checked)}
+              />
+            }
+            label="غیرفعال شدن گزینه‌ها بعد از جواب‌دادن"
+          />
+
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={randomizeChoices}
+                onChange={(e) => setRandomizeChoices(e.target.checked)}
+              />
+            }
+            label="ترتیب تصادفی گزینه‌ها"
           />
 
           <EditQuestionFields
