@@ -60,7 +60,12 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
       disabled={disabled}
       onClick={!disabled ? onSelectionChange : undefined}
     >
-      <Typography color={'black'} fontSize={16} fontWeight={500}>
+      <Typography
+        color={'black'}
+        fontSize={16}
+        fontWeight={500}
+        sx={{ userSelect: 'none' }}
+      >
         {choice.text}
       </Typography>
     </Stack>
