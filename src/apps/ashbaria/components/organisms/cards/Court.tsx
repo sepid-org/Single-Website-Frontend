@@ -13,13 +13,10 @@ type CourtCardPropsType = {
 const CourtCard: FC<CourtCardPropsType> = ({
   court,
 }) => {
-  const [_startFSM, startFSMResult] = useStartFSM();
+  const [_startFSM, startFSMResult] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
 
   const startFSM = () => {
-    _startFSM({
-      fsmId: court.corresponding_fsm,
-      redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/`,
-    })
+    _startFSM({})
   }
 
   return (

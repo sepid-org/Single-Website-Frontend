@@ -11,12 +11,11 @@ import {
 } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import React, { useState, Fragment, FC, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, Fragment, FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatus } from 'commons/types/models';
-import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 type VerticalFSMCardPropsType = {
@@ -30,23 +29,11 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   isLoading = false,
   userStatus,
 }) => {
-  const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
-  const [startFSM, result] = useStartFSM();
-
-  useEffect(() => {
-    if (result.isSuccess)
-      navigate(`/fsm/${fsm.id}/`)
-  }, [result])
+  const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
 
   const handleCardClick = () => {
-    if (!isLoading && fsm?.is_active) {
-      if (fsm?.has_entrance_lock) {
-        setOpenPassword(true);
-      } else if (fsm.id) {
-        startFSM({ fsmId: fsm.id });
-      }
-    }
+    startFSM({});
   };
 
   return (
