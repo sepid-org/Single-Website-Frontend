@@ -20,7 +20,7 @@ export type WorkshopFSMStatePropsType = {
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
-  const paperId = state.papers[0];
+  const paperId = state?.papers[0];
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   // todo:
@@ -99,7 +99,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                     <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
-                    {state.is_end ?
+                    {state?.is_end ?
                       <FinishFSMButton /> :
                       <FSMNextStateButton />
                     }
@@ -121,7 +121,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                     <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
-                    {state.is_end ?
+                    {state?.is_end ?
                       <FinishFSMButton /> :
                       <FSMNextStateButton />
                     }

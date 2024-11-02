@@ -71,6 +71,7 @@ const ScoreBoard: React.FC = () => {
 				rank: myRank?.rank,
 				currentUser: true,
 				id: userProfile?.id,
+				profileImg: "",
 				score: balances?.[FILMBAZI_COIN] || 0,
 			},
 			currentUserExistsInWinners: exists

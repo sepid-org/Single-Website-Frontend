@@ -10,7 +10,6 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 	// const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
 	// 	setScorePage(value);
 	// };
-
 	return (
 		<Box
 			sx={{
@@ -64,7 +63,7 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					)) :
 					<ScoreRecordSkeleton />
 				}
-				{(allScores.currentUser != null && !allScores.currentUserExistsInWinners) &&
+				{(allScores.currentUser != null && allScores.winerUsresInfo && !allScores.currentUserExistsInWinners) &&
 					<>
 						<Box sx={{ marginTop: 2, marginBottom: 2 }}>
 							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />

@@ -5,6 +5,7 @@ export interface ScoreBoardItemType {
   score: number;
   currentUser: boolean;
   id: string;
+  profileImg?: string;
 }
 
 export type BalancesType = {
