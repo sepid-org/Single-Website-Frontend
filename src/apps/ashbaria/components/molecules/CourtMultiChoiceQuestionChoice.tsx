@@ -62,7 +62,7 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
     >
       <Typography
         color={'black'}
-        fontSize={16}
+        fontSize={20}
         fontWeight={500}
         sx={{ userSelect: 'none' }}
       >

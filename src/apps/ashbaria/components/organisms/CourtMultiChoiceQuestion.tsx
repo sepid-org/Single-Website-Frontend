@@ -47,7 +47,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         styles={{ width: '100%' }}
         content={questionText}
       />
-      <Stack spacing={1}>
+      <Stack spacing={2}>
         {displayChoices.map((choice) =>
           <CourtMultiChoiceQuestionChoice
             disabled={mode === WidgetModes.Review}
