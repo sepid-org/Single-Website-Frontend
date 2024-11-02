@@ -42,15 +42,13 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     disableAfterAnswer,
   });
 
-  console.log(displayChoices)
-
   return (
     <Stack spacing={1}>
       <TinyPreview
         styles={{ width: '100%' }}
         content={questionText}
       />
-      <Stack spacing={2}>
+      <Stack spacing={1.5}>
         {displayChoices.map((choice) =>
           <CourtMultiChoiceQuestionChoice
             disabled={mode === WidgetModes.Review}
