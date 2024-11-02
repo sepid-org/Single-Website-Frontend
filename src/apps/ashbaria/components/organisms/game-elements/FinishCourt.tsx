@@ -5,7 +5,7 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
 import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
 import { useParams } from "react-router-dom";
-import useFinishFSM from "commons/hooks/useFinishFSM";
+import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
 
 type FinishCourtPropsType = {}

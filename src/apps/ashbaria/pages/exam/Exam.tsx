@@ -6,7 +6,7 @@ import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import useChangeState from "commons/hooks/useChangeState";
 import useTransitionBack from "commons/hooks/useTransitionBack";
-import useFinishFSM from "commons/hooks/useFinishFSM";
+import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import Paper from "commons/template/Paper";

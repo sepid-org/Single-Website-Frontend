@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { useFinishFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
-import { useFSMStateContext } from "./useFSMStateContext";
+import { useFSMStateContext } from "../useFSMStateContext";
 import { useEffect } from "react";
 
 const useFinishFSM = ({ fsmId }) => {

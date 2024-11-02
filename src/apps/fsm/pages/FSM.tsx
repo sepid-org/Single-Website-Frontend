@@ -11,12 +11,12 @@ import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
-  useEnterFSMMutation,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from '../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
+import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 var moment = require('moment');
 
@@ -46,7 +46,7 @@ const FSM: FC<FSMPagePropsType> = ({
   const player = teamHeadPlayer || myPlayer;
   const isMentor = Boolean(teamHeadPlayerId);
   teamId = new URLSearchParams(search).get('teamId') || teamId
-  const [enterFSM, result] = useEnterFSMMutation();
+  const [startFSM, result] = useStartFSM();
   const { data: { fullName, id: mentorId } } = useUserProfile();
 
   let readyToAddMentor = false
@@ -120,9 +120,10 @@ const FSM: FC<FSMPagePropsType> = ({
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }, [player])
 
+  // todo:
   useEffect(() => {
     if (player && !player.current_state) {
-      enterFSM({ fsmId: fsm.id });
+      startFSM({ fsmId: fsm.id });
     }
   }, [player]);
 

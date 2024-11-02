@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import React, { FC } from 'react';
 
-import useFinishFSM from 'commons/hooks/useFinishFSM';
+import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 import { useParams } from 'react-router-dom';
 
 type FinishFSMButtonPropsType = {}

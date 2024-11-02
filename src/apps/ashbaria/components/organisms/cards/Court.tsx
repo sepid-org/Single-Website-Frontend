@@ -4,7 +4,7 @@ import { Golden } from "apps/film-bazi/constants/colors";
 import React, { FC } from "react";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import VerifyIcon from "../../atoms/icons/Verify";
-import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import useStartFSM from "commons/hooks/fsm/useStartFSM";
 
 type CourtCardPropsType = {
   court: CourtType;
@@ -13,10 +13,13 @@ type CourtCardPropsType = {
 const CourtCard: FC<CourtCardPropsType> = ({
   court,
 }) => {
-  const localNavigate = useLocalNavigate();
+  const [_startFSM, startFSMResult] = useStartFSM();
 
-  const onClick = () => {
-    localNavigate(`/court/${court.corresponding_fsm}/`)
+  const startFSM = () => {
+    _startFSM({
+      fsmId: court.corresponding_fsm,
+      redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/`,
+    })
   }
 
   return (
@@ -30,7 +33,7 @@ const CourtCard: FC<CourtCardPropsType> = ({
           transform: 'scale(1.02)',
         },
       }}
-      onClick={onClick}
+      onClick={startFSM}
     >
       <Stack width={'100%'} height={'100%'} component={Paper} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
         <Typography fontSize={10} fontWeight={400} color={Golden} textAlign={'center'}>
