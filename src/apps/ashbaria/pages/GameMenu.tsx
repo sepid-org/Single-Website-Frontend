@@ -11,11 +11,11 @@ import useMenuCourts from '../hooks/useMenuCourts';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
-import MyTotalScore from '../components/molecules/chips/MyTotalScore';
+import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 import MyFirstName from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import useGetMenuItems from '../hooks/useGetMenuItems';
+import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import useLogout from 'commons/hooks/useLogout';
 
 type GameMenuPropsType = {}
@@ -28,7 +28,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber });
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const { courts } = useMenuCourts();
-  const { complementaryObjects } = useGetMenuItems();
+  const { complementaryObjects } = useGetGameMenuComplementaryWidgets();
   const { logout } = useLogout();
 
   const fsmId = process.env.NODE_ENV === 'development' ? 6 : 214;
@@ -63,7 +63,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         </FSMStateProvider>
       </FSMProvider>
       <Box position={'absolute'} right={10} top={10}>
-        <MyTotalScore />
+        <MyTotalScoreChip />
       </Box>
       <Stack
         component={Paper}

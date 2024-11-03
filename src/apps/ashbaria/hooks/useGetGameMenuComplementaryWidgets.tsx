@@ -5,7 +5,7 @@ import CourtCard from "../components/organisms/cards/Court";
 import ExamCard from "../components/organisms/cards/Exam";
 import WhatHappenedCard from "../components/organisms/cards/WhatHappened";
 
-const useGetMenuItems = () => {
+const useGetGameMenuComplementaryWidgets = () => {
   const { courts } = useMenuCourts();
   const complementaryObjects: ComplementaryObjectType[] = [
     {
@@ -30,4 +30,4 @@ const useGetMenuItems = () => {
   }
 }
 
-export default useGetMenuItems;
+export default useGetGameMenuComplementaryWidgets;

@@ -6,13 +6,10 @@ import FinishCourt from "../components/organisms/game-elements/FinishCourt";
 import MyLastSupportPercentageInCourt from "../components/molecules/chips/MyLastSupportPercentageInCourt";
 import MyLastScoreInCourt from "../components/molecules/chips/MyLastScoreInCourt";
 import MyLastSupportPercentageChangeInCourt from "../components/molecules/chips/MyLastSupportPercentageChangeInCourt";
-import MyTotalScore from "../components/molecules/chips/MyTotalScore";
 import MyFullName from "../components/molecules/chips/MyFullName";
-import useMenuCourts from "./useMenuCourts";
-import CourtCard from "../components/organisms/cards/Court";
 
-const useAshbariaCustomWidgets = () => {
-  const { courts } = useMenuCourts();
+const useGetCourtComplementaryWidgets = () => {
+
   const complementaryObjects: ComplementaryObjectType[] = [
     {
       name: 'ashbaria-finish-court',
@@ -39,25 +36,14 @@ const useAshbariaCustomWidgets = () => {
       substituteComponent: <MyLastScoreInCourt />
     },
     {
-      name: 'ashbaria-total-score',
-      substituteComponent: <MyTotalScore />
-    },
-    {
       name: 'ashbaria-my-profile',
       substituteComponent: <MyFullName />,
     }
   ];
-  
-  courts.forEach(court => {
-    complementaryObjects.push({
-      name: `ashbaria-court-fsmId${court.corresponding_fsm}`,
-      substituteComponent: <CourtCard court={court} />
-    })
-  })
 
   return {
     complementaryObjects,
   }
 }
 
-export default useAshbariaCustomWidgets;
+export default useGetCourtComplementaryWidgets;
