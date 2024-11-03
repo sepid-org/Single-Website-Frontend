@@ -68,18 +68,16 @@ const FriendshipNetworkPage = () => {
 
   useEffect(() => {
     if (followResult.isSuccess) {
-      if (followResult.data.created) {
-        dialogService.open({
-          component:
-            <CustomDialogContent
-              image={<ScoreAnnouncement />}
-              title={`تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا`}
-              onClick={() => {
-                dialogService.close();
-              }}
-            />
-        })
-      }
+      dialogService.open({
+        component:
+          <CustomDialogContent
+            image={<ScoreAnnouncement />}
+            title={`تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا`}
+            onClick={() => {
+              dialogService.close();
+            }}
+          />
+      })
     }
     if (followResult.isError) {
       if (followResult.error?.['data']?.error) {
