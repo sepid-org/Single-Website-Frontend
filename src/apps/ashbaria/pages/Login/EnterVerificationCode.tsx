@@ -92,7 +92,7 @@ const EnterVerificationCode: FC = () => {
   return (
     <Fragment>
       <ProgramLogo />
-      <Stack spacing={1}>
+      <Stack width={'100%'} spacing={1}>
         <Typography textAlign="center" gutterBottom>
           {`کد پنج‌رقمی رو برای شماره ${toPersianNumber(phoneNumber)} فرستادیم. این پایین واردش کن:`}
         </Typography>
@@ -115,10 +115,10 @@ const EnterVerificationCode: FC = () => {
           ))}
         </Stack>
       </Stack>
-      <Button variant={countdown > 0 ? 'outlined' : "contained"} onClick={handleGetVerificationCode} disabled={countdown > 0}>
+      <Button fullWidth variant={countdown > 0 ? 'outlined' : "contained"} onClick={handleGetVerificationCode} disabled={countdown > 0}>
         {countdown > 0 ? `ارسال مجدد در ${toPersianNumber(formatTime(countdown))}` : 'نیومد که، دوباره بفرست'}
       </Button>
-      <Button onClick={handleGoToPreviousPage}>
+      <Button fullWidth onClick={handleGoToPreviousPage}>
         <Typography color={Golden}>
           {'شمارمو اشتباه نوشتم!'}
         </Typography>
