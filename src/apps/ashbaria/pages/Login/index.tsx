@@ -19,7 +19,7 @@ const Login: FC<LoginPropsType> = () => {
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
-      <Stack width={300} component={Paper} padding={2} spacing={2} marginRight={-20}>
+      <Stack width={300} component={Paper} padding={2} spacing={2} marginRight={-20} alignItems={'center'} justifyContent={'center'}>
         {currentTabSlug === LoginTabs.EnterPhoneNumber &&
           <EnterPhoneNumber />
         }
