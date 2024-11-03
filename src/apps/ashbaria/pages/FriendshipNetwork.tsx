@@ -226,6 +226,13 @@ const FriendshipNetworkPage = () => {
                 },
               }}
             >
+              {myCompletedMissions?.map(record => (
+                <CompletedMission
+                  key={record.id}
+                  requiredFollows={record.required_follows}
+                  rewardScore={record.reward_score}
+                />
+              ))}
               {unCompletedMissions?.map(record => (
                 <UncompletedMission
                   key={record.id}
@@ -233,13 +240,6 @@ const FriendshipNetworkPage = () => {
                   rewardScore={record.reward_score}
                   completable={record.required_follows <= myFriendshipNetwork?.network.user_followings_count}
                   handleClick={completeMission} id={record.id}
-                />
-              ))}
-              {myCompletedMissions?.map(record => (
-                <CompletedMission
-                  key={record.id}
-                  requiredFollows={record.required_follows}
-                  rewardScore={record.reward_score}
                 />
               ))}
             </Stack>
