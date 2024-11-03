@@ -4,14 +4,14 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 import LikeIcon from "../../atoms/icons/LikeIcon";
 import DislikeIcon from "../../atoms/icons/DislikeIcon";
 
-type SupportChipPropsType = {
+type SupportPercentageChipPropsType = {
   value: number;
-  isLoading?: boolean;
+  isFetching?: boolean;
 }
 
-const SupportChip: FC<SupportChipPropsType> = ({
+const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
   value,
-  isLoading,
+  isFetching,
 }) => {
 
   return (
@@ -27,8 +27,9 @@ const SupportChip: FC<SupportChipPropsType> = ({
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
+      spacing={0.5}
     >
-      {isLoading || value === null ?
+      {isFetching || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :
         <Fragment>
           <Typography fontSize={24} fontWeight={800} sx={{ direction: 'rtl' }}>
@@ -41,5 +42,5 @@ const SupportChip: FC<SupportChipPropsType> = ({
   )
 }
 
-export default SupportChip;
+export default SupportPercentageChip;
 

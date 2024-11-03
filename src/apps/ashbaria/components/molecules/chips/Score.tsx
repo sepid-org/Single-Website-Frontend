@@ -1,16 +1,16 @@
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
 import VerifyIcon from "../../atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
 
 type ScoreChipPropsType = {
   value: number;
-  isLoading?: boolean;
+  isFetching?: boolean;
 }
 
 const ScoreChip: FC<ScoreChipPropsType> = ({
   value,
-  isLoading,
+  isFetching,
 }) => {
 
   return (
@@ -22,20 +22,21 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       component={Paper}
       padding={1}
       paddingX={2}
-      paddingBottom={0.5}
       borderRadius={3}
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
       spacing={0.5}
     >
-      {isLoading || value === null ?
-        <Skeleton variant="rounded" width={50} height={30} /> :
-        <Typography fontSize={24} fontWeight={800}>
-          {toPersianNumber(value) + (value > 0 ? "+" : '')}
-        </Typography>
+      {isFetching || value === null ?
+        <Skeleton variant="rounded" width={70} height={36} /> :
+        <Fragment>
+          <Typography fontSize={24} fontWeight={800}>
+            {toPersianNumber(value) + (value > 0 ? "+" : '')}
+          </Typography>
+          <VerifyIcon />
+        </Fragment>
       }
-      <VerifyIcon />
     </Stack>
   )
 }

@@ -3,9 +3,9 @@ import { ComplementaryObjectType } from "commons/types/models";
 import DocumentsButton from "../components/molecules/buttons/Documents";
 import HintsButton from "../components/molecules/buttons/Hints";
 import FinishCourt from "../components/organisms/game-elements/FinishCourt";
-import MyLastSupportInFSM from "../components/molecules/chips/MyLastSupportInFSM";
-import MyLastScoreInFSM from "../components/molecules/chips/MyLastScoreInFSM";
-import MyLastSupportChangeInFSM from "../components/molecules/chips/MyLastSupportChangeInFSM";
+import MyLastSupportPercentageInCourt from "../components/molecules/chips/MyLastSupportPercentageInCourt";
+import MyLastScoreInCourt from "../components/molecules/chips/MyLastScoreInCourt";
+import MyLastSupportPercentageChangeInCourt from "../components/molecules/chips/MyLastSupportPercentageChangeInCourt";
 import MyTotalScore from "../components/molecules/chips/MyTotalScore";
 import MyFullName from "../components/molecules/chips/MyFullName";
 import useMenuCourts from "./useMenuCourts";
@@ -28,15 +28,15 @@ const useAshbariaCustomWidgets = () => {
     },
     {
       name: 'ashbaria-last-support-percentage-change-in-fsm',
-      substituteComponent: <MyLastSupportChangeInFSM />
+      substituteComponent: <MyLastSupportPercentageChangeInCourt />
     },
     {
       name: 'ashbaria-last-support-percentage-in-fsm',
-      substituteComponent: <MyLastSupportInFSM />
+      substituteComponent: <MyLastSupportPercentageInCourt />
     },
     {
       name: 'ashbaria-last-score-in-fsm',
-      substituteComponent: <MyLastScoreInFSM />
+      substituteComponent: <MyLastScoreInCourt />
     },
     {
       name: 'ashbaria-total-score',

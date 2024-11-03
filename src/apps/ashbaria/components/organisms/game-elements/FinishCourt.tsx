@@ -1,12 +1,11 @@
-import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameLogics";
+import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastSupportPercentageInCourtQuery } from "apps/ashbaria/redux/slices/GameLogics";
 import React, { FC, Fragment, useEffect } from "react";
-import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
-import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
+import MyLastSupportPercentageInCourt from "../../molecules/chips/MyLastSupportPercentageInCourt";
 import { useParams } from "react-router-dom";
 import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
-import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
+import MyLastScoreInCourt from "../../molecules/chips/MyLastScoreInCourt";
 
 type FinishCourtPropsType = {}
 
@@ -14,7 +13,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
-  const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
+  const { data: supportPercentage } = useGetUserLastSupportPercentageInCourtQuery({ correspondingFsmId: fsmId })
   const { data: courts } = useGetCourtsQuery();
 
   const currentCourt = courts?.find(court => court.corresponding_fsm === fsmId);
@@ -48,18 +47,16 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         {currentCourt?.judge_verdict}
       </Typography>
 
-      {userLastResultInFSM?.support_percentage > 5 &&
-        <Fragment>
-          <Typography color={Golden} variant="h4">
-            {'نتیجه'}
-          </Typography>
+      <Fragment>
+        <Typography color={Golden} variant="h4">
+          {'نتیجه'}
+        </Typography>
 
-          <Stack direction={'row'} spacing={2}>
-            <MyLastSupportInFSM />
-            <MyLastScoreInFSM />
-          </Stack>
-        </Fragment>
-      }
+        <Stack direction={'row'} spacing={2}>
+          <MyLastSupportPercentageInCourt />
+          <MyLastScoreInCourt />
+        </Stack>
+      </Fragment>
 
       <Button onClick={handleFinishCourt} variant='contained'>
         {'پایان دادگاه'}

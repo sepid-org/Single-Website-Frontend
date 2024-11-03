@@ -10,7 +10,7 @@ const MyTotalScore: FC<MyTotalScorePropsType> = ({ }) => {
   const myScore = myBalances?.[ASHBARIA_COIN] || 0;
 
   return (
-    <ScoreChip value={myScore} isLoading={isLoading} />
+    <ScoreChip value={myScore} isFetching={isLoading} />
   )
 }
 
