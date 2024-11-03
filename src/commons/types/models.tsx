@@ -2,6 +2,7 @@ import { NodeProps } from "@xyflow/react";
 import { HintType } from "./global";
 import { SchoolStudentshipType, UserInfoType } from "./profile";
 import { PositionType, WidgetType } from "./widgets/widget";
+import { ObjectType } from "./object/object";
 
 export type PlayerRequestType = any;
 
@@ -315,26 +316,4 @@ export type UserFSMStatus = {
   fsm_id: number;
   is_mentor: boolean;
   is_finished: boolean;
-}
-
-/////////////// OBJECT ///////////////
-
-export type ObjectType = {
-  id: string;
-  name: string;
-  title: string;
-  position: PositionType;
-  order: string;
-}
-
-export type ComplementaryObjectType = {
-  title?: string;
-  name: string;
-  logics?: {
-    onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-    onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  }
-  sx?: any;
-  substituteComponent?: any;
 }

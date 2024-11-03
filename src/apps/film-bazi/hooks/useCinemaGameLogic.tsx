@@ -1,5 +1,5 @@
 import React from "react";
-import { ComplementaryObjectType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "../components/organisms/CustomDialogContent";

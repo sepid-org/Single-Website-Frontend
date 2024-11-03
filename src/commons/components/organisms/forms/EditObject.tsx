@@ -2,8 +2,8 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
+import { ObjectType } from 'commons/types/object/object';
 import React, { FC } from 'react';
-import { ObjectType } from 'commons/types/models';
 
 type EditObjectFieldsPropsType = {
   fields: Partial<ObjectType>;

@@ -1,5 +1,5 @@
 import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
-import { ComplementaryObjectType } from 'commons/types/models';
+import { ComplementaryObjectType } from 'commons/types/object/object';
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
 interface FSMStateContextType {

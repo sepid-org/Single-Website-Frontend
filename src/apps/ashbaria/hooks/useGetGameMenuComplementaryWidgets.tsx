@@ -1,5 +1,5 @@
 import React from "react";
-import { ComplementaryObjectType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import useMenuCourts from "./useMenuCourts";
 import CourtCard from "../components/organisms/cards/Court";
 import ExamCard from "../components/organisms/cards/Exam";

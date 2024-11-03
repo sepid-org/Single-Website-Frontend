@@ -1,5 +1,5 @@
 import React from "react";
-import { ComplementaryObjectType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import DocumentsButton from "../components/molecules/buttons/Documents";
 import HintsButton from "../components/molecules/buttons/Hints";
 import FinishCourt from "../components/organisms/game-elements/FinishCourt";
