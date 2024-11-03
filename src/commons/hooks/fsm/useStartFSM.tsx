@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useEnterFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { PlayerType } from "commons/types/models";
 import { MutationResult } from "commons/types/rtk";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 
 interface UseStartFSMParams {
   fsmId: number;
@@ -23,15 +23,27 @@ const useStartFSM = ({
   const navigate = useNavigate();
   const [_enterFSM, enterFSMResult] = useEnterFSMMutation();
 
-  const startFSM = async ({ password }: StartFSMParams) => {
-    return await _enterFSM({ fsmId }).unwrap();
-  };
+  const startFSM = useCallback(async ({ password }: StartFSMParams) => {
+    try {
+      // Include password in the mutation payload if provided
+      const payload = {
+        fsmId,
+        ...(password && { password })
+      };
+
+      const result = await _enterFSM(payload).unwrap();
+      return result;
+    } catch (error) {
+      // Re-throw the error for the component to handle
+      throw error;
+    }
+  }, [fsmId, _enterFSM]);
 
   useEffect(() => {
     if (enterFSMResult.isSuccess) {
       navigate(redirectPath || `/fsm/${fsmId}/`);
     }
-  }, [enterFSMResult])
+  }, [enterFSMResult.isSuccess]);
 
   return [
     startFSM,
