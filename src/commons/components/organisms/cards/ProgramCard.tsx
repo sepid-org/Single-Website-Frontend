@@ -115,6 +115,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
 
               <Box display="flex" flexWrap="wrap" gap={1}>
                 <Chip
+                  variant='outlined'
                   color='info'
                   sx={{ userSelect: 'none' }}
                   icon={<PeopleAltIcon />}
@@ -126,8 +127,9 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
                 />
                 {program.is_free &&
                   <Chip
+                    variant='outlined'
                     color='success'
-                    sx={{ userSelect: 'none' }}
+                    sx={{ userSelect: 'none', color: '#36CF8D', borderColor: '#36CF8D' }}
                     icon={<InsertEmoticonIcon />}
                     label={'رایگان'}
                   />
