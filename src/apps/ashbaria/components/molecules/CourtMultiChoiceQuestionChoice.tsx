@@ -57,6 +57,7 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
     <Stack
       direction={'row'}
       alignItems={'start'}
+      justifyContent={'center'}
       component={ChoicePaper}
       isSelected={isSelected}
       disabled={disabled}

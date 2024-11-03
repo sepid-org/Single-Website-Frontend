@@ -20,7 +20,6 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   min_selections: minSelections,
   lock_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
-  submittedAnswer,
 }) => {
 
   const {
