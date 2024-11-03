@@ -3,7 +3,6 @@ import { Button, Box } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
-import { Attribute } from 'commons/types/models';
 import useChangeState from 'commons/hooks/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 
@@ -14,7 +13,6 @@ type ButtonWidgetPropsType = {
   destination_states: string[];
   mode: WidgetModes;
   id: string;
-  attributes: Attribute[];
 }
 
 const ButtonWidget: FC<ButtonWidgetPropsType> = ({
@@ -25,7 +23,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   mode,
   id: widgetId,
   // todo: check lock, cost, etc:
-  attributes,
+  ...objectFields
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [changeState, changeStateResult] = useChangeState();

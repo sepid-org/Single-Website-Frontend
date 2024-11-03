@@ -1,5 +1,5 @@
 export type AttributeType = {
-  id: number;
+  id?: number;
   title: string;
   description: string | null;
   order: number;
@@ -16,7 +16,7 @@ export type PerformableActionType = AttributeType & {
   type: 'PerformableAction';
 }
 
-export type Transition = PerformableActionType & {
+export type TransitionType = PerformableActionType & {
   type: 'Transition';
   destination_state_id: number;
 };

@@ -1,8 +1,8 @@
-import { Attribute } from "../models";
 import { PositionType } from "../widgets/widget";
+import { AttributeType } from "./attribute";
 
 export type ObjectType = {
-  attributes: Attribute[];
+  attributes: AttributeType[];
   id: string;
   name: string;
   title: string;

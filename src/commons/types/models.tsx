@@ -289,25 +289,6 @@ export type FSMEdgeType = {
 
 export type CurrencyType = any;
 
-
-/////////////// ATTRIBUTES ///////////////
-
-export type Attribute = {
-
-}
-
-export type Cost = Attribute & {
-
-}
-
-export type Reward = Attribute & {
-
-}
-
-export type RequiredBalance = Attribute & {
-
-}
-
 export type ProgramUserPermissions = {
   is_manager: boolean;
 }
