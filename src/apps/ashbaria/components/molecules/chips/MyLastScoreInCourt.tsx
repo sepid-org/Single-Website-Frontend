@@ -7,10 +7,10 @@ type PropsType = {}
 
 const MyLastScoreInCourt: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { data, isFetching } = useGetUserLastScoreInCourtQuery({ correspondingFsmId: fsmId })
+  const { data, isLoading } = useGetUserLastScoreInCourtQuery({ correspondingFsmId: fsmId })
 
   return (
-    <ScoreChip value={data} isFetching={isFetching} />
+    <ScoreChip value={data} isLoading={isLoading} />
   )
 }
 

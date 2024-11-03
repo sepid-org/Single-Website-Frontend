@@ -5,12 +5,12 @@ import { toPersianNumber } from "commons/utils/translateNumber";
 
 type ScoreChipPropsType = {
   value: number;
-  isFetching?: boolean;
+  isLoading?: boolean;
 }
 
 const ScoreChip: FC<ScoreChipPropsType> = ({
   value,
-  isFetching,
+  isLoading,
 }) => {
 
   return (
@@ -28,7 +28,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       justifyContent={'center'}
       spacing={0.5}
     >
-      {isFetching || value === null ?
+      {isLoading || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :
         <Fragment>
           <Typography fontSize={24} fontWeight={800}>

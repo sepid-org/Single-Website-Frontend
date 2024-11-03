@@ -7,10 +7,10 @@ type PropsType = {}
 
 const MyLastSupportPercentageInCourt: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { data, isFetching } = useGetUserLastSupportPercentageInCourtQuery({ correspondingFsmId: fsmId })
+  const { data, isLoading } = useGetUserLastSupportPercentageInCourtQuery({ correspondingFsmId: fsmId })
 
   return (
-    <SupportPercentageChip value={data} isFetching={isFetching} />
+    <SupportPercentageChip value={data} isLoading={isLoading} />
   )
 }
 

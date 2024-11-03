@@ -6,12 +6,12 @@ import DislikeIcon from "../../atoms/icons/DislikeIcon";
 
 type SupportPercentageChipPropsType = {
   value: number;
-  isFetching?: boolean;
+  isLoading?: boolean;
 }
 
 const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
   value,
-  isFetching,
+  isLoading,
 }) => {
 
   return (
@@ -29,7 +29,7 @@ const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
       justifyContent={'center'}
       spacing={0.5}
     >
-      {isFetching || value === null ?
+      {isLoading || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :
         <Fragment>
           <Typography fontSize={24} fontWeight={800} sx={{ direction: 'rtl' }}>

@@ -10,7 +10,7 @@ const MyLastSupportPercentageChangeInCourt: FC<PropsType> = ({ }) => {
   const { data, isFetching } = useGetUserLastSupportPercentageChangeInCourtQuery({ correspondingFsmId: fsmId })
 
   return (
-    <SupportPercentageChip value={data} isFetching={isFetching} />
+    <SupportPercentageChip value={data} isLoading={isFetching} />
   )
 }
 
