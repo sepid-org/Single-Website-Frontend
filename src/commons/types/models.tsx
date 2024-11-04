@@ -296,5 +296,7 @@ export type ProgramUserPermissions = {
 export type UserFSMStatus = {
   fsm_id: number;
   is_mentor: boolean;
-  is_finished: boolean;
+  count_of_playing: number;
+  has_playing_player: boolean;
+  enabled: boolean;
 }

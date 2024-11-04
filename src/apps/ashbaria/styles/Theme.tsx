@@ -1,6 +1,6 @@
 import { createTheme } from '@mui/material/styles';
 import selectTheme from 'commons/configs/themes';
-import { Black, DarkSecondary, Golden, Gray, Primary, SecondaryColor } from '../constants/colors';
+import { Black, DarkSecondary, Golden, Gray, Primary, Secondary } from '../constants/colors';
 
 export const customTheme = createTheme({
   ...selectTheme('rtl'),
@@ -42,7 +42,7 @@ export const customTheme = createTheme({
       main: Primary,
     },
     secondary: {
-      main: SecondaryColor,
+      main: Secondary,
     },
     background: {
       default: '#221F37',

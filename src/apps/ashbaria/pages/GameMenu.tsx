@@ -1,13 +1,9 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 
 import backgroundImg from "../assets/profileBackground.svg";
-import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import useMenuCourts from '../hooks/useMenuCourts';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
@@ -22,12 +18,6 @@ type GameMenuPropsType = {}
 
 const GameMenu: FC<GameMenuPropsType> = () => {
   const localNavigate = useLocalNavigate();
-  const { programSlug } = useParams();
-  const [pageNumber, setPageNumber] = useState(1);
-  const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber });
-  const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { courts } = useMenuCourts();
   const { complementaryObjects } = useGetGameMenuComplementaryWidgets();
   const { logout } = useLogout();
 
@@ -43,11 +33,9 @@ const GameMenu: FC<GameMenuPropsType> = () => {
 
   return (
     <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 0 }}>
-      {program &&
-        <Helmet>
-          <title>{program.name}</title>
-        </Helmet>
-      }
+      <Helmet>
+        <title>{'راز آشباریا'}</title>
+      </Helmet>
       <FSMProvider fsmId={fsmId}>
         <FSMStateProvider
           isMentor={false}
