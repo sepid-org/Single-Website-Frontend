@@ -17,12 +17,12 @@ const CourtCard: FC<CourtCardPropsType> = ({
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === court?.corresponding_fsm);
 
-  if (currentUserFSMStatus?.count_of_playing > 0) {
-    return <FinishedCourtCard court={court} />
+  if (currentUserFSMStatus?.is_enabled_for_user) {
+    return <ActiveCourtCard court={court} />
   }
 
-  if (currentUserFSMStatus?.enabled) {
-    return <ActiveCourtCard court={court} />
+  if (currentUserFSMStatus?.finished_players_count > 0) {
+    return <FinishedCourtCard court={court} />
   }
 
   return <LockedCourtCard court={court} />

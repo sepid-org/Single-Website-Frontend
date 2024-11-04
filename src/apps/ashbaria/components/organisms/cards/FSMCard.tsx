@@ -84,7 +84,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
                   {fsm.name}
                 </Typography>
-                {userFSMStatus?.is_mentor &&
+                {userFSMStatus?.is_user_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
                       component={Link}

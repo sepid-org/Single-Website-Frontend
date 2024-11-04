@@ -84,7 +84,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
                   {fsm.name}
                 </Typography>
-                {userStatus?.is_mentor &&
+                {userStatus?.is_user_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
                     <IconButton
                       component={Link}
