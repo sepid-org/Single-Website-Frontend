@@ -1,5 +1,6 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
@@ -11,6 +12,7 @@ import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from './useMultiChoiceQuestionProperties';
+import { useDispatch } from 'react-redux';
 export { MultiChoiceQuestionEditWidget };
 
 export type MultiChoiceQuestionWidgetPropsType = {
@@ -25,12 +27,12 @@ export type MultiChoiceQuestionWidgetPropsType = {
   lock_after_answer: boolean;
   randomize_choices: boolean;
   submittedAnswer: AnswerType;
+  paperId: string;
 } & QuestionWidgetType;
 
 const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
-
   id: questionId,
   text: questionText,
   choices: questionChoices,
@@ -40,13 +42,14 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   lock_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
+  paperId,
   ...questionWidgetProps
 }) => {
+  const dispatch = useDispatch();
 
   const {
     selectedChoices,
     displayChoices,
-
     onChoiceSelect,
     submitAnswer,
     submitAnswerResult,
@@ -62,6 +65,16 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     disableAfterAnswer,
   });
 
+  useEffect(() => {
+    if (submitAnswerResult?.isSuccess && paperId) {
+      dispatch(
+        ContentManagementServiceApi.util.invalidateTags([
+          { type: 'paper', id: paperId }
+        ])
+      );
+    }
+  }, [submitAnswerResult?.isSuccess, paperId, dispatch]);
+
   return (
     <Stack spacing={1}>
       <IsRequired disabled={!questionWidgetProps.is_required}>
@@ -71,7 +84,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
         />
       </IsRequired>
       <Stack spacing={1}>
-        {displayChoices.map((choice) =>
+        {displayChoices.map((choice) => (
           <Choice
             disabled={mode === WidgetModes.Review}
             key={choice.id}
@@ -81,25 +94,28 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             onSelectionChange={() => onChoiceSelect(choice)}
             variant={maxSelections > 1 ? 'checkbox' : 'radio'}
           />
-        )}
+        ))}
       </Stack>
-      {mode === WidgetModes.View && maxSelections > 1 &&
+      {mode === WidgetModes.View && maxSelections > 1 && (
         <Stack alignItems={'end'}>
           <Button
             disabled={selectedChoices?.length < minSelections || selectedChoices.length > maxSelections}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
-            onClick={() => submitAnswer(selectedChoices)}>
+            onClick={() => submitAnswer(selectedChoices)}
+          >
             <Typography fontWeight={400}>
               {'ثبت'}
             </Typography>
           </Button>
           <Typography variant='caption' color={'error'}>
-            {selectedChoices?.length < minSelections && `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`}
-            {selectedChoices?.length > maxSelections && `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`}
+            {selectedChoices?.length < minSelections &&
+              `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`}
+            {selectedChoices?.length > maxSelections &&
+              `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`}
           </Typography>
         </Stack>
-      }
+      )}
     </Stack>
   );
 };
