@@ -50,7 +50,6 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1.5}>
         {displayChoices.map((choice) =>
           <CourtMultiChoiceQuestionChoice
-            disabled={mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
             isSelected={selectedChoices.map(choice => choice.id).includes(choice.id)}

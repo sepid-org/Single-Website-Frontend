@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
-import { ChoiceType, DisplayChoiceType } from 'commons/types/widgets';
+import { ChoiceType } from 'commons/types/widgets';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 export { MultiChoiceQuestionEditWidget };
 

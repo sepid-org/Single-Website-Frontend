@@ -44,14 +44,12 @@ type ChoicePropsType = {
   choice: ChoiceType;
   isSelected: boolean;
   onSelectionChange: () => void;
-  disabled: boolean;
 }
 
 const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
   choice,
   isSelected,
   onSelectionChange,
-  disabled,
 }) => {
   return (
     <Stack
@@ -60,8 +58,8 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
       justifyContent={'center'}
       component={ChoicePaper}
       isSelected={isSelected}
-      disabled={disabled}
-      onClick={!disabled ? onSelectionChange : undefined}
+      disabled={!choice.enabled}
+      onClick={choice.enabled ? onSelectionChange : undefined}
     >
       <Typography
         color={'black'}
