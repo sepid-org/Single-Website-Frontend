@@ -34,8 +34,7 @@ const useStartFSM = ({
       const result = await _enterFSM(payload).unwrap();
       return result;
     } catch (error) {
-      // Re-throw the error for the component to handle
-      throw error;
+
     }
   }, [fsmId, _enterFSM]);
 

@@ -45,8 +45,7 @@ const useSubmitButton = (): [
 
       await _submitButton(payload).unwrap();
     } catch (error) {
-      // Re-throw the error to be handled by the component using this hook
-      throw error;
+
     }
   };
 

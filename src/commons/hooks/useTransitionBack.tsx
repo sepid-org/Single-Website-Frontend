@@ -36,9 +36,7 @@ const useTransitionBack = ({ playerId }: TransitionBackParams): [
         playerId,
       }).unwrap();
     } catch (error) {
-      // Re-throw the error to maintain the promise rejection
-      // This allows consuming components to handle the error if needed
-      throw error;
+
     }
   };
 
