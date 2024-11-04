@@ -45,13 +45,13 @@ const FinishedCourtCard: FC<PropsType> = ({
       </Typography>
       <Stack direction={'row'} spacing={1}>
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-          <Typography fontSize={10} fontWeight={800}>
+          <Typography fontSize={10} fontWeight={800} color={Secondary}>
             {toPersianNumber(finalSupportPercentage)}
           </Typography>
           <GrayLikeIcon size={24} />
         </Stack>
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-          <Typography fontSize={10} fontWeight={800}>
+          <Typography fontSize={10} fontWeight={800} color={Secondary}>
             {finalScore}
           </Typography>
           <GrayVerifyIcon size={24} />
