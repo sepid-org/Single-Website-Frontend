@@ -98,9 +98,11 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         <MyLastScoreInCourt />
       </Stack>
 
-      <Button fullWidth onClick={handleGoToNextCourt} variant='contained' size="large">
-        {'بریم پرونده بعدی'}
-      </Button>
+      {currentCourt.corresponding_fsm !== 211 &&
+        <Button fullWidth onClick={handleGoToNextCourt} variant='contained' size="large">
+          {'بریم پرونده بعدی'}
+        </Button>
+      }
 
       <Button fullWidth onClick={handleGoToHome} variant='outlined' size="large">
         {'بازگشت به خانه'}
