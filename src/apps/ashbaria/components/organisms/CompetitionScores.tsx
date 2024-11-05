@@ -9,6 +9,8 @@ import CupIcon from "../atoms/icons/Cup";
 import rankings from "../../assets/rankings.svg";
 import { ASHBARIA_COIN } from '../../constants/game-info';
 import useGetScoreBoardData from 'commons/hooks/useGetScoreboardData';
+import tempProfile from "../../assets/Profiles.svg";
+import WinnerRecord from "../molecules/WinnerRecord";
 
 export default function CompetitionScores() {
 	const {
@@ -58,7 +60,7 @@ export default function CompetitionScores() {
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
-							marginTop: 2
+							marginTop: 15
 						}}
 					>
 						<Box
@@ -68,30 +70,60 @@ export default function CompetitionScores() {
 								width: '482px',
 							}}
 						>
-							<Box sx={{ position: "absolute", bottom: '-50px', left: '120px' }}>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[1]["first_name"] + winnerScores[1]["last_name"]}
-								</Typography>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[1]["score"]}
-								</Typography>
-							</Box>
-							<Box sx={{ position: "absolute", top: '-20px', left: "230px" }}>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[0]["first_name"] + winnerScores[0]["last_name"]}
-								</Typography>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[0]["score"]}
-								</Typography>
-							</Box>
-							<Box sx={{ position: "absolute", bottom: '-70px', right: "120px", }}>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[2]["first_name"] + winnerScores[2]["last_name"]}
-								</Typography>
-								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[2]['score']}
-								</Typography>
-							</Box>
+							<Stack
+								sx={{
+									position: "absolute",
+									bottom: '-50px',
+									left: '80px',
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									flexDirection: "column",
+								}}
+								spacing={1}
+							>
+								<WinnerRecord
+									profileImg={winnerScores[1].profileImg}
+									name={winnerScores[1].first_name + winnerScores[1].last_name}
+									score={winnerScores[1].score}
+								/>
+							</Stack>
+							<Stack
+								sx={{
+									position: "absolute",
+									top: '-100px',
+									left: "200px",
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									flexDirection: "column",
+								}}
+								spacing={1}
+							>
+								<WinnerRecord
+									profileImg={winnerScores[0].profileImg}
+									name={winnerScores[0].first_name + winnerScores[0].last_name}
+									score={winnerScores[0].score}
+								/>
+							</Stack>
+							<Stack
+								sx={{
+									position: "absolute",
+									bottom: '-70px',
+									right: "70px",
+									display: "flex",
+									justifyContent: "center",
+									alignItems: "center",
+									flexDirection: "column",
+								}}
+								spacing={1}
+							>
+								<WinnerRecord
+									profileImg={winnerScores[2].profileImg}
+									name={winnerScores[2].first_name + winnerScores[2].last_name}
+									score={winnerScores[2].score}
+								/>
+							</Stack>
 						</Box>
 						<Box
 							component="img"
