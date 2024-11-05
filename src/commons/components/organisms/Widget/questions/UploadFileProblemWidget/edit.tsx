@@ -15,6 +15,7 @@ import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 type UploadFileProblemEditWidgetPropsType = {
   onMutate: any;
@@ -56,7 +57,7 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
 
   return (
     <Dialog disableScrollLock open={open} maxWidth='md'>
-      <DialogTitle>{'ارسال فایل'}</DialogTitle>
+      <DialogTitle>{`سوال ارسال فایل ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>
           <EditObjectFields

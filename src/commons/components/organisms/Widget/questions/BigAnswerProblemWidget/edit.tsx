@@ -15,6 +15,7 @@ import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionF
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 type BigAnswerProblemEditWidgetPropsType = {
   handleClose: any;
@@ -64,7 +65,7 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       scroll="body"
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{'سوال تشریحی'}</DialogTitle>
+      <DialogTitle>{`سوال تشریحی ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack alignItems={'start'} spacing={1}>
           <CollapsibleTitle title='مشخصات شئ'>

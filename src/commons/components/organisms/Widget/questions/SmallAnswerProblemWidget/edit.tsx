@@ -14,6 +14,7 @@ import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 function SmallAnswerProblemEditWidget({
   onMutate,
@@ -59,7 +60,7 @@ function SmallAnswerProblemEditWidget({
       fullWidth
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{t('shortAnswerQuestion')}</DialogTitle>
+      <DialogTitle>{`سوال کوتاه‌پاسخ ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>
           <EditObjectFields
