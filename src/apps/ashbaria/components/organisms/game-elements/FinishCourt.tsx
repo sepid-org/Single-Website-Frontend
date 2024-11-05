@@ -10,12 +10,15 @@ import useGetCourtFinalSupportPercentage from "apps/ashbaria/hooks/useGetCourtFi
 import { CourtType } from "apps/ashbaria/types";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
+const INITIAL_COURT_FSM_ID = 197;
+const LAST_COURT_FSM_ID = 211;
+
 const getDadbestanAddress = (finalSupportPercentage: number, court: CourtType) => {
-  if (court.corresponding_fsm === 197) {
+  if (court.corresponding_fsm === INITIAL_COURT_FSM_ID) {
     return 'ماجرا شروع شد؛ برو بریم توی دل کار!';
   }
 
-  if (court.corresponding_fsm === 211) {
+  if (court.corresponding_fsm === LAST_COURT_FSM_ID) {
     return 'بالاخره موفق شدی این پرونده رو با موفقیت تموم کنی. تبریک میگم. تو باعث افتخار مایی';
   }
 
@@ -83,13 +86,13 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       <Box paddingBottom={4}>
         {(finalSupportPercentage === undefined || currentCourt === undefined) ?
           <Skeleton variant='rounded' width={240} height={80} /> :
-          <Typography color={Golden} variant="h4">
+          <Typography color={Golden} variant="h4" textAlign={'center'}>
             {getDadbestanAddress(finalSupportPercentage, currentCourt)}
           </Typography>
         }
       </Box>
 
-      <Typography variant="h5">
+      <Typography variant="h5" textAlign={'center'}>
         {'عملکرد شما در این پرونده'}
       </Typography>
 
@@ -98,7 +101,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         <MyLastScoreInCourt />
       </Stack>
 
-      {currentCourt?.corresponding_fsm !== 211 &&
+      {currentCourt?.corresponding_fsm !== LAST_COURT_FSM_ID &&
         <Button fullWidth onClick={handleGoToNextCourt} variant='contained' size="large">
           {'بریم پرونده بعدی'}
         </Button>
