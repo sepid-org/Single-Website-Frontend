@@ -25,7 +25,8 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
 }) => {
   const t = useTranslate();
   const fsmId = parseInt(useParams().fsmId);
-  const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
+  // todo: get just states with stateIds (not all the fsm state! users should not get it)
+  const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId }, { skip: !Boolean(open) });
   const [changeState, result] = useChangeState();
   const states = fsmStates.filter(state => stateIds.includes(state.id))
 
