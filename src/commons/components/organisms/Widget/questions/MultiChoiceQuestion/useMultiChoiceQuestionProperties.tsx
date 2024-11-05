@@ -42,7 +42,7 @@ const useMultiChoiceQuestionProperties = ({
   maxSelections,
   randomizeChoices,
 }: PropsType) => {
-  const [selectedChoices, _setSelectedChoices] = useState<ChoiceType[]>([]);
+  const [selectedChoices, setSelectedChoices] = useState<ChoiceType[]>([]);
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { playerId } = useFSMStateContext();
 
@@ -62,7 +62,7 @@ const useMultiChoiceQuestionProperties = ({
 
   const _handleSetSelectedChoices = (newSelectedChoices) => {
     onAnswerChange({ choices: newSelectedChoices });
-    _setSelectedChoices(newSelectedChoices);
+    setSelectedChoices(newSelectedChoices);
   }
 
   const onChoiceSelect = (choice) => {
@@ -91,7 +91,11 @@ const useMultiChoiceQuestionProperties = ({
 
   const submitAnswer = (selectedChoices) => {
     if (mode === WidgetModes.View) {
-      _submitAnswer({ questionId, selectedChoices, playerId });
+      _submitAnswer({
+        questionId,
+        playerId,
+        selectedChoices: selectedChoices.map(selectedChoice => selectedChoice.id),
+      });
     }
   }
 
