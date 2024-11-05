@@ -20,7 +20,9 @@ export default function SingleWinnerCardSkeleton() {
                         md: "135.67px",
                         xs: "100px"
                     },
-                    height: "250px",
+                    height: {
+                        md: "250px",
+                    },
                     marginBottom: "5px",
                 }}
             />

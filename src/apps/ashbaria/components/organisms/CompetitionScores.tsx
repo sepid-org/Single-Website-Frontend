@@ -19,7 +19,6 @@ export default function CompetitionScores() {
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(ASHBARIA_COIN);
-	console.log(winnerScores);
 
 	return (
 		<Stack justifyContent={'center'} paddingY={2}>
