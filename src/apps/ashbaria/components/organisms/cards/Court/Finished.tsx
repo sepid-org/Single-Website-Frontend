@@ -29,6 +29,7 @@ const FinishedCourtCard: FC<PropsType> = ({
       spacing={1}
       padding={1}
       sx={{
+        cursor: 'not-allowed',
         border: '0.9px solid black',
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
