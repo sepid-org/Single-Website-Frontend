@@ -23,7 +23,7 @@ const JudgeVerdict: FC<PropsType> = ({ }) => {
     <Typography variant='h3' textAlign={'justify'}>
       {finalSupportPercentage >= 50 ?
         currentCourt?.judge_verdict1 :
-        currentCourt?.judge_verdict2
+        currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتمام وجود ندارد.'
       }
     </Typography>
   )
