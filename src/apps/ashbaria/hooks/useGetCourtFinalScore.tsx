@@ -1,9 +1,16 @@
-import { CourtType } from "../types";
+import { useGetCourtsQuery } from "../redux/slices/GameLogics";
 import useGetCourtFinalSupportPercentage from "./useGetCourtFinalSupportPercentage";
 
-const useGetCourtFinalScore = (court: CourtType) => {
-  const courtFinalSupportPercentage = useGetCourtFinalSupportPercentage(court.corresponding_fsm);
-  return Math.round(court.reward_score * courtFinalSupportPercentage / 100);
+const useGetCourtFinalScore = (fsmId: number) => {
+  const courtFinalSupportPercentage = useGetCourtFinalSupportPercentage(fsmId);
+  const { data: courts, isFetching } = useGetCourtsQuery();
+  const court = courts?.find(court => court.corresponding_fsm === fsmId);
+
+  if (courtFinalSupportPercentage === null || isFetching) {
+    return undefined;
+  }
+
+  return Math.round(court?.reward_score * courtFinalSupportPercentage / 100);
 }
 
 export default useGetCourtFinalScore;

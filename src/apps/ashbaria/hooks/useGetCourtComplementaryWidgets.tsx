@@ -7,10 +7,15 @@ import MyLastSupportPercentageInCourt from "../components/molecules/chips/MyLast
 import MyLastScoreInCourt from "../components/molecules/chips/MyLastScoreInCourt";
 import MyLastSupportPercentageChangeInCourt from "../components/molecules/chips/MyLastSupportPercentageChangeInCourt";
 import MyFullName from "../components/molecules/chips/MyFullName";
+import JudgeVerdict from "../components/organisms/game-elements/JudgeVerdict";
 
 const useGetCourtComplementaryWidgets = () => {
 
   const complementaryObjects: ComplementaryObjectType[] = [
+    {
+      name: 'ashbaria-judge-verdict',
+      substituteComponent: <JudgeVerdict />
+    },
     {
       name: 'ashbaria-finish-court',
       substituteComponent: <FinishCourt />

@@ -15,10 +15,9 @@ type PropsType = {
 
 const FinishedCourtCard: FC<PropsType> = ({
   court,
-  ...props
 }) => {
   const finalSupportPercentage = useGetCourtFinalSupportPercentage(court.corresponding_fsm);
-  const finalScore = useGetCourtFinalScore(court);
+  const finalScore = useGetCourtFinalScore(court.corresponding_fsm);
 
   return (
     <Stack
