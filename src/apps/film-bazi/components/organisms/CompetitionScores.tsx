@@ -6,10 +6,7 @@ import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
 
 export default function CompetitionScores({ allScores, winnerScores }) {
-	// const [scorePage, setScorePage] = useState(1);
-	// const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
-	// 	setScorePage(value);
-	// };
+	
 	return (
 		<Box
 			sx={{
@@ -35,13 +32,13 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					{winnerScores.length > 0 ?
 						<Fragment>
 							<Grid>
-								<WinnerCard score={winnerScores[2]?.score} rank={winnerScores[2]?.rank} />
+								<WinnerCard score={winnerScores[2]?.score} rank={3} />
 							</Grid>
 							<Grid>
-								<WinnerCard score={winnerScores[0]?.score} rank={winnerScores[0]?.rank} />
+								<WinnerCard score={winnerScores[0]?.score} rank={1} />
 							</Grid>
 							<Grid>
-								<WinnerCard score={winnerScores[1]?.score} rank={winnerScores[1]?.rank} />
+								<WinnerCard score={winnerScores[1]?.score} rank={2} />
 							</Grid>
 						</Fragment> :
 						<WinnerCardsSkeleton />
@@ -58,8 +55,8 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 				container
 			>
 				{allScores.winnerUsersInfo.length > 0 ?
-					allScores.winnerUsersInfo.map(record => (
-						<ScoreRecord key={record.id} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} />
+					allScores.winnerUsersInfo.map((record, index) => (
+						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} />
 					)) :
 					<ScoreRecordSkeleton />
 				}
@@ -74,23 +71,6 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					</>
 				}
 			</Grid>
-			{/* <Pagination
-				sx={{
-					display: "flex",
-					flexDirection: "row-reverse"
-				}}
-				count={Math.ceil(allScores.length / 5)}
-				onChange={handleChange}
-				siblingCount={2}
-				boundaryCount={2}
-				variant='outlined'
-				renderItem={(item) => (
-					<PaginationItem
-					  slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-					  {...item}
-					/>
-				)}
-			/> */}
 		</Box>
 	);
 }

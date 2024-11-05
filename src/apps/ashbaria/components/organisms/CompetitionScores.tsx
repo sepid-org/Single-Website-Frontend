@@ -106,8 +106,8 @@ export default function CompetitionScores() {
 
 			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
-					scoreRecordsState.winnerUsersInfo.map(record => (
-						<ScoreRecord key={record.id} rank={record.rank} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} profileImg="" />
+					scoreRecordsState.winnerUsersInfo.map((record, index) => (
+						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} profileImg="" />
 					)) :
 					<ScoreRecordSkeleton />
 				}
