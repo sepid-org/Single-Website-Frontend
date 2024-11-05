@@ -70,7 +70,7 @@ export default function CompetitionScores() {
 						>
 							<Box sx={{ position: "absolute", bottom: '-50px', left: '120px' }}>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[1]["name"]}
+									{winnerScores[1]["first_name"] + winnerScores[1]["last_name"]}
 								</Typography>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
 									{winnerScores[1]["score"]}
@@ -78,7 +78,7 @@ export default function CompetitionScores() {
 							</Box>
 							<Box sx={{ position: "absolute", top: '-20px', left: "230px" }}>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[0]["name"]}
+									{winnerScores[0]["first_name"] + winnerScores[0]["last_name"]}
 								</Typography>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
 									{winnerScores[0]["score"]}
@@ -86,10 +86,10 @@ export default function CompetitionScores() {
 							</Box>
 							<Box sx={{ position: "absolute", bottom: '-70px', right: "120px", }}>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[2]["name"]}
+									{winnerScores[2]["first_name"] + winnerScores[2]["last_name"]}
 								</Typography>
 								<Typography fontWeight={600} fontSize={"11.98px"}>
-									{winnerScores[2]}
+									{winnerScores[2]['score']}
 								</Typography>
 							</Box>
 						</Box>
