@@ -64,8 +64,8 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       finishFSM();
       if (clickedButton === 'return-to-home') {
         localNavigate(`/`);
-      } else {
-        localNavigate(`/court/${currentCourt.next_court_corresponding_fsm_id}`);
+      } else if (currentCourt.next_court_corresponding_fsm_id) {
+        localNavigate(`/court/${currentCourt.next_court_corresponding_fsm_id}/`);
       }
     }
   }, [finishCourtResult])
@@ -98,7 +98,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
         <MyLastScoreInCourt />
       </Stack>
 
-      {currentCourt.corresponding_fsm !== 211 &&
+      {currentCourt?.corresponding_fsm !== 211 &&
         <Button fullWidth onClick={handleGoToNextCourt} variant='contained' size="large">
           {'بریم پرونده بعدی'}
         </Button>
