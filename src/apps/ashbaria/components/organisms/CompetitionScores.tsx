@@ -17,7 +17,7 @@ export default function CompetitionScores() {
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(ASHBARIA_COIN);
-	//console.log(scoreRecordsState);
+	console.log(winnerScores);
 
 	return (
 		<Stack justifyContent={'center'} paddingY={2}>
@@ -68,15 +68,30 @@ export default function CompetitionScores() {
 								width: '482px',
 							}}
 						>
-							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", bottom: '-50px', left: '120px' }}>
-								{winnerScores[1]["score"]}
-							</Typography>
-							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", top: '-20px', left: "230px" }}>
-								{winnerScores[0]["score"]}
-							</Typography>
-							<Typography fontWeight={600} fontSize={"11.98px"} sx={{ position: "absolute", bottom: '-70px', right: "120px", }}>
-								{winnerScores[2]["score"]}
-							</Typography>
+							<Box sx={{ position: "absolute", bottom: '-50px', left: '120px' }}>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[1]["name"]}
+								</Typography>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[1]["score"]}
+								</Typography>
+							</Box>
+							<Box sx={{ position: "absolute", top: '-20px', left: "230px" }}>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[0]["name"]}
+								</Typography>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[0]["score"]}
+								</Typography>
+							</Box>
+							<Box sx={{ position: "absolute", bottom: '-70px', right: "120px", }}>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[2]["name"]}
+								</Typography>
+								<Typography fontWeight={600} fontSize={"11.98px"}>
+									{winnerScores[2]}
+								</Typography>
+							</Box>
 						</Box>
 						<Box
 							component="img"

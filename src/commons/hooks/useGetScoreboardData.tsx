@@ -11,6 +11,7 @@ const useGetScoreBoardData = (currencyName) => {
   const { data: myRank, isLoading: isMyRankLoading } = useGetMyRankQuery({ currencyName });
   const { data: balances, isLoading: isBalancesLoading } = useGetMyBalancesQuery();
   const { data: userProfile } = useUserProfile();
+  //console.log(scoreBoard);
 
   // State for results
   const [winnerScores, setWinnerScores] = useState([]);
@@ -31,7 +32,7 @@ const useGetScoreBoardData = (currencyName) => {
       for (let i = 0; i < 3; i++) {
         const rank = scoreBoard.find(record => record.rank === i + 1);
         if (rank != null) {
-          ranks.push({ rank: i + 1, score: rank.score });
+          ranks.push(rank);
         }
       }
       setWinnerScores(ranks);
