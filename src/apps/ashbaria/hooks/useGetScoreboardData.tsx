@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useGetScoreboardQuery } from 'commons/redux/slices/bank/scoreboard/Scoreboard';
 import { useGetMyRankQuery } from 'commons/redux/slices/bank/MyInfo';
 import { useGetMyBalancesQuery } from 'commons/redux/slices/bank/MyInfo';
-import useUserProfile from './useUserProfile';
+import useUserProfile from 'commons/hooks/useUserProfile';
 import useGetUsersNames from './useGetUsersNames';
-import { Scoreboard } from '@mui/icons-material';
 
 const useGetScoreBoardData = (currencyName) => {
   // Fetch data from API
@@ -20,7 +19,6 @@ const useGetScoreBoardData = (currencyName) => {
   const [winnerScores, setWinnerScores] = useState([]);
   const [scoreRecordsState, setScoreRecordsState] = useState({
     winnerUsersInfo: [],
-    currentUser: null,
     currentUserExistsInWinners: false,
   });
 
@@ -53,15 +51,6 @@ const useGetScoreBoardData = (currencyName) => {
 
       setScoreRecordsState({
         winnerUsersInfo: newRecords,
-        currentUser: {
-          first_name: userProfile?.first_name,
-          last_name: userProfile?.last_name,
-          profileImg: "nothing!", //replace later
-          rank: myRank?.rank,
-          currentUser: true,
-          id: userProfile?.id,
-          score: balances?.[currencyName] || 0,
-        },
         currentUserExistsInWinners: exists,
       });
     }

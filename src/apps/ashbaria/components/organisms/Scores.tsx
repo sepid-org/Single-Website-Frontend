@@ -8,11 +8,10 @@ import SearchIcon from "../atoms/icons/Search";
 import CupIcon from "../atoms/icons/Cup";
 import rankings from "../../assets/rankings.svg";
 import { ASHBARIA_COIN } from '../../constants/game-info';
-import useGetScoreBoardData from 'commons/hooks/useGetScoreboardData';
-import tempProfile from "../../assets/Profiles.svg";
+import useGetScoreBoardData from "apps/film-bazi/hooks/useGetScoreboardData";
 import WinnerRecord from "../molecules/WinnerRecord";
 
-export default function CompetitionScores() {
+export default function Scores() {
 	const {
 		winnerScores,
 		scoreRecordsState,
@@ -82,7 +81,7 @@ export default function CompetitionScores() {
 								spacing={1}
 							>
 								<WinnerRecord
-									profileImg={winnerScores[1].profileImg}
+									profileImg={winnerScores[1].profile_image}
 									name={winnerScores[1].first_name + winnerScores[1].last_name}
 									score={winnerScores[1].score}
 								/>
@@ -100,7 +99,7 @@ export default function CompetitionScores() {
 								spacing={1}
 							>
 								<WinnerRecord
-									profileImg={winnerScores[0].profileImg}
+									profileImg={winnerScores[0].profile_image}
 									name={winnerScores[0].first_name + winnerScores[0].last_name}
 									score={winnerScores[0].score}
 								/>
@@ -118,7 +117,7 @@ export default function CompetitionScores() {
 								spacing={1}
 							>
 								<WinnerRecord
-									profileImg={winnerScores[2].profileImg}
+									profileImg={winnerScores[2].profile_image}
 									name={winnerScores[2].first_name + winnerScores[2].last_name}
 									score={winnerScores[2].score}
 								/>
@@ -138,27 +137,9 @@ export default function CompetitionScores() {
 			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} profileImg="" />
+						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} profileImg={record.profile_image} />
 					)) :
 					<ScoreRecordSkeleton />
-				}
-				{(scoreRecordsState.currentUser != null && scoreRecordsState.winnerUsersInfo && !scoreRecordsState.currentUserExistsInWinners) &&
-					<>
-						<Box sx={{ marginTop: 2, marginBottom: 2 }}>
-							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
-							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
-							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
-						</Box>
-						<ScoreRecord
-							rank={scoreRecordsState.currentUser.rank}
-							first_name={scoreRecordsState.currentUser.first_name}
-							last_name={scoreRecordsState.currentUser.last_name}
-							score={scoreRecordsState.currentUser.score}
-							currentUser={scoreRecordsState.currentUser.currentUser}
-							id={scoreRecordsState.currentUser.id}
-							profileImg=""
-						/>
-					</>
 				}
 			</Stack>
 		</Stack>

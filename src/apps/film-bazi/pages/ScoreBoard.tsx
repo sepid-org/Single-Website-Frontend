@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { FILMBAZI_COIN } from '../constants/game';
 import { ScoreBoardItemType } from 'commons/types/bank';
-import useGetScoreBoardData from 'commons/hooks/useGetScoreboardData';
+import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 import React from 'react';
 
 interface ScoreRecordsStateProp {
