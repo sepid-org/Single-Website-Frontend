@@ -1,6 +1,5 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Button, Stack, Typography } from '@mui/material';
-import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
@@ -12,8 +11,6 @@ import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from './useMultiChoiceQuestionProperties';
-import { useDispatch } from 'react-redux';
-export { MultiChoiceQuestionEditWidget };
 
 export type MultiChoiceQuestionWidgetPropsType = {
   useSubmitAnswerMutation: any;
@@ -45,8 +42,6 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   paperId,
   ...questionWidgetProps
 }) => {
-  const dispatch = useDispatch();
-
   const {
     selectedChoices,
     displayChoices,
@@ -64,16 +59,6 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     randomizeChoices,
     disableAfterAnswer,
   });
-
-  useEffect(() => {
-    if (submitAnswerResult?.isSuccess && paperId) {
-      dispatch(
-        ContentManagementServiceApi.util.invalidateTags([
-          { type: 'paper', id: paperId }
-        ])
-      );
-    }
-  }, [submitAnswerResult?.isSuccess, paperId, dispatch]);
 
   return (
     <Stack spacing={1}>
@@ -121,3 +106,4 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
 };
 
 export default MultiChoiceQuestionWidget;
+export { MultiChoiceQuestionEditWidget };
