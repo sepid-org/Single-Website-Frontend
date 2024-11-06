@@ -30,7 +30,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
           {'بازگشت'}
         </Button>
         <Button onClick={() => {
-          localNavigate('/');
+          localNavigate('/what-happened/');
           localStorage.setItem('hasSeenWhatHappenedPage', 'true');
         }}>
           {'بعدی'}

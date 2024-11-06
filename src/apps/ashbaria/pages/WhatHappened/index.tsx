@@ -19,7 +19,7 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
             autoPlay
             controls
           />
-          <Button variant="contained" onClick={() => localNavigate('/')}>
+          <Button variant="contained" onClick={() => localNavigate('/')} size='large'>
             {'حله...'}
           </Button>
         </Stack>
