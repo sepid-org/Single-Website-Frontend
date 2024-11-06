@@ -34,7 +34,7 @@ const App = () => {
 
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route index element={<ComingSoon />} />
+              <Route index element={<GameMenu />} />
               <Route path='/exam-result/' element={<ExamResultPage />} />
               <Route path='/start-exam/' element={<StartExamPage />} />
               <Route path='/exam/' element={<ExamPage />} />
@@ -48,7 +48,7 @@ const App = () => {
               <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
-              <Route path='/scoreboard' element={<ScoreBoard/>} />
+              <Route path='/scoreboard' element={<ScoreBoard />} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
