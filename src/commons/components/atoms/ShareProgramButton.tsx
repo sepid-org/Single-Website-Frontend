@@ -13,13 +13,15 @@ const ShareProgramButton: FC<ShareProgramButtonPropsType> = ({
   const { programSlug } = useParams();
 
   function copyToClipboard() {
-    navigator.clipboard.writeText(
-      `${window.location.origin}/program/${programSlug}/`
-    ).then(function () {
-      toast.success('لینک اشتراک دوره با موفقیت کپی شد');
-    }, function (err) {
-      toast.error('مشکلی در کپی‌کردن لینک وجود داشت');
-    });
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(
+        `${window.location.origin}/program/${programSlug}/`
+      ).then(function () {
+        toast.success('لینک اشتراک دوره با موفقیت کپی شد');
+      }, function (err) {
+        toast.error('مشکلی در کپی‌کردن لینک وجود داشت');
+      });
+    }
   }
 
   return (
