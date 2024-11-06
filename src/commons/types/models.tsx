@@ -53,7 +53,7 @@ export type ProgramType = {
   is_public: boolean;
 }
 
-export type AnswerSheetType = 'RegistrationReceipt' | 'StateAnswerSheet';
+export type AnswerSheetTypeType = 'RegistrationReceipt' | 'StateAnswerSheet';
 
 export type InvitationType = any
 export type CertificateType = any;
@@ -67,6 +67,12 @@ export type TeamType = {
 };
 export type AnswerType = any;
 
+export type AnswerSheetType = {
+  id: number;
+  answer_sheet_type: 'General';
+  answers: AnswerType[];
+}
+
 export type RegistrationReceiptType = {
   form: string
   profile_picture: string;
@@ -75,7 +81,7 @@ export type RegistrationReceiptType = {
   user: UserInfoType;
   school_studentship: SchoolStudentshipType;
   is_participating: boolean;
-  answer_sheet_type: AnswerSheetType;
+  answer_sheet_type: AnswerSheetTypeType;
   certificate: CertificateType;
   team: TeamType | string;
   answers: AnswerType[];

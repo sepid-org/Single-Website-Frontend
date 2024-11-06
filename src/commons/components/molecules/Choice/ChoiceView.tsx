@@ -19,8 +19,8 @@ const ChoiceView: FC<ChoiceViewPropsType> = ({
   return (
     <Stack direction={'row'} alignItems={'start'}>
       {variant === 'radio' ?
-        <Radio disabled={!choice.enabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} /> :
-        <Checkbox disabled={!choice.enabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} />
+        <Radio disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} /> :
+        <Checkbox disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} />
       }
       <Typography>
         {choice.text}

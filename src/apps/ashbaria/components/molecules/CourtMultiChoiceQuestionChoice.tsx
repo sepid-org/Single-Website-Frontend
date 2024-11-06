@@ -58,8 +58,8 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
       justifyContent={'center'}
       component={ChoicePaper}
       isSelected={isSelected}
-      disabled={!choice.enabled}
-      onClick={choice.enabled ? onSelectionChange : undefined}
+      disabled={choice.disabled}
+      onClick={!choice.disabled ? onSelectionChange : undefined}
     >
       <Typography
         color={'black'}

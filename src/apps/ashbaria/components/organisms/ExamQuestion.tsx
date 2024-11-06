@@ -30,6 +30,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     onChoiceSelect,
     submitAnswer,
     submitAnswerResult,
+    errorMessage,
   } = useMultiChoiceQuestionProperties({
     questionId,
     useSubmitAnswerMutation,
@@ -37,6 +38,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     id: questionId,
     choices: questionChoices,
     mode,
+    minSelections,
     maxSelections,
     randomizeChoices,
     disableAfterAnswer,

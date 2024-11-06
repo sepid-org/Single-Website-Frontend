@@ -28,6 +28,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
     onChoiceSelect,
     submitAnswer,
+    errorMessage,
     submitAnswerResult,
   } = useMultiChoiceQuestionProperties({
     questionId,
@@ -36,6 +37,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     id: questionId,
     choices: questionChoices,
     mode,
+    minSelections,
     maxSelections,
     randomizeChoices,
     disableAfterAnswer,
@@ -61,7 +63,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         mode === WidgetModes.View && maxSelections > 1 &&
         <Stack alignItems={'end'}>
           <Button
-            disabled={selectedChoices?.length < minSelections || selectedChoices.length > maxSelections}
+            disabled={Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
             onClick={() => submitAnswer(selectedChoices)}>
@@ -70,8 +72,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
             </Typography>
           </Button>
           <Typography variant='caption' color={'error'}>
-            {selectedChoices?.length < minSelections && `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`}
-            {selectedChoices?.length > maxSelections && `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`}
+            {errorMessage}
           </Typography>
         </Stack>
       }
