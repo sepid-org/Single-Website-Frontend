@@ -1,24 +1,12 @@
 import React from 'react';
 import Scores from '../components/organisms/Scores';
-import { Box, Container, createTheme, Paper, ThemeProvider } from '@mui/material';
-import backgroundImg from "../assets/image6.svg";
+import { Box, Container, Paper } from '@mui/material';
+import backgroundImg from "../assets/profileBackground.svg";
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import leftImg from "../assets/scoreboardLeft.svg";
 import rightImg from "../assets/scoreboardRight.svg";
 
 const ScoreBoard: React.FC = () => {
-
-	const theme = createTheme({
-		breakpoints: {
-			values: {
-				xs: 0,
-				sm: 600,
-				md: 900,
-				lg: 1200,
-				xl: 1400,
-			},
-		},
-	});
 
 	return (
 		<FullScreenBackgroundImage image={backgroundImg}>

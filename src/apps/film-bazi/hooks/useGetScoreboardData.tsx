@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useGetScoreboardQuery } from 'commons/redux/slices/bank/scoreboard/Scoreboard';
-import { useGetMyRankQuery } from 'commons/redux/slices/bank/MyInfo';
-import { useGetMyBalancesQuery } from 'commons/redux/slices/bank/MyInfo';
+import { useGetScoreboardQuery } from 'commons/redux/apis/bank/scoreboard/Scoreboard';
+import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
+import { useGetMyBalancesQuery } from 'commons/redux/apis/bank/MyInfo';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import useGetUsersNames from './useGetUsersNames';
 
