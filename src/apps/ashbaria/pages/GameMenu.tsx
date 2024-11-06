@@ -65,9 +65,9 @@ const GameMenu: FC<GameMenuPropsType> = () => {
       >
         <ProgramLogo />
         <MyFirstName />
-        <Typography textAlign={'center'}>
+        {/* <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۱۷ روز'}
-        </Typography>
+        </Typography> */}
         <Button fullWidth variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}
         </Button>
