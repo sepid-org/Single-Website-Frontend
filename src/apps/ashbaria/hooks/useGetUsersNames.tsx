@@ -14,7 +14,7 @@ function useGetUsersNames(userIds) {
       
       try {
         const response = await axios.post(
-          'https://api.ashbaria.ir/profiles/bulk/',
+          'https://api.ashbaria.ir/profile/profiles/bulk/',
           { user_ids: userIds }
         );
         setData(response.data);
