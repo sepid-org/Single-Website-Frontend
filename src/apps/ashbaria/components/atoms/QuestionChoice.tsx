@@ -1,7 +1,7 @@
 import React from 'react';
 import { Typography, Stack } from '@mui/material';
 
-const QuestionChoice = ({ choice, isSelected, onSelectionChange, variant, disabled, mode }) => {
+const QuestionChoice = ({ choice, isSelected, onSelectionChange, }) => {
   return (
     <Stack
       sx={{
@@ -11,10 +11,10 @@ const QuestionChoice = ({ choice, isSelected, onSelectionChange, variant, disabl
         borderColor: isSelected ? '#FE9C42' : 'transparent',
         borderRadius: '4px',
         backgroundColor: isSelected ? '#FFC66F1A' : "#00000066",
-        cursor: disabled ? 'not-allowed' : 'pointer',
+        cursor: 'pointer',
         padding: '10px 20px',
       }}
-      onClick={() => !disabled && onSelectionChange()} // Prevent selection in review mode
+      onClick={onSelectionChange}
     >
       <Typography
         fontSize={12}

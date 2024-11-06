@@ -1,9 +1,7 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Button, Grid, Stack, Typography } from '@mui/material';
-
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import Choice from 'commons/components/molecules/Choice';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
@@ -43,6 +41,26 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     submittedAnswer,
   });
 
+  const [time, setTime] = useState(60); // 1:00 = 60 seconds
+
+  useEffect(() => {
+    // Only start the interval if the time is greater than 0
+    if (time > 0) {
+      const intervalId = setInterval(() => {
+        setTime(prevTime => prevTime - 1); // Decrease time by 1 second
+      }, 1000);
+
+      // Clear the interval when the component is unmounted or when time is 0
+      return () => clearInterval(intervalId);
+    }
+  }, [time]); // Depend on time, so the effect runs every time `time` changes
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    return `${minutes}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`;
+  };
+
   return (
     <Stack spacing={1}>
       <Stack justifyContent={"space-between"}>
@@ -62,6 +80,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         />
 
       </IsRequired>
+      {formatTime(time)}
       <Grid 
         container 
         sx={{
@@ -77,15 +96,12 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           <Grid
             item
             xs={6}
+            key={choice.id}
           >
             <QuestionChoice
-              disabled={mode === WidgetModes.Review}
-              key={choice.id}
               choice={choice}
-              mode={WidgetModes.View}
               isSelected={selectedChoices.map(c => c.id).includes(choice.id)}
               onSelectionChange={() => onChoiceSelect(choice)}
-              variant={maxSelections > 1 ? 'checkbox' : 'radio'}
             />
           </Grid>
         )}
