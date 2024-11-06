@@ -1,12 +1,11 @@
-import { UserInfoType } from 'commons/types/profile';
 import { ContentManagementServiceApi } from '../../ManageContentServiceApiSlice';
-import { AnswerType } from 'commons/types/models';
+import { AnswerSheetType, AnswerType } from 'commons/types/models';
 
 type GetAnswerSheetAnswersInputType = {
   answerSheetId: string;
 }
 
-type GetAnswerSheetAnswersOutputType = AnswerType[]
+type GetAnswerSheetAnswersOutputType = AnswerSheetType;
 
 type GetQuestionAnswersInputType = {
   questionId: string;
@@ -16,11 +15,17 @@ type GetQuestionAnswersOutputType = AnswerType[];
 
 export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getAnswerSheetAnswers: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
+    getAnswerSheet: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ answerSheetId }) => ({
-        url: `response/answers/answer_sheet_answers/?answer_sheet=${answerSheetId}`,
-        method: 'GET',
+        url: `response/answer-sheets/${answerSheetId}/`,
+      }),
+    }),
+
+    getAnswerSheetByPlayerId: builder.query<GetAnswerSheetAnswersOutputType, { playerId: string }>({
+      providesTags: ['player'],
+      query: ({ playerId }) => ({
+        url: `response/answer-sheets/by-player/?player_id=${playerId}`,
       }),
     }),
 
@@ -35,6 +40,7 @@ export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useGetAnswerSheetAnswersQuery,
+  useGetAnswerSheetQuery,
+  useGetAnswerSheetByPlayerIdQuery,
   useGetWidgetAnswersQuery,
 } = AnswerSheetSlice;

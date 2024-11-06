@@ -1,6 +1,6 @@
 import { Button, Grid, Pagination, Stack, Typography } from '@mui/material';
 import React, { FC, Fragment, useState } from 'react';
-import { useLoaderData, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
 import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
@@ -9,9 +9,7 @@ import Layout from 'commons/template/Layout';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMCard from '../components/organisms/cards/FSMCard';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import useMenuCourts from '../hooks/useMenuCourts';
 import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
-import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 
 type OldGameMenuPropsType = {}
 
@@ -22,7 +20,6 @@ const OldGameMenu: FC<OldGameMenuPropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber })
   const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { courts } = useMenuCourts();
 
   return (
     <Fragment>

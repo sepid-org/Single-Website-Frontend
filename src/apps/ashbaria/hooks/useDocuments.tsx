@@ -18,7 +18,7 @@ const useDocuments = (): useDocumentOutputType => {
       is_active:
         document.fsm == fsmId ||
         Boolean(programUserFSMsStatus.find(
-          status => status.is_finished && document.fsm === status.fsm_id.toString(),
+          status => status.finished_players_count > 0 && document.fsm === status.fsm_id.toString(),
         )),
     }))
   })

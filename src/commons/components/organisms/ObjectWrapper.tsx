@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { ComplementaryObjectType, ObjectType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import React, { FC, ReactNode } from "react";
 
 type ObjectWrapperPropsType = {

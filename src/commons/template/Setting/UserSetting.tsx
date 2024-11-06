@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import { useUpdateUserProfileMutation } from 'commons/redux/slices/party/ProfileSlice';
+import { useUpdateUserProfileMutation } from 'commons/redux/apis/party/ProfileSlice';
 
 type UserSettingPropsType = {
   onSuccessfulSubmission?: any;

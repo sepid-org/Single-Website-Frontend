@@ -53,7 +53,7 @@ const ButtonWidgetEditor = ({
 
   return (
     <Dialog disableScrollLock open={open}>
-      <DialogTitle>{`دکمه ${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
+      <DialogTitle>{`دکمه ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack spacing={3}>
           <CollapsibleTitle title='مشخصات شئ'>

@@ -1,6 +1,6 @@
 import { WidgetModes } from "commons/components/organisms/Widget";
 import { HintType } from "commons/types/global";
-import { ObjectType } from "../models";
+import { ObjectType } from "../object/object";
 
 export type WidgetTypes =
   'TextWidget' |

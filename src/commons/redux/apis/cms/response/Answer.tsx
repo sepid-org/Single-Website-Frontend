@@ -82,27 +82,39 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
 
 // Custom hooks with type safety
 export const useSubmitShortAnswerMutation = () => {
-  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
-  return [(answer: Omit<SmallAnswer, 'answerType'>) =>
-    submitAnswer({ ...answer, answerType: 'SmallAnswer' })] as const;
+  const [submitAnswer, submitAnswerResult] = AnswerSlice.useSubmitAnswerMutation();
+  return [
+    (answer: Omit<SmallAnswer, 'answerType'>) =>
+      submitAnswer({ ...answer, answerType: 'SmallAnswer' }),
+    submitAnswerResult
+  ] as const;
 };
 
 export const useSubmitLongAnswerMutation = () => {
-  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
-  return [(answer: Omit<BigAnswer, 'answerType'>) =>
-    submitAnswer({ ...answer, answerType: 'BigAnswer' })] as const;
+  const [submitAnswer, submitAnswerResult] = AnswerSlice.useSubmitAnswerMutation();
+  return [
+    (answer: Omit<BigAnswer, 'answerType'>) =>
+      submitAnswer({ ...answer, answerType: 'BigAnswer' }),
+    submitAnswerResult
+  ] as const;
 };
 
 export const useSubmitMultiChoiceAnswerMutation = () => {
-  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
-  return [(answer: Omit<MultiChoiceAnswer, 'answerType'>) =>
-    submitAnswer({ ...answer, answerType: 'MultiChoiceAnswer' })] as const;
+  const [submitAnswer, submitAnswerResult] = AnswerSlice.useSubmitAnswerMutation();
+  return [
+    (answer: Omit<MultiChoiceAnswer, 'answerType'>) =>
+      submitAnswer({ ...answer, answerType: 'MultiChoiceAnswer' }),
+    submitAnswerResult
+  ] as const;
 };
 
 export const useSubmitUploadFileAnswerMutation = () => {
-  const [submitAnswer] = AnswerSlice.useSubmitAnswerMutation();
-  return [(answer: Omit<FileAnswer, 'answerType'>) =>
-    submitAnswer({ ...answer, answerType: 'UploadFileAnswer' })] as const;
+  const [submitAnswer, submitAnswerResult] = AnswerSlice.useSubmitAnswerMutation();
+  return [
+    (answer: Omit<FileAnswer, 'answerType'>) =>
+      submitAnswer({ ...answer, answerType: 'UploadFileAnswer' }),
+    submitAnswerResult
+  ] as const;
 };
 
 export const {

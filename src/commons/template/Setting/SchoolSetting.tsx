@@ -12,7 +12,7 @@ import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import SchoolSettingInfoForm from 'commons/components/organisms/forms/SchoolSettingInfoForm';
 import { SchoolType } from 'commons/types/models';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import { useUpdateSchoolStudentshipMutation } from 'commons/redux/slices/party/ProfileSlice';
+import { useUpdateSchoolStudentshipMutation } from 'commons/redux/apis/party/ProfileSlice';
 
 type SchoolSettingPropsType = {
   onSuccessfulSubmission?: any;

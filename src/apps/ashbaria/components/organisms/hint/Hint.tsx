@@ -2,7 +2,7 @@ import React, { FC, Fragment } from "react";
 import { Button, Container, Dialog, Paper, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
-import { useSpendFundsOnObjectMutation } from "commons/redux/slices/cms/currency/Spend";
+import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/currency/Spend";
 import HintDialog from "commons/components/organisms/dialogs/HintDialog";
 
 type HintPropsType = {

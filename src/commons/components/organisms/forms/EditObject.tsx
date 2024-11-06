@@ -1,9 +1,12 @@
 import {
+  Paper,
   Stack,
   TextField,
+  Typography,
 } from '@mui/material';
+import { ObjectType } from 'commons/types/object/object';
+import CollapsibleJsonViewer from 'commons/utils/CollapsibleJsonViewer';
 import React, { FC } from 'react';
-import { ObjectType } from 'commons/types/models';
 
 type EditObjectFieldsPropsType = {
   fields: Partial<ObjectType>;
@@ -17,6 +20,14 @@ const EditObjectFields: FC<EditObjectFieldsPropsType> = ({
 
   return (
     <Stack alignItems={'start'} spacing={2}>
+      {fields?.attributes &&
+        <Stack width={'100%'} component={Paper} padding={2}>
+          <Typography gutterBottom>
+            {'ویژگی‌ها'}
+          </Typography>
+          <CollapsibleJsonViewer data={fields.attributes} />
+        </Stack>
+      }
       <TextField
         fullWidth
         value={fields.name || ''}

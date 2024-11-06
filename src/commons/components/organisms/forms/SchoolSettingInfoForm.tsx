@@ -17,7 +17,7 @@ import Iran from 'commons/utils/iran';
 import { SchoolStudentshipType } from 'commons/types/profile';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import { useGetSchoolsQuery } from 'commons/redux/slices/party/InstituteSlice';
+import { useGetSchoolsQuery } from 'commons/redux/apis/party/InstituteSlice';
 
 const GRADES = [
   { value: 1, name: 'اول' },

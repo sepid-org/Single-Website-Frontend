@@ -2,7 +2,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { FC, Fragment, useEffect } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation } from "commons/redux/slices/party/UserApi";
+import { useGetVerificationCodeMutation } from "commons/redux/apis/party/UserApi";
 import { LoginTabs } from ".";
 import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";
@@ -40,7 +40,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
   return (
     <Fragment>
       <ProgramLogo />
-      <Stack spacing={1}>
+      <Stack spacing={1} width={'100%'}>
         <Typography textAlign={'center'}>
           {'بی‌زحمت شماره موبایلتو بزن:'}
         </Typography>
@@ -56,7 +56,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
           }}
         />
       </Stack>
-      <Button variant='contained' onClick={handleGetVerificationCode}>
+      <Button fullWidth variant='contained' onClick={handleGetVerificationCode}>
         {'دریافت کد تایید'}
       </Button>
     </Fragment>

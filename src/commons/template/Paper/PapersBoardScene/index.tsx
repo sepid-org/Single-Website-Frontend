@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import PaperWidgets from 'commons/template/Paper/PapersBoardScene/PaperWidgets';
 import BoardScene from 'commons/template/Paper/PapersBoardScene/BoardScene';
-import { ComplementaryObjectType } from 'commons/types/models';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 
 export type PapersBoardScenePropsType = {

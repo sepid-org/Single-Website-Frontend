@@ -8,7 +8,7 @@ import UploadFileButton from 'commons/components/molecules/UploadFileButton';
 import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import { useClearQuestionAnswerMutation } from 'commons/redux/slices/cms/response/Answer';
+import { useClearQuestionAnswerMutation } from 'commons/redux/apis/cms/response/Answer';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
 type UploadFileProblemWidgetPropsType = {

@@ -1,31 +1,75 @@
-import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastResultInFSMQuery } from "apps/ashbaria/redux/slices/GameLogics";
-import React, { FC, Fragment, useEffect } from "react";
-import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { useFinishCourtMutation, useGetCourtsQuery, useGetUserLastSupportPercentageInCourtQuery } from "apps/ashbaria/redux/slices/GameLogics";
+import React, { FC, useEffect, useState } from "react";
+import { Box, Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/ashbaria/constants/colors";
-import MyLastSupportInFSM from "../../molecules/chips/MyLastSupportInFSM";
+import MyLastSupportPercentageInCourt from "../../molecules/chips/MyLastSupportPercentageInCourt";
 import { useParams } from "react-router-dom";
 import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
-import MyLastScoreInFSM from "../../molecules/chips/MyLastScoreInFSM";
+import MyLastScoreInCourt from "../../molecules/chips/MyLastScoreInCourt";
+import useGetCourtFinalSupportPercentage from "apps/ashbaria/hooks/useGetCourtFinalSupportPercentage";
+import { CourtType } from "apps/ashbaria/types";
+import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+
+const INITIAL_COURT_FSM_ID = 197;
+const LAST_COURT_FSM_ID = 211;
+
+const getDadbestanAddress = (finalSupportPercentage: number, court: CourtType) => {
+  if (court.corresponding_fsm === INITIAL_COURT_FSM_ID) {
+    return 'ماجرا شروع شد؛ برو بریم توی دل کار!';
+  }
+
+  if (court.corresponding_fsm === LAST_COURT_FSM_ID) {
+    return 'بالاخره موفق شدی این پرونده رو با موفقیت تموم کنی. تبریک میگم. تو باعث افتخار مایی';
+  }
+
+  if (finalSupportPercentage === 0) {
+    return 'ناامیدمون کردی!';
+  }
+
+  if (finalSupportPercentage > 0 && finalSupportPercentage <= 50) {
+    return 'خیلی خوب پیش نرفت! امیدوارم توی دادگاه بعدی کارت بهتر باشه.';
+  }
+
+  if (finalSupportPercentage > 50 && finalSupportPercentage <= 70) {
+    return 'آفرین بد نبود.';
+  }
+
+  if (finalSupportPercentage > 70 && finalSupportPercentage <= 100) {
+    return 'تبریک! کارت حرف نداشت.';
+  }
+}
 
 type FinishCourtPropsType = {}
 
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
   const fsmId = parseInt(useParams().fsmId);
+  const [clickedButton, setClickedButton] = useState<'return-to-home' | 'go-to-next-court'>('return-to-home');
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
-  const { data: userLastResultInFSM } = useGetUserLastResultInFSMQuery({ correspondingFsmId: fsmId })
+  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId, navigateAfter: false });
   const { data: courts } = useGetCourtsQuery();
+  const finalSupportPercentage = useGetCourtFinalSupportPercentage(fsmId);
 
   const currentCourt = courts?.find(court => court.corresponding_fsm === fsmId);
 
-  const handleFinishCourt = () => {
+  const handleGoToNextCourt = () => {
+    setClickedButton('go-to-next-court');
+    finishCourt({ fsmId });
+  }
+
+  const handleGoToHome = () => {
+    setClickedButton('return-to-home');
     finishCourt({ fsmId });
   }
 
   useEffect(() => {
     if (finishCourtResult.isSuccess) {
       finishFSM();
+      if (clickedButton === 'return-to-home') {
+        localNavigate(`/`);
+      } else if (currentCourt.next_court_corresponding_fsm_id) {
+        localNavigate(`/court/${currentCourt.next_court_corresponding_fsm_id}/`);
+      }
     }
   }, [finishCourtResult])
 
@@ -39,30 +83,32 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       padding={2}
       spacing={2}
     >
-
-      <Typography color={Golden} variant="h4">
-        {'اتمام پرونده'}
-      </Typography>
-
-      <Typography variant="h4" textAlign={'center'}>
-        {currentCourt?.judge_verdict}
-      </Typography>
-
-      {userLastResultInFSM?.support_percentage > 5 &&
-        <Fragment>
-          <Typography color={Golden} variant="h4">
-            {'نتیجه'}
+      <Box paddingBottom={4}>
+        {(finalSupportPercentage === undefined || currentCourt === undefined) ?
+          <Skeleton variant='rounded' width={240} height={80} /> :
+          <Typography color={Golden} variant="h4" textAlign={'center'}>
+            {getDadbestanAddress(finalSupportPercentage, currentCourt)}
           </Typography>
+        }
+      </Box>
 
-          <Stack direction={'row'} spacing={2}>
-            <MyLastSupportInFSM />
-            <MyLastScoreInFSM />
-          </Stack>
-        </Fragment>
-      }
+      <Typography variant="h5" textAlign={'center'}>
+        {'عملکرد شما در این پرونده'}
+      </Typography>
 
-      <Button onClick={handleFinishCourt} variant='contained'>
-        {'پایان دادگاه'}
+      <Stack direction={'row'} spacing={2}>
+        <MyLastSupportPercentageInCourt />
+        <MyLastScoreInCourt />
+      </Stack>
+
+      {/* {currentCourt?.corresponding_fsm !== LAST_COURT_FSM_ID &&
+        <Button fullWidth onClick={handleGoToNextCourt} variant='contained' size="large">
+          {'بریم پرونده بعدی'}
+        </Button>
+      } */}
+
+      <Button fullWidth onClick={handleGoToHome} variant='outlined' size="large">
+        {'بازگشت به خانه'}
       </Button>
     </Stack>
   )

@@ -1,34 +1,24 @@
 import { Box, Button, Paper, Stack, Typography } from '@mui/material';
-import React, { FC, useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 
 import backgroundImg from "../assets/profileBackground.svg";
-import { useGetProgramUserFSMsStatusQuery, useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useLocalNavigate from '../hooks/useLocalNavigate';
-import useMenuCourts from '../hooks/useMenuCourts';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
-import MyTotalScore from '../components/molecules/chips/MyTotalScore';
+import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 import MyFirstName from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import useGetMenuItems from '../hooks/useGetMenuItems';
+import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import useLogout from 'commons/hooks/useLogout';
 
 type GameMenuPropsType = {}
 
 const GameMenu: FC<GameMenuPropsType> = () => {
   const localNavigate = useLocalNavigate();
-  const { programSlug } = useParams();
-  const [pageNumber, setPageNumber] = useState(1);
-  const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber });
-  const { data: programUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { courts } = useMenuCourts();
-  const { complementaryObjects } = useGetMenuItems();
+  const { complementaryObjects } = useGetGameMenuComplementaryWidgets();
   const { logout } = useLogout();
 
   const fsmId = process.env.NODE_ENV === 'development' ? 6 : 214;
@@ -43,11 +33,9 @@ const GameMenu: FC<GameMenuPropsType> = () => {
 
   return (
     <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 0 }}>
-      {program &&
-        <Helmet>
-          <title>{program.name}</title>
-        </Helmet>
-      }
+      <Helmet>
+        <title>{'راز آشباریا'}</title>
+      </Helmet>
       <FSMProvider fsmId={fsmId}>
         <FSMStateProvider
           isMentor={false}
@@ -63,7 +51,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         </FSMStateProvider>
       </FSMProvider>
       <Box position={'absolute'} right={10} top={10}>
-        <MyTotalScore />
+        <MyTotalScoreChip />
       </Box>
       <Stack
         component={Paper}
@@ -77,9 +65,9 @@ const GameMenu: FC<GameMenuPropsType> = () => {
       >
         <ProgramLogo />
         <MyFirstName />
-        <Typography textAlign={'center'}>
+        {/* <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۱۷ روز'}
-        </Typography>
+        </Typography> */}
         <Button fullWidth variant='contained' onClick={() => localNavigate('/friendship-network/')}>
           {'حلقه دوستان'}
         </Button>

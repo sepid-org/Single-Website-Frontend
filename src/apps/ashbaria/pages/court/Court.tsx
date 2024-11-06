@@ -7,7 +7,7 @@ import {
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import useAshbariaCustomWidgets from '../../hooks/useAshbariaCustomWidgets';
+import useGetCourtComplementaryWidgets from '../../hooks/useGetCourtComplementaryWidgets';
 import FSMState from 'apps/fsm/template/FSMState';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
@@ -22,9 +22,8 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
   const { data: player } = useGetMyPlayerQuery({ fsmId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { complementaryObjects } = useAshbariaCustomWidgets();
-
   const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
+  const { complementaryObjects } = useGetCourtComplementaryWidgets();
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,
@@ -43,7 +42,7 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
       }
       <FSMProvider fsmId={fsmId}>
         <FSMStateProvider
-          isMentor={currentUserFSMStatus?.is_mentor}
+          isMentor={currentUserFSMStatus?.is_user_mentor}
           fsmStateId={player?.current_state}
           playerId={player?.id}
           widgetRegistry={CUSTOM_WIDGET_REGISTRY}

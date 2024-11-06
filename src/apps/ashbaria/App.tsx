@@ -39,6 +39,7 @@ const App = () => {
               <Route path='/start-exam/' element={<StartExamPage />} />
               <Route path='/exam/' element={<ExamPage />} />
               <Route path='/what-happened/' element={<WhatHappenedPage />} />
+              <Route path='/menu/' element={<GameMenu />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
               <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<CourtPage />} />
@@ -47,7 +48,7 @@ const App = () => {
               <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
-              <Route path='/scoreboard' element={<ScoreBoard/>} />
+              <Route path='/scoreboard' element={<ScoreBoard />} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>

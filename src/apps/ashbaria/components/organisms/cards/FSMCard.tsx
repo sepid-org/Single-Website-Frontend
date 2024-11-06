@@ -30,15 +30,10 @@ export const FSMCard: FC<FSMCardPropsType> = ({
   isLoading = false,
   userFSMStatus,
 }) => {
-  const localNavigate = useLocalNavigate();
-  const [openPassword, setOpenPassword] = useState(false);
-  const [_startFSM, result] = useStartFSM();
+  const [_startFSM, result] = useStartFSM({ fsmId: fsm?.id, redirectPath: `/program/ashbaria/court/${fsm.id}/` });
 
   const startFSM = () => {
-    _startFSM({
-      fsmId: fsm.id,
-      redirectPath: `/program/ashbaria/court/${fsm.id}/`,
-    })
+    _startFSM({})
   }
 
   return (
@@ -89,9 +84,13 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                 <Typography component="h2" variant="h4" noWrap sx={{ maxWidth: '100%' }}>
                   {fsm.name}
                 </Typography>
-                {userFSMStatus?.is_mentor &&
+                {userFSMStatus?.is_user_mentor &&
                   <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton component={Link} to={`/program/ashbaria/court/${fsm?.id}/manage/`} size='small'>
+                    <IconButton
+                      component={Link}
+                      to={`/program/ashbaria/court/${fsm?.id}/manage/`}
+                      size='small'
+                    >
                       <ModeEditTwoToneIcon />
                     </IconButton>
                   </Tooltip>

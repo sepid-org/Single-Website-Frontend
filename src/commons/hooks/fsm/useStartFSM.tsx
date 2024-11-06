@@ -2,27 +2,47 @@ import { useNavigate } from "react-router-dom";
 import { useEnterFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { PlayerType } from "commons/types/models";
 import { MutationResult } from "commons/types/rtk";
+import { useEffect, useCallback } from "react";
 
-interface StartFSMParams {
+interface UseStartFSMParams {
   fsmId: number;
   redirectPath?: string;
+}
+
+interface StartFSMParams {
   password?: string;
 }
 
-const useStartFSM = (): [
-  (params: StartFSMParams) => Promise<PlayerType>,
-  MutationResult<PlayerType>
-] => {
+const useStartFSM = ({
+  fsmId,
+  redirectPath,
+}: UseStartFSMParams): [
+    ({ password }: StartFSMParams) => Promise<PlayerType>,
+    MutationResult<PlayerType>
+  ] => {
   const navigate = useNavigate();
   const [_enterFSM, enterFSMResult] = useEnterFSMMutation();
 
-  const startFSM = async ({ fsmId, redirectPath }: StartFSMParams) => {
-    const result = await _enterFSM({ fsmId }).unwrap();
-    if (redirectPath) {
+  const startFSM = useCallback(async ({ password }: StartFSMParams) => {
+    try {
+      // Include password in the mutation payload if provided
+      const payload = {
+        fsmId,
+        ...(password && { password })
+      };
+
+      const result = await _enterFSM(payload).unwrap();
+      return result;
+    } catch (error) {
+
+    }
+  }, [fsmId, _enterFSM]);
+
+  useEffect(() => {
+    if (enterFSMResult.isSuccess) {
       navigate(redirectPath || `/fsm/${fsmId}/`);
     }
-    return result;
-  };
+  }, [enterFSMResult.isSuccess]);
 
   return [
     startFSM,

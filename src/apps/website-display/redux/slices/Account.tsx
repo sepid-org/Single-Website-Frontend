@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { UserApi } from 'commons/redux/slices/party/UserApi';
+import { UserApi } from 'commons/redux/apis/party/UserApi';
 import { UserInfoType } from 'commons/types/profile';
 
 // Types

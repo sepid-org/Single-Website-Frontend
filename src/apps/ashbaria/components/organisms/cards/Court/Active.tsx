@@ -3,23 +3,20 @@ import { CourtType } from "apps/ashbaria/types";
 import { Golden } from "apps/film-bazi/constants/colors";
 import React, { FC } from "react";
 import { toPersianNumber } from "commons/utils/translateNumber";
-import VerifyIcon from "../../atoms/icons/Verify";
+import VerifyIcon from "../../../atoms/icons/Verify";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 
-type CourtCardPropsType = {
+type PropsType = {
   court: CourtType;
 }
 
-const CourtCard: FC<CourtCardPropsType> = ({
+const ActiveCourtCard: FC<PropsType> = ({
   court,
 }) => {
-  const [_startFSM, startFSMResult] = useStartFSM();
+  const [_startFSM, startFSMResult] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
 
   const startFSM = () => {
-    _startFSM({
-      fsmId: court.corresponding_fsm,
-      redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/`,
-    })
+    _startFSM({})
   }
 
   return (
@@ -35,7 +32,33 @@ const CourtCard: FC<CourtCardPropsType> = ({
       }}
       onClick={startFSM}
     >
-      <Stack width={'100%'} height={'100%'} component={Paper} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
+      <Stack
+        width={'100%'}
+        height={'100%'}
+        component={Paper}
+        alignItems="center"
+        justifyContent="center"
+        spacing={1}
+        p={1}
+        sx={{
+          border: '2px solid transparent',
+          borderRadius: 2,
+          backgroundClip: 'padding-box',
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            margin: '-3px',
+            borderRadius: 'inherit',
+            background: 'linear-gradient(180deg, #FFEC88 100%, #FFA95A 100%)',
+            zIndex: -1,
+          }
+        }}
+      >
         <Typography fontSize={10} fontWeight={400} color={Golden} textAlign={'center'}>
           {'دادگاه'}
         </Typography>
@@ -46,11 +69,11 @@ const CourtCard: FC<CourtCardPropsType> = ({
           <Typography fontSize={10} fontWeight={800}>
             {toPersianNumber(court.reward_score) + "+"}
           </Typography>
-          <VerifyIcon size={20} />
+          <VerifyIcon size={24} />
         </Stack>
       </Stack>
-    </Box>
+    </Box >
   )
 }
 
-export default CourtCard;
+export default ActiveCourtCard;

@@ -4,6 +4,7 @@ import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import AshbariaPoster from "apps/ashbaria/components/atoms/icons/AshbariaPoster";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import BuyBookButton from "apps/ashbaria/components/molecules/buttons/BuyBook";
 
 type IntroductionPage3PropsType = {}
 
@@ -19,9 +20,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
             لازمه بگم که اگه کتاب رو هنوز نخوندید هم می‌تونید مسابقه رو شروع کنید، ولی اگه دوست دارین توی کورس رقابت باقی بمونین، لازمه قبل از بازی اون رو مطالعه کنید، چون که خیلی جاها به اطلاعاتی که داخل کتاب اومده نیاز پیدا می‌کنید.
             از این لینک می‌تونید کتاب رو تهیه کنید.
           </Typography>
-          <Button variant='contained' sx={{ width: 160 }}>
-            {'خرید کتاب'}
-          </Button>
+          <BuyBookButton />
         </Stack>
         <AshbariaPoster width={140} />
       </Stack>

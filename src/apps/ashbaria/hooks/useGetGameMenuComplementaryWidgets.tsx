@@ -1,12 +1,12 @@
 import React from "react";
-import { ComplementaryObjectType } from "commons/types/models";
-import useMenuCourts from "./useMenuCourts";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import CourtCard from "../components/organisms/cards/Court";
 import ExamCard from "../components/organisms/cards/Exam";
 import WhatHappenedCard from "../components/organisms/cards/WhatHappened";
+import { useGetCourtsQuery } from "../redux/slices/GameLogics";
 
-const useGetMenuItems = () => {
-  const { courts } = useMenuCourts();
+const useGetGameMenuComplementaryWidgets = () => {
+  const { data: courts = [] } = useGetCourtsQuery();
   const complementaryObjects: ComplementaryObjectType[] = [
     {
       name: 'ashbaria-exam-card',
@@ -30,4 +30,4 @@ const useGetMenuItems = () => {
   }
 }
 
-export default useGetMenuItems;
+export default useGetGameMenuComplementaryWidgets;

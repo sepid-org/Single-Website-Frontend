@@ -57,6 +57,9 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
                 onClick={() => window.open('http://filmbazi.ir/')}
               />
               <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
+              <Typography paddingTop={1} textAlign={'center'}>
+                {'برای درخواست اکران فیلم در شهرهای بدون سینما، یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
+              </Typography>
             </Stack>
 
             {isUserSubmittedForm ?

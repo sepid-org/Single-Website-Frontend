@@ -1,5 +1,5 @@
 import React from "react";
-import { ComplementaryObjectType } from "commons/types/models";
+import { ComplementaryObjectType } from "commons/types/object/object";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "../components/organisms/CustomDialogContent";
@@ -11,7 +11,7 @@ import { Button } from "@mui/material";
 import MyScoresChip from "../components/atoms/MyScoresChip";
 import useLocalNavigate from "./useLocalNavigate";
 import MyChancesChip from "../components/atoms/MyChancesChip";
-import { useGetMyBalancesQuery } from "commons/redux/slices/bank/MyInfo";
+import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
 
 const hoverOnMouseEnter = (target) => {

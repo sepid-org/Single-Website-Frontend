@@ -1,31 +1,21 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Tooltip, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
-  const navigate = useNavigate();
   const [openPassword, setOpenPassword] = useState(false);
-  const [startFSM, result] = useStartFSM();
+  const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
-  const isTablet = useMediaQuery(theme.breakpoints.up('sm'));
-
-  useEffect(() => {
-    if (result.isSuccess) {
-      navigate(`/fsm/${fsm.id}/`);
-    }
-  }, [result, navigate, fsm.id]);
+  const isTablet = useMediaQuery(theme.breakpoints.up('sm'))
 
   const handleStartFSM = () => {
-    if (!result.isLoading) {
-      startFSM({ fsmId: fsm.id });
-    }
+    startFSM({});
   };
 
   const cardWidth = '100%';

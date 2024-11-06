@@ -9,7 +9,6 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useNavigate } from 'react-router-dom';
-import { useEnterFSMMutation } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 type EnterFSMPasswordDialogPropsType = {
@@ -26,7 +25,7 @@ const EnterFSMPasswordDialog: FC<EnterFSMPasswordDialogPropsType> = ({
   const navigate = useNavigate();
   const t = useTranslate();
   const [password, setPassword] = useState('');
-  const [_startFSM, result] = useStartFSM();
+  const [_startFSM, result] = useStartFSM({ fsmId });
 
 
   useEffect(() => {
@@ -34,9 +33,9 @@ const EnterFSMPasswordDialog: FC<EnterFSMPasswordDialogPropsType> = ({
       navigate(`fsm/${fsmId}/`)
   }, [result])
 
-  const startFSM = ({ fsmId, password }) => {
+  const startFSM = ({ password }) => {
     if (!result.isLoading) {
-      _startFSM({ fsmId, password });
+      _startFSM({ password });
     }
   };
 
@@ -58,7 +57,7 @@ const EnterFSMPasswordDialog: FC<EnterFSMPasswordDialogPropsType> = ({
         <Button
           variant="contained"
           color="primary"
-          onClick={() => startFSM({ fsmId, password })}>
+          onClick={() => startFSM({ password })}>
           {t('submit')}
         </Button>
       </DialogActions>

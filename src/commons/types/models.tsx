@@ -2,6 +2,7 @@ import { NodeProps } from "@xyflow/react";
 import { HintType } from "./global";
 import { SchoolStudentshipType, UserInfoType } from "./profile";
 import { PositionType, WidgetType } from "./widgets/widget";
+import { ObjectType } from "./object/object";
 
 export type PlayerRequestType = any;
 
@@ -52,7 +53,7 @@ export type ProgramType = {
   is_public: boolean;
 }
 
-export type AnswerSheetType = 'RegistrationReceipt' | 'StateAnswerSheet';
+export type AnswerSheetTypeType = 'RegistrationReceipt' | 'StateAnswerSheet';
 
 export type InvitationType = any
 export type CertificateType = any;
@@ -66,6 +67,12 @@ export type TeamType = {
 };
 export type AnswerType = any;
 
+export type AnswerSheetType = {
+  id: number;
+  answer_sheet_type: 'General';
+  answers: AnswerType[];
+}
+
 export type RegistrationReceiptType = {
   form: string
   profile_picture: string;
@@ -74,7 +81,7 @@ export type RegistrationReceiptType = {
   user: UserInfoType;
   school_studentship: SchoolStudentshipType;
   is_participating: boolean;
-  answer_sheet_type: AnswerSheetType;
+  answer_sheet_type: AnswerSheetTypeType;
   certificate: CertificateType;
   team: TeamType | string;
   answers: AnswerType[];
@@ -288,53 +295,14 @@ export type FSMEdgeType = {
 
 export type CurrencyType = any;
 
-
-/////////////// ATTRIBUTES ///////////////
-
-export type Attribute = {
-
-}
-
-export type Cost = Attribute & {
-
-}
-
-export type Reward = Attribute & {
-
-}
-
-export type RequiredBalance = Attribute & {
-
-}
-
 export type ProgramUserPermissions = {
   is_manager: boolean;
 }
 
 export type UserFSMStatus = {
   fsm_id: number;
-  is_mentor: boolean;
-  is_finished: boolean;
-}
-
-/////////////// OBJECT ///////////////
-
-export type ObjectType = {
-  id: string;
-  name: string;
-  title: string;
-  position: PositionType;
-  order: string;
-}
-
-export type ComplementaryObjectType = {
-  title?: string;
-  name: string;
-  logics?: {
-    onMouseEnter?: (event: React.MouseEvent<HTMLElement>) => void;
-    onMouseLeave?: (event: React.MouseEvent<HTMLElement>) => void;
-    onClick?: (event: React.MouseEvent<HTMLElement>) => void;
-  }
-  sx?: any;
-  substituteComponent?: any;
+  is_user_mentor: boolean;
+  finished_players_count: number;
+  has_active_player: boolean;
+  is_enabled_for_user: boolean;
 }

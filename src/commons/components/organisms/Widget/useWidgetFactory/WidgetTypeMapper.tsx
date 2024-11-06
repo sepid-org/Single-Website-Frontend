@@ -14,7 +14,7 @@ import {
   useSubmitLongAnswerMutation,
   useSubmitMultiChoiceAnswerMutation,
   useSubmitUploadFileAnswerMutation,
-} from 'commons/redux/slices/cms/response/Answer';
+} from 'commons/redux/apis/cms/response/Answer';
 import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
 import ButtonWidget from '../others/ButtonWidget';
 import ButtonWidgetEditor from '../others/ButtonWidget/edit';

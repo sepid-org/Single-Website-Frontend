@@ -53,7 +53,6 @@ export const DialogProvider: FC<DialogProviderPropsType> = ({ }) => {
           PaperProps={{
             style: dialogState?.component ?
               {
-                overflow: 'hidden',
                 backgroundColor: 'transparent',
                 boxShadow: 'none',
               } :

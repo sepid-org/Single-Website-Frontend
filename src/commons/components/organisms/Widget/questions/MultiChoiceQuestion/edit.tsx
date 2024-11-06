@@ -41,7 +41,7 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   object_id: string;
   max_selections: number;
   min_selections: number;
-  lock_after_answer: boolean;
+  disable_after_answer: boolean;
   randomize_choices: boolean;
 }
 
@@ -57,12 +57,12 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   open,
   max_selections,
   min_selections,
-  lock_after_answer,
+  disable_after_answer,
   randomize_choices,
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const [lockAfterAnswer, setLockAfterAnswer] = useState(lock_after_answer);
+  const [lockAfterAnswer, setLockAfterAnswer] = useState(disable_after_answer);
   const [randomizeChoices, setRandomizeChoices] = useState(randomize_choices);
   const [minimumChoicesCouldBeChosen, setMinimumChoicesCouldBeChosen] = useState(min_selections || 1);
   const [maximumChoicesCouldBeChosen, setMaximumChoicesCouldBeChosen] = useState(max_selections || 1);
@@ -94,7 +94,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       onSuccess: handleClose,
       min_selections: minimumChoicesCouldBeChosen,
       max_selections: maximumChoicesCouldBeChosen,
-      lock_after_answer: lockAfterAnswer,
+      disable_after_answer: lockAfterAnswer,
       randomize_choices: randomizeChoices,
       ...widgetFields,
     });
@@ -140,7 +140,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       fullWidth
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{`سوال چندگزینه‌ای${objectId ? ` ${toPersianNumber(objectId)}#` : ''}`}</DialogTitle>
+      <DialogTitle>{`سوال چندگزینه‌ای${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>
           <EditObjectFields

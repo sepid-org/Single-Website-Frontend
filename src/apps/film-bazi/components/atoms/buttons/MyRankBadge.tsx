@@ -4,7 +4,7 @@ import StarIcon from "../icons/StarIcon"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import CustomChip from "../CustomChip"
-import { useGetMyRankQuery } from "commons/redux/slices/bank/MyInfo"
+import { useGetMyRankQuery } from "commons/redux/apis/bank/MyInfo"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 
 const MyRankBadge = ({ }) => {

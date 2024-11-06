@@ -41,7 +41,7 @@ const PaperWidgets: FC<PaperWidgetsPropsType> = ({
     [widgets, complementaryObjects, paperId]
   );
 
-  return <>{widgetsComponents}</>;
+  return widgetsComponents;
 };
 
 export default PaperWidgets;

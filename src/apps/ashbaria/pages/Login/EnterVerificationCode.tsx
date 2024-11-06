@@ -3,7 +3,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useSearchParams } from "react-router-dom";
-import { useGetVerificationCodeMutation, useOtpLoginMutation } from "commons/redux/slices/party/UserApi";
+import { useGetVerificationCodeMutation, useOtpLoginMutation } from "commons/redux/apis/party/UserApi";
 import { LoginTabs } from ".";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { Golden } from "apps/ashbaria/constants/colors";
@@ -92,7 +92,7 @@ const EnterVerificationCode: FC = () => {
   return (
     <Fragment>
       <ProgramLogo />
-      <Stack spacing={1}>
+      <Stack width={'100%'} spacing={1}>
         <Typography textAlign="center" gutterBottom>
           {`کد پنج‌رقمی رو برای شماره ${toPersianNumber(phoneNumber)} فرستادیم. این پایین واردش کن:`}
         </Typography>
@@ -115,10 +115,10 @@ const EnterVerificationCode: FC = () => {
           ))}
         </Stack>
       </Stack>
-      <Button variant={countdown > 0 ? 'outlined' : "contained"} onClick={handleGetVerificationCode} disabled={countdown > 0}>
+      <Button fullWidth variant={countdown > 0 ? 'outlined' : "contained"} onClick={handleGetVerificationCode} disabled={countdown > 0}>
         {countdown > 0 ? `ارسال مجدد در ${toPersianNumber(formatTime(countdown))}` : 'نیومد که، دوباره بفرست'}
       </Button>
-      <Button onClick={handleGoToPreviousPage}>
+      <Button fullWidth onClick={handleGoToPreviousPage}>
         <Typography color={Golden}>
           {'شمارمو اشتباه نوشتم!'}
         </Typography>

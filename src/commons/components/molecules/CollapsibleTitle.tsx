@@ -16,7 +16,7 @@ const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <Fragment>
+    <Stack>
       <Typography variant='h4'>
         <Button
           startIcon={<ArrowDropDownCircleIcon sx={{ transform: open ? 'rotate(-180deg)' : null }} />}
@@ -33,7 +33,7 @@ const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
           {children}
         </Stack>
       </Collapse>
-    </Fragment>
+    </Stack>
   );
 };
 

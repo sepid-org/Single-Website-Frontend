@@ -47,7 +47,7 @@ const FSM: FC<FSMPagePropsType> = ({
   const player = teamHeadPlayer || myPlayer;
   const isMentor = Boolean(teamHeadPlayerId);
   teamId = new URLSearchParams(search).get('teamId') || teamId
-  const [startFSM, result] = useStartFSM();
+  const [startFSM, result] = useStartFSM({ fsmId });
   const { data: { fullName, id: mentorId } } = useUserProfile();
 
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
@@ -128,7 +128,7 @@ const FSM: FC<FSMPagePropsType> = ({
   // todo:
   useEffect(() => {
     if (player && !player.current_state) {
-      startFSM({ fsmId: fsm.id });
+      startFSM({});
     }
   }, [player]);
 

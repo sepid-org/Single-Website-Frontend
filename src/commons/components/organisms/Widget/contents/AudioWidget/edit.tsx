@@ -10,6 +10,7 @@ import {
   Stack,
   Checkbox,
   FormControlLabel,
+  Slider,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -25,13 +26,17 @@ const AudioEditWidget = ({
   open,
   link: initialLink,
   id: widgetId,
-  autoplay: initialAutoplay = false,
+  autoplay: initialAutoplay,
+  repeat: initialRepeat,
+  volume: initialVolume,
   ...widgetProps
 }) => {
   const t = useTranslate();
   const [link, setLink] = useState<string>(initialLink || '');
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
   const [autoplay, setAutoplay] = useState<boolean>(initialAutoplay);
+  const [repeat, setRepeat] = useState<boolean>(initialRepeat);
+  const [volume, setVolume] = useState<number>(initialVolume);
 
   const handleClick = () => {
     onMutate({
@@ -39,6 +44,8 @@ const AudioEditWidget = ({
       link,
       widgetId,
       autoplay,
+      repeat,
+      volume,
       onSuccess: handleClose,
       ...widgetFields,
     });
@@ -69,12 +76,31 @@ const AudioEditWidget = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={autoplay} // Controlled state
+                checked={autoplay}
                 onChange={(e) => setAutoplay(e.target.checked)}
               />
             }
             label="پخش خودکار"
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={repeat}
+                onChange={(e) => setRepeat(e.target.checked)}
+              />
+            }
+            label="تکرار"
+          />
+          <Stack direction="row" spacing={2} alignItems="center">
+            <DialogContentText>Volume</DialogContentText>
+            <Slider
+              value={volume}
+              onChange={(e, newValue) => setVolume(newValue as number)}
+              min={0}
+              max={100}
+              valueLabelDisplay="auto"
+            />
+          </Stack>
         </Stack>
       </DialogContent>
       <DialogActions>

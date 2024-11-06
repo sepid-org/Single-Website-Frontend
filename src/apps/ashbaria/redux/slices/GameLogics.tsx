@@ -11,12 +11,6 @@ type FinishCourtOutputType = {
 
 }
 
-type GetUserLastResultInFSMOutputType = {
-  support_change: number;
-  support_percentage: number;
-  score: number
-}
-
 export const GameLogicsSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
@@ -51,12 +45,32 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    getUserLastResultInFSM: builder.query<GetUserLastResultInFSMOutputType, { correspondingFsmId: number }>({
+    getUserLastScoreInCourt: builder.query<number, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'balances', id: 'MY' }
+        { type: 'balances', id: 'MY' },
       ]),
       query: ({ correspondingFsmId }) => ({
-        url: '/game-logic/last-result-in-court/',
+        url: '/game-logic/last-score/',
+        params: { corresponding_fsm_id: correspondingFsmId },
+      }),
+    }),
+
+    getUserLastSupportPercentageInCourt: builder.query<number, { correspondingFsmId: number }>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'balances', id: 'MY' },
+      ]),
+      query: ({ correspondingFsmId }) => ({
+        url: '/game-logic/last-support-percentage/',
+        params: { corresponding_fsm_id: correspondingFsmId },
+      }),
+    }),
+
+    getUserLastSupportPercentageChangeInCourt: builder.query<number, { correspondingFsmId: number }>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'balances', id: 'MY' },
+      ]),
+      query: ({ correspondingFsmId }) => ({
+        url: '/game-logic/last-support-percentage-change/',
         params: { corresponding_fsm_id: correspondingFsmId },
       }),
     }),
@@ -69,5 +83,7 @@ export const {
   useGetCourtsQuery,
   useGetDocumentsQuery,
   useFinishCourtMutation,
-  useGetUserLastResultInFSMQuery,
+  useGetUserLastScoreInCourtQuery,
+  useGetUserLastSupportPercentageInCourtQuery,
+  useGetUserLastSupportPercentageChangeInCourtQuery,
 } = GameLogicsSlice;

@@ -18,7 +18,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   mode,
   max_selections: maxSelections,
   min_selections: minSelections,
-  lock_after_answer: lockAfterAnswer,
+  disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
   ...questionWidgetProps
@@ -30,15 +30,18 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     onChoiceSelect,
     submitAnswer,
     submitAnswerResult,
+    errorMessage,
   } = useMultiChoiceQuestionProperties({
+    questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
     id: questionId,
     choices: questionChoices,
     mode,
+    minSelections,
     maxSelections,
     randomizeChoices,
-    submittedAnswer,
+    disableAfterAnswer,
   });
 
   const [time, setTime] = useState(60); // 1:00 = 60 seconds

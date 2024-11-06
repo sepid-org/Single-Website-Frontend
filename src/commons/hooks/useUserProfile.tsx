@@ -1,4 +1,4 @@
-import { useGetUserProfileQuery } from "commons/redux/slices/party/ProfileSlice";
+import { useGetUserProfileQuery } from "commons/redux/apis/party/ProfileSlice";
 import { useSelector } from "react-redux";
 
 const useUserProfile = () => {
