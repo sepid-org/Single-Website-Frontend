@@ -1,6 +1,6 @@
 import { useGetCourtsQuery } from "apps/ashbaria/redux/slices/GameLogics";
 import React, { FC } from "react";
-import { Skeleton, Typography } from "@mui/material";
+import { Skeleton, Stack, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
 import useGetCourtFinalSupportPercentage from "apps/ashbaria/hooks/useGetCourtFinalSupportPercentage";
 
@@ -20,12 +20,14 @@ const JudgeVerdict: FC<PropsType> = ({ }) => {
   }
 
   return (
-    <Typography variant='h3' textAlign={'justify'} color={'black'}>
-      {finalSupportPercentage >= 50 ?
-        currentCourt?.judge_verdict1 :
-        currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتمام وجود ندارد.'
-      }
-    </Typography>
+    <Stack width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'center'}>
+      <Typography variant='h3' color={'black'}>
+        {finalSupportPercentage >= 50 ?
+          currentCourt?.judge_verdict1 :
+          currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتمام وجود ندارد.'
+        }
+      </Typography>
+    </Stack>
   )
 }
 
