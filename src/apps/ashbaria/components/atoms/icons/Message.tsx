@@ -9,6 +9,9 @@ const MessageIcon = () => {
 			src={message}
 			width={40}
 			height={40}
+			sx={{
+				shadow: "0px 4px 4px 0px #00000040",
+			}}
 		/>
 	);
 }
