@@ -141,7 +141,7 @@ const FriendshipNetworkPage = () => {
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ۱۰ تا اعتبار می‌ارزه
+                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ۵ تا اعتبار می‌ارزه
                 </Typography>
                 <TextField
                   variant="outlined"
