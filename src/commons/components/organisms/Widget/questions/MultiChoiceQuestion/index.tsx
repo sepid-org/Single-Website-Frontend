@@ -21,7 +21,7 @@ export type MultiChoiceQuestionWidgetPropsType = {
   mode: WidgetModes;
   max_selections: number;
   min_selections: number;
-  lock_after_answer: boolean;
+  disable_after_answer: boolean;
   randomize_choices: boolean;
   submittedAnswer: AnswerType;
   paperId: string;
@@ -36,7 +36,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   mode,
   max_selections: maxSelections,
   min_selections: minSelections,
-  lock_after_answer: disableAfterAnswer,
+  disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
   paperId,

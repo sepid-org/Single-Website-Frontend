@@ -18,7 +18,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   mode,
   max_selections: maxSelections,
   min_selections: minSelections,
-  lock_after_answer: disableAfterAnswer,
+  disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   submittedAnswer,
   ...questionWidgetProps
