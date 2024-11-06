@@ -4,6 +4,15 @@ import { Black, DarkSecondary, Golden, Gray, Primary, Secondary } from '../const
 
 export const customTheme = createTheme({
   ...selectTheme('rtl'),
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      lg: 1200,
+      xl: 1300,
+    },
+  },
   typography: {
     allVariants: {
       fontFamily: 'Pinar-FD, iranyekan',

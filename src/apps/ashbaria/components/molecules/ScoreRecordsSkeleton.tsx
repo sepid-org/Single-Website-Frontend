@@ -8,6 +8,11 @@ export default function ScoreRecordSkeleton() {
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
+			<SingleScoreRecordSkeleton />
+			<SingleScoreRecordSkeleton />
+			<SingleScoreRecordSkeleton />
+			<SingleScoreRecordSkeleton />
+			<SingleScoreRecordSkeleton />
 		</Box>
 	);
 }

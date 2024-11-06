@@ -7,6 +7,7 @@ import Choice from 'commons/components/molecules/Choice';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
+import MessageIcon from '../atoms/icons/Message';
 
 const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
@@ -46,11 +47,18 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   return (
     <Stack spacing={1}>
+      <Stack justifyContent={"space-between"}>
+        <Stack flexDirection={"row"} alignItems={"center"}>
+          <MessageIcon />
+          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{questionId}</Typography>
+        </Stack>
+      </Stack>
       <IsRequired disabled={!questionWidgetProps.is_required}>
         <TinyPreview
-          styles={{ width: '100%' }}
+          styles={{ width: '100%', }}
           content={questionText}
         />
+        
       </IsRequired>
       <Stack spacing={1}>
         {displayChoices.map((choice) =>
@@ -65,6 +73,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           />
         )}
       </Stack>
+      {"dfvdcefrgv"}
       {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
