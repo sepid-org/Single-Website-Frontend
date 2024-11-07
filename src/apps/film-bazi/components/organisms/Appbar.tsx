@@ -9,6 +9,7 @@ import { useTheme } from '@mui/material/styles'; // To get theme breakpoints
 import DashboardButton3 from '../atoms/buttons/DashboardButton3';
 import HelpButton from '../atoms/buttons/HelpButton';
 import HelpButton2 from '../atoms/buttons/HelpButton2';
+import ProfileIcon from '../atoms/icons/Profile';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0px 4px 4px 0px #00000040',
@@ -44,6 +45,11 @@ const AppBarComponent = () => {
           {'خانه'}
         </Typography>
       </Button>
+      <Button startIcon={<ProfileIcon />} onClick={() => localNavigate('/profile/')}>
+        <Typography fontWeight={700} fontSize={18}>
+          {'نمایه'}
+        </Typography>
+      </Button>
       <HelpButton2 />
     </Stack>
   );
@@ -62,8 +68,9 @@ const AppBarComponent = () => {
               </IconButton>
             ) : (
               <Stack direction={'row-reverse'} spacing={2}>
-                <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
+                <DashboardButton3 label='نمایه' icon={<ProfileIcon />} onClick={() => { localNavigate(`/profile/`) }} />
                 <HelpButton />
+                <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
               </Stack>
             )}
           </Stack>
