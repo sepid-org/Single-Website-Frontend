@@ -4,7 +4,7 @@ import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import ProgramManagement from './pages/ProgramManagement';
 import { DarkSecondary } from './constants/colors';
-import CinemaGame from './pages/CinemaGame';
+import CinemaGame from './pages/games/CinemaGame';
 import LoginPage from './pages/authentication/Login';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import PrivateRoute from 'commons/routes/PrivateRoute';
@@ -15,7 +15,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { customTheme } from './styles/Theme';
 import MovieScreeningRequest from './pages/MovieScreeningRequest';
 import CssBaseline from '@mui/material/CssBaseline';
-import CardsGame from './pages/CardsGame';
+import CardsGame from './pages/games/CardsGame';
 
 
 const App = () => {

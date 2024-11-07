@@ -1,14 +1,14 @@
 import React, { FC, useEffect, useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
-import Deck from '../components/molecules/Deck';
-import { useAttemptToAnswerMutation, useGetCardsQuery } from '../redux/slices/CardsGame';
+import Deck from '../../components/molecules/Deck';
+import { useAttemptToAnswerMutation, useGetCardsQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
-import CustomDialogContent from '../components/organisms/CustomDialogContent';
-import ScoreAnnouncement from '../components/atoms/icons/ScoreAnnouncement';
+import CustomDialogContent from '../../components/organisms/CustomDialogContent';
+import ScoreAnnouncement from '../../components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import MyScoresChip from '../components/atoms/MyScoresChip';
-import useLocalNavigate from '../hooks/useLocalNavigate';
-import backgroundImg from "../assets/cards-game.jpg";
+import MyScoresChip from '../../components/atoms/MyScoresChip';
+import useLocalNavigate from '../../hooks/useLocalNavigate';
+import backgroundImg from "../../assets/cards-game.jpg";
 
 type CardsGamePropsType = {}
 

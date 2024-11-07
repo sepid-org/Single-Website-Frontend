@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from 'react';
-import useCinemaGameLogic from '../hooks/useCinemaGameLogic';
+import useCinemaGameLogic from '../../hooks/useCinemaGameLogic';
 import { Backdrop } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
