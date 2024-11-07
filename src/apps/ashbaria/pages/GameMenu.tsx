@@ -8,7 +8,7 @@ import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
-import MyFirstName from '../components/molecules/chips/MyFirstName';
+import MyFirstNameChip from '../components/molecules/chips/MyFirstName';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
@@ -64,7 +64,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
       >
         <ProgramLogo />
-        <MyFirstName />
+        <MyFirstNameChip />
         {/* <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۱۷ روز'}
         </Typography> */}
