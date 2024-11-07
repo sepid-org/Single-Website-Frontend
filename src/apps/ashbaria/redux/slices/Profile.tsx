@@ -1,13 +1,13 @@
-import { ProfileType, UpdateProfileResponse } from 'apps/ashbaria/types';
+import { AshbariaProfileType, UpdateProfileResponse } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
-type UpdateProfileInput = Partial<Omit<ProfileType, 'created_at' | 'updated_at'>>;
+type UpdateProfileInput = Partial<Omit<AshbariaProfileType, 'created_at' | 'updated_at'>>;
 
 export const ProfileSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    getProfile: builder.query<ProfileType, void>({
+    getProfile: builder.query<AshbariaProfileType, void>({
       providesTags: [{ type: 'Profile', id: 'MY' }],
       query: () => ({
         url: '/profile/profile/',

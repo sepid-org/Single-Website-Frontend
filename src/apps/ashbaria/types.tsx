@@ -8,7 +8,7 @@ export interface CourtType {
   next_court_corresponding_fsm_id: number;
 }
 
-export type ProfileType = {
+export type AshbariaProfileType = {
   id: number;
   first_name: string | null;
   last_name: string | null;
@@ -27,14 +27,14 @@ export type ProfileType = {
   has_received_reward: boolean;
 }
 
-export type UpdateProfileResponse = ProfileType & {
+export type UpdateProfileResponse = AshbariaProfileType & {
   reward_status: {
     reward_granted: boolean;
     message: string | null;
   };
 }
 
-export type UpdateProfileInput = Partial<Omit<ProfileType,
+export type UpdateProfileInput = Partial<Omit<AshbariaProfileType,
   'created_at' | 'updated_at' | 'has_received_reward' | 'is_profile_complete'
 >>;
 

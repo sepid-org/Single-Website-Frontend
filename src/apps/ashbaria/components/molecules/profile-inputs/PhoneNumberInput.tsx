@@ -1,7 +1,7 @@
 import { Grid, TextField, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 
-export default function ({ handleChange, phone_number }) {
+export default function ({ handleChange, phone_number, disabled = false }) {
   return (
     <Fragment>
       <Typography
@@ -14,6 +14,7 @@ export default function ({ handleChange, phone_number }) {
         تلفن
       </Typography>
       <TextField
+        disabled={disabled}
         fullWidth
         required
         value={phone_number || ''}
