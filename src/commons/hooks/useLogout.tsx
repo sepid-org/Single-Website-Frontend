@@ -1,13 +1,14 @@
-import { logoutAction } from 'apps/website-display/redux/slices/Account';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
+import { logoutAndInvalidate } from 'apps/website-display/redux/slices/Account';
 import { toast } from "react-toastify";
+import { AppDispatch } from 'commons/redux/store';
 
 const useLogout = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   const logout = () => {
     toast.info('خدا به همراهتان👋');
-    dispatch(logoutAction());
+    dispatch(logoutAndInvalidate());
   };
 
   return { logout };

@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserApi } from 'commons/redux/apis/party/UserApi';
 import { UserInfoType } from 'commons/types/profile';
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/createInvalidationCallback';
 
 // Types
 interface AccountState {
@@ -52,7 +54,9 @@ const AccountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    logout: () => initialState,
+    logout: (state) => {
+      return initialState;
+    },
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
@@ -60,7 +64,6 @@ const AccountSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    // Dynamically add matchers for all login endpoints
     loginEndpoints.forEach((endpoint) => {
       builder.addMatcher(
         UserApi.endpoints[endpoint].matchFulfilled,
@@ -72,8 +75,20 @@ const AccountSlice = createSlice({
   },
 });
 
+// Create properly typed thunk
+export const logoutAndInvalidate = createAsyncThunk(
+  'account/logoutAndInvalidate',
+  async (_, { dispatch }) => {
+    dispatch(AccountSlice.actions.logout());
+    await invalidateMyTagsAcrossApis()(null, {
+      dispatch,
+      queryFulfilled: Promise.resolve()
+    });
+  }
+);
+
 // Export actions
-export const { logout: logoutAction, refreshToken } = AccountSlice.actions;
+export const { refreshToken } = AccountSlice.actions;
 
 // Export reducer
 export const { reducer: AccountReducer } = AccountSlice;
