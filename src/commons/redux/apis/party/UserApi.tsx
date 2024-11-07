@@ -1,4 +1,5 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/tagInvalidation';
 
 type CreateAccountInputType = {
   phoneNumber: string;
@@ -88,6 +89,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
         method: 'POST',
@@ -116,6 +118,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/google-login/',
         method: 'POST',
@@ -128,6 +131,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/simple-login/',
         method: 'POST',
@@ -137,6 +141,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
       invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/otp-login/',
         method: 'POST',

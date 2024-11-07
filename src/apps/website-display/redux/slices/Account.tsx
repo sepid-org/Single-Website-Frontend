@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserApi } from 'commons/redux/apis/party/UserApi';
 import { UserInfoType } from 'commons/types/profile';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/tagInvalidation';
 
 // Types
 interface AccountState {
@@ -75,20 +73,8 @@ const AccountSlice = createSlice({
   },
 });
 
-// Create properly typed thunk
-export const logoutAndInvalidate = createAsyncThunk(
-  'account/logoutAndInvalidate',
-  async (_, { dispatch }) => {
-    dispatch(AccountSlice.actions.logout());
-    await invalidateMyTagsAcrossApis()(null, {
-      dispatch,
-      queryFulfilled: Promise.resolve()
-    });
-  }
-);
-
 // Export actions
-export const { refreshToken } = AccountSlice.actions;
+export const { refreshToken, logout } = AccountSlice.actions;
 
 // Export reducer
 export const { reducer: AccountReducer } = AccountSlice;
