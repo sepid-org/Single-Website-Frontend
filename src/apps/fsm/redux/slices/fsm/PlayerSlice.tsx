@@ -104,7 +104,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     enterFSM: builder.mutation<EnterFSMOutputType, EnterFSMInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: ['player', { type: 'FSM', id: 'MY' }],
       query: ({ fsmId, password }) => ({
         url: `/fsm/fsm/${fsmId}/enter_fsm/`,
         method: 'POST',
@@ -115,7 +115,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     finishFSM: builder.mutation<FinishFSMOutputType, FinishFSMInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: ['player', { type: 'FSM', id: 'MY' }],
       query: ({ playerId }) => ({
         url: `/fsm/player/${playerId}/finish-fsm/`,
         method: 'GET',
