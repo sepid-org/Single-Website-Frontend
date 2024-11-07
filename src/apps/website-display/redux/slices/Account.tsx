@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserApi } from 'commons/redux/apis/party/UserApi';
 import { UserInfoType } from 'commons/types/profile';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/tagInvalidation';
 
 // Types
 interface AccountState {
@@ -55,6 +55,7 @@ const AccountSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      console.log("2222222222222")
       return initialState;
     },
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
@@ -79,6 +80,7 @@ const AccountSlice = createSlice({
 export const logoutAndInvalidate = createAsyncThunk(
   'account/logoutAndInvalidate',
   async (_, { dispatch }) => {
+    console.log("111111111111")
     dispatch(AccountSlice.actions.logout());
     await invalidateMyTagsAcrossApis()(null, {
       dispatch,

@@ -1,5 +1,5 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type SubmitButtonInputType = {
@@ -13,9 +13,7 @@ export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
 
     submitButton: builder.mutation<void, SubmitButtonInputType>({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      onQueryStarted: createInvalidationCallback([
-        { type: 'Balances', id: 'MY' },
-      ]),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ playerId, stateId, clickedButtonId }) => ({
         url: '/response/submit-button/',
         method: 'POST',

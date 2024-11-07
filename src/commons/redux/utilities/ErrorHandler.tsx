@@ -32,6 +32,8 @@ const handleError = ({
       return;
     }
 
+
+    
     const message = persianMessages[error.data.code] || persianMessages[error.data.detail] || error.data.detail || errorMessage;
     toast.error(message);
     return;

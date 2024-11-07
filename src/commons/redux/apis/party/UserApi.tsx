@@ -1,5 +1,4 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
 
 type CreateAccountInputType = {
   phoneNumber: string;
@@ -103,7 +102,6 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       transformResponse: (response: any): CreateAccountOutputType => {
         return response;
       },
-      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
@@ -126,7 +124,6 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       transformResponse: (response: any): GoogleLoginUserOutputType => {
         return response;
       },
-      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
@@ -136,7 +133,6 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
@@ -149,7 +145,6 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
           code: verificationCode,
         },
       }),
-      onQueryStarted: createInvalidationCallback(['user-specific-data'])
     }),
 
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({

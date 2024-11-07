@@ -1,5 +1,5 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 // Answer Types
@@ -33,11 +33,6 @@ interface FileAnswer extends BaseAnswer {
 
 type Answer = SmallAnswer | BigAnswer | MultiChoiceAnswer | FileAnswer;
 
-// Helper Functions
-const DEFAULT_INVALIDATION_TAGS = [
-  { type: 'Balances' as const, id: 'MY' },
-];
-
 const createAnswerBody = (answer: Answer) => {
   const base = {
     question: answer.questionId,
@@ -61,7 +56,7 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     submitAnswer: builder.mutation<void, Answer>({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
-      onQueryStarted: createInvalidationCallback(DEFAULT_INVALIDATION_TAGS),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: (answer) => ({
         url: '/response/answers/submit-answer/',
         method: 'POST',

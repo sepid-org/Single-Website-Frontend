@@ -1,7 +1,7 @@
 import { CardType } from 'apps/film-bazi/types';
 import { FilmbaziApi } from '../FilmbaziApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
 export const CardsGameSlice = FilmbaziApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -15,9 +15,7 @@ export const CardsGameSlice = FilmbaziApi.injectEndpoints({
 
     attemptToAnswer: builder.mutation<any, { answer: Array<number> }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => []),
-      onQueryStarted: createInvalidationCallback([
-        { type: 'Balances', id: 'MY' },
-      ]),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ answer }) => ({
         url: `cards-game/attempt/`,
         method: 'POST',

@@ -1,6 +1,6 @@
 import { CodeType, CompletedMissionType, FollowType, FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
 type GetMyFriendshipNetworkOutputType = {
   network: FriendshipNetworkType;
@@ -22,9 +22,7 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
 
     follow: builder.mutation<FollowType & { created: boolean }, { code: string }>({
       invalidatesTags: [{ type: 'Network', id: 'MY' }],
-      onQueryStarted: createInvalidationCallback([
-        { type: 'Balances', id: 'MY' },
-      ]),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ code }) => ({
         url: '/friendship-network/follow/',
         method: 'POST',
@@ -41,9 +39,7 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
 
     completeMission: builder.mutation<CompletedMissionType, { missionId: string }>({
       invalidatesTags: [{ type: 'Missions', id: 'MY' }],
-      onQueryStarted: createInvalidationCallback([
-        { type: 'Balances', id: 'MY' },
-      ]),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ missionId }) => ({
         url: '/friendship-network/complete-mission/',
         method: 'POST',

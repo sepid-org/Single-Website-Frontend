@@ -1,7 +1,7 @@
 import { CourtType, DocumentType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
-import { createInvalidationCallback } from 'commons/redux/utilities/createInvalidationCallback';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
 type FinishCourtInputType = {
   fsmId: number;
@@ -32,9 +32,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
     finishCourt: builder.mutation<FinishCourtOutputType, FinishCourtInputType>({
       invalidatesTags: (result, error, item) => [],
-      onQueryStarted: createInvalidationCallback([
-        { type: 'Balances', id: 'MY' },
-      ]),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ fsmId }) => ({
         url: '/game-logic/finish-court/',
         method: 'POST',
