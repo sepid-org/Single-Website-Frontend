@@ -15,10 +15,9 @@ const CustomAppBar = styled(AppBar)(({ theme }) => ({
   border: '1px solid #4D4D4D',
   background: '#0D082A',
   width: '100%',
-  height: '105px',
+  height: theme.spacing(12),
   borderWidth: '2px 0px 0px 0px',
   opacity: 1,
-  position: 'static',
   margin: '0 auto',
 }));
 
@@ -50,7 +49,7 @@ const AppBarComponent = () => {
   );
 
   return (
-    <CustomAppBar position="static" sx={{ borderRadius: 0 }}>
+    <CustomAppBar position='fixed' sx={{ borderRadius: 0 }}>
       <CustomToolbar>
         <Container maxWidth="lg">
           <Stack width={'100%'} direction={'row'} justifyContent={'space-between'}>

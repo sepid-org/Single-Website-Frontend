@@ -24,6 +24,7 @@ const Dashboard: FC<DashboardPropsType> = ({
         backgroundAttachment: "fixed",
         minHeight: '100vh',
         minWidth: "100vw",
+        paddingTop: 12,
       }}
     >
       <AppBarComponent />
