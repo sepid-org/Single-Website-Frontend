@@ -8,19 +8,19 @@ const AnonymousRoute = ({ base = '/' }) => {
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
   useEffect(() => {
-    if (accessToken) {
-      toast.success(`خوش آمدید!`)
+    if (accessToken && location.pathname === '/login') {
+      toast.success(`خوش آمدید!`);
     }
-  }, [accessToken])
+  }, [accessToken, location.pathname]);
 
-  const previousLocation = location.state?.from?.pathname
+  const previousLocation = location.state?.from?.pathname;
   const destinationLocation = previousLocation || base;
 
   if (accessToken) {
-    return <Navigate state={{ from: location }} to={destinationLocation} />
+    return <Navigate to={destinationLocation} replace />;
   }
 
-  return <Outlet />
+  return <Outlet />;
 };
 
 export default AnonymousRoute;

@@ -7,7 +7,7 @@ const PrivateRoute = ({ loginUrl = '/login/' }) => {
   const accessToken = useSelector((state: any) => state.account.accessToken);
 
   if (!accessToken) {
-    return <Navigate state={{ from: location }} to={loginUrl} />
+    return <Navigate state={{ from: location }} to={loginUrl} replace />
   }
   return <Outlet />
 };
