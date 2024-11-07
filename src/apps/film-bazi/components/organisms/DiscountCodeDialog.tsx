@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import { IconButton, Stack } from '@mui/material';
 import { toast } from 'react-toastify';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { Golden } from 'apps/film-bazi/constants/colors';
 
 type DiscountDialogProps = {
   open: boolean;
@@ -47,29 +48,11 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
   if (discountCode) {
     dialogContent =
       <Fragment>
-        <DialogContentText>
-          {`از کد تخفیف ${toPersianNumber(discountCode?.percentage)}% زیر برای دعوت دوستان خود به تماشای فیلم ${film.name}`}
-          {film.gisheh7_link ?
-            <Fragment>
-              {' از طریق سایت '}
-              <Link
-                to={film.gisheh7_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: '#ff4759', textDecoration: 'underline', fontWeight: 600, cursor: 'pointer' }}
-              >
-                گیشه۷
-              </Link>
-            </Fragment> :
-            null
-          }
-          {' استفاده کنید:'}
+        <DialogContentText textAlign={'justify'}>
+          {`این کد تخفیف ${toPersianNumber(discountCode?.percentage)} درصدی، مخصوص خودت برای فیلم سینمایی ${film.name} هست. اون رو به دوستات بده تا باهاش خرید کنن و امتیاز و سرمایه بیش‌تری به دست بیاری:`}
         </DialogContentText>
         <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} mt={2}>
-          <Typography
-            variant="h3"
-            sx={{ textAlign: 'center', fontWeight: 'bold' }}
-          >
+          <Typography variant="h3" textAlign={'center'} color={'#EC6823'}>
             {discountCode?.code}
           </Typography>
           <IconButton onClick={copyToClipboard} color="inherit">
