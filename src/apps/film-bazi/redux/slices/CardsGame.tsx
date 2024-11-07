@@ -16,8 +16,7 @@ export const CardsGameSlice = FilmbaziApi.injectEndpoints({
     attemptToAnswer: builder.mutation<any, { answer: Array<number> }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => []),
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ answer }) => ({
         url: `cards-game/attempt/`,

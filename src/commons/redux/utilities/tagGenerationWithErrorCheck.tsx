@@ -45,8 +45,7 @@ export const tagTypes = [
   'Position',
   'user-specific-data',
   // Bank
-  'balances',
-  'rank',
+  'Balances',
   // Ashbaria
   'question',
   'questions',

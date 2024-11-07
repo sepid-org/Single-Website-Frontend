@@ -14,8 +14,7 @@ export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
     submitButton: builder.mutation<void, SubmitButtonInputType>({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ playerId, stateId, clickedButtonId }) => ({
         url: '/response/submit-button/',

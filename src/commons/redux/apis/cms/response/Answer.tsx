@@ -35,8 +35,7 @@ type Answer = SmallAnswer | BigAnswer | MultiChoiceAnswer | FileAnswer;
 
 // Helper Functions
 const DEFAULT_INVALIDATION_TAGS = [
-  { type: 'rank' as const, id: 'MY' },
-  { type: 'balances' as const, id: 'MY' },
+  { type: 'Balances' as const, id: 'MY' },
 ];
 
 const createAnswerBody = (answer: Answer) => {

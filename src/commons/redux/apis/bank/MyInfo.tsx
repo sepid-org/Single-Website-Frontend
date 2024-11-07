@@ -14,14 +14,14 @@ export const MyInfoSlice = BankApi.injectEndpoints({
   endpoints: (builder) => ({
     getMyBalances: builder.query<GetMyBalancesOutputType, void>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'balances', id: 'MY' }
+        { type: 'Balances', id: 'MY' }
       ]),
       query: () => 'counter/my-balances/',
     }),
 
     getMyRank: builder.query<GetMyRankOutputType, GetMyRankInputType>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'rank', id: 'MY' }
+        { type: 'Balances', id: 'MY' }
       ]),
       query: ({ currencyName }) => `counter/my-rank/?currency_name=${currencyName}`,
     }),

@@ -33,8 +33,7 @@ export const CinemaGameSlice = FilmbaziApi.injectEndpoints({
         { type: 'filmbazi-seat-selection', id: 'LIST' },
       ]),
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ seatName }) => ({
         url: `cinema-game/select-seat/?seat_name=${seatName}`,

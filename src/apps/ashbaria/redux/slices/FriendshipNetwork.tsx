@@ -23,8 +23,7 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
     follow: builder.mutation<FollowType & { created: boolean }, { code: string }>({
       invalidatesTags: [{ type: 'Network', id: 'MY' }],
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ code }) => ({
         url: '/friendship-network/follow/',
@@ -36,15 +35,14 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
     }),
 
     getMyCompletedMissions: builder.query<MissionType[], void>({
-      providesTags: [{ type: 'Missions', id: 'MY-COMPLETED-MISSIONS' }],
+      providesTags: [{ type: 'Missions', id: 'MY' }],
       query: () => '/friendship-network/my-completed-missions/',
     }),
 
     completeMission: builder.mutation<CompletedMissionType, { missionId: string }>({
-      invalidatesTags: [{ type: 'Missions', id: 'MY-COMPLETED-MISSIONS' }],
+      invalidatesTags: [{ type: 'Missions', id: 'MY' }],
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ missionId }) => ({
         url: '/friendship-network/complete-mission/',

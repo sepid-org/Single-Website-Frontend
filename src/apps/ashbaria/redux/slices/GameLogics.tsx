@@ -33,8 +33,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
     finishCourt: builder.mutation<FinishCourtOutputType, FinishCourtInputType>({
       invalidatesTags: (result, error, item) => [],
       onQueryStarted: createInvalidationCallback([
-        { type: 'rank', id: 'MY' },
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ fsmId }) => ({
         url: '/game-logic/finish-court/',
@@ -47,7 +46,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
     getUserLastScoreInCourt: builder.query<number, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ correspondingFsmId }) => ({
         url: '/game-logic/last-score/',
@@ -57,7 +56,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
     getUserLastSupportPercentageInCourt: builder.query<number, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ correspondingFsmId }) => ({
         url: '/game-logic/last-support-percentage/',
@@ -67,7 +66,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
     getUserLastSupportPercentageChangeInCourt: builder.query<number, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'balances', id: 'MY' },
+        { type: 'Balances', id: 'MY' },
       ]),
       query: ({ correspondingFsmId }) => ({
         url: '/game-logic/last-support-percentage-change/',
