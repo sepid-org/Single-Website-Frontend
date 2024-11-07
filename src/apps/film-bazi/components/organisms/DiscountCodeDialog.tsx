@@ -11,7 +11,9 @@ import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/Discount
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { Link } from 'react-router-dom';
-
+import { IconButton, Stack } from '@mui/material';
+import { toast } from 'react-toastify';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 type DiscountDialogProps = {
   open: boolean;
@@ -31,6 +33,11 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
       getDiscountCode({ filmId: film.id });
     }
   }, [open])
+
+  const copyToClipboard = () => {
+    toast.success('کد تخفیف با موفقیت کپی شد');
+    navigator.clipboard.writeText(discountCode?.code);
+  };
 
   let dialogContent =
     <DialogContentText>
@@ -58,9 +65,17 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
           }
           {' استفاده کنید:'}
         </DialogContentText>
-        <Typography variant="h3" component="div" sx={{ mt: 2, textAlign: 'center', fontWeight: 'bold' }}>
-          {discountCode?.code}
-        </Typography>
+        <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} mt={2}>
+          <Typography
+            variant="h3"
+            sx={{ textAlign: 'center', fontWeight: 'bold' }}
+          >
+            {discountCode?.code}
+          </Typography>
+          <IconButton onClick={copyToClipboard} color="inherit">
+            <ContentCopyIcon />
+          </IconButton>
+        </Stack>
       </Fragment>;
   }
 
