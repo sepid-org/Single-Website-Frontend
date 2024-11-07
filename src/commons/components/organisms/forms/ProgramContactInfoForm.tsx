@@ -1,17 +1,17 @@
 import {
   Grid,
   InputAdornment,
-  SvgIcon,
   TextField,
 } from '@mui/material';
-import BaleSVG from 'commons/components/atoms/socialMediaSVGs/BaleSVG';
-import EitaaSVG from 'commons/components/atoms/socialMediaSVGs/EitaaSVG';
-import InstagramSVG from 'commons/components/atoms/socialMediaSVGs/InstagramSVG';
-import ShadSVG from 'commons/components/atoms/socialMediaSVGs/ShadSVG';
-import TelegramSVG from 'commons/components/atoms/socialMediaSVGs/TelegramSVG';
 import React, { FC } from 'react';
 
 import { ProgramContactInfoType } from 'commons/types/models';
+import RubikaIcon from 'commons/components/atoms/icons/Rubika';
+import EitaaIcon from 'commons/components/atoms/icons/Eitaa';
+import BaleIcon from 'commons/components/atoms/icons/Bale';
+import InstagramIcon from 'commons/components/atoms/icons/Instagram';
+import ShadIcon from 'commons/components/atoms/icons/Shad';
+import TelegramIcon from 'commons/components/atoms/icons/Telegram';
 
 type ProgramContactInfoFormPropsType = {
   data: ProgramContactInfoType | null;
@@ -47,9 +47,7 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SvgIcon>
-                  {EitaaSVG}
-                </SvgIcon>
+                <EitaaIcon />
               </InputAdornment>
             ),
           }}
@@ -66,9 +64,7 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SvgIcon>
-                  {BaleSVG}
-                </SvgIcon>
+                <BaleIcon />
               </InputAdornment>
             ),
           }}
@@ -85,9 +81,7 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SvgIcon>
-                  {InstagramSVG}
-                </SvgIcon>
+                <InstagramIcon />
               </InputAdornment>
             ),
           }}
@@ -104,9 +98,7 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SvgIcon>
-                  {ShadSVG}
-                </SvgIcon>
+                <ShadIcon />
               </InputAdornment>
             ),
           }}
@@ -123,9 +115,7 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <SvgIcon>
-                  {TelegramSVG}
-                </SvgIcon>
+                <TelegramIcon />
               </InputAdornment>
             ),
           }}
@@ -134,6 +124,23 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           variant='outlined'
           label={'تلگرام'}
           name='telegram_link'
+          onChange={putData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <RubikaIcon />
+              </InputAdornment>
+            ),
+          }}
+          value={data?.rubika_link || ''}
+          fullWidth
+          variant='outlined'
+          label={'روبیکا'}
+          name='rubika_link'
           onChange={putData}
         />
       </Grid>

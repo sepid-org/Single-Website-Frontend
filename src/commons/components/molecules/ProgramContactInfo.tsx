@@ -1,16 +1,15 @@
 import React from "react";
 import { Stack, Typography } from "@mui/material";
 import { FC } from "react";
-import TelegramSVG from 'commons/components/atoms/socialMediaSVGs/TelegramSVG';
-import SvgIcon from "@mui/material/SvgIcon";
 import IconButton from "@mui/material/IconButton";
-import EitaaSVG from "commons/components/atoms/socialMediaSVGs/EitaaSVG";
-import BaleSVG from "commons/components/atoms/socialMediaSVGs/BaleSVG";
-import ShadSVG from "commons/components/atoms/socialMediaSVGs/ShadSVG";
-import InstagramSVG from "commons/components/atoms/socialMediaSVGs/InstagramSVG";
 import { toPersianNumber } from "commons/utils/translateNumber";
-
-type ProgramContactInfoType = any;
+import { ProgramContactInfoType } from "commons/types/models";
+import RubikaIcon from "../atoms/icons/Rubika";
+import InstagramIcon from "../atoms/icons/Instagram";
+import ShadIcon from "../atoms/icons/Shad";
+import TelegramIcon from "../atoms/icons/Telegram";
+import BaleIcon from "../atoms/icons/Bale";
+import EitaaIcon from "../atoms/icons/Eitaa";
 
 type ProgramContactInfoPropsType = {
   programContactInfo: ProgramContactInfoType
@@ -39,24 +38,28 @@ const ProgramContactInfo: FC<ProgramContactInfoPropsType> = ({
 
   const socialMedias = [
     {
-      icon: EitaaSVG,
+      icon: EitaaIcon,
       href: programContactInfo.eitaa_link,
     },
     {
-      icon: BaleSVG,
+      icon: BaleIcon,
       href: programContactInfo.bale_link,
     },
     {
-      icon: TelegramSVG,
+      icon: TelegramIcon,
       href: programContactInfo.telegram_link,
     },
     {
-      icon: ShadSVG,
+      icon: ShadIcon,
       href: programContactInfo.shad_link,
     },
     {
-      icon: InstagramSVG,
+      icon: InstagramIcon,
       href: programContactInfo.instagram_link,
+    },
+    {
+      icon: RubikaIcon,
+      href: programContactInfo.rubika_link,
     },
   ]
 
@@ -78,9 +81,7 @@ const ProgramContactInfo: FC<ProgramContactInfoPropsType> = ({
               }
             }}
           >
-            <SvgIcon sx={{ fontSize: 30 }}>
-              {socialMedia.icon}
-            </SvgIcon>
+            <socialMedia.icon size={36} />
           </IconButton>
         )}
       </Stack>
