@@ -3,14 +3,14 @@ import React from 'react';
 
 
 const InitialApiCalls = ({ children }) => {
-  const { isError, isLoading } = useGetWebsiteQuery();
+  const { isError, error, isLoading } = useGetWebsiteQuery();
 
   if (isLoading) {
     return null;
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <div>{`status: ${(error as any)?.status} - error: ${(error as any)?.error}`}</div>;
   }
 
   return children;
