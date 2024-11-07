@@ -53,6 +53,7 @@ const App = () => {
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
               <Route path='/login/' element={<Login />} />
+              <Route path='/token-expiration/' element={<Login />} />
             </Route>
           </Routes>
 
