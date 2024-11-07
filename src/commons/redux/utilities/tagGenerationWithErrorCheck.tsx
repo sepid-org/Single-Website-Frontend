@@ -2,15 +2,12 @@ import { TagDescription } from '@reduxjs/toolkit/query';
 
 export const tagTypes = [
   // Website Management
-  'website',
-  'user-specific-data',
+  'Website',
   // Content Management
   'Hint',
   'WidgetHint',
-  'program',
-  'programs',
-  'fsm',
-  'fsms',
+  'Program',
+  'FSM',
   'program-admins',
   'fsm-states',
   'fsm-state',
@@ -43,7 +40,6 @@ export const tagTypes = [
   'my-invitations',
   'team-invitations',
   'Position',
-  'user-specific-data',
   // Bank
   'Balances',
   // Ashbaria

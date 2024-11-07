@@ -49,7 +49,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     createMerchandise: builder.mutation<AddMerchandiseToProgramOutputType, AddMerchandiseToProgramInputType>({
-      invalidatesTags: ['merchandises', 'programs'],
+      invalidatesTags: ['merchandises', { type: 'Program', id: 'ALL' }],
       query: ({ programSlug, ...body }) => ({
         url: `sale/merchandise/`,
         method: 'POST',
@@ -61,7 +61,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateMerchandise: builder.mutation<UpdateMerchandiseOutputType, UpdateMerchandiseInputType>({
-      invalidatesTags: ['merchandises', 'merchandise', 'programs'],
+      invalidatesTags: ['merchandises', 'merchandise', { type: 'Program', id: 'ALL' }],
       query: ({ id, ...body }) => ({
         url: `sale/merchandise/${id}/`,
         method: 'PATCH',
@@ -70,7 +70,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     softDeleteMerchandise: builder.mutation<SoftDeleteOutputType, SoftDeleteInputType>({
-      invalidatesTags: ['merchandises', 'merchandise', 'programs'],
+      invalidatesTags: ['merchandises', 'merchandise', { type: 'Program', id: 'ALL' }],
       query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/soft_delete/`,
     }),
 

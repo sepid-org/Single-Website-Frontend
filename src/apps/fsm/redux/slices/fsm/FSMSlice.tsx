@@ -42,7 +42,7 @@ type GetFSMEdgesOutputType = FSMEdgeType[];
 export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createFSM: builder.mutation<CreateFSMOutputType, CreateFSMInputType>({
-      invalidatesTags: ['fsms'],
+      invalidatesTags: [{ type: 'FSM', id: 'ALL' }],
       query: ({ ...body }) => ({
         url: `/fsm/fsm/`,
         method: 'POST',
@@ -54,7 +54,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateFSM: builder.mutation<UpdateFSMOutputType, UpdateFSMInputType>({
-      invalidatesTags: ['fsm', 'fsms'],
+      invalidatesTags: ['FSM', { type: 'FSM', id: 'ALL' }],
       query: ({ fsmId, ...body }) => ({
         url: `/fsm/fsm/${fsmId}/`,
         method: 'PATCH',
@@ -66,7 +66,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getFSM: builder.query<GetFSMOutputType, GetFSMInputType>({
-      providesTags: ['fsm'],
+      providesTags: ['FSM'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/`,
       transformResponse: (response: any): GetFSMOutputType => {
         return response;
@@ -74,7 +74,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getFSMs: builder.query<GetFSMsOutputType, GetFSMsInputType>({
-      providesTags: ['fsms'],
+      providesTags: [{ type: 'FSM', id: 'ALL' }],
       query: ({ programSlug, pageNumber = 1 }) => `fsm/fsm/?program=${programSlug}&page=${pageNumber}`,
       transformResponse: (response: any): GetFSMsOutputType => {
         return {
@@ -101,12 +101,12 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     softDeleteFSM: builder.mutation<any, { fsmId: number }>({
-      invalidatesTags: ['fsms'],
+      invalidatesTags: [{ type: 'FSM', id: 'ALL' }],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/soft_delete/`
     }),
 
     setFSMFirstState: builder.mutation<any, { fsmId: number; fsmStateId: string }>({
-      invalidatesTags: ['fsm', 'fsm-states'],
+      invalidatesTags: ['FSM', 'fsm-states'],
       query: ({ fsmId, fsmStateId }) => ({
         url: `/fsm/fsm/${fsmId}/first_state/`,
         method: 'POST',

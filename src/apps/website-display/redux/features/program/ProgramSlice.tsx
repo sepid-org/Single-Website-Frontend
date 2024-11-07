@@ -50,7 +50,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     createProgram: builder.mutation<CreateProgramOutputType, CreateProgramInputType>({
-      invalidatesTags: ['programs'],
+      invalidatesTags: [{ type: 'Program', id: 'ALL' }],
       query: (body) => ({
         url: `/fsm/program/`,
         method: 'POST',
@@ -62,7 +62,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateProgram: builder.mutation<UpdateProgramOutputType, UpdateProgramInputType>({
-      invalidatesTags: ['program', 'programs'],
+      invalidatesTags: ['Program', { type: 'Program', id: 'ALL' }],
       query: ({ programSlug, ...body }) => ({
         url: `/fsm/program/${programSlug}/`,
         method: 'PATCH',
@@ -74,7 +74,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getPrograms: builder.query<GetProgramsOutputType, GetProgramsInputType>({
-      providesTags: ['programs'],
+      providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ pageNumber = 1 }) => `fsm/program/?page=${pageNumber}`,
       transformResponse: (response: any): GetProgramsOutputType => {
         return {
@@ -86,7 +86,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
 
     getProgram: builder.query<GetProgramOutputType, GetProgramInputType>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'program', id: item.programSlug }]
+        [{ type: 'Program', id: item.programSlug }]
       ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/`,
       transformResponse: (response: any): GetProgramOutputType => {
@@ -96,10 +96,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
 
     getProgramUserPermissions: builder.query<GetProgramUserPermissionsOutputType, GetProgramUserPermissionsInputType>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [
-          'user-specific-data',
-          { type: 'program', id: item.programSlug }
-        ]
+        [{ type: 'Program', id: 'MY' }, { type: 'Program', id: item.programSlug }]
       ),
       query: ({ programSlug }) => `fsm/program/${programSlug}/user-permissions/`,
       transformResponse: (response: any): GetProgramUserPermissionsOutputType => {
@@ -108,7 +105,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getProgramUserFSMsStatus: builder.query<GetProgramUserFSMsStatusOutputType, GetProgramUserFSMsStatusInputType>({
-      providesTags: ['fsms', 'user-specific-data'],
+      providesTags: [{ type: 'FSM', id: 'MY' }, { type: 'FSM', id: 'ALL' }],
       query: ({ programSlug }) => `fsm/program/${programSlug}/user-fsms-status/`,
       transformResponse: (response: any): GetProgramUserFSMsStatusOutputType => {
         return response;
@@ -116,7 +113,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     softDeleteProgram: builder.mutation<any, { programSlug: string }>({
-      invalidatesTags: ['programs'],
+      invalidatesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ programSlug }) => `fsm/program/${programSlug}/soft_delete/`
     }),
 

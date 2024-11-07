@@ -55,7 +55,6 @@ const AccountSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      console.log("2222222222222")
       return initialState;
     },
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
@@ -80,7 +79,6 @@ const AccountSlice = createSlice({
 export const logoutAndInvalidate = createAsyncThunk(
   'account/logoutAndInvalidate',
   async (_, { dispatch }) => {
-    console.log("111111111111")
     dispatch(AccountSlice.actions.logout());
     await invalidateMyTagsAcrossApis()(null, {
       dispatch,

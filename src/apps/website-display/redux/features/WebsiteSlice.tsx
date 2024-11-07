@@ -11,7 +11,7 @@ export const WebsiteSlice = WebsiteManagementServiceApi.injectEndpoints({
       query: () => `website/get-website/`,
     }),
     getWebsitePermission: builder.query<WebsitePermissionsType, void>({
-      providesTags: ['user-specific-data'],
+      providesTags: [{ type: 'Website', id: 'MY' }],
       query: () => `website/permissions/`,
       transformResponse: (response: any): WebsitePermissionsType => {
         return {

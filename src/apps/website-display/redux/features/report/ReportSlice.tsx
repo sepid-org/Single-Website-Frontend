@@ -23,21 +23,21 @@ export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
     getRegistrationReceiptsFile: builder.query<GetRegistrationReceiptsFileOutputType, GetRegistrationReceiptsFileInputType>({
-      providesTags: ['programs'],
+      providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ formId }) => ({
         url: `/report/registration-receipts/?registration_form_id=${formId}`,
       }),
     }),
 
     getAnswerSheetsFile: builder.query<GetAnswerSheetsFileOutputType, GetAnswerSheetsFileInputType>({
-      providesTags: ['programs'],
+      providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ formId }) => ({
         url: `/report/answer-sheets/?form_id=${formId}`,
       }),
     }),
 
     getProgramMerchandisesPurchasesFile: builder.query<GetProgramMerchandisesPurchasesFileOutputType, GetProgramMerchandisesPurchasesFileInputType>({
-      providesTags: ['programs'],
+      providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ programSlug }) => ({
         url: `/report/program-merchandises-purchases/?program_id=${programSlug}`,
       }),
