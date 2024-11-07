@@ -5,6 +5,7 @@ import backgroundImg from "../assets/dashboardBackground.svg";
 import Films from '../components/template/Films';
 import Games from '../components/template/Games';
 import DashboardSidebar from '../components/organisms/DashboardSidebar';
+import FilmbaziLayout from '../components/molecules/Layout';
 
 type DashboardPropsType = {
   tab: 'films' | 'games';
@@ -15,19 +16,7 @@ const Dashboard: FC<DashboardPropsType> = ({
 }) => {
 
   return (
-    <Box
-      sx={{
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "left",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        minHeight: '100vh',
-        minWidth: "100vw",
-        paddingTop: 12,
-      }}
-    >
-      <AppBarComponent />
+    <FilmbaziLayout>
       <Container maxWidth='lg'
         sx={{
           display: 'flex',
@@ -46,7 +35,7 @@ const Dashboard: FC<DashboardPropsType> = ({
           </Grid>
         </Grid>
       </Container>
-    </Box>
+    </FilmbaziLayout>
   );
 }
 

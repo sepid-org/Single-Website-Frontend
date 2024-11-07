@@ -16,6 +16,7 @@ import { Container } from '@mui/material';
 import AppBarComponent from '../components/organisms/Appbar';
 import FSMs from 'apps/program/template/management/FSMs';
 import ManageMovieScreeningResponds from '../components/template/ManageMovieScreeningResponds';
+import FilmbaziLayout from '../components/molecules/Layout';
 
 const tabs: DashboardTabType[] = [
   {
@@ -61,8 +62,7 @@ type ProgramManagementPropsType = {}
 const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
 
   return (
-    <Fragment>
-      <AppBarComponent />
+    <FilmbaziLayout>
       <Container maxWidth='lg'
         sx={{
           display: 'flex',
@@ -74,7 +74,7 @@ const ProgramManagement: FC<ProgramManagementPropsType> = ({ }) => {
         }}>
         <Dashboard tabs={tabs} returnDirection={`/program/filmbazi/`} />
       </Container>
-    </Fragment>
+    </FilmbaziLayout>
   );
 };
 

@@ -5,6 +5,7 @@ import backgroundImg from "../assets/background.png";
 import { FILMBAZI_COIN } from '../constants/game';
 import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 import React from 'react';
+import FilmbaziLayout from '../components/molecules/Layout';
 
 const ScoreBoard: React.FC = () => {
 	const {
@@ -13,22 +14,11 @@ const ScoreBoard: React.FC = () => {
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(FILMBAZI_COIN);
+
 	return (
-		<Box
-			sx={{
-				backgroundImage: `url(${backgroundImg})`,
-				backgroundSize: "cover",
-				backgroundPosition: "center",
-				backgroundRepeat: "no-repeat",
-				backgroundAttachment: "fixed",
-				minHeight: '100vh',
-				minWidth: "100vw",
-				width: "100vw",
-			}}
-		>
-			<AppBarComponent />
+		<FilmbaziLayout backgroundImage={backgroundImg}>
 			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
-		</Box>
+		</FilmbaziLayout>
 	);
 };
 
