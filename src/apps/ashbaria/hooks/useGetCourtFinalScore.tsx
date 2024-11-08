@@ -6,7 +6,7 @@ const useGetCourtFinalScore = (fsmId: number) => {
   const { data: courts, isFetching } = useGetCourtsQuery();
   const court = courts?.find(court => court.corresponding_fsm === fsmId);
 
-  if (courtFinalSupportPercentage === null || isFetching) {
+  if (courtFinalSupportPercentage === undefined || isFetching) {
     return undefined;
   }
 
