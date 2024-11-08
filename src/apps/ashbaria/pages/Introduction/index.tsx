@@ -1,5 +1,5 @@
-import { Stack } from "@mui/material";
-import React, { FC } from "react";
+import { Container, Stack } from "@mui/material";
+import React, { FC, Fragment } from "react";
 import backgroundImg from "../../assets/profileBackground.svg";
 import { useSearchParams } from "react-router-dom";
 import IntroductionPage1 from "./IntroductionPage1";
@@ -20,13 +20,11 @@ const Introduction: FC<LoginPropsType> = () => {
   const currentPage = parseInt(searchParams.get('page')) || 1;
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg}>
-      <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
-        {currentPage === 1 && <IntroductionPage1 />}
-        {currentPage === 2 && <IntroductionPage2 />}
-        {currentPage === 3 && <IntroductionPage3 />}
-      </Stack>
-    </FullScreenBackgroundImage>
+    <Fragment>
+      {currentPage === 1 && <IntroductionPage1 />}
+      {currentPage === 2 && <IntroductionPage2 />}
+      {currentPage === 3 && <IntroductionPage3 />}
+    </Fragment>
   );
 };
 
