@@ -2,27 +2,14 @@ import React from 'react';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import useChangeState from './useChangeState';
 import { PlayerType } from 'commons/types/models';
-import dialogService from 'commons/components/organisms/PortalDialog';
 import ChangeStateContent from 'commons/components/molecules/ChangeStateContent';
 import { toast } from 'react-toastify';
 import { useFSMContext } from '../useFSMContext';
 
-// Define a type for the mutation result that matches RTK Query's pattern
-type MutationResult<T> = {
-  data?: T;
-  error?: unknown;
-  isLoading: boolean;
-  isSuccess: boolean;
-  isError: boolean;
-  isUninitialized: boolean;
-};
 
-const useTransitionForward = ({ player }: { player: PlayerType }): [
-  () => Promise<void>,
-  MutationResult<unknown>
-] => {
+const useTransitionForward = ({ player }: { player: PlayerType }) => {
   const { fsmId, openDialog, closeDialog } = useFSMContext();
-  const [changeState, setChangeState] = useChangeState();
+  const [changeState, changeStateResult] = useChangeState();
   const { data: outwardEdges } = useGetFSMStateOutwardEdgesQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
 
   const transitForward = async () => {
@@ -42,10 +29,11 @@ const useTransitionForward = ({ player }: { player: PlayerType }): [
     }
   };
 
-  return [
+  return {
     transitForward,
-    setChangeState,
-  ];
+    result: changeStateResult,
+    canTransitForward: Boolean(outwardEdges?.length !== 0),
+  };
 };
 
 export default useTransitionForward;

@@ -2,7 +2,7 @@ import { Button } from '@mui/material';
 import React, { FC } from 'react';
 import { useGetFSMStateInwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import useTransitionBack from 'commons/hooks/fsm/useTransitionBack';
+import useTransitionBackward from 'commons/hooks/fsm/useTransitionBackward';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMBackStateButtonPropsType = {}
@@ -11,7 +11,7 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({ }) => {
   const { player } = useFSMContext();
   const { fsmStateId, isMentor } = useFSMStateContext();
   const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })
-  const [transitBack, { isLoading }] = useTransitionBack({ player });
+  const { transitBackward, result: { isLoading } } = useTransitionBackward({ player });
   const edges = isMentor
     ? inwardEdges
     : inwardEdges.filter((edge) => edge.is_visible);
@@ -28,7 +28,8 @@ const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({ }) => {
       fullWidth
       variant="outlined"
       color="primary"
-      onClick={transitBack}>
+      onClick={transitBackward}
+    >
       {'گام قبل'}
     </Button>
   );
