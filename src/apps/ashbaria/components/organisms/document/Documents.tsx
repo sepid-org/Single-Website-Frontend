@@ -34,35 +34,39 @@ const Documents: FC<DocumentsPropsType> = ({
 					{'بایگانی اسناد'}
 				</Typography>
 			</Stack>
-			<Stack>
+			<Stack spacing={1}>
 				<Stack direction={'row'} alignItems={'center'}>
 					<DocumentIcon />
 					<Typography fontSize={16} fontWeight={700}>
 						{'اسناد پرونده چپق‌فروشان'}
 					</Typography>
 				</Stack>
-				<Grid container spacing={2}>
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
-						<Grid item xs={3} sm={2}>
-							<AccessibleDocument />
-						</Grid>
-					)}
-				</Grid>
+				<Stack>
+					<Grid container spacing={2}>
+						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
+							<Grid item xs={3} sm={2}>
+								<AccessibleDocument />
+							</Grid>
+						)}
+					</Grid>
+				</Stack>
 			</Stack>
-			<Stack>
+			<Stack spacing={1}>
 				<Stack direction={'row'} alignItems={'center'}>
 					<UnaccessibleDocumentIcon />
 					<Typography fontSize={16} fontWeight={700} color={"#A198BB"}>
 						{'اسناد پرونده‌ی چپق‌فروشان'}
 					</Typography>
 				</Stack>
-				<Grid container spacing={2}>
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
-						<Grid item xs={3} sm={2}>
-							<UnaccessibleDocument />
-						</Grid>
-					)}
-				</Grid>
+				<Stack>
+					<Grid container spacing={2}>
+						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
+							<Grid item xs={3} sm={2}>
+								<UnaccessibleDocument />
+							</Grid>
+						)}
+					</Grid>
+				</Stack>
 			</Stack>
 		</Stack>
 	);
