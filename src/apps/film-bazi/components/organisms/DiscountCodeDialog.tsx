@@ -10,11 +10,9 @@ import { FilmType } from 'apps/film-bazi/types';
 import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import { Link } from 'react-router-dom';
 import { IconButton, Stack } from '@mui/material';
-import { toast } from 'react-toastify';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { Golden } from 'apps/film-bazi/constants/colors';
+import copyToClipboard from 'commons/utils/CopyToClipboard';
 
 type DiscountDialogProps = {
   open: boolean;
@@ -35,9 +33,8 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
     }
   }, [open])
 
-  const copyToClipboard = () => {
-    toast.success('کد تخفیف با موفقیت کپی شد');
-    navigator.clipboard.writeText(discountCode?.code);
+  const copyToClipboardWrapper = () => {
+    copyToClipboard(discountCode?.code, 'کد تخفیف با موفقیت کپی شد');
   };
 
   let dialogContent =
@@ -55,7 +52,7 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
           <Typography variant="h3" textAlign={'center'} color={'#EC6823'}>
             {discountCode?.code}
           </Typography>
-          <IconButton onClick={copyToClipboard} color="inherit">
+          <IconButton onClick={copyToClipboardWrapper} color="inherit">
             <ContentCopyIcon />
           </IconButton>
         </Stack>

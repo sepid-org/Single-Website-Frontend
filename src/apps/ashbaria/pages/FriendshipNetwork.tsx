@@ -24,9 +24,9 @@ import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
 import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import { toast } from 'react-toastify';
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
+import copyToClipboard from 'commons/utils/CopyToClipboard';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -94,9 +94,8 @@ const FriendshipNetworkPage = () => {
     }
   }, [followResult])
 
-  const copyToClipboard = () => {
-    toast.success('کد دعوت با موفقیت کپی شد');
-    navigator.clipboard.writeText(myFriendshipNetwork.code.code);
+  const copyToClipboardWrapper = () => {
+    copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت با موفقیت کپی شد');
   };
 
   return (
@@ -189,7 +188,7 @@ const FriendshipNetworkPage = () => {
                   </Typography>
                   <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} padding={1} spacing={0.5}>
                     <Typography>{myFriendshipNetwork?.code?.code}</Typography>
-                    <IconButton sx={{ padding: 0 }} onClick={copyToClipboard} color="inherit">
+                    <IconButton sx={{ padding: 0 }} onClick={copyToClipboardWrapper} color="inherit">
                       <CopyIcon />
                     </IconButton>
                   </Stack>

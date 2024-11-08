@@ -3,7 +3,9 @@ import { useGetMyFriendshipNetworkQuery } from "apps/ashbaria/redux/slices/Frien
 import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import React from "react";
 import SMSIcon from "../../atoms/icons/SMS";
-import { toast } from "react-toastify";
+import copyToClipboard from "commons/utils/CopyToClipboard";
+import { toPersianNumber } from "commons/utils/translateNumber";
+import useUserProfile from "commons/hooks/useUserProfile";
 
 const getInvitationText = (myCode, myFullName) => {
   return (`
@@ -15,7 +17,9 @@ ashbaria.ir
 const SendInvitation = () => {
   const { data: profile } = useGetProfileQuery();
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
-  const myFullName = (profile?.first_name && profile?.last_name) && `${profile.first_name} ${profile.last_name}`;
+  const { data: userProfile } = useUserProfile();
+  const tempName = `دادبستان ${toPersianNumber(userProfile?.phone_number?.slice(-4))}`
+  const myFullName = (profile?.first_name && profile?.last_name) ? `${profile.first_name} ${profile.last_name}` : tempName;
   const myCode = myFriendshipNetwork?.code.code;
 
   const isMobileDevice = () => {
@@ -40,8 +44,7 @@ const SendInvitation = () => {
     if (isMobileDevice()) {
       shareOnMobile();
     } else {
-      toast.success('دعوت‌نامه با موفقیت کپی شد');
-      navigator.clipboard.writeText(getInvitationText(myCode, myFullName))
+      copyToClipboard(getInvitationText(myCode, myFullName), 'دعوت‌نامه با موفقیت کپی شد');
     }
   }
 
