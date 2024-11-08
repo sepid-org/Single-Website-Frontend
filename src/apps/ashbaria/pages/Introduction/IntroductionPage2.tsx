@@ -1,5 +1,5 @@
-import { Box, Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import React, { FC, Fragment } from "react";
+import { Grid, IconButton, Stack, Typography } from "@mui/material";
+import React, { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import bg from "../../assets/introductionPage2.svg";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
@@ -25,47 +25,38 @@ const IntroductionPage2: FC<IntroductionPage2PropsType> = ({ }) => {
       }}
     >
       <Grid
-        item
+        position={'relative'}
+        container item
         xs={7}
         sx={{
-          minHeight: "100%",
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)",
-          display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          flexDirection: "column",
+          justifyContent: "center",
           padding: 2
         }}
       >
-        <Stack>
-          <Typography fontSize={13}>
+        <Stack spacing={1}>
+          <Typography>
             {"اسم کامل کتابی که گفتم اینه:"}
           </Typography>
-          <Typography color={"#FE9C42"} fontSize={13}>
+          <Typography color={"#FE9C42"}>
             {"ده راز آشباریا؛"}
             <br />
             {'ده اصل طلایی که به من آموخت چگونه مخ مردم را بار فرغون کنم'}
           </Typography>
-          <Typography align='justify' fontSize={13}>
+          <Typography align='justify'>
             یه داستان بلند طنز که ماجرای سفر یه روزنامه‌نگار بخت برگشته رو به سرزمین ناشناختۀ آشباریا تعریف می‌کنه. جایی که آدما داخلش به جای روززنامه و تلویزیون و اینترنت و موبایل، با یه سری لوله اخبار و پیام‌ها رو رد و بدل می‌کنن و ظاهراً خوب هم میدونن چطوری به وسیلۀ اونا سر هم کلاه بذارن. شخصیت اصلی داستان توی این کتاب داره همین ها رو توضیح میده. روش‌هایی که توی آشباریا واسه شیره مالیدن سر مردم استفاده می‌شد. امیدوارم دونستن اونا به درد شما هم بخوره (البته در جهت مثبتش :)‌ )
           </Typography>
         </Stack>
-        <Stack
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
+
+        <Stack padding={2} width={'100%'} position={'absolute'} bottom={0} left={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             sx={{
               backgroundColor: "#00000066",
               border: "1px solid #FE9C42",
               color: "#FE9C42",
             }}
-            onClick={() => setSearchParams({page: "1"})}
+            onClick={() => setSearchParams({ page: "1" })}
           >
             <ArrowForwardIcon />
           </IconButton>

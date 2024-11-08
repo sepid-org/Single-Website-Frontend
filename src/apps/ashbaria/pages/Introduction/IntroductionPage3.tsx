@@ -1,4 +1,4 @@
-import { Button, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
@@ -28,41 +28,26 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
       }}
     >
       <Grid
-        item
+        position={'relative'}
+        container item
         xs={7}
         sx={{
           minHeight: "100%",
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)",
-          display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
-          flexDirection: "column",
+          justifyContent: "center",
           padding: 2
         }}
       >
-        <Stack
-          paddingY={{
-            xs: 1,
-            md: 10
-          }}
-          spacing={5}
-          alignItems={"center"}
-        >
+        <Stack spacing={{ xs: 1, sm: 2, md: 4 }} alignItems={"center"}>
           <Typography align='justify'>
             لازمه بگم که اگه کتاب رو هنوز نخوندید هم می‌تونید مسابقه رو شروع کنید، ولی اگه دوست دارین توی کورس رقابت باقی بمونین، لازمه قبل از بازی اون رو مطالعه کنید، چون که خیلی جاها به اطلاعاتی که داخل کتاب اومده نیاز پیدا می‌کنید.
             از این لینک می‌تونید کتاب رو تهیه کنید.
           </Typography>
           <BuyBookButton />
         </Stack>
-        <Stack
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
+
+        <Stack padding={2} width={'100%'} position={'absolute'} bottom={0} left={0} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
           <IconButton
             sx={{
               backgroundColor: "#00000066",

@@ -1,5 +1,5 @@
-import { Box, Button, Grid, IconButton, Stack, Typography } from "@mui/material";
-import React, { FC, Fragment } from "react";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import React, { FC } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import bg from "../../assets/introductionPage1.svg";
@@ -43,15 +43,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
         <Typography align='justify'>
           اگه الان توی این صفحه‌ای، یعنی احتمالاً برات سؤال شده که اینجا چه خبره و قضیۀ چیه. بخوام خلاصه برات بگم، پویش "راز آشباریا" یه مسابقۀ آنلاینه که جدا از هیجان رقابت با بقیه، جایزه‌هاش هم اونقدر جذاب هستن که ارزش دنبال کردن داشته باشه. همۀ ماجرا از کتاب ده راز آشباریا شروع میشه.در واقع این مسابقه یه اسپین‌آف از اون کتابه و شما قراره با بازیتون ادامۀ داستانش رو رقم بزنید...
         </Typography>
-        <Stack
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexDirection: "row",
-          }}
-        >
+        <Stack width={'100%'} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
           <Box
             width={40}
             height={40}
@@ -68,7 +60,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
             <ArrowForwardIcon />
           </Box>
           <CustomDocumentPagination numberOfPages={3} currentPage={1} setCurrentPage={setSearchParams} />
-          <NextIntroductionPageButton handleClick={() => {setSearchParams({page: "2"})}} />
+          <NextIntroductionPageButton handleClick={() => { setSearchParams({ page: "2" }) }} />
         </Stack>
       </Grid>
       <Grid

@@ -5,13 +5,14 @@ const BuyBookButton = () => {
 
   return (
     <Button
+      fullWidth
       variant="contained"
-      sx={{ width: 160 }}
       href="https://qandilsch.ir/product/10-raz-ashbaria/"
       target="_blank"
       rel="noopener noreferrer"
+      size='large'
     >
-      {'خرید کتاب'}
+      {'خرید کتاب ۱۰ راز آشباریا'}
     </Button>
   )
 }
