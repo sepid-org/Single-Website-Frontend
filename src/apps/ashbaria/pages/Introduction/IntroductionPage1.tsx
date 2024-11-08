@@ -6,7 +6,7 @@ import bg from "../../assets/introductionPage1.svg";
 import guyIcon from "../../assets/thegay copy 1.svg";
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import NextIntroductionPageButton from "apps/ashbaria/components/atoms/NextIntroductionPageButton";
 
 type IntroductionPage1PropsType = {}
 
@@ -68,16 +68,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
             <ArrowForwardIcon />
           </Box>
           <CustomDocumentPagination numberOfPages={3} currentPage={1} setCurrentPage={setSearchParams} />
-          <Button
-            variant="outlined"
-            sx={{
-              backgroundColor: "#130e15",
-            }}
-            onClick={() => setSearchParams({ page: "2" })}
-          >
-            {"بعدی"}
-            <ArrowBackIcon />
-          </Button>
+          <NextIntroductionPageButton handleClick={() => {setSearchParams({page: "2"})}} />
         </Stack>
       </Grid>
       <Grid

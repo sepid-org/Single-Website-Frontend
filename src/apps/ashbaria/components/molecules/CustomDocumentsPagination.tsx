@@ -7,7 +7,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 		<Box
 			sx={{
 				display: "flex",
-				flexDirection: "row",
+				flexDirection: "row-reverse",
 				gap: 1,
 			}}
 		>
