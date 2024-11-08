@@ -1,6 +1,6 @@
 import { Stack } from "@mui/material";
 import React, { FC } from "react";
-import backgroundImg from "../../assets/profileBackground.svg";
+import backgroundImg from "../../assets/examBG.svg";
 import FullScreenPaper from "commons/components/atoms/FullScreenPaper";
 import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";

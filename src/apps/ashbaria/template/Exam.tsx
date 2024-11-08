@@ -5,8 +5,8 @@ import useTransitionBackward from "commons/hooks/fsm/useTransitionBackward";
 import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import Paper from "commons/template/Paper";
 import useTransitionForward from "commons/hooks/fsm/useTransitionForward";
-import { useFSMStateContext } from "commons/hooks/useFSMStateContext";
 import { useFSMContext } from "commons/hooks/useFSMContext";
+import ExamTimer from "../components/molecules/ExamTimer";
 
 type PropsType = {};
 
@@ -21,6 +21,7 @@ const ExamTemplate: FC<PropsType> = () => {
 
   return (
     <Stack>
+      <ExamTimer />
       <Paper mode='general' paperId={paperId} />
       <Button onClick={() => transitBackward()}>
         {'back'}

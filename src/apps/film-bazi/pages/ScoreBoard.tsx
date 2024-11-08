@@ -1,11 +1,9 @@
-import AppBarComponent from '../components/organisms/Appbar';
 import CompetitionScores from '../components/organisms/CompetitionScores';
-import { Box } from '@mui/material';
 import backgroundImg from "../assets/background.png";
 import { FILMBAZI_COIN } from '../constants/game';
-import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 import React from 'react';
 import FilmbaziLayout from '../components/molecules/Layout';
+import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 
 const ScoreBoard: React.FC = () => {
 	const {

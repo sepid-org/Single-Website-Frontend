@@ -5,15 +5,16 @@ import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { Golden } from "apps/film-bazi/constants/colors";
+import useStartFSM from "commons/hooks/fsm/useStartFSM";
 
 type StartExamPagePropsType = {};
 
 const StartExamPage: FC<StartExamPagePropsType> = () => {
-  const fsmId = process.env.NODE_ENV === 'development' ? "7" : "213";
+  const fsmId = process.env.NODE_ENV === 'development' ? "213" : "213";
   const { programSlug } = useParams();
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const userExamStatus = userFSMsStatus.find(status => status.fsm_id.toString() === fsmId);
-
+  const userExamStatus = userFSMsStatus?.find(status => status.fsm_id.toString() === fsmId);
+  //const {startFSM} = useStartFSM();
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack width={300} component={Paper} padding={2} spacing={2}>
