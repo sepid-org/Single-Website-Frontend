@@ -14,6 +14,7 @@ import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organism
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
+import ExamTimer from "apps/ashbaria/components/molecules/ExamTimer";
 
 type ExamPagePropsType = {};
 
@@ -38,8 +39,10 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
+        <ExamTimer />
         <FSMProvider fsmId={fsmId}>
           <FSMStateProvider
+            playerId={player?.id}
             fsmStateId={player?.current_state}
             widgetRegistry={CUSTOM_WIDGET_REGISTRY}
           >

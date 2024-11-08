@@ -126,7 +126,6 @@ const useMultiChoiceQuestionProperties = ({
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
-
   return {
     selectedChoices,
     displayChoices,
