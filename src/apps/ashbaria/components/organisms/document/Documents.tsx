@@ -1,16 +1,13 @@
-import { Box, Button, Container, Dialog, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
-import React, { FC, Fragment, useState } from "react";
-import archive from "../../../assets/archive.svg";
-import closeButtonIcon from "../../../assets/close-circle.svg";
-import evidence from "../../../assets/evidence.svg";
-import unaccessibleEvidence from "../../../assets/unaccessibleEvidence.svg";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
+import React, { FC } from "react";
 import AccessibleDocument from "../../molecules/documents/AccessibleDocument";
 import UnaccessibleDocument from "../../molecules/documents/UnaccessibleDocument";
-import Back from "../../molecules/buttons/Back";
-import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { useParams } from "react-router-dom";
 import { DocumentType } from "apps/ashbaria/types";
-import CloseIcon from "../../atoms/icons/Close";
+import ArchiveIcon from "../../atoms/icons/Archive";
+import BackButton from "../../molecules/buttons/Back";
+import DocumentIcon from "../../atoms/icons/Document";
+import UnaccessibleDocumentIcon from "../../atoms/icons/UnaccessibleDocument";
 
 type DocumentsPropsType = {
 	documents: DocumentType[];
@@ -20,111 +17,54 @@ const Documents: FC<DocumentsPropsType> = ({
 	documents,
 }) => {
 	const fsmId = parseInt(useParams().fsmId);
-	const localNavigate = useLocalNavigate();
-
-	const backToCourt = () => {
-		localNavigate(`/court/${fsmId}/`);
-	}
 
 	return (
-		<Container component={Paper} maxWidth='lg'>
-			<Stack padding={2}>
-				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-					<Back />
-					<Stack direction={'row'} spacing={0.5}>
-						<Box
-							component="img"
-							src={archive}
-							width="28px"
-							height="28px"
-						/>
-						<Typography variant="h6">
-							{'بایگانی اسناد'}
-						</Typography>
-					</Stack>
-					<IconButton onClick={backToCourt}>
-						<CloseIcon />
-					</IconButton>
-				</Stack>
-				<Box
-					sx={{
-						minWidth: "100%",
-						height: "auto",
-						padding: "10px",
-						display: "flex",
-						flexDirection: "column",
-					}}
-				>
-					<Box sx={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-						<Box
-							component="img"
-							src={evidence}
-							width="28px"
-							height="28px"
-						/>
-						<Typography
-							sx={{
-								minWidth: "100%",
-								fontSize: "16px",
-								fontWeight: 700,
-								lineHeight: "25.59px",
-							}}
-							style={{
-								direction: "rtl",
-								textAlign: "right"
-							}}
-						>
-							اسناد پرونده‌ی چپق‌فروشان ۱
-						</Typography>
-					</Box>
-					<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
-						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-							return (<AccessibleDocument />)
-						})}
-					</Grid>
+		<Stack component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
+			<Stack
+				direction={'row'}
+				alignItems={'center'}
+				justifyContent={'center'}
+				spacing={0.5}
+			>
+				<Box position={'absolute'} top={4} left={8}>
+					<BackButton />
 				</Box>
-				<Box
-					sx={{
-						minWidth: "100%",
-						height: "auto",
-						padding: "10px",
-						display: "flex",
-						flexDirection: "column",
-					}}
-				>
-					<Box sx={{ display: "flex", flexDirection: "row", marginBottom: "10px" }}>
-						<Box
-							component="img"
-							src={unaccessibleEvidence}
-							width="28px"
-							height="28px"
-						/>
-						<Typography
-							sx={{
-								minWidth: "100%",
-								fontSize: "16px",
-								fontWeight: 700,
-								lineHeight: "25.59px",
-								color: "#A198BB",
-							}}
-							style={{
-								direction: "rtl",
-								textAlign: "right"
-							}}
-						>
-							اسناد پرونده‌ی چپق‌فروشان
-						</Typography>
-					</Box>
-					<Grid container sx={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "12px" }}>
-						{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => {
-							return (
-								<UnaccessibleDocument />
-							);
-						})}
-					</Grid>
-				</Box>
+				<ArchiveIcon />
+				<Typography variant="h5">
+					{'بایگانی اسناد'}
+				</Typography>
 			</Stack>
-		</Container>
+			<Stack>
+				<Stack direction={'row'} alignItems={'center'}>
+					<DocumentIcon />
+					<Typography fontSize={16} fontWeight={700}>
+						{'اسناد پرونده چپق‌فروشان'}
+					</Typography>
+				</Stack>
+				<Grid container spacing={2}>
+					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
+						<Grid item xs={3} sm={2}>
+							<AccessibleDocument />
+						</Grid>
+					)}
+				</Grid>
+			</Stack>
+			<Stack>
+				<Stack direction={'row'} alignItems={'center'}>
+					<UnaccessibleDocumentIcon />
+					<Typography fontSize={16} fontWeight={700} color={"#A198BB"}>
+						{'اسناد پرونده‌ی چپق‌فروشان'}
+					</Typography>
+				</Stack>
+				<Grid container spacing={2}>
+					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) =>
+						<Grid item xs={3} sm={2}>
+							<UnaccessibleDocument />
+						</Grid>
+					)}
+				</Grid>
+			</Stack>
+		</Stack>
 	);
 }
 

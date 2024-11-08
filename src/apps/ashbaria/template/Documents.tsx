@@ -4,7 +4,7 @@ import Documents from "../components/organisms/document/Documents";
 import useDocuments from "../hooks/useDocuments";
 
 const DocumentsTemplate = () => {
-  const { } = useDocuments();
+  const { documents } = useDocuments();
 
   return (
     <Documents documents={[]} />

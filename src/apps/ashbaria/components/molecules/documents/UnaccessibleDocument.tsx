@@ -1,57 +1,28 @@
-import React, { Fragment } from "react";
-import { Box, Grid, Typography } from "@mui/material";
-import lockIcon from "../../../assets/lock.svg";
+import React from "react";
+import { Stack, Typography } from "@mui/material";
+import LockIcon from "../../atoms/icons/Lock";
 
 
 const UnaccessibleDocument = () => {
 	return (
-		<Fragment>
-			<Grid
-				item
-				xs={2}
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					height: "148px",
-					minWidth: "80px",
-				}}
-			>
-				<Box
-					sx={{
-						width: "100%",
-						minHeight: "100%",
-						maxWidth: "124px",
-						padding: "12px 4px 12px 4px",
-						gap: "4px",
-						borderRadius: "12px",
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "center",
-						alignItems: "center",
-						boxShadow: "0px 2px 6px 0px #0000001A",
-						backgroundColor: "#00000066"
-					}}
-				>
-					<Box
-						component="img"
-						src={lockIcon}
-						width="69px"
-						height="69px"
-					/>
-					<Typography
-						sx={{
-							color: "#60557E",
-							fontSize: "16px",
-							fontWeight: 400,
-							lineHeight: "23.86px",
-							textAlign: "center",
-						}}
-					>
-						مکالمات چپق‌فروشان
-					</Typography>
-				</Box>
-			</Grid>
-		</Fragment>
+		<Stack
+			height={160}
+			alignItems={'center'}
+			justifyContent={'center'}
+			borderRadius={2}
+			paddingY={1.5}
+			paddingX={1}
+			spacing={1}
+			sx={{
+				boxShadow: "0px 2px 6px 0px #0000001A",
+				backgroundColor: "#00000066"
+			}}
+		>
+			<LockIcon size={68} />
+			<Typography color={'#60557E'} fontSize={16} fontWeight={400} textAlign={'center'}>
+				{'مکالمات چپق‌فروشان'}
+			</Typography>
+		</Stack>
 	)
 }
 
