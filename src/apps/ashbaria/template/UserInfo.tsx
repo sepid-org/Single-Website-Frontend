@@ -62,6 +62,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
       })
     } else if (updateProfileResult?.isSuccess) {
       toast.success('اطلاعات با موفقیت به‌روز شد');
+    } else if (updateProfileResult?.isError) {
+      toast.error('مشکلی در به‌روز‌رسانی نمایه وجود داشت');
     }
   }, [updateProfileResult.isSuccess]);
 
