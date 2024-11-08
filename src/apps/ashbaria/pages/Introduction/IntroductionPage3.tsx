@@ -1,7 +1,6 @@
 import { Button, Grid, IconButton, Paper, Stack, Typography } from "@mui/material";
-import React, { FC, Fragment } from "react";
+import React, { FC } from "react";
 import { useSearchParams } from "react-router-dom";
-import AshbariaPoster from "apps/ashbaria/components/atoms/icons/AshbariaPoster";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import BuyBookButton from "apps/ashbaria/components/molecules/buttons/BuyBook";
 import bg from "../../assets/introductionPage3.svg";
@@ -41,7 +40,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
           padding: 2
         }}
       >
-        <Stack 
+        <Stack
           paddingY={{
             xs: 1,
             md: 10
@@ -80,7 +79,10 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
             sx={{
               backgroundColor: "#130e15",
             }}
-            onClick={() => { }}
+            onClick={() => {
+              localNavigate('/what-happened/');
+              localStorage.setItem('hasSeenWhatHappenedPage', 'true');
+            }}
           >
             {"شروع بازی"}
             <ArrowBackIcon />
