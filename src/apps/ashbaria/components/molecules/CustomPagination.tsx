@@ -7,7 +7,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 		<Box
 			sx={{
 				display: "flex",
-				flexDirection: "row-reverse",
+				flexDirection: "row",
 				gap: 1,
 			}}
 		>
@@ -21,7 +21,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 							backgroundColor: "#FFFFFF33",
 						}}
 						onClick={() => {
-							setCurrentPage(currentPage - (currentPage - 1 - index));
+							setCurrentPage({page: (currentPage - (currentPage - 1 - index)).toString()});
 						}}
 					/>
 				))
@@ -44,7 +44,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 							backgroundColor: "#FFFFFF33",
 						}}
 						onClick={() => {
-							setCurrentPage(currentPage + index + 1);
+							setCurrentPage({page: (currentPage + index + 1).toString()});
 						}}
 					/>
 				))

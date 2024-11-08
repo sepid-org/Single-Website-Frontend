@@ -1,9 +1,12 @@
-import { Box, Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, IconButton, Stack, Typography } from "@mui/material";
 import React, { FC, Fragment } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
 import bg from "../../assets/introductionPage1.svg";
 import guyIcon from "../../assets/thegay copy 1.svg";
+import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 type IntroductionPage1PropsType = {}
 
@@ -11,11 +14,11 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <Grid 
-      container 
-      sx={{ 
-        width: "100vw", 
-        height: "100vh", 
+    <Grid
+      container
+      sx={{
+        width: "100vw",
+        height: "100vh",
         backgroundImage: `url(${bg})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
@@ -31,6 +34,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)",
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           flexDirection: "column",
           padding: 2
         }}
@@ -39,12 +43,40 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
         <Typography align='justify'>
           اگه الان توی این صفحه‌ای، یعنی احتمالاً برات سؤال شده که اینجا چه خبره و قضیۀ چیه. بخوام خلاصه برات بگم، پویش "راز آشباریا" یه مسابقۀ آنلاینه که جدا از هیجان رقابت با بقیه، جایزه‌هاش هم اونقدر جذاب هستن که ارزش دنبال کردن داشته باشه. همۀ ماجرا از کتاب ده راز آشباریا شروع میشه.در واقع این مسابقه یه اسپین‌آف از اون کتابه و شما قراره با بازیتون ادامۀ داستانش رو رقم بزنید...
         </Typography>
-        <Stack direction={'row'} justifyContent={'space-between'}>
-          <Button disabled  >
-            {'بازگشت'}
-          </Button>
-          <Button onClick={() => setSearchParams({ page: "2" })}>
-            {'بعدی'}
+        <Stack
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            flexDirection: "row",
+          }}
+        >
+          <Box
+            width={40}
+            height={40}
+            sx={{
+              backgroundColor: "#00000066",
+              border: "1px solid #60557E",
+              color: "#60557E",
+              borderRadius: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ArrowForwardIcon />
+          </Box>
+          <CustomDocumentPagination numberOfPages={3} currentPage={1} setCurrentPage={setSearchParams} />
+          <Button
+            variant="outlined"
+            sx={{
+              backgroundColor: "#130e15",
+            }}
+            onClick={() => setSearchParams({ page: "2" })}
+          >
+            {"بعدی"}
+            <ArrowBackIcon />
           </Button>
         </Stack>
       </Grid>
