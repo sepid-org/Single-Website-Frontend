@@ -27,7 +27,7 @@ const Documents: FC<DocumentsPropsType> = ({
 				spacing={0.5}
 			>
 				<Box position={'absolute'} top={4} left={8}>
-					<BackButton />
+					<BackButton destination={`/court/${fsmId}/`} />
 				</Box>
 				<ArchiveIcon />
 				<Typography variant="h5">
