@@ -34,8 +34,8 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
         sx={{
           minHeight: "100%",
           background: "linear-gradient(180deg, rgba(72, 67, 105, 0.9) 0%, rgba(9, 5, 23, 0.891) 100%)",
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: { xs: 'start', md: 'center' },
+          justifyContent: 'center',
           padding: 2
         }}
       >
