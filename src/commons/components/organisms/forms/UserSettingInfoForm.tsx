@@ -13,17 +13,13 @@ import {
   TextField,
 } from '@mui/material';
 import React, { FC, useState } from 'react';
-import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import moment from "moment";
 import Iran from 'commons/utils/iran';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
 import isNumber from 'commons/utils/validators/isNumber';
-import { toast } from 'react-toastify';
 import ChangePhoneNumberDialog from 'commons/components/organisms/dialogs/ChangePhoneNumberDialog';
 import UploadImage from 'commons/components/molecules/UploadImage';
 import { UserInfoType } from 'commons/types/profile';
+import DateInputField from 'commons/components/molecules/fields/Date';
 
 
 type UserSettingInfoFormPropsType = {
@@ -84,17 +80,10 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <FormControl required fullWidth>
-          <LocalizationProvider dateAdapter={AdapterDateFnsJalali}>
-            <DatePicker
-              label={'تاریخ تولد*'}
-              openTo='year'
-              views={['year', 'month', 'day']}
-              value={data.birth_date ? new Date(data.birth_date) : null}
-              onChange={(date) => setData({ ...data, birth_date: moment(date).format('YYYY-MM-DD') })}
-            />
-          </LocalizationProvider>
-        </FormControl>
+        <DateInputField
+          date={data.birth_date}
+          setDate={(birthDate) => setData({ ...data, birth_date: birthDate })}
+        />
       </Grid>
 
       <Grid item xs={12} sm={6}>

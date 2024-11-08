@@ -1,8 +1,6 @@
-import { FormControl, Grid, Typography } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { Typography } from "@mui/material";
 import React, { Fragment } from "react";
-import { AdapterDateFnsJalali } from "@mui/x-date-pickers/AdapterDateFnsJalali";
-import moment from "moment";
+import DateInputField from "commons/components/molecules/fields/Date";
 
 export default function BirthDateInput({ birthDate, setBirthDate }) {
   return (
@@ -16,20 +14,7 @@ export default function BirthDateInput({ birthDate, setBirthDate }) {
       >
         تاریخ تولد
       </Typography>
-      <FormControl
-        required
-        fullWidth
-      >
-        <LocalizationProvider dateAdapter={AdapterDateFnsJalali} dateFormats={{ monthShort: 'MMMM' }}>
-          <DatePicker
-            openTo='year'
-            views={['year', 'month', 'day']}
-            value={birthDate ? new Date(birthDate) : null}
-            onChange={(value) => setBirthDate(moment(value).format('YYYY-MM-DD'))}
-            sx={{ overflow: "visible" }}
-          />
-        </LocalizationProvider>
-      </FormControl>
+      <DateInputField date={birthDate} setDate={setBirthDate} />
     </Fragment>
   );
 }
