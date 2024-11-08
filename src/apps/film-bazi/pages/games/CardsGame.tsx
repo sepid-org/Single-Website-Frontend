@@ -3,7 +3,7 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import Deck from '../../components/molecules/Deck';
 import { useAttemptToAnswerMutation, useGetCardsQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
-import CustomDialogContent from '../../components/organisms/CustomDialogContent';
+import CustomDialogContent from '../../../../commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from '../../components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import MyScoresChip from '../../components/atoms/MyScoresChip';

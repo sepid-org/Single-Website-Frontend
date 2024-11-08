@@ -2,7 +2,7 @@ import React from "react";
 import { ComplementaryObjectType } from "commons/types/object/object";
 import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
-import CustomDialogContent from "../components/organisms/CustomDialogContent";
+import CustomDialogContent from "../../../commons/components/molecules/CustomDialogContent";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";

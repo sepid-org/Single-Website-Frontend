@@ -1,5 +1,5 @@
 import React, { FC, Fragment } from "react";
-import CustomDialogPaper from "../atoms/CustomDialogPaper";
+import CustomDialogPaper from "apps/film-bazi/components/atoms/CustomDialogPaper";
 import { Button, Stack, Typography } from "@mui/material";
 
 type CustomDialogContentPropsType = {

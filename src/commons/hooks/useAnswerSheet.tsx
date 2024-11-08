@@ -8,9 +8,9 @@ type PropsType = {
 const useAnswerSheet = ({
   answerSheetId,
 }: PropsType) => {
-  const { playerId } = useFSMStateContext();
-  const { data: answerSheetByAnswerSheetId } = useGetAnswerSheetQuery({ answerSheetId }, { skip: Boolean(playerId) || !Boolean(answerSheetId) });
-  const { data: answerSheetByPlayerId } = useGetAnswerSheetByPlayerIdQuery({ playerId }, { skip: !Boolean(playerId) });
+  const { player } = useFSMStateContext();
+  const { data: answerSheetByAnswerSheetId } = useGetAnswerSheetQuery({ answerSheetId }, { skip: Boolean(player) || !Boolean(answerSheetId) });
+  const { data: answerSheetByPlayerId } = useGetAnswerSheetByPlayerIdQuery({ playerId: player?.id }, { skip: !Boolean(player) });
   const answerSheet = answerSheetByAnswerSheetId || answerSheetByPlayerId;
 
   const getQuestionAnswers = (questionId: number) => {

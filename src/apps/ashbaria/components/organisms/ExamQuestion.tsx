@@ -73,7 +73,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           />
         )}
       </Stack>
-      {"dfvdcefrgv"}
       {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
         <Button
           sx={{ width: 80, alignSelf: 'end' }}

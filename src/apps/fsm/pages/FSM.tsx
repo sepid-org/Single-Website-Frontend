@@ -140,7 +140,7 @@ const FSM: FC<FSMPagePropsType> = ({
         fsmStateId={player?.current_state}
         isMentor={false}
         teamId={teamId}
-        playerId={player?.id}
+        player={player}
       >
         <FSMState fsmStateId={player?.current_state} />
         {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&

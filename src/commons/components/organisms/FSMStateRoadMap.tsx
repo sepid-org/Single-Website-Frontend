@@ -24,12 +24,12 @@ const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
   currentNodeName,
 }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
   const [openRoadMap, setOpenRoadMap] = useState(true);
   const [lastTransitedNode, setLastTransitedNode] = useState<string>(currentNodeName);
   const [playerTransitedPath, setPlayerTransitedPath] = useState<Link[]>([]);
   const { data: FSMRoadmap } = useGetFSMRoadmapActionQuery({ fsmId });
-  const { data: initialPlayerTransitedPath } = useGetPlayerTransitedPathQuery({ playerId });
+  const { data: initialPlayerTransitedPath } = useGetPlayerTransitedPathQuery({ playerId: player.id });
 
   useEffect(() => {
     if (initialPlayerTransitedPath) {

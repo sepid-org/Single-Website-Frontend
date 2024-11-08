@@ -44,7 +44,7 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
         <FSMStateProvider
           isMentor={currentUserFSMStatus?.is_user_mentor}
           fsmStateId={player?.current_state}
-          playerId={player?.id}
+          player={player}
           widgetRegistry={CUSTOM_WIDGET_REGISTRY}
           complementaryObjects={complementaryObjects}
         >

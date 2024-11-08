@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 const useFinishFSM = ({ fsmId, navigateAfter = true }) => {
   const navigate = useNavigate();
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
   const [finishFSM, finishFSMResult] = useFinishFSMMutation()
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const programSlug = fsm?.program_slug;
@@ -20,7 +20,7 @@ const useFinishFSM = ({ fsmId, navigateAfter = true }) => {
   }, [finishFSMResult, fsm?.program_slug])
 
   const handleFinishFSM = () => {
-    finishFSM({ playerId })
+    finishFSM({ playerId: player.id })
   };
 
   return [handleFinishFSM, result];

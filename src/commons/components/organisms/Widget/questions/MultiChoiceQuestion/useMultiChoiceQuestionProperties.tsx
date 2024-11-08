@@ -52,15 +52,15 @@ const useMultiChoiceQuestionProperties = ({
 }: PropsType) => {
   const [selectedChoices, setSelectedChoices] = useState<ChoiceType[]>([]);
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
   const { getQuestionAnswers } = useAnswerSheet({})
   const questionAnswers = getQuestionAnswers(questionId);
   const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);
 
   // Create deterministic random ordering based on playerId and questionId
   const randomizedChoices: ChoiceType[] = useMemo(() => {
-    if (randomizeChoices && mode === WidgetModes.View && playerId) {
-      const seed = `${playerId}-${questionId}`;
+    if (randomizeChoices && mode === WidgetModes.View && player?.id) {
+      const seed = `${player.id}-${questionId}`;
       const random = seededRandom(seed);
 
       return [...questionChoices]
@@ -69,7 +69,7 @@ const useMultiChoiceQuestionProperties = ({
         .map(({ choice }) => choice);
     }
     return questionChoices;
-  }, [questionChoices, randomizeChoices, mode, playerId, questionId]);
+  }, [questionChoices, randomizeChoices, mode, player, questionId]);
 
   const displayChoices = randomizedChoices?.map(choice => ({
     ...choice,
@@ -109,7 +109,7 @@ const useMultiChoiceQuestionProperties = ({
     if (mode === WidgetModes.View) {
       _submitAnswer({
         questionId,
-        playerId,
+        playerId: player.id,
         selectedChoices: selectedChoices.map(selectedChoice => selectedChoice.id),
       });
     }

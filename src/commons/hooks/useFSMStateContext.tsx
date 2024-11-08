@@ -1,4 +1,5 @@
 import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
+import { PlayerType } from 'commons/types/models';
 import { ComplementaryObjectType } from 'commons/types/object/object';
 import React, { createContext, FC, useContext, ReactNode } from 'react';
 
@@ -6,7 +7,7 @@ interface FSMStateContextType {
   fsmStateId: string;
   isMentor?: boolean;
   teamId?: string;
-  playerId?: string;
+  player?: PlayerType;
   widgetRegistry?: WidgetRegistryType;
   complementaryObjects?: ComplementaryObjectType[];
 }
@@ -41,7 +42,7 @@ export const useFSMStateContext = (): FSMStateContextType => {
       fsmStateId: '',
       isMentor: undefined,
       teamId: undefined,
-      playerId: undefined,
+      player: undefined,
       widgetRegistry: WIDGET_REGISTRY,
       complementaryObjects: [],
     };

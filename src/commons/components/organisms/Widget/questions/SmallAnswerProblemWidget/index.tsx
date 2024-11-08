@@ -35,7 +35,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
 
   const changeText = (e) => {
     if (mode === WidgetModes.InForm) {
@@ -50,7 +50,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
     }
     setIsSubmitting(true);
     submitAnswer({
-      playerId,
+      playerId: player.id,
       questionId,
       text: answer,
       onSuccess: () => {

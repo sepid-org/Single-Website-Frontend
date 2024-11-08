@@ -5,7 +5,7 @@ import {
   ListItemButton,
 } from '@mui/material';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import useChangeState from 'commons/hooks/useChangeState';
+import useChangeState from 'commons/hooks/fsm/useChangeState';
 import React, { FC, useEffect } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router-dom';
@@ -45,7 +45,7 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
           .sort((state1, state2) => state1.title < state2.title ? 1 : -1)
           .map(state => (
             <ListItemButton
-              onClick={() => changeState({ stateId: state.id, clickedButtonId: widgetId })}
+              onClick={() => changeState({ destinationStateId: state.id, clickedButtonId: widgetId })}
               key={state.id}
             >
               {state.title}

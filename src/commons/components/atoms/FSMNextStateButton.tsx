@@ -6,7 +6,7 @@ import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateD
 import StatePasswordDialog from 'commons/components/organisms/dialogs/StatePasswordDialog';
 import { useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import useChangeState from 'commons/hooks/useChangeState';
+import useChangeState from 'commons/hooks/fsm/useChangeState';
 
 type FSMNextStateButtonPropsType = {}
 
@@ -27,7 +27,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
       setSelectedEdge(edge);
     } else {
       changeState({
-        stateId: edge.head,
+        destinationStateId: edge.head,
       });
     }
   };
@@ -66,7 +66,7 @@ const FSMNextStateButton: FC<FSMNextStateButtonPropsType> = ({ }) => {
         handleClose={() => setSelectedEdge(null)}
         onSubmit={(password) =>
           changeState({
-            stateId: selectedEdge.head,
+            destinationStateId: selectedEdge.head,
             // todo: handle password:
             // password,
           })

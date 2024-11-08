@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 function MentorButton({ callMentor }) {
   const t = useTranslate();
   const fsmId = parseInt(useParams().fsmId);
-  const { playerId, teamId } = useFSMStateContext();
+  const { player, teamId } = useFSMStateContext();
   const [isEnable, setEnable] = useState(true);
   const width = useWidth();
 
@@ -24,7 +24,7 @@ function MentorButton({ callMentor }) {
       disabled={!isEnable}
       sx={{ fontSize: width == 'xs' ? 12 : 14 }}
       onClick={() => {
-        callMentor({ playerId, teamId, fsmId: +fsmId })
+        callMentor({ player: player.id, teamId, fsmId: +fsmId })
         toast.success('درخواست شما با موفقیت ثبت شد.')
         setEnable(false);
         setTimeout(() => {

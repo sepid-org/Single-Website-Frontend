@@ -27,7 +27,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
   const [questionWidgetFields, setQuestionWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...questionWidgetProps });
   const [isButtonDisabled, setButtonDisable] = useState(false);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
 
   const onChangeWrapper = (val: string) => {
     if (mode === WidgetModes.InForm) {
@@ -41,7 +41,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     setTimeout(() => {
       setButtonDisable(false);
     }, 20000)
-    submitAnswer({ questionId, text: answer, playerId })
+    submitAnswer({ questionId, text: answer, playerId: player.id })
   }
 
   return (

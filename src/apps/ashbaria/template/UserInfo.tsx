@@ -20,7 +20,7 @@ import ScoreChip from "../components/molecules/chips/Score";
 import useLocalNavigate from "../hooks/useLocalNavigate";
 import { AshbariaProfileType } from "../types";
 import dialogService from "commons/components/organisms/PortalDialog";
-import CustomDialogContent from "apps/film-bazi/components/organisms/CustomDialogContent";
+import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 

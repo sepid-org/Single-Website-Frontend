@@ -3,7 +3,7 @@ import { Button, Box } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
-import useChangeState from 'commons/hooks/useChangeState';
+import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 
 type ButtonWidgetPropsType = {
@@ -35,7 +35,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     }
     if (destination_states.length === 1) {
       changeState({
-        stateId: destination_states[0],
+        destinationStateId: destination_states[0],
         clickedButtonId: widgetId,
       })
       return;

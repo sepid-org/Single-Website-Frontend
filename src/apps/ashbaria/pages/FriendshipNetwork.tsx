@@ -14,7 +14,7 @@ import background from "../assets/friendsNetworkBg.svg";
 import BackButton from '../components/molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
-import CustomDialogContent from 'apps/film-bazi/components/organisms/CustomDialogContent';
+import CustomDialogContent from 'commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../components/atoms/icons/Heart';

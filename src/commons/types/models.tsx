@@ -274,9 +274,9 @@ export type PurchaseType = {
 }
 
 export type PlayerType = {
-  user?: string;
   id: string;
   current_state: string;
+  user?: string;
   last_visit?: string;
 }
 

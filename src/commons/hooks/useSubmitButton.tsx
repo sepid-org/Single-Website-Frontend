@@ -1,15 +1,9 @@
 import { useFSMStateContext } from './useFSMStateContext';
-import { useSubmitButtonMutation } from 'commons/redux/apis/cms/response/ButtonWidget';
+import { SubmitButtonApiInputType, useSubmitButtonMutation } from 'commons/redux/apis/cms/response/ButtonWidget';
 
 interface SubmitButtonParams {
-  stateId?: string | null;
+  destinationStateId?: string | null;
   clickedButtonId?: string | null;
-}
-
-interface SubmitButtonPayload {
-  stateId: string | null;
-  clickedButtonId: string | null;
-  playerId: string;
 }
 
 // Define a more specific error type
@@ -32,17 +26,20 @@ const useSubmitButton = (): [
   (params: SubmitButtonParams) => Promise<void>,
   MutationResult<unknown>
 ] => {
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
   const [_submitButton, submitButtonResult] = useSubmitButtonMutation();
 
-  const submitButton = async ({ stateId = null, clickedButtonId = null }: SubmitButtonParams) => {
-    try {
-      const payload: SubmitButtonPayload = {
-        stateId,
-        clickedButtonId,
-        playerId,
-      };
+  const submitButton = async ({ destinationStateId = null, clickedButtonId = null }: SubmitButtonParams) => {
+    if (!player) {
+      throw Error('player is necessary for submitting button')
+    }
 
+    try {
+      const payload: SubmitButtonApiInputType = {
+        destinationStateId,
+        clickedButtonId,
+        playerId: player.id,
+      };
       await _submitButton(payload).unwrap();
     } catch (error) {
 

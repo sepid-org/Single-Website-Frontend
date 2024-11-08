@@ -36,14 +36,14 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
   const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { playerId } = useFSMStateContext();
+  const { player } = useFSMStateContext();
 
   useEffect(() => {
     if (fileLink) {
       onAnswerChange({ answer_file: fileLink });
       if (mode === WidgetModes.View) {
         submitAnswer({
-          playerId,
+          playerId: player.id,
           questionId,
           answerFile: fileLink,
         })
