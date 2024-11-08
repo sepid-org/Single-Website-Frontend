@@ -135,12 +135,14 @@ const FSM: FC<FSMPagePropsType> = ({
   if (!player?.current_state || !fsm) return null;
 
   return (
-    <FSMProvider fsmId={fsmId}>
+    <FSMProvider
+      player={player}
+      fsmId={fsmId}
+    >
       <FSMStateProvider
         fsmStateId={player?.current_state}
         isMentor={false}
         teamId={teamId}
-        player={player}
       >
         <FSMState fsmStateId={player?.current_state} />
         {(fsm.fsm_p_type == 'Team' || fsm.fsm_learning_type == 'Supervised') &&

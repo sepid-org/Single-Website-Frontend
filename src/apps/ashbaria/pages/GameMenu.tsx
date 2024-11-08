@@ -36,7 +36,10 @@ const GameMenu: FC<GameMenuPropsType> = () => {
       <Helmet>
         <title>{'راز آشباریا'}</title>
       </Helmet>
-      <FSMProvider fsmId={fsmId}>
+      <FSMProvider
+        player={null}
+        fsmId={fsmId}
+      >
         <FSMStateProvider
           isMentor={false}
           complementaryObjects={complementaryObjects}

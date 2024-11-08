@@ -1,5 +1,5 @@
 import { useGetAnswerSheetByPlayerIdQuery, useGetAnswerSheetQuery } from 'apps/website-display/redux/features/responses/answers/AnswerSheetSlice';
-import { useFSMStateContext } from './useFSMStateContext';
+import { useFSMContext } from './useFSMContext';
 
 type PropsType = {
   answerSheetId?: string;
@@ -8,7 +8,7 @@ type PropsType = {
 const useAnswerSheet = ({
   answerSheetId,
 }: PropsType) => {
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
   const { data: answerSheetByAnswerSheetId } = useGetAnswerSheetQuery({ answerSheetId }, { skip: Boolean(player) || !Boolean(answerSheetId) });
   const { data: answerSheetByPlayerId } = useGetAnswerSheetByPlayerIdQuery({ playerId: player?.id }, { skip: !Boolean(player) });
   const answerSheet = answerSheetByAnswerSheetId || answerSheetByPlayerId;

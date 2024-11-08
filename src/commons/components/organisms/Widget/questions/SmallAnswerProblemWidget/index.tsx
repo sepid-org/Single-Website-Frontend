@@ -7,6 +7,7 @@ import SmallAnswerProblemEditWidget from './edit';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type SmallAnswerProblemWidgetPropsType = {
   useSubmitAnswerMutation: any;
@@ -35,7 +36,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   const [hasAnswered, setHasAnswered] = useState(false);
   const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
 
   const changeText = (e) => {
     if (mode === WidgetModes.InForm) {

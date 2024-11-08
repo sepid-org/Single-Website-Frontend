@@ -1,4 +1,4 @@
-import { useFSMStateContext } from './useFSMStateContext';
+import { useFSMContext } from './useFSMContext';
 import { SubmitButtonApiInputType, useSubmitButtonMutation } from 'commons/redux/apis/cms/response/ButtonWidget';
 
 interface SubmitButtonParams {
@@ -26,7 +26,7 @@ const useSubmitButton = (): [
   (params: SubmitButtonParams) => Promise<void>,
   MutationResult<unknown>
 ] => {
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
   const [_submitButton, submitButtonResult] = useSubmitButtonMutation();
 
   const submitButton = async ({ destinationStateId = null, clickedButtonId = null }: SubmitButtonParams) => {

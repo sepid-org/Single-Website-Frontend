@@ -40,11 +40,13 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
           <title>{fsm.name}</title>
         </Helmet>
       }
-      <FSMProvider fsmId={fsmId}>
+      <FSMProvider
+        fsmId={fsmId}
+        player={player}
+      >
         <FSMStateProvider
           isMentor={currentUserFSMStatus?.is_user_mentor}
           fsmStateId={player?.current_state}
-          player={player}
           widgetRegistry={CUSTOM_WIDGET_REGISTRY}
           complementaryObjects={complementaryObjects}
         >

@@ -6,6 +6,7 @@ import { ChoiceType } from 'commons/types/widgets';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import useAnswerSheet from 'commons/hooks/useAnswerSheet';
 import { toPersianNumber } from 'commons/utils/translateNumber';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 export { MultiChoiceQuestionEditWidget };
 
 // Add this utility function at the top of the file or in a separate utils file
@@ -52,7 +53,7 @@ const useMultiChoiceQuestionProperties = ({
 }: PropsType) => {
   const [selectedChoices, setSelectedChoices] = useState<ChoiceType[]>([]);
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet({})
   const questionAnswers = getQuestionAnswers(questionId);
   const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);

@@ -3,11 +3,13 @@ import React, { FC } from 'react';
 import { useGetFSMStateInwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import useTransitionBack from 'commons/hooks/fsm/useTransitionBack';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMBackStateButtonPropsType = {}
 
 const FSMBackStateButton: FC<FSMBackStateButtonPropsType> = ({ }) => {
-  const { fsmStateId, player, isMentor } = useFSMStateContext();
+  const { player } = useFSMContext();
+  const { fsmStateId, isMentor } = useFSMStateContext();
   const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })
   const [transitBack, { isLoading }] = useTransitionBack({ player });
   const edges = isMentor

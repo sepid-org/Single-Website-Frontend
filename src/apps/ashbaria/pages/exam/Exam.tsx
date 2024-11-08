@@ -27,11 +27,13 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
-        <FSMProvider fsmId={fsmId}>
+        <FSMProvider
+          fsmId={fsmId}
+          player={player}
+        >
           <FSMStateProvider
             fsmStateId={player?.current_state}
             widgetRegistry={CUSTOM_WIDGET_REGISTRY}
-            player={player}
           >
             <ExamTemplate />
           </FSMStateProvider>

@@ -21,7 +21,7 @@ const useTransitionForward = ({ player }: { player: PlayerType }): [
   () => Promise<void>,
   MutationResult<unknown>
 ] => {
-  const { fsmId } = useFSMContext();
+  const { fsmId, openDialog, closeDialog } = useFSMContext();
   const [changeState, setChangeState] = useChangeState();
   const { data: outwardEdges } = useGetFSMStateOutwardEdgesQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
 
@@ -32,13 +32,13 @@ const useTransitionForward = ({ player }: { player: PlayerType }): [
     } else if (outwardEdges.length === 1) {
       changeState({ destinationStateId: outwardEdges[0].head });
     } else {
-      dialogService.open({
-        component:
-          <ChangeStateContent
-            player={player}
-            fsmId={fsmId}
-          />
-      })
+      openDialog(
+        <ChangeStateContent
+          player={player}
+          fsmId={fsmId}
+          onSuccess={() => closeDialog()}
+        />
+      )
     }
   };
 

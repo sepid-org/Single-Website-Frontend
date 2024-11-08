@@ -12,7 +12,7 @@ type PropsType = {};
 
 const ExamTemplate: FC<PropsType> = () => {
   const { fsmId } = useFSMContext();
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
   const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
   const paperId = currentFSMState?.papers?.[0];
   const [transitForward, transitForwardResult] = useTransitionForward({ player })

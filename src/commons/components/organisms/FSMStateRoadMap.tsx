@@ -13,8 +13,7 @@ import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { Link } from 'commons/types/redux/Roadmap';
 import { useGetFSMRoadmapActionQuery, useGetPlayerTransitedPathQuery } from 'apps/website-display/redux/features/roadmap/RoadmapSlice';
 import { useParams } from 'react-router-dom';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import CourseMapViewMode from './Roadmap/CourseMapViewMode';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMStateRoadMapPropsType = {
   currentNodeName: string;
@@ -24,7 +23,7 @@ const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
   currentNodeName,
 }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { player } = useFSMStateContext();
+  const { player } = useFSMContext();
   const [openRoadMap, setOpenRoadMap] = useState(true);
   const [lastTransitedNode, setLastTransitedNode] = useState<string>(currentNodeName);
   const [playerTransitedPath, setPlayerTransitedPath] = useState<Link[]>([]);
