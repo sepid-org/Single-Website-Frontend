@@ -25,7 +25,7 @@ const AccountBadge = () => {
   };
 
   const handleProfileClick = () => {
-    localNavigate('/profile/?tab=user');
+    localNavigate('/profile/');
     handleMenuClose();
   };
 
