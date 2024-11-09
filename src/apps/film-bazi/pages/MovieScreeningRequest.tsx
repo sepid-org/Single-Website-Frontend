@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Box, Button, Container, Paper, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Paper, Skeleton, Stack, Typography } from '@mui/material';
 import FormPaper from 'commons/template/Paper/Form';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -48,17 +48,20 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
           }}>
           <Stack width={'100%'}>
             <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-              <Box
-                component="img"
-                src={program?.cover_page}
-                alt="program-cover-page"
-                width={200}
-                sx={{ borderRadius: 1, cursor: 'pointer' }}
-                onClick={() => window.open('http://filmbazi.ir/')}
-              />
+              {program?.cover_page ?
+                <Box
+                  component="img"
+                  src={program?.cover_page}
+                  alt="program-cover-page"
+                  width={200}
+                  sx={{ borderRadius: 1, cursor: 'pointer' }}
+                  onClick={() => window.open('http://filmbazi.ir/')}
+                /> :
+                <Skeleton variant='rounded' width={200} height={160} />
+              }
               <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
               <Typography paddingTop={1} textAlign={'center'}>
-                {'برای درخواست اکران فیلم در شهرهای بدون سینما، یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
+                {'برای درخواست اکران فیلم در شهرهای بدون سینما یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
               </Typography>
             </Stack>
 
