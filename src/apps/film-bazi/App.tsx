@@ -17,6 +17,7 @@ import MovieScreeningRequest from './pages/MovieScreeningRequest';
 import CssBaseline from '@mui/material/CssBaseline';
 import CardsGame from './pages/games/CardsGame';
 import CapitalPage from './pages/Capital';
+import ShadLogin from './pages/authentication/ShadLogin';
 
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <CssBaseline />
         <Routes>
           <Route path="/movie-screening-request/" element={<MovieScreeningRequest />} />
+          <Route path="/shad-login/" element={<ShadLogin />} />
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
             <Route path="/capital/" element={<CapitalPage />} />
