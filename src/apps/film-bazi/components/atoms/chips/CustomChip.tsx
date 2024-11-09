@@ -10,7 +10,7 @@ const CustomChip = ({ children }) => {
       alignItems={'center'}
       justifyContent={'space-between'}
       sx={{
-        background: '#00000033',
+        background: '#09081299',
         paddingX: 2,
         paddingY: 1,
         borderRadius: 2,

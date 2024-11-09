@@ -16,6 +16,7 @@ import { customTheme } from './styles/Theme';
 import MovieScreeningRequest from './pages/MovieScreeningRequest';
 import CssBaseline from '@mui/material/CssBaseline';
 import CardsGame from './pages/games/CardsGame';
+import CapitalPage from './pages/Capital';
 
 
 const App = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/movie-screening-request/" element={<MovieScreeningRequest />} />
 
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
+            <Route path="/capital/" element={<CapitalPage />} />
             <Route path="/profile/" element={<Profile />} />
             <Route path="/cinema-game/" element={<CinemaGame />} />
             <Route path="/cards-game/" element={<CardsGame />} />

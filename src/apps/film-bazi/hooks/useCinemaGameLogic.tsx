@@ -8,9 +8,9 @@ import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 import { Button } from "@mui/material";
-import MyScoresChip from "../components/atoms/MyScoresChip";
+import MyScoresChip from "../components/atoms/chips/MyScoresChip";
 import useLocalNavigate from "./useLocalNavigate";
-import MyChancesChip from "../components/atoms/MyChancesChip";
+import MyChancesChip from "../components/atoms/chips/MyChances";
 import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
 

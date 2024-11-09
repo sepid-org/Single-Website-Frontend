@@ -5,25 +5,25 @@ import { Golden } from "apps/film-bazi/constants/colors"
 import CustomChip from "./CustomChip"
 import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
 import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo"
-import StarIcon from "./icons/StarIcon"
+import MoneyIcon from "../icons/MoneyIcon"
 
-const MyScoresChip = ({ }) => {
+const MyCapitalChip = ({ }) => {
   const { data: balances } = useGetMyBalancesQuery();
   const score = balances?.[FILMBAZI_COIN] || 0;
 
   return (
     <CustomChip>
       <Typography fontWeight={700} fontSize={18}>
-        {'امتیاز من'}
+        {'سرمایه من'}
       </Typography>
       <Stack direction={'row'} spacing={0.5}>
         <Typography fontWeight={600} fontSize={16} color={Golden}>
-          {toPersianNumber(score)}
+          {toPersianNumber(1 * 20000)}
         </Typography>
-        <StarIcon />
+        <MoneyIcon />
       </Stack>
     </CustomChip >
   )
 }
 
-export default MyScoresChip;
+export default MyCapitalChip;

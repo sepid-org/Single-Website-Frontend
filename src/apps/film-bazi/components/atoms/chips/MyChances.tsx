@@ -5,7 +5,7 @@ import { Golden } from "apps/film-bazi/constants/colors"
 import { FILMBAZI_EXTRA_CHANCE } from "apps/film-bazi/constants/game"
 import CustomChip from "./CustomChip"
 import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo"
-import BananaIcon from "./icons/BananaIcon"
+import BananaIcon from "../icons/BananaIcon"
 import { useGetMyDiscountCodesQuery } from "apps/film-bazi/redux/slices/DiscountCode"
 import { useGetSeatSelectionsQuery } from "apps/film-bazi/redux/slices/CinemaGame"
 

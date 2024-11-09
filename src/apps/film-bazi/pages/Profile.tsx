@@ -1,28 +1,7 @@
-import React, { FC, Fragment } from 'react';
-import { DashboardTabType } from 'commons/types/global';
+import React, { FC } from 'react';
 import UserSetting from 'commons/template/Setting/UserSetting';
-import Dashboard from 'commons/components/organisms/Dashboard';
-import { Box, Container, Paper } from '@mui/material';
-import AppBarComponent from '../components/organisms/Appbar';
-import MyAssets from '../components/template/MyAssets';
-import backgroundImg from "../assets/dashboardBackground.svg";
-import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
+import { Container } from '@mui/material';
 import FilmbaziLayout from '../components/molecules/Layout';
-
-let tabs: DashboardTabType[] = [
-  {
-    slug: 'assets',
-    label: 'دارایی‌ها',
-    component: <MyAssets />,
-    disabled: false,
-  },
-  {
-    slug: 'user',
-    label: 'اطلاعات فردی',
-    component: <UserSetting />,
-    disabled: false,
-  },
-];
 
 type ProfilePropsType = {}
 
@@ -39,7 +18,7 @@ const Profile: FC<ProfilePropsType> = ({ }) => {
           marginRight: 'auto !important',
           marginLeft: 'auto !important',
         }}>
-        <Dashboard tabs={tabs} returnDirection={`/program/filmbazi/`} />
+        <UserSetting />
       </Container>
     </FilmbaziLayout>
   );
