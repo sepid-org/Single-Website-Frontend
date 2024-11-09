@@ -10,7 +10,7 @@ import FilmbaziLayout from '../components/molecules/Layout';
 import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/DiscountCode';
 import MyScoresChip from '../components/atoms/chips/MyScoresChip';
 import MyCapitalChip from '../components/atoms/chips/MyCapital';
-import DiscountCodeInfo from '../components/organisms/DiscountCodeInfoCard';
+import DiscountCode from '../components/organisms/cards/DiscountCode';
 
 type PropsType = {}
 
@@ -51,7 +51,7 @@ const CapitalPage: FC<PropsType> = ({ }) => {
           <Grid container item xs={12} spacing={2}>
             {discountCodes.map(discountCode =>
               <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
-                <DiscountCodeInfo discountCode={discountCode} />
+                <DiscountCode discountCode={discountCode} />
               </Grid>
             )}
           </Grid>

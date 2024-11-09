@@ -1,17 +1,19 @@
 import React, { FC } from 'react';
-import { Card, CardContent, Typography } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { DiscountCodeType } from 'apps/film-bazi/types';
 import moment from 'moment-jalaali';
 import { Link } from 'react-router-dom';
+import ShareDiscountCodeButton from '../../molecules/buttons/ShareDiscountCode';
+import CopyDiscountCodeButton from '../../molecules/buttons/CopyDiscountCode';
 
 moment.loadPersian({ usePersianDigits: true });
 
-type DiscountCodeInfoPropsType = {
+type PropsType = {
   discountCode: DiscountCodeType;
 }
 
-const DiscountCodeInfo: FC<DiscountCodeInfoPropsType> = ({ discountCode }) => {
+const DiscountCode: FC<PropsType> = ({ discountCode }) => {
   const {
     code,
     percentage,
@@ -23,10 +25,14 @@ const DiscountCodeInfo: FC<DiscountCodeInfoPropsType> = ({ discountCode }) => {
   } = discountCode;
 
   return (
-    <Card sx={{ width: '100%', boxShadow: 3 }}>
+    <Card sx={{ width: '100%', boxShadow: 3, position: 'relative' }}>
+      <Box position={'absolute'} top={6} right={8}>
+        <CopyDiscountCodeButton discountCode={discountCode} />
+        <ShareDiscountCodeButton discountCode={discountCode} />
+      </Box>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          کد تخفیف: {code}
+        <Typography gutterBottom variant="h4" component="div">
+          {code}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           درصد تخفیف: {toPersianNumber(percentage)}%
@@ -58,4 +64,4 @@ const DiscountCodeInfo: FC<DiscountCodeInfoPropsType> = ({ discountCode }) => {
   );
 };
 
-export default DiscountCodeInfo;
+export default DiscountCode;
