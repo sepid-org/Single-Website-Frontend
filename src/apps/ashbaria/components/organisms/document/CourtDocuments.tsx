@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Typography, Paper, IconButton, useTheme } from "@mui/material";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import WidgetsPaper from "commons/template/Paper";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -70,13 +70,105 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 		return;
 	}
 
+	let body = null;
 	if (currentPage === -1) {
-		return (
-			<Stack alignItems="center" justifyContent="center">
+		body =
+			<Stack height={'100%'} alignItems="center" justifyContent="center">
 				<UnaccessibleDocumentIcon size={70} />
 				<Typography>{'سند و مدرکی برای این پرونده وجود ندارد'}</Typography>
 			</Stack>
-		);
+	} else {
+		body =
+			<Fragment>
+				<Stack
+					spacing={2}
+					height={'100%'}
+					paddingX={1}
+					sx={{
+						overflowY: 'auto',
+						overflowX: 'hidden',
+						'::-webkit-scrollbar': {
+							height: '8px',
+						},
+						'::-webkit-scrollbar-thumb': {
+							backgroundColor: '#b0bec5',
+							borderRadius: '4px',
+						},
+						'::-webkit-scrollbar-thumb:hover': {
+							backgroundColor: '#90a4ae',
+						},
+					}}>
+					<WidgetsPaper mode="general" paperId={currentDocument.paper?.toString()} />
+				</Stack>
+
+				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							height: 42,
+							width: 42,
+							borderRadius: "100%",
+							backgroundClip: "padding-box",
+							position: "relative",
+							overflow: "hidden",
+							background: "linear-gradient(to right, #FE9C42, #E25100)",
+							visibility: (currentPage > 0 ? "visible" : "hidden"),
+						}}
+					>
+						<IconButton
+							sx={{
+								height: 40,
+								width: 40,
+								borderRadius: "100%",
+								backgroundColor: "#130e15",
+								backgroundClip: "padding-box",
+								color: "#FE9C42",
+							}}
+							onClick={goToPreviousDocument}
+						>
+							<ArrowForwardIcon />
+						</IconButton>
+					</Box>
+
+					<CustomDocumentPagination
+						numberOfPages={documents.length}
+						currentPage={currentPage}
+						setCurrentPage={setCurrentPage}
+					/>
+
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "center",
+							alignItems: "center",
+							height: 42,
+							width: 42,
+							borderRadius: "100%",
+							backgroundClip: "padding-box",
+							position: "relative",
+							overflow: "hidden",
+							background: "linear-gradient(to right, #FE9C42, #E25100)",
+							visibility: (currentPage < documents.length - 1 ? "visible" : "hidden"),
+						}}
+					>
+						<IconButton
+							sx={{
+								height: 40,
+								width: 40,
+								borderRadius: "100%",
+								backgroundColor: "#130e15",
+								backgroundClip: "padding-box",
+								color: "#FE9C42",
+							}}
+							onClick={goToNextDocument}
+						>
+							<ArrowBackIcon />
+						</IconButton>
+					</Box>
+				</Stack>
+			</Fragment>
 	}
 
 	return (
@@ -89,7 +181,7 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
 					<ArchiveIcon />
 					<Typography variant="h5">
-						{currentDocument.title}
+						{currentDocument?.title || 'سند و مدرک‌ها'}
 					</Typography>
 				</Stack>
 
@@ -105,94 +197,8 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 				</Box>
 			</Stack>
 
-			<Stack
-				spacing={2}
-				height={'100%'}
-				paddingX={1}
-				sx={{
-					overflowY: 'auto',
-					overflowX: 'hidden',
-					'::-webkit-scrollbar': {
-						height: '8px',
-					},
-					'::-webkit-scrollbar-thumb': {
-						backgroundColor: '#b0bec5',
-						borderRadius: '4px',
-					},
-					'::-webkit-scrollbar-thumb:hover': {
-						backgroundColor: '#90a4ae',
-					},
-				}}>
-				<WidgetsPaper mode="general" paperId={currentDocument.paper?.toString()} />
-			</Stack>
+			{body}
 
-			<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-				<Box
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						height: 42,
-						width: 42,
-						borderRadius: "100%",
-						backgroundClip: "padding-box",
-						position: "relative",
-						overflow: "hidden",
-						background: "linear-gradient(to right, #FE9C42, #E25100)",
-						visibility: (currentPage > 0 ? "visible" : "hidden"),
-					}}
-				>
-					<IconButton
-						sx={{
-							height: 40,
-							width: 40,
-							borderRadius: "100%",
-							backgroundColor: "#130e15",
-							backgroundClip: "padding-box",
-							color: "#FE9C42",
-						}}
-						onClick={goToPreviousDocument}
-					>
-						<ArrowForwardIcon />
-					</IconButton>
-				</Box>
-
-				<CustomDocumentPagination
-					numberOfPages={documents.length}
-					currentPage={currentPage}
-					setCurrentPage={setCurrentPage}
-				/>
-
-				<Box
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center",
-						height: 42,
-						width: 42,
-						borderRadius: "100%",
-						backgroundClip: "padding-box",
-						position: "relative",
-						overflow: "hidden",
-						background: "linear-gradient(to right, #FE9C42, #E25100)",
-						visibility: (currentPage < documents.length - 1 ? "visible" : "hidden"),
-					}}
-				>
-					<IconButton
-						sx={{
-							height: 40,
-							width: 40,
-							borderRadius: "100%",
-							backgroundColor: "#130e15",
-							backgroundClip: "padding-box",
-							color: "#FE9C42",
-						}}
-						onClick={goToNextDocument}
-					>
-						<ArrowBackIcon />
-					</IconButton>
-				</Box>
-			</Stack>
 		</Stack>
 	);
 }
