@@ -14,7 +14,7 @@ import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import React, { useState, Fragment, FC, useEffect } from 'react';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
-import { FSMType, UserFSMStatus } from 'commons/types/models';
+import { FSMType, UserFSMStatusType } from 'commons/types/models';
 import useLocalNavigate from 'apps/ashbaria/hooks/useLocalNavigate';
 import { Link } from 'react-router-dom';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
@@ -22,7 +22,7 @@ import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
   isLoading?: boolean;
-  userFSMStatus?: UserFSMStatus;
+  userFSMStatus?: UserFSMStatusType;
 }
 
 export const FSMCard: FC<FSMCardPropsType> = ({

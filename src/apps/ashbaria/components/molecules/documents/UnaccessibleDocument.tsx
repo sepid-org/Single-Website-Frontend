@@ -1,9 +1,14 @@
-import React from "react";
+import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import LockIcon from "../../atoms/icons/Lock";
+import { DocumentType } from "apps/ashbaria/types";
 
+type PropsType = {
+	document: DocumentType;
+}
 
-const UnaccessibleDocument = () => {
+const UnaccessibleDocument: FC<PropsType> = ({ document }) => {
+
 	return (
 		<Stack
 			height={160}
@@ -20,7 +25,7 @@ const UnaccessibleDocument = () => {
 		>
 			<LockIcon size={68} />
 			<Typography color={'#60557E'} fontSize={16} fontWeight={400} textAlign={'center'}>
-				{'مکالمات چپق‌فروشان'}
+				{document.title}
 			</Typography>
 		</Stack>
 	)

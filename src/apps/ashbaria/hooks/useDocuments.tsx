@@ -1,27 +1,34 @@
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import { useParams } from "react-router-dom";
-import { useGetDocumentsQuery } from "../redux/slices/GameLogics";
-import { DocumentType } from "../types";
+import { useGetCourtsQuery, useGetDocumentsQuery } from "../redux/slices/GameLogics";
+import { ClassifiedDocumentsType } from "../types";
+import { UserFSMStatusType } from "commons/types/models";
 
-type useDocumentOutputType = {
-  documents: (DocumentType & { is_active: boolean })[]
-}
-
-const useDocuments = (): useDocumentOutputType => {
-  const { programSlug, fsmId } = useParams();
+const useDocuments = (): ClassifiedDocumentsType => {
+  const { programSlug } = useParams();
   const { data: programUserFSMsStatus = [] } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { data: documents = [] } = useGetDocumentsQuery()
+  const { data: documents = [] } = useGetDocumentsQuery();
+  const { data: courts = [] } = useGetCourtsQuery();
 
-  return ({
-    documents: documents.map(document => ({
-      ...document,
-      is_active:
-        document.fsm == fsmId ||
-        Boolean(programUserFSMsStatus.find(
-          status => status.finished_players_count > 0 && document.fsm === status.fsm_id.toString(),
-        )),
-    }))
-  })
+  const getCourtDocuments = (fsmId: number) => {
+    return documents.filter(document => document.fsm === fsmId);
+  };
+
+  const isCourtEnabled = (userFSMStatus: UserFSMStatusType) => {
+    return userFSMStatus?.is_enabled_for_user || userFSMStatus?.finished_players_count > 0;
+  };
+
+  const classifiedDocuments: ClassifiedDocumentsType = courts.reduce((acc, court) => {
+    const userFSMStatus = programUserFSMsStatus.find(status => court.corresponding_fsm === status.fsm_id);
+    acc[court.corresponding_fsm] = {
+      courtName: court.title,
+      enabled: isCourtEnabled(userFSMStatus),
+      documents: getCourtDocuments(userFSMStatus?.fsm_id)
+    };
+    return acc;
+  }, {} as ClassifiedDocumentsType);
+
+  return classifiedDocuments;
 };
 
 export default useDocuments;

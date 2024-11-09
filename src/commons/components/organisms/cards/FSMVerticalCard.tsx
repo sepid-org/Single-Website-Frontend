@@ -15,13 +15,13 @@ import React, { useState, Fragment, FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
-import { FSMType, UserFSMStatus } from 'commons/types/models';
+import { FSMType, UserFSMStatusType } from 'commons/types/models';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
 type VerticalFSMCardPropsType = {
   fsm: Partial<FSMType>;
   isLoading?: boolean;
-  userStatus?: UserFSMStatus;
+  userStatus?: UserFSMStatusType;
 }
 
 export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({

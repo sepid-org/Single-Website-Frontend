@@ -40,11 +40,11 @@ export type UpdateProfileInput = Partial<Omit<AshbariaProfileType,
 
 
 export type DocumentType = {
-  id: string;
+  id: number;
   title: string;
-  court: string;
-  fsm: string;
-  papers: string[];
+  court: number;
+  fsm: number;
+  paper: number;
 }
 
 export type FriendshipNetworkType = {
@@ -82,3 +82,10 @@ export type CompletedMissionType = {
   completed_at: string;
 };
 
+export type ClassifiedDocumentsType = {
+  [fsmId: string]: {
+    courtName: string;
+    enabled: boolean;
+    documents: DocumentType[];
+  };
+};

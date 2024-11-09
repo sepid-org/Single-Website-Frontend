@@ -300,7 +300,7 @@ export type ProgramUserPermissions = {
   is_manager: boolean;
 }
 
-export type UserFSMStatus = {
+export type UserFSMStatusType = {
   fsm_id: number;
   is_user_mentor: boolean;
   finished_players_count: number;

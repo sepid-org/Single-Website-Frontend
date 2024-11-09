@@ -10,7 +10,7 @@ const DocumentsButton = ({ }) => {
 
   return (
     <Fragment>
-      <IconButton disableRipple onClick={() => localNavigate(`/court/${fsmId}/plate/?dialog=documents`)}>
+      <IconButton disableRipple onClick={() => localNavigate(`/court/${fsmId}/info/?dialog=court-documents`)}>
         <DocumentIcon />
       </IconButton>
     </Fragment>

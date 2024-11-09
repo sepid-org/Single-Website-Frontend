@@ -1,5 +1,5 @@
 import { Box, Button, Stack, Typography, Paper, IconButton, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import WidgetsPaper from "commons/template/Paper";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -8,20 +8,76 @@ import OutlinedArchiveIcon from "../../atoms/icons/OutlinedArchive";
 import ArchiveIcon from "../../atoms/icons/Archive";
 import { useParams, useSearchParams } from "react-router-dom";
 import BackButton from "../../molecules/buttons/Back";
+import { DocumentType } from "apps/ashbaria/types";
+import UnaccessibleDocumentIcon from "../../atoms/icons/UnaccessibleDocument";
 
-const Document = ({ pageIDs = [1, 2, 3] }) => {
+type PropsType = {
+	documents: DocumentType[];
+}
+
+const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 	const fsmId = parseInt(useParams().fsmId);
 	const theme = useTheme();
+	const [currentPage, setCurrentPage] = useState(null);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const documentId = searchParams.get('document');
+	const documentId = parseInt(searchParams.get('document'));
+	const currentDocument = documents.find(document => document.id === documentId);
 
-	const goToDocuments = () => {
+	useEffect(() => {
+		if (documents) {
+			setCurrentPage(documents.findIndex(document => document.id === documentId));
+		}
+	}, [documentId, documents])
+
+	useEffect(() => {
+		if (!documentId && documents.length > 0) {
+			setSearchParams({
+				dialog: 'court-documents',
+				document: documents[0].id.toString(),
+			})
+		}
+	}, [documents])
+
+	const goToDocumentsArchive = () => {
 		setSearchParams({
-			dialog: 'documents',
+			dialog: 'documents-archive',
 		})
 	}
 
-	const [currentPage, setCurrentPage] = useState(1);
+	const goToPreviousDocument = () => {
+		if (currentPage > 0) {
+			const prevDocument = documents[currentPage - 1];
+			setSearchParams({
+				dialog: 'court-documents',
+				document: prevDocument.id.toString(),
+			});
+			setCurrentPage(currentPage - 1);
+		}
+	};
+
+	const goToNextDocument = () => {
+		if (currentPage < documents.length - 1) {
+			const nextDocument = documents[currentPage + 1];
+			setSearchParams({
+				dialog: 'court-documents',
+				document: nextDocument.id.toString(),
+			});
+			setCurrentPage(currentPage + 1);
+		}
+	};
+
+	if (currentPage === null) {
+		return;
+	}
+
+	if (currentPage === -1) {
+		return (
+			<Stack alignItems="center" justifyContent="center">
+				<UnaccessibleDocumentIcon size={70} />
+				<Typography>{'سند و مدرکی برای این پرونده وجود ندارد'}</Typography>
+			</Stack>
+		);
+	}
 
 	return (
 		<Stack width={'100%'} height={`calc(100vh - ${theme.spacing(8)})`} component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
@@ -33,12 +89,12 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
 					<ArchiveIcon />
 					<Typography variant="h5">
-						{'نام سند'}
+						{currentDocument.title}
 					</Typography>
 				</Stack>
 
 				<Box position={'absolute'} top={4} right={4} padding={1}>
-					<Button startIcon={<OutlinedArchiveIcon />} onClick={goToDocuments}>
+					<Button startIcon={<OutlinedArchiveIcon />} onClick={goToDocumentsArchive}>
 						<Typography
 							variant="h6"
 							sx={{ fontSize: "18px", fontWeight: 800, color: "white" }}
@@ -67,7 +123,7 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 						backgroundColor: '#90a4ae',
 					},
 				}}>
-				<WidgetsPaper mode="general" paperId="27" />
+				<WidgetsPaper mode="general" paperId={currentDocument.paper?.toString()} />
 			</Stack>
 
 			<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
@@ -83,7 +139,7 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 						position: "relative",
 						overflow: "hidden",
 						background: "linear-gradient(to right, #FE9C42, #E25100)",
-						visibility: (currentPage > 1 ? "visible" : "hidden"),
+						visibility: (currentPage > 0 ? "visible" : "hidden"),
 					}}
 				>
 					<IconButton
@@ -95,13 +151,17 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 							backgroundClip: "padding-box",
 							color: "#FE9C42",
 						}}
-						onClick={() => setCurrentPage(currentPage - 1)}
+						onClick={goToPreviousDocument}
 					>
 						<ArrowForwardIcon />
 					</IconButton>
 				</Box>
 
-				<CustomDocumentPagination numberOfPages={3} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+				<CustomDocumentPagination
+					numberOfPages={documents.length}
+					currentPage={currentPage}
+					setCurrentPage={setCurrentPage}
+				/>
 
 				<Box
 					sx={{
@@ -115,7 +175,7 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 						position: "relative",
 						overflow: "hidden",
 						background: "linear-gradient(to right, #FE9C42, #E25100)",
-						visibility: (currentPage < pageIDs.length ? "visible" : "hidden"),
+						visibility: (currentPage < documents.length - 1 ? "visible" : "hidden"),
 					}}
 				>
 					<IconButton
@@ -127,7 +187,7 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 							backgroundClip: "padding-box",
 							color: "#FE9C42",
 						}}
-						onClick={() => setCurrentPage(currentPage + 1)}
+						onClick={goToNextDocument}
 					>
 						<ArrowBackIcon />
 					</IconButton>
@@ -137,4 +197,4 @@ const Document = ({ pageIDs = [1, 2, 3] }) => {
 	);
 }
 
-export default Document;
+export default CourtDocuments;

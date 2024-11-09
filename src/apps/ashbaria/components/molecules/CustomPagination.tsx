@@ -14,6 +14,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 			{
 				[...Array(currentPage - 1)].map((_, index) => (
 					<Box
+						key={index}
 						sx={{
 							width: 10,
 							height: 10,
@@ -21,7 +22,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 							backgroundColor: "#FFFFFF33",
 						}}
 						onClick={() => {
-							setCurrentPage({page: (currentPage - (currentPage - 1 - index)).toString()});
+							setCurrentPage({ page: (currentPage - (currentPage - 1 - index)).toString() });
 						}}
 					/>
 				))
@@ -37,6 +38,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 			{
 				[...Array(numberOfPages - currentPage)].map((_, index) => (
 					<Box
+						key={index}
 						sx={{
 							width: 10,
 							height: 10,
@@ -44,7 +46,7 @@ const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }
 							backgroundColor: "#FFFFFF33",
 						}}
 						onClick={() => {
-							setCurrentPage({page: (currentPage + index + 1).toString()});
+							setCurrentPage({ page: (currentPage + index + 1).toString() });
 						}}
 					/>
 				))

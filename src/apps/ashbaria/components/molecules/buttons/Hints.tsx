@@ -10,7 +10,7 @@ const HintsButton = () => {
 
   return (
     <Fragment>
-      <IconButton disableRipple onClick={() => localNavigate(`/court/${fsmId}/plate/?dialog=hints`)}>
+      <IconButton disableRipple onClick={() => localNavigate(`/court/${fsmId}/info/?dialog=hints`)}>
         <HintsIcon />
       </IconButton>
     </Fragment>

@@ -1,4 +1,4 @@
-import { UserFSMStatus, ProgramType, ProgramUserPermissions } from 'commons/types/models';
+import { UserFSMStatusType, ProgramType, ProgramUserPermissions } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -27,7 +27,7 @@ type GetProgramUserFSMsStatusInputType = {
   programSlug: string;
 }
 
-type GetProgramUserFSMsStatusOutputType = UserFSMStatus[];
+type GetProgramUserFSMsStatusOutputType = UserFSMStatusType[];
 
 type UpdateProgramInputType = {
   programSlug: string;

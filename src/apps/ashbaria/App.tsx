@@ -41,7 +41,7 @@ const App = () => {
               <Route path='/what-happened/' element={<WhatHappenedPage />} />
               <Route path='/menu/' element={<GameMenu />} />
               <Route path='/mentors/' element={<OldGameMenu />} />
-              <Route path='/court/:fsmId/plate/' element={<CourtInfo />} />
+              <Route path='/court/:fsmId/info/' element={<CourtInfo />} />
               <Route path="/court/:fsmId/" element={<CourtPage />} />
               <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
               <Route path="/manage/" element={<ProgramManagement />} />
