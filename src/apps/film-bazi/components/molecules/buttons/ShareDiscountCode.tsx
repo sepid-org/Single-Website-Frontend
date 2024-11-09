@@ -11,8 +11,7 @@ type PropsType = {
 
 const getShareText = (discountCode: DiscountCodeType) => {
   return (`
-سلام!
-تو رو دعوت می‌کنم تا با این کد تخفیف ${toPersianNumber(discountCode.percentage)} درصدی، به دیدن فیلم ${discountCode.film.name} بری و از تماشای اون لذت ببری.
+با این کد تخفیف، می‌تونی بلیت فیلم سینمایی ${discountCode.film.name} رو با ${toPersianNumber(discountCode.percentage)} درصد تخفیف تهیه کنی و یه تجربه‌ی جذاب رو رقم بزنی😍
 
 کد تخفیف: ${discountCode.code}
 
