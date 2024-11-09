@@ -98,7 +98,7 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 							backgroundColor: '#90a4ae',
 						},
 					}}>
-					<WidgetsPaper mode="general" paperId={currentDocument.paper?.toString()} />
+					<WidgetsPaper mode="general" paperId={currentDocument?.paper?.toString()} />
 				</Stack>
 
 				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
