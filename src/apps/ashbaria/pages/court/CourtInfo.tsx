@@ -5,6 +5,8 @@ import backgroundImg from "../../assets/profileBackground.svg"
 import DocumentsTemplate from "../../template/Documents";
 import HintsTemplate from "../../template/Hints";
 import useLocalNavigate from "../../hooks/useLocalNavigate";
+import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import Document from "apps/ashbaria/components/organisms/document/Document";
 
 
 const CourtInfo = () => {
@@ -18,28 +20,17 @@ const CourtInfo = () => {
   }
 
   return (
-    <Box
-      sx={{
-        padding: 2,
-        display: "flex",
-        minHeight: "100vh",
-        minWidth: "100vw",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundImage: `url(${backgroundImg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-      }}
-    >
+    <FullScreenBackgroundImage image={backgroundImg}>
       {
         dialogSlug === 'hints' && <HintsTemplate onClose={backToCourt} />
       }
       {
         dialogSlug === 'documents' && <DocumentsTemplate />
       }
-    </Box>
+      {
+        dialogSlug === 'document' && <Document />
+      }
+    </FullScreenBackgroundImage>
   )
 }
 

@@ -19,7 +19,7 @@ const Documents: FC<DocumentsPropsType> = ({
 	const fsmId = parseInt(useParams().fsmId);
 
 	return (
-		<Stack component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
+		<Stack width={'100%'} component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
 			<Stack
 				direction={'row'}
 				alignItems={'center'}
