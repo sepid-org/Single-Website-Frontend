@@ -8,6 +8,7 @@ import MyLastScoreInCourt from "../components/molecules/chips/MyLastScoreInCourt
 import MyLastSupportPercentageChangeInCourt from "../components/molecules/chips/MyLastSupportPercentageChangeInCourt";
 import MyFullName from "../components/molecules/chips/MyFullName";
 import JudgeVerdict from "../components/organisms/game-elements/JudgeVerdict";
+import CheloButton from "../components/molecules/buttons/Chelo";
 
 const useGetCourtComplementaryWidgets = () => {
 
@@ -27,6 +28,10 @@ const useGetCourtComplementaryWidgets = () => {
     {
       name: 'ashbaria-hints-button',
       substituteComponent: <HintsButton />
+    },
+    {
+      name: 'ashbaria-chelo-button',
+      substituteComponent: <CheloButton />
     },
     {
       name: 'ashbaria-last-support-percentage-change-in-fsm',
