@@ -15,9 +15,7 @@ type PropsType = {}
 const CourtDocuments: FC<PropsType> = ({ }) => {
 	const theme = useTheme();
 	const [searchParams, setSearchParams] = useSearchParams();
-	const fsmId1 = parseInt(searchParams.get('fsmId'));
-	const fsmId2 = parseInt(useParams().fsmId);
-	const fsmId = fsmId1 || fsmId2;
+	const fsmId = parseInt(searchParams.get('fsmId'));
 	const { data: allDocuments } = useGetDocumentsQuery();
 	const documents = allDocuments?.filter(document => document.fsm === fsmId) || [];
 
