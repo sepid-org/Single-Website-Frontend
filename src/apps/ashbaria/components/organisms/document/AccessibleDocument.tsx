@@ -17,6 +17,16 @@ const AccessibleDocument: FC<PropsType> = ({ document }) => {
 		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&fsmId=${document.fsm}&documentId=${document.id}`)
 	}
 
+	function truncateText(text, maxLength) {
+		if (text.length <= maxLength) return text;
+		const truncated = text.slice(0, maxLength);
+		const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+		return lastSpaceIndex !== -1 ? truncated.slice(0, lastSpaceIndex) + '...' : truncated + '...';
+	}
+
+	const truncatedTitle = truncateText(document.title, 20);
+
 	return (
 		<Stack
 			height={160}
@@ -38,7 +48,7 @@ const AccessibleDocument: FC<PropsType> = ({ document }) => {
 		>
 			<DocumentIcon size={72} />
 			<Typography fontSize={16} fontWeight={400} color={'#FFA800'} textAlign={'center'}>
-				{document.title}
+				{truncatedTitle}
 			</Typography>
 		</Stack>
 	)

@@ -9,6 +9,16 @@ type PropsType = {
 
 const UnaccessibleDocument: FC<PropsType> = ({ document }) => {
 
+	function truncateText(text, maxLength) {
+		if (text.length <= maxLength) return text;
+		const truncated = text.slice(0, maxLength);
+		const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+		return lastSpaceIndex !== -1 ? truncated.slice(0, lastSpaceIndex) + '...' : truncated + '...';
+	}
+
+	const truncatedTitle = truncateText(document.title, 20);
+
 	return (
 		<Stack
 			height={160}
@@ -25,7 +35,7 @@ const UnaccessibleDocument: FC<PropsType> = ({ document }) => {
 		>
 			<LockIcon size={68} />
 			<Typography color={'#60557E'} fontSize={16} fontWeight={400} textAlign={'center'}>
-				{document.title}
+				{truncatedTitle}
 			</Typography>
 		</Stack>
 	)
