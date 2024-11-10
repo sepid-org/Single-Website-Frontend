@@ -75,7 +75,7 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 		body =
 			<Stack height={'100%'} alignItems="center" justifyContent="center">
 				<UnaccessibleDocumentIcon size={70} />
-				<Typography>{'سند و مدرکی برای این پرونده وجود ندارد'}</Typography>
+				<Typography>{'سند خالی است'}</Typography>
 			</Stack>
 	} else {
 		body =
