@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import LockIcon from "../../atoms/icons/Lock";
-import { DocumentType } from "apps/ashbaria/types";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
-	document: DocumentType;
+	document: AshbariaDocumentType;
 }
 
 const UnaccessibleDocument: FC<PropsType> = ({ document }) => {

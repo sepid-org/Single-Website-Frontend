@@ -4,6 +4,8 @@ import { ResourceType, PublicResourceType } from 'commons/types/models';
 
 type PublicResourceListResponse = PublicResourceType[];
 
+type ResourceListResponse = ResourceType[];
+
 interface CreateResourceRequest {
   target_object: number;
   type: string;
@@ -13,6 +15,11 @@ interface CreateResourceRequest {
 interface GetResourcesByObjectIdRequest {
   objectId: number;
   type?: string;
+}
+
+interface GetResourcesByTypeRequest {
+  objectId?: number;
+  type: string;
 }
 
 export const ResourceApiSlice = ContentManagementServiceApi.injectEndpoints({
@@ -45,7 +52,26 @@ export const ResourceApiSlice = ContentManagementServiceApi.injectEndpoints({
         { type: 'Resource', id: 'LIST' },
         { type: 'Treasury', id: 'MY' },
       ],
-      query: ({ objectId, type }) => `/fsm/resources/by-object/?object_id=${objectId}&type=${type}`,
+      query: ({ objectId, type }) => ({
+        url: `/fsm/resources/by-object/`,
+        params: {
+          object_id: objectId,
+          type,
+        },
+      }),
+    }),
+
+    getResourcesByType: builder.query<ResourceListResponse, GetResourcesByTypeRequest>({
+      providesTags: (result, error, { type }) => [
+        { type: 'Resource', id: type },
+      ],
+      query: ({ objectId, type }) => ({
+        url: `/fsm/resources/by-type/`,
+        params: {
+          object_id: objectId,
+          type,
+        },
+      }),
     }),
   }),
 });
@@ -55,4 +81,5 @@ export const {
   useCreateResourceMutation,
   useDeleteResourceMutation,
   useGetResourcesByObjectIdQuery,
+  useGetResourcesByTypeQuery,
 } = ResourceApiSlice;

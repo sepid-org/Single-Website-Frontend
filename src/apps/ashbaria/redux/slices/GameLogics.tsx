@@ -1,4 +1,4 @@
-import { CourtType, DocumentType } from 'apps/ashbaria/types';
+import { CourtType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
@@ -18,14 +18,6 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
       providesTags: ['Court'],
       query: () => ({
         url: '/game-logic/courts/',
-        method: 'GET',
-      }),
-    }),
-
-    getDocuments: builder.query<DocumentType[], void>({
-      providesTags: ['Document'],
-      query: () => ({
-        url: '/game-logic/documents/',
         method: 'GET',
       }),
     }),
@@ -78,7 +70,6 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
 export const {
   useGetCourtsQuery,
-  useGetDocumentsQuery,
   useFinishCourtMutation,
   useGetUserLastScoreInCourtQuery,
   useGetUserLastSupportPercentageInCourtQuery,

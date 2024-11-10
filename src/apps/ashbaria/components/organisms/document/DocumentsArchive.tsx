@@ -3,7 +3,6 @@ import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-import { DocumentType } from 'apps/ashbaria/types';
 import ArchiveIcon from '../../atoms/icons/Archive';
 import BackButton from '../../molecules/buttons/Back';
 import DocumentIcon from '../../atoms/icons/Document';
@@ -11,11 +10,13 @@ import UnaccessibleDocumentIcon from '../../atoms/icons/UnaccessibleDocument';
 import AccessibleDocument from './AccessibleDocument';
 import UnaccessibleDocument from './UnaccessibleDocument';
 import useDocuments from 'apps/ashbaria/hooks/useDocuments';
+import { ResourceType } from 'commons/types/models';
+import { AshbariaDocumentType } from 'apps/ashbaria/types';
 
 // Types
 type DocumentSectionProps = {
 	courtName: string;
-	documents: DocumentType[];
+	documents: AshbariaDocumentType[];
 	enabled: boolean;
 };
 
@@ -49,7 +50,7 @@ const Header: React.FC<HeaderProps> = ({ fsmId }) => {
 
 
 // Document Grid Component
-const DocumentGrid: React.FC<{ documents: DocumentType[]; enabled: boolean }> = ({
+const DocumentGrid: React.FC<{ documents: AshbariaDocumentType[]; enabled: boolean }> = ({
 	documents,
 	enabled
 }) => (

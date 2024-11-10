@@ -306,5 +306,6 @@ export type PublicResourceType = ObjectType & {
 
 export type ResourceType = ObjectType & {
   id: number;
+  type: string;
   content: JSON;
 }

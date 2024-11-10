@@ -2,10 +2,10 @@ import { Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import WidgetsPaper from "commons/template/Paper";
 import UnaccessibleDocumentIcon from "../../atoms/icons/UnaccessibleDocument";
-import { DocumentType } from "apps/ashbaria/types";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
-	document: DocumentType;
+	document: AshbariaDocumentType;
 }
 
 const Document: FC<PropsType> = ({ document }) => {
@@ -37,7 +37,7 @@ const Document: FC<PropsType> = ({ document }) => {
 						backgroundColor: '#90a4ae',
 					},
 				}}>
-				<WidgetsPaper mode="general" paperId={document.paper.toString()} />
+				<WidgetsPaper mode="general" paperId={document.content.paper_id.toString()} />
 			</Stack>
 		)
 	}

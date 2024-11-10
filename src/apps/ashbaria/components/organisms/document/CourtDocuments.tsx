@@ -7,8 +7,10 @@ import OutlinedArchiveIcon from "../../atoms/icons/OutlinedArchive";
 import ArchiveIcon from "../../atoms/icons/Archive";
 import { useParams, useSearchParams } from "react-router-dom";
 import BackButton from "../../molecules/buttons/Back";
-import { useGetDocumentsQuery } from "apps/ashbaria/redux/slices/GameLogics";
 import Document from "./Document";
+import { useGetResourcesByTypeQuery } from "commons/redux/apis/cms/resource/Resource";
+import { ASHBARIA_DOCUMENT_TYPE } from "apps/ashbaria/constants/game-info";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {}
 
@@ -17,8 +19,9 @@ const CourtDocuments: FC<PropsType> = ({ }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const baseFSMId = parseInt(useParams().fsmId);
 	const fsmId = parseInt(searchParams.get('fsmId'));
-	const { data: allDocuments } = useGetDocumentsQuery();
-	const documents = allDocuments?.filter(document => document.fsm === fsmId) || [];
+	const { data: allDocuments } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_DOCUMENT_TYPE })
+	const documents = allDocuments?.filter(document => document.content.fsm_id === fsmId) || [];
+
 
 	const documentId = parseInt(searchParams.get('documentId'));
 	const currentDocument = documents.find(document => document.id === documentId);

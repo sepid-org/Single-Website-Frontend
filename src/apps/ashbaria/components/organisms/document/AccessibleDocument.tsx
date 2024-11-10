@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import DocumentIcon from "../../atoms/icons/Document";
-import { DocumentType } from "apps/ashbaria/types";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { useParams } from "react-router-dom";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
-	document: DocumentType;
+	document: AshbariaDocumentType;
 }
 
 const AccessibleDocument: FC<PropsType> = ({ document }) => {
@@ -14,7 +14,7 @@ const AccessibleDocument: FC<PropsType> = ({ document }) => {
 	const localNavigate = useLocalNavigate();
 
 	const onClick = () => {
-		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&fsmId=${document.fsm}&documentId=${document.id}`)
+		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&fsmId=${document.content.fsm_id}&documentId=${document.id}`)
 	}
 
 	function truncateText(text, maxLength) {
