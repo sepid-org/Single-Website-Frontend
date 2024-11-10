@@ -5,7 +5,7 @@ import Hint from "../components/organisms/hint/Hint";
 import NoHintFound from "../components/organisms/hint/NoHintFound";
 import Hints from "../components/organisms/hint/Hints";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import { useGetHintsByObjectIdQuery } from "commons/redux/apis/cms/hint/GeneralHint";
+import { useGetResourcesByObjectIdQuery } from "commons/redux/apis/cms/resource/Resource";
 import useLocalNavigate from "../hooks/useLocalNavigate";
 
 type HintsTemplatePropsType = {}
@@ -14,7 +14,7 @@ const HintsTemplate: FC<HintsTemplatePropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
-  const { data: hints } = useGetHintsByObjectIdQuery(fsm?.object_id, { skip: !Boolean(fsm?.object_id) })
+  const { data: hints } = useGetResourcesByObjectIdQuery({ objectId: fsm?.object_id, type: 'hint' }, { skip: !Boolean(fsm?.object_id) })
 
   const onClose = () => {
     localNavigate(`/court/${fsmId}/`);

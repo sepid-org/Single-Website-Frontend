@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import ViewHint from "./ViewHint";
 import BuyHint from "./BuyHint";
-import { PublicGeneralHint } from "commons/types/models";
+import { PublicResourceType } from "commons/types/models";
 import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
 
 type HintPropsType = {
-  hint: PublicGeneralHint;
+  hint: PublicResourceType;
   onClose: any;
 }
 

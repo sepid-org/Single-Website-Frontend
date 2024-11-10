@@ -298,12 +298,13 @@ export type UserFSMStatusType = {
   is_enabled_for_user: boolean;
 }
 
-export type PublicGeneralHint = ObjectType & {
+export type PublicResourceType = ObjectType & {
   id: number;
+  type: string;
   has_spent_on_object: boolean;
 }
 
-export type DetailedGeneralHint = ObjectType & {
+export type ResourceType = ObjectType & {
   id: number;
-  hint_content: string;
+  content: JSON;
 }

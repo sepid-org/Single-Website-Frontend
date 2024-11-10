@@ -9,7 +9,7 @@ export const tagTypes = [
   'Program',
   'FSM',
   'Treasury',
-  'GeneralHint',
+  'Resource',
   'program-admins',
   'fsm-states',
   'fsm-state',

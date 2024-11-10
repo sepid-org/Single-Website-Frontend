@@ -1,14 +1,15 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button, Grid } from "@mui/material";
 import Hint from "./Hint";
-import { useGetHintsByObjectIdQuery } from "commons/redux/apis/cms/hint/GeneralHint";
+import { useGetResourcesByObjectIdQuery } from "commons/redux/apis/cms/resource/Resource";
 
 type HintsPropsType = {
   targetObjectId: number;
 }
 
 const Hints: FC<HintsPropsType> = ({ targetObjectId }) => {
-  const { data: hints } = useGetHintsByObjectIdQuery(targetObjectId, { skip: !Boolean(targetObjectId) })
+  console.log(targetObjectId)
+  const { data: hints } = useGetResourcesByObjectIdQuery({ objectId: targetObjectId, type: 'hint' }, { skip: !Boolean(targetObjectId) })
   const [selectedHintId, setSelectedHintId] = useState<number>(null);
 
   useEffect(() => {

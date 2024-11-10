@@ -3,13 +3,13 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
 import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/treasury/Spend";
-import { PublicGeneralHint } from "commons/types/models";
+import { PublicResourceType } from "commons/types/models";
 import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import dialogService from "commons/components/organisms/PortalDialog";
 
 type BuyHintDialogPropsType = {
-  hint: PublicGeneralHint;
+  hint: PublicResourceType;
   onClose: any;
 }
 
