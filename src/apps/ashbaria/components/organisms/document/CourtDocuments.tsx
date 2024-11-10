@@ -1,6 +1,5 @@
 import { Box, Button, Stack, Typography, Paper, IconButton, useTheme } from "@mui/material";
-import React, { FC, Fragment, useEffect, useState } from "react";
-import WidgetsPaper from "commons/template/Paper";
+import React, { FC, useEffect } from "react";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CustomDocumentPagination from "../../molecules/CustomDocumentsPagination";
@@ -8,32 +7,30 @@ import OutlinedArchiveIcon from "../../atoms/icons/OutlinedArchive";
 import ArchiveIcon from "../../atoms/icons/Archive";
 import { useParams, useSearchParams } from "react-router-dom";
 import BackButton from "../../molecules/buttons/Back";
-import { DocumentType } from "apps/ashbaria/types";
-import UnaccessibleDocumentIcon from "../../atoms/icons/UnaccessibleDocument";
+import { useGetDocumentsQuery } from "apps/ashbaria/redux/slices/GameLogics";
+import Document from "./Document";
 
-type PropsType = {
-	documents: DocumentType[];
-}
+type PropsType = {}
 
-const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
-	const fsmId = parseInt(useParams().fsmId);
+const CourtDocuments: FC<PropsType> = ({ }) => {
 	const theme = useTheme();
-	const [currentPage, setCurrentPage] = useState(null);
 	const [searchParams, setSearchParams] = useSearchParams();
-	const documentId = parseInt(searchParams.get('document'));
-	const currentDocument = documents.find(document => document.id === documentId);
+	const fsmId1 = parseInt(searchParams.get('fsmId'));
+	const fsmId2 = parseInt(useParams().fsmId);
+	const fsmId = fsmId1 || fsmId2;
+	const { data: allDocuments } = useGetDocumentsQuery();
+	const documents = allDocuments?.filter(document => document.fsm === fsmId) || [];
 
-	useEffect(() => {
-		if (documents) {
-			setCurrentPage(documents.findIndex(document => document.id === documentId));
-		}
-	}, [documentId, documents])
+	const documentId = parseInt(searchParams.get('documentId'));
+	const currentDocument = documents.find(document => document.id === documentId);
+	const currentPage = documents.findIndex(document => document.id === documentId);
 
 	useEffect(() => {
 		if (!documentId && documents.length > 0) {
 			setSearchParams({
 				dialog: 'court-documents',
-				document: documents[0].id.toString(),
+				fsmId: fsmId.toString(),
+				documentId: documents?.[0].id.toString(),
 			})
 		}
 	}, [documents])
@@ -49,9 +46,9 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 			const prevDocument = documents[currentPage - 1];
 			setSearchParams({
 				dialog: 'court-documents',
-				document: prevDocument.id.toString(),
+				fsmId: fsmId.toString(),
+				documentId: prevDocument.id.toString(),
 			});
-			setCurrentPage(currentPage - 1);
 		}
 	};
 
@@ -60,47 +57,41 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 			const nextDocument = documents[currentPage + 1];
 			setSearchParams({
 				dialog: 'court-documents',
-				document: nextDocument.id.toString(),
+				fsmId: fsmId.toString(),
+				documentId: nextDocument.id.toString(),
 			});
-			setCurrentPage(currentPage + 1);
 		}
 	};
 
-	if (currentPage === null) {
-		return;
-	}
+	return (
+		<Stack width={'100%'} height={`calc(100vh - ${theme.spacing(8)})`} component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
+			<Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
+				<Box position={'absolute'} top={2} left={8}>
+					<BackButton destination={`/court/${fsmId}/`} />
+				</Box>
 
-	let body = null;
-	if (currentPage === -1) {
-		body =
-			<Stack height={'100%'} alignItems="center" justifyContent="center">
-				<UnaccessibleDocumentIcon size={70} />
-				<Typography>{'سند خالی است'}</Typography>
-			</Stack>
-	} else {
-		body =
-			<Fragment>
-				<Stack
-					spacing={2}
-					height={'100%'}
-					paddingX={1}
-					sx={{
-						overflowY: 'auto',
-						overflowX: 'hidden',
-						'::-webkit-scrollbar': {
-							height: '8px',
-						},
-						'::-webkit-scrollbar-thumb': {
-							backgroundColor: '#b0bec5',
-							borderRadius: '4px',
-						},
-						'::-webkit-scrollbar-thumb:hover': {
-							backgroundColor: '#90a4ae',
-						},
-					}}>
-					<WidgetsPaper mode="general" paperId={currentDocument?.paper?.toString()} />
+				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
+					<ArchiveIcon />
+					<Typography variant="h5">
+						{currentDocument?.title || 'سند و مدرک‌ها'}
+					</Typography>
 				</Stack>
 
+				<Box position={'absolute'} top={4} right={4} padding={1}>
+					<Button startIcon={<OutlinedArchiveIcon />} onClick={goToDocumentsArchive}>
+						<Typography
+							variant="h6"
+							sx={{ fontSize: "18px", fontWeight: 800, color: "white" }}
+						>
+							بایگانی
+						</Typography>
+					</Button>
+				</Box>
+			</Stack>
+
+			<Document document={currentDocument} />
+
+			{currentDocument &&
 				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
 					<Box
 						sx={{
@@ -135,7 +126,6 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 					<CustomDocumentPagination
 						numberOfPages={documents.length}
 						currentPage={currentPage}
-						setCurrentPage={setCurrentPage}
 					/>
 
 					<Box
@@ -168,37 +158,7 @@ const CourtDocuments: FC<PropsType> = ({ documents = [] }) => {
 						</IconButton>
 					</Box>
 				</Stack>
-			</Fragment>
-	}
-
-	return (
-		<Stack width={'100%'} height={`calc(100vh - ${theme.spacing(8)})`} component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
-			<Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-				<Box position={'absolute'} top={2} left={8}>
-					<BackButton destination={`/court/${fsmId}/`} />
-				</Box>
-
-				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
-					<ArchiveIcon />
-					<Typography variant="h5">
-						{currentDocument?.title || 'سند و مدرک‌ها'}
-					</Typography>
-				</Stack>
-
-				<Box position={'absolute'} top={4} right={4} padding={1}>
-					<Button startIcon={<OutlinedArchiveIcon />} onClick={goToDocumentsArchive}>
-						<Typography
-							variant="h6"
-							sx={{ fontSize: "18px", fontWeight: 800, color: "white" }}
-						>
-							بایگانی
-						</Typography>
-					</Button>
-				</Box>
-			</Stack>
-
-			{body}
-
+			}
 		</Stack>
 	);
 }

@@ -3,12 +3,12 @@ import { IconButton } from "@mui/material";
 import ArrowRightIcon from "../../atoms/icons/ArrowRight";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
-const BackButton = ({ destination = '/' }) => {
+const BackButton = ({ onClick = null, destination = '/' }) => {
   const localNavigate = useLocalNavigate();
   return (
-    <IconButton onClick={() => { localNavigate(destination) }}>
+    <IconButton onClick={onClick || (() => { localNavigate(destination) })}>
       <ArrowRightIcon />
-    </IconButton>
+    </IconButton >
   )
 }
 

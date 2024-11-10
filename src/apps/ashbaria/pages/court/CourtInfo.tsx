@@ -9,10 +9,8 @@ import DocumentsArchive from "apps/ashbaria/components/organisms/document/Docume
 
 
 const CourtInfo = () => {
-  const fsmId = parseInt(useParams().fsmId);
   const [searchParams] = useSearchParams();
   const dialogSlug = searchParams.get('dialog');
-  const classifiedDocuments = useDocuments();
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
@@ -20,10 +18,10 @@ const CourtInfo = () => {
         dialogSlug === 'hints' && <HintsTemplate />
       }
       {
-        dialogSlug === 'documents-archive' && <DocumentsArchive documents={classifiedDocuments} />
+        dialogSlug === 'documents-archive' && <DocumentsArchive />
       }
       {
-        dialogSlug === 'court-documents' && <CourtDocuments documents={classifiedDocuments?.[fsmId]?.documents} />
+        dialogSlug === 'court-documents' && <CourtDocuments />
       }
     </FullScreenBackgroundImage>
   )

@@ -12,9 +12,9 @@ type PropsType = {
 const AccessibleDocument: FC<PropsType> = ({ document }) => {
 	const fsmId = parseInt(useParams().fsmId);
 	const localNavigate = useLocalNavigate();
-	
+
 	const onClick = () => {
-		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&document=${document.id}`)
+		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&fsmId=${fsmId}&documentId=${document.id}`)
 	}
 
 	return (
