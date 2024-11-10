@@ -15,6 +15,7 @@ type PropsType = {}
 const CourtDocuments: FC<PropsType> = ({ }) => {
 	const theme = useTheme();
 	const [searchParams, setSearchParams] = useSearchParams();
+	const baseFSMId = parseInt(useParams().fsmId);
 	const fsmId = parseInt(searchParams.get('fsmId'));
 	const { data: allDocuments } = useGetDocumentsQuery();
 	const documents = allDocuments?.filter(document => document.fsm === fsmId) || [];
@@ -65,7 +66,7 @@ const CourtDocuments: FC<PropsType> = ({ }) => {
 		<Stack width={'100%'} height={`calc(100vh - ${theme.spacing(8)})`} component={Paper} maxWidth='md' padding={2} spacing={2} position={'relative'}>
 			<Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
 				<Box position={'absolute'} top={2} left={8}>
-					<BackButton destination={`/court/${fsmId}/`} />
+					<BackButton destination={`/court/${baseFSMId}/`} />
 				</Box>
 
 				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
