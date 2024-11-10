@@ -34,9 +34,9 @@ const AudioEditWidget = ({
   const t = useTranslate();
   const [link, setLink] = useState<string>(initialLink || '');
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
-  const [autoplay, setAutoplay] = useState<boolean>(initialAutoplay);
-  const [repeat, setRepeat] = useState<boolean>(initialRepeat);
-  const [volume, setVolume] = useState<number>(initialVolume);
+  const [autoplay, setAutoplay] = useState<boolean>(initialAutoplay || false);
+  const [repeat, setRepeat] = useState<boolean>(initialRepeat || false);
+  const [volume, setVolume] = useState<number>(initialVolume || 100);
 
   const handleClick = () => {
     onMutate({
