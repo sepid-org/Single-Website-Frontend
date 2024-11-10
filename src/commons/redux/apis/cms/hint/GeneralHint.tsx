@@ -35,8 +35,11 @@ export const GeneralHintSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getHintsByObjectId: builder.query<GeneralHintListResponse, number>({
+      providesTags: (result, error, arg) => [
+        { type: 'GeneralHint', id: 'LIST' },
+        { type: 'Treasury', id: 'MY' },
+      ],
       query: (objectId) => `/fsm/general-hint/by-object/?object_id=${objectId}`,
-      providesTags: (result, error, arg) => [{ type: 'GeneralHint', id: 'LIST' }],
     }),
   }),
 });

@@ -29,7 +29,7 @@ const ViewHint: FC<HintPropsType> = ({
       </Stack>
 
       <Stack spacing={2}>
-        <WidgetsPaper mode="general" paperId={detailedHint.hint_content} />
+        <WidgetsPaper mode="general" paperId={detailedHint?.hint_content} />
       </Stack>
 
     </Stack>

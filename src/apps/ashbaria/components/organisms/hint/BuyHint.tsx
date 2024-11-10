@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
-import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/currency/Spend";
+import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/treasury/Spend";
 import { PublicGeneralHint } from "commons/types/models";
 
 type BuyHintDialogPropsType = {
@@ -19,12 +19,14 @@ const BuyHint: FC<BuyHintDialogPropsType> = ({
 
   const handleBuyHint = () => {
     spendFundsOnObject({
-      objectId: "1",
+      objectId: hint.object_id,
       funds: {
         "ashbaria-coin": 3,
       }
     })
   }
+
+  // show suitable error message (if not enough coin was provided)
 
   return (
     <Stack padding={3} spacing={2} component={Paper} maxWidth={'xs'}>

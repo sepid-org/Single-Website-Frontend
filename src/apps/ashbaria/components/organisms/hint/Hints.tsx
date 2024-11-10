@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 import { Button, Grid } from "@mui/material";
 import Hint from "./Hint";
 import { useGetHintsByObjectIdQuery } from "commons/redux/apis/cms/hint/GeneralHint";
-import { PublicGeneralHint } from "commons/types/models";
 
 type HintsPropsType = {
   targetObjectId: number;
@@ -10,25 +9,25 @@ type HintsPropsType = {
 
 const Hints: FC<HintsPropsType> = ({ targetObjectId }) => {
   const { data: hints } = useGetHintsByObjectIdQuery(targetObjectId, { skip: !Boolean(targetObjectId) })
-  const [selectedHint, setSelectedHint] = useState<PublicGeneralHint>(null);
+  const [selectedHintId, setSelectedHintId] = useState<number>(null);
 
   useEffect(() => {
     if (hints?.length === 1) {
-      setSelectedHint(hints[0]);
+      setSelectedHintId(hints[0].id);
     }
   }, [hints])
 
-  if (selectedHint) {
+  if (selectedHintId) {
     return (
-      <Hint onClose={() => setSelectedHint(null)} hint={selectedHint} />
+      <Hint onClose={() => setSelectedHintId(null)} hint={hints.find(hint => hint.id === selectedHintId)} />
     )
   }
 
   return (
     <Grid container spacing={2} padding={2} alignItems={'center'} justifyContent={'start'}>
       {hints?.map(hint =>
-        <Grid item key={hint.object_id} xs={3}>
-          <Button onClick={() => setSelectedHint(hint)}>
+        <Grid item key={hint.id} xs={3}>
+          <Button onClick={() => setSelectedHintId(hint.id)}>
             {hint.title}
           </Button>
         </Grid>

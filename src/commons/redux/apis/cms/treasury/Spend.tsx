@@ -1,8 +1,9 @@
 import { BalancesType } from 'commons/types/bank';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
 type SpendFundsOnObjectInputType = {
-  objectId: string;
+  objectId: number;
   funds: BalancesType;
 };
 
@@ -14,8 +15,9 @@ export const SpendSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     spendFundsOnObject: builder.mutation<SpendFundsOnObjectOutputType, SpendFundsOnObjectInputType>({
       invalidatesTags: (result, error, item) => [],
+      onQueryStarted: invalidateMyTagsForTypes(['Treasury']),
       query: ({ objectId, funds }) => ({
-        url: '/currency/spend-on-object/',
+        url: '/treasury/spend-on-object/',
         method: 'POST',
         body: {
           object_id: objectId,
