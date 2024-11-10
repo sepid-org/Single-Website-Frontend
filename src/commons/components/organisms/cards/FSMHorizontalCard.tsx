@@ -89,8 +89,8 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
             variant='outlined'
             color="primary"
             disabled={!fsm?.is_active}
-            onClick={fsm?.has_entrance_lock ? () => setOpenPassword(true) : handleStartFSM}
-            startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
+            onClick={handleStartFSM}
+            // startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
             size={isDesktop ? 'medium' : 'small'}
           >
             ورود به کارگاه

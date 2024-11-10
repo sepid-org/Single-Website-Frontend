@@ -1,18 +1,21 @@
-import React, { FC, Fragment } from "react";
-import { Button, Container, Dialog, Paper, Stack, Typography } from "@mui/material";
+import React, { FC } from "react";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
 import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/currency/Spend";
+import { PublicGeneralHint } from "commons/types/models";
 
 type BuyHintDialogPropsType = {
-  hintId: string;
+  hint: PublicGeneralHint;
+  onClose: any;
 }
 
 const BuyHint: FC<BuyHintDialogPropsType> = ({
-  hintId,
+  hint,
+  onClose,
 }) => {
   const [spendFundsOnObject, result] = useSpendFundsOnObjectMutation();
-  // const { data = hint } = useGetHint({ hintId });
+  // get hint buy cost
 
   const handleBuyHint = () => {
     spendFundsOnObject({
@@ -29,7 +32,7 @@ const BuyHint: FC<BuyHintDialogPropsType> = ({
         <Stack alignItems={'center'} direction={'row'} spacing={0.5}>
           <LampOnIcon />
           <Typography variant="h5" textAlign={'center'} width={'100%'} noWrap>
-            {"تقلب اون ور آبی"}
+            {hint.title}
           </Typography>
         </Stack>
 
@@ -43,7 +46,7 @@ const BuyHint: FC<BuyHintDialogPropsType> = ({
       <Button variant='contained' fullWidth onClick={handleBuyHint}>
         {'خرید تقلب'}
       </Button>
-      <Button variant='outlined' fullWidth>
+      <Button variant='outlined' fullWidth onClick={onClose}>
         {'بی‌خیال'}
       </Button>
     </Stack>

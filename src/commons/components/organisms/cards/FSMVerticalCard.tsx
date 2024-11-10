@@ -113,7 +113,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
               {fsm.description}
             </Typography>
             <Stack direction="row" alignItems="center" spacing={1}>
-              {fsm?.has_entrance_lock && <Lock fontSize="small" />}
+              {/* {fsm?.has_entrance_lock && <Lock fontSize="small" />} */}
               <Chip
                 icon={fsm?.fsm_p_type === 'Team' ? <Group /> : <Person />}
                 label={fsm?.fsm_p_type === 'Team' ? 'تیمی' : 'فردی'}

@@ -106,17 +106,7 @@ type AudienceTypes = 'Student' | 'Academic' | 'All';
 type FSMLearningTypes = 'Supervised' | 'Unsupervised';
 type FSMPTypes = 'Individual' | 'Team' | 'Hybrid';
 
-export type ContentType = {
-  title: string;
-  create_at: string;
-  updated_at: string;
-  attributes: any[];
-  is_private: boolean;
-  order: number;
-  has_entrance_lock?: boolean;
-}
-
-export type FSMType = ContentType & {
+export type FSMType = ObjectType & {
   players_count: number;
   is_mentor: boolean;
   id: number;
@@ -306,4 +296,14 @@ export type UserFSMStatusType = {
   finished_players_count: number;
   has_active_player: boolean;
   is_enabled_for_user: boolean;
+}
+
+export type PublicGeneralHint = ObjectType & {
+  id: number;
+  has_spent_on_object: boolean;
+}
+
+export type DetailedGeneralHint = ObjectType & {
+  id: number;
+  hint_content: string;
 }

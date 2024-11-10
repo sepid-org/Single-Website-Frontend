@@ -4,6 +4,7 @@ import { AttributeType } from "./attribute";
 export type ObjectType = {
   attributes: AttributeType[];
   id: string;
+  object_id: number;
   name: string;
   title: string;
   position: PositionType;

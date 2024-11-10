@@ -1,60 +1,22 @@
-import React, { FC, Fragment } from "react";
-import { Button, Container, Dialog, Paper, Stack, Typography } from "@mui/material";
-import LampOnIcon from "../../atoms/icons/LampOn";
-import ScoreChip from "../../molecules/chips/Score";
-import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/currency/Spend";
-import HintDialog from "commons/components/organisms/dialogs/HintDialog";
+import React, { FC } from "react";
+import ViewHint from "./ViewHint";
+import BuyHint from "./BuyHint";
+import { PublicGeneralHint } from "commons/types/models";
 
 type HintPropsType = {
-  hintId: string;
+  hint: PublicGeneralHint;
   onClose: any;
 }
 
 const Hint: FC<HintPropsType> = ({
-  hintId,
+  hint,
   onClose,
 }) => {
-  const [spendFundsOnObject, result] = useSpendFundsOnObjectMutation();
-
-  const handleBuyHint = () => {
-    spendFundsOnObject({
-      objectId: "1",
-      funds: {
-        "ashbaria-coin": 3,
-      }
-    })
+  if (hint.has_spent_on_object) {
+    return <ViewHint hint={hint} onClose={onClose} />
+  } else {
+    return <BuyHint hint={hint} onClose={onClose} />
   }
-
-  // todo:
-  // return (
-  //   <HintDialog open={true} handleClose={onClose} hints={[]} />
-  // )
-
-  return (
-    <Stack padding={3} spacing={2} component={Paper} maxWidth={'xs'}>
-      <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-        <Stack alignItems={'center'} direction={'row'} spacing={0.5}>
-          <LampOnIcon />
-          <Typography variant="h5" textAlign={'center'} width={'100%'} noWrap>
-            {"تقلب اون ور آبی"}
-          </Typography>
-        </Stack>
-
-        <ScoreChip value={34} />
-      </Stack>
-
-      <Typography textAlign={'center'} color={'white'}>
-        {`با خرید این راهنمایی ${34} سکه از خرج می کنی. آیا از خرید این راهنمایی مطمئنی؟`}
-      </Typography>
-
-      <Button variant='contained' fullWidth onClick={handleBuyHint}>
-        {'خرید تقلب'}
-      </Button>
-      <Button variant='outlined' fullWidth onClick={onClose}>
-        {'بی‌خیال'}
-      </Button>
-    </Stack>
-  )
 }
 
 export default Hint;
