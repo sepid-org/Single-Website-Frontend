@@ -1,9 +1,12 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import LampOnIcon from "../../atoms/icons/LampOn";
 import ScoreChip from "../../molecules/chips/Score";
 import { useSpendFundsOnObjectMutation } from "commons/redux/apis/cms/treasury/Spend";
 import { PublicGeneralHint } from "commons/types/models";
+import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
+import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
+import dialogService from "commons/components/organisms/PortalDialog";
 
 type BuyHintDialogPropsType = {
   hint: PublicGeneralHint;
@@ -15,19 +18,38 @@ const BuyHint: FC<BuyHintDialogPropsType> = ({
   onClose,
 }) => {
   const [spendFundsOnObject, result] = useSpendFundsOnObjectMutation();
-  // get hint buy cost
+
+  // todo: attributes should be calculated in the backend?
+  const buyAttribute = hint?.attributes?.find(attribute => attribute.type === 'Buy')
+  const costAttribute = buyAttribute?.attributes?.find(attribute => attribute.type === 'Cost')
+  const ashbariaCost = costAttribute?.['value']?.[ASHBARIA_COIN];
 
   const handleBuyHint = () => {
     spendFundsOnObject({
       objectId: hint.object_id,
       funds: {
-        "ashbaria-coin": 3,
+        "ashbaria-coin": ashbariaCost,
       }
     })
   }
 
-  // show suitable error message (if not enough coin was provided)
+  useEffect(() => {
+    if (result.isError) {
+      if ((result.error['data'].error as string).startsWith('Insufficient')) {
+        dialogService.open({
+          component:
+            <CustomDialogContent
+              title={"متاسفم! سکه‌ی کافی نداری"}
+              onClick={() => {
+                dialogService.close();
+              }}
+            />
+        })
+      }
+    }
+  }, [result])
 
+  // todo: should get the coin name from bank
   return (
     <Stack padding={3} spacing={2} component={Paper} maxWidth={'xs'}>
       <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
@@ -38,14 +60,14 @@ const BuyHint: FC<BuyHintDialogPropsType> = ({
           </Typography>
         </Stack>
 
-        <ScoreChip value={34} />
+        <ScoreChip value={-ashbariaCost} />
       </Stack>
 
       <Typography textAlign={'center'} color={'white'}>
-        {`با خرید این راهنمایی ${34} سکه از خرج می کنی. آیا از خرید این راهنمایی مطمئنی؟`}
+        {`با خرید این راهنمایی ${ashbariaCost} سکه از خرج می کنی. آیا از خرید این راهنمایی مطمئنی؟`}
       </Typography>
 
-      <Button variant='contained' fullWidth onClick={handleBuyHint}>
+      <Button disabled={result.isLoading} variant='contained' fullWidth onClick={handleBuyHint}>
         {'خرید تقلب'}
       </Button>
       <Button variant='outlined' fullWidth onClick={onClose}>
