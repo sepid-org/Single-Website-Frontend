@@ -11,7 +11,9 @@ type PropsType = {
 const CopyDiscountCodeButton: FC<PropsType> = ({ discountCode }) => {
 
   const copyToClipboardWrapper = () => {
-    copyToClipboard(discountCode?.code, 'کد تخفیف با موفقیت کپی شد');
+    if (discountCode) {
+      copyToClipboard(discountCode.code, 'کد تخفیف با موفقیت کپی شد');
+    }
   };
 
   return (
