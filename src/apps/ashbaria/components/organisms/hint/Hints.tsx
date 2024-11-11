@@ -8,7 +8,6 @@ type HintsPropsType = {
 }
 
 const Hints: FC<HintsPropsType> = ({ targetObjectId }) => {
-  console.log(targetObjectId)
   const { data: hints } = useGetResourcesByObjectIdQuery({ objectId: targetObjectId, type: 'hint' }, { skip: !Boolean(targetObjectId) })
   const [selectedHintId, setSelectedHintId] = useState<number>(null);
 
