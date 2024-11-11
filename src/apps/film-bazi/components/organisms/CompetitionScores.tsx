@@ -7,6 +7,13 @@ import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
 
 export default function CompetitionScores({ allScores, winnerScores }) {
 	
+	const getDisplayName = (first_name, last_name, truncated_username) => {
+		if (first_name && last_name) {
+			return `${first_name} ${last_name}`;
+		}
+		return `کاربر ${truncated_username}`;
+	}
+
 	return (
 		<Box
 			sx={{
@@ -35,21 +42,21 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 								<WinnerCard 
 									score={winnerScores[2]?.score} 
 									rank={3} 
-									name={winnerScores[2]?.first_name + " " + winnerScores[2]?.last_name}
+									name={getDisplayName(winnerScores[2]?.first_name, winnerScores[2]?.last_name, winnerScores[2]?.truncated_username)}
 								/>
 							</Grid>
 							<Grid>
 								<WinnerCard 
 									score={winnerScores[0]?.score} 
 									rank={1} 
-									name={winnerScores[0]?.first_name + " " + winnerScores[0]?.last_name}
+									name={getDisplayName(winnerScores[0]?.first_name, winnerScores[0]?.last_name, winnerScores[0]?.truncated_username)}
 								/>
 							</Grid>
 							<Grid>
 								<WinnerCard 
 									score={winnerScores[1]?.score} 
 									rank={2} 
-									name={winnerScores[1]?.first_name + " " + winnerScores[1]?.last_name}
+									name={getDisplayName(winnerScores[1]?.first_name, winnerScores[1]?.last_name, winnerScores[1]?.truncated_username)}
 								/>
 							</Grid>
 						</Fragment> :
@@ -68,7 +75,14 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 			>
 				{allScores.winnerUsersInfo.length > 0 ?
 					allScores.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} />
+						<ScoreRecord 
+							key={record.id} 
+							rank={index + 1}
+							name={getDisplayName(record.first_name, record.last_name, record.truncated_username)} 
+							score={record.score} 
+							currentUser={record.currentUser} 
+							id={record.id} 
+						/>
 					)) :
 					<ScoreRecordSkeleton />
 				}
@@ -79,7 +93,14 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
 							<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
 						</Box>
-						<ScoreRecord key={allScores.currentUser.id} rank={allScores.currentUser.rank} first_name={allScores.currentUser.first_name} last_name={allScores.currentUser.last_name} score={allScores.currentUser.score} currentUser={allScores.currentUser.currentUser} id={allScores.currentUser.id} />
+						<ScoreRecord 
+							key={allScores.currentUser.id} 
+							rank={allScores.currentUser.rank}
+							name={getDisplayName(allScores.currentUser.first_name, allScores.last_name, allScores.currentUser.truncated_username)}
+							score={allScores.currentUser.score} 
+							currentUser={allScores.currentUser.currentUser} 
+							id={allScores.currentUser.id} 
+						/>
 					</>
 				}
 			</Grid>

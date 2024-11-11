@@ -4,7 +4,7 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import goldenStarIcon from "../../assets/filledStarIcon.svg";
 import { ScoreBoardItemType } from "commons/types/bank";
 
-const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, first_name, last_name, score, currentUser }) => {
+const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser }) => {
 	const conditionalUserBackground = currentUser ? "linear-gradient(180deg, #BBD043 0%, #BBD043 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(153, 153, 153, 0.02) 100%)";
 	const textColor = currentUser ? "black" : "white";
 	return (
@@ -80,7 +80,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, first_name, last_name
 							marginLeft: "10px",
 						}}
 					>
-						{first_name + " " + last_name}
+						{name}
 					</Typography>
 					<Box
 						sx={{
