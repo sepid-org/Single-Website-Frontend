@@ -21,7 +21,7 @@ const JudgeVerdict: FC<PropsType> = ({ }) => {
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'center'}>
-      <Typography variant='h3' color={'black'}>
+      <Typography variant='h3' color={'black'} lineHeight={1.5}>
         {finalSupportPercentage >= 50 ?
           currentCourt?.judge_verdict1 :
           currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتمام وجود ندارد.'
