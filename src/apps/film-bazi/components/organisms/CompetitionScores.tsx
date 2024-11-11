@@ -5,18 +5,17 @@ import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
 import { toPersianNumber } from "commons/utils/translateNumber";
+import hashStringToNumber from "commons/utils/hashStringToNumber";
 
 export default function CompetitionScores({ allScores, winnerScores }) {
 
-	const getDisplayName = (user: string, first_name: string, last_name: string) => {
+	const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
 		if (first_name && last_name) {
 			return `${first_name} ${last_name}`;
 		}
 
 		// Hash the UUID to get a 4-digit number
-		const hashCode = Math.abs(
-			Array.from(user).reduce((acc, char) => acc + char.charCodeAt(0), 0)
-		) % 10000;
+		const hashCode = hashStringToNumber(user_id);
 
 		return `کاربر ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}

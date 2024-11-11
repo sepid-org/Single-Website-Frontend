@@ -6,6 +6,7 @@ import SMSIcon from "../../atoms/icons/SMS";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import useUserProfile from "commons/hooks/useUserProfile";
 import useShare from "commons/hooks/useShare";
+import hashStringToNumber from "commons/utils/hashStringToNumber";
 
 const getInvitationText = (myCode, myFullName) => {
   return (`
@@ -18,7 +19,7 @@ const SendInvitation = () => {
   const { data: profile } = useGetProfileQuery();
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
   const { data: userProfile } = useUserProfile();
-  const tempName = `دادبستان ${toPersianNumber(userProfile?.phone_number?.slice(-4))}`
+  const tempName = `دادبستان ${toPersianNumber(hashStringToNumber(userProfile.id).toString().padStart(4, '0'))}`
   const myFullName = (profile?.first_name && profile?.last_name) ? `${profile.first_name} ${profile.last_name}` : tempName;
   const myCode = myFriendshipNetwork?.code.code;
 
