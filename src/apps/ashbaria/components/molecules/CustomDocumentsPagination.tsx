@@ -2,7 +2,8 @@ import { Box } from "@mui/material";
 import React from "react";
 
 
-const CustomDocumentPagination = ({ numberOfPages, currentPage, setCurrentPage }) => {
+const CustomDocumentPagination = ({ numberOfPages, currentPage }) => {
+
 	return (
 		<Box
 			sx={{

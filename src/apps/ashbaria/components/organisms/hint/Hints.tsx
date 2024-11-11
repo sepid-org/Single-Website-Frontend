@@ -1,27 +1,26 @@
 import React, { FC, useEffect, useState } from "react";
 import { Button, Grid } from "@mui/material";
-import { useGetFSMStateHintsQuery } from "apps/website-display/redux/features/hint/HintSlice";
 import Hint from "./Hint";
+import { useGetResourcesByObjectIdQuery } from "commons/redux/apis/cms/resource/Resource";
 
 type HintsPropsType = {
-  referenceId: string;
+  targetObjectId: number;
 }
 
-const Hints: FC<HintsPropsType> = ({
-  referenceId,
-}) => {
-  const { data: hints } = useGetFSMStateHintsQuery({ fsmStateId: referenceId }, { skip: !Boolean(referenceId) });
-  const [selectedHintId, setSelectedHinId] = useState<string>(null);
+const Hints: FC<HintsPropsType> = ({ targetObjectId }) => {
+  console.log(targetObjectId)
+  const { data: hints } = useGetResourcesByObjectIdQuery({ objectId: targetObjectId, type: 'hint' }, { skip: !Boolean(targetObjectId) })
+  const [selectedHintId, setSelectedHintId] = useState<number>(null);
 
   useEffect(() => {
     if (hints?.length === 1) {
-      setSelectedHinId(hints[0].id);
+      setSelectedHintId(hints[0].id);
     }
   }, [hints])
 
   if (selectedHintId) {
     return (
-      <Hint onClose={() => setSelectedHinId(null)} hintId={selectedHintId} />
+      <Hint onClose={() => setSelectedHintId(null)} hint={hints.find(hint => hint.id === selectedHintId)} />
     )
   }
 
@@ -29,8 +28,8 @@ const Hints: FC<HintsPropsType> = ({
     <Grid container spacing={2} padding={2} alignItems={'center'} justifyContent={'start'}>
       {hints?.map(hint =>
         <Grid item key={hint.id} xs={3}>
-          <Button onClick={() => setSelectedHinId(hint.id)}>
-            {"hint.id"}
+          <Button onClick={() => setSelectedHintId(hint.id)}>
+            {hint.title}
           </Button>
         </Grid>
       )}

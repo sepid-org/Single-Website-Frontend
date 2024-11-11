@@ -1,18 +1,22 @@
 import React from 'react';
 import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import { useParams } from 'react-router-dom';
-import { ClassifiedDocumentsType, DocumentType } from 'apps/ashbaria/types';
+import { useNavigate } from 'react-router-dom';
+
 import ArchiveIcon from '../../atoms/icons/Archive';
 import BackButton from '../../molecules/buttons/Back';
 import DocumentIcon from '../../atoms/icons/Document';
 import UnaccessibleDocumentIcon from '../../atoms/icons/UnaccessibleDocument';
-import AccessibleDocument from '../../molecules/documents/AccessibleDocument';
-import UnaccessibleDocument from '../../molecules/documents/UnaccessibleDocument';
+import AccessibleDocument from './AccessibleDocument';
+import UnaccessibleDocument from './UnaccessibleDocument';
+import useDocuments from 'apps/ashbaria/hooks/useDocuments';
+import { ResourceType } from 'commons/types/models';
+import { AshbariaDocumentType } from 'apps/ashbaria/types';
 
 // Types
 type DocumentSectionProps = {
 	courtName: string;
-	documents: DocumentType[];
+	documents: AshbariaDocumentType[];
 	enabled: boolean;
 };
 
@@ -20,24 +24,33 @@ type HeaderProps = {
 	fsmId: number;
 };
 
-// Header Component
-const Header: React.FC<HeaderProps> = ({ fsmId }) => (
-	<Stack
-		direction="row"
-		alignItems="center"
-		justifyContent="center"
-		spacing={0.5}
-	>
-		<Box position="absolute" top={4} left={8}>
-			<BackButton destination={`/court/${fsmId}/`} />
-		</Box>
-		<ArchiveIcon />
-		<Typography variant="h5">{'بایگانی اسناد'}</Typography>
-	</Stack>
-);
+
+const Header: React.FC<HeaderProps> = ({ fsmId }) => {
+	const navigate = useNavigate();
+
+	const handleBack = () => {
+		navigate(-1);
+	};
+
+	return (
+		<Stack
+			direction="row"
+			alignItems="center"
+			justifyContent="center"
+			spacing={0.5}
+		>
+			<Box position="absolute" top={4} left={8}>
+				<BackButton onClick={handleBack} />
+			</Box>
+			<ArchiveIcon />
+			<Typography variant="h5">{'بایگانی اسناد'}</Typography>
+		</Stack>
+	);
+};
+
 
 // Document Grid Component
-const DocumentGrid: React.FC<{ documents: DocumentType[]; enabled: boolean }> = ({
+const DocumentGrid: React.FC<{ documents: AshbariaDocumentType[]; enabled: boolean }> = ({
 	documents,
 	enabled
 }) => (
@@ -89,11 +102,10 @@ const DocumentSection: React.FC<DocumentSectionProps> = ({
 	);
 };
 
-// Main Component
-const DocumentsArchive: React.FC<{ documents: ClassifiedDocumentsType }> = ({
-	documents
+const DocumentsArchive: React.FC = ({
 }) => {
 	const { fsmId } = useParams();
+	const classifiedDocuments = useDocuments();
 	const parsedFsmId = parseInt(fsmId);
 
 	return (
@@ -107,7 +119,7 @@ const DocumentsArchive: React.FC<{ documents: ClassifiedDocumentsType }> = ({
 		>
 			<Header fsmId={parsedFsmId} />
 
-			{Object.entries(documents).map(([id, { courtName, enabled, documents }]) => (
+			{Object.entries(classifiedDocuments).map(([id, { courtName, enabled, documents }]) => (
 				<DocumentSection
 					key={id}
 					courtName={courtName}

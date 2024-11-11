@@ -29,7 +29,7 @@ const MyFullName: FC<MyFullNamePropsType> = ({ }) => {
           <Skeleton variant='rounded' width={180} height={40} /> :
           <Typography noWrap fontSize={20} fontWeight={600} color={Golden}>
             {'دادبستان '}
-            {(myAshbariaProfile?.first_name && myAshbariaProfile?.first_name) ?
+            {(myAshbariaProfile?.first_name && myAshbariaProfile?.last_name) ?
               `${myAshbariaProfile.first_name} ${myAshbariaProfile.last_name}`
               : toPersianNumber(userProfile?.phone_number?.slice(-4))
             }

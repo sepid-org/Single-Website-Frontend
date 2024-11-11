@@ -1,3 +1,5 @@
+import { ResourceType } from "commons/types/models";
+
 export interface CourtType {
   id: number;
   title: string;
@@ -38,13 +40,14 @@ export type UpdateProfileInput = Partial<Omit<AshbariaProfileType,
   'created_at' | 'updated_at' | 'has_received_reward' | 'is_profile_complete'
 >>;
 
-
-export type DocumentType = {
+export type AshbariaDocumentType = {
   id: number;
   title: string;
-  court: number;
-  fsm: number;
-  paper: number;
+  content: {
+    court_id: number;
+    fsm_id: number;
+    paper_id: number;
+  }
 }
 
 export type FriendshipNetworkType = {
@@ -86,6 +89,6 @@ export type ClassifiedDocumentsType = {
   [fsmId: string]: {
     courtName: string;
     enabled: boolean;
-    documents: DocumentType[];
+    documents: AshbariaDocumentType[];
   };
 };

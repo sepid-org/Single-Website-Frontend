@@ -1,13 +1,23 @@
 import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import LockIcon from "../../atoms/icons/Lock";
-import { DocumentType } from "apps/ashbaria/types";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
-	document: DocumentType;
+	document: AshbariaDocumentType;
 }
 
 const UnaccessibleDocument: FC<PropsType> = ({ document }) => {
+
+	function truncateText(text, maxLength) {
+		if (text.length <= maxLength) return text;
+		const truncated = text.slice(0, maxLength);
+		const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+		return lastSpaceIndex !== -1 ? truncated.slice(0, lastSpaceIndex) + '...' : truncated + '...';
+	}
+
+	const truncatedTitle = truncateText(document.title, 20);
 
 	return (
 		<Stack
@@ -25,7 +35,7 @@ const UnaccessibleDocument: FC<PropsType> = ({ document }) => {
 		>
 			<LockIcon size={68} />
 			<Typography color={'#60557E'} fontSize={16} fontWeight={400} textAlign={'center'}>
-				{document.title}
+				{truncatedTitle}
 			</Typography>
 		</Stack>
 	)

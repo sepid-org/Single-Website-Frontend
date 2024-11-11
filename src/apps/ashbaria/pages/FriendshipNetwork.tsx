@@ -95,7 +95,9 @@ const FriendshipNetworkPage = () => {
   }, [followResult])
 
   const copyToClipboardWrapper = () => {
-    copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت با موفقیت کپی شد');
+    if (myFriendshipNetwork) {
+      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت با موفقیت کپی شد');
+    }
   };
 
   return (

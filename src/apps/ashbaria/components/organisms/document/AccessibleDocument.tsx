@@ -1,21 +1,31 @@
 import React, { FC } from "react";
 import { Stack, Typography } from "@mui/material";
 import DocumentIcon from "../../atoms/icons/Document";
-import { DocumentType } from "apps/ashbaria/types";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { useParams } from "react-router-dom";
+import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
-	document: DocumentType;
+	document: AshbariaDocumentType;
 }
 
 const AccessibleDocument: FC<PropsType> = ({ document }) => {
 	const fsmId = parseInt(useParams().fsmId);
 	const localNavigate = useLocalNavigate();
-	
+
 	const onClick = () => {
-		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&document=${document.id}`)
+		localNavigate(`/court/${fsmId}/info/?dialog=court-documents&fsmId=${document.content.fsm_id}&documentId=${document.id}`)
 	}
+
+	function truncateText(text, maxLength) {
+		if (text.length <= maxLength) return text;
+		const truncated = text.slice(0, maxLength);
+		const lastSpaceIndex = truncated.lastIndexOf(' ');
+
+		return lastSpaceIndex !== -1 ? truncated.slice(0, lastSpaceIndex) + '...' : truncated + '...';
+	}
+
+	const truncatedTitle = truncateText(document.title, 20);
 
 	return (
 		<Stack
@@ -38,7 +48,7 @@ const AccessibleDocument: FC<PropsType> = ({ document }) => {
 		>
 			<DocumentIcon size={72} />
 			<Typography fontSize={16} fontWeight={400} color={'#FFA800'} textAlign={'center'}>
-				{document.title}
+				{truncatedTitle}
 			</Typography>
 		</Stack>
 	)

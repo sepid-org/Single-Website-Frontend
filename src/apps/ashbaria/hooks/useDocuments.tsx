@@ -1,17 +1,19 @@
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import { useParams } from "react-router-dom";
-import { useGetCourtsQuery, useGetDocumentsQuery } from "../redux/slices/GameLogics";
-import { ClassifiedDocumentsType } from "../types";
+import { useGetCourtsQuery } from "../redux/slices/GameLogics";
+import { AshbariaDocumentType, ClassifiedDocumentsType } from "../types";
 import { UserFSMStatusType } from "commons/types/models";
+import { useGetResourcesByTypeQuery } from "commons/redux/apis/cms/resource/Resource";
+import { ASHBARIA_DOCUMENT_TYPE } from "../constants/game-info";
 
 const useDocuments = (): ClassifiedDocumentsType => {
   const { programSlug } = useParams();
   const { data: programUserFSMsStatus = [] } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const { data: documents = [] } = useGetDocumentsQuery();
+  const { data: documents = [] } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_DOCUMENT_TYPE })
   const { data: courts = [] } = useGetCourtsQuery();
 
   const getCourtDocuments = (fsmId: number) => {
-    return documents.filter(document => document.fsm === fsmId);
+    return documents.filter(document => document.content['fsm_id'] === fsmId);
   };
 
   const isCourtEnabled = (userFSMStatus: UserFSMStatusType) => {

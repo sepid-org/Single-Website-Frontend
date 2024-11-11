@@ -8,6 +8,8 @@ export const tagTypes = [
   'WidgetHint',
   'Program',
   'FSM',
+  'Treasury',
+  'Resource',
   'program-admins',
   'fsm-states',
   'fsm-state',
