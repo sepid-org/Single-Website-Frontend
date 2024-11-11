@@ -1,7 +1,6 @@
 export interface ScoreBoardItemType {
   rank: number;
-  first_name: string;
-  last_name: string;
+  name: string;
   score: number;
   currentUser: boolean;
   id: string;

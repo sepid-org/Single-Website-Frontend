@@ -1,13 +1,12 @@
 import { Box, Typography } from "@mui/material";
 import React, { Fragment } from "react";
-import tempProfile from "../../assets/Profiles.svg";
 
 const WinnerRecord = ({ profileImg, score, name }) => {
 	return (
 		<Fragment>
 			<Box
 				component="img"
-				src={tempProfile}
+				src={profileImg}
 				width={48}
 				height={48}
 			/>
