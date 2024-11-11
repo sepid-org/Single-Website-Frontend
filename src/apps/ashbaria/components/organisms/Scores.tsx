@@ -26,52 +26,37 @@ export default function Scores() {
 			return `${first_name} ${last_name}`;
 		}
 
-		// Hash the UUID to get a 4-digit number
 		const hashCode = hashStringToNumber(user_id);
-
 		return `دادبستان ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}
 
 	return (
-		<Stack justifyContent={'center'} paddingY={2}>
-			<Grid
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					alignItems: "center",
-					marginTop: 1,
-				}}
-			>
-				<BackButton />
-				<Box sx={{ display: "flex", flexDirection: "row", }}>
-					<CupIcon />
-					<Typography
-						fontWeight={800}
-						fontSize={18}
-					>
-						{"شاخ‌ترین‌ها"}
-					</Typography>
+		<Stack alignItems={'center'} justifyContent={'center'} padding={2} spacing={2} position={'relative'}>
+			<Stack direction={'row'}>
+				<Box position={'absolute'} left={4} top={4}>
+					<BackButton />
 				</Box>
-				<IconButton>
-					<SearchIcon />
-				</IconButton>
-			</Grid>
+				<Stack direction={'row'} spacing={1} alignItems={'center'} justifyContent={'center'}>
+					<CupIcon size={28} />
+					<Typography fontSize={24} fontWeight={800}>
+						{'شاخ‌ترین‌ها'}
+					</Typography>
+				</Stack>
+				{/* <Box position={'absolute'} right={8} top={6}>
+					<IconButton>
+						<SearchIcon size={32} />
+					</IconButton>
+				</Box> */}
+			</Stack>
 
-			<Grid
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center"
-				}}
-			>
+			<Stack paddingTop={1}>
 				{winnerScores.length > 0 ?
 					<Container
 						sx={{
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
-							marginTop: 15
+							marginTop: 12,
 						}}
 					>
 						<Box
@@ -145,9 +130,9 @@ export default function Scores() {
 					</Container> :
 					<WinnerCardsSkeleton />
 				}
-			</Grid>
+			</Stack>
 
-			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
+			<Stack width={'100%'} alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
 						<ScoreRecord

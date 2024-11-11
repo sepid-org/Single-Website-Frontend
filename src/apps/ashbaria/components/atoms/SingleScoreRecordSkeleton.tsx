@@ -1,11 +1,11 @@
 import React from "react";
-import { Box, Skeleton } from "@mui/material";
+import { Skeleton, Stack } from "@mui/material";
 
-export default function SingleScoreRecordSkeleton(){
-    return(
-        <Box marginBottom="10px" sx={{display:"flex", flexDirection:"row"}}>
-            <Skeleton variant="rounded" width="60px" height="60px" />
-            <Skeleton variant="rounded" height="60px" sx={{width: {xs: "420px", md: "780px"}}}/>
-        </Box>
-    );
+export default function SingleScoreRecordSkeleton() {
+	return (
+		<Stack width={'100%'} direction={'row'} spacing={1}>
+			<Skeleton variant="rounded" width="70px" height="60px" />
+			<Skeleton variant="rounded" width={'100%'} height="60px" />
+		</Stack>
+	);
 }

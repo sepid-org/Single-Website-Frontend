@@ -2,13 +2,13 @@ import { Box } from "@mui/material";
 import search from "../../../assets/search-normal.svg";
 import React from "react";
 
-const SearchIcon = () => {
-	return(
-		<Box 
+const SearchIcon = ({ size = 40 }) => {
+	return (
+		<Box
 			component="img"
 			src={search}
-			width={40}
-			height={40}
+			width={size}
+			height={size}
 		/>
 	);
 }

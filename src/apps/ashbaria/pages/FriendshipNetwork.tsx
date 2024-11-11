@@ -110,7 +110,7 @@ const FriendshipNetworkPage = () => {
             </Box>
             <Stack direction={'row'} alignItems={'center'}>
               <HeartIcon />
-              <Typography variant="h6" fontSize={24} fontWeight={800}>
+              <Typography fontSize={24} fontWeight={800}>
                 {'حلقه دوستان'}
               </Typography>
             </Stack>

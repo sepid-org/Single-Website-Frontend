@@ -1,18 +1,13 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import SingleWinnerCardSkeleton from "../atoms/SingleWinnerCardSkeleton";
 
 export default function WinnerCardsSkeleton() {
 	return (
-		<Box
-			sx={{
-				display: "flex",
-				flexDirection: "row"
-			}}
-		>
+		<Stack direction={'row'} spacing={1}>
 			<SingleWinnerCardSkeleton />
 			<SingleWinnerCardSkeleton />
 			<SingleWinnerCardSkeleton />
-		</Box>
+		</Stack>
 	);
 }

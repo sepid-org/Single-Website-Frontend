@@ -21,9 +21,9 @@ const ScoreBoard: React.FC = () => {
 					zIndex: 0,
 				}}
 			/>
-			<Container maxWidth='sm' component={Paper} sx={{ zIndex: 1 }}>
+			<Box width={'100%'} maxWidth='sm' component={Paper} sx={{ zIndex: 1 }}>
 				<Scores />
-			</Container>
+			</Box>
 			<Box
 				component="img"
 				src={rightImg}

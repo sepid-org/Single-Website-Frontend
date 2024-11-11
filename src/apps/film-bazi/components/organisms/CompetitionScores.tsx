@@ -14,7 +14,6 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 			return `${first_name} ${last_name}`;
 		}
 
-		// Hash the UUID to get a 4-digit number
 		const hashCode = hashStringToNumber(user_id);
 
 		return `کاربر ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;

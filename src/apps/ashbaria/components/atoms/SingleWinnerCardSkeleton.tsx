@@ -21,7 +21,8 @@ export default function SingleWinnerCardSkeleton() {
                         xs: "100px"
                     },
                     height: {
-                        md: "250px",
+                        md: "220px",
+                        xs: "180px"
                     },
                     marginBottom: "5px",
                 }}
