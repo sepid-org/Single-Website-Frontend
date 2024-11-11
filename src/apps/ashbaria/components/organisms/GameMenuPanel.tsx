@@ -11,12 +11,17 @@ import MyFirstName from '../atoms/MyFirstName';
 import PurpleInfoIcon from '../atoms/icons/PurpleInfo';
 import { Golden } from 'apps/ashbaria/constants/colors';
 import { useGetProfileQuery } from 'apps/ashbaria/redux/slices/Profile';
+import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
+import { ASHBARIA_COIN } from 'apps/ashbaria/constants/game-info';
+import { useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 
 type PropsType = {}
 
 const GameMenuPanel: FC<PropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { data: myAshbariaProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
+  const { data: myFriendshipNetwork, isLoading: isGetMyFriendshipNetworkLoading } = useGetMyFriendshipNetworkQuery()
+  const { data: myRank, isLoading: isGetMyRankLoading } = useGetMyRankQuery({ currencyName: ASHBARIA_COIN });
   const { logout } = useLogout();
 
   return (
@@ -66,9 +71,15 @@ const GameMenuPanel: FC<PropsType> = () => {
               {'حلقه دوستان'}
             </Typography>
           </Stack>
-          <Stack sx={{ background: '#0000001A', borderRadius: 2 }}>
+          <Stack spacing={0.5} alignItems={'center'} justifyContent={'center'} direction={'row'} sx={{ background: '#0000001A', borderRadius: 2 }}>
             <Typography color={'white'}>
-              {'۲۸ نفر'}
+              {isGetMyFriendshipNetworkLoading ?
+                <Skeleton width={10} height={20} /> :
+                <>{myFriendshipNetwork?.network.user_followings_count + myFriendshipNetwork?.network.user_followers_count}</>
+              }
+            </Typography>
+            <Typography color={'white'}>
+              {'نفر'}
             </Typography>
           </Stack>
         </Stack>
@@ -85,9 +96,15 @@ const GameMenuPanel: FC<PropsType> = () => {
               {'شاخ‌ترین‌ها'}
             </Typography>
           </Stack>
-          <Stack sx={{ background: '#0000001A', borderRadius: 2 }}>
+          <Stack spacing={0.5} alignItems={'center'} justifyContent={'center'} direction={'row'} sx={{ background: '#0000001A', borderRadius: 2 }}>
             <Typography color={'white'}>
-              {'رتبه شما ۱۴۹'}
+              {'رتبه شما: '}
+            </Typography>
+            <Typography color={'white'}>
+              {isGetMyRankLoading ?
+                <Skeleton width={10} height={20} /> :
+                <>{myRank?.rank}</>
+              }
             </Typography>
           </Stack>
         </Stack>

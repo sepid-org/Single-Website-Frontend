@@ -44,8 +44,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     disableAfterAnswer,
   });
 
-
-
   return (
     <Stack spacing={1}>
       <Stack justifyContent={"space-between"}>
