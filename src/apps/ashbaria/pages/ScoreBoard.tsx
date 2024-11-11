@@ -14,29 +14,25 @@ const ScoreBoard: React.FC = () => {
 				component="img"
 				src={leftImg}
 				sx={{
+					width: '30%',
 					position: "fixed",
 					left: 0,
 					bottom: 0,
-					display: {
-						xs: "none",
-						xl: "block",
-					}
+					zIndex: 0,
 				}}
 			/>
-			<Container maxWidth='md' component={Paper}>
+			<Container maxWidth='sm' component={Paper} sx={{ zIndex: 1 }}>
 				<Scores />
 			</Container>
 			<Box
 				component="img"
 				src={rightImg}
 				sx={{
+					width: '30%',
 					position: "fixed",
 					right: 0,
 					bottom: 0,
-					display: {
-						xs: "none",
-						xl: "block",
-					}
+					zIndex: 0,
 				}}
 			/>
 		</FullScreenBackgroundImage>
