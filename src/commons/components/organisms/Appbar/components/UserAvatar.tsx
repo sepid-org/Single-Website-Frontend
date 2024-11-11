@@ -13,7 +13,7 @@ type UserAvatarPropsType = {}
 
 const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
   const { logout } = useLogout();
-  const { data: { fullName, profile_picture: profilePicture } } = useUserProfile();
+  const { data: { fullName, profile_image: profilePicture } } = useUserProfile();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);

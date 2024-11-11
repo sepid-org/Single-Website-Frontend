@@ -50,10 +50,10 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           setFile={(file) => {
             setData({
               ...data,
-              profile_picture: file,
+              profile_image: file,
             })
           }}
-          file={data.profile_picture || PROFILE_PICTURE}
+          file={data.profile_image || PROFILE_PICTURE}
           showImageSelf={true} />
       </Grid>
 

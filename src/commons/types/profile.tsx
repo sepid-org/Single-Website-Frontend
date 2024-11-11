@@ -23,7 +23,7 @@ export type UserInfoType = {
   national_code: string | null;
   phone_number: string;
   postal_code: string;
-  profile_picture: string;
+  profile_image: string;
   province: string;
   userPermissions: UserPermissions[];
   username: string;

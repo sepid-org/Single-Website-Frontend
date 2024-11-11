@@ -49,7 +49,7 @@ const AccountBadge = () => {
     );
   }
 
-  const { profile_picture: profilePicture, fullName } = userProfile;
+  const { profile_image: profilePicture, fullName } = userProfile;
 
   return (
     <Fragment>

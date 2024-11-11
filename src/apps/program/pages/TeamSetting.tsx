@@ -159,7 +159,7 @@ const TeamSetting: FC<TeamSettingPropsType> = ({ }) => {
                             <img
                               alt=""
                               style={{ borderRadius: '5px', objectFit: 'cover' }}
-                              src={member.profile_picture || PROFILE_PICTURE}
+                              src={member.profile_image || PROFILE_PICTURE}
                               width="200px"
                               height="200px"
                             />

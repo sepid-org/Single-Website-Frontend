@@ -76,7 +76,7 @@ export type AnswerSheetType = {
 
 export type RegistrationReceiptType = {
   form: string
-  profile_picture: string;
+  profile_image: string;
   id: string;
   is_paid: boolean;
   user: UserInfoType;
