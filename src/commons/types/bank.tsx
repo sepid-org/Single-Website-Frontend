@@ -1,9 +1,13 @@
-export interface ScoreBoardItemType {
-  rank: number;
-  name: string;
+
+export interface ScoreBoardRecordType {
+  user: string;
   score: number;
+}
+
+export interface ScoreBoardItemType extends ScoreBoardRecordType {
+  name: string;
+  rank: number;
   currentUser: boolean;
-  id: string;
   profileImg?: string;
 }
 

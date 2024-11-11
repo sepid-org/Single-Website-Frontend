@@ -10,6 +10,7 @@ import rankings from "../../assets/rankings.svg";
 import { ASHBARIA_COIN } from '../../constants/game-info';
 import useGetScoreBoardData from "apps/ashbaria/hooks/useGetScoreboardData";
 import WinnerRecord from "../molecules/WinnerRecord";
+import { toPersianNumber } from "commons/utils/translateNumber";
 
 export default function Scores() {
 	const {
@@ -19,11 +20,17 @@ export default function Scores() {
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(ASHBARIA_COIN);
 
-	const getDisplayName = (first_name, last_name, truncated_username) => {
+	const getDisplayName = (user: string, first_name: string, last_name: string) => {
 		if (first_name && last_name) {
 			return `${first_name} ${last_name}`;
 		}
-		return `کاربر ${truncated_username}`;
+
+		// Hash the UUID to get a 4-digit number
+		const hashCode = Math.abs(
+			Array.from(user).reduce((acc, char) => acc + char.charCodeAt(0), 0)
+		) % 10000;
+
+		return `دادبستان ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}
 
 	return (
@@ -89,7 +96,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[1].profile_image}
-									name={getDisplayName(winnerScores[1]?.first_name, winnerScores[1]?.last_name, winnerScores[1]?.truncated_username)}
+									name={getDisplayName(winnerScores[1]?.user, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
 									score={winnerScores[1].score}
 								/>
 							</Stack>
@@ -107,7 +114,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[0].profile_image}
-									name={getDisplayName(winnerScores[0]?.first_name, winnerScores[0]?.last_name, winnerScores[0]?.truncated_username)}
+									name={getDisplayName(winnerScores[0]?.user, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
 									score={winnerScores[0].score}
 								/>
 							</Stack>
@@ -125,7 +132,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[2].profile_image}
-									name={getDisplayName(winnerScores[2]?.first_name, winnerScores[2]?.last_name, winnerScores[2]?.truncated_username)}
+									name={getDisplayName(winnerScores[2]?.user, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
 									score={winnerScores[2].score}
 								/>
 							</Stack>
@@ -144,14 +151,14 @@ export default function Scores() {
 			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord 
-							key={record.id} 
-							rank={index + 1} 
-							name={getDisplayName(record.first_name, record.last_name, record.truncated_username)} 
-							score={record.score} 
-							currentUser={record.currentUser} 
-							id={record.id} 
-							profileImg={record.profile_image} 
+						<ScoreRecord
+							key={record.id}
+							rank={index + 1}
+							name={getDisplayName(record.user, record.first_name, record.last_name)}
+							score={record.score}
+							currentUser={record.currentUser}
+							user={record.id}
+							profileImg={record.profile_image}
 						/>
 					)) :
 					<ScoreRecordSkeleton />

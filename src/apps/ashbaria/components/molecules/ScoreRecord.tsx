@@ -4,7 +4,7 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import { ScoreBoardItemType } from "commons/types/bank";
 import VerifyIcon from "../atoms/icons/Verify";
 
-const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser, profileImg, id }) => {
+const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser, profileImg }) => {
 	//const conditionalUserBackground = currentUser ? "linear-gradient(180deg, #BBD043 0%, #BBD043 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
 	const conditionalRankColor = rank === 1 ? "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
 	//const textColor = currentUser ? "black" : "white";

@@ -176,8 +176,9 @@ export type WorkshopEdge = any
 export type Token = any
 
 export type UserPublicInfoType = {
-  truncated_username: string;
-  id: string;
+  user_id: string;
+  bio: string;
+  gender: string;
   first_name: string;
   last_name: string;
   profile_image: string;
