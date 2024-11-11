@@ -9,7 +9,7 @@ import { FilmType } from 'apps/film-bazi/types';
 import { useGetDiscountCodeMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import { Box, IconButton, InputAdornment, Stack, TextField, Tooltip } from '@mui/material';
+import { Box, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material';
 import ShareDiscountCodeButton from '../molecules/buttons/ShareDiscountCode';
 import { ContentCopy } from '@mui/icons-material';
 import CopyDiscountCodeButton from '../molecules/buttons/CopyDiscountCode';
@@ -84,6 +84,25 @@ const DiscountDialog: React.FC<DiscountDialogProps> = ({
         {dialogContent}
       </DialogContent>
       <DialogActions>
+        {film.gisheh7_link &&
+          <Button
+            variant="outlined"
+            href={film.gisheh7_link}
+            target="_blank"
+            sx={{
+              color: '#ff4759',
+              borderColor: '#ff4759',
+              '&:hover': {
+                backgroundColor: '#ff475910',
+                borderColor: '#ff4759',
+              },
+            }}
+          >
+            <Typography fontWeight="bold" color={'#ff2335'}>
+              {'خرید از گیشه۷'}
+            </Typography>
+          </Button>
+        }
         <Button variant='contained' onClick={onClose} color="primary">
           {'متوجه شدم'}
         </Button>
