@@ -2,6 +2,7 @@ import { SchoolStudentshipType, UserInfoType } from 'commons/types/profile';
 import { WebsiteType } from 'commons/types/global';
 import { WMS_URL } from 'commons/configs/Constants';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import { UserPublicInfoType } from 'commons/types/models';
 
 type GetUserProfileInputType = {
   userId: string;
@@ -12,6 +13,8 @@ type UpdateUserProfileInputType = {
 } & Partial<UserInfoType>;
 
 type GetUserProfileOutputType = UserInfoType;
+
+type GetUserProfileSummaryOutputType = UserPublicInfoType;
 
 type UpdateSchoolStudentshipInputType = Partial<SchoolStudentshipType>;
 
@@ -49,7 +52,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    getUserProfileSummary: builder.query<GetUserProfileOutputType, GetUserProfileInputType>({
+    getUserProfileSummary: builder.query<GetUserProfileSummaryOutputType, GetUserProfileInputType>({
       providesTags: ['user-profile'],
       query: ({ userId: partyId }) => ({
         url: `auth/profile/${partyId}/profile_summary/`,

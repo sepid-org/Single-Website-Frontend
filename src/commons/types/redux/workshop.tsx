@@ -5,7 +5,6 @@ import {
     TeamType,
     Answer,
     PlayerType,
-    UserPublicInfoType,
     FSMType
 } from '../models'
 
@@ -21,7 +20,6 @@ export type InitialStateType = {
     answers: Answer[],
     allWorkshops: FSMType[],
     players: PlayerType[],
-    allWorkshopMentors: UserPublicInfoType[],
 };
 
 type CurrentState = {

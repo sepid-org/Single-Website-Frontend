@@ -17,7 +17,6 @@ const initialState: InitialState = {
   workshopsCount: 0,
   programs: [],
   program: null,
-  uploadedFile: { link: '', name: '', id: '' },
   myInvitations: [],
   teamInvitations: [],
   allRegistrationReceipts: [],

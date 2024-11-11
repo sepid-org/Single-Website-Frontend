@@ -174,16 +174,14 @@ export type FSMStateType = ObjectType & {
 export type Answer = any
 export type WorkshopEdge = any
 export type Token = any
+
 export type UserPublicInfoType = {
-  username: string;
+  truncated_username: string;
   id: string;
   first_name: string;
   last_name: string;
-  email: string;
-  phone_number: string;
-  profilePicturePath?: string;
+  profile_image: string;
 }
-export type UploadedFile = { link: string, name: string, id: string }
 
 export type LogoType = {
   mobile_image: string;

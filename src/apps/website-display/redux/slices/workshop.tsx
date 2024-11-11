@@ -19,7 +19,6 @@ const initialState: FSMInitialStateType = {
   workshop: null,
   answers: [],
   players: null,
-  allWorkshopMentors: [],
 };
 
 export const getAnswersForReviewAction = createAsyncThunkApi(

@@ -1,11 +1,11 @@
-import { UserPublicInfoType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import { UserInfoType } from 'commons/types/profile';
 
 type ProgramInputType = {
   programSlug: string;
 }
 
-type GetProgramAdminsOutputType = UserPublicInfoType[];
+type GetProgramAdminsOutputType = UserInfoType[];
 
 type AddAdminToProgramInputType = {
   programSlug: string;

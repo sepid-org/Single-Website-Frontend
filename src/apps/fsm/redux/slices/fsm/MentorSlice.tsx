@@ -1,6 +1,6 @@
-import { UserPublicInfoType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
+import { UserInfoType } from 'commons/types/profile';
 
 type AddMentorInputType = {
   fsmId: number;
@@ -24,7 +24,7 @@ type GetFSMMentorsInputType = {
   fsmId: number;
 }
 
-type GetFSMMentorsOutputType = UserPublicInfoType[];
+type GetFSMMentorsOutputType = UserInfoType[];
 
 export const MentorSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({

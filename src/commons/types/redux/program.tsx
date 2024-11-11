@@ -1,11 +1,10 @@
 import { WidgetType } from 'commons/types/widgets/widget';
 import {
-  ProgramType, 
-  InvitationType, 
-  RegistrationReceiptType,  
-  TeamType, 
+  ProgramType,
+  InvitationType,
+  RegistrationReceiptType,
+  TeamType,
   RegistrationFormType,
-  UploadedFile,
   FSMType,
   MerchandiseType
 } from '../models'
@@ -16,7 +15,6 @@ export type InitialState = {
   workshopsCount: number,
   programs: ProgramType[],
   program: ProgramType,
-  uploadedFile: UploadedFile,
   myInvitations: InvitationType[],
   teamInvitations: InvitationType[],
   allRegistrationReceipts: RegistrationReceiptType[],
