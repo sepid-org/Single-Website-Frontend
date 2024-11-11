@@ -144,7 +144,15 @@ export default function Scores() {
 			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord key={record.id} rank={index + 1} name={getDisplayName(record.first_name, record.last_name, record.truncated_username)} score={record.score} currentUser={record.currentUser} id={record.id} profileImg={record.profile_image} />
+						<ScoreRecord 
+							key={record.id} 
+							rank={index + 1} 
+							name={getDisplayName(record.first_name, record.last_name, record.truncated_username)} 
+							score={record.score} 
+							currentUser={record.currentUser} 
+							id={record.id} 
+							profileImg={record.profile_image} 
+						/>
 					)) :
 					<ScoreRecordSkeleton />
 				}
