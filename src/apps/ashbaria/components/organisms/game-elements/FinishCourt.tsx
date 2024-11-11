@@ -97,7 +97,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       </Typography>
 
       <Stack direction={'row'} spacing={2}>
-        <MyLastSupportPercentageInCourt />
+        <MyLastSupportPercentageInCourt forceRefetch={true} />
         <MyLastScoreInCourt />
       </Stack>
 

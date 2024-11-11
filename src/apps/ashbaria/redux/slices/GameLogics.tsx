@@ -46,7 +46,7 @@ export const GameLogicsSlice = AshbariaApi.injectEndpoints({
 
     getUserLastSupportPercentageInCourt: builder.query<number, { correspondingFsmId: number }>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'Balances', id: 'MY' },
+        // { type: 'Balances', id: 'MY' },
       ]),
       query: ({ correspondingFsmId }) => ({
         url: '/game-logic/last-support-percentage/',
