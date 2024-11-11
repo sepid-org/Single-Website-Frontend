@@ -24,6 +24,7 @@ const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
       padding={1}
       paddingX={2}
       borderRadius={3}
+      paddingBottom={1.4}
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}

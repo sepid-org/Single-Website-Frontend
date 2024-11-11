@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
@@ -37,7 +37,7 @@ export default function Scores() {
 					<BackButton />
 				</Box>
 				<Stack direction={'row'} spacing={1} alignItems={'center'} justifyContent={'center'}>
-					<CupIcon size={28} />
+					<CupIcon size={32} />
 					<Typography fontSize={24} fontWeight={800}>
 						{'شاخ‌ترین‌ها'}
 					</Typography>
