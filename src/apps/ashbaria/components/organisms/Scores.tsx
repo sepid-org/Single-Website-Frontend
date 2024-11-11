@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Box, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
@@ -8,7 +8,7 @@ import SearchIcon from "../atoms/icons/Search";
 import CupIcon from "../atoms/icons/Cup";
 import rankings from "../../assets/rankings.svg";
 import { ASHBARIA_COIN } from '../../constants/game-info';
-import useGetScoreBoardData from "apps/film-bazi/hooks/useGetScoreboardData";
+import useGetScoreBoardData from "apps/ashbaria/hooks/useGetScoreboardData";
 import WinnerRecord from "../molecules/WinnerRecord";
 
 export default function Scores() {
@@ -82,7 +82,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[1].profile_image}
-									name={winnerScores[1].first_name + winnerScores[1].last_name}
+									name={winnerScores[1].first_name + " " + winnerScores[1].last_name}
 									score={winnerScores[1].score}
 								/>
 							</Stack>
@@ -100,7 +100,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[0].profile_image}
-									name={winnerScores[0].first_name + winnerScores[0].last_name}
+									name={winnerScores[0].first_name + " " + winnerScores[0].last_name}
 									score={winnerScores[0].score}
 								/>
 							</Stack>
@@ -118,7 +118,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[2].profile_image}
-									name={winnerScores[2].first_name + winnerScores[2].last_name}
+									name={winnerScores[2].first_name + " " + winnerScores[2].last_name}
 									score={winnerScores[2].score}
 								/>
 							</Stack>

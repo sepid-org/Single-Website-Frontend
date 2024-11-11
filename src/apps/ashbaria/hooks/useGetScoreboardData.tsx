@@ -14,7 +14,6 @@ const useGetScoreBoardData = (currencyName) => {
   const userIds = useMemo(() => scoreBoard.map(user => user.id), [scoreBoard]);
   const { data: userList, loading: isUserListLoading, error: userListError } = useGetUsersNames(userIds);
 
-
   // State for results
   const [winnerScores, setWinnerScores] = useState([]);
   const [scoreRecordsState, setScoreRecordsState] = useState({
@@ -36,7 +35,7 @@ const useGetScoreBoardData = (currencyName) => {
   useEffect(() => {
     if (userList && scoreBoard) {
       let newRecords = scoreBoard.map(scoreBoardItem => {
-        const userListItem = userList.find(obj => obj.id === scoreBoardItem.id);
+        const userListItem = userList.profiles.find(obj => obj.id === scoreBoardItem.id);
         return { ...userListItem, ...scoreBoardItem };
       });
       newRecords = newRecords.filter(record => (record.id != null));
