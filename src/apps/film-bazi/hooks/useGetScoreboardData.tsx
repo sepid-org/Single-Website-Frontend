@@ -37,7 +37,7 @@ const useGetScoreBoardData = (currencyName) => {
   useEffect(() => {
     if (userList && scoreBoard) {
       let newRecords = scoreBoard.map(scoreBoardItem => {
-        const userListItem = userList.find(obj => obj.id === scoreBoardItem.id);
+        const userListItem = userList.find(obj => obj.user === scoreBoardItem.id);
         return { ...userListItem, ...scoreBoardItem };
       });
       newRecords = newRecords.filter(record => (record.id != null));
