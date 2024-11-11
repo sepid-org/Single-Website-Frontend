@@ -1,18 +1,17 @@
 import React from 'react';
-import documentSvg from "../../../assets/documents.svg";
+import documentsSvg from "../../../assets/documents.svg";
 import { Box } from '@mui/material';
 
-const DocumentIcon = (props) => {
+const DocumentsIcon = ({ size = 90 }) => {
   return (
     <Box
       component="img"
-      src={documentSvg}
+      src={documentsSvg}
       sx={{
-        width: 200,
-        // height: 100,
+        width: size,
       }}
     />
   );
 };
 
-export default DocumentIcon;
+export default DocumentsIcon;

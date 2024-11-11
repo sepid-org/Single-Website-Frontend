@@ -26,7 +26,7 @@ const ScoreChip: FC<ScoreChipPropsType> = ({
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
-      spacing={0.5}
+      spacing={1}
     >
       {isLoading || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :

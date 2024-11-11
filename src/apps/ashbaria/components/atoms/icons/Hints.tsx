@@ -2,13 +2,13 @@ import React from 'react';
 import hintsSvg from "../../../assets/hints.svg";
 import { Box } from '@mui/material';
 
-const HintsIcon = (props) => {
+const HintsIcon = ({ size = 90 }) => {
   return (
     <Box
       component="img"
       src={hintsSvg}
       sx={{
-        width: 100,
+        width: size,
       }}
     />
   );
