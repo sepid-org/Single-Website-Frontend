@@ -2,13 +2,13 @@ import React from "react";
 import CheloSVG from "../../../assets/chelo.svg";
 import { Box } from "@mui/material";
 
-const CheloIcon = () => {
+const CheloIcon = ({ size = 86 }) => {
 	return (
 		<Box
 			component="img"
 			src={CheloSVG}
-			width={86}
-			height={86}
+			width={size}
+			height={size}
 		/>
 	);
 }

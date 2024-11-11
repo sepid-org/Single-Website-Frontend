@@ -3,43 +3,35 @@ import React, { FC, useState } from "react";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CustomDocumentPagination from "../../molecules/CustomDocumentsPagination";
-import ArchiveIcon from "../../atoms/icons/Archive";
 import { useParams, useSearchParams } from "react-router-dom";
 import BackButton from "../../molecules/buttons/Back";
 import Document from "./Document";
 import { useGetResourcesByTypeQuery } from "commons/redux/apis/cms/resource/Resource";
-import { ASHBARIA_DOCUMENT_TYPE } from "apps/ashbaria/constants/game-info";
+import { ASHBARIA_CHELO_TYPE } from "apps/ashbaria/constants/game-info";
 import { AshbariaDocumentType } from "apps/ashbaria/types";
+import CheloIcon from "../../atoms/icons/Chelo";
 
 type PropsType = {}
 
 const CourtChelos: FC<PropsType> = ({ }) => {
 	const theme = useTheme();
-	const [currentCheloIndex, setCurrentCheloIndex] = useState(0)
+	const [currentCheloIndex, setCurrentCheloIndex] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const fsmId = parseInt(useParams().fsmId);
-	const { data: allDocuments } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_DOCUMENT_TYPE })
-	const documents = allDocuments?.filter(document => document.content.fsm_id === fsmId) || [];
+	const { data: allChelos } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_CHELO_TYPE })
+	const courtChelos = allChelos?.filter(chelo => chelo.content.fsm_id === fsmId) || [];
 
-	const currentChelo = documents[currentCheloIndex];
+	const currentChelo = courtChelos[currentCheloIndex];
 
-	const goToPreviousDocument = () => {
+	const goToPreviousChelo = () => {
 		if (currentCheloIndex > 0) {
-			const prevDocument = documents[currentCheloIndex - 1];
-			setSearchParams({
-				dialog: 'court-chelos',
-				documentId: prevDocument.id.toString(),
-			});
+			setCurrentCheloIndex(currentCheloIndex - 1);
 		}
 	};
 
-	const goToNextDocument = () => {
-		if (currentCheloIndex < documents.length - 1) {
-			const nextDocument = documents[currentCheloIndex + 1];
-			setSearchParams({
-				dialog: 'court-chelos',
-				documentId: nextDocument.id.toString(),
-			});
+	const goToNextChelo = () => {
+		if (currentCheloIndex < courtChelos.length - 1) {
+			setCurrentCheloIndex(currentCheloIndex + 1);
 		}
 	};
 
@@ -51,7 +43,7 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 				</Box>
 
 				<Stack alignItems={'center'} direction={'row'} spacing={0.5}>
-					<ArchiveIcon />
+					<CheloIcon size={32} />
 					<Typography variant="h5">
 						{'چلوها'}
 					</Typography>
@@ -87,14 +79,14 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 								backgroundClip: "padding-box",
 								color: "#FE9C42",
 							}}
-							onClick={goToPreviousDocument}
+							onClick={goToPreviousChelo}
 						>
 							<ArrowForwardIcon />
 						</IconButton>
 					</Box>
 
 					<CustomDocumentPagination
-						numberOfPages={documents.length}
+						numberOfPages={courtChelos.length}
 						currentPage={currentCheloIndex}
 					/>
 
@@ -110,7 +102,7 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 							position: "relative",
 							overflow: "hidden",
 							background: "linear-gradient(to right, #FE9C42, #E25100)",
-							visibility: (currentCheloIndex < documents.length - 1 ? "visible" : "hidden"),
+							visibility: (currentCheloIndex < courtChelos.length - 1 ? "visible" : "hidden"),
 						}}
 					>
 						<IconButton
@@ -122,7 +114,7 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 								backgroundClip: "padding-box",
 								color: "#FE9C42",
 							}}
-							onClick={goToNextDocument}
+							onClick={goToNextChelo}
 						>
 							<ArrowBackIcon />
 						</IconButton>

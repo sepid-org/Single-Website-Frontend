@@ -39,6 +39,7 @@ export type UpdateProfileResponse = AshbariaProfileType & {
 export type UpdateProfileInput = Partial<Omit<AshbariaProfileType,
   'created_at' | 'updated_at' | 'has_received_reward' | 'is_profile_complete'
 >>;
+
 export type AshbariaDocumentType = {
   id: number;
   title: string;
