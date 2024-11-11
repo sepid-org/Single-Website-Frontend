@@ -32,13 +32,25 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					{winnerScores.length > 0 ?
 						<Fragment>
 							<Grid>
-								<WinnerCard score={winnerScores[2]?.score} rank={3} />
+								<WinnerCard 
+									score={winnerScores[2]?.score} 
+									rank={3} 
+									name={winnerScores[2]?.first_name + " " + winnerScores[2]?.last_name}
+								/>
 							</Grid>
 							<Grid>
-								<WinnerCard score={winnerScores[0]?.score} rank={1} />
+								<WinnerCard 
+									score={winnerScores[0]?.score} 
+									rank={1} 
+									name={winnerScores[0]?.first_name + " " + winnerScores[0]?.last_name}
+								/>
 							</Grid>
 							<Grid>
-								<WinnerCard score={winnerScores[1]?.score} rank={2} />
+								<WinnerCard 
+									score={winnerScores[1]?.score} 
+									rank={2} 
+									name={winnerScores[1]?.first_name + " " + winnerScores[1]?.last_name}
+								/>
 							</Grid>
 						</Fragment> :
 						<WinnerCardsSkeleton />
