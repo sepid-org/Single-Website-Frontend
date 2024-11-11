@@ -35,9 +35,10 @@ const useGetScoreBoardData = (currencyName) => {
   useEffect(() => {
     if (userList && scoreBoard) {
       let newRecords = scoreBoard.map(scoreBoardItem => {
-        const userListItem = userList.profiles.find(obj => obj.id === scoreBoardItem.id);
+        const userListItem = userList.profiles.find(obj => obj.user === scoreBoardItem.id);
         return { ...userListItem, ...scoreBoardItem };
       });
+      console.log(newRecords);
       newRecords = newRecords.filter(record => (record.id != null));
       let exists = false;
       if (myRank?.rank) {
