@@ -42,7 +42,7 @@ const AshbariaQuestionToast = ({ ...props }) => {
 
   useEffect(() => {
     if (questionAnswers?.length > 0 && !hasToastBeenShown.current) {
-      toast.info('دوباره برگشتی همینجا. این دفعه یه راه دیگه رو برو...', {
+      toast.info('دوباره برگشتی همینجا. این دفعه یه راه جدید رو برو...', {
         autoClose: 5000,
       });
       hasToastBeenShown.current = true;
