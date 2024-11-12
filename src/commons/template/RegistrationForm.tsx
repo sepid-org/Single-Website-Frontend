@@ -80,7 +80,6 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
         <Paper
           mode='form'
           paperId={registrationForm.id}
-          answers={answers}
           getAnswerCollector={getAnswerCollector}
         />
         {isSubmitButtonDisabled().isDisabled &&

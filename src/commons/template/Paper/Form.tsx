@@ -11,14 +11,12 @@ export type FormPaperPropsType = {
   mode: 'form';
   paperId: string;
   widgets_type?: 'contents' | 'problems' | 'all';
-  answers?: AnswerType[];
   getAnswerCollector: GetAnswerCollectorType;
 }
 
 const FormPaper: FC<FormPaperPropsType> = ({
   paperId,
   widgets_type = 'all',
-  answers = [],
   getAnswerCollector,
 }) => {
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });

@@ -1,13 +1,12 @@
 import { Button, Stack, TextField, Typography } from '@mui/material';
-import React, { FC, Fragment, useState } from 'react';
+import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import SmallAnswerProblemEditWidget from './edit';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import useSmallAnswerQuestionProperties from './useSmallAnswerQuestionProperties';
 
 type SmallAnswerProblemWidgetPropsType = {
   useSubmitAnswerMutation: any;
@@ -17,7 +16,6 @@ type SmallAnswerProblemWidgetPropsType = {
   mode: WidgetModes;
   text: string;
   correct_answer: any;
-  submittedAnswer: any;
 } & QuestionWidgetType;
 
 const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
@@ -27,41 +25,22 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   id: questionId,
   mode,
   text: problemText,
-  submittedAnswer,
   ...questionWidgetProps
 }) => {
   const t = useTranslate();
-  const [answer, setAnswer] = useState<string>(submittedAnswer?.text || '');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [hasAnswered, setHasAnswered] = useState(false);
-  const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
-  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { player } = useFSMContext();
 
-  const changeText = (e) => {
-    if (mode === WidgetModes.InForm) {
-      onAnswerChange({ text: e.target.value });
-    }
-    setAnswer(e.target.value);
-  }
-
-  const submit = () => {
-    if (!answer) {
-      return;
-    }
-    setIsSubmitting(true);
-    submitAnswer({
-      playerId: player.id,
-      questionId,
-      text: answer,
-      onSuccess: () => {
-        setIsSubmitting(false);
-      },
-      onFailure: () => {
-        setIsSubmitting(false);
-      },
-    });
-  }
+  const {
+    answer,
+    errorMessage,
+    submitAnswer: submitAnswerWrapper,
+    submitAnswerResult,
+    onAnswerChange: onAnswerChangeWrapper,
+  } = useSmallAnswerQuestionProperties({
+    questionId,
+    onAnswerChange,
+    useSubmitAnswerMutation,
+    mode,
+  })
 
   return (
     <Fragment>
@@ -83,11 +62,11 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
                 fullWidth
                 variant='outlined'
                 value={answer}
-                disabled={hasAnsweredCorrectly}
-                error={hasAnswered && !hasAnsweredCorrectly}
+                disabled={Boolean(errorMessage)}
+                error={Boolean(errorMessage)}
                 autoComplete='false'
                 placeholder={'لطفاً پاسخ خود را وارد کنید.'}
-                onChange={changeText}
+                onChange={onAnswerChangeWrapper}
                 size='small'
               />
               {mode === WidgetModes.View &&
@@ -95,8 +74,8 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
                   variant='outlined'
                   color='primary'
                   sx={{ whiteSpace: 'nowrap' }}
-                  disabled={isSubmitting || hasAnsweredCorrectly}
-                  onClick={submit}>
+                  disabled={Boolean(errorMessage)}
+                  onClick={submitAnswerWrapper}>
                   {t('submit')}
                 </Button>
               }

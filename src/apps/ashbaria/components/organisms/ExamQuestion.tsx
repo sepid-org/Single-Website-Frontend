@@ -35,7 +35,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
-    id: questionId,
     choices: questionChoices,
     mode,
     minSelections,
@@ -63,8 +62,8 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         />
 
       </IsRequired>
-      <Grid 
-        container 
+      <Grid
+        container
         sx={{
           width: "100%",
           display: "flex",

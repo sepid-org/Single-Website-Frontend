@@ -1,13 +1,10 @@
 import { useMemo, useState } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import useAnswerSheet from 'commons/hooks/useAnswerSheet';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
-export { MultiChoiceQuestionEditWidget };
 
 // Add this utility function at the top of the file or in a separate utils file
 const seededRandom = (seed: string) => {
@@ -28,10 +25,9 @@ const haveSameElements = (list1, list2) =>
   list1.length === list2.length && [...list1].sort().every((item, index) => item === [...list2].sort()[index]);
 
 type PropsType = {
-  questionId: string;
+  questionId: number;
   useSubmitAnswerMutation: any;
   onAnswerChange: any;
-  id: number;
   choices: ChoiceType[];
   mode: WidgetModes;
   minSelections: number;
@@ -43,7 +39,7 @@ type PropsType = {
 const useMultiChoiceQuestionProperties = ({
   useSubmitAnswerMutation,
   onAnswerChange,
-  id: questionId,
+  questionId,
   choices: questionChoices,
   mode,
   minSelections,
