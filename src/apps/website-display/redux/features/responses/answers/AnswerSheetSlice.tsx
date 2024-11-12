@@ -5,8 +5,6 @@ type GetAnswerSheetAnswersInputType = {
   answerSheetId: string;
 }
 
-type GetAnswerSheetAnswersOutputType = AnswerSheetType;
-
 type GetQuestionAnswersInputType = {
   questionId: string;
 }
@@ -15,14 +13,21 @@ type GetQuestionAnswersOutputType = AnswerType[];
 
 export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getAnswerSheet: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
+    getAnswerSheetById: builder.query<AnswerSheetType, GetAnswerSheetAnswersInputType>({
       providesTags: ['user-profile'],
       query: ({ answerSheetId }) => ({
         url: `response/answer-sheets/${answerSheetId}/`,
       }),
     }),
 
-    getAnswerSheetByPlayerId: builder.query<GetAnswerSheetAnswersOutputType, { playerId: string }>({
+    getAnswerSheetsByFormId: builder.query<AnswerSheetType[], { formId: number }>({
+      providesTags: ['player'],
+      query: ({ formId }) => ({
+        url: `response/answer-sheets/by-form/?form_id=${formId}`,
+      }),
+    }),
+
+    getAnswerSheetByPlayerId: builder.query<AnswerSheetType, { playerId: string }>({
       providesTags: ['player'],
       query: ({ playerId }) => ({
         url: `response/answer-sheets/by-player/?player_id=${playerId}`,
@@ -40,7 +45,8 @@ export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useGetAnswerSheetQuery,
+  useGetAnswerSheetByIdQuery,
+  useGetAnswerSheetsByFormIdQuery,
   useGetAnswerSheetByPlayerIdQuery,
   useGetWidgetAnswersQuery,
 } = AnswerSheetSlice;
