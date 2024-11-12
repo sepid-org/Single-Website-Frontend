@@ -35,7 +35,7 @@ const GameMenuPanel: FC<PropsType> = () => {
       <ProgramLogo />
       {isGetProfileLoading ? (
         <Skeleton width={'80%'} height={60} />
-      ) : myAshbariaProfile.has_received_reward ? (
+      ) : myAshbariaProfile?.has_received_reward ? (
         <MyFirstNameChip />
       ) : (
         <Button
