@@ -11,7 +11,7 @@ const useGetScoreBoardData = (currencyName) => {
   const { data: myRank, isLoading: isMyRankLoading } = useGetMyRankQuery({ currencyName });
   const { data: balances, isLoading: isBalancesLoading } = useGetMyBalancesQuery();
   const { data: userProfile } = useUserProfile();
-  const userIds = useMemo(() => scoreRecords.map(user => user.user), [scoreRecords]);
+  const userIds = useMemo(() => scoreRecords.map(user => user.user_id), [scoreRecords]);
   const { data: usersInfo, loading: isUserListLoading, error: userListError } = useGetUsersNames(userIds);
 
 
@@ -39,7 +39,7 @@ const useGetScoreBoardData = (currencyName) => {
 
       const newScoreRecords = scoreRecords
         .map(scoreRecord => {
-          const userInfo = usersInfo.find(obj => obj.user === scoreRecord.user);
+          const userInfo = usersInfo.find(userInfo => userInfo.user_id === scoreRecord.user_id);
           return userInfo ? { ...userInfo, ...scoreRecord } : null;
         })
         .filter(record => record !== null);

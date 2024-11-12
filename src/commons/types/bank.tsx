@@ -1,6 +1,6 @@
 
 export interface ScoreBoardRecordType {
-  user: string;
+  user_id: string;
   score: number;
 }
 

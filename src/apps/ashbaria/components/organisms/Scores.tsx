@@ -80,7 +80,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[1].profile_image}
-									name={getDisplayName(winnerScores[1]?.user, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
+									name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
 									score={winnerScores[1].score}
 								/>
 							</Stack>
@@ -98,7 +98,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[0].profile_image}
-									name={getDisplayName(winnerScores[0]?.user, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
+									name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
 									score={winnerScores[0].score}
 								/>
 							</Stack>
@@ -116,7 +116,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[2].profile_image}
-									name={getDisplayName(winnerScores[2]?.user, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
+									name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
 									score={winnerScores[2].score}
 								/>
 							</Stack>
@@ -136,12 +136,12 @@ export default function Scores() {
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
 						<ScoreRecord
-							key={record.id}
+							key={record.user_id}
 							rank={index + 1}
-							name={getDisplayName(record.user, record.first_name, record.last_name)}
+							name={getDisplayName(record.user_id, record.first_name, record.last_name)}
 							score={record.score}
 							currentUser={record.currentUser}
-							user={record.id}
+							user_id={record.user_id}
 							profileImg={record.profile_image}
 						/>
 					)) :
