@@ -27,6 +27,7 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
+import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -96,7 +97,7 @@ const FriendshipNetworkPage = () => {
 
   const copyToClipboardWrapper = () => {
     if (myFriendshipNetwork) {
-      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت با موفقیت کپی شد');
+      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت اختصاصیت با موفقیت کپی شد');
     }
   };
 
@@ -114,11 +115,11 @@ const FriendshipNetworkPage = () => {
                 {'حلقه دوستان'}
               </Typography>
             </Stack>
-            <Box position={'absolute'} right={10} top={2}>
+            {/* <Box position={'absolute'} right={10} top={2}>
               <IconButton color="inherit">
                 <ExclamationIcon />
               </IconButton>
-            </Box>
+            </Box> */}
           </Grid>
 
           <Grid container item spacing={3} alignItems={'stretch'} justifyContent={'center'}>
@@ -142,11 +143,14 @@ const FriendshipNetworkPage = () => {
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ۵ تا اعتبار می‌ارزه
+                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${ASHBARIA_SUBMIT_FRIENDSHIP_CODE} تا اعتبار می‌ارزه`}
                 </Typography>
                 <TextField
                   variant="outlined"
-                  placeholder="کد ۱۰ رقمی"
+                  placeholder="کد ۱۰ حرفی"
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   onChange={(event) => setInputCode(event.target.value)}
                 />
                 <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>

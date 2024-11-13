@@ -56,7 +56,7 @@ const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleC
 							<Typography fontSize={16} fontWeight={800}>
 								{rewardScore}
 							</Typography>
-							<VerifyIcon />
+							<VerifyIcon size={28} />
 						</Stack>
 					)
 				}

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
 import VerifyIcon from "../../atoms/icons/Verify";
 import TwoPeopleIcon from "../../atoms/icons/TwoPeople";
@@ -26,14 +26,7 @@ const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
 				border: 0,
 			}}
 		>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					alignItems: "center",
-					justifyContent: "center",
-				}}
-			>
+			<Stack spacing={0.5} direction={'row'} alignItems={'center'} justifyContent={'center'}>
 				<Typography
 					fontSize={16}
 					fontWeight={800}
@@ -43,16 +36,9 @@ const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
 				>
 					{points}
 				</Typography>
-				<VerifyIcon size={30} />
-			</Box>
-			<Box
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					alignItems: "center",
-					justifyContent: "center",
-				}}
-			>
+				<VerifyIcon size={28} />
+			</Stack>
+			<Stack spacing={0.5} direction={'row'} alignItems={'center'} justifyContent={'center'}>
 				<Typography
 					fontSize={16}
 					fontWeight={800}
@@ -63,7 +49,7 @@ const FriendshipNetworkPoints: React.FC<FriendshipNetworkPointProps> = ({
 					{numberOfFriends}
 				</Typography>
 				<TwoPeopleIcon />
-			</Box>
+			</Stack>
 		</Box>
 	);
 }
