@@ -41,11 +41,13 @@ const CompletedMission = ({ requiredFollows, rewardScore }) => {
 				justifyContent={'center'}
 				marginTop={1}
 				borderRadius={4}
-				paddingX={0.5}
+				padding={0.5}
+				paddingX={1}
 				sx={{
 					boxShadow: "0px 4px 4px 0px #00000040",
 					backgroundColor: "#00000080",
 				}}
+				spacing={0.5}
 			>
 				<Typography fontSize={16} fontWeight={800}>
 					{rewardScore}

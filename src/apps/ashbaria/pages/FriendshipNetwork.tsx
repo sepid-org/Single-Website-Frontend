@@ -237,7 +237,7 @@ const FriendshipNetworkPage = () => {
                   key={record.id}
                   requiredFollows={record.required_follows}
                   rewardScore={record.reward_score}
-                  completable={record.required_follows <= myFriendshipNetwork?.network.user_followings_count}
+                  completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
                   handleClick={completeMission} id={record.id}
                 />
               ))}
