@@ -41,12 +41,14 @@ const AshbariaQuestionToast = ({ ...props }) => {
   const questionAnswers = getQuestionAnswers(parseInt(multiChoiceQuestion?.id));
 
   useEffect(() => {
-    if (questionAnswers?.length > 0 && !hasToastBeenShown.current) {
-      toast.info('دادبستان عزیز! دادگاه ادامه داره. لطفاً ادله‌ی بیشتری بیار...', {
-        autoClose: 5000,
-      });
-      hasToastBeenShown.current = true;
-    }
+    setTimeout(() => {
+      if (questionAnswers?.length > 0 && !hasToastBeenShown.current) {
+        toast.info('دادبستان عزیز! دادگاه ادامه داره. لطفاً ادله‌ی بیشتری بیار...', {
+          autoClose: 5000,
+        });
+        hasToastBeenShown.current = true;
+      }
+    }, 500)
   }, [questionAnswers]);
 
   return null;
