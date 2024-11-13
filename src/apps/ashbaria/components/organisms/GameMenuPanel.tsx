@@ -75,7 +75,7 @@ const GameMenuPanel: FC<PropsType> = () => {
             <Typography color={'white'}>
               {isGetMyFriendshipNetworkLoading ?
                 <Skeleton width={10} height={20} /> :
-                <>{myFriendshipNetwork?.network.user_followings_count || 0 + myFriendshipNetwork?.network.user_followers_count || 0}</>
+                <>{(myFriendshipNetwork?.network.user_followings_count || 0) + (myFriendshipNetwork?.network.user_followers_count || 0)}</>
               }
             </Typography>
             <Typography color={'white'}>
