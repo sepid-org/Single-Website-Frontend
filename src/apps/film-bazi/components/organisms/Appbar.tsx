@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AppBar, Button, Container, Drawer, IconButton, Stack, Toolbar, Typography, styled, useMediaQuery } from '@mui/material';
 import AccountBadge from '../atoms/buttons/AccountBadge';
 import HomeIcon from '../atoms/icons/HomeIcon';
-import NotificationIcon from '../atoms/icons/NotificationIcon';
 import MenuIcon from '@mui/icons-material/Menu'; // Menu icon for mobile drawer toggle
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
 import { useTheme } from '@mui/material/styles'; // To get theme breakpoints
@@ -10,6 +9,8 @@ import DashboardButton3 from '../atoms/buttons/DashboardButton3';
 import HelpButton from '../atoms/buttons/HelpButton';
 import HelpButton2 from '../atoms/buttons/HelpButton2';
 import ProfileIcon from '../atoms/icons/Profile';
+import useUserProfile from 'commons/hooks/useUserProfile';
+import { SHAD_ORIGIN } from 'apps/film-bazi/constants/game';
 
 const CustomAppBar = styled(AppBar)(({ theme }) => ({
   boxShadow: '0px 4px 4px 0px #00000040',
@@ -33,6 +34,7 @@ const AppBarComponent = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // Check if screen size is mobile
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { data: userProfile } = useUserProfile();
 
   const toggleDrawer = (open) => () => {
     setDrawerOpen(open);
@@ -45,11 +47,13 @@ const AppBarComponent = () => {
           {'خانه'}
         </Typography>
       </Button>
-      <Button startIcon={<ProfileIcon />} onClick={() => localNavigate('/profile/')}>
-        <Typography fontWeight={700} fontSize={18}>
-          {'نمایه'}
-        </Typography>
-      </Button>
+      {userProfile.origin !== SHAD_ORIGIN &&
+        <Button startIcon={<ProfileIcon />} onClick={() => localNavigate('/profile/')}>
+          <Typography fontWeight={700} fontSize={18}>
+            {'نمایه'}
+          </Typography>
+        </Button>
+      }
       <HelpButton2 />
     </Stack>
   );
@@ -68,7 +72,9 @@ const AppBarComponent = () => {
               </IconButton>
             ) : (
               <Stack direction={'row-reverse'} spacing={2}>
-                <DashboardButton3 label='نمایه' icon={<ProfileIcon />} onClick={() => { localNavigate(`/profile/`) }} />
+                {userProfile.origin !== SHAD_ORIGIN &&
+                  <DashboardButton3 label='نمایه' icon={<ProfileIcon />} onClick={() => { localNavigate(`/profile/`) }} />
+                }
                 <HelpButton />
                 <DashboardButton3 label='خانه' icon={<HomeIcon />} onClick={() => { localNavigate(`/`) }} />
               </Stack>
