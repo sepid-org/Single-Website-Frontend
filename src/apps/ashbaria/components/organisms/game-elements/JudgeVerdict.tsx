@@ -24,7 +24,7 @@ const JudgeVerdict: FC<PropsType> = ({ }) => {
       <Typography variant='h3' color={'black'} lineHeight={1.5}>
         {finalSupportPercentage >= 50 ?
           currentCourt?.judge_verdict1 :
-          currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتمام وجود ندارد.'
+          currentCourt?.judge_verdict2 || 'ادله‌ی کافی برای اثبات اتهام وجود ندارد.'
         }
       </Typography>
     </Stack>
