@@ -41,14 +41,17 @@ const AshbariaQuestionToast = ({ ...props }) => {
   const questionAnswers = getQuestionAnswers(parseInt(multiChoiceQuestion?.id));
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (questionAnswers?.length > 0 && !hasToastBeenShown.current) {
         toast.info('دادبستان عزیز! دادگاه ادامه داره. لطفاً ادله‌ی بیشتری بیار...', {
           autoClose: 5000,
         });
         hasToastBeenShown.current = true;
       }
-    }, 500)
+    }, 500);
+
+    // Clear the timer if the component unmounts before the delay is completed
+    return () => clearTimeout(timer);
   }, [questionAnswers]);
 
   return null;
