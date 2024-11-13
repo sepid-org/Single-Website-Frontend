@@ -1,4 +1,4 @@
-import { Button, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import React, { FC } from "react";
 import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import useTransitionBackward from "commons/hooks/fsm/useTransitionBackward";
@@ -21,8 +21,12 @@ const ExamTemplate: FC<PropsType> = () => {
 
   return (
     <Stack>
-      <ExamTimer />
-      <Paper mode='general' paperId={paperId} />
+      <Box position="relative">
+        <Paper mode="general" paperId={paperId} />
+        <Box position="absolute" top={800} left={800} zIndex={1}>
+          <ExamTimer />
+        </Box>
+      </Box>
       <Button onClick={() => transitBackward()}>
         {'back'}
       </Button>

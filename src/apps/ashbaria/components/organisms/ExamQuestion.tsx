@@ -26,7 +26,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   const {
     selectedChoices,
     displayChoices,
-
     onChoiceSelect,
     submitAnswer,
     submitAnswerResult,
@@ -43,8 +42,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     randomizeChoices,
     disableAfterAnswer,
   });
-
-
 
   return (
     <Stack spacing={1}>
@@ -84,13 +81,12 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           >
             <QuestionChoice
               choice={choice}
-              isSelected={selectedChoices.map(c => c.id).includes(choice.id)}
+              isSelected={selectedChoices.includes(choice.id)}
               onSelectionChange={() => onChoiceSelect(choice)}
             />
           </Grid>
         )}
       </Grid>
-      {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
           variant='contained'
@@ -99,7 +95,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
             {'ثبت'}
           </Typography>
         </Button>
-      }
+      
     </Stack>
   );
 };

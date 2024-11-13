@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react';
-
+import { useEffect, useMemo, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
@@ -51,14 +50,13 @@ const useMultiChoiceQuestionProperties = ({
   randomizeChoices,
   disableAfterAnswer,
 }: PropsType) => {
-  const [selectedChoices, setSelectedChoices] = useState<ChoiceType[]>([]);
+  const [selectedChoices, setSelectedChoices] = useState([]);
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet({})
   const questionAnswers = getQuestionAnswers(questionId);
   const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);
 
-  // Create deterministic random ordering based on playerId and questionId
   const randomizedChoices: ChoiceType[] = useMemo(() => {
     if (randomizeChoices && mode === WidgetModes.View && player?.id) {
       const seed = `${player.id}-${questionId}`;
@@ -126,6 +124,13 @@ const useMultiChoiceQuestionProperties = ({
   if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoices.map(choice => choice.id), questionAnswer.choices))) {
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
+
+  useEffect(() => {
+    if (wholeSelectedChoices && wholeSelectedChoices.length > 0) {
+      console.log(wholeSelectedChoices);
+      setSelectedChoices([wholeSelectedChoices[wholeSelectedChoices.length - 1]])
+    }
+  }, [questionAnswers]);
 
   return {
     selectedChoices,
