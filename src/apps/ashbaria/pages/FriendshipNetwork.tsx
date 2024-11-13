@@ -27,6 +27,7 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
+import BookMission from '../components/molecules/friendship-network/BookMission';
 import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
 
 const FriendshipNetworkPage = () => {
@@ -229,6 +230,7 @@ const FriendshipNetworkPage = () => {
                 },
               }}
             >
+              <BookMission />
               {myCompletedMissions?.map(record => (
                 <CompletedMission
                   key={record.id}
