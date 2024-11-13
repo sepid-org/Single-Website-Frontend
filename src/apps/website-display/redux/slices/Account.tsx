@@ -44,6 +44,7 @@ const handleLoginSuccess = (
 const loginEndpoints = [
   'createAccount',
   'otpLogin',
+  'uuidLogin',
   'simpleLogin',
   'googleLogin',
 ] as const;

@@ -69,6 +69,16 @@ type OTPLoginOutputType = {
   user: any;
 }
 
+type UUIDLoginInputType = {
+  userId: string;
+}
+
+type UUIDLoginOutputType = {
+  access: string;
+  refresh: string;
+  user: any;
+}
+
 type ChangeUserPasswordInputType = {
   phoneNumber: string;
   password: string;
@@ -152,7 +162,20 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
+    uuidLogin: builder.mutation<UUIDLoginOutputType, UUIDLoginInputType>({
+      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
+      query: ({ userId }) => ({
+        url: 'auth/accounts/uuid-login/',
+        method: 'POST',
+        body: {
+          user_id: userId,
+        },
+      }),
+    }),
+
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
+      invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       query: (body) => ({
         url: 'auth/accounts/change-phone-number/',
         method: 'POST',
@@ -196,6 +219,7 @@ export const {
   useSimpleLoginMutation,
   useGoogleLoginMutation,
   useOtpLoginMutation,
+  useUuidLoginMutation,
   useCreateAccountMutation,
   useGetGoogleUserProfileQuery,
   useChangePhoneNumberMutation,
