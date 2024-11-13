@@ -28,10 +28,11 @@ const ShadLogin: FC<PropsType> = ({ }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const userId = convertToUUID(searchParams.get('UserID'));
   const [uuidLogin, uuidLoginResult] = useUuidLoginMutation();
+  const ORIGIN_NAME = 'SHAD';
 
   useEffect(() => {
     if (userId) {
-      uuidLogin({ userId });
+      uuidLogin({ userId, origin: ORIGIN_NAME });
     }
   }, [userId])
 
