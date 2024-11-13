@@ -30,7 +30,6 @@ export const tagTypes = [
   'player',
   'player-transited-path',
   'website-profile',
-  'user-profile',
   'institutes',
   'schools',
   'merchandises',

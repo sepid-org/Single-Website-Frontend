@@ -27,7 +27,7 @@ type GetWebsiteProfileOutputType = Partial<WebsiteType>;
 export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getUserProfile: builder.query<GetUserProfileOutputType, GetUserProfileInputType>({
-      providesTags: ['user-profile'],
+      providesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ userId }) => ({
         url: `auth/profile/${userId}/`,
         method: 'GET',
@@ -35,7 +35,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateUserProfile: builder.mutation<GetUserProfileOutputType, UpdateUserProfileInputType>({
-      invalidatesTags: ['user-profile'],
+      invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ userId, ...body }) => ({
         url: `auth/profile/${userId}/`,
         method: 'PATCH',
@@ -44,7 +44,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateSchoolStudentship: builder.mutation<GetSchoolStudentshipOutputType, UpdateSchoolStudentshipInputType>({
-      invalidatesTags: ['user-profile'],
+      invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ id, ...body }) => ({
         url: `auth/studentship/${id}/`,
         method: 'PATCH',
@@ -53,7 +53,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getUserProfileSummary: builder.query<GetUserProfileSummaryOutputType, GetUserProfileInputType>({
-      providesTags: ['user-profile'],
+      providesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ userId: partyId }) => ({
         url: `auth/profile/${partyId}/profile_summary/`,
         method: 'GET',
