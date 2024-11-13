@@ -51,7 +51,7 @@ const ShadLogin: FC<PropsType> = ({ }) => {
           {'ورود موفقیت‌آمیز نبود:'}
         </Typography>
         <Typography>
-          {uuidLoginResult.error['data'].error}
+          {uuidLoginResult.error?.['data']?.error}
         </Typography>
       </Fragment>
     );
