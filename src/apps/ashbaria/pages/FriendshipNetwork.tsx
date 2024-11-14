@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Box,
   Container,
@@ -208,45 +208,29 @@ const FriendshipNetworkPage = () => {
           {/* Missions Section */}
           <Grid item xs={12}>
             <Typography fontSize={16} fontWeight={600} gutterBottom>
-              {'ماموریت‌های کدزنی'}
+              {'ماموریت‌های اشتراک‌گذاری کد'}
             </Typography>
-            <Stack
-              spacing={2}
-              direction={'row-reverse'}
-              overflow={'auto'}
-              sx={{
-                width: '100%',
-                paddingBottom: 2,
-                borderRadius: '8px',
-                '::-webkit-scrollbar': {
-                  height: '8px',
-                },
-                '::-webkit-scrollbar-thumb': {
-                  backgroundColor: '#b0bec5',
-                  borderRadius: '8px',
-                },
-                '::-webkit-scrollbar-thumb:hover': {
-                  backgroundColor: '#90a4ae',
-                },
-              }}
-            >
+            <Stack direction={'row-reverse'} spacing={2}>
               <BookMission />
-              {myCompletedMissions?.map(record => (
-                <CompletedMission
-                  key={record.id}
-                  requiredFollows={record.required_follows}
-                  rewardScore={record.reward_score}
-                />
-              ))}
-              {unCompletedMissions?.map(record => (
-                <UncompletedMission
-                  key={record.id}
-                  requiredFollows={record.required_follows}
-                  rewardScore={record.reward_score}
-                  completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
-                  handleClick={completeMission} id={record.id}
-                />
-              ))}
+
+              <ScrollableStack>
+                {myCompletedMissions?.map(record => (
+                  <CompletedMission
+                    key={record.id}
+                    requiredFollows={record.required_follows}
+                    rewardScore={record.reward_score}
+                  />
+                ))}
+                {unCompletedMissions?.map(record => (
+                  <UncompletedMission
+                    key={record.id}
+                    requiredFollows={record.required_follows}
+                    rewardScore={record.reward_score}
+                    completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
+                    handleClick={completeMission} id={record.id}
+                  />
+                ))}
+              </ScrollableStack>
             </Stack>
           </Grid>
         </Grid>
@@ -256,3 +240,48 @@ const FriendshipNetworkPage = () => {
 };
 
 export default FriendshipNetworkPage;
+
+
+function ScrollableStack({ children }) {
+  const stackRef = useRef(null);
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    const checkScrollable = () => {
+      if (stackRef.current) {
+        setIsScrollable(stackRef.current.scrollWidth > stackRef.current.clientWidth);
+      }
+    };
+
+    checkScrollable();
+    window.addEventListener('resize', checkScrollable);
+
+    return () => window.removeEventListener('resize', checkScrollable);
+  }, []);
+
+  return (
+    <Stack
+      ref={stackRef}
+      spacing={2}
+      direction={'row-reverse'}
+      overflow={'auto'}
+      sx={{
+        width: '100%',
+        borderRadius: '8px',
+        paddingBottom: isScrollable ? 1 : 0,
+        '::-webkit-scrollbar': {
+          height: '8px',
+        },
+        '::-webkit-scrollbar-thumb': {
+          backgroundColor: '#b0bec5',
+          borderRadius: '8px',
+        },
+        '::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: '#90a4ae',
+        },
+      }}
+    >
+      {children}
+    </Stack >
+  );
+}
