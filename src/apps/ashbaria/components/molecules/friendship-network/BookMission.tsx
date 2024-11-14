@@ -138,7 +138,9 @@ const BookMission = ({ }) => {
 							variant="outlined"
 							size="small"
 						>
-							{'خرید کتاب'}
+							<Typography noWrap variant='body2'>
+								{'خرید کتاب'}
+							</Typography>
 						</Button>
 					</Stack>
 				</Fragment>
