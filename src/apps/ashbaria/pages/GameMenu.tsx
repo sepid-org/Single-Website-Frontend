@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 
@@ -11,6 +11,7 @@ import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
 import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import GameMenuPanel from '../components/organisms/GameMenuPanel';
+import HelpButton from '../components/molecules/buttons/HelpButton';
 
 type GameMenuPropsType = {}
 
@@ -50,9 +51,10 @@ const GameMenu: FC<GameMenuPropsType> = () => {
           />
         </FSMStateProvider>
       </FSMProvider>
-      <Box position={'absolute'} right={10} top={10}>
+      <Stack spacing={1} position={'absolute'} right={10} top={10}>
         <MyTotalScoreChip />
-      </Box>
+        <HelpButton />
+      </Stack>
       <Box top={10} left={0} position={'absolute'}>
         <GameMenuPanel />
       </Box>
