@@ -19,7 +19,7 @@ const getDadbestanAddress = (finalSupportPercentage: number, court: CourtType) =
   }
 
   if (court.corresponding_fsm === LAST_COURT_FSM_ID) {
-    return 'بالاخره موفق شدی این پرونده رو با موفقیت تموم کنی. تبریک میگم. تو باعث افتخار مایی';
+    return 'بالاخره موفق شدی این پرونده رو با موفقیت تموم کنی. تبریک میگم! تو باعث افتخار مایی';
   }
 
   if (finalSupportPercentage === 0) {
@@ -86,7 +86,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       <Box paddingBottom={4}>
         {(finalSupportPercentage === undefined || currentCourt === undefined) ?
           <Skeleton variant='rounded' width={240} height={80} /> :
-          <Typography color={Golden} variant="h4" textAlign={'center'}>
+          <Typography color={Golden} variant="h3" textAlign={'center'} lineHeight={1.5}>
             {getDadbestanAddress(finalSupportPercentage, currentCourt)}
           </Typography>
         }
@@ -108,7 +108,9 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
       } */}
 
       <Button fullWidth onClick={handleGoToHome} variant='outlined' size="large">
-        {'بازگشت به خانه'}
+        <Typography fontWeight={600} fontSize={24} color={Golden}>
+          {'بازگشت به خانه'}
+        </Typography>
       </Button>
     </Stack>
   )
