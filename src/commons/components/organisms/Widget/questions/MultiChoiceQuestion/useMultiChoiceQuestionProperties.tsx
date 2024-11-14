@@ -76,42 +76,42 @@ const useMultiChoiceQuestionProperties = ({
     disabled: disableAfterAnswer && maxSelections === 1 && wholeSelectedChoices?.includes(choice.id)
   }))
 
-  const handleSetSelectedChoices = (newSelectedChoices) => {
-    const newSelectedChoiceIds = newSelectedChoices.map(selectedChoice => selectedChoice.id)
-    onAnswerChange({ choices: newSelectedChoiceIds });
-    setSelectedChoiceIds(newSelectedChoiceIds);
+  const handleSetSelectedChoices = (newSelectedChoices: number[]) => {
+    onAnswerChange({ choices: newSelectedChoices });
+    setSelectedChoiceIds(newSelectedChoices);
   }
 
-  const onChoiceSelect = (choice) => {
+  const onChoiceSelect = (choice: ChoiceType) => {
+    const selectedChoiceId = choice.id;
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
     if (maxSelections === 1) {
-      handleSetSelectedChoices([choice])
+      handleSetSelectedChoices([selectedChoiceId])
       if (mode === WidgetModes.View) {
-        submitAnswerWrapper([choice]);
+        submitAnswerWrapper([selectedChoiceId]);
       }
     } else {
-      const choiceIndex = selectedChoiceIds.findIndex(selectedChoice => selectedChoice === choice.id);
-      if (choiceIndex === -1) {
+      const selectedChoiceIndex = selectedChoiceIds.findIndex(choiceId => choiceId === selectedChoiceId);
+      if (selectedChoiceIndex === -1) {
         handleSetSelectedChoices([
           ...selectedChoiceIds,
-          choice,
+          selectedChoiceId,
         ]);
       } else {
-        const selectedChoicesCopy = [...selectedChoiceIds]
-        selectedChoicesCopy.splice(choiceIndex, 1);
-        handleSetSelectedChoices(selectedChoicesCopy);
+        const selectedChoiceIdsCopy = [...selectedChoiceIds]
+        selectedChoiceIdsCopy.splice(selectedChoiceIndex, 1);
+        handleSetSelectedChoices(selectedChoiceIdsCopy);
       }
     }
   }
 
-  const submitAnswerWrapper = (selectedChoices) => {
+  const submitAnswerWrapper = (selectedChoiceIds: number[]) => {
     if (mode === WidgetModes.View) {
       submitAnswer({
         questionId,
         playerId: player.id,
-        selectedChoices,
+        selectedChoices: selectedChoiceIds,
       });
     }
   }
