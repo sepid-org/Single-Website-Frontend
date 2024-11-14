@@ -1,8 +1,8 @@
 import { Stack, Typography } from "@mui/material";
 import { CourtType } from "apps/ashbaria/types";
 import React, { FC } from "react";
-import { Secondary } from "apps/ashbaria/constants/colors";
-import LockIcon from "apps/ashbaria/components/atoms/icons/Lock";
+import { DarkSecondary } from "apps/ashbaria/constants/colors";
+import DarkLockIcon from "apps/ashbaria/components/atoms/icons/DarkLock";
 
 type PropsType = {
   court: CourtType;
@@ -14,13 +14,13 @@ const LockedCourtCard: FC<PropsType> = ({
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
-      <Typography fontSize={10} fontWeight={400} color={Secondary} textAlign={'center'}>
+      <Typography fontSize={10} fontWeight={400} color={DarkSecondary} textAlign={'center'}>
         {'دادگاه'}
       </Typography>
-      <Typography fontSize={12} fontWeight={600} color={Secondary} textAlign={'center'}>
+      <Typography fontSize={12} fontWeight={600} color={DarkSecondary} textAlign={'center'}>
         {court.title}
       </Typography>
-      <LockIcon />
+      <DarkLockIcon />
     </Stack>
   );
 }
