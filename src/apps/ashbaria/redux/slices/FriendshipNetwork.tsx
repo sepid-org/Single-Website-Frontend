@@ -1,6 +1,7 @@
 import { CodeType, CompletedMissionType, FollowType, FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
 import { AshbariaApi } from '../AshbariaApi';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetMyFriendshipNetworkOutputType = {
   network: FriendshipNetworkType;
@@ -49,6 +50,25 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
+    getBookCode: builder.query<void, void>({
+      providesTags: [{ type: 'BookCode', id: 'MY' }],
+      query: () => '/friendship-network/book-code/get-user-code/',
+    }),
+
+    submitBookCode: builder.mutation<void, { bookCode: string }>({
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
+        [{ type: 'BookCode', id: 'MY' }]
+      ),
+      onQueryStarted: invalidateMyTagsForTypes(['Balances']),
+      query: ({ bookCode }) => ({
+        url: '/friendship-network/book-code/submit/',
+        method: 'POST',
+        body: {
+          code: bookCode,
+        }
+      }),
+    }),
+
   }),
   overrideExisting: false,
 });
@@ -59,4 +79,6 @@ export const {
   useFollowMutation,
   useGetMyCompletedMissionsQuery,
   useCompleteMissionMutation,
+  useGetBookCodeQuery,
+  useSubmitBookCodeMutation,
 } = FriendshipNetworkSlice;

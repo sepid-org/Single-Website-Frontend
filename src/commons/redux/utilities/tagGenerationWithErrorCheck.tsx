@@ -51,6 +51,7 @@ export const tagTypes = [
   'Network',
   'Missions',
   'MissionProgress',
+  'BookCode',
   // Filmbazi
   'filmbazi-discount-code',
   'filmbazi-film',

@@ -1,15 +1,53 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import { Button, Skeleton, Stack, TextField, Typography } from "@mui/material";
+import React, { Fragment, useEffect, useState } from "react";
 import VerifyIcon from "../../atoms/icons/Verify";
 import { Golden } from "apps/ashbaria/constants/colors";
-import { ASHBARIA_BOOK_COIN_REWARD, ASHBARIA_CHELO_TYPE } from "apps/ashbaria/constants/game-info";
+import { ASHBARIA_BOOK_COIN_REWARD } from "apps/ashbaria/constants/game-info";
+import { useGetBookCodeQuery, useSubmitBookCodeMutation } from "apps/ashbaria/redux/slices/FriendshipNetwork";
+import dialogService from "commons/components/organisms/PortalDialog";
+import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
+import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 
 const BookMission = ({ }) => {
 	const [bookCode, setBookCode] = useState<string>('');
-	const completed = false;
+	const { isSuccess, isLoading } = useGetBookCodeQuery();
+	const [submitBookCode, result] = useSubmitBookCodeMutation();
+	const completed = isSuccess;
 
 	const handleSubmitBookCode = () => {
+		submitBookCode({ bookCode })
+	}
 
+	useEffect(() => {
+		if (result.isSuccess) {
+			dialogService.open({
+				component:
+					<CustomDialogContent
+						image={<ScoreAnnouncement />}
+						title={`تبریک! کد کتابت رو زدی و امتیازشو گرفتی. باریکلا`}
+						onClick={() => {
+							dialogService.close();
+						}}
+					/>
+			})
+		}
+		if (result.isError) {
+			if (result.error?.['data']?.message) {
+				dialogService.open({
+					component:
+						<CustomDialogContent
+							title={result.error['data'].message}
+							onClick={() => {
+								dialogService.close();
+							}}
+						/>
+				})
+			}
+		}
+	}, [result])
+
+	if (isLoading) {
+		return;
 	}
 
 	return (
@@ -74,6 +112,7 @@ const BookMission = ({ }) => {
 					/>
 					<Stack direction={'row'}>
 						<Button
+							disabled={!Boolean(bookCode)}
 							sx={{
 								borderBottomRightRadius: 0,
 								borderTopRightRadius: 0,
@@ -95,9 +134,9 @@ const BookMission = ({ }) => {
 								borderTopLeftRadius: 0,
 							}}
 							href='https://qandilsch.ir/product/10-raz-ashbaria/'
+							target="_blank"
 							variant="outlined"
 							size="small"
-							onClick={handleSubmitBookCode}
 						>
 							{'خرید کتاب'}
 						</Button>
