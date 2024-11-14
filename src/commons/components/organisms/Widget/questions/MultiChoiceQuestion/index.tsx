@@ -43,7 +43,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   ...questionWidgetProps
 }) => {
   const {
-    selectedChoices,
+    selectedChoiceIds,
     displayChoices,
     onChoiceSelect,
     submitAnswer,
@@ -77,7 +77,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             key={choice.id}
             choice={choice}
             mode={WidgetModes.View}
-            isSelected={selectedChoices.map(choice => choice.id).includes(choice.id)}
+            isSelected={selectedChoiceIds.includes(choice.id)}
             onSelectionChange={() => onChoiceSelect(choice)}
             variant={maxSelections > 1 ? 'checkbox' : 'radio'}
           />
@@ -89,7 +89,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
             disabled={Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
-            onClick={() => submitAnswer(selectedChoices)}
+            onClick={() => submitAnswer(selectedChoiceIds)}
           >
             <Typography fontWeight={400}>
               {'ثبت'}

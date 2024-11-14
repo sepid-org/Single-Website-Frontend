@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import useAnswerSheet from 'commons/hooks/useAnswerSheet';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
@@ -51,8 +50,8 @@ const useMultiChoiceQuestionProperties = ({
   randomizeChoices,
   disableAfterAnswer,
 }: PropsType) => {
-  const [selectedChoices, setSelectedChoices] = useState<ChoiceType[]>([]);
-  const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const [selectedChoiceIds, setSelectedChoiceIds] = useState<number[]>([]);
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet({})
   const questionAnswers = getQuestionAnswers(questionId);
@@ -77,9 +76,10 @@ const useMultiChoiceQuestionProperties = ({
     disabled: disableAfterAnswer && maxSelections === 1 && wholeSelectedChoices?.includes(choice.id)
   }))
 
-  const _handleSetSelectedChoices = (newSelectedChoices) => {
-    onAnswerChange({ choices: newSelectedChoices });
-    setSelectedChoices(newSelectedChoices);
+  const handleSetSelectedChoices = (newSelectedChoices) => {
+    const newSelectedChoiceIds = newSelectedChoices.map(selectedChoice => selectedChoice.id)
+    onAnswerChange({ choices: newSelectedChoiceIds });
+    setSelectedChoiceIds(newSelectedChoiceIds);
   }
 
   const onChoiceSelect = (choice) => {
@@ -87,53 +87,53 @@ const useMultiChoiceQuestionProperties = ({
       return;
     }
     if (maxSelections === 1) {
-      _handleSetSelectedChoices([choice])
+      handleSetSelectedChoices([choice])
       if (mode === WidgetModes.View) {
-        submitAnswer([choice]);
+        submitAnswerWrapper([choice]);
       }
     } else {
-      const choiceIndex = selectedChoices.findIndex(selectedChoice => selectedChoice.id === choice.id);
+      const choiceIndex = selectedChoiceIds.findIndex(selectedChoice => selectedChoice === choice.id);
       if (choiceIndex === -1) {
-        _handleSetSelectedChoices([
-          ...selectedChoices,
+        handleSetSelectedChoices([
+          ...selectedChoiceIds,
           choice,
         ]);
       } else {
-        const selectedChoicesCopy = [...selectedChoices]
+        const selectedChoicesCopy = [...selectedChoiceIds]
         selectedChoicesCopy.splice(choiceIndex, 1);
-        _handleSetSelectedChoices(selectedChoicesCopy);
+        handleSetSelectedChoices(selectedChoicesCopy);
       }
     }
   }
 
-  const submitAnswer = (selectedChoices) => {
+  const submitAnswerWrapper = (selectedChoices) => {
     if (mode === WidgetModes.View) {
-      _submitAnswer({
+      submitAnswer({
         questionId,
         playerId: player.id,
-        selectedChoices: selectedChoices.map(selectedChoice => selectedChoice.id),
+        selectedChoices,
       });
     }
   }
 
   let errorMessage = '';
-  if (selectedChoices?.length < minSelections) {
+  if (selectedChoiceIds?.length < minSelections) {
     errorMessage = `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`;
   }
-  if (selectedChoices?.length > maxSelections) {
+  if (selectedChoiceIds?.length > maxSelections) {
     errorMessage = `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`;
   }
-  if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoices.map(choice => choice.id), questionAnswer.choices))) {
+  if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoiceIds, questionAnswer.choices))) {
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
   return {
-    selectedChoices,
+    selectedChoiceIds,
     displayChoices,
     errorMessage,
 
     onChoiceSelect,
-    submitAnswer,
+    submitAnswer: submitAnswerWrapper,
     submitAnswerResult,
   };
 };

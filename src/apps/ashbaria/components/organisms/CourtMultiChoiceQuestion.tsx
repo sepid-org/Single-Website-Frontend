@@ -3,7 +3,6 @@ import { Button, Stack, Typography } from '@mui/material';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import { toPersianNumber } from 'commons/utils/translateNumber';
 import CourtMultiChoiceQuestionChoice from '../molecules/CourtMultiChoiceQuestionChoice';
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
@@ -23,7 +22,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
 }) => {
 
   const {
-    selectedChoices,
+    selectedChoiceIds,
     displayChoices,
 
     onChoiceSelect,
@@ -54,7 +53,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           <CourtMultiChoiceQuestionChoice
             key={choice.id}
             choice={choice}
-            isSelected={selectedChoices.map(choice => choice.id).includes(choice.id)}
+            isSelected={selectedChoiceIds.includes(choice.id)}
             onSelectionChange={() => onChoiceSelect(choice)}
           />
         )}
@@ -66,7 +65,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
             disabled={Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
-            onClick={() => submitAnswer(selectedChoices)}>
+            onClick={() => submitAnswer(selectedChoiceIds)}>
             <Typography fontWeight={400}>
               {'ثبت'}
             </Typography>

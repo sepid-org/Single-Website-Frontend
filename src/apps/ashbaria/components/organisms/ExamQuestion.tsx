@@ -24,7 +24,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   ...questionWidgetProps
 }) => {
   const {
-    selectedChoices,
+    selectedChoiceIds,
     displayChoices,
 
     onChoiceSelect,
@@ -82,17 +82,17 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           >
             <QuestionChoice
               choice={choice}
-              isSelected={selectedChoices.map(c => c.id).includes(choice.id)}
+              isSelected={selectedChoiceIds.includes(choice.id)}
               onSelectionChange={() => onChoiceSelect(choice)}
             />
           </Grid>
         )}
       </Grid>
-      {mode === WidgetModes.View && maxSelections > 1 && selectedChoices.length > 0 &&
+      {mode === WidgetModes.View && maxSelections > 1 && selectedChoiceIds.length > 0 &&
         <Button
           sx={{ width: 80, alignSelf: 'end' }}
           variant='contained'
-          onClick={() => submitAnswer(selectedChoices)}>
+          onClick={() => submitAnswer(selectedChoiceIds)}>
           <Typography fontWeight={400}>
             {'ثبت'}
           </Typography>
