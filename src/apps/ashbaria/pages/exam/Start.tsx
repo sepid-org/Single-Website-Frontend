@@ -7,14 +7,16 @@ import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullSc
 import { Golden } from "apps/film-bazi/constants/colors";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 
+const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
+
 type StartExamPagePropsType = {};
 
 const StartExamPage: FC<StartExamPagePropsType> = () => {
-  const fsmId = process.env.NODE_ENV === 'development' ? "213" : "213";
   const { programSlug } = useParams();
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const userExamStatus = userFSMsStatus?.find(status => status.fsm_id.toString() === fsmId);
-  //const {startFSM} = useStartFSM();
+  const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
+  const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
+
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
       <Stack width={300} component={Paper} padding={2} spacing={2}>
