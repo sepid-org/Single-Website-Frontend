@@ -16,7 +16,7 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 
 		const hashCode = hashStringToNumber(user_id);
 
-		return `کاربر ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
+		return `فیلم‌باز ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}
 
 	return (
