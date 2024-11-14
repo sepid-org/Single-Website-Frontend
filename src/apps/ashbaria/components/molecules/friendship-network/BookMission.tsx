@@ -59,7 +59,7 @@ const BookMission = ({ }) => {
 			padding={1}
 			spacing={1}
 		>
-			<Typography textAlign={'center'} fontSize={20} color={completed ? 'black' : Golden} fontWeight={800}>
+			<Typography noWrap textAlign={'center'} fontSize={20} color={completed ? 'black' : Golden} fontWeight={800}>
 				{completed ? 'کد کتاب' : 'کد کتابت رو اینجا بزن:'}
 			</Typography>
 			{completed ?
@@ -122,7 +122,7 @@ const BookMission = ({ }) => {
 							onClick={handleSubmitBookCode}
 						>
 							<Stack spacing={0.5} direction={'row'} alignItems={'center'} justifyContent={'center'}>
-								<Typography fontSize={12} fontWeight={800}>
+								<Typography noWrap fontSize={12} fontWeight={800}>
 									{`دریافت ${ASHBARIA_BOOK_COIN_REWARD}`}
 								</Typography>
 								<VerifyIcon size={28} />
