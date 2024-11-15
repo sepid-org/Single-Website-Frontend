@@ -9,6 +9,7 @@ import MyLastSupportPercentageChangeInCourt from "../components/molecules/chips/
 import MyFullName from "../components/molecules/chips/MyFullName";
 import JudgeVerdict from "../components/organisms/game-elements/JudgeVerdict";
 import CheloButton from "../components/molecules/buttons/Chelo";
+import AshbariaQuestionToast from "../components/molecules/AshbariaQuestionToast";
 
 const useGetCourtComplementaryWidgets = () => {
 
@@ -48,6 +49,10 @@ const useGetCourtComplementaryWidgets = () => {
     {
       name: 'ashbaria-my-profile',
       substituteComponent: <MyFullName />,
+    },
+    {
+      name: 'ashbaria-question-toast',
+      substituteComponent: <AshbariaQuestionToast />,
     }
   ];
 

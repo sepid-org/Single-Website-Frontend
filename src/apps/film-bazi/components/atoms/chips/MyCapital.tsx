@@ -3,7 +3,7 @@ import React from "react"
 import { toPersianNumber } from "commons/utils/translateNumber"
 import { Golden } from "apps/film-bazi/constants/colors"
 import CustomChip from "./CustomChip"
-import { FILMBAZI_COIN } from "apps/film-bazi/constants/game"
+import { FILMBAZI_COIN, VALUE_OF_EACH_SCORE } from "apps/film-bazi/constants/game"
 import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo"
 import MoneyIcon from "../icons/MoneyIcon"
 
@@ -18,7 +18,7 @@ const MyCapitalChip = ({ }) => {
       </Typography>
       <Stack direction={'row'} spacing={0.5}>
         <Typography fontWeight={600} fontSize={16} color={Golden}>
-          {toPersianNumber(1 * 20000)}
+          {toPersianNumber(score * VALUE_OF_EACH_SCORE)}
         </Typography>
         <MoneyIcon />
       </Stack>

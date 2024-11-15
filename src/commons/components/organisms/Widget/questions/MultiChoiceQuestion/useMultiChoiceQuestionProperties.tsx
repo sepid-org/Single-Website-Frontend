@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import useAnswerSheet from 'commons/hooks/useAnswerSheet';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
@@ -50,8 +49,8 @@ const useMultiChoiceQuestionProperties = ({
   randomizeChoices,
   disableAfterAnswer,
 }: PropsType) => {
-  const [selectedChoices, setSelectedChoices] = useState([]);
-  const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
+  const [selectedChoiceIds, setSelectedChoiceIds] = useState<number[]>([]);
+  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet({})
   const questionAnswers = getQuestionAnswers(questionId);
@@ -75,53 +74,54 @@ const useMultiChoiceQuestionProperties = ({
     disabled: disableAfterAnswer && maxSelections === 1 && wholeSelectedChoices?.includes(choice.id)
   }))
 
-  const _handleSetSelectedChoices = (newSelectedChoices) => {
+  const handleSetSelectedChoices = (newSelectedChoices: number[]) => {
     onAnswerChange({ choices: newSelectedChoices });
-    setSelectedChoices(newSelectedChoices);
+    setSelectedChoiceIds(newSelectedChoices);
   }
 
-  const onChoiceSelect = (choice) => {
+  const onChoiceSelect = (choice: ChoiceType) => {
+    const selectedChoiceId = choice.id;
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
     }
     if (maxSelections === 1) {
-      _handleSetSelectedChoices([choice])
+      handleSetSelectedChoices([selectedChoiceId])
       if (mode === WidgetModes.View) {
-        submitAnswer([choice]);
+        submitAnswerWrapper([selectedChoiceId]);
       }
     } else {
-      const choiceIndex = selectedChoices.findIndex(selectedChoice => selectedChoice.id === choice.id);
-      if (choiceIndex === -1) {
-        _handleSetSelectedChoices([
-          ...selectedChoices,
-          choice,
+      const selectedChoiceIndex = selectedChoiceIds.findIndex(choiceId => choiceId === selectedChoiceId);
+      if (selectedChoiceIndex === -1) {
+        handleSetSelectedChoices([
+          ...selectedChoiceIds,
+          selectedChoiceId,
         ]);
       } else {
-        const selectedChoicesCopy = [...selectedChoices]
-        selectedChoicesCopy.splice(choiceIndex, 1);
-        _handleSetSelectedChoices(selectedChoicesCopy);
+        const selectedChoiceIdsCopy = [...selectedChoiceIds]
+        selectedChoiceIdsCopy.splice(selectedChoiceIndex, 1);
+        handleSetSelectedChoices(selectedChoiceIdsCopy);
       }
     }
   }
 
-  const submitAnswer = (selectedChoices) => {
+  const submitAnswerWrapper = (selectedChoiceIds: number[]) => {
     if (mode === WidgetModes.View) {
-      _submitAnswer({
+      submitAnswer({
         questionId,
         playerId: player.id,
-        selectedChoices: selectedChoices.map(selectedChoice => selectedChoice.id),
+        selectedChoices: selectedChoiceIds,
       });
     }
   }
 
   let errorMessage = '';
-  if (selectedChoices?.length < minSelections) {
+  if (selectedChoiceIds?.length < minSelections) {
     errorMessage = `باید حداقل ${toPersianNumber(minSelections)} گزینه را انتخاب کنید.`;
   }
-  if (selectedChoices?.length > maxSelections) {
+  if (selectedChoiceIds?.length > maxSelections) {
     errorMessage = `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`;
   }
-  if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoices.map(choice => choice.id), questionAnswer.choices))) {
+  if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoiceIds, questionAnswer.choices))) {
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
@@ -133,12 +133,12 @@ const useMultiChoiceQuestionProperties = ({
   }, [questionAnswers]);*/
 
   return {
-    selectedChoices,
+    selectedChoiceIds,
     displayChoices,
     errorMessage,
 
     onChoiceSelect,
-    submitAnswer,
+    submitAnswer: submitAnswerWrapper,
     submitAnswerResult,
   };
 };

@@ -28,6 +28,7 @@ export type UserInfoType = {
   userPermissions: UserPermissions[];
   username: string;
   school_studentship: SchoolStudentshipType;
+  origin: string;
 }
 
 type UserPermissions = any;

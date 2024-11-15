@@ -1,10 +1,10 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
 import React from "react";
 import SingleScoreRecordSkeleton from "../atoms/SingleScoreRecordSkeleton";
 
 export default function ScoreRecordSkeleton() {
 	return (
-		<Box sx={{ display: "flex", flexDirection: "column" }}>
+		<Stack width={'100%'} spacing={2}>
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
@@ -13,6 +13,6 @@ export default function ScoreRecordSkeleton() {
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
 			<SingleScoreRecordSkeleton />
-		</Box>
+		</Stack>
 	);
 }

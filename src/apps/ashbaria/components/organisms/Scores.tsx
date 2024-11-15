@@ -1,5 +1,5 @@
-import React, { Fragment } from "react";
-import { Box, Container, Grid, IconButton, Stack, Typography } from "@mui/material";
+import React from "react";
+import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
@@ -8,8 +8,10 @@ import SearchIcon from "../atoms/icons/Search";
 import CupIcon from "../atoms/icons/Cup";
 import rankings from "../../assets/rankings.svg";
 import { ASHBARIA_COIN } from '../../constants/game-info';
-import useGetScoreBoardData from "apps/film-bazi/hooks/useGetScoreboardData";
+import useGetScoreBoardData from "apps/ashbaria/hooks/useGetScoreboardData";
 import WinnerRecord from "../molecules/WinnerRecord";
+import { toPersianNumber } from "commons/utils/translateNumber";
+import hashStringToNumber from "commons/utils/hashStringToNumber";
 
 export default function Scores() {
 	const {
@@ -19,46 +21,42 @@ export default function Scores() {
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(ASHBARIA_COIN);
 
-	return (
-		<Stack justifyContent={'center'} paddingY={2}>
-			<Grid
-				sx={{
-					display: "flex",
-					flexDirection: "row",
-					justifyContent: "space-between",
-					alignItems: "center",
-					marginTop: 1,
-				}}
-			>
-				<BackButton />
-				<Box sx={{ display: "flex", flexDirection: "row", }}>
-					<CupIcon />
-					<Typography
-						fontWeight={800}
-						fontSize={18}
-					>
-						{"شاخ‌ترین‌ها"}
-					</Typography>
-				</Box>
-				<IconButton>
-					<SearchIcon />
-				</IconButton>
-			</Grid>
+	const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
+		if (first_name && last_name) {
+			return `${first_name} ${last_name}`;
+		}
 
-			<Grid
-				sx={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center"
-				}}
-			>
+		const hashCode = hashStringToNumber(user_id);
+		return `دادبستان ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
+	}
+
+	return (
+		<Stack alignItems={'center'} justifyContent={'center'} padding={2} spacing={2} position={'relative'}>
+			<Stack direction={'row'}>
+				<Box position={'absolute'} left={4} top={4}>
+					<BackButton />
+				</Box>
+				<Stack direction={'row'} spacing={1} alignItems={'center'} justifyContent={'center'}>
+					<CupIcon size={32} />
+					<Typography fontSize={24} fontWeight={800}>
+						{'شاخ‌ترین‌ها'}
+					</Typography>
+				</Stack>
+				{/* <Box position={'absolute'} right={8} top={6}>
+					<IconButton>
+						<SearchIcon size={32} />
+					</IconButton>
+				</Box> */}
+			</Stack>
+
+			<Stack paddingTop={1}>
 				{winnerScores.length > 0 ?
 					<Container
 						sx={{
 							display: "flex",
 							flexDirection: "column",
 							alignItems: "center",
-							marginTop: 15
+							marginTop: 12,
 						}}
 					>
 						<Box
@@ -82,7 +80,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[1].profile_image}
-									name={winnerScores[1].first_name + winnerScores[1].last_name}
+									name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
 									score={winnerScores[1].score}
 								/>
 							</Stack>
@@ -100,7 +98,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[0].profile_image}
-									name={winnerScores[0].first_name + winnerScores[0].last_name}
+									name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
 									score={winnerScores[0].score}
 								/>
 							</Stack>
@@ -118,7 +116,7 @@ export default function Scores() {
 							>
 								<WinnerRecord
 									profileImg={winnerScores[2].profile_image}
-									name={winnerScores[2].first_name + winnerScores[2].last_name}
+									name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
 									score={winnerScores[2].score}
 								/>
 							</Stack>
@@ -132,12 +130,20 @@ export default function Scores() {
 					</Container> :
 					<WinnerCardsSkeleton />
 				}
-			</Grid>
+			</Stack>
 
-			<Stack alignItems={'center'} justifyContent={'center'} spacing={2}>
+			<Stack width={'100%'} alignItems={'center'} justifyContent={'center'} spacing={2}>
 				{scoreRecordsState.winnerUsersInfo.length > 0 ?
 					scoreRecordsState.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord key={record.id} rank={index + 1} first_name={record.first_name} last_name={record.last_name} score={record.score} currentUser={record.currentUser} id={record.id} profileImg={record.profile_image} />
+						<ScoreRecord
+							key={record.user_id}
+							rank={index + 1}
+							name={getDisplayName(record.user_id, record.first_name, record.last_name)}
+							score={record.score}
+							currentUser={record.currentUser}
+							user_id={record.user_id}
+							profileImg={record.profile_image}
+						/>
 					)) :
 					<ScoreRecordSkeleton />
 				}

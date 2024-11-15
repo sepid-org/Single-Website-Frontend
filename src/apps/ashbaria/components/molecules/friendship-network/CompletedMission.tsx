@@ -9,7 +9,7 @@ const CompletedMission = ({ requiredFollows, rewardScore }) => {
 			alignItems={'center'}
 			justifyContent={'space-between'}
 			borderRadius={2}
-			sx={{ background: "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" }}
+			sx={{ background: "linear-gradient(180deg, #FFEC88 100%, #FFA95A 100%)" }}
 			padding={1}
 		>
 			<Typography
@@ -41,16 +41,18 @@ const CompletedMission = ({ requiredFollows, rewardScore }) => {
 				justifyContent={'center'}
 				marginTop={1}
 				borderRadius={4}
-				paddingX={0.5}
+				padding={0.5}
+				paddingX={1}
 				sx={{
 					boxShadow: "0px 4px 4px 0px #00000040",
 					backgroundColor: "#00000080",
 				}}
+				spacing={0.5}
 			>
 				<Typography fontSize={16} fontWeight={800}>
 					{rewardScore}
 				</Typography>
-				<VerifyIcon />
+				<VerifyIcon size={28} />
 			</Stack>
 		</Stack >
 	);

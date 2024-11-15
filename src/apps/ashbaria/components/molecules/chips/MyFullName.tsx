@@ -4,6 +4,7 @@ import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/film-bazi/constants/colors";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import useUserProfile from "commons/hooks/useUserProfile";
+import hashStringToNumber from "commons/utils/hashStringToNumber";
 
 type MyFullNamePropsType = {}
 
@@ -31,7 +32,7 @@ const MyFullName: FC<MyFullNamePropsType> = ({ }) => {
             {'دادبستان '}
             {(myAshbariaProfile?.first_name && myAshbariaProfile?.last_name) ?
               `${myAshbariaProfile.first_name} ${myAshbariaProfile.last_name}`
-              : toPersianNumber(userProfile?.phone_number?.slice(-4))
+              : toPersianNumber(hashStringToNumber(userProfile.id).toString().padStart(4, '0'))
             }
           </Typography>
         }

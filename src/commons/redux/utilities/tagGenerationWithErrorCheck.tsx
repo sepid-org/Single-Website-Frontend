@@ -30,7 +30,6 @@ export const tagTypes = [
   'player',
   'player-transited-path',
   'website-profile',
-  'user-profile',
   'institutes',
   'schools',
   'merchandises',
@@ -52,6 +51,7 @@ export const tagTypes = [
   'Network',
   'Missions',
   'MissionProgress',
+  'BookCode',
   // Filmbazi
   'filmbazi-discount-code',
   'filmbazi-film',

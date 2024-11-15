@@ -7,13 +7,12 @@ import useGetUsersNames from './useGetUsersNames';
 
 const useGetScoreBoardData = (currencyName) => {
   // Fetch data from API
-  const { data: scoreBoard = [], isLoading: isScoreBoardLoading } = useGetScoreboardQuery({ currencyName });
+  const { data: scoreRecords = [], isLoading: isScoreBoardLoading } = useGetScoreboardQuery({ currencyName });
   const { data: myRank, isLoading: isMyRankLoading } = useGetMyRankQuery({ currencyName });
   const { data: balances, isLoading: isBalancesLoading } = useGetMyBalancesQuery();
   const { data: userProfile } = useUserProfile();
-  const userIds = useMemo(() => scoreBoard.map(user => user.id), [scoreBoard]);
-  const { data: userList, loading: isUserListLoading, error: userListError } = useGetUsersNames(userIds);
-
+  const userIds = useMemo(() => scoreRecords.map(user => user.user_id), [scoreRecords]);
+  const { data: usersInfo, loading: isUserListLoading, error: userListError } = useGetUsersNames(userIds);
 
   // State for results
   const [winnerScores, setWinnerScores] = useState([]);
@@ -34,15 +33,18 @@ const useGetScoreBoardData = (currencyName) => {
 
   // Set score records state
   useEffect(() => {
-    if (userList && scoreBoard) {
-      let newRecords = scoreBoard.map(scoreBoardItem => {
-        const userListItem = userList.find(obj => obj.id === scoreBoardItem.id);
-        return { ...userListItem, ...scoreBoardItem };
-      });
-      newRecords = newRecords.filter(record => (record.id != null));
+    if (usersInfo && scoreRecords) {
+
+      const newScoreRecords = scoreRecords
+        .map(scoreRecord => {
+          const userInfo = usersInfo.profiles.find(userInfo => userInfo.user_id === scoreRecord.user_id);
+          return userInfo ? { ...userInfo, ...scoreRecord } : null;
+        })
+        .filter(record => record !== null);
+
       let exists = false;
       if (myRank?.rank) {
-        const currentUserInRecords = newRecords.find(record => record.id === userProfile?.id);
+        const currentUserInRecords = newScoreRecords.find(record => record.user_id === userProfile?.id);
         if (currentUserInRecords != null) {
           currentUserInRecords.currentUser = true;
           exists = true;
@@ -50,7 +52,7 @@ const useGetScoreBoardData = (currencyName) => {
       }
 
       setScoreRecordsState({
-        winnerUsersInfo: newRecords,
+        winnerUsersInfo: newScoreRecords,
         currentUserExistsInWinners: exists,
       });
     }

@@ -67,9 +67,9 @@ const ActiveCourtCard: FC<PropsType> = ({
         </Typography>
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
           <Typography fontSize={10} fontWeight={800}>
-            {toPersianNumber(court.reward_score) + "+"}
+            {toPersianNumber(court.reward_score)}
           </Typography>
-          <VerifyIcon size={24} />
+          <VerifyIcon size={20} />
         </Stack>
       </Stack>
     </Box >

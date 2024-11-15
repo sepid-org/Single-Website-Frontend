@@ -34,7 +34,7 @@ const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleC
 					textAlign: "center"
 				}}
 			>
-				{'دنبال‌کردن'}
+				{'دنبال‌شدن'}
 			</Typography>
 			<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} marginTop={1}>
 				{completable ?
@@ -52,12 +52,12 @@ const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleC
 						</Button>
 					) :
 					(
-						<Fragment>
+						<Stack direction={'row'} spacing={0.5} alignItems={'center'} justifyContent={'center'}>
 							<Typography fontSize={16} fontWeight={800}>
 								{rewardScore}
 							</Typography>
-							<VerifyIcon />
-						</Fragment>
+							<VerifyIcon size={28} />
+						</Stack>
 					)
 				}
 			</Stack>

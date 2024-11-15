@@ -1,4 +1,5 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/tagInvalidation';
 
 type CreateAccountInputType = {
@@ -69,6 +70,17 @@ type OTPLoginOutputType = {
   user: any;
 }
 
+type UUIDLoginInputType = {
+  userId: string;
+  origin?: string;
+}
+
+type UUIDLoginOutputType = {
+  access: string;
+  refresh: string;
+  user: any;
+}
+
 type ChangeUserPasswordInputType = {
   phoneNumber: string;
   password: string;
@@ -88,7 +100,7 @@ type GetVerificationCodeOutputType = void;
 export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
-      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
@@ -117,7 +129,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
-      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/google-login/',
@@ -130,7 +142,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
-      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/simple-login/',
@@ -140,7 +152,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
-      invalidatesTags: ['player', 'registration-receipt', 'user-profile'],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/otp-login/',
@@ -152,7 +164,21 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
+    uuidLogin: builder.mutation<UUIDLoginOutputType, UUIDLoginInputType>({
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
+      query: ({ userId, ...props }) => ({
+        url: 'auth/accounts/uuid-login/',
+        method: 'POST',
+        body: {
+          user_id: userId,
+          ...props,
+        },
+      }),
+    }),
+
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
+      invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       query: (body) => ({
         url: 'auth/accounts/change-phone-number/',
         method: 'POST',
@@ -196,6 +222,7 @@ export const {
   useSimpleLoginMutation,
   useGoogleLoginMutation,
   useOtpLoginMutation,
+  useUuidLoginMutation,
   useCreateAccountMutation,
   useGetGoogleUserProfileQuery,
   useChangePhoneNumberMutation,

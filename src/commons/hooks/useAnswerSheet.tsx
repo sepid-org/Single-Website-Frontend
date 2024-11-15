@@ -14,6 +14,7 @@ const useAnswerSheet = ({
   const answerSheet = answerSheetByAnswerSheetId || answerSheetByPlayerId;
 
   const getQuestionAnswers = (questionId: number) => {
+    if (!questionId) return [];
     return answerSheet?.answers?.filter(answer => answer.problem === questionId);
   }
 

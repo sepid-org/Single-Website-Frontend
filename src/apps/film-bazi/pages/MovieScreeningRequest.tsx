@@ -60,9 +60,6 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
                 <Skeleton variant='rounded' width={200} height={160} />
               }
               <Typography variant="h2">{'درخواست اکران فیلم'}</Typography>
-              <Typography paddingTop={1} textAlign={'center'}>
-                {'برای درخواست اکران فیلم در شهرهای بدون سینما یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
-              </Typography>
             </Stack>
 
             {isUserSubmittedForm ?
@@ -73,6 +70,9 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
               </Paper>
               :
               <Fragment>
+                <Typography paddingTop={1} textAlign={'center'}>
+                  {'برای درخواست اکران فیلم در شهرهای بدون سینما یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
+                </Typography>
                 <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
                   <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
                 </Stack>

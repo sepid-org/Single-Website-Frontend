@@ -1,16 +1,16 @@
 import { Box } from "@mui/material";
 import React from "react";
-import heartIcon from "../../../assets/Heart Angle.svg";
+import InfoSVG from "../../../assets/info.svg";
 
-const HeartIcon = ({ size = 30 }) => {
+const InfoIcon = ({ size = 30 }) => {
 	return (
 		<Box
 			component="img"
-			src={heartIcon}
+			src={InfoSVG}
 			width={size}
 			height={size}
 		/>
 	);
 }
 
-export default HeartIcon;
+export default InfoIcon;

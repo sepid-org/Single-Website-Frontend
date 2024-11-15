@@ -2,17 +2,19 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
-import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
-import CrossCircleIcon from "apps/ashbaria/components/atoms/icons/CrossCircle";
-import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
-import ChanceChip from "apps/ashbaria/components/molecules/chips/Chance";
-import RefreshIcon from "apps/ashbaria/components/atoms/icons/Refresh";
+import { useParams } from "react-router-dom";
+import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
+import useStartFSM from "commons/hooks/fsm/useStartFSM";
+
+const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
 type ExamResultPagePropsType = {};
 
 const ExamResultPage: FC<ExamResultPagePropsType> = () => {
-
-  const result = "success";
+  const { programSlug } = useParams();
+  const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
+  const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
+  const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>

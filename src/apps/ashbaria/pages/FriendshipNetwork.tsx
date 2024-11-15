@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   Box,
   Container,
@@ -27,6 +27,8 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
+import BookMission from '../components/molecules/friendship-network/BookMission';
+import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -96,7 +98,7 @@ const FriendshipNetworkPage = () => {
 
   const copyToClipboardWrapper = () => {
     if (myFriendshipNetwork) {
-      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت با موفقیت کپی شد');
+      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت اختصاصیت با موفقیت کپی شد');
     }
   };
 
@@ -110,15 +112,15 @@ const FriendshipNetworkPage = () => {
             </Box>
             <Stack direction={'row'} alignItems={'center'}>
               <HeartIcon />
-              <Typography variant="h6" fontSize={24} fontWeight={800}>
+              <Typography fontSize={24} fontWeight={800}>
                 {'حلقه دوستان'}
               </Typography>
             </Stack>
-            <Box position={'absolute'} right={10} top={2}>
+            {/* <Box position={'absolute'} right={10} top={2}>
               <IconButton color="inherit">
                 <ExclamationIcon />
               </IconButton>
-            </Box>
+            </Box> */}
           </Grid>
 
           <Grid container item spacing={3} alignItems={'stretch'} justifyContent={'center'}>
@@ -142,11 +144,14 @@ const FriendshipNetworkPage = () => {
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ۵ تا اعتبار می‌ارزه
+                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${ASHBARIA_SUBMIT_FRIENDSHIP_CODE} تا اعتبار می‌ارزه`}
                 </Typography>
                 <TextField
                   variant="outlined"
-                  placeholder="کد ۱۰ رقمی"
+                  placeholder="کد ۱۰ حرفی"
+                  inputProps={{
+                    maxLength: 10,
+                  }}
                   onChange={(event) => setInputCode(event.target.value)}
                 />
                 <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
@@ -203,44 +208,29 @@ const FriendshipNetworkPage = () => {
           {/* Missions Section */}
           <Grid item xs={12}>
             <Typography fontSize={16} fontWeight={600} gutterBottom>
-              {'ماموریت‌های کدزنی'}
+              {'ماموریت‌های اشتراک‌گذاری کد'}
             </Typography>
-            <Stack
-              spacing={2}
-              direction={'row-reverse'}
-              overflow={'auto'}
-              sx={{
-                width: '100%',
-                paddingBottom: 2,
-                borderRadius: '8px',
-                '::-webkit-scrollbar': {
-                  height: '8px',
-                },
-                '::-webkit-scrollbar-thumb': {
-                  backgroundColor: '#b0bec5',
-                  borderRadius: '8px',
-                },
-                '::-webkit-scrollbar-thumb:hover': {
-                  backgroundColor: '#90a4ae',
-                },
-              }}
-            >
-              {myCompletedMissions?.map(record => (
-                <CompletedMission
-                  key={record.id}
-                  requiredFollows={record.required_follows}
-                  rewardScore={record.reward_score}
-                />
-              ))}
-              {unCompletedMissions?.map(record => (
-                <UncompletedMission
-                  key={record.id}
-                  requiredFollows={record.required_follows}
-                  rewardScore={record.reward_score}
-                  completable={record.required_follows <= myFriendshipNetwork?.network.user_followings_count}
-                  handleClick={completeMission} id={record.id}
-                />
-              ))}
+            <Stack direction={'row-reverse'} spacing={2}>
+              <BookMission />
+
+              <ScrollableStack>
+                {myCompletedMissions?.map(record => (
+                  <CompletedMission
+                    key={record.id}
+                    requiredFollows={record.required_follows}
+                    rewardScore={record.reward_score}
+                  />
+                ))}
+                {unCompletedMissions?.map(record => (
+                  <UncompletedMission
+                    key={record.id}
+                    requiredFollows={record.required_follows}
+                    rewardScore={record.reward_score}
+                    completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
+                    handleClick={completeMission} id={record.id}
+                  />
+                ))}
+              </ScrollableStack>
             </Stack>
           </Grid>
         </Grid>
@@ -250,3 +240,48 @@ const FriendshipNetworkPage = () => {
 };
 
 export default FriendshipNetworkPage;
+
+
+function ScrollableStack({ children }) {
+  const stackRef = useRef(null);
+  const [isScrollable, setIsScrollable] = useState(false);
+
+  useEffect(() => {
+    const checkScrollable = () => {
+      if (stackRef.current) {
+        setIsScrollable(stackRef.current.scrollWidth > stackRef.current.clientWidth);
+      }
+    };
+
+    checkScrollable();
+    window.addEventListener('resize', checkScrollable);
+
+    return () => window.removeEventListener('resize', checkScrollable);
+  }, []);
+
+  return (
+    <Stack
+      ref={stackRef}
+      spacing={2}
+      direction={'row-reverse'}
+      overflow={'auto'}
+      sx={{
+        width: '100%',
+        borderRadius: '8px',
+        paddingBottom: isScrollable ? 1 : 0,
+        '::-webkit-scrollbar': {
+          height: '8px',
+        },
+        '::-webkit-scrollbar-thumb': {
+          backgroundColor: '#b0bec5',
+          borderRadius: '8px',
+        },
+        '::-webkit-scrollbar-thumb:hover': {
+          backgroundColor: '#90a4ae',
+        },
+      }}
+    >
+      {children}
+    </Stack >
+  );
+}

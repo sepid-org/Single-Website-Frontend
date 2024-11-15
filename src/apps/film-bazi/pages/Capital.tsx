@@ -5,6 +5,7 @@ import {
   Stack,
   Typography,
   Container,
+  Skeleton,
 } from '@mui/material';
 import FilmbaziLayout from '../components/molecules/Layout';
 import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/DiscountCode';
@@ -49,11 +50,18 @@ const CapitalPage: FC<PropsType> = ({ }) => {
             <Typography variant="h2" gutterBottom>کدهای تخفیف من</Typography>
           </Grid>
           <Grid container item xs={12} spacing={2}>
-            {discountCodes.map(discountCode =>
-              <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
-                <DiscountCode discountCode={discountCode} />
-              </Grid>
-            )}
+            {discountCodes.length > 0 ?
+              discountCodes.map(discountCode =>
+                <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
+                  <DiscountCode discountCode={discountCode} />
+                </Grid>
+              ) :
+              [1, 2, 3].map((index) =>
+                <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'} alignItems={'center'}>
+                  <Skeleton width={'100%'} height={180} variant='rounded' />
+                </Grid>
+              )
+            }
           </Grid>
         </Grid >
       </Container>

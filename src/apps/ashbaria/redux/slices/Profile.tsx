@@ -16,7 +16,7 @@ export const ProfileSlice = AshbariaApi.injectEndpoints({
     }),
 
     updateProfile: builder.mutation<{ reward_granted: boolean }, UpdateProfileInput>({
-      invalidatesTags: ['Profile'],
+      invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: (profileData) => ({
         url: '/profile/profile/',

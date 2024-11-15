@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { IconButton, Stack, Typography, Avatar, Menu, MenuItem, Skeleton, useTheme, useMediaQuery, Button } from "@mui/material";
+import { Stack, Typography, Avatar, Menu, MenuItem, Skeleton, useTheme, useMediaQuery, Button } from "@mui/material";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import useLocalNavigate from "apps/film-bazi/hooks/useLocalNavigate";
@@ -22,11 +22,6 @@ const AccountBadge = () => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleProfileClick = () => {
-    localNavigate('/profile/');
-    handleMenuClose();
   };
 
   const handleLogoutClick = () => {
@@ -90,7 +85,6 @@ const AccountBadge = () => {
           horizontal: 'center',
         }}
       >
-        <MenuItem onClick={handleProfileClick}>پروفایل</MenuItem>
         <MenuItem onClick={handleLogoutClick}>خروج</MenuItem>
       </Menu>
     </Fragment >

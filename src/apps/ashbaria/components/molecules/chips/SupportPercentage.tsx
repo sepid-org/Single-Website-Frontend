@@ -24,6 +24,7 @@ const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
       padding={1}
       paddingX={2}
       borderRadius={3}
+      paddingBottom={1.4}
       direction={'row'}
       alignItems={'center'}
       justifyContent={'center'}
@@ -31,12 +32,12 @@ const SupportPercentageChip: FC<SupportPercentageChipPropsType> = ({
     >
       {isLoading || value === null ?
         <Skeleton variant="rounded" width={70} height={36} /> :
-        <Fragment>
-          <Typography fontSize={24} fontWeight={800} sx={{ direction: 'rtl' }}>
-            {`${value > 0 ? ' +' : ''} ${toPersianNumber(value)}`}
+        <Stack direction={'row'} spacing={1} alignItems={'center'} justifyContent={'center'} paddingBottom={0.2}>
+          <Typography fontSize={24} fontWeight={800} sx={{ direction: 'rtl', paddingTop: 1.2 }}>
+            ٪{toPersianNumber(value)}
           </Typography>
           {value >= 0 ? <LikeIcon /> : <DislikeIcon />}
-        </Fragment>
+        </Stack>
       }
     </Stack>
   )
