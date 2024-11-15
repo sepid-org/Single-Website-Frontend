@@ -7,7 +7,6 @@ import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/fea
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
 import CrossCircleIcon from "apps/ashbaria/components/atoms/icons/CrossCircle";
-import ChanceChip from "apps/ashbaria/components/molecules/chips/Chance";
 import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
 import RefreshIcon from "apps/ashbaria/components/atoms/icons/Refresh";
 
@@ -71,13 +70,10 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         </Stack>
         <Stack
           sx={{
-            width: "90%",
             display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between"
+            justifyContent: "center"
           }}
         >
-          <ChanceChip value={5} />
           <ScoreChip value={200} />
         </Stack>
         <Typography fontSize={16} fontWeight={400}>۱ فرصت دیگه داری</Typography>
