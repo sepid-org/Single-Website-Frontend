@@ -1,5 +1,5 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, Fragment } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
 import CrossCircleIcon from "apps/ashbaria/components/atoms/icons/CrossCircle";
 import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
 import RefreshIcon from "apps/ashbaria/components/atoms/icons/Refresh";
+import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -19,10 +20,12 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
   const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
+  const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const navigate = useNavigate();
-  const result = "success";
+  const numberOfTrueAnswers = 5;
   console.log(userFSMsStatus);
+  const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
@@ -43,8 +46,8 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
           fontSize={24}
         >
           {
-            result === "success" ?
-              "آفرین! رفتی برای قرعه‌کشی!" :
+            numberOfTrueAnswers > 3 ?
+              "آفرین!" :
               "حیف شد که!"
           }
         </Typography>
@@ -54,18 +57,18 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
             flexDirection: "row",
           }}
         >
-          {result === "success" ?
+          {numberOfTrueAnswers > 3 ?
             <TickCircleIcon /> :
             <CrossCircleIcon />
           }
           <Typography
             fontSize={24}
             fontWeight={600}
-            color={result === "success" ? "#00D387" : "#E22D79"}
+            color={numberOfTrueAnswers > 3 ? "#00D387" : "#E22D79"}
           >
             {
-              result === "success" ?
-                "۵ پاسخ درست دادی" :
+              numberOfTrueAnswers > 3 ?
+                numberOfTrueAnswers.toString() + "پاسخ درست دادی" :
                 "۳ جواب غلط داشتی"
             }
           </Typography>
@@ -78,20 +81,23 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         >
           <ScoreChip value={200} />
         </Stack>
-        <Typography fontSize={16} fontWeight={400}>۱ فرصت دیگه داری</Typography>
-        <Button 
-        variant="contained" 
-        sx={{ width: "90%" }}
-        onClick={() => navigate("/program/ashbaria/exam")}
+        {fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 &&
+          <Typography fontSize={16} fontWeight={400}>۱ فرصت دیگه داری</Typography>
+        }
+        <Button
+          variant="contained"
+          sx={{ width: "90%" }}
+          onClick={() => navigate("/program/ashbaria/exam")}
+          disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count === 0}
         >
           <RefreshIcon />
           یه بار دیگه
         </Button>
-        <Button 
-          variant="outlined" 
+        <Button
+          variant="outlined"
           sx={{ width: "90%" }}
           onClick={() => navigate("/program/ashbaria/menu")}
-          >
+        >
           برگردیم به خانه
         </Button>
       </Stack>
