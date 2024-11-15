@@ -1,10 +1,9 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/examStartBG.svg";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
-import { Golden } from "apps/film-bazi/constants/colors";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
 
@@ -18,12 +17,14 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
   const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
 
+  const navigate = useNavigate();
+
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
-      <Stack 
-        width={400} 
-        component={Paper} 
-        padding={2} 
+      <Stack
+        width={400}
+        component={Paper}
+        padding={2}
         spacing={2}
         sx={{
           display: "flex",
@@ -53,9 +54,33 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
         >
           {"3تا فرصت واسه شرکت توی آزمونک داری. هر جواب درست توی آزمون 1 شانس قرع کشی جایزه و 10 اعتبار دادبستانی بدست میاری"}
         </Typography>
-        <Button variant="contained" sx={{width: "90%"}}>برو که بریم!</Button>
-        <Button variant="outlined" sx={{width: "90%"}}>فعلا بیخیالش!</Button>
-        <Button variant="text" size="large" sx={{color: "#FFA800", width: "90%"}}>هنوز کتاب رو نخریدم:(</Button>
+        <Button
+          variant="contained"
+          sx={{ width: "90%" }}
+          onClick={() => navigate("/program/ashbaria/exam")}
+        >
+          برو که بریم!
+        </Button>
+        <Button
+          variant="outlined"
+          sx={{ width: "90%" }}
+          onClick={() => navigate("/program/ashbaria/menu")}
+        >
+          فعلا بیخیالش!
+        </Button>
+        <Button
+          variant="text"
+          size="large"
+          sx={{
+            color: "#FFA800",
+            width: "90%"
+          }}
+          onClick={() => {
+            window.open('https://qandilsch.ir/product/10-raz-ashbaria/', '_blank');
+          }}
+        >
+          هنوز کتاب رو نخریدم:(
+        </Button>
       </Stack>
     </FullScreenBackgroundImage>
   );
