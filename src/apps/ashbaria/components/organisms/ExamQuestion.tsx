@@ -43,6 +43,13 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     disableAfterAnswer,
   });
 
+  const [selectedChoice, setSelectedChoice] = useState(null);
+  useEffect(() => {
+    if(selectedChoiceIds.length > 0 && selectedChoice === null){
+      setSelectedChoice(selectedChoiceIds[0]);
+    }
+  }, [selectedChoiceIds]);
+
   return (
     <Stack 
       spacing={1} 
@@ -90,8 +97,11 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
             >
               <QuestionChoice
                 choice={choice}
-                isSelected={selectedChoiceIds.includes(choice.id)}
-                onSelectionChange={() => onChoiceSelect(choice)}
+                isSelected={selectedChoice === choice.id}
+                onSelectionChange={() => {
+                  setSelectedChoice(choice.id);
+                  onChoiceSelect(choice);
+                }}
               />
             </Grid>
           )}

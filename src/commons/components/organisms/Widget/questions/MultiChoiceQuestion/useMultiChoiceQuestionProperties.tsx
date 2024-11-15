@@ -125,12 +125,14 @@ const useMultiChoiceQuestionProperties = ({
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
-  /*useEffect(() => {
-    if (wholeSelectedChoices && wholeSelectedChoices.length > 0) {
-      console.log(wholeSelectedChoices);
-      setSelectedChoices([wholeSelectedChoices[wholeSelectedChoices.length - 1]])
+  useEffect(() => {
+    const latestChoice = wholeSelectedChoices?.[wholeSelectedChoices.length - 1];
+    // Only update if the last selected choice is not already in `selectedChoiceIds`
+    if (latestChoice && selectedChoiceIds[selectedChoiceIds.length - 1] !== latestChoice) {
+      setSelectedChoiceIds([latestChoice]);
     }
-  }, [questionAnswers]);*/
+  }, [questionAnswers, wholeSelectedChoices, selectedChoiceIds]);
+  
 
   return {
     selectedChoiceIds,
