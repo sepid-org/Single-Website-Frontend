@@ -20,13 +20,13 @@ const ExamTemplate: FC<PropsType> = () => {
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
 
   return (
-    <Stack 
-      direction="column" 
-      alignItems="center" 
-      sx={{ 
-        width: "100%", 
-        height: "100%",  
-        position: 'relative' 
+    <Stack
+      direction="column"
+      alignItems="center"
+      sx={{
+        width: "100%",
+        height: "100%",
+        position: 'relative'
       }}
     >
       <Paper mode="general" paperId={paperId} />
@@ -44,10 +44,10 @@ const ExamTemplate: FC<PropsType> = () => {
         display: 'flex',
         gap: 1,
       }}>
-        <Button variant="outlined" onClick={() => transitBackward()}>
+        <Button variant="outlined" onClick={transitBackward} disabled={!canTransitBack}>
           {'قبلی'}
         </Button>
-        <Button variant="outlined" onClick={() => transitForward()}>
+        <Button variant="outlined" onClick={transitForward} disabled={!canTransitForward}>
           {'بعدی'}
         </Button>
       </Box>
