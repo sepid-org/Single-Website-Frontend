@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Button, Container, Grid, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import IsRequired from 'commons/components/atoms/IsRequired';
@@ -44,58 +44,68 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   });
 
   return (
-    <Stack spacing={1}>
+    <Stack 
+      spacing={1} 
+      sx={{
+        width: "100%", 
+        height: "100%", 
+        display: "flex", 
+        flexDirection: "column", 
+        justifyContent: "space-between"
+      }}
+    >
       <Stack justifyContent={"space-between"}>
         <Stack flexDirection={"row"} alignItems={"center"}>
           <MessageIcon />
           <Typography color="#FFA800" fontWeight={600} fontSize={16}>{questionId}</Typography>
         </Stack>
       </Stack>
-      <IsRequired disabled={!questionWidgetProps.is_required}>
-        <TinyPreview
-          styles={{
-            width: '100%',
-            fontSize: 12,
-            fontWeight: 600,
+      <Container sx={{alignSelf: "center"}}>
+        <IsRequired disabled={!questionWidgetProps.is_required}>
+          <TinyPreview
+            styles={{
+              width: '100%',
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+            content={questionText}
+          />
+        </IsRequired>
+        <Grid
+          container
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
           }}
-          content={questionText}
-        />
+          spacing={1}
+          padding={0}
+        >
+          {displayChoices.map((choice) =>
+            <Grid
+              item
+              xs={6}
+              key={choice.id}
+            >
+              <QuestionChoice
+                choice={choice}
+                isSelected={selectedChoices.includes(choice.id)}
+                onSelectionChange={() => onChoiceSelect(choice)}
+              />
+            </Grid>
+          )}
+        </Grid>
+      </Container>
+      <Button
+        sx={{ width: 80, alignSelf: 'end' }}
+        variant='contained'
+        onClick={() => submitAnswer(selectedChoices)}>
+        <Typography fontWeight={400}>
+          {'ثبت'}
+        </Typography>
+      </Button>
 
-      </IsRequired>
-      <Grid 
-        container 
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-        spacing={1}
-        padding={0}
-      >
-        {displayChoices.map((choice) =>
-          <Grid
-            item
-            xs={6}
-            key={choice.id}
-          >
-            <QuestionChoice
-              choice={choice}
-              isSelected={selectedChoices.includes(choice.id)}
-              onSelectionChange={() => onChoiceSelect(choice)}
-            />
-          </Grid>
-        )}
-      </Grid>
-        <Button
-          sx={{ width: 80, alignSelf: 'end' }}
-          variant='contained'
-          onClick={() => submitAnswer(selectedChoices)}>
-          <Typography fontWeight={400}>
-            {'ثبت'}
-          </Typography>
-        </Button>
-      
     </Stack>
   );
 };

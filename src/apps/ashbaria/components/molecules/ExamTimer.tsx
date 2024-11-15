@@ -29,9 +29,6 @@ const ExamTimer = () => {
         width: 100, // Adjusted width to accommodate padding and fixed size
         height: 50, // Adjusted height to accommodate padding and icon size
         padding: '8px', // Added padding for spacing from borders
-        position: 'fixed', // Fixed position
-        top: '20px', // Adjust as needed
-        right: '20px', // Adjust as needed
         display: "flex",
         flexDirection: "row",
         alignItems: "center",

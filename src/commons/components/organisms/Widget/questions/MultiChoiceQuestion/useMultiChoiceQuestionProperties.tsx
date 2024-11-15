@@ -125,12 +125,12 @@ const useMultiChoiceQuestionProperties = ({
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (wholeSelectedChoices && wholeSelectedChoices.length > 0) {
       console.log(wholeSelectedChoices);
       setSelectedChoices([wholeSelectedChoices[wholeSelectedChoices.length - 1]])
     }
-  }, [questionAnswers]);
+  }, [questionAnswers]);*/
 
   return {
     selectedChoices,
