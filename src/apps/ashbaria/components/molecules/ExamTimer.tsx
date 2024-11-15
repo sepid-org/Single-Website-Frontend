@@ -2,9 +2,9 @@ import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ClockIcon from "../atoms/icons/Clock";
 
-const ExamTimer = () => {
+const ExamTimer = ({handleTimeFinish}) => {
 
-	const [time, setTime] = useState(60);
+	const [time, setTime] = useState(600);
 	useEffect(() => {
 		if (time > 0) {
 			const intervalId = setInterval(() => {
@@ -12,6 +12,9 @@ const ExamTimer = () => {
 			}, 1000);
 			return () => clearInterval(intervalId);
 		}
+    if(time === 0){
+      handleTimeFinish();
+    }
 	}, [time]);
 
 	const formatTime = (seconds) => {

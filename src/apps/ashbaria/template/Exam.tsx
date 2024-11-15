@@ -7,6 +7,7 @@ import Paper from "commons/template/Paper";
 import useTransitionForward from "commons/hooks/fsm/useTransitionForward";
 import { useFSMContext } from "commons/hooks/useFSMContext";
 import ExamTimer from "../components/molecules/ExamTimer";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {};
 
@@ -18,6 +19,13 @@ const ExamTemplate: FC<PropsType> = () => {
   const { transitForward, result: transitForwardResult, canTransitForward } = useTransitionForward({ player })
   const { transitBackward, result: transitBackwardResult, canTransitBack } = useTransitionBackward({ player });
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
+
+  const navigate = useNavigate();
+
+  const handleFinishExam = () => {
+    finishFSM();
+    navigate("/program/ashbaria/exam-result");
+  }
 
   return (
     <Stack
@@ -35,7 +43,7 @@ const ExamTemplate: FC<PropsType> = () => {
         top: 0,
         right: 0,
       }}>
-        <ExamTimer />
+        <ExamTimer handleTimeFinish={handleFinishExam}/>
       </Box>
       <Box sx={{
         position: 'absolute',
@@ -45,12 +53,25 @@ const ExamTemplate: FC<PropsType> = () => {
         gap: 1,
       }}>
         <Button variant="outlined" onClick={transitBackward} disabled={!canTransitBack}>
-          {'قبلی'}
+          {'سوال قبلی'}
         </Button>
         <Button variant="outlined" onClick={transitForward} disabled={!canTransitForward}>
-          {'بعدی'}
+          {'سوال بعدی'}
         </Button>
       </Box>
+      {!canTransitForward &&
+        <Box sx={{
+          position: 'absolute',
+          right: 0,
+          bottom: 0,
+          display: 'flex',
+          gap: 1,
+        }}>
+          <Button variant="contained" onClick={handleFinishExam}>
+            {"پایان آزمون"}
+          </Button>
+        </Box>
+      }
     </Stack>
   );
 };

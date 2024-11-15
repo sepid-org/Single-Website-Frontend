@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import IsRequired from 'commons/components/atoms/IsRequired';
@@ -45,20 +45,19 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   const [selectedChoice, setSelectedChoice] = useState(null);
   useEffect(() => {
-    if(selectedChoiceIds.length > 0 && selectedChoice === null){
+    if (selectedChoiceIds.length > 0 && selectedChoice === null) {
       setSelectedChoice(selectedChoiceIds[0]);
     }
   }, [selectedChoiceIds]);
 
   return (
-    <Stack 
-      spacing={1} 
+    <Stack
+      spacing={1}
       sx={{
-        width: "100%", 
-        height: "100%", 
-        display: "flex", 
-        flexDirection: "column", 
-        justifyContent: "space-between"
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <Stack justifyContent={"space-between"}>
@@ -67,55 +66,44 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           <Typography color="#FFA800" fontWeight={600} fontSize={16}>{questionId}</Typography>
         </Stack>
       </Stack>
-      <Container sx={{alignSelf: "center"}}>
-        <IsRequired disabled={!questionWidgetProps.is_required}>
-          <TinyPreview
-            styles={{
-              width: '100%',
-              fontSize: 12,
-              fontWeight: 600,
-            }}
-            content={questionText}
-          />
-        </IsRequired>
-        <Grid
-          container
-          sx={{
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
+      <IsRequired disabled={!questionWidgetProps.is_required}>
+        <TinyPreview
+          styles={{
+            width: '100%',
+            fontSize: 12,
+            fontWeight: 600,
           }}
-          spacing={1}
-          padding={0}
-        >
-          {displayChoices.map((choice) =>
-            <Grid
-              item
-              xs={6}
-              key={choice.id}
-            >
-              <QuestionChoice
-                choice={choice}
-                isSelected={selectedChoice === choice.id}
-                onSelectionChange={() => {
-                  setSelectedChoice(choice.id);
-                  onChoiceSelect(choice);
-                }}
-              />
-            </Grid>
-          )}
-        </Grid>
-      </Container>
-      <Button
-        sx={{ width: 80, alignSelf: 'end' }}
-        variant='contained'
-        onClick={() => submitAnswer(selectedChoiceIds)}>
-        <Typography fontWeight={400}>
-          {'ثبت'}
-        </Typography>
-      </Button>
-
+          content={questionText}
+        />
+      </IsRequired>
+      <Grid
+        container
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+        spacing={1}
+        padding={0}
+      >
+        {displayChoices.map((choice) =>
+          <Grid
+            item
+            xs={6}
+            key={choice.id}
+          >
+            <QuestionChoice
+              choice={choice}
+              isSelected={selectedChoice === choice.id}
+              onSelectionChange={() => {
+                setSelectedChoice(choice.id);
+                onChoiceSelect(choice);
+              }}
+            />
+          </Grid>
+        )}
+      </Grid>
     </Stack>
   );
 };
