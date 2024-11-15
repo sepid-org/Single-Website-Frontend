@@ -52,26 +52,19 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
 
   const currentCourt = courts?.find(court => court.corresponding_fsm === fsmId);
 
+  useEffect(() => {
+    finishCourt({ fsmId });
+    finishFSM();
+  }, [])
+
   const handleGoToNextCourt = () => {
     setClickedButton('go-to-next-court');
-    finishCourt({ fsmId });
   }
 
   const handleGoToHome = () => {
     setClickedButton('return-to-home');
-    finishCourt({ fsmId });
+    localNavigate(`/`);
   }
-
-  useEffect(() => {
-    if (finishCourtResult.isSuccess) {
-      finishFSM();
-      if (clickedButton === 'return-to-home') {
-        localNavigate(`/`);
-      } else if (currentCourt.next_court_corresponding_fsm_id) {
-        localNavigate(`/court/${currentCourt.next_court_corresponding_fsm_id}/`);
-      }
-    }
-  }, [finishCourtResult])
 
   return (
     <Stack

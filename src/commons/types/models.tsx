@@ -121,6 +121,7 @@ export type FSMType = ObjectType & {
   is_visible: boolean;
   card_type: 'vertical1' | 'horizontal1';
   show_roadmap: boolean;
+  participant_limit: number;
 };
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
