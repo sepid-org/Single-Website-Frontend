@@ -2,7 +2,7 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/login-background.jpg";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
@@ -20,7 +20,9 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
   const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
 
+  const navigate = useNavigate();
   const result = "success";
+  console.log(userFSMsStatus);
 
   return (
     <FullScreenBackgroundImage image={backgroundImg}>
@@ -77,11 +79,19 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
           <ScoreChip value={200} />
         </Stack>
         <Typography fontSize={16} fontWeight={400}>۱ فرصت دیگه داری</Typography>
-        <Button variant="contained" sx={{ width: "90%" }}>
+        <Button 
+        variant="contained" 
+        sx={{ width: "90%" }}
+        onClick={() => navigate("/program/ashbaria/exam")}
+        >
           <RefreshIcon />
           یه بار دیگه
         </Button>
-        <Button variant="outlined" sx={{ width: "90%" }}>
+        <Button 
+          variant="outlined" 
+          sx={{ width: "90%" }}
+          onClick={() => navigate("/program/ashbaria/menu")}
+          >
           برگردیم به خانه
         </Button>
       </Stack>
