@@ -56,6 +56,7 @@ export type FriendshipNetworkType = {
   be_followed_reward_score: number;
   user_followers_count: number;
   user_followings_count: number;
+  is_huge: boolean;
 };
 
 export type CodeType = {

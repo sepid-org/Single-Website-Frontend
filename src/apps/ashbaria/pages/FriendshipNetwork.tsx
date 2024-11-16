@@ -144,7 +144,7 @@ const FriendshipNetworkPage = () => {
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${ASHBARIA_SUBMIT_FRIENDSHIP_CODE} تا اعتبار می‌ارزه`}
+                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${ASHBARIA_SUBMIT_FRIENDSHIP_CODE(myFriendshipNetwork?.network.is_huge)} تا اعتبار می‌ارزه`}
                 </Typography>
                 <TextField
                   variant="outlined"
