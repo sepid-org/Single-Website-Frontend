@@ -64,6 +64,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
         </Stack>
       </Grid>
       <Grid
+        item
         xs={5}
         sx={{
           display: "flex",
