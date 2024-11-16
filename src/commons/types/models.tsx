@@ -122,6 +122,7 @@ export type FSMType = ObjectType & {
   card_type: 'vertical1' | 'horizontal1';
   show_roadmap: boolean;
   participant_limit: number;
+  duration: number;
 };
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
