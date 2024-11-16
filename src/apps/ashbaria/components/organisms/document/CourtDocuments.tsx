@@ -19,7 +19,7 @@ const CourtDocuments: FC<PropsType> = ({ }) => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const baseFSMId = parseInt(useParams().fsmId);
 	const fsmId = parseInt(searchParams.get('fsmId'));
-	const { data: allDocuments } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_DOCUMENT_TYPE })
+	const { data: allDocuments, isLoading } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[], isLoading: boolean }>({ type: ASHBARIA_DOCUMENT_TYPE })
 	const documents = allDocuments?.filter(document => document.content.fsm_id === fsmId) || [];
 
 
@@ -91,7 +91,7 @@ const CourtDocuments: FC<PropsType> = ({ }) => {
 				</Box>
 			</Stack>
 
-			<Document document={currentDocument} />
+			<Document document={currentDocument} isLoading={isLoading} />
 
 			{currentDocument &&
 				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>

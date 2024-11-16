@@ -18,7 +18,7 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 	const [currentCheloIndex, setCurrentCheloIndex] = useState(0);
 	const [searchParams, setSearchParams] = useSearchParams();
 	const fsmId = parseInt(useParams().fsmId);
-	const { data: allChelos } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[] }>({ type: ASHBARIA_CHELO_TYPE })
+	const { data: allChelos, isLoading } = useGetResourcesByTypeQuery<{ data: AshbariaDocumentType[], isLoading: boolean; }>({ type: ASHBARIA_CHELO_TYPE })
 	const courtChelos = allChelos?.filter(chelo => chelo.content.fsm_id === fsmId) || [];
 
 	const currentChelo = courtChelos[currentCheloIndex];
@@ -51,7 +51,7 @@ const CourtChelos: FC<PropsType> = ({ }) => {
 
 			</Stack>
 
-			<Document document={currentChelo} />
+			<Document document={currentChelo} isLoading={isLoading} />
 
 			{currentChelo &&
 				<Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>

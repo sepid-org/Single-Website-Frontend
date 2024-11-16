@@ -6,9 +6,14 @@ import { AshbariaDocumentType } from "apps/ashbaria/types";
 
 type PropsType = {
 	document: AshbariaDocumentType;
+	isLoading: boolean;
 }
 
-const Document: FC<PropsType> = ({ document }) => {
+const Document: FC<PropsType> = ({ document, isLoading }) => {
+
+	if (isLoading) {
+		return;
+	}
 
 	if (!document) {
 		return (
