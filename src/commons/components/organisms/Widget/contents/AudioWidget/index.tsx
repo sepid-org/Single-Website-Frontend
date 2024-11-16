@@ -33,32 +33,35 @@ const AudioWidget = ({
     };
   }, []);
 
-  // Handle volume and autoplay setup
+  // Handle volume setup
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.volume = Math.min(Math.max(volume, 0), 100) / 100;
     }
+  }, [volume])
+
+  // Handle autoplay setup
+  useEffect(() => {
+    const tryPlayAudio = async () => {
+      try {
+        await audioRef.current?.play();
+        // If successful, clear the interval
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
+      } catch (e) {
+        // console.error("Auto-play prevented or an error occurred:", e);
+      }
+    };
 
     // Only start the retry interval if autoplay is true and we're in view mode
-    if (autoplay && mode === WidgetModes.View && hasUserInteracted) {
-      const tryPlayAudio = async () => {
-        try {
-          await audioRef.current?.play();
-          // If successful, clear the interval
-          if (intervalRef.current) {
-            clearInterval(intervalRef.current);
-            intervalRef.current = null;
-          }
-        } catch (e) {
-          // console.error("Auto-play prevented or an error occurred:", e);
-        }
-      };
-
+    if (autoplay && mode === WidgetModes.View) {
       // Try immediately after user interaction
       tryPlayAudio();
 
       // Set up interval for retrying
-      intervalRef.current = setInterval(tryPlayAudio, 500);
+      intervalRef.current = setInterval(tryPlayAudio, 2000);
     }
 
     // Cleanup function
@@ -68,7 +71,7 @@ const AudioWidget = ({
         intervalRef.current = null;
       }
     };
-  }, [autoplay, volume, mode, hasUserInteracted]);
+  }, [autoplay, mode, hasUserInteracted]);
 
   return (
     <audio
