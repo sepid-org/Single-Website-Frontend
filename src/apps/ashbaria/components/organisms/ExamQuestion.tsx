@@ -7,11 +7,12 @@ import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widge
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 import MessageIcon from '../atoms/icons/Message';
 import QuestionChoice from '../atoms/QuestionChoice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 
 const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
-
   id: questionId,
   text: questionText,
   choices: questionChoices,
@@ -42,6 +43,9 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     randomizeChoices,
     disableAfterAnswer,
   });
+ 
+  const { player } = useFSMContext();
+  const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
 
   const [selectedChoice, setSelectedChoice] = useState(null);
   useEffect(() => {
@@ -63,7 +67,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack justifyContent={"space-between"}>
         <Stack flexDirection={"row"} alignItems={"center"}>
           <MessageIcon />
-          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{questionId}</Typography>
+          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{currentFSMState?.title}</Typography>
         </Stack>
       </Stack>
       <IsRequired disabled={!questionWidgetProps.is_required}>

@@ -126,9 +126,10 @@ const useMultiChoiceQuestionProperties = ({
   }
 
   useEffect(() => {
-    const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer)[0].choices[0];
-    if (latestChoice && !selectedChoiceIds.includes(latestChoice)) {
-      setSelectedChoiceIds([latestChoice]);
+    
+    const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer);
+    if (latestChoice && latestChoice.length > 0 && !selectedChoiceIds.includes(latestChoice[0].choices[0])) {
+      setSelectedChoiceIds(latestChoice[0].choices);
     }
   }, [questionAnswers, selectedChoiceIds]);
   
