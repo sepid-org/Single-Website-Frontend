@@ -3,6 +3,7 @@ import { Button, Box } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
+import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 
@@ -112,3 +113,4 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
 };
 
 export default ButtonWidget;
+export { ButtonWidgetEditor };

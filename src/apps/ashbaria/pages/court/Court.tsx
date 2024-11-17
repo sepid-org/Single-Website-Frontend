@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import {
   useGetMyPlayerQuery,
+  useGetPlayerPerformanceQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import WIDGET_REGISTRY, { WidgetRegistryType } from 'commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper';
@@ -24,6 +25,8 @@ const CourtPage: FC<CourtPagePropsType> = ({ }) => {
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
   const { complementaryObjects } = useGetCourtComplementaryWidgets();
+
+  useGetPlayerPerformanceQuery({ playerId: parseInt(player?.id) }, { skip: !Boolean(player?.id) });
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,

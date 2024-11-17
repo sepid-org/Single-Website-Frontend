@@ -16,8 +16,8 @@ import {
   useSubmitUploadFileAnswerMutation,
 } from 'commons/redux/apis/cms/response/Answer';
 import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
-import ButtonWidget from '../others/ButtonWidget';
-import ButtonWidgetEditor from '../others/ButtonWidget/edit';
+import ButtonWidget, { ButtonWidgetEditor } from '../others/ButtonWidget';
+import RandomWidget, { RandomWidgetEditor } from '../others/RandomWidget';
 
 // Define types for widget configuration
 interface WidgetConfig {
@@ -108,6 +108,12 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
     EditWidgetDialog: ButtonWidgetEditor,
     label: 'دکمه',
     backendType: 'ButtonWidget',
+  },
+  RandomWidget: {
+    WidgetComponent: RandomWidget,
+    EditWidgetDialog: RandomWidgetEditor,
+    label: 'تصادفی',
+    backendType: 'RandomWidget',
   },
 };
 
