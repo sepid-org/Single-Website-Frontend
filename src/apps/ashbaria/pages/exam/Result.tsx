@@ -23,7 +23,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const navigate = useNavigate();
-  const numberOfTrueAnswers = 5;
+  const numberOfTrueAnswers = 2;
   console.log(userFSMsStatus);
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
 

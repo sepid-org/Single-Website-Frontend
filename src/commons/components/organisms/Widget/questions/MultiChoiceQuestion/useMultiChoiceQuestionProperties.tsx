@@ -126,12 +126,11 @@ const useMultiChoiceQuestionProperties = ({
   }
 
   useEffect(() => {
-    const latestChoice = wholeSelectedChoices?.[wholeSelectedChoices.length - 1];
-    // Only update if the last selected choice is not already in `selectedChoiceIds`
-    if (latestChoice && selectedChoiceIds[selectedChoiceIds.length - 1] !== latestChoice) {
+    const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer)[0].choices[0];
+    if (latestChoice && !selectedChoiceIds.includes(latestChoice)) {
       setSelectedChoiceIds([latestChoice]);
     }
-  }, [questionAnswers, wholeSelectedChoices, selectedChoiceIds]);
+  }, [questionAnswers, selectedChoiceIds]);
   
 
   return {
