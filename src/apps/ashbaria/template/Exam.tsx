@@ -8,12 +8,14 @@ import useTransitionForward from "commons/hooks/fsm/useTransitionForward";
 import { useFSMContext } from "commons/hooks/useFSMContext";
 import ExamTimer from "../components/molecules/ExamTimer";
 import { useNavigate } from "react-router-dom";
+import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 
 type PropsType = {};
 
 const ExamTemplate: FC<PropsType> = () => {
   const { fsmId } = useFSMContext();
   const { player } = useFSMContext();
+  const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
   const paperId = currentFSMState?.papers?.[0];
   const { transitForward, result: transitForwardResult, canTransitForward } = useTransitionForward({ player })
@@ -43,7 +45,11 @@ const ExamTemplate: FC<PropsType> = () => {
         top: 0,
         right: 0,
       }}>
-        <ExamTimer handleTimeFinish={handleFinishExam} />
+        <ExamTimer
+          handleTimeFinish={handleFinishExam}
+          duration={fsm?.duration}
+          started_at={player?.started_at}
+        />
       </Box>
       <Box sx={{
         position: 'absolute',

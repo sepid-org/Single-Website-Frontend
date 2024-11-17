@@ -2,28 +2,32 @@ import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ClockIcon from "../atoms/icons/Clock";
 
-const ExamTimer = ({handleTimeFinish}) => {
+const ExamTimer = ({ handleTimeFinish, duration, started_at }) => {
 
-	const [time, setTime] = useState(600);
-	useEffect(() => {
-		if (time > 0) {
-			const intervalId = setInterval(() => {
-				setTime(prevTime => prevTime - 1);
-			}, 1000);
-			return () => clearInterval(intervalId);
-		}
-    if(time === 0){
+  const [time, setTime] = useState(duration);
+  const startTime = new Date(started_at).getTime();
+  const durationInMilliseconds = duration * 60 * 1000;
+  const deadline = startTime + durationInMilliseconds;
+
+  const intervalId = setInterval(() => {
+    const currentTime = Date.now();
+  
+    if (currentTime < deadline) {
+      setTime(prevTime => prevTime - 1);
+    } else {
+      clearInterval(intervalId);
       handleTimeFinish();
     }
-	}, [time]);
+  }, 1000);
 
-	const formatTime = (seconds) => {
-		const minutes = Math.floor(seconds / 60);
-		const secondsLeft = seconds % 60;
-		return `${minutes}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`;
-	};
 
-	return (
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    return `${minutes}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`;
+  };
+
+  return (
     <Stack
       spacing={1}
       sx={{
