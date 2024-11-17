@@ -43,7 +43,7 @@ const ExamTemplate: FC<PropsType> = () => {
         top: 0,
         right: 0,
       }}>
-        <ExamTimer handleTimeFinish={handleFinishExam}/>
+        <ExamTimer handleTimeFinish={handleFinishExam} />
       </Box>
       <Box sx={{
         position: 'absolute',
@@ -52,26 +52,31 @@ const ExamTemplate: FC<PropsType> = () => {
         display: 'flex',
         gap: 1,
       }}>
-        <Button variant="outlined" onClick={transitBackward} disabled={!canTransitBack}>
-          {'سوال قبلی'}
-        </Button>
-        <Button variant="outlined" onClick={transitForward} disabled={!canTransitForward}>
-          {'سوال بعدی'}
-        </Button>
+        {canTransitBack &&
+          <Button
+            variant="outlined"
+            onClick={transitBackward}
+          >
+            {'سوال قبلی'}
+          </Button>
+        }
       </Box>
-      {!canTransitForward &&
-        <Box sx={{
-          position: 'absolute',
-          right: 0,
-          bottom: 0,
-          display: 'flex',
-          gap: 1,
-        }}>
+      <Box sx={{
+        position: 'absolute',
+        right: 0,
+        bottom: 0,
+        display: 'flex',
+        gap: 1,
+      }}>
+        {canTransitForward ?
+          <Button variant="outlined" onClick={transitForward}>
+            {'سوال بعدی'}
+          </Button> :
           <Button variant="contained" onClick={handleFinishExam}>
             {"پایان آزمون"}
           </Button>
-        </Box>
-      }
+        }
+      </Box>
     </Stack>
   );
 };
