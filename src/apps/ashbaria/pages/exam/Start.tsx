@@ -6,6 +6,8 @@ import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/fea
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
+import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
+import { toPersianNumber } from "commons/utils/translateNumber";
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -16,6 +18,8 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const userExamStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);
   const [startFSM, startFSMResult] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
+  const { data: fsm } = useGetFSMQuery({ fsmId });
+  const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
 
   const navigate = useNavigate();
 
@@ -52,7 +56,11 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
           fontWeight={400}
           fontSize={16}
         >
-          {"3تا فرصت واسه شرکت توی آزمونک داری. هر جواب درست توی آزمون ۴۰ اعتبار دادبستانی بدست میاری"}
+
+          {
+            toPersianNumber(fsm?.participant_limit - userCurrentFSM?.finished_players_count) +
+            "تا فرصت واسه شرکت توی آزمونک داری. هر جواب درست توی آزمون ۴۰ اعتبار دادبستانی بدست میاری"
+          }
         </Typography>
         <Button
           variant="contained"

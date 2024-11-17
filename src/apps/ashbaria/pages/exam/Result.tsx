@@ -8,8 +8,9 @@ import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
 import CrossCircleIcon from "apps/ashbaria/components/atoms/icons/CrossCircle";
 import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
-import RefreshIcon from "apps/ashbaria/components/atoms/icons/Refresh";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
+import { toPersianNumber } from "commons/utils/translateNumber";
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -24,7 +25,6 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
 
   const navigate = useNavigate();
   const numberOfTrueAnswers = 2;
-  console.log(userFSMsStatus);
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
 
   return (
@@ -81,16 +81,20 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         >
           <ScoreChip value={200} />
         </Stack>
-        {fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 &&
-          <Typography fontSize={16} fontWeight={400}>۱ فرصت دیگه داری</Typography>
+        {fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 ?
+          <Typography fontSize={16} fontWeight={400}>
+            {toPersianNumber(fsm?.participant_limit - userCurrentFSM?.finished_players_count)}
+            فرصت دیگه داری
+          </Typography> :
+          <Typography fontSize={16} fontWeight={400}>از همه‌ی فرصت‌هات استفاده کردی!</Typography>
         }
         <Button
           variant="contained"
           sx={{ width: "90%" }}
           onClick={() => navigate("/program/ashbaria/exam")}
-          disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count === 0}
+          disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count <= 0}
+          startIcon={<RefreshIcon />}
         >
-          <RefreshIcon />
           یه بار دیگه
         </Button>
         <Button
