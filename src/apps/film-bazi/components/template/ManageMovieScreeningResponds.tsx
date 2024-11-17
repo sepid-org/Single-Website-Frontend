@@ -32,7 +32,7 @@ const ManageMovieScreeningResponds: FC<ManageMovieScreeningRespondsPropsType> = 
   }, [result.data])
 
   return (
-    <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
+    <Stack spacing={2} padding={2} alignItems={'stretch'} justifyContent={'center'}>
 
       <Stack spacing={2}>
         <Stack direction={'row'} justifyContent={'space-between'} alignItems={'start'}>

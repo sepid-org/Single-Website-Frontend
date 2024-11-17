@@ -17,6 +17,8 @@ import AppBarComponent from '../components/organisms/Appbar';
 import FSMs from 'apps/program/template/management/FSMs';
 import ManageMovieScreeningResponds from '../components/template/ManageMovieScreeningResponds';
 import FilmbaziLayout from '../components/molecules/Layout';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import Statistics from '../components/template/Statistics';
 
 const tabs: DashboardTabType[] = [
   {
@@ -25,18 +27,18 @@ const tabs: DashboardTabType[] = [
     icon: InfoIcon,
     component: <Info />,
   },
-  {
-    slug: 'registration-form',
-    label: 'فرایند ثبت‌نام',
-    icon: ArticleIcon,
-    component: <Registration />,
-  },
-  {
-    slug: 'registration-receipts',
-    label: 'شرکت‌کنندگان',
-    icon: PeopleIcon,
-    component: <RegistrationReceipts />,
-  },
+  // {
+  //   slug: 'registration-form',
+  //   label: 'فرایند ثبت‌نام',
+  //   icon: ArticleIcon,
+  //   component: <Registration />,
+  // },
+  // {
+  //   slug: 'registration-receipts',
+  //   label: 'شرکت‌کنندگان',
+  //   icon: PeopleIcon,
+  //   component: <RegistrationReceipts />,
+  // },
   {
     slug: 'mentors',
     label: 'مدیران',
@@ -54,6 +56,12 @@ const tabs: DashboardTabType[] = [
     label: 'درخواست‌های اکران',
     icon: VideocamIcon,
     component: <ManageMovieScreeningResponds />,
+  },
+  {
+    slug: 'statistics',
+    label: 'آمار',
+    icon: BarChartIcon,
+    component: <Statistics />,
   },
 ];
 
