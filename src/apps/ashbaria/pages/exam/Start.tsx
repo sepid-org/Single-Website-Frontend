@@ -22,8 +22,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
-  const leftParticipationCount = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
-
+  const remainingParticipations = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
   const isLoading = isUserFSMsLoading || isFSMLoading;
 
   return (
@@ -65,8 +64,8 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
               fontWeight={400}
               fontSize={16}
             >
-              {leftParticipationCount ?
-                toPersianNumber(leftParticipationCount) +
+              {remainingParticipations ?
+                toPersianNumber(remainingParticipations) +
                 " فرصت واسه شرکت توی آزمونک داری. با هر جواب درست توی آزمون ۴۰ اعتبار دادبستانی به‌دست میاری"
                 :
                 'فرصت‌های شرکت در آزمونت تموم شده :('
@@ -75,6 +74,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
             <Button
               fullWidth
               variant="contained"
+              disabled={isLoading || remainingParticipations === 0}
               onClick={() => startFSM({})}
             >
               برو که بریم!

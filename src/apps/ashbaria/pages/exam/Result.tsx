@@ -30,7 +30,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
-
+  const remainingParticipations = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
   const isLoading = isLoadingPlayer || isLoadingUserFSMsStatus || isLoadingFSM || isLoadingPlayerPerformance;
 
   return (
@@ -99,13 +99,11 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         {isLoading ? (
           <Skeleton width={'100%'} height={40} />
         ) : (
-          correctAnswersCount ? (
-            fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 ?
-              <Typography fontSize={16} fontWeight={400}>
-                {`${toPersianNumber(fsm?.participant_limit - userCurrentFSM?.finished_players_count)} فرصت دیگه داری`}
-              </Typography> :
-              <Typography fontSize={16} fontWeight={400}>از همه‌ی فرصت‌هات استفاده کردی!</Typography>
-          ) : null
+          remainingParticipations > 0 ?
+            <Typography fontSize={16} fontWeight={400}>
+              {`${toPersianNumber(remainingParticipations)} فرصت دیگه داری`}
+            </Typography> :
+            <Typography fontSize={16} fontWeight={400}>از همه‌ی فرصت‌هات استفاده کردی!</Typography>
         )}
 
         <Button
