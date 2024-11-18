@@ -7,6 +7,7 @@ import { useEffect, useCallback } from "react";
 interface UseStartFSMParams {
   fsmId: number;
   redirectPath?: string;
+  reloadOnRedirect?: boolean;
 }
 
 interface StartFSMParams {
@@ -16,6 +17,7 @@ interface StartFSMParams {
 const useStartFSM = ({
   fsmId,
   redirectPath,
+  reloadOnRedirect,
 }: UseStartFSMParams): [
     ({ password }: StartFSMParams) => Promise<PlayerType>,
     MutationResult<PlayerType>
@@ -40,7 +42,11 @@ const useStartFSM = ({
 
   useEffect(() => {
     if (enterFSMResult.isSuccess) {
-      navigate(redirectPath || `/fsm/${fsmId}/`);
+      if (reloadOnRedirect) {
+        window.location.href = redirectPath || `/fsm/${fsmId}/`;
+      } else {
+        navigate(redirectPath || `/fsm/${fsmId}/`);
+      }
     }
   }, [enterFSMResult.isSuccess]);
 

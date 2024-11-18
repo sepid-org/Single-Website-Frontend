@@ -18,7 +18,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
+  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];

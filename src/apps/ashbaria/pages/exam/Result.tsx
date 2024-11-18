@@ -25,7 +25,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { programSlug } = useParams();
   const { data: player, isLoading: isLoadingPlayer } = useGetMyPlayerQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isLoadingUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
+  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
   const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
 
