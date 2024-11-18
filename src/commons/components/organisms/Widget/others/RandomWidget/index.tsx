@@ -1,7 +1,7 @@
 import React from 'react'
 import RandomWidgetEditor from './edit'
 import Widget, { WidgetModes } from '../..'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 export { RandomWidgetEditor }
 
 const RandomWidget = ({ widget, paperId, mode, ...props }) => {
@@ -10,6 +10,14 @@ const RandomWidget = ({ widget, paperId, mode, ...props }) => {
     return (
       <Box width={'100%'} height={'100%'} sx={{ backgroundColor: 'purple' }} />
     );
+  }
+
+  if (!widget) {
+    return (
+      <Typography>
+        {'ویجتی برای نمایش وجود ندارد'}
+      </Typography>
+    )
   }
 
   return (
