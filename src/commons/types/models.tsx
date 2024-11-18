@@ -270,7 +270,6 @@ export type PlayerType = {
   started_at: string;
   user?: string;
   last_visit?: string;
-  started_at: string;
 }
 
 export type FSMStateMinimalType = {

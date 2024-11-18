@@ -1,5 +1,5 @@
 import { Box, Button, Container, Stack } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import useTransitionBackward from "commons/hooks/fsm/useTransitionBackward";
 import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
@@ -9,6 +9,7 @@ import { useFSMContext } from "commons/hooks/useFSMContext";
 import ExamTimer from "../components/molecules/ExamTimer";
 import { useNavigate } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
+import useLocalNavigate from "../hooks/useLocalNavigate";
 
 type PropsType = {};
 
@@ -20,14 +21,19 @@ const ExamTemplate: FC<PropsType> = () => {
   const paperId = currentFSMState?.papers?.[0];
   const { transitForward, result: transitForwardResult, canTransitForward } = useTransitionForward({ player })
   const { transitBackward, result: transitBackwardResult, canTransitBack } = useTransitionBackward({ player });
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId });
+  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId, navigateAfter: false });
 
-  const navigate = useNavigate();
+  const localNavigate = useLocalNavigate();
 
   const handleFinishExam = () => {
     finishFSM();
-    navigate("/program/ashbaria/exam-result");
   }
+
+  useEffect(() => {
+    if (finishFSMResult?.isSuccess) {
+      localNavigate("/exam-result/");
+    }
+  }, [finishFSMResult])
 
   return (
     <Stack
@@ -45,11 +51,11 @@ const ExamTemplate: FC<PropsType> = () => {
         top: 0,
         right: 0,
       }}>
-        <ExamTimer
+        {/* <ExamTimer
           handleTimeFinish={handleFinishExam}
           duration={fsm?.duration}
           started_at={player?.started_at}
-        />
+        /> */}
       </Box>
       <Box sx={{
         position: 'absolute',
@@ -74,10 +80,13 @@ const ExamTemplate: FC<PropsType> = () => {
         display: 'flex',
         gap: 1,
       }}>
-        {canTransitForward ?
+        {canTransitForward &&
           <Button variant="outlined" onClick={transitForward}>
             {'سوال بعدی'}
-          </Button> :
+          </Button>
+        }
+        {
+          currentFSMState?.is_end &&
           <Button variant="contained" onClick={handleFinishExam}>
             {"پایان آزمون"}
           </Button>

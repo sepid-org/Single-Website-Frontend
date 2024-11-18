@@ -13,7 +13,7 @@ const RandomWidget = ({ widget, paperId, mode, ...props }) => {
   }
 
   return (
-    <Widget paperId={paperId} widget={widget} {...props} />
+    <Widget paperId={paperId} widget={widget} {...props} coveredWithPaper={false} />
   );
 }
 

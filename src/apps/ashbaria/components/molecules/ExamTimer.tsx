@@ -9,7 +9,6 @@ const ExamTimer = ({ handleTimeFinish, duration, started_at }) => {
   const durationInMilliseconds = duration * 60 * 1000;
   const deadline = startTime + durationInMilliseconds;
 
-  console.log(duration);
   const intervalId = setInterval(() => {
     const currentTime = Date.now();
   

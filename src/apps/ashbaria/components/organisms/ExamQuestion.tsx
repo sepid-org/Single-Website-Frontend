@@ -43,7 +43,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     randomizeChoices,
     disableAfterAnswer,
   });
- 
+
   const { player } = useFSMContext();
   const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
 
@@ -56,7 +56,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   return (
     <Stack
-      spacing={1}
       sx={{
         width: "100%",
         height: "100%",
@@ -64,32 +63,27 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         flexDirection: "column",
       }}
     >
-      <Stack justifyContent={"space-between"}>
-        <Stack flexDirection={"row"} alignItems={"center"}>
-          <MessageIcon />
-          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{currentFSMState?.title}</Typography>
-        </Stack>
+      <Stack flexDirection={"row"} alignItems={"center"}>
+        <MessageIcon />
+        <Typography color="#FFA800" fontWeight={600} fontSize={16}>{currentFSMState?.title}</Typography>
       </Stack>
-      <IsRequired disabled={!questionWidgetProps.is_required}>
-        <TinyPreview
-          styles={{
-            width: '100%',
-            fontSize: 12,
-            fontWeight: 600,
-          }}
-          content={questionText}
-        />
-      </IsRequired>
+      <Box mb={1}>
+        <IsRequired disabled={!questionWidgetProps.is_required}>
+          <TinyPreview
+            styles={{
+              width: '100%',
+              fontSize: 12,
+              fontWeight: 600,
+            }}
+            content={questionText}
+          />
+        </IsRequired>
+      </Box>
       <Grid
         container
-        sx={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
         spacing={1}
-        padding={0}
+        alignItems={'stretch'}
+        justifyContent={'center'}
       >
         {displayChoices.map((choice) =>
           <Grid

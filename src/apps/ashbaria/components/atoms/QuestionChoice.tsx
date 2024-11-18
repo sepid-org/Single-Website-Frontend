@@ -4,12 +4,14 @@ import { Typography, Stack } from '@mui/material';
 const QuestionChoice = ({ choice, isSelected, onSelectionChange, }) => {
   return (
     <Stack
+      alignItems={'center'}
+      justifyContent={'center'}
       sx={{
-        display: 'inline-block',
+        height: '100%',
         width: "100%",
         border: '2px solid',
         borderColor: isSelected ? '#FE9C42' : 'transparent',
-        borderRadius: '4px',
+        borderRadius: 1,
         backgroundColor: isSelected ? '#FFC66F1A' : "#00000066",
         cursor: 'pointer',
         padding: '10px 20px',
