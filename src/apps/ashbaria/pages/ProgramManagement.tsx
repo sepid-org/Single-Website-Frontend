@@ -4,6 +4,7 @@ import ArticleIcon from '@mui/icons-material/Article';
 import InfoIcon from '@mui/icons-material/Info';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import BarChartIcon from '@mui/icons-material/BarChart';
 
 import Info from 'apps/program/template/management/Info';
 import Registration from 'apps/program/template/management/Registration';
@@ -13,6 +14,7 @@ import Admins from 'apps/program/template/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import { Container } from '@mui/material';
 import FSMs from 'apps/program/template/management/FSMs';
+import Statistics from '../template/Statistics';
 
 const tabs: DashboardTabType[] = [
   {
@@ -44,6 +46,12 @@ const tabs: DashboardTabType[] = [
     label: 'کارگاه‌ها',
     icon: AccountBalanceIcon,
     component: <FSMs />,
+  },
+  {
+    slug: 'statistics',
+    label: 'آمار',
+    icon: BarChartIcon,
+    component: <Statistics />,
   },
 ];
 

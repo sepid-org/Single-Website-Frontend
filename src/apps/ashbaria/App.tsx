@@ -16,7 +16,6 @@ import CustomStylesWrapper from './styles/CustomStylesWrapper';
 import CourtPage from './pages/court/Court';
 import Login from './pages/Login';
 import Introduction from './pages/Introduction';
-import ComingSoon from './pages/ComingSoon';
 import GameMenu from './pages/GameMenu';
 import ExamPage from './pages/exam/Exam';
 import StartExamPage from './pages/exam/Start';
