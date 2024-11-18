@@ -10,7 +10,7 @@ const usePlayerPerformance = ({ playerId }: UsePlayerPerformanceParams) => {
   // Calculate the number of correct answers
   const correctAnswersCount = playerPerformance
     ? Object.values(playerPerformance).reduce((count, answer) => count + (answer.score === 100 ? 1 : 0), 0)
-    : 0;
+    : null;
 
   return {
     isLoading,

@@ -23,13 +23,15 @@ type ExamResultPagePropsType = {};
 const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
-  const { data: player } = useGetMyPlayerQuery({ fsmId });
-  const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
+  const { data: player, isLoading: isLoadingPlayer } = useGetMyPlayerQuery({ fsmId });
+  const { data: userFSMsStatus, isLoading: isLoadingUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/' });
-  const { data: fsm } = useGetFSMQuery({ fsmId });
-  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) })
+  const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
+  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
+
+  const isLoading = isLoadingPlayer || isLoadingUserFSMsStatus || isLoadingFSM || isLoadingPlayerPerformance;
 
   return (
     <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 2 }}>
@@ -48,56 +50,74 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
           fontSize={24}
         >
           {
-            correctAnswersCount > 3 ?
-              "آفرین!" :
-              "حیف شد که!"
+            isLoading ? (
+              <Skeleton width={100} height={30} />
+            ) : (
+              correctAnswersCount > 3 ? "آفرین!" : "حیف شد که!"
+            )
           }
         </Typography>
-        <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
-          {correctAnswersCount > 3 ?
-            <TickCircleIcon /> :
+
+        <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} spacing={isLoading ? 1 : 0}>
+          {isLoading ? (
+            <Skeleton width={40} height={40} variant="circular" />
+          ) : correctAnswersCount > 3 ? (
+            <TickCircleIcon />
+          ) : (
             <CrossCircleIcon />
-          }
-          {correctAnswersCount ?
-            <Typography
-              fontSize={24}
-              fontWeight={600}
-              color={correctAnswersCount > 3 ? "#00D387" : "#E22D79"}
-            >
-              {
-                correctAnswersCount > 3 ?
+          )}
+          {isLoading ? (
+            <Skeleton width={100} height={40} />
+          ) : (
+            correctAnswersCount !== null ? (
+              <Typography
+                fontSize={24}
+                fontWeight={600}
+                color={correctAnswersCount > 3 ? "#00D387" : "#E22D79"}
+              >
+                {correctAnswersCount > 3 ?
                   `${correctAnswersCount} پاسخ درست دادی` :
-                  `${6 - correctAnswersCount} جواب غلط داشتی`
-              }
-            </Typography> :
-            <Skeleton width={60} height={40} />
-          }
+                  `${6 - correctAnswersCount} جواب غلط داشتی`}
+              </Typography>
+            ) : null
+          )}
         </Stack>
+
         <Stack
           sx={{
             display: "flex",
             justifyContent: "center"
           }}
         >
-          <ScoreChip value={correctAnswersCount * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoadingPlayerPerformance} />
+          {isLoadingPlayerPerformance ? (
+            <Skeleton width={100} height={30} />
+          ) : (
+            <ScoreChip value={correctAnswersCount * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoading} />
+          )}
         </Stack>
-        {correctAnswersCount ?
-          fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 ?
-            <Typography fontSize={16} fontWeight={400}>
-              {`${toPersianNumber(fsm?.participant_limit - userCurrentFSM?.finished_players_count)} فرصت دیگه داری`}
-            </Typography> :
-            <Typography fontSize={16} fontWeight={400}>از همه‌ی فرصت‌هات استفاده کردی!</Typography> :
+
+        {isLoading ? (
           <Skeleton width={'100%'} height={40} />
-        }
+        ) : (
+          correctAnswersCount ? (
+            fsm?.participant_limit - userCurrentFSM?.finished_players_count > 0 ?
+              <Typography fontSize={16} fontWeight={400}>
+                {`${toPersianNumber(fsm?.participant_limit - userCurrentFSM?.finished_players_count)} فرصت دیگه داری`}
+              </Typography> :
+              <Typography fontSize={16} fontWeight={400}>از همه‌ی فرصت‌هات استفاده کردی!</Typography>
+          ) : null
+        )}
+
         <Button
           fullWidth
           variant="contained"
           onClick={() => startFSM({})}
-          disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count <= 0}
+          disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count <= 0 || isLoading}
           startIcon={<RefreshIcon />}
         >
-          یه بار دیگه
+          {"یه بار دیگه"}
         </Button>
+
         <Button
           fullWidth
           variant="outlined"
