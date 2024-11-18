@@ -51,7 +51,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         >
           {
             isLoading ? (
-              <Skeleton width={100} height={30} />
+              <Skeleton variant='rounded' width={100} height={30} />
             ) : (
               correctAnswersCount > 3 ? "آفرین!" : "حیف شد که!"
             )
@@ -67,7 +67,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
             <CrossCircleIcon />
           )}
           {isLoading ? (
-            <Skeleton width={100} height={40} />
+            <Skeleton variant='rounded' width={100} height={40} />
           ) : (
             correctAnswersCount !== null ? (
               <Typography
@@ -83,21 +83,10 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
           )}
         </Stack>
 
-        <Stack
-          sx={{
-            display: "flex",
-            justifyContent: "center"
-          }}
-        >
-          {isLoadingPlayerPerformance ? (
-            <Skeleton width={100} height={30} />
-          ) : (
-            <ScoreChip value={correctAnswersCount * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoading} />
-          )}
-        </Stack>
+        <ScoreChip value={correctAnswersCount * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoading} />
 
         {isLoading ? (
-          <Skeleton width={'100%'} height={40} />
+          <Skeleton variant='rounded' width={'100%'} height={40} />
         ) : (
           remainingParticipations > 0 ?
             <Typography fontSize={16} fontWeight={400}>

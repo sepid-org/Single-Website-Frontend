@@ -41,11 +41,11 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
       >
         {isLoading ? (
           <Stack spacing={2} width="100%" alignItems={'center'} justifyContent={'center'}>
-            <Skeleton variant="rectangular" width="60%" height={40} />
-            <Skeleton variant="rectangular" width="100%" height={40} />
-            <Skeleton variant="rectangular" width="100%" height={30} />
-            <Skeleton variant="rectangular" width="100%" height={30} />
-            <Skeleton variant="rectangular" width="40%" height={30} />
+            <Skeleton variant="rounded" width="60%" height={40} />
+            <Skeleton variant="rounded" width="100%" height={40} />
+            <Skeleton variant="rounded" width="100%" height={30} />
+            <Skeleton variant="rounded" width="100%" height={30} />
+            <Skeleton variant="rounded" width="40%" height={30} />
           </Stack>
         ) : (
           <>
