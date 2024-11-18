@@ -60,7 +60,7 @@ const MetabaseDashboard: FC<MetabaseDashboardPropsType> = ({
         src={iframeUrl}
         style={{ border: 0 }}
         width="100%"
-        height={800}
+        height={600}
       />
     </Stack>
   )
