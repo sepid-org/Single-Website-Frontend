@@ -16,7 +16,7 @@ const CustomBaseQuery = ({ baseUrl }) =>
         }
         const website = state.website?.website;
         if (website) {
-          headers.append('Website', 'ashbaria');
+          headers.append('Website', website?.name);
         }
         const fsm = state.fsm?.fsm;
         if (fsm) {
