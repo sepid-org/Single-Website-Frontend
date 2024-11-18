@@ -30,7 +30,7 @@ const ExamTemplate: FC<PropsType> = () => {
   }
 
   useEffect(() => {
-    if (finishFSMResult?.isSuccess) {
+    if (finishFSMResult?.isSuccess || finishFSMResult?.isError) {
       localNavigate("/exam-result/");
     }
   }, [finishFSMResult])
@@ -51,11 +51,11 @@ const ExamTemplate: FC<PropsType> = () => {
         top: 0,
         right: 0,
       }}>
-        {/* <ExamTimer
+        <ExamTimer
           handleTimeFinish={handleFinishExam}
           duration={fsm?.duration}
-          started_at={player?.started_at}
-        /> */}
+          startTime={player?.started_at}
+        />
       </Box>
       <Box sx={{
         position: 'absolute',
