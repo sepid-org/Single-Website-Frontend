@@ -1,4 +1,4 @@
-import { Paper, Stack, styled } from "@mui/material";
+import { Paper, Stack } from "@mui/material";
 import React, { FC } from "react";
 import backgroundImg from "../../assets/examBG.svg";
 import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
@@ -8,13 +8,6 @@ import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
 import ExamTemplate from "../../template/Exam";
-
-const FullScreenPaper = styled(Paper)(({ theme }) => ({
-  width: `calc(100vw - ${theme.spacing(4)})`,
-  height: `calc(100vh - ${theme.spacing(4)})`,
-  maxWidth: 'none',
-  maxHeight: 'none',
-}));
 
 type ExamPagePropsType = {};
 
@@ -32,7 +25,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
 
   return (
     <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 2 }}>
-      <Stack component={FullScreenPaper} padding={2} spacing={2} justifyContent={'space-between'}>
+      <Stack maxWidth={'md'} width={'100%'} component={Paper} padding={2} spacing={2} justifyContent={'space-between'}>
         <FSMProvider
           fsmId={fsmId}
           player={player}

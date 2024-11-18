@@ -1,4 +1,4 @@
-import { Box, Button, Container, Stack } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import React, { FC, useEffect } from "react";
 import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import useTransitionBackward from "commons/hooks/fsm/useTransitionBackward";
@@ -7,7 +7,6 @@ import Paper from "commons/template/Paper";
 import useTransitionForward from "commons/hooks/fsm/useTransitionForward";
 import { useFSMContext } from "commons/hooks/useFSMContext";
 import ExamTimer from "../components/molecules/ExamTimer";
-import { useNavigate } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import useLocalNavigate from "../hooks/useLocalNavigate";
 
@@ -37,61 +36,48 @@ const ExamTemplate: FC<PropsType> = () => {
 
   return (
     <Stack
+      position={'relative'}
+      spacing={1}
+      width={'100%'}
+      height={'100%'}
       direction="column"
       alignItems="center"
-      sx={{
-        width: "100%",
-        height: "100%",
-        position: 'relative'
-      }}
     >
       <Paper mode="general" paperId={paperId} />
-      <Box sx={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-      }}>
+
+      <Box position='absolute' top={0} right={0}>
         <ExamTimer
           handleTimeFinish={handleFinishExam}
           duration={fsm?.duration}
           startTime={player?.started_at}
         />
       </Box>
-      <Box sx={{
-        position: 'absolute',
-        left: 0,
-        bottom: 0,
-        display: 'flex',
-        gap: 1,
-      }}>
-        {canTransitBack &&
-          <Button
-            variant="outlined"
-            onClick={transitBackward}
-          >
-            {'سوال قبلی'}
-          </Button>
-        }
-      </Box>
-      <Box sx={{
-        position: 'absolute',
-        right: 0,
-        bottom: 0,
-        display: 'flex',
-        gap: 1,
-      }}>
-        {canTransitForward &&
-          <Button variant="outlined" onClick={transitForward}>
-            {'سوال بعدی'}
-          </Button>
-        }
-        {
-          currentFSMState?.is_end &&
-          <Button variant="contained" onClick={handleFinishExam}>
-            {"پایان آزمون"}
-          </Button>
-        }
-      </Box>
+
+      <Stack width={'100%'} direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+        <Box>
+          {canTransitBack &&
+            <Button
+              variant="outlined"
+              onClick={transitBackward}
+            >
+              {'سوال قبلی'}
+            </Button>
+          }
+        </Box>
+        <Box>
+          {canTransitForward &&
+            <Button variant="outlined" onClick={transitForward}>
+              {'سوال بعدی'}
+            </Button>
+          }
+          {
+            currentFSMState?.is_end &&
+            <Button variant="contained" onClick={handleFinishExam}>
+              {"پایان آزمون"}
+            </Button>
+          }
+        </Box>
+      </Stack>
     </Stack>
   );
 };
