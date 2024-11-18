@@ -2,25 +2,33 @@ import { Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ClockIcon from "../atoms/icons/Clock";
 
-const ExamTimer = () => {
+const ExamTimer = ({ handleTimeFinish, duration, started_at }) => {
 
-	const [time, setTime] = useState(60);
-	useEffect(() => {
-		if (time > 0) {
-			const intervalId = setInterval(() => {
-				setTime(prevTime => prevTime - 1);
-			}, 1000);
-			return () => clearInterval(intervalId);
-		}
-	}, [time]);
+  const [time, setTime] = useState(duration);
+  const startTime = new Date(started_at).getTime();
+  const durationInMilliseconds = duration * 60 * 1000;
+  const deadline = startTime + durationInMilliseconds;
 
-	const formatTime = (seconds) => {
-		const minutes = Math.floor(seconds / 60);
-		const secondsLeft = seconds % 60;
-		return `${minutes}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`;
-	};
+  console.log(duration);
+  const intervalId = setInterval(() => {
+    const currentTime = Date.now();
+  
+    if (currentTime < deadline) {
+      setTime(prevTime => prevTime - 1);
+    } else {
+      clearInterval(intervalId);
+      handleTimeFinish();
+    }
+  }, 1000);
 
-	return (
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secondsLeft = seconds % 60;
+    return `${minutes}:${secondsLeft < 10 ? `0${secondsLeft}` : secondsLeft}`;
+  };
+
+  return (
     <Stack
       spacing={1}
       sx={{
@@ -29,9 +37,6 @@ const ExamTimer = () => {
         width: 100, // Adjusted width to accommodate padding and fixed size
         height: 50, // Adjusted height to accommodate padding and icon size
         padding: '8px', // Added padding for spacing from borders
-        position: 'fixed', // Fixed position
-        top: '20px', // Adjust as needed
-        right: '20px', // Adjust as needed
         display: "flex",
         flexDirection: "row",
         alignItems: "center",

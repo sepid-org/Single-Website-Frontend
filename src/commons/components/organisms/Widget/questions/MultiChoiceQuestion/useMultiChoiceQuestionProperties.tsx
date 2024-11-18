@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react';
-
+import { useEffect, useMemo, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
@@ -57,7 +56,6 @@ const useMultiChoiceQuestionProperties = ({
   const questionAnswers = getQuestionAnswers(questionId);
   const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);
 
-  // Create deterministic random ordering based on playerId and questionId
   const randomizedChoices: ChoiceType[] = useMemo(() => {
     if (randomizeChoices && mode === WidgetModes.View && player?.id) {
       const seed = `${player.id}-${questionId}`;
@@ -126,6 +124,15 @@ const useMultiChoiceQuestionProperties = ({
   if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoiceIds, questionAnswer.choices))) {
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
+
+  useEffect(() => {
+    
+    const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer);
+    if (latestChoice && latestChoice.length > 0 && !selectedChoiceIds.includes(latestChoice[0].choices[0])) {
+      setSelectedChoiceIds(latestChoice[0].choices);
+    }
+  }, [questionAnswers, selectedChoiceIds]);
+  
 
   return {
     selectedChoiceIds,

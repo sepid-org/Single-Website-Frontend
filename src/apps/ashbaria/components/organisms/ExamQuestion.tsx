@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Button, Grid, Stack, Typography } from '@mui/material';
+import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import IsRequired from 'commons/components/atoms/IsRequired';
@@ -7,11 +7,12 @@ import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widge
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 import MessageIcon from '../atoms/icons/Message';
 import QuestionChoice from '../atoms/QuestionChoice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 
 const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
-
   id: questionId,
   text: questionText,
   choices: questionChoices,
@@ -26,7 +27,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   const {
     selectedChoiceIds,
     displayChoices,
-
     onChoiceSelect,
     submitAnswer,
     submitAnswerResult,
@@ -43,13 +43,31 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     randomizeChoices,
     disableAfterAnswer,
   });
+ 
+  const { player } = useFSMContext();
+  const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
+
+  const [selectedChoice, setSelectedChoice] = useState(null);
+  useEffect(() => {
+    if (selectedChoiceIds.length > 0 && selectedChoice === null) {
+      setSelectedChoice(selectedChoiceIds[0]);
+    }
+  }, [selectedChoiceIds]);
 
   return (
-    <Stack spacing={1}>
+    <Stack
+      spacing={1}
+      sx={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Stack justifyContent={"space-between"}>
         <Stack flexDirection={"row"} alignItems={"center"}>
           <MessageIcon />
-          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{questionId}</Typography>
+          <Typography color="#FFA800" fontWeight={600} fontSize={16}>{currentFSMState?.title}</Typography>
         </Stack>
       </Stack>
       <IsRequired disabled={!questionWidgetProps.is_required}>
@@ -61,10 +79,9 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           }}
           content={questionText}
         />
-
       </IsRequired>
-      <Grid 
-        container 
+      <Grid
+        container
         sx={{
           width: "100%",
           display: "flex",
@@ -82,22 +99,15 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
           >
             <QuestionChoice
               choice={choice}
-              isSelected={selectedChoiceIds.includes(choice.id)}
-              onSelectionChange={() => onChoiceSelect(choice)}
+              isSelected={selectedChoice === choice.id}
+              onSelectionChange={() => {
+                setSelectedChoice(choice.id);
+                onChoiceSelect(choice);
+              }}
             />
           </Grid>
         )}
       </Grid>
-      {mode === WidgetModes.View && maxSelections > 1 && selectedChoiceIds.length > 0 &&
-        <Button
-          sx={{ width: 80, alignSelf: 'end' }}
-          variant='contained'
-          onClick={() => submitAnswer(selectedChoiceIds)}>
-          <Typography fontWeight={400}>
-            {'ثبت'}
-          </Typography>
-        </Button>
-      }
     </Stack>
   );
 };
