@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import Forward10SecondsIcon from "../../atoms/icons/Forward10Seconds";
 
-const ForwardAudio = () => {
+const ForwardAudio = ({handleClick}) => {
 	return (
 		<Button
 			sx={{
@@ -17,6 +17,7 @@ const ForwardAudio = () => {
 				justifyContent: 'center',
 				minWidth: '0',
 			}}
+			onClick={handleClick}
 		>
 			<Forward10SecondsIcon />
 		</Button>

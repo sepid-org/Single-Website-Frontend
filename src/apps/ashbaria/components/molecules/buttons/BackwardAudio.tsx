@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import Backward10SecondsIcon from "../../atoms/icons/Backward10Seconds";
 
-const BackwardAudio = () => {
+const BackwardAudio = ({handleClick}) => {
 	return (
 		<Button
 			sx={{
@@ -17,6 +17,7 @@ const BackwardAudio = () => {
 				justifyContent: 'center',
 				minWidth: '0',
 			}}
+			onClick={handleClick}
 		>
 			<Backward10SecondsIcon />
 		</Button>

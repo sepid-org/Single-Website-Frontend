@@ -55,9 +55,6 @@ const ViewHint: FC<HintPropsType> = ({
           <Typography fontSize={12} fontWeight={400}>
             {"از طریق جاسوس هامون در سرزمین های آن سوی آب به ما رسیده"}
           </Typography>
-          <PlayAudio />
-          <ForwardAudio />
-          <BackwardAudio />
         </Stack>
         <Stack height={'100%'} alignItems={'center'} justifyContent={'center'}>
           <Stack width={'100%'} spacing={2}>
@@ -68,6 +65,11 @@ const ViewHint: FC<HintPropsType> = ({
               <WidgetsPaper mode="general" paperId={detailedHint?.content['paper_id']} />
             </FSMStateProvider>
           </Stack>
+        </Stack>
+        <Stack direction={'row'} alignItems={'center'} position={"absolute"} bottom={50}>
+          <Typography fontSize={12} fontWeight={400}>
+            {"عنوان صوت"}
+          </Typography>
         </Stack>
       </Stack>
     </FullScreenBackgroundImage >

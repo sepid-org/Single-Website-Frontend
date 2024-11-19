@@ -24,6 +24,7 @@ import WhatHappenedPage from './pages/WhatHappened';
 import ScoreBoard from './pages/ScoreBoard';
 import ViewHint from './components/organisms/hint/ViewHint';
 import HintAudioWidget from './components/organisms/HintAudioWidget';
+import { WidgetModes } from 'commons/components/organisms/Widget';
 
 const App = () => {
 
@@ -51,6 +52,7 @@ const App = () => {
               <Route path='/introduction/' element={<Introduction />} />
               <Route path='/scoreboard' element={<ScoreBoard />} />
               <Route path='/hint-audio' element={<ViewHint hint={undefined} onClose={undefined}/>} />
+              <Route path='audio' element={<HintAudioWidget link={"https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav"} autoplay={false} mode={WidgetModes.View} />} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>

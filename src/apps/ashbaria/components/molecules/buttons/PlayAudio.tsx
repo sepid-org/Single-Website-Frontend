@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import OrangePlayIcon from "../../atoms/icons/OrangePlay";
 
-const PlayAudio = () => {
+const PlayAudio = ({handleClick}) => {
 	return (
 		<Button
 			sx={{
@@ -17,6 +17,7 @@ const PlayAudio = () => {
 				justifyContent: 'center',
 				minWidth: '0',
 			}}
+			onClick={handleClick}
 		>
 			<OrangePlayIcon />
 		</Button>
