@@ -1,7 +1,7 @@
 import React from 'react'
 import RandomWidgetEditor from './edit'
 import Widget, { WidgetModes } from '../..'
-import { Box, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 export { RandomWidgetEditor }
 
 const RandomWidget = ({ widget, paperId, mode, ...props }) => {
@@ -12,11 +12,17 @@ const RandomWidget = ({ widget, paperId, mode, ...props }) => {
     );
   }
 
-  if (!widget) {
+  if (Object.keys(widget).length === 0) {
     return (
-      <Typography>
-        {'ویجتی برای نمایش وجود ندارد'}
-      </Typography>
+      <Stack
+        width={'100%'} height={'100%'}
+        sx={{ backgroundColor: 'gray', borderRadius: 2 }}
+        alignItems={'center'} justifyContent={'center'}
+      >
+        <Typography>
+          {'ویجتی برای نمایش وجود ندارد'}
+        </Typography>
+      </Stack>
     )
   }
 
