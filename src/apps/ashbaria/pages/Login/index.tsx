@@ -1,10 +1,10 @@
 import { Paper, Stack } from "@mui/material";
 import React, { FC } from "react";
-import backgroundImg from "../../assets/login-background.jpg";
 import EnterVerificationCode from "./EnterVerificationCode";
 import EnterPhoneNumber from "./EnterPhoneNumber";
 import { useSearchParams } from "react-router-dom";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 export enum LoginTabs {
   EnterPhoneNumber = 'EnterPhoneNumber',
@@ -18,7 +18,7 @@ const Login: FC<LoginPropsType> = () => {
   const currentTabSlug = (searchParams.get('tab') as LoginTabs) || LoginTabs.EnterPhoneNumber;
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg}>
+    <FullScreenBackgroundImage image={ImageUrls.BEACH}>
       <Stack width={300} component={Paper} padding={2} spacing={2} marginRight={-20} alignItems={'center'} justifyContent={'center'}>
         {currentTabSlug === LoginTabs.EnterPhoneNumber &&
           <EnterPhoneNumber />

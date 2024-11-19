@@ -2,11 +2,10 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
-import bg from "../../assets/introductionPage1.svg";
-import guyIcon from "../../assets/thegay copy 1.svg";
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NextIntroductionPageButton from "apps/ashbaria/components/atoms/NextIntroductionPageButton";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type IntroductionPage1PropsType = {}
 
@@ -19,7 +18,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${ImageUrls.INTRODUCTION1})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -74,7 +73,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
       >
         <Box
           component="img"
-          src={guyIcon}
+          src={ImageUrls.KOHSHAD}
           height="75%"
         />
       </Grid>

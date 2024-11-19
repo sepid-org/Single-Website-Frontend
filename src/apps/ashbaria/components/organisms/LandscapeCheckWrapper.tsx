@@ -1,6 +1,6 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
-import backgroundImg from "../../assets/profileBackground.svg";
 import { Box, Paper, Stack, Typography } from "@mui/material";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type LandscapeCheckWrapperPropsType = {
   children: ReactNode;
@@ -42,7 +42,7 @@ const LandscapeCheckWrapper: FC<LandscapeCheckWrapperPropsType> = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `url(${backgroundImg})`,
+        backgroundImage: ImageUrls.WALL,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

@@ -3,10 +3,10 @@ import React, { FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import BuyBookButton from "apps/ashbaria/components/molecules/buttons/BuyBook";
-import bg from "../../assets/introductionPage3.svg";
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type IntroductionPage3PropsType = {}
 
@@ -20,7 +20,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${ImageUrls.INTRODUCTION3})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

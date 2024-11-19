@@ -1,6 +1,5 @@
 import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
-import backgroundImg from "../../assets/examStartBG.svg";
 import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
@@ -9,6 +8,7 @@ import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -26,7 +26,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const isLoading = isUserFSMsLoading || isFSMLoading;
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 2 }}>
+    <FullScreenBackgroundImage image={ImageUrls.SKY_AND_BUILDINGS} styles={{ padding: 2 }}>
       <Stack
         width={400}
         component={Paper}

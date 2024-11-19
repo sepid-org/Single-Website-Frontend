@@ -10,7 +10,6 @@ import {
   Button,
   Stack,
 } from '@mui/material';
-import background from "../assets/friendsNetworkBg.svg";
 import BackButton from '../components/molecules/buttons/Back';
 import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -29,6 +28,7 @@ import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
 import BookMission from '../components/molecules/friendship-network/BookMission';
 import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
+import { ImageUrls } from '../constants/imageUrls';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -103,7 +103,7 @@ const FriendshipNetworkPage = () => {
   };
 
   return (
-    <FullScreenBackgroundImage image={background}>
+    <FullScreenBackgroundImage image={ImageUrls.WALL}>
       <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
         <Grid container spacing={2}>
           <Grid container item alignItems={'center'} justifyContent={'center'}>

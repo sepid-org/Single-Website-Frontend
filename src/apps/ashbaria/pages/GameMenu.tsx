@@ -2,7 +2,6 @@ import { Box, Stack } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 
-import backgroundImg from "../assets/profileBackground.svg";
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
@@ -12,6 +11,7 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import GameMenuPanel from '../components/organisms/GameMenuPanel';
 import HelpButton from '../components/molecules/buttons/HelpButton';
+import { ImageUrls } from '../constants/imageUrls';
 
 type GameMenuPropsType = {}
 
@@ -30,7 +30,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   }, []);
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 0 }}>
+    <FullScreenBackgroundImage image={ImageUrls.WALL} styles={{ padding: 0 }}>
       <Helmet>
         <title>{'راز آشباریا'}</title>
       </Helmet>

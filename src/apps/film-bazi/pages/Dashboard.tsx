@@ -1,7 +1,5 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import React, { FC } from 'react';
-import AppBarComponent from '../components/organisms/Appbar';
-import backgroundImg from "../assets/dashboardBackground.svg";
 import Films from '../components/template/Films';
 import Games from '../components/template/Games';
 import DashboardSidebar from '../components/organisms/DashboardSidebar';

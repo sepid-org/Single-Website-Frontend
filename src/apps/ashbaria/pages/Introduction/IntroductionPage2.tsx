@@ -1,10 +1,10 @@
 import { Grid, IconButton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import { useSearchParams } from "react-router-dom";
-import bg from "../../assets/introductionPage2.svg";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import NextIntroductionPageButton from "apps/ashbaria/components/atoms/NextIntroductionPageButton";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type IntroductionPage2PropsType = {}
 
@@ -17,7 +17,7 @@ const IntroductionPage2: FC<IntroductionPage2PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${ImageUrls.INTRODUCTION2})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

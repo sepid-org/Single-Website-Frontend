@@ -1,16 +1,16 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
-import backgroundImg from "../assets/profileBackground.svg";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
 import BuyBookButton from "../components/molecules/buttons/BuyBook";
+import { ImageUrls } from "../constants/imageUrls";
 
 export type ComingSoonPropsType = {};
 
 const ComingSoon: FC<ComingSoonPropsType> = () => {
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg}>
+    <FullScreenBackgroundImage image={ImageUrls.WALL}>
       <Stack maxWidth={'sm'} component={Paper} padding={2} spacing={2} alignItems={'center'} justifyContent={'space-between'}>
         <ProgramLogo />
         <Typography textAlign={'center'}>

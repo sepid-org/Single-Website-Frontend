@@ -1,6 +1,5 @@
 import { Paper, Stack } from "@mui/material";
 import React, { FC } from "react";
-import backgroundImg from "../../assets/examBG.svg";
 import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
@@ -8,6 +7,7 @@ import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
 import ExamTemplate from "../../template/Exam";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type ExamPagePropsType = {};
 
@@ -24,7 +24,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   };
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg} styles={{ padding: 2 }}>
+    <FullScreenBackgroundImage image={ImageUrls.WINDMILL} styles={{ padding: 2 }}>
       <Stack maxWidth={'md'} width={'100%'} component={Paper} padding={2} spacing={2} justifyContent={'space-between'}>
         <FSMProvider
           fsmId={fsmId}

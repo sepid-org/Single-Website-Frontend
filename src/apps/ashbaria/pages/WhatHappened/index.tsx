@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import backgroundImg from "../../assets/profileBackground.svg";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { Button, Stack } from "@mui/material";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
 
 type WhatHappenedPagePropsType = {};
 
@@ -10,19 +10,20 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
 
   return (
-    <FullScreenBackgroundImage image={backgroundImg}>
-      <Stack width={'100%'} alignItems={'center'} justifyContent={'center'}>
-        <Stack width={'80%'} alignItems={'start'} justifyContent={'center'} spacing={1}>
+    <FullScreenBackgroundImage image={ImageUrls.WALL} styles={{ padding: 2 }}>
+      <Stack spacing={1} width={'100%'} alignItems={'end'} justifyContent={'center'} direction={'row'}>
+        <Stack width={'60%'} alignItems={'start'} justifyContent={'center'} spacing={1}>
           <video
+            style={{ borderRadius: 8 }}
             width={'100%'}
-            src="https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/what-happened.mp4"
+            src={ImageUrls.WHAT_HAPPENED}
             autoPlay
             controls
           />
-          <Button variant="contained" onClick={() => localNavigate('/')} size='large'>
-            {'حله...'}
-          </Button>
         </Stack>
+        <Button sx={{}} variant="contained" onClick={() => localNavigate('/')} size='large'>
+          {'بزن بریم...'}
+        </Button>
       </Stack>
     </FullScreenBackgroundImage>
   );
