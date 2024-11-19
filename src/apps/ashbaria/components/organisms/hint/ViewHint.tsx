@@ -33,7 +33,7 @@ const ViewHint: FC<HintPropsType> = ({
     <Stack padding={3} spacing={2} component={FullScreenPaper} maxWidth={'xs'} position={'relative'}>
       <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
         <Box position={'absolute'} top={12} left={30}>
-          <BackButton />
+          <BackButton onClick={onClose} />
         </Box>
         <Stack position={"absolute"} top={20} justifyContent={"center"} alignItems={'center'} direction={'row'} spacing={0.5}>
           <LampOnIcon />
