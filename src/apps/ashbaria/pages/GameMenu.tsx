@@ -51,7 +51,26 @@ const GameMenu: FC<GameMenuPropsType> = () => {
           />
         </FSMStateProvider>
       </FSMProvider>
-      <Stack spacing={1} position={'absolute'} right={10} top={10}>
+      <Stack
+        sx={(theme) => ({
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+          transform: 'scale(1)',
+          transformOrigin: 'top right',
+          [theme.breakpoints.up('lg')]: {
+            transform: 'scale(1.4)',
+          },
+          [theme.breakpoints.down('md')]: {
+            transform: 'scale(0.8)',
+          },
+          [theme.breakpoints.down('sm')]: {
+            transform: 'scale(0.6)',
+          },
+        })}
+        spacing={1}
+        position={'absolute'}
+        right={10} top={10}
+      >
         <MyTotalScoreChip />
         <HelpButton />
       </Stack>

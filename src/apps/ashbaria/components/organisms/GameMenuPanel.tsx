@@ -30,31 +30,47 @@ const GameMenuPanel: FC<PropsType> = () => {
       spacing={2}
       padding={2}
       alignItems={'center'}
-      sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+      sx={(theme) => ({
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
+        transform: 'scale(1)',
+        transformOrigin: 'top left',
+        [theme.breakpoints.up('lg')]: {
+          transform: 'scale(1.4)',
+        },
+        [theme.breakpoints.down('md')]: {
+          transform: 'scale(0.8)',
+        },
+        [theme.breakpoints.down('sm')]: {
+          transform: 'scale(0.6)',
+        },
+      })}
     >
       <ProgramLogo />
-      {isGetProfileLoading ? (
-        <Skeleton width={'80%'} height={60} />
-      ) : myAshbariaProfile?.has_received_reward ? (
-        <MyFirstNameChip />
-      ) : (
-        <Button
-          sx={{ background: '#00000066' }}
-          fullWidth variant='contained' onClick={() => localNavigate('/profile/')}
-        >
-          <Stack spacing={0.5} width={'100%'}>
-            <Stack direction={'row'} spacing={0.5} alignItems={'center'} justifyContent={'center'}>
-              <PurpleInfoIcon size={36} />
-              <MyFirstName />
+      {
+        isGetProfileLoading ? (
+          <Skeleton width={'80%'} height={60} />
+        ) : myAshbariaProfile?.has_received_reward ? (
+          <MyFirstNameChip />
+        ) : (
+          <Button
+            sx={{ background: '#00000066' }}
+            fullWidth variant='contained' onClick={() => localNavigate('/profile/')}
+          >
+            <Stack spacing={0.5} width={'100%'}>
+              <Stack direction={'row'} spacing={0.5} alignItems={'center'} justifyContent={'center'}>
+                <PurpleInfoIcon size={36} />
+                <MyFirstName />
+              </Stack>
+              <Stack sx={{ background: '#0000001A', borderRadius: 2 }}>
+                <Typography color={Golden}>
+                  {'با تکمیل نمایه امتیاز بگیر'}
+                </Typography>
+              </Stack>
             </Stack>
-            <Stack sx={{ background: '#0000001A', borderRadius: 2 }}>
-              <Typography color={Golden}>
-                {'با تکمیل نمایه امتیاز بگیر'}
-              </Typography>
-            </Stack>
-          </Stack>
-        </Button>
-      )}
+          </Button>
+        )
+      }
 
       {/* <Typography textAlign={'center'}>
           {'مهلت تا پایان دوره: ۱۷ روز'}
@@ -113,7 +129,7 @@ const GameMenuPanel: FC<PropsType> = () => {
       <Button variant='outlined' onClick={() => logout()}>
         {'خروج'}
       </Button>
-    </Stack>
+    </Stack >
   );
 }
 
