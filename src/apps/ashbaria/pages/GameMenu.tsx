@@ -11,7 +11,7 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import GameMenuPanel from '../components/organisms/GameMenuPanel';
 import HelpButton from '../components/molecules/buttons/HelpButton';
-import { ImageUrls } from '../constants/imageUrls';
+import { MediaUrls } from '../constants/mediaUrls';
 
 type GameMenuPropsType = {}
 
@@ -30,7 +30,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   }, []);
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.WALL} styles={{ padding: 0 }}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL} styles={{ padding: 0 }}>
       <Helmet>
         <title>{'راز آشباریا'}</title>
       </Helmet>

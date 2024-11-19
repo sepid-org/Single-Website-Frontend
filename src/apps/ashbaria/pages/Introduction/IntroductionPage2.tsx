@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import NextIntroductionPageButton from "apps/ashbaria/components/atoms/NextIntroductionPageButton";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 type IntroductionPage2PropsType = {}
 
@@ -17,7 +17,7 @@ const IntroductionPage2: FC<IntroductionPage2PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${ImageUrls.INTRODUCTION2})`,
+        backgroundImage: `url(${MediaUrls.INTRODUCTION2})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

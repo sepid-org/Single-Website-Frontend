@@ -14,7 +14,7 @@ import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import usePlayerPerformance from "commons/hooks/fsm/useGetPlayerPerformance";
 import { ASHBARIA_EXAM_QUESTION_COIN_REWARD } from "apps/ashbaria/constants/game-info";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -34,7 +34,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const isLoading = isLoadingPlayer || isLoadingUserFSMsStatus || isLoadingFSM || isLoadingPlayerPerformance;
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.BEACH} styles={{ padding: 2 }}>
+    <FullScreenBackgroundImage image={MediaUrls.BEACH} styles={{ padding: 2 }}>
       <Stack
         width={400}
         component={Paper}

@@ -28,7 +28,7 @@ import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
 import BookMission from '../components/molecules/friendship-network/BookMission';
 import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
-import { ImageUrls } from '../constants/imageUrls';
+import { MediaUrls } from '../constants/mediaUrls';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -103,7 +103,7 @@ const FriendshipNetworkPage = () => {
   };
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.WALL}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL}>
       <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
         <Grid container spacing={2}>
           <Grid container item alignItems={'center'} justifyContent={'center'}>

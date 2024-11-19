@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
 import { Button, Stack } from "@mui/material";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 type WhatHappenedPagePropsType = {};
 
@@ -10,13 +10,13 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.WALL} styles={{ padding: 2 }}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL} styles={{ padding: 2 }}>
       <Stack spacing={1} width={'100%'} alignItems={'end'} justifyContent={'center'} direction={'row'}>
         <Stack width={'60%'} alignItems={'start'} justifyContent={'center'} spacing={1}>
           <video
             style={{ borderRadius: 8 }}
             width={'100%'}
-            src={ImageUrls.WHAT_HAPPENED}
+            src={MediaUrls.WHAT_HAPPENED}
             autoPlay
             controls
           />

@@ -3,14 +3,14 @@ import React, { FC } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
 import BuyBookButton from "../components/molecules/buttons/BuyBook";
-import { ImageUrls } from "../constants/imageUrls";
+import { MediaUrls } from "../constants/mediaUrls";
 
 export type ComingSoonPropsType = {};
 
 const ComingSoon: FC<ComingSoonPropsType> = () => {
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.WALL}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL}>
       <Stack maxWidth={'sm'} component={Paper} padding={2} spacing={2} alignItems={'center'} justifyContent={'space-between'}>
         <ProgramLogo />
         <Typography textAlign={'center'}>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box } from '@mui/material';
-import { ImageUrls } from 'apps/ashbaria/constants/imageUrls';
+import { MediaUrls } from 'apps/ashbaria/constants/mediaUrls';
 
 const AshbariaPoster = ({ width = 40 }) => {
   return (
     <Box
       component="img"
-      src={ImageUrls.ASHBARIA_POSTER}
+      src={MediaUrls.ASHBARIA_POSTER}
       sx={{
         width,
         height: "auto",

@@ -1,4 +1,4 @@
-export const ImageUrls = {
+export const MediaUrls = {
   SCOREBOARD_LEFT: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/backgrounds/scoreboard-left.png',
   SCOREBOARD_RIGHT: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/backgrounds/scoreboard-right.png',
   WALL: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/backgrounds/wall.png',

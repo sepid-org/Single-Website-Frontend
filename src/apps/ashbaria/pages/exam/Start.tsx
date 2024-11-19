@@ -8,7 +8,7 @@ import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
 
@@ -26,7 +26,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const isLoading = isUserFSMsLoading || isFSMLoading;
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.SKY_AND_BUILDINGS} styles={{ padding: 2 }}>
+    <FullScreenBackgroundImage image={MediaUrls.SKY_AND_BUILDINGS} styles={{ padding: 2 }}>
       <Stack
         width={400}
         component={Paper}

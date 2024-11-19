@@ -6,7 +6,7 @@ import BuyBookButton from "apps/ashbaria/components/molecules/buttons/BuyBook";
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 type IntroductionPage3PropsType = {}
 
@@ -20,7 +20,7 @@ const IntroductionPage3: FC<IntroductionPage3PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${ImageUrls.INTRODUCTION3})`,
+        backgroundImage: `url(${MediaUrls.INTRODUCTION3})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",

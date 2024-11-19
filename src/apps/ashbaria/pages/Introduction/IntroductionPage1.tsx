@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import CustomDocumentPagination from "apps/ashbaria/components/molecules/CustomPagination";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import NextIntroductionPageButton from "apps/ashbaria/components/atoms/NextIntroductionPageButton";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 type IntroductionPage1PropsType = {}
 
@@ -18,7 +18,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
       sx={{
         width: "100vw",
         height: "100vh",
-        backgroundImage: `url(${ImageUrls.INTRODUCTION1})`,
+        backgroundImage: `url(${MediaUrls.INTRODUCTION1})`,
         backgroundAttachment: "fixed",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -73,7 +73,7 @@ const IntroductionPage1: FC<IntroductionPage1PropsType> = ({ }) => {
       >
         <Box
           component="img"
-          src={ImageUrls.KOHSHAD}
+          src={MediaUrls.KOHSHAD}
           height="75%"
         />
       </Grid>

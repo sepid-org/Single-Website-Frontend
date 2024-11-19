@@ -2,15 +2,15 @@ import React from 'react';
 import Scores from '../components/organisms/Scores';
 import { Box, Paper } from '@mui/material';
 import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
-import { ImageUrls } from '../constants/imageUrls';
+import { MediaUrls } from '../constants/mediaUrls';
 
 const ScoreBoard: React.FC = () => {
 
 	return (
-		<FullScreenBackgroundImage image={ImageUrls.WALL}>
+		<FullScreenBackgroundImage image={MediaUrls.WALL}>
 			<Box
 				component="img"
-				src={ImageUrls.SCOREBOARD_LEFT}
+				src={MediaUrls.SCOREBOARD_LEFT}
 				sx={{
 					width: '30%',
 					position: "fixed",
@@ -24,7 +24,7 @@ const ScoreBoard: React.FC = () => {
 			</Box>
 			<Box
 				component="img"
-				src={ImageUrls.SCOREBOARD_RIGHT}
+				src={MediaUrls.SCOREBOARD_RIGHT}
 				sx={{
 					width: '30%',
 					position: "fixed",

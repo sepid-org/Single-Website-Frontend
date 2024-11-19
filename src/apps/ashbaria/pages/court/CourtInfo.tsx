@@ -5,7 +5,7 @@ import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullSc
 import CourtDocuments from "apps/ashbaria/components/organisms/document/CourtDocuments";
 import DocumentsArchive from "apps/ashbaria/components/organisms/document/DocumentsArchive";
 import CourtChelos from "apps/ashbaria/components/organisms/document/CourtChelos";
-import { ImageUrls } from "apps/ashbaria/constants/imageUrls";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 
 const CourtInfo = () => {
@@ -13,7 +13,7 @@ const CourtInfo = () => {
   const dialogSlug = searchParams.get('dialog');
 
   return (
-    <FullScreenBackgroundImage image={ImageUrls.WALL}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL}>
       {
         dialogSlug === 'hints' && <HintsTemplate />
       }
