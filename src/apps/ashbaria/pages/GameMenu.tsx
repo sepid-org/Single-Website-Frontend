@@ -58,10 +58,10 @@ const GameMenu: FC<GameMenuPropsType> = () => {
           transform: 'scale(1)',
           transformOrigin: 'top right',
           [theme.breakpoints.up('lg')]: {
-            transform: 'scale(1.4)',
+            transform: 'scale(1.3)',
           },
           [theme.breakpoints.down('md')]: {
-            transform: 'scale(0.8)',
+            transform: 'scale(0.7)',
           },
           [theme.breakpoints.down('sm')]: {
             transform: 'scale(0.6)',
