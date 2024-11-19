@@ -33,7 +33,7 @@ const MyFirstNameChip: FC<PropsType> = ({ }) => {
             height={44}
             borderRadius="50%"
             sx={{
-              background: 'linear-gradient(180deg, #FE9C42 0%, #E25100 100%)',
+              background: 'linear-gradient(180deg, #FE9C42 100%, #E25100 100%)',
               border: '3px solid transparent',
             }}
           />

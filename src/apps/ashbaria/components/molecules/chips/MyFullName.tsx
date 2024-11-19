@@ -21,7 +21,7 @@ const MyFullName: FC<MyFullNamePropsType> = ({ }) => {
         height={80}
         borderRadius={'50%'}
         sx={{
-          background: 'linear-gradient(180deg, #FE9C42 0%, #E25100 100%)',
+          background: 'linear-gradient(180deg, #FE9C42 100%, #E25100 100%)',
           border: '4px solid transparent', // Adjust the thickness here
         }}
       />
