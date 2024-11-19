@@ -1,19 +1,15 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import AudioEditWidget from '../../../../commons/components/organisms/Widget/contents/AudioWidget/edit';
+import React, { useEffect, useRef, useState } from 'react';
 import { WidgetModes } from '../../../../commons/components/organisms/Widget';
-import { Box, Button, Stack } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import ForwardAudio from '../molecules/buttons/ForwardAudio';
 import PlayAudio from '../molecules/buttons/PlayAudio';
 import BackwardAudio from '../molecules/buttons/BackwardAudio';
-import { position } from 'stylis';
-export { AudioEditWidget };
 
 
 const HintAudioWidget = ({
   link,
   autoplay,
   mode,
-  repeat = false,
   volume = 100,
 }) => {
   const audioRef = useRef(null);
@@ -34,10 +30,10 @@ const HintAudioWidget = ({
 
   const [progress, setProgress] = useState(0);
   const pattern = [
-    { height: 23 }, { height: 27 }, { height: 23 }, { height: 35 }
+    { height: 23 }, { height: 29 }, { height: 23 }, { height: 35 }
   ];
 
-  const patternLength = 9 * pattern.length;
+  const patternLength = 5 * pattern.length;
 
   useEffect(() => {
     const handleTimeUpdate = () => {
@@ -57,20 +53,33 @@ const HintAudioWidget = ({
     const patternIndex = index % pattern.length;
     const progressPercentage = (index / patternLength) * 100;
     const isPlayed = progressPercentage >= (100 - progress);
+
     return {
+      position: 'relative',
       height: pattern[patternIndex].height,
       width: 6,
       marginRight: 1,
-      background: isPlayed
-        ? 'linear-gradient(180deg, #FE9C42 0%, #E25100 100%)'
-        : '#00000066',
+      borderRadius: 4,
+      background: '#00000066', // Default background color for "unplayed" state
+      overflow: 'hidden',
+      '&::after': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'linear-gradient(180deg, #FE9C42 100%, #E25100 100%)',
+        opacity: isPlayed ? 1 : 0, // Use opacity for smooth transition
+        transition: 'opacity 0.2s ease-in-out', // Smooth transition for opacity
+      },
     };
   };
 
   const handlePlayPauseClick = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
-    } 
+    }
     else {
       audioRef.current.pause();
     }
@@ -88,11 +97,10 @@ const HintAudioWidget = ({
     }
   };
 
-
   return (
     <Stack
       alignItems={"center"}
-      spacing={1}
+      spacing={2}
     >
       <Stack
         flexDirection={"row"}
@@ -107,7 +115,7 @@ const HintAudioWidget = ({
       <Box sx={{ width: 'auto', display: 'flex', flexDirection: 'column-reverse' }}>
         <audio ref={audioRef} src={link} controls={false} />
         <Box sx={{ display: 'flex', alignItems: "center", width: '100%' }}>
-          {Array.from({ length: patternLength }).map((_, index) => (
+          {Array.from({ length: patternLength - 1 }).map((_, index) => (
             <Box key={index} sx={calculateLineStyle(index)} />
           ))}
         </Box>
