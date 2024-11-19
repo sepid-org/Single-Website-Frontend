@@ -51,7 +51,7 @@ const ExamCard: FC<ExamCardPropsType> = ({ }) => {
         spacing={1}
         padding={1}
         sx={{
-          borderRadius: 6,
+          borderRadius: 5,
           backgroundColor: disabled ? 'rgba(0, 0, 0, 0.04)' : 'inherit'
         }}
       >
