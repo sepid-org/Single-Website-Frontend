@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import bg from "../../assets/loginBG.jpg";
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
 
 type LoginPagePropsType = {};
 
@@ -50,7 +50,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${MediaUrls.LOGIN_BACKGROUND})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

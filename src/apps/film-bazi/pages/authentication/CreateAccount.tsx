@@ -18,8 +18,8 @@ import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import { useCreateAccountMutation } from 'commons/redux/apis/party/UserApi';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import bg from "../../assets/loginBG.jpg";
 import PasswordField from 'commons/components/molecules/form-fields/Password';
+import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
 
 type CreateAccountPropsType = {}
 
@@ -57,7 +57,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundImage: `url(${bg})`,
+        backgroundImage: `url(${MediaUrls.LOGIN_BACKGROUND})`,
         backgroundPosition: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',

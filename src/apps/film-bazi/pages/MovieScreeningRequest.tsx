@@ -7,7 +7,7 @@ import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
-import MovieScreeningRequestSVG from "../assets/movie-screening-request.jpg";
+import { MediaUrls } from '../constants/mediaUrls';
 
 type MovieScreeningRequestPropsType = {}
 
@@ -36,7 +36,7 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
 
   return (
     <Fragment>
-      <FullScreenBackgroundImage image={MovieScreeningRequestSVG}>
+      <FullScreenBackgroundImage image={MediaUrls.MOVIE_SCREENING_REQUEST_BACKGROUND}>
         <Container maxWidth='md'
           sx={{
             display: 'flex',

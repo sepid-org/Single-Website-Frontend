@@ -1,9 +1,9 @@
 import CompetitionScores from '../components/organisms/CompetitionScores';
-import backgroundImg from "../assets/background.png";
 import { FILMBAZI_COIN } from '../constants/game';
 import React from 'react';
 import FilmbaziLayout from '../components/molecules/Layout';
 import useGetScoreBoardData from '../hooks/useGetScoreboardData';
+import { MediaUrls } from '../constants/mediaUrls';
 
 const ScoreBoard: React.FC = () => {
 	const {
@@ -14,7 +14,7 @@ const ScoreBoard: React.FC = () => {
 	} = useGetScoreBoardData(FILMBAZI_COIN);
 
 	return (
-		<FilmbaziLayout backgroundImage={backgroundImg}>
+		<FilmbaziLayout backgroundImage={MediaUrls.SCOREBOARD_BACKGROUND}>
 			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
 		</FilmbaziLayout>
 	);

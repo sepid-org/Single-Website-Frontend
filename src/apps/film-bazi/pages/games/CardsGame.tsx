@@ -8,7 +8,7 @@ import ScoreAnnouncement from '../../components/atoms/icons/ScoreAnnouncement';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import MyScoresChip from '../../components/atoms/chips/MyScoresChip';
 import useLocalNavigate from '../../hooks/useLocalNavigate';
-import backgroundImg from "../../assets/cards-game.jpg";
+import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
 
 type CardsGamePropsType = {}
 
@@ -82,7 +82,7 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   return (
     <Box
       sx={{
-        backgroundImage: `url(${backgroundImg})`,
+        backgroundImage: `url(${MediaUrls.CARDS_GAME_BACKGROUND})`,
         backgroundSize: "cover",
         backgroundPosition: `center calc(100% - 80%)`,
         backgroundRepeat: "no-repeat",
