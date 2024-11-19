@@ -22,6 +22,8 @@ import StartExamPage from './pages/exam/Start';
 import ExamResultPage from './pages/exam/Result';
 import WhatHappenedPage from './pages/WhatHappened';
 import ScoreBoard from './pages/ScoreBoard';
+import ViewHint from './components/organisms/hint/ViewHint';
+import HintAudioWidget from './components/organisms/HintAudioWidget';
 
 const App = () => {
 
@@ -48,6 +50,7 @@ const App = () => {
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
               <Route path='/scoreboard' element={<ScoreBoard />} />
+              <Route path='/hint-audio' element={<ViewHint hint={undefined} onClose={undefined}/>} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
