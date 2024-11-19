@@ -64,7 +64,7 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
       <Typography
         color={'black'}
         fontSize={18}
-        fontWeight={500}
+        fontWeight={600}
         sx={{ userSelect: 'none' }}
         textAlign={'center'}
       >
