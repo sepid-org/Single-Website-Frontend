@@ -268,7 +268,7 @@ function ScrollableStack({ children }) {
       sx={{
         width: '100%',
         borderRadius: '8px',
-        paddingBottom: isScrollable ? 1 : 0,
+        paddingBottom: isScrollable ? 1.5 : 0,
         '::-webkit-scrollbar': {
           height: '8px',
         },
