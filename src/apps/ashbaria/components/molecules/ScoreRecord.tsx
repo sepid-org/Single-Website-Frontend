@@ -5,8 +5,7 @@ import { ScoreBoardItemType } from "commons/types/bank";
 import VerifyIcon from "../atoms/icons/Verify";
 
 const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser, profileImg }) => {
-	//const conditionalUserBackground = currentUser ? "linear-gradient(180deg, #BBD043 0%, #BBD043 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
-	const conditionalRankColor = rank === 1 ? "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
+	const conditionalUserBackgroundr = currentUser ? "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
 	//const textColor = currentUser ? "black" : "white";
 
 	return (
@@ -24,7 +23,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentU
 				minWidth={60}
 				height={60}
 				sx={{
-					background: conditionalRankColor,
+					background: conditionalUserBackgroundr,
 					boxShadow: "0px 4px 10px 0px #00000026",
 				}}
 			>

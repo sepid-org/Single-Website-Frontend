@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
@@ -132,9 +132,21 @@ export default function Scores() {
 				}
 			</Stack>
 
-			<Stack width={'100%'} alignItems={'center'} justifyContent={'center'} spacing={2}>
-				{scoreRecordsState.winnerUsersInfo.length > 0 ?
-					scoreRecordsState.winnerUsersInfo.map((record, index) => (
+			{scoreRecordsState.winnerUsersInfo.length > 0 ? (
+				<Fragment>
+					{/* Additional ScoreRecord component rendered only if the condition is true 
+					<ScoreRecord
+						key={scoreRecordsState.currentUser.id}
+						rank={scoreRecordsState.currentUser.rank}
+						name={getDisplayName(scoreRecordsState.currentUser.id, scoreRecordsState.currentUser.first_name, scoreRecordsState.currentUser.last_name)}
+						score={scoreRecordsState.currentUser.score}
+						currentUser={scoreRecordsState.currentUser.currentUser}
+						user_id={scoreRecordsState.currentUser.id}
+						profileImg={scoreRecordsState.currentUser.profileImg}
+					/>
+				*/}
+					{/* Mapped ScoreRecord components */}
+					{scoreRecordsState.winnerUsersInfo.map((record, index) => (
 						<ScoreRecord
 							key={record.user_id}
 							rank={index + 1}
@@ -144,10 +156,11 @@ export default function Scores() {
 							user_id={record.user_id}
 							profileImg={record.profile_image}
 						/>
-					)) :
-					<ScoreRecordSkeleton />
-				}
-			</Stack>
+					))}
+				</Fragment>
+			) : (
+				<ScoreRecordSkeleton />
+			)}
 		</Stack>
 	);
 }
