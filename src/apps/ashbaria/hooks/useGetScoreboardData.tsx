@@ -18,6 +18,15 @@ const useGetScoreBoardData = (currencyName) => {
   const [winnerScores, setWinnerScores] = useState([]);
   const [scoreRecordsState, setScoreRecordsState] = useState({
     winnerUsersInfo: [],
+    /*currentUser: {
+      first_name: "",
+      last_name: "",
+      profileImg: "",
+      rank: 0,
+      currentUser: true,
+      id: "0",
+      score: 0,
+    },*/
     currentUserExistsInWinners: false,
   });
 
@@ -53,6 +62,15 @@ const useGetScoreBoardData = (currencyName) => {
 
       setScoreRecordsState({
         winnerUsersInfo: newScoreRecords,
+        /*currentUser: {
+          first_name: userProfile?.first_name,
+          last_name: userProfile?.last_name,
+          profileImg: userProfile?.profile_image, //replace later
+          rank: myRank?.rank,
+          currentUser: true,
+          id: userProfile?.id,
+          score: balances?.[currencyName] || 0,
+        },*/
         currentUserExistsInWinners: exists,
       });
     }
