@@ -42,7 +42,7 @@ const LandscapeCheckWrapper: FC<LandscapeCheckWrapperPropsType> = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: ImageUrls.WALL,
+        backgroundImage: `url(${ImageUrls.WALL})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
