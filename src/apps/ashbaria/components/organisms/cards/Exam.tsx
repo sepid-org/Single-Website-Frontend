@@ -2,15 +2,25 @@ import { Box, Paper, Stack, Typography } from "@mui/material";
 import { Golden } from "apps/film-bazi/constants/colors";
 import React, { FC } from "react";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
+import { useParams } from "react-router-dom";
+import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
+import { toPersianNumber } from "commons/utils/translateNumber";
 
-type ExamCardPropsType = {
-  disabled?: boolean;
-}
+type ExamCardPropsType = {}
 
-const ExamCard: FC<ExamCardPropsType> = ({
-  disabled = true,
-}) => {
+const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
+
+const ExamCard: FC<ExamCardPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
+
+  const { programSlug } = useParams();
+  const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug });
+  const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
+  const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
+  const isLoading = isUserFSMsLoading || isFSMLoading;
+  const remainingParticipations = isLoading ? 0 : fsm?.participant_limit - userCurrentFSM?.finished_players_count;
+  const disabled = isLoading || remainingParticipations === 0;
 
   const onClick = () => {
     if (!disabled) {
@@ -59,7 +69,7 @@ const ExamCard: FC<ExamCardPropsType> = ({
             fontWeight={800}
             color={disabled ? 'text.disabled' : 'inherit'}
           >
-            {'سه فرصت باقی‌مانده'}
+            {`${toPersianNumber(remainingParticipations || 0)} فرصت باقی‌مانده`}
           </Typography>
         </Stack>
       </Stack>
