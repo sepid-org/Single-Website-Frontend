@@ -18,7 +18,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
 
   return (
     <Card
-      onClick={() => onCardClick ? onCardClick(card) : onRemoveCard ? onRemoveCard(index) : null}
+      onClick={() => onCardClick ? onCardClick(card, index) : onRemoveCard ? onRemoveCard(card, index) : null}
       sx={{
         borderRadius: 0,
         cursor: 'pointer',
