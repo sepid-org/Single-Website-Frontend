@@ -9,6 +9,7 @@ export interface ScoreBoardItemType extends ScoreBoardRecordType {
   rank: number;
   currentUser: boolean;
   profileImg?: string;
+  ref: any;
 }
 
 export type BalancesType = {

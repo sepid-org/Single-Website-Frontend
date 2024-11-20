@@ -4,10 +4,14 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import { ScoreBoardItemType } from "commons/types/bank";
 import VerifyIcon from "../atoms/icons/Verify";
 
-const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser, profileImg }) => {
-	const conditionalUserBackgroundr = currentUser ? "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
-	//const textColor = currentUser ? "black" : "white";
-
+const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentUser, profileImg, ref }) => {
+	const conditionalRankBackgroundr = currentUser ?
+		"linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)" :
+		"linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
+	const conditionalRecordBackground = currentUser ?
+		"#2B1A42" :
+		"linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
+	console.log(currentUser);
 	return (
 		<Stack
 			width={'100%'}
@@ -15,6 +19,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentU
 			alignItems={'center'}
 			justifyContent={'center'}
 			spacing={1}
+
 		>
 			<Stack
 				alignItems={'center'}
@@ -23,7 +28,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentU
 				minWidth={60}
 				height={60}
 				sx={{
-					background: conditionalUserBackgroundr,
+					background: conditionalRankBackgroundr,
 					boxShadow: "0px 4px 10px 0px #00000026",
 				}}
 			>
@@ -41,7 +46,7 @@ const ScoreRecord: React.FC<ScoreBoardItemType> = ({ rank, name, score, currentU
 				borderRadius={4}
 				padding={2}
 				sx={{
-					background: "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)",
+					background: conditionalRecordBackground,
 				}}
 			>
 				<Box
