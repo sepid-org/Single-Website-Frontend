@@ -5,7 +5,6 @@ import ForwardAudio from '../molecules/buttons/ForwardAudio';
 import PlayAudio from '../molecules/buttons/PlayAudio';
 import BackwardAudio from '../molecules/buttons/BackwardAudio';
 
-
 const HintAudioWidget = ({
   link,
   autoplay,
@@ -13,22 +12,9 @@ const HintAudioWidget = ({
   volume = 100,
 }) => {
   const audioRef = useRef(null);
-
-  // Automatically start playback after the component appears if `autoplay` is true
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = Math.min(Math.max(volume, 0), 100) / 100; // set volume between 0 and 1
-    }
-
-    if (autoplay && audioRef.current && mode === WidgetModes.View) {
-      audioRef.current.play().catch((e) => {
-        // console.error("Auto-play prevented or an error occurred:", e);
-      });
-    }
-  }, [autoplay, volume]);
-
-
   const [progress, setProgress] = useState(0);
+  const [isMetadataLoaded, setIsMetadataLoaded] = useState(false);
+
   const pattern = [
     { height: 23 }, { height: 29 }, { height: 23 }, { height: 35 }
   ];
@@ -36,9 +22,35 @@ const HintAudioWidget = ({
   const patternLength = 5 * pattern.length;
 
   useEffect(() => {
+    const audio = audioRef.current;
+
+    if (audio) {
+      audio.volume = Math.min(Math.max(volume, 0), 100) / 100; // set volume between 0 and 1
+
+      if (autoplay && mode === WidgetModes.View) {
+        audio.play().catch((e) => {
+          // Handle autoplay errors silently
+        });
+      }
+
+      const handleMetadataLoaded = () => {
+        setIsMetadataLoaded(true);
+      };
+
+      audio.addEventListener('loadedmetadata', handleMetadataLoaded);
+
+      return () => {
+        audio.removeEventListener('loadedmetadata', handleMetadataLoaded);
+      };
+    }
+  }, [autoplay, mode, volume]);
+
+  useEffect(() => {
     const handleTimeUpdate = () => {
-      const playedPercentage = (audioRef.current.currentTime / audioRef.current.duration) * 100;
-      setProgress(playedPercentage);
+      if (audioRef.current && audioRef.current.duration) {
+        const playedPercentage = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+        setProgress(playedPercentage);
+      }
     };
 
     const audio = audioRef.current;
@@ -79,20 +91,19 @@ const HintAudioWidget = ({
   const handlePlayPauseClick = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
-    }
-    else {
+    } else {
       audioRef.current.pause();
     }
-  }
+  };
 
   const handleForwardClick = () => {
-    if (audioRef.current) {
-      audioRef.current.currentTime += 10; // Forward 10 seconds
+    if (isMetadataLoaded && audioRef.current) {
+      audioRef.current.currentTime = Math.min(audioRef.current.duration, audioRef.current.currentTime + 10); // Forward 10 seconds
     }
   };
 
   const handleBackwardClick = () => {
-    if (audioRef.current) {
+    if (isMetadataLoaded && audioRef.current) {
       audioRef.current.currentTime = Math.max(0, audioRef.current.currentTime - 10); // Backward 10 seconds, ensuring it doesn't go below 0
     }
   };
