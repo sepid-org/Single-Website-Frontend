@@ -5,7 +5,6 @@ import React, { FC } from "react";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import VerifyIcon from "../../../atoms/icons/Verify";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
-import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 
 type PropsType = {
   court: CourtType;
@@ -14,14 +13,14 @@ type PropsType = {
 const ActiveCourtCard: FC<PropsType> = ({
   court,
 }) => {
-  const localNavigate = useLocalNavigate();
-  const [startFSM, startFSMResult] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
+  const [startFSM1] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
+  const [startFSM2] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/survey/` });
 
   const handleEnter = () => {
     if (court.corresponding_fsm === 216) {
-      localNavigate('/survey/');
+      startFSM2({});
     } else {
-      startFSM({})
+      startFSM1({})
     }
   }
 

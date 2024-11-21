@@ -8,8 +8,25 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
 import { MediaUrls } from '../constants/mediaUrls';
 import useLocalNavigate from '../hooks/useLocalNavigate';
+import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
+import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 type PropsType = {}
+
+const SURVEY_CORRESPONDING_FSM_ID = 216;
+
+const SurveyWrapper = () => {
+  const { data: player } = useGetMyPlayerQuery({ fsmId: SURVEY_CORRESPONDING_FSM_ID });
+  return (
+    <FSMProvider
+      fsmId={SURVEY_CORRESPONDING_FSM_ID}
+      player={player}
+    >
+      <Survey />
+    </FSMProvider>
+  )
+}
 
 const Survey: FC<PropsType> = ({ }) => {
   const [isUserSubmittedForm, setIsUserSubmittedForm] = useState(false);
@@ -19,6 +36,7 @@ const Survey: FC<PropsType> = ({ }) => {
   const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
+  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId: SURVEY_CORRESPONDING_FSM_ID, navigateAfter: false });
 
   const submit = () => {
     submitForm({
@@ -26,6 +44,12 @@ const Survey: FC<PropsType> = ({ }) => {
       answers,
     });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      finishFSM();
+    }
+  }, [isLoading])
 
   useEffect(() => {
     if (isSuccess) {
@@ -79,4 +103,4 @@ const Survey: FC<PropsType> = ({ }) => {
 
 };
 
-export default Survey;
+export default SurveyWrapper;
