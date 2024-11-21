@@ -65,7 +65,7 @@ const ManageDiscountCodes: FC<PropsType> = () => {
             label="فیلم"
           >
             {films.map(film =>
-              <MenuItem key={film.id} value={film.name}>
+              <MenuItem key={film.id} value={film.id}>
                 {film.name}
               </MenuItem>
             )}
