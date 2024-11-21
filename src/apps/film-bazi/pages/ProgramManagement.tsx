@@ -19,6 +19,7 @@ import ManageMovieScreeningResponds from '../components/template/ManageMovieScre
 import FilmbaziLayout from '../components/molecules/Layout';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import Statistics from '../components/template/Statistics';
+import ManageDiscountCodes from '../components/template/ManageDiscountCodes';
 
 const tabs: DashboardTabType[] = [
   {
@@ -56,6 +57,12 @@ const tabs: DashboardTabType[] = [
     label: 'درخواست‌های اکران',
     icon: VideocamIcon,
     component: <ManageMovieScreeningResponds />,
+  },
+  {
+    slug: 'discount-codes',
+    label: 'کدهای تخفیف',
+    icon: ClassIcon,
+    component: <ManageDiscountCodes />,
   },
   {
     slug: 'statistics',
