@@ -13,6 +13,9 @@ const useTransitionForward = ({ player }: { player: PlayerType }) => {
   const { data: outwardEdges } = useGetFSMStateOutwardEdgesQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
 
   const transitForward = async () => {
+    if (!outwardEdges) {
+      return;
+    }
     if (outwardEdges.length === 0) {
       toast.error('یالی برای جلو رفتن وجود ندارد');
       return;
