@@ -1,4 +1,4 @@
-import { Stack, TextField, Button } from "@mui/material";
+import { Stack, TextField, Button, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import { useAddPaperToFSMStateMutation, useCreateAndAddPaperToFSMStateMutation } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
@@ -63,8 +63,10 @@ const AddPaperToFSMState: FC<AddPaperToFSMStatePropsType> = ({ fsmStateId }) => 
           {'افزودن'}
         </Button>
       </Stack>
-      <Button variant='contained' onClick={handleCreateAndAddPaperToFSMState}>
-        {'خالی'}
+      <Button variant='contained' onClick={handleCreateAndAddPaperToFSMState} sx={{ padding: 0 }}>
+        <Typography variant='caption' noWrap>
+          {'برگه جدید'}
+        </Typography>
       </Button>
     </Stack>
   )
