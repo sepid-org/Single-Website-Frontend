@@ -33,7 +33,7 @@ const CapitalPage: FC<PropsType> = ({ }) => {
           <Grid item xs={12}>
             <Stack direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
               <Typography variant="h2">سرمایه من</Typography>
-              <Button variant='contained' color='info' size='large'>
+              <Button variant='contained' color='info' size='large' disabled={true}>
                 <Typography color={'#120F24'} fontWeight={600}>
                   {'تسویه کن'}
                 </Typography>
