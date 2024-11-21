@@ -53,6 +53,7 @@ export const tagTypes = [
   'MissionProgress',
   'BookCode',
   // Filmbazi
+  'Game',
   'filmbazi-discount-code',
   'filmbazi-film',
   'filmbazi-seat',

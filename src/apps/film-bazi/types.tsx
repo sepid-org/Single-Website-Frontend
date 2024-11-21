@@ -45,6 +45,7 @@ export type GameType = {
   id: string;
   title: string;
   description: string;
+  help_paper_id: number;
   image: string;
   link: string;
 }

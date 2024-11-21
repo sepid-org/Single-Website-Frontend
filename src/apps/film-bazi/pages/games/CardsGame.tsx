@@ -9,10 +9,13 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import MyScoresChip from '../../components/atoms/chips/MyScoresChip';
 import useLocalNavigate from '../../hooks/useLocalNavigate';
 import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
+import { useGetGameQuery } from 'apps/film-bazi/redux/slices/Game';
+import GameHelpButton from 'apps/film-bazi/components/atoms/buttons/GameHelpButton';
 
 type CardsGamePropsType = {}
 
 const CardsGame: FC<CardsGamePropsType> = ({ }) => {
+  const { data: gameData } = useGetGameQuery({ id: 2 });
   const localNavigate = useLocalNavigate();
   const { data: initialCards = [] } = useGetCardsQuery();
   const [attempt, result] = useAttemptToAnswerMutation();
@@ -97,13 +100,17 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
             <MyScoresChip />
           </Box>
 
-          <Button
-            variant='outlined'
-            sx={{ height: 40 }}
-            onClick={() => localNavigate('/games/')}
-          >
-            {'بازگشت'}
-          </Button>
+          <Stack spacing={2} direction={{ xs: 'column-reverse', sm: 'row' }}>
+            <GameHelpButton helpPaperId={gameData?.help_paper_id} />
+
+            <Button
+              variant='outlined'
+              sx={{ height: 40 }}
+              onClick={() => localNavigate('/games/')}
+            >
+              {'بازگشت'}
+            </Button>
+          </Stack>
         </Stack>
 
         <Typography variant="h6">{'کارت‌های داستان:'}</Typography>

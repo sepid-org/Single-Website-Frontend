@@ -13,6 +13,8 @@ import useLocalNavigate from "./useLocalNavigate";
 import MyChancesChip from "../components/atoms/chips/MyChances";
 import { useGetMyBalancesQuery } from "commons/redux/apis/bank/MyInfo";
 import { useGetSeatSelectionsQuery, useSelectSeatMutation } from "../redux/slices/CinemaGame";
+import { useGetGameQuery } from "../redux/slices/Game";
+import GameHelpButton from "../components/atoms/buttons/GameHelpButton";
 
 const hoverOnMouseEnter = (target) => {
   target.style.transform = 'scale(1.05)';
@@ -42,6 +44,7 @@ const useCinemaGameLogic = ({
   openLoading,
   setOpenLoading,
 }) => {
+  const { data: gameData } = useGetGameQuery({ id: 1 });
   const [selectSeat, { data: selectedSeat, isLoading: selectSeatLoading, error: selectSeatError }] = useSelectSeatMutation();
   const { data: seatSelections = [], refetch: refetchSeatSelections, isLoading: getSeatSelectionsLoading } = useGetSeatSelectionsQuery();
   const localNavigate = useLocalNavigate();
@@ -165,6 +168,11 @@ const useCinemaGameLogic = ({
     substituteComponent: <MyChancesChip />
   }
 
+  const helpButton: ComplementaryObjectType = {
+    name: 'filmbazi-cinema-game-help-button',
+    substituteComponent: <GameHelpButton helpPaperId={gameData?.help_paper_id} />
+  }
+
   const returnToDashboardButton: ComplementaryObjectType = {
     name: 'filmbazi-return-to-dashboard-button',
     substituteComponent:
@@ -184,6 +192,7 @@ const useCinemaGameLogic = ({
   return {
     complementaryObjects: [
       ...seats,
+      helpButton,
       myScoreChip,
       myChancesChip,
       returnToDashboardButton,
