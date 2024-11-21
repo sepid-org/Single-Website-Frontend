@@ -29,24 +29,24 @@ type UserSettingPropsType = {}
 const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
-  const { data: initialProfile } = useGetProfileQuery();
-  const [userAshbariaProfile, setUserAshbariaProfile] = useState<AshbariaProfileType>(null);
+  const { data: initialAshbariaProfile } = useGetProfileQuery();
+  const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
   const { data: userProfile } = useUserProfile();
 
   useEffect(() => {
     if (userProfile) {
-      setUserAshbariaProfile({
-        ...userAshbariaProfile,
+      setAshbariaProfile(prevProfile => ({
+        ...prevProfile,
         phone_number: userProfile.phone_number,
-      })
+      }))
     }
   }, [userProfile])
 
   useEffect(() => {
-    if (initialProfile) {
-      setUserAshbariaProfile(initialProfile);
+    if (initialAshbariaProfile) {
+      setAshbariaProfile(initialAshbariaProfile);
     }
-  }, [initialProfile]);
+  }, [initialAshbariaProfile]);
 
   useEffect(() => {
     if (updateProfileResult?.data?.reward_granted) {
@@ -68,34 +68,34 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }, [updateProfileResult.isSuccess]);
 
   const handleChange = (event) => {
-    setUserAshbariaProfile({
-      ...userAshbariaProfile,
+    setAshbariaProfile({
+      ...AshbariaProfile,
       [event.target.name]: toEnglishNumber(event.target.value),
     });
   }
 
   const handleGenderChange = (selectedGender) => {
-    setUserAshbariaProfile({
-      ...userAshbariaProfile,
+    setAshbariaProfile({
+      ...AshbariaProfile,
       gender: selectedGender,
     })
   }
 
   const handleProfileImgChange = (selectedImg) => {
-    setUserAshbariaProfile({
-      ...userAshbariaProfile,
+    setAshbariaProfile({
+      ...AshbariaProfile,
       profile_image: selectedImg,
     });
   }
 
   const handleSubmit = () => {
-    if (userAshbariaProfile?.has_received_reward) {
-      if (checkForBlankFields(userAshbariaProfile)) {
+    if (AshbariaProfile?.has_received_reward) {
+      if (checkForBlankFields(AshbariaProfile)) {
         toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
         return;
       }
     }
-    updateProfile(userAshbariaProfile);
+    updateProfile(AshbariaProfile);
   }
 
   return (
@@ -117,39 +117,39 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             </Typography>
           </Stack>
           <Box position={'absolute'} right={10} top={10}>
-            {userAshbariaProfile?.has_received_reward === false && <ScoreChip value={150} />}
+            {AshbariaProfile?.has_received_reward === false && <ScoreChip value={150} />}
           </Box>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <NameInput handleChange={handleChange} first_name={userAshbariaProfile?.first_name} />
+          <NameInput handleChange={handleChange} first_name={AshbariaProfile?.first_name} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <LastNameInput handleChange={handleChange} last_name={userAshbariaProfile?.last_name} />
+          <LastNameInput handleChange={handleChange} last_name={AshbariaProfile?.last_name} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <NationalCodeInput handleChange={handleChange} national_code={userAshbariaProfile?.national_code} />
+          <NationalCodeInput handleChange={handleChange} national_code={AshbariaProfile?.national_code} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <BirthDateInput birthDate={userAshbariaProfile?.birth_date} setBirthDate={(value) => setUserAshbariaProfile({ ...userAshbariaProfile, birth_date: value })} />
+          <BirthDateInput birthDate={AshbariaProfile?.birth_date} setBirthDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <GenderSelector gender={userAshbariaProfile?.gender} handleChange={handleGenderChange} />
+          <GenderSelector gender={AshbariaProfile?.gender} handleChange={handleGenderChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <IntroductionSelector handleChange={handleChange} referral_method={userAshbariaProfile?.referral_method} />
+          <IntroductionSelector handleChange={handleChange} referral_method={AshbariaProfile?.referral_method} />
         </Grid>
-        <RegionSelector data={userAshbariaProfile} setData={setUserAshbariaProfile} />
+        <RegionSelector data={AshbariaProfile} setData={setAshbariaProfile} />
         <Grid item xs={12} sm={6}>
-          <PhoneNumberInput handleChange={handleChange} phone_number={userAshbariaProfile?.phone_number} disabled={true} />
+          <PhoneNumberInput handleChange={handleChange} phone_number={AshbariaProfile?.phone_number} disabled={true} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <PostNumberInput handleChange={handleChange} postal_code={userAshbariaProfile?.postal_code} />
+          <PostNumberInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
         </Grid>
         <Grid item xs={12}>
-          <AddressInput handleChange={handleChange} address={userAshbariaProfile?.address} />
+          <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
         </Grid>
         <Grid item xs={12}>
-          <ProfileImageSelector profile_image={userAshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
+          <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
