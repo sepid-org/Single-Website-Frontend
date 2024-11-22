@@ -12,6 +12,7 @@ import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from '../constants/game-info';
+import { toast } from 'react-toastify';
 
 type PropsType = {}
 
@@ -34,7 +35,7 @@ const Survey: FC<PropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
-  const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
+  const [submitForm, { isSuccess, isLoading, isError, error }] = useSubmitFormMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID, navigateAfter: false });
 
   const submit = () => {
@@ -47,6 +48,11 @@ const Survey: FC<PropsType> = ({ }) => {
   useEffect(() => {
     if (isSuccess) {
       finishFSM();
+    }
+    if (isError) {
+      if ((error as any).status === 403) {
+        toast.error('قبل‌تر نظرسنجی رو پر کردی')
+      }
     }
   }, [isLoading])
 
