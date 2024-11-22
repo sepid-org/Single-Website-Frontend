@@ -5,6 +5,7 @@ import React, { FC } from "react";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import VerifyIcon from "../../../atoms/icons/Verify";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
+import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from "apps/ashbaria/constants/game-info";
 
 type PropsType = {
   court: CourtType;
@@ -17,7 +18,7 @@ const ActiveCourtCard: FC<PropsType> = ({
   const [startFSM2] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/survey/` });
 
   const handleEnter = () => {
-    if (court.corresponding_fsm === 216) {
+    if (court.corresponding_fsm === ASHBARIA_SURVEY_CORRESPONDING_FSM_ID) {
       startFSM2({});
     } else {
       startFSM1({})

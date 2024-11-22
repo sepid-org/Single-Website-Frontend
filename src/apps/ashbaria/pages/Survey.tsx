@@ -11,16 +11,15 @@ import useLocalNavigate from '../hooks/useLocalNavigate';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
+import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from '../constants/game-info';
 
 type PropsType = {}
 
-const SURVEY_CORRESPONDING_FSM_ID = 216;
-
 const SurveyWrapper = () => {
-  const { data: player } = useGetMyPlayerQuery({ fsmId: SURVEY_CORRESPONDING_FSM_ID });
+  const { data: player } = useGetMyPlayerQuery({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID });
   return (
     <FSMProvider
-      fsmId={SURVEY_CORRESPONDING_FSM_ID}
+      fsmId={ASHBARIA_SURVEY_CORRESPONDING_FSM_ID}
       player={player}
     >
       <Survey />
@@ -36,7 +35,7 @@ const Survey: FC<PropsType> = ({ }) => {
   const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId: SURVEY_CORRESPONDING_FSM_ID, navigateAfter: false });
+  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID, navigateAfter: false });
 
   const submit = () => {
     submitForm({
