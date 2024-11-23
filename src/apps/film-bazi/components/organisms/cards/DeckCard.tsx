@@ -28,6 +28,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
         display: 'flex',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
         transition: 'transform 0.2s ease-in-out',
+        position: "relative",
         '&:hover': {
           transform: 'scale(1.02)',
         },
@@ -43,7 +44,6 @@ const DeckCard: FC<DeckCardPropsType> = ({
             position: 'absolute',
             top: 8,
             left: 8,
-            zIndex: 1,
           }}
         >
           <CloseIcon />
