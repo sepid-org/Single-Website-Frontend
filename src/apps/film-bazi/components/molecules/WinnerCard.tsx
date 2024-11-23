@@ -21,16 +21,14 @@ const WinnerCard: React.FC<WinnerScore> = ({ rank, score, name }) => {
 				display: 'flex',
 				flexDirection: 'column',
 				alignItems: 'center',
-				width: "30%"
 			}}
 		>
 			<Box
 				sx={{
-					width: "60.52px",
 					height: "60.52px",
 					gap: "0px",
 					border: "1.5px",
-					borderRadius: '50%',
+					borderRadius: '100%',
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
@@ -59,7 +57,7 @@ const WinnerCard: React.FC<WinnerScore> = ({ rank, score, name }) => {
 					lineHeight: "24px",
 					color: conditionalColor,
 					overflow: 'hidden',
-					whiteSpace: 'nowrap',
+					whiteSpace: 'normal',
 					textOverflow: 'ellipsis',
 				}}
 			>

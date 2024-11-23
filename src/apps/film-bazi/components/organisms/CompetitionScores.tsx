@@ -28,47 +28,43 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 				alignItems: 'center',
 			}}
 		>
-			<Box
+			<Grid
 				sx={{
-					textAlign: 'center',
-					marginTop: "40px"
+					display: "flex",
+					justifyContent: "center",
+					alignItems: "center",
+					width: "100%",
+					textAlign: "center"
 				}}
+				container
 			>
-				<Grid
-					sx={{
-						display: "flex",
-						justifyContent: "center",
-						alignItems: "center"
-					}}
-				>
-					{winnerScores.length > 0 ?
-						<Fragment>
-							<Grid>
-								<WinnerCard
-									score={winnerScores[2]?.score}
-									rank={3}
-									name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
-								/>
-							</Grid>
-							<Grid>
-								<WinnerCard
-									score={winnerScores[0]?.score}
-									rank={1}
-									name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
-								/>
-							</Grid>
-							<Grid>
-								<WinnerCard
-									score={winnerScores[1]?.score}
-									rank={2}
-									name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
-								/>
-							</Grid>
-						</Fragment> :
-						<WinnerCardsSkeleton />
-					}
-				</Grid>
-			</Box>
+				{winnerScores.length > 0 ?
+					<Fragment>
+						<Grid item xs={4}>
+							<WinnerCard
+								score={winnerScores[2]?.score}
+								rank={3}
+								name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<WinnerCard
+								score={winnerScores[0]?.score}
+								rank={1}
+								name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<WinnerCard
+								score={winnerScores[1]?.score}
+								rank={2}
+								name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
+							/>
+						</Grid>
+					</Fragment> :
+					<WinnerCardsSkeleton />
+				}
+			</Grid>
 			<Grid
 				sx={{
 					display: "flex",
