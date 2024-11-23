@@ -24,7 +24,7 @@ export const CardsGameSlice = FilmbaziApi.injectEndpoints({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => ['CardsGame-Mission']),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ answer }) => ({
-        url: `cards-game/attempt/`,
+        url: `cards-game/attempts/`,
         method: 'POST',
         body: {
           answer,
