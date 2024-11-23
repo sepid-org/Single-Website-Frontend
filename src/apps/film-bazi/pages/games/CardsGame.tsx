@@ -25,7 +25,6 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   useEffect(() => {
     if (initialCards) {
       setUpperList(initialCards);
-      console.log(initialCards);
     }
   }, [initialCards])
 
@@ -43,7 +42,6 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
     const updatedUpperList = [...cards];
     updatedUpperList.push(card);
     setUpperList(updatedUpperList);
-    console.log(index);
   };
 
   useEffect(() => {
@@ -122,10 +120,16 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         </Stack>
 
         <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
-        <Deck cards={cards} onCardClick={handleCardClick}/>
+        <Deck
+          cards={cards}
+          onCardClick={handleCardClick}
+        />
 
         <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
-        <Deck cards={selectedCards} onRemoveCard={handleRemoveCardFromSelectedCards} />
+        <Deck
+          cards={selectedCards}
+          onRemoveCard={handleRemoveCardFromSelectedCards}
+        />
 
         <Button variant='contained' onClick={handleSubmit}>
           {'ارسال پاسخ'}

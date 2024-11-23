@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
-import { Card, CardMedia } from '@mui/material';
+import { Card, CardMedia, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { CardType } from 'apps/film-bazi/types';
 
 type DeckCardPropsType = {
@@ -18,7 +19,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
 
   return (
     <Card
-      onClick={() => onCardClick ? onCardClick(card, index) : onRemoveCard ? onRemoveCard(card, index) : null}
+      onClick={() => onCardClick ? onCardClick(card, index) : ()=>{}}
       sx={{
         borderRadius: 0,
         cursor: 'pointer',
@@ -32,6 +33,22 @@ const DeckCard: FC<DeckCardPropsType> = ({
         },
       }}
     >
+      {onRemoveCard && (
+        <IconButton
+          onClick={(e) => {
+            e.stopPropagation();
+            if (onRemoveCard) onRemoveCard(card, index);
+          }}
+          sx={{
+            position: 'absolute',
+            top: 8,
+            left: 8,
+            zIndex: 1,
+          }}
+        >
+          <CloseIcon />
+        </IconButton>
+      )}
       <CardMedia
         component="img"
         image={card.image}

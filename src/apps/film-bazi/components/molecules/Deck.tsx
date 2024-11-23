@@ -39,7 +39,12 @@ const Deck: FC<DeckPropsType> = ({
     >
       {cards.map((card, index) => (
         <Box key={index} sx={{ flex: '0 0 auto' }}>
-          <DeckCard index={index} card={card} onCardClick={onCardClick} onRemoveCard={onRemoveCard} />
+          <DeckCard
+            index={index}
+            card={card}
+            onCardClick={onCardClick}
+            onRemoveCard={onRemoveCard}
+          />
         </Box>
       ))}
       {cards.length === 0 &&
