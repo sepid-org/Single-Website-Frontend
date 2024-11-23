@@ -7,6 +7,7 @@ import { useGetBookCodeQuery, useSubmitBookCodeMutation } from "apps/ashbaria/re
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+import { toEnglishNumber } from "commons/utils/translateNumber";
 
 const BookMission = ({ }) => {
 	const [bookCode, setBookCode] = useState<string>('');
@@ -105,7 +106,7 @@ const BookMission = ({ }) => {
 							type: 'tel',
 						}}
 						value={bookCode}
-						onChange={(e) => setBookCode(e.target.value)}
+						onChange={(e) => setBookCode(toEnglishNumber(e.target.value))}
 						fullWidth
 						variant='outlined'
 						size='small'

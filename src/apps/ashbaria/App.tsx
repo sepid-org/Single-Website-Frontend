@@ -22,9 +22,7 @@ import StartExamPage from './pages/exam/Start';
 import ExamResultPage from './pages/exam/Result';
 import WhatHappenedPage from './pages/WhatHappened';
 import ScoreBoard from './pages/ScoreBoard';
-import ViewHint from './components/organisms/hint/ViewHint';
-import HintAudioWidget from './components/organisms/HintAudioWidget';
-import { WidgetModes } from 'commons/components/organisms/Widget';
+import Survey from './pages/Survey';
 
 const App = () => {
 
@@ -37,7 +35,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
               <Route index element={<GameMenu />} />
-              <Route path='/exam-result/' element={<ExamResultPage/>} />
+              <Route path='/exam-result/' element={<ExamResultPage />} />
               <Route path='/start-exam/' element={<StartExamPage />} />
               <Route path='/exam/' element={<ExamPage />} />
               <Route path='/what-happened/' element={<WhatHappenedPage />} />
@@ -50,9 +48,8 @@ const App = () => {
               <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
               <Route path='/profile/' element={<Profile />} />
               <Route path='/introduction/' element={<Introduction />} />
-              <Route path='/scoreboard' element={<ScoreBoard />} />
-              <Route path='/hint-audio' element={<ViewHint hint={undefined} onClose={undefined}/>} />
-              <Route path='audio' element={<HintAudioWidget link={"https://www2.cs.uic.edu/~i101/SoundFiles/BabyElephantWalk60.wav"} autoplay={false} mode={WidgetModes.View} />} />
+              <Route path='/scoreboard/' element={<ScoreBoard />} />
+              <Route path='/survey/' element={<Survey />} />
             </Route>
 
             <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>

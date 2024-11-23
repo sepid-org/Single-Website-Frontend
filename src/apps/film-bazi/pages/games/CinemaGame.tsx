@@ -9,7 +9,6 @@ import { FSMProvider } from 'commons/hooks/useFSMContext';
 type SeatsGamePropsType = {}
 
 const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
-  const paperId = process.env.NODE_ENV === 'production' ? '6195' : '94';
   const [openLoading, setOpenLoading] = React.useState(false);
   const { complementaryObjects } = useCinemaGameLogic({
     openLoading,

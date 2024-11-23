@@ -6,9 +6,16 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 export const GameSlice = FilmbaziApi.injectEndpoints({
   endpoints: (builder) => ({
 
+    getGame: builder.query<GameType, { id: number }>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'Game', id: item.id }
+      ]),
+      query: ({ id }) => `games/games/${id}/`,
+    }),
+
     getGames: builder.query<GameType[], void>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'filmbazi-game', id: 'LIST' }
+        { type: 'Game', id: 'LIST' }
       ]),
       query: () => `games/games/`,
     }),
@@ -18,5 +25,6 @@ export const GameSlice = FilmbaziApi.injectEndpoints({
 });
 
 export const {
+  useGetGameQuery,
   useGetGamesQuery,
 } = GameSlice;

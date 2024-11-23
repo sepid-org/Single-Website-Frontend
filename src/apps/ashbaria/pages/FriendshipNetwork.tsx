@@ -15,7 +15,7 @@ import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, use
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
-import { toPersianNumber } from 'commons/utils/translateNumber';
+import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../components/atoms/icons/Heart';
 import ExclamationIcon from '../components/atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../components/molecules/friendship-network/FriendshipNetworkPoint';
@@ -152,7 +152,7 @@ const FriendshipNetworkPage = () => {
                   inputProps={{
                     maxLength: 10,
                   }}
-                  onChange={(event) => setInputCode(event.target.value)}
+                  onChange={(event) => setInputCode(toEnglishNumber(event.target.value))}
                 />
                 <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
                   {'ثبتش کن'}
