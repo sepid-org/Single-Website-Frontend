@@ -1,4 +1,4 @@
-import { CardType } from 'apps/film-bazi/types';
+import { CardType, MissionType } from 'apps/film-bazi/types';
 import { FilmbaziApi } from '../FilmbaziApi';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
@@ -6,15 +6,22 @@ import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidatio
 export const CardsGameSlice = FilmbaziApi.injectEndpoints({
   endpoints: (builder) => ({
 
+    getMission: builder.query<MissionType, void>({
+      providesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'CardsGame-Mission' }
+      ]),
+      query: () => `cards-game/missions/`,
+    }),
+
     getCards: builder.query<CardType[], void>({
       providesTags: tagGenerationWithErrorCheck((result, error, item) => [
-        { type: 'filmbazi-card', id: 'LIST' }
+        { type: 'CardsGame-Card', id: 'LIST' }
       ]),
       query: () => `cards-game/cards/`,
     }),
 
     attemptToAnswer: builder.mutation<any, { answer: Array<number> }>({
-      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => []),
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => ['CardsGame-Mission']),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ answer }) => ({
         url: `cards-game/attempt/`,
@@ -30,6 +37,7 @@ export const CardsGameSlice = FilmbaziApi.injectEndpoints({
 });
 
 export const {
+  useGetMissionQuery,
   useGetCardsQuery,
   useAttemptToAnswerMutation,
 } = CardsGameSlice;

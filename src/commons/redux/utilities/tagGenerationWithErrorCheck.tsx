@@ -54,6 +54,8 @@ export const tagTypes = [
   'BookCode',
   // Filmbazi
   'Game',
+  'CardsGame-Mission',
+  'CardsGame-Card',
   'filmbazi-discount-code',
   'filmbazi-film',
   'filmbazi-seat',
