@@ -8,7 +8,7 @@ import useGetCourtFinalScore from "apps/ashbaria/hooks/useGetCourtFinalScore";
 import { Secondary } from "apps/ashbaria/constants/colors";
 import GrayLikeIcon from "apps/ashbaria/components/atoms/icons/GrayLikeIcon";
 import GrayVerifyIcon from "apps/ashbaria/components/atoms/icons/GrayVerify";
-import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from "apps/ashbaria/constants/game-info";
+import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID, ASHBARIA_SURVEY_SUBMIT_REWARD } from "apps/ashbaria/constants/game-info";
 
 type PropsType = {
   court: CourtType;
@@ -38,28 +38,30 @@ const FinishedCourtCard: FC<PropsType> = ({
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <Typography fontSize={10} fontWeight={400} color={Secondary} textAlign={'center'}>
-        {'دادگاه'}
-      </Typography>
+      {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID &&
+        <Typography fontSize={10} fontWeight={400} color={Secondary} textAlign={'center'}>
+          {'دادگاه'}
+        </Typography>
+      }
       <Typography fontSize={12} fontWeight={600} color={Secondary} textAlign={'center'}>
         {court.title}
       </Typography>
-      {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID &&
-        <Stack direction={'row'} spacing={1}>
+      <Stack direction={'row'} spacing={1}>
+        {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID &&
           <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
             <Typography fontSize={10} fontWeight={800} color={Secondary}>
               {toPersianNumber(finalSupportPercentage)}
             </Typography>
             <GrayLikeIcon size={24} />
           </Stack>
-          <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-            <Typography fontSize={10} fontWeight={800} color={Secondary}>
-              {finalScore}
-            </Typography>
-            <GrayVerifyIcon size={24} />
-          </Stack>
+        }
+        <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
+          <Typography fontSize={10} fontWeight={800} color={Secondary}>
+            {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID ? finalScore : ASHBARIA_SURVEY_SUBMIT_REWARD}
+          </Typography>
+          <GrayVerifyIcon size={24} />
         </Stack>
-      }
+      </Stack>
     </Stack>
   )
 }
