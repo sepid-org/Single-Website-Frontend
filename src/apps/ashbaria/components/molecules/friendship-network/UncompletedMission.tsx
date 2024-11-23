@@ -48,7 +48,7 @@ const UncompletedMission = ({ requiredFollows, rewardScore, completable, handleC
 							<Typography noWrap fontSize={16} fontWeight={800}>
 								{`دریافت ${rewardScore}`}
 							</Typography>
-							<VerifyIcon />
+							<VerifyIcon size={28} />
 						</Button>
 					) :
 					(
