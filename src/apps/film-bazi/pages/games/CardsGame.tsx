@@ -129,6 +129,7 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         <Deck
           cards={selectedCards}
           onRemoveCard={handleRemoveCardFromSelectedCards}
+          setCards={setSelectedCards}
         />
 
         <Button variant='contained' onClick={handleSubmit}>
