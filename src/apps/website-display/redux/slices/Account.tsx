@@ -25,8 +25,8 @@ interface AccountPayload {
 const initialState: AccountState = {
   id: null,
   userInfo: null,
-  accessToken: '',
-  refreshToken: '',
+  accessToken: null,
+  refreshToken: null,
 };
 
 // Helper function to handle common login success pattern
@@ -59,7 +59,6 @@ const AccountSlice = createSlice({
     refreshToken: (state, action: PayloadAction<TokenPayload>) => {
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
-      window.location.reload();
     },
   },
   extraReducers: (builder) => {

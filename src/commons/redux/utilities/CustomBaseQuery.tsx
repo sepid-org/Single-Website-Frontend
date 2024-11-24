@@ -1,37 +1,72 @@
-import { fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import handleError from './ErrorHandler';
 
 const CustomBaseQuery = ({ baseUrl }) =>
   async (args, api, extraOptions) => {
 
-    const result = await fetchBaseQuery({
+    const baseQuery = fetchBaseQuery({
       baseUrl,
-      prepareHeaders: (headers, { getState, endpoint }) => {
-        const state: any = getState();
+      prepareHeaders: (headers, { getState }) => {
+        const state = getState() as any;
         const accessToken = state.account?.accessToken;
-        //todo: what should we do with refresh token?!
-        const refreshToken = state.account?.refreshToken;
         if (accessToken) {
-          headers.append('Authorization', `JWT ${accessToken}`);
+          headers.set('Authorization', `JWT ${accessToken}`);
         }
         const website = state.website?.website;
         if (website) {
-          headers.append('Website', website?.name);
+          headers.set('Website', website?.name);
         }
         const fsm = state.fsm?.fsm;
         if (fsm) {
-          headers.append('FSM', fsm.id);
+          headers.set('FSM', fsm.id);
         }
-        return headers
+        return headers;
       },
-    })(args, api, extraOptions);
+    });
+
+    let result = await baseQuery(args, api, extraOptions);
+
+    // If the access token is expired, attempt to refresh it
+    if (result.error?.status === 401 && !args.url.includes('refresh')) {
+      const refreshResult = await baseQuery(
+        {
+          url: '/accounts/refresh/',
+          method: 'POST',
+          body: {
+            refresh: api.getState().account?.refreshToken,
+          },
+        },
+        api,
+        extraOptions
+      );
+
+      const refreshResultData = refreshResult.data as any;
+
+      if (refreshResult.data) {
+        // Dispatch the new tokens to the Redux store
+        api.dispatch({
+          type: 'account/refreshToken',
+          payload: {
+            accessToken: refreshResultData.access,
+            refreshToken: refreshResultData.refresh || api.getState().account?.refreshToken,
+          },
+        });
+
+        // Retry the original request with the new access token
+        result = await baseQuery(args, api, extraOptions);
+      } else {
+        // Handle refresh token failure
+        handleError({ error: refreshResult.error, dispatch: api.dispatch });
+      }
+    }
 
     if (result.error) {
       args.body?.onFailure?.(result);
-      handleError({ error: result.error, dispatch: api.dispatch })
+      handleError({ error: result.error, dispatch: api.dispatch });
     } else {
       args.body?.onSuccess?.(result);
     }
+
     return result;
   };
 
