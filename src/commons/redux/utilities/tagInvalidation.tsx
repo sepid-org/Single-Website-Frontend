@@ -24,14 +24,15 @@ type Tag = { type: string; id?: string | number } | string;
  */
 const baseInvalidation = (tags: Tag[]) => {
   return async (_: any, { dispatch, queryFulfilled }: { dispatch: any; queryFulfilled: Promise<any> }) => {
-    try {
-      await queryFulfilled;
-      apiSlices.forEach(api => {
-        dispatch(api.util.invalidateTags(tags));
-      });
-    } catch (error) {
-      console.error('Error invalidating tags:', error);
-    }
+    queryFulfilled.then(() => {
+      try {
+        apiSlices.forEach(api => {
+          dispatch(api.util.invalidateTags(tags));
+        });
+      } catch (error) {
+        console.error('Error invalidating tags:', error);
+      }
+    }).catch(() => { })
   };
 };
 
