@@ -31,6 +31,8 @@ const App = () => {
         <Routes>
           <Route path="/movie-screening-request/" element={<MovieScreeningRequest />} />
 
+          <Route path="/shad-login/" element={<ShadLogin />} />
+
           <Route path="/" element={<PrivateRoute loginUrl='/program/filmbazi/login/' />}>
             <Route path="/capital/" element={<CapitalPage />} />
             <Route path="/profile/" element={<Profile />} />
@@ -48,7 +50,6 @@ const App = () => {
             <Route path="/token-expiration/" element={<LoginPage />} />
             <Route path="/create-account/" element={<CreateAccount />} />
             <Route path="/reset-password/" element={<ResetPassword />} />
-            <Route path="/shad-login/" element={<ShadLogin />} />
           </Route>
 
         </Routes>
