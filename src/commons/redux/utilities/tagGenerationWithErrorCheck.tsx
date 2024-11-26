@@ -52,6 +52,7 @@ export const tagTypes = [
   'Missions',
   'MissionProgress',
   'BookCode',
+  'RewardCode',
   // Filmbazi
   'Game',
   'CardsGame-Mission',
