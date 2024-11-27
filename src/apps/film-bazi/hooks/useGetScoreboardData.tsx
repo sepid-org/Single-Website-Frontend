@@ -43,22 +43,19 @@ const useGetScoreBoardData = (currencyName) => {
           return userInfo ? { ...userInfo, ...scoreRecord } : null;
         })
         .filter(record => record !== null);
-
       let exists = false;
       if (myRank?.rank) {
-        const currentUserInRecords = newScoreRecords.find(record => record.id === userProfile?.id);
+        const currentUserInRecords = newScoreRecords.find(record => record.user_id === userProfile?.id);
         if (currentUserInRecords != null) {
           currentUserInRecords.currentUser = true;
           exists = true;
         }
       }
-
       setScoreRecordsState({
         winnerUsersInfo: newScoreRecords,
         currentUser: {
           first_name: userProfile?.first_name,
           last_name: userProfile?.last_name,
-          profileImg: "nothing!", //replace later
           rank: myRank?.rank,
           currentUser: true,
           id: userProfile?.id,

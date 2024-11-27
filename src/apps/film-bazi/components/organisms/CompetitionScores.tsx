@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef } from "react";
-import { Box, Grid } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 import WinnerCard from "../molecules/WinnerCard";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
@@ -21,12 +21,11 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 
 	const currentUserRef = useRef(null);
 
-  useEffect(() => {
-    // Scroll to current user when the component mounts
-    if (currentUserRef.current) {
-      currentUserRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  }, [allScores.winnerUsersInfo]);
+	useEffect(() => {
+		if (currentUserRef.current) {
+			currentUserRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+		}
+	}, [allScores.winnerUsersInfo]);
 
 	return (
 		<Box
@@ -48,29 +47,29 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 				container
 			>
 				{winnerScores.length > 0 ?
-					<Fragment>
-						<Grid item xs={4}>
-							<WinnerCard
-								score={winnerScores[2]?.score}
-								rank={3}
-								name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<WinnerCard
-								score={winnerScores[0]?.score}
-								rank={1}
-								name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
-							/>
-						</Grid>
-						<Grid item xs={4}>
-							<WinnerCard
-								score={winnerScores[1]?.score}
-								rank={2}
-								name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
-							/>
-						</Grid>
-					</Fragment> :
+					<Stack
+						sx={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "flex-end",
+						}}
+					>
+						<WinnerCard
+							score={winnerScores[2]?.score}
+							rank={3}
+							name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
+						/>
+						<WinnerCard
+							score={winnerScores[0]?.score}
+							rank={1}
+							name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
+						/>
+						<WinnerCard
+							score={winnerScores[1]?.score}
+							rank={2}
+							name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
+						/>
+					</Stack> :
 					<WinnerCardsSkeleton />
 				}
 			</Grid>

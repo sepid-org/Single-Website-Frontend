@@ -72,12 +72,13 @@ const ScoreRecord = forwardRef<HTMLDivElement, ScoreBoardItemType>(
             }}
             item
             xs={9}
-            md={6}
+            md={7}
           >
             <Typography
               variant="body1"
               sx={{
                 flexGrow: 1,
+                maxHeight: "100%",
                 paddingLeft: 1,
                 fontSize: "18px",
                 fontWeight: "400",
@@ -85,6 +86,9 @@ const ScoreRecord = forwardRef<HTMLDivElement, ScoreBoardItemType>(
                 letterSpacing: "0.02em",
                 color: textColor,
                 marginLeft: "10px",
+                overflow: 'hidden',
+                whiteSpace: 'normal',
+                textOverflow: 'ellipsis',
               }}
             >
               {name}
