@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { CardType } from 'apps/film-bazi/types';
 import DeckCard from '../organisms/cards/DeckCard';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
 
 
 type DeckPropsType = {
@@ -19,6 +20,9 @@ const Deck: FC<DeckPropsType> = ({
   onCardClick,
   onRemoveCard,
 }) => {
+
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
 
   const moveCard = (dragIndex: number, dropIndex: number) => {
     setCards((prevCards) => {
@@ -50,7 +54,7 @@ const Deck: FC<DeckPropsType> = ({
         },
       }}
     >
-      <DndProvider backend={HTML5Backend}>
+      <DndProvider backend={dndBackend}>
         {cards.map((card, index) => (
           <Box key={index} sx={{ flex: '0 0 auto' }}>
             <DeckCard
