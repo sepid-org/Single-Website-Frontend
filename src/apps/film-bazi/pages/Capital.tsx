@@ -16,7 +16,7 @@ import DiscountCode from '../components/organisms/cards/DiscountCode';
 type PropsType = {}
 
 const CapitalPage: FC<PropsType> = ({ }) => {
-  const { data: discountCodes = [] } = useGetMyDiscountCodesQuery();
+  const { data: discountCodes = [], isLoading } = useGetMyDiscountCodesQuery();
 
   return (
     <FilmbaziLayout>
@@ -50,17 +50,24 @@ const CapitalPage: FC<PropsType> = ({ }) => {
             <Typography variant="h2" gutterBottom>کدهای تخفیف من</Typography>
           </Grid>
           <Grid container item xs={12} spacing={2}>
-            {discountCodes.length > 0 ?
-              discountCodes.map(discountCode =>
-                <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
-                  <DiscountCode discountCode={discountCode} />
-                </Grid>
-              ) :
+
+            {isLoading ?
               [1, 2, 3].map((index) =>
                 <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'} alignItems={'center'}>
                   <Skeleton width={'100%'} height={180} variant='rounded' />
                 </Grid>
-              )
+              ) :
+              discountCodes?.length > 0 ?
+                discountCodes.map(discountCode =>
+                  <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
+                    <DiscountCode discountCode={discountCode} />
+                  </Grid>
+                ) :
+                <Grid item>
+                  <Typography>
+                    {'کد تخفیفی وجود ندارد :('}
+                  </Typography>
+                </Grid>
             }
           </Grid>
         </Grid >
