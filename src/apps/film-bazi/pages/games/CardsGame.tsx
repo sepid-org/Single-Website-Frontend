@@ -25,15 +25,15 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   useEffect(() => {
     if (initialCards) {
-      setUpperList(sortCardsByID(initialCards));
+      setInitialCards(sortCardsByID(initialInitialCards));
     }
-  }, [initialCards]);
+  }, [initialInitialCards]);
 
   const sortCardsByID = (cards) => {
     let sortedCards = [...cards];
-    for (let i = 0; i < sortedCards.length; i++){
-      for (let j = i; j < sortedCards.length; j++){
-        if(sortedCards[i]["id"] > sortedCards[j]["id"]){
+    for (let i = 0; i < sortedCards.length; i++) {
+      for (let j = i; j < sortedCards.length; j++) {
+        if (sortedCards[i]["id"] > sortedCards[j]["id"]) {
           let tempCrad = sortedCards[i];
           sortedCards[i] = sortedCards[j];
           sortedCards[j] = tempCrad;
@@ -45,18 +45,18 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   const handleCardClick = (card, index) => {
     setSelectedCards([...selectedCards, card]);
-    const updatedList = [...cards];
+    const updatedList = [...initialCards];
     updatedList.splice(index, 1);
-    setUpperList(sortCardsByID(updatedList));
+    setInitialCards(sortCardsByID(updatedList));
   };
 
   const handleRemoveCardFromSelectedCards = (card, index) => {
     const updatedList = [...selectedCards];
     updatedList.splice(index, 1);
     setSelectedCards(updatedList);
-    const updatedUpperList = [...cards];
+    const updatedUpperList = [...initialCards];
     updatedUpperList.push(card);
-    setUpperList(sortCardsByID(updatedUpperList));
+    setInitialCards(sortCardsByID(updatedUpperList));
   };
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
         <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
         <Deck
-          cards={cards}
+          cards={initialCards}
           onCardClick={handleCardClick}
         />
 
@@ -148,11 +148,9 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
           setCards={setSelectedCards}
         />
 
-            <Button variant='contained' onClick={handleSubmit}>
-              {'ارسال پاسخ'}
-            </Button>
-          </Fragment>
-        }
+        <Button variant='contained' onClick={handleSubmit}>
+          {'ارسال پاسخ'}
+        </Button>
       </Stack>
     </Box>
   );
