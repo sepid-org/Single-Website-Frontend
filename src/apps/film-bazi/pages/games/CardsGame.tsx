@@ -1,7 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import Deck from '../../components/molecules/Deck';
-import { useAttemptToAnswerMutation, useGetCardsQuery } from '../../redux/slices/CardsGame';
+import { useAttemptToAnswerMutation, useGetCardsQuery, useGetMissionQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from '../../../../commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from '../../components/atoms/icons/ScoreAnnouncement';
@@ -16,10 +16,11 @@ type CardsGamePropsType = {}
 
 const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   const { data: gameData } = useGetGameQuery({ id: 2 });
+  const { data: mission, isError: isGetMissionError } = useGetMissionQuery();
   const localNavigate = useLocalNavigate();
-  const { data: initialCards = [] } = useGetCardsQuery();
+  const { data: initialInitialCards = [] } = useGetCardsQuery();
   const [attempt, result] = useAttemptToAnswerMutation();
-  const [cards, setUpperList] = useState([]);
+  const [initialCards, setInitialCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
@@ -71,11 +72,12 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
             />
         })
       } else if (result.data.is_successful) {
+        setSelectedCards([]);
         dialogService.open({
           component:
             <CustomDialogContent
               image={<ScoreAnnouncement />}
-              title={`آفرین! داستان جدیدی را کشف کردی. ${toPersianNumber(result.data.story.reward)} سکه بهت اضافه شد. `}
+              title={`آفرین! این ماموریت رو انجام دادی. ${toPersianNumber(result.data.mission.reward)} سکه بهت اضافه شد. برای ماموریت بعدی آماده شو... `}
               onClick={() => {
                 dialogService.close();
               }}
@@ -85,7 +87,7 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         dialogService.open({
           component:
             <CustomDialogContent
-              title={'داستانی با این ترتیب وجود ندارد'}
+              title={'روایتی که ساختی درست نیست'}
               onClick={() => {
                 dialogService.close();
               }}
@@ -146,9 +148,11 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
           setCards={setSelectedCards}
         />
 
-        <Button variant='contained' onClick={handleSubmit}>
-          {'ارسال پاسخ'}
-        </Button>
+            <Button variant='contained' onClick={handleSubmit}>
+              {'ارسال پاسخ'}
+            </Button>
+          </Fragment>
+        }
       </Stack>
     </Box>
   );

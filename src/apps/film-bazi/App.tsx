@@ -45,10 +45,10 @@ const App = () => {
 
           <Route path="/" element={<AnonymousRoute base='/program/filmbazi/' />}>
             <Route path="/login/" element={<LoginPage />} />
+            <Route path="/shad-login/" element={<ShadLogin />} />
             <Route path="/token-expiration/" element={<LoginPage />} />
             <Route path="/create-account/" element={<CreateAccount />} />
             <Route path="/reset-password/" element={<ResetPassword />} />
-            <Route path="/shad-login/" element={<ShadLogin />} />
           </Route>
 
         </Routes>

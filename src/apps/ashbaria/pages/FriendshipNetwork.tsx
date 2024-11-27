@@ -17,7 +17,6 @@ import CustomDialogContent from 'commons/components/molecules/CustomDialogConten
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
 import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../components/atoms/icons/Heart';
-import ExclamationIcon from '../components/atoms/icons/Exclamation';
 import FriendshipNetworkPoints from '../components/molecules/friendship-network/FriendshipNetworkPoint';
 import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
@@ -26,7 +25,7 @@ import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgro
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
-import BookMission from '../components/molecules/friendship-network/BookMission';
+import RewardCodeMission from '../components/molecules/friendship-network/RewardCodeMission';
 import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
 import { MediaUrls } from '../constants/mediaUrls';
 
@@ -211,7 +210,7 @@ const FriendshipNetworkPage = () => {
               {'ماموریت‌های اشتراک‌گذاری کد'}
             </Typography>
             <Stack direction={'row-reverse'} spacing={2}>
-              <BookMission />
+              <RewardCodeMission />
 
               <ScrollableStack>
                 {myCompletedMissions?.map(record => (

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { Box, Container, IconButton, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
 import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
@@ -29,6 +29,14 @@ export default function Scores() {
 		const hashCode = hashStringToNumber(user_id);
 		return `دادبستان ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}
+
+	const currentUserScoreRecord = useRef(null);
+	useEffect(() => {
+		console.log("hereeeee")
+		if(currentUserScoreRecord.current){
+			currentUserScoreRecord.current.scrollIntoView()
+		}
+	}, [currentUserScoreRecord.current]);
 
 	return (
 		<Stack alignItems={'center'} justifyContent={'center'} padding={2} spacing={2} position={'relative'}>
@@ -155,6 +163,7 @@ export default function Scores() {
 							currentUser={record.currentUser}
 							user_id={record.user_id}
 							profileImg={record.profile_image}
+							ref={record.currentUser ? currentUserScoreRecord : null}
 						/>
 					))}
 				</Fragment>

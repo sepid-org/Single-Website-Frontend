@@ -4,6 +4,8 @@ import {
 } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
 import { useUuidLoginMutation } from 'commons/redux/apis/party/UserApi';
+import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
+import { FILMBAZI_ORIGIN_NAME } from 'apps/film-bazi/constants/game';
 
 function convertToUUID(str: string): string {
   // Remove any non-alphanumeric characters, just in case
@@ -25,16 +27,22 @@ function convertToUUID(str: string): string {
 type PropsType = {}
 
 const ShadLogin: FC<PropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const userId = convertToUUID(searchParams.get('UserID'));
   const [uuidLogin, uuidLoginResult] = useUuidLoginMutation();
-  const ORIGIN_NAME = 'SHAD';
 
   useEffect(() => {
     if (userId) {
-      uuidLogin({ userId, origin: ORIGIN_NAME });
+      uuidLogin({ userId, origin: FILMBAZI_ORIGIN_NAME });
     }
-  }, [userId])
+  }, [userId]);
+
+  useEffect(() => {
+    if (uuidLoginResult.isSuccess) {
+      localNavigate('/');
+    }
+  }, [uuidLoginResult]);
 
   if (uuidLoginResult.isLoading) {
     return (
