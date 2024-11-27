@@ -5,16 +5,15 @@ import {
   IconButton,
   Stack,
   TextField,
-  Tooltip,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import ClearIcon from '@mui/icons-material/Clear';
-import InfoIcon from '@mui/icons-material/Info';
 import { useAddAdminToProgramMutation, useGetProgramAdminsQuery, useRemoveAdminFromProgramMutation } from 'apps/website-display/redux/features/program/ProgramAdminsSlice';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import TooltipInfo from 'commons/components/atoms/TooltipInfo';
 
 
 type AdminsTabPropsType = {}
@@ -49,11 +48,7 @@ const AdminTab: FC<AdminsTabPropsType> = ({ }) => {
           <Typography variant='h2'>
             {'مدیران دوره'}
           </Typography>
-          <Tooltip title='مدیر دوره کسی است که به تمام تنظیمات دوره دسترسی دارد. او هم‌چنین می‌تواند کارگاه‌های دوره را ویرایش کند.'>
-            <IconButton>
-              <InfoIcon />
-            </IconButton>
-          </Tooltip>
+          <TooltipInfo title={'مدیر دوره کسی است که به تمام تنظیمات دوره دسترسی دارد. او هم‌چنین می‌تواند کارگاه‌های دوره را ویرایش کند.'} />
         </Stack>
 
         <Stack>

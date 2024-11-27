@@ -1,4 +1,4 @@
-import { Button, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Golden } from "apps/ashbaria/constants/colors";
 import { useSubmitRewardCodeMutation } from "apps/ashbaria/redux/slices/FriendshipNetwork";
@@ -6,8 +6,8 @@ import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
-import InfoIcon from '@mui/icons-material/Info';
 import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
+import TooltipInfo from "commons/components/atoms/TooltipInfo";
 
 const RewardCodeMission = ({ }) => {
 	const [rewardCode, setRewardCode] = useState<string>('');
@@ -60,11 +60,7 @@ const RewardCodeMission = ({ }) => {
 				<Typography noWrap textAlign={'center'} fontSize={18} color={Golden} fontWeight={800}>
 					اگه کد ویژه داری، اینجا بزن
 				</Typography>
-				<Tooltip arrow title='منظور از کد ویژه، کد کتاب یا کدهای امتیازیه که در جاهای مختلف به‌دست آوردی و با زدنشون امتیاز کسب می‌کنی'>
-					<IconButton sx={{ padding: 0 }}>
-						<InfoIcon />
-					</IconButton>
-				</Tooltip>
+				<TooltipInfo title={'منظور از کد ویژه، کد کتاب یا کدهای امتیازیه که در جاهای مختلف به‌دست آوردی و با زدنشون امتیاز کسب می‌کنی'} />
 			</Stack>
 			<TextField
 				inputProps={{

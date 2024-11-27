@@ -12,6 +12,8 @@ import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/Discount
 import MyScoresChip from '../components/atoms/chips/MyScoresChip';
 import MyCapitalChip from '../components/atoms/chips/MyCapital';
 import DiscountCode from '../components/organisms/cards/DiscountCode';
+import CustomWarning from '../components/atoms/chips/CustomWarning';
+import TooltipInfo from 'commons/components/atoms/TooltipInfo';
 
 type PropsType = {}
 
@@ -31,8 +33,14 @@ const CapitalPage: FC<PropsType> = ({ }) => {
         }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
+            <CustomWarning text={'توجه کنید که سرمایه‌ی شما تا ۲۴ ساعت بعد از خرید به‌روز می‌شود'} />
+          </Grid>
+          <Grid item xs={12}>
             <Stack direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
-              <Typography variant="h2">سرمایه من</Typography>
+              <Stack direction={'row'} spacing={1}>
+                <Typography variant="h2">سرمایه من</Typography>
+                <TooltipInfo title={'«سرمایه» از روی تعداد خریدهای شبکه‌ی دوستی‌ات محاسبه می‌شود. هرچقدر که کد تخفیفت را بیشتر به دوستانت بدهی، سرمایه‌ی بیشتری به‌دست می‌آوری'} />
+              </Stack>
               <Button variant='contained' color='info' size='large' disabled={true}>
                 <Typography color={'#120F24'} fontWeight={600}>
                   {'تسویه کن'}
