@@ -22,7 +22,7 @@ const Deck: FC<DeckPropsType> = ({
 }) => {
 
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
+  const dndBackend = HTML5Backend;
 
   const moveCard = (dragIndex: number, dropIndex: number) => {
     setCards((prevCards) => {
