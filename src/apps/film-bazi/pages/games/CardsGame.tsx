@@ -24,19 +24,39 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
-    if (initialInitialCards) {
-      setInitialCards(initialInitialCards);
+    if (initialCards) {
+      setInitialCards(sortCardsByID(initialInitialCards));
     }
-  }, [initialInitialCards])
+  }, [initialInitialCards]);
 
-  const handleCardClick = (card) => {
+  const sortCardsByID = (cards) => {
+    let sortedCards = [...cards];
+    for (let i = 0; i < sortedCards.length; i++) {
+      for (let j = i; j < sortedCards.length; j++) {
+        if (sortedCards[i]["id"] > sortedCards[j]["id"]) {
+          let tempCrad = sortedCards[i];
+          sortedCards[i] = sortedCards[j];
+          sortedCards[j] = tempCrad;
+        }
+      }
+    }
+    return sortedCards;
+  }
+
+  const handleCardClick = (card, index) => {
     setSelectedCards([...selectedCards, card]);
+    const updatedList = [...initialCards];
+    updatedList.splice(index, 1);
+    setInitialCards(sortCardsByID(updatedList));
   };
 
-  const handleRemoveCard = (index) => {
+  const handleRemoveCardFromSelectedCards = (card, index) => {
     const updatedList = [...selectedCards];
     updatedList.splice(index, 1);
     setSelectedCards(updatedList);
+    const updatedUpperList = [...initialCards];
+    updatedUpperList.push(card);
+    setInitialCards(sortCardsByID(updatedUpperList));
   };
 
   useEffect(() => {
@@ -115,22 +135,22 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
           </Stack>
         </Stack>
 
-        {isGetMissionError ?
-          <Typography variant="h2" sx={{ marginTop: 2 }}>{'تبریک میگم! تمام ماموریت‌ها را انجام دادی🎉'}</Typography> :
-          <Fragment>
-            <Typography variant="h2" sx={{ marginTop: 2 }}>{mission?.description}</Typography>
+        <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
+        <Deck
+          cards={initialCards}
+          onCardClick={handleCardClick}
+        />
 
-            <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
-            <Deck cards={(!mission?.initial_cards || mission?.initial_cards.length === 0) ? initialCards : initialCards.filter(card => mission.initial_cards.includes(card.id))} onCardClick={handleCardClick} />
+        <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
+        <Deck
+          cards={selectedCards}
+          onRemoveCard={handleRemoveCardFromSelectedCards}
+          setCards={setSelectedCards}
+        />
 
-            <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
-            <Deck cards={selectedCards} onRemoveCard={handleRemoveCard} />
-
-            <Button variant='contained' onClick={handleSubmit}>
-              {'ارسال پاسخ'}
-            </Button>
-          </Fragment>
-        }
+        <Button variant='contained' onClick={handleSubmit}>
+          {'ارسال پاسخ'}
+        </Button>
       </Stack>
     </Box>
   );
