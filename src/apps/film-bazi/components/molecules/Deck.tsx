@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Box, Stack, Typography } from '@mui/material';
 import { CardType } from 'apps/film-bazi/types';
 import DeckCard from '../organisms/cards/DeckCard';
@@ -20,17 +20,11 @@ const Deck: FC<DeckPropsType> = ({
   onRemoveCard,
 }) => {
 
-  const moveCard = (dragIndex, dropIndex) => {
+  const moveCard = (dragIndex: number, dropIndex: number) => {
     setCards((prevCards) => {
       const updatedCards = [...prevCards];
-      const [draggedCard] = updatedCards.splice(dragIndex, 1);
-      if (dropIndex > dragIndex) {
-        updatedCards.splice(dropIndex, 0, draggedCard);
-      }
-      else {
-        updatedCards.splice(dropIndex, 0, draggedCard);
-      }
-
+      const [draggedCard] = updatedCards.splice(dragIndex, 1); 
+      updatedCards.splice(dropIndex, 0, draggedCard);
       return updatedCards;
     });
   };
@@ -65,6 +59,7 @@ const Deck: FC<DeckPropsType> = ({
               onCardClick={onCardClick}
               onRemoveCard={onRemoveCard}
               moveCard={moveCard}
+              isDraggable={onRemoveCard ? true : false}
             />
           </Box>
         ))}

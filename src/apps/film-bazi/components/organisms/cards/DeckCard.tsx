@@ -11,6 +11,11 @@ type DeckCardPropsType = {
   onCardClick?: any;
   onRemoveCard?: any;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
+  isDraggable: boolean;
+}
+
+interface DragItem {
+  index: number;
 }
 
 const DeckCard: FC<DeckCardPropsType> = ({
@@ -19,31 +24,31 @@ const DeckCard: FC<DeckCardPropsType> = ({
   onCardClick,
   onRemoveCard,
   moveCard,
+  isDraggable,
 }) => {
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
-    type: ItemTypes.CARD,
-    item: { id: card.id, index },
+    type: 'CARD',
+    item: { index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }));
+  }), [isDraggable]);
 
-  const [, dropRef] = useDrop(() => ({
-    accept: ItemTypes.CARD,
-    drop: (draggedItem: { index: number }) => {
+  const [, dropRef] = useDrop<DragItem>(() => ({
+    accept: 'CARD',
+    hover: (draggedItem) => {
       if (draggedItem.index !== index) {
         moveCard(draggedItem.index, index);
+        draggedItem.index = index;
       }
     },
   }));
 
+
   return (
     <Card
-      ref={onRemoveCard ? (node) => {
-        dragRef(node);
-        dropRef(node);
-      } : null}
+      ref={(node) => isDraggable ? dragRef(dropRef(node)) : null}
       onClick={() => onCardClick ? onCardClick(card, index) : () => { }}
       sx={{
         borderRadius: 0,
@@ -53,7 +58,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
         display: 'flex',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
         transition: 'transform 0.2s ease-in-out',
-        opacity: isDragging ? 0.5 : 1,
+        transform: (isDraggable && isDragging) ? 'scale(1.05)' : 'scale(1)',
         position: "relative",
         '&:hover': {
           transform: 'scale(1.02)',
