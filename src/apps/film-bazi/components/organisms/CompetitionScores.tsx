@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { Box, Grid } from "@mui/material";
 import WinnerCard from "../molecules/WinnerCard";
 import ScoreRecord from "../molecules/ScoreRecord";
@@ -18,6 +18,15 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 
 		return `فیلم‌باز ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
 	}
+
+	const currentUserRef = useRef(null);
+
+  useEffect(() => {
+    // Scroll to current user when the component mounts
+    if (currentUserRef.current) {
+      currentUserRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, [allScores.winnerUsersInfo]);
 
 	return (
 		<Box

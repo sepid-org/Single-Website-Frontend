@@ -62,9 +62,18 @@ export interface StoryType {
   reward: number;
 }
 
-export interface AttemptTypw {
+export interface AttemptType {
   id: number;
   story: StoryType | null;
   user: string;
   is_successful: boolean;
+}
+
+export interface MissionType {
+  order: number;
+  title: string;
+  description: string;
+  initial_cards: number[];
+  does_order_matter: boolean;
+  reward: number;
 }

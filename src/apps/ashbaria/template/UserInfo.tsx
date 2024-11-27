@@ -57,6 +57,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             title={`تبریک! با تکمیل نمایه ۱۵۰ سکه به شما اضافه شد.`}
             onClick={() => {
               dialogService.close();
+              localNavigate('/');
             }}
           />
       })
@@ -90,10 +91,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
 
   const handleSubmit = () => {
     if (AshbariaProfile?.has_received_reward) {
-      if (checkForBlankFields(AshbariaProfile)) {
-        toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
-        return;
-      }
+      toast.error('قبل‌تر مشخصاتت رو ثبت کردی');
+      return;
+    }
+    if (checkForBlankFields(AshbariaProfile)) {
+      toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
+      return;
     }
     updateProfile(AshbariaProfile);
   }

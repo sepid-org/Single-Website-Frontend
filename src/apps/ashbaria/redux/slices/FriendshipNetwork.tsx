@@ -50,21 +50,16 @@ export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    getBookCode: builder.query<void, void>({
-      providesTags: [{ type: 'BookCode', id: 'MY' }],
-      query: () => '/friendship-network/book-code/get-user-code/',
-    }),
-
-    submitBookCode: builder.mutation<void, { bookCode: string }>({
+    submitRewardCode: builder.mutation<void, { rewardCode: string }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
-        [{ type: 'BookCode', id: 'MY' }]
+        [{ type: 'RewardCode', id: 'MY' }]
       ),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
-      query: ({ bookCode }) => ({
-        url: '/friendship-network/book-code/submit/',
+      query: ({ rewardCode }) => ({
+        url: '/friendship-network/reward-code/submit/',
         method: 'POST',
         body: {
-          code: bookCode,
+          code: rewardCode,
         }
       }),
     }),
@@ -79,6 +74,5 @@ export const {
   useFollowMutation,
   useGetMyCompletedMissionsQuery,
   useCompleteMissionMutation,
-  useGetBookCodeQuery,
-  useSubmitBookCodeMutation,
+  useSubmitRewardCodeMutation,
 } = FriendshipNetworkSlice;
