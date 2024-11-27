@@ -23,7 +23,7 @@ const Deck: FC<DeckPropsType> = ({
   const moveCard = (dragIndex: number, dropIndex: number) => {
     setCards((prevCards) => {
       const updatedCards = [...prevCards];
-      const [draggedCard] = updatedCards.splice(dragIndex, 1); 
+      const [draggedCard] = updatedCards.splice(dragIndex, 1);
       updatedCards.splice(dropIndex, 0, draggedCard);
       return updatedCards;
     });
@@ -35,9 +35,9 @@ const Deck: FC<DeckPropsType> = ({
       direction={'row'}
       overflow={'auto'}
       sx={{
+        height: 230,
         width: '100%',
-        paddingBottom: 2,
-        borderRadius: '8px',
+        paddingBottom: 1,
         '::-webkit-scrollbar': {
           height: '8px',
         },

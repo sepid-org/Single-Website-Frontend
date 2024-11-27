@@ -1,15 +1,14 @@
-import React, { FC } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { Card, CardMedia, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { CardType } from 'apps/film-bazi/types';
 import { useDrag, useDrop } from 'react-dnd';
-import { ItemTypes } from 'apps/film-bazi/constants/dndTypes';
 
 type DeckCardPropsType = {
   index: number;
   card: CardType;
-  onCardClick?: any;
-  onRemoveCard?: any;
+  onCardClick?: (card: CardType, index: number) => void;
+  onRemoveCard?: (card: CardType, index: number) => void;
   moveCard: (dragIndex: number, hoverIndex: number) => void;
   isDraggable: boolean;
 }
@@ -26,6 +25,9 @@ const DeckCard: FC<DeckCardPropsType> = ({
   moveCard,
   isDraggable,
 }) => {
+  const [isLongPress, setIsLongPress] = useState(false);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const longPressTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'CARD',
@@ -38,27 +40,60 @@ const DeckCard: FC<DeckCardPropsType> = ({
   const [, dropRef] = useDrop<DragItem>(() => ({
     accept: 'CARD',
     hover: (draggedItem) => {
-      if (draggedItem.index !== index) {
+      if (draggedItem.index !== index && !isLongPress) {
         moveCard(draggedItem.index, index);
         draggedItem.index = index;
       }
     },
   }));
 
+  // Touch event handlers for mobile support
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (!isDraggable) return;
+
+    longPressTimerRef.current = setTimeout(() => {
+      setIsLongPress(true);
+      // Optional: Add visual feedback for long press
+    }, 500); // 500ms long press threshold
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+    }
+
+    if (isLongPress) {
+      setIsLongPress(false);
+    } else if (onCardClick) {
+      onCardClick(card, index);
+    }
+  };
+
+  const handleTouchMove = () => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+    }
+    setIsLongPress(false);
+  };
 
   return (
     <Card
-      ref={(node) => isDraggable ? dragRef(dropRef(node)) : null}
+      ref={(node) => {
+        cardRef.current = node;
+        return isDraggable ? dragRef(dropRef(node)) : null;
+      }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchMove={handleTouchMove}
       onClick={() => onCardClick ? onCardClick(card, index) : () => { }}
       sx={{
         borderRadius: 0,
         cursor: 'pointer',
         width: 150,
-        height: '100%',
         display: 'flex',
         boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
         transition: 'transform 0.2s ease-in-out',
-        transform: (isDraggable && isDragging) ? 'scale(1.05)' : 'scale(1)',
+        transform: (isDraggable && isDragging) || isLongPress ? 'scale(1.05)' : 'scale(1)',
         position: "relative",
         '&:hover': {
           transform: 'scale(1.02)',
@@ -75,6 +110,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
             position: 'absolute',
             top: 8,
             left: 8,
+            zIndex: 10,
           }}
         >
           <CloseIcon />
@@ -95,7 +131,3 @@ const DeckCard: FC<DeckCardPropsType> = ({
 };
 
 export default DeckCard;
-
-function moveCard(index: number, index1: number) {
-  throw new Error('Function not implemented.');
-}

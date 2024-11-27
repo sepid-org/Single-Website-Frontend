@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Stack, Typography } from '@mui/material';
 import Deck from '../../components/molecules/Deck';
 import { useAttemptToAnswerMutation, useGetCardsQuery, useGetMissionQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -112,45 +112,57 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         backgroundPosition: `center calc(100% - 80%)`,
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
+        display: "flex",
+        justifyContent: "center",
         minHeight: '100vh',
         minWidth: "100vw",
       }}
     >
-      <Stack padding={2} alignItems={'start'} spacing={2}>
+      <Stack width={'100%'} maxWidth={'md'} padding={2} alignItems={'start'} spacing={2}>
         <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
           <Box width={200}>
             <MyScoresChip />
           </Box>
 
           <Stack spacing={2} direction={{ xs: 'column-reverse', sm: 'row' }}>
-            <GameHelpButton helpPaperId={gameData?.help_paper_id} />
-
-            <Button
-              variant='outlined'
-              sx={{ height: 40 }}
-              onClick={() => localNavigate('/games/')}
-            >
-              {'بازگشت'}
-            </Button>
+            <ButtonGroup>
+              <GameHelpButton helpPaperId={gameData?.help_paper_id} />
+              <Button
+                fullWidth
+                variant='outlined'
+                onClick={() => localNavigate('/games/')}
+              >
+                {'بازگشت'}
+              </Button>
+            </ButtonGroup>
           </Stack>
         </Stack>
 
-        <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
-        <Deck
-          cards={initialCards}
-          onCardClick={handleCardClick}
-        />
+        {isGetMissionError ?
+          <Typography variant="h2" sx={{ marginTop: 2 }}>{'تبریک میگم! تمام ماموریت‌ها را انجام دادی🎉'}</Typography> :
+          <Fragment>
+            <Typography variant="h3" sx={{ marginTop: 2 }}>{mission?.description}</Typography>
 
-        <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
-        <Deck
-          cards={selectedCards}
-          onRemoveCard={handleRemoveCardFromSelectedCards}
-          setCards={setSelectedCards}
-        />
+            <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
+            <Deck
+              cards={initialCards}
+              onCardClick={handleCardClick}
+            />
 
-        <Button variant='contained' onClick={handleSubmit}>
-          {'ارسال پاسخ'}
-        </Button>
+            <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
+            <Deck
+              cards={selectedCards}
+              onRemoveCard={handleRemoveCardFromSelectedCards}
+              setCards={setSelectedCards}
+            />
+
+            <Button fullWidth variant='contained' onClick={handleSubmit} size='large'>
+              <Typography variant='h5' color={'black'}>
+                {'ارسال پاسخ'}
+              </Typography>
+            </Button>
+          </Fragment>
+        }
       </Stack>
     </Box>
   );
