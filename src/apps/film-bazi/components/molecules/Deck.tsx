@@ -65,7 +65,7 @@ const Deck: FC<DeckPropsType> = ({
         ))}
       </DndProvider>
       {cards.length === 0 &&
-        <Typography variant='h2'>
+        <Typography>
           {'کارتی وجود ندارد'}
         </Typography>
       }

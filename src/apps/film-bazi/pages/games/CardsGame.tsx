@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Box, Button, ButtonGroup, Stack, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Stack, Typography } from '@mui/material';
 import Deck from '../../components/molecules/Deck';
 import { useAttemptToAnswerMutation, useGetCardsQuery, useGetMissionQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -114,11 +114,23 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         backgroundAttachment: "fixed",
         display: "flex",
         justifyContent: "center",
+        alignItems: 'center',
         minHeight: '100vh',
         minWidth: "100vw",
       }}
     >
-      <Stack width={'100%'} maxWidth={'md'} padding={2} alignItems={'start'} spacing={2}>
+      <Stack
+        component={Paper}
+        width="100%"
+        maxWidth="md"
+        padding={2}
+        alignItems="start"
+        spacing={2}
+        sx={{
+          backgroundColor: 'rgba(45, 42, 65, 0.8)',
+          borderRadius: { xs: 0, md: 1 }
+        }}
+      >
         <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
           <Box width={200}>
             <MyScoresChip />
