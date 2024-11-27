@@ -24,15 +24,29 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
 
   useEffect(() => {
     if (initialCards) {
-      setUpperList(initialCards);
+      setUpperList(sortCardsByID(initialCards));
     }
-  }, [initialCards])
+  }, [initialCards]);
+
+  const sortCardsByID = (cards) => {
+    let sortedCards = [...cards];
+    for (let i = 0; i < sortedCards.length; i++){
+      for (let j = i; j < sortedCards.length; j++){
+        if(sortedCards[i]["id"] > sortedCards[j]["id"]){
+          let tempCrad = sortedCards[i];
+          sortedCards[i] = sortedCards[j];
+          sortedCards[j] = tempCrad;
+        }
+      }
+    }
+    return sortedCards;
+  }
 
   const handleCardClick = (card, index) => {
     setSelectedCards([...selectedCards, card]);
     const updatedList = [...cards];
     updatedList.splice(index, 1);
-    setUpperList(updatedList);
+    setUpperList(sortCardsByID(updatedList));
   };
 
   const handleRemoveCardFromSelectedCards = (card, index) => {
@@ -41,7 +55,7 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
     setSelectedCards(updatedList);
     const updatedUpperList = [...cards];
     updatedUpperList.push(card);
-    setUpperList(updatedUpperList);
+    setUpperList(sortCardsByID(updatedUpperList));
   };
 
   useEffect(() => {

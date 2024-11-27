@@ -23,13 +23,10 @@ const Deck: FC<DeckPropsType> = ({
   const moveCard = (dragIndex, dropIndex) => {
     setCards((prevCards) => {
       const updatedCards = [...prevCards];
-      const [draggedCard] = updatedCards.splice(dragIndex, 1); // Remove the dragged item
-
-      // If dropIndex > dragIndex, insert at dropIndex and shift others left
+      const [draggedCard] = updatedCards.splice(dragIndex, 1);
       if (dropIndex > dragIndex) {
-        updatedCards.splice(dropIndex, 0, draggedCard); // Insert dragged item at the new position
+        updatedCards.splice(dropIndex, 0, draggedCard);
       }
-      // If dropIndex < dragIndex, insert at dropIndex and shift others right
       else {
         updatedCards.splice(dropIndex, 0, draggedCard);
       }

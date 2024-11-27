@@ -33,7 +33,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
     accept: ItemTypes.CARD,
     drop: (draggedItem: { index: number }) => {
       if (draggedItem.index !== index) {
-        moveCard(draggedItem.index, index);  // Run only on drop
+        moveCard(draggedItem.index, index);
       }
     },
   }));
