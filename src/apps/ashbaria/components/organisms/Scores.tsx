@@ -32,9 +32,12 @@ export default function Scores() {
 
 	const currentUserScoreRecord = useRef(null);
 	useEffect(() => {
-		console.log("hereeeee")
 		if(currentUserScoreRecord.current){
-			currentUserScoreRecord.current.scrollIntoView()
+			currentUserScoreRecord.current.scrollIntoView({
+				behavior: 'smooth',
+				block: 'center',
+				inline: 'nearest'
+			})
 		}
 	}, [currentUserScoreRecord.current]);
 
