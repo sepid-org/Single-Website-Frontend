@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState } from 'react';
-import { Button, Box } from '@mui/material';
+import { Box, ButtonBase } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
@@ -65,12 +65,13 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           height: '100%',
         }}
       >
-        <Button
+        <ButtonBase
           onClick={handleClick}
           sx={{
             position: 'absolute',
             top: 0,
             left: 0,
+            borderRadius: 1,
             width: '100%',
             height: '100%',
             backgroundImage: `url(${background_image})`,
