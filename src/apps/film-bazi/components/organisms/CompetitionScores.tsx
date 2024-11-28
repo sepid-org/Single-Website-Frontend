@@ -28,14 +28,7 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 	}, [allScores.winnerUsersInfo]);
 
 	return (
-		<Box
-			sx={{
-				height: "auto",
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
-			}}
-		>
+		<Stack alignItems={'center'} justifyContent={'center'} paddingTop={2}>
 			<Grid
 				sx={{
 					display: "flex",
@@ -74,6 +67,7 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 				}
 			</Grid>
 			<Grid
+				maxWidth={'md'}
 				sx={{
 					display: "flex",
 					justifyContent: "center",
@@ -113,6 +107,6 @@ export default function CompetitionScores({ allScores, winnerScores }) {
 					</>
 				}
 			</Grid>
-		</Box>
+		</Stack>
 	);
 }
