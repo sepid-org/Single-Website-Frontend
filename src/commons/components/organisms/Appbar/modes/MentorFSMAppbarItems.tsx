@@ -6,17 +6,21 @@ import DashboardButton from '../components/DashboardButton';
 import ChatRoomButton from '../components/ChatRoomButton';
 import TeamAvatar from '../components/TeamAvatar';
 import WhiteboardButton from '../components/WhiteboardButton';
-import { announceMentorDeparture } from 'apps/website-display/parse/mentorsInRoom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
-const MentorFSMAppbarItems = ({ mentorId }) => {
+const MentorFSMAppbarItems = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const search = useLocation().search;
   let teamId = new URLSearchParams(search).get('teamId');
   const chatRoomButton = <ChatRoomButton />;
-  const backToRequestsTabButton = <DashboardButton onClick={() => { announceMentorDeparture(teamId, mentorId) }} label={'بازگشت'} to={`/fsm/${fsmId}/manage/requests/`} />;
+  const backToRequestsTabButton =
+    <DashboardButton
+      // onClick={() => { announceMentorDeparture(teamId, mentorId) }}
+      label={'بازگشت'}
+      to={`/fsm/${fsmId}/manage/requests/`}
+    />;
   const whiteboardButton = <WhiteboardButton />;
   const teamAvatar = <TeamAvatar />;
   const userAvatar = <UserAvatar />;

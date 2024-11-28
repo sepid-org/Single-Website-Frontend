@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 
 export default function ({ handleChange, postal_code }) {
@@ -20,6 +20,10 @@ export default function ({ handleChange, postal_code }) {
         name="postal_code"
         onChange={handleChange}
         placeholder="کد پستی خود را وارد کنید."
+        inputProps={{
+          maxLength: 10,
+          inputMode: "numeric",
+        }}
       />
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Paper, Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import GenderSelector from "../components/molecules/profile-inputs/GenderSelector";
@@ -23,6 +23,7 @@ import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
+import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
 
 type UserSettingPropsType = {}
 
@@ -31,6 +32,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
   const { data: initialAshbariaProfile } = useGetProfileQuery();
   const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
+  const [isSubmitConfirmationOpen, setIsSubmitConfirmationOpen] = useState(false);
   const { data: userProfile } = useUserProfile();
 
   useEffect(() => {
@@ -90,10 +92,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }
 
   const handleSubmit = () => {
-    if (AshbariaProfile?.has_received_reward) {
-      toast.error('قبل‌تر مشخصاتت رو ثبت کردی');
-      return;
-    }
     if (checkForBlankFields(AshbariaProfile)) {
       toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
       return;
@@ -123,6 +121,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             {AshbariaProfile?.has_received_reward === false && <ScoreChip value={150} />}
           </Box>
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <NameInput handleChange={handleChange} first_name={AshbariaProfile?.first_name} />
         </Grid>
@@ -143,12 +142,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
         <RegionSelector data={AshbariaProfile} setData={setAshbariaProfile} />
         <Grid item xs={12} sm={6}>
-          <PhoneNumberInput handleChange={handleChange} phone_number={AshbariaProfile?.phone_number} disabled={true} />
+          <PhoneNumberInput setPhoneNumber={handleChange} phoneNumber={AshbariaProfile?.phone_number} disabled={true} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <PostNumberInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
         </Grid>
         <Grid item xs={12}>
@@ -160,11 +159,21 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Button>
         </Grid>
         <Grid item xs={12} sm={6}>
-          <Button onClick={handleSubmit} size="large" fullWidth={true} variant='contained'>
+          <Button
+            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov)}
+            onClick={() => setIsSubmitConfirmationOpen(true)}
+            size="large" fullWidth={true} variant='contained'
+          >
             {'همینو ذخیره کن'}
           </Button>
         </Grid>
       </Grid>
+      <AreYouSure
+        text='توجه کن که تنها یک بار می‌تونی نمایه‌ت را ذخیره کنی. آیا مطمئنی؟'
+        open={isSubmitConfirmationOpen}
+        handleClose={() => setIsSubmitConfirmationOpen(false)}
+        callBackFunction={handleSubmit}
+      />
     </Container>
   );
 }

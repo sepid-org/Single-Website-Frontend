@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Grid, TextField, Typography } from "@mui/material";
+import { TextField, Typography } from "@mui/material";
 
 
 export default function NationalCodeInput({ handleChange, national_code }) {
@@ -21,6 +21,10 @@ export default function NationalCodeInput({ handleChange, national_code }) {
         name="national_code"
         onChange={handleChange}
         placeholder="کد ملی خود را وارد کنید."
+        inputProps={{
+          maxLength: 10,
+          inputMode: "numeric",
+        }}
       />
     </Fragment>
   );

@@ -1,5 +1,5 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
-import { Box, Paper, Stack, Typography } from "@mui/material";
+import { Box, Grid, Paper, Stack, Typography } from "@mui/material";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 type LandscapeCheckWrapperPropsType = {
@@ -49,11 +49,27 @@ const LandscapeCheckWrapper: FC<LandscapeCheckWrapperPropsType> = ({
         backgroundAttachment: "fixed",
       }}
     >
-      <Stack component={Paper} padding={4}>
-        <Typography variant="h4" textAlign="center">
-          {'لطفاً دستگاه رو به‌صورت افقی بگیر!'}
-        </Typography>
-      </Stack>
+      <Grid container component={Paper} padding={4} alignItems={'center'} justifyContent={'center'}>
+        <Grid item xs={12} sm={4} container alignItems={'center'} justifyContent={'center'}>
+          <Box
+            component="img"
+            src={process.env.PUBLIC_URL + '/images/rotate.svg'}
+            sx={{
+              width: 200,
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Stack spacing={2}>
+            <Typography variant="h4" textAlign="center" lineHeight={1.5}>
+              {'لطفاً دستگاه رو به‌صورت افقی بگیر!'}
+            </Typography>
+            <Typography textAlign="center">
+              {'توجه کن که قابلیت چرخش خودکار در تنظیمات دستگاهت فعال باشه'}
+            </Typography>
+          </Stack>
+        </Grid>
+      </Grid>
     </Box>
   );
 };

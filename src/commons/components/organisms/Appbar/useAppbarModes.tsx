@@ -18,19 +18,10 @@ const mode2component = {
 
 type UseAppbarItemsPropsType = {
   mode: AppbarModes;
-  mentorId: string;
 }
 
-const useAppbarItems = ({
-  mode,
-  mentorId,
-}: UseAppbarItemsPropsType): AppbarItemsType => {
-  if (!mode || mode === 'None') {
-    // None type appbar does not have any item
-    return;
-  }
-  const appbarComponent = mode2component[mode];
-  return appbarComponent({ mentorId })
+const useAppbarItems = ({ mode }: UseAppbarItemsPropsType): AppbarItemsType => {
+  return mode2component[mode]({});
 }
 
 export default useAppbarItems;

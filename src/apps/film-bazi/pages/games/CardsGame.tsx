@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, ButtonGroup, Paper, Stack, Typography } from '@mui/material';
 import Deck from '../../components/molecules/Deck';
 import { useAttemptToAnswerMutation, useGetCardsQuery, useGetMissionQuery } from '../../redux/slices/CardsGame';
 import dialogService from 'commons/components/organisms/PortalDialog';
@@ -24,19 +24,39 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
   const [selectedCards, setSelectedCards] = useState([]);
 
   useEffect(() => {
-    if (initialInitialCards) {
-      setInitialCards(initialInitialCards);
+    if (initialCards) {
+      setInitialCards(sortCardsByID(initialInitialCards));
     }
-  }, [initialInitialCards])
+  }, [initialInitialCards]);
 
-  const handleCardClick = (card) => {
+  const sortCardsByID = (cards) => {
+    let sortedCards = [...cards];
+    for (let i = 0; i < sortedCards.length; i++) {
+      for (let j = i; j < sortedCards.length; j++) {
+        if (sortedCards[i]["id"] > sortedCards[j]["id"]) {
+          let tempCrad = sortedCards[i];
+          sortedCards[i] = sortedCards[j];
+          sortedCards[j] = tempCrad;
+        }
+      }
+    }
+    return sortedCards;
+  }
+
+  const handleCardClick = (card, index) => {
     setSelectedCards([...selectedCards, card]);
+    const updatedList = [...initialCards];
+    updatedList.splice(index, 1);
+    setInitialCards(sortCardsByID(updatedList));
   };
 
-  const handleRemoveCard = (index) => {
+  const handleRemoveCardFromSelectedCards = (card, index) => {
     const updatedList = [...selectedCards];
     updatedList.splice(index, 1);
     setSelectedCards(updatedList);
+    const updatedUpperList = [...initialCards];
+    updatedUpperList.push(card);
+    setInitialCards(sortCardsByID(updatedUpperList));
   };
 
   useEffect(() => {
@@ -92,42 +112,66 @@ const CardsGame: FC<CardsGamePropsType> = ({ }) => {
         backgroundPosition: `center calc(100% - 80%)`,
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: 'center',
         minHeight: '100vh',
         minWidth: "100vw",
       }}
     >
-      <Stack padding={2} alignItems={'start'} spacing={2}>
+      <Stack
+        component={Paper}
+        width="100%"
+        maxWidth="md"
+        padding={2}
+        alignItems="start"
+        spacing={2}
+        sx={{
+          backgroundColor: 'rgba(45, 42, 65, 0.8)',
+          borderRadius: { xs: 0, md: 1 }
+        }}
+      >
         <Stack width={'100%'} direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
           <Box width={200}>
             <MyScoresChip />
           </Box>
 
           <Stack spacing={2} direction={{ xs: 'column-reverse', sm: 'row' }}>
-            <GameHelpButton helpPaperId={gameData?.help_paper_id} />
-
-            <Button
-              variant='outlined'
-              sx={{ height: 40 }}
-              onClick={() => localNavigate('/games/')}
-            >
-              {'بازگشت'}
-            </Button>
+            <ButtonGroup>
+              <GameHelpButton helpPaperId={gameData?.help_paper_id} />
+              <Button
+                fullWidth
+                variant='outlined'
+                onClick={() => localNavigate('/games/')}
+              >
+                {'بازگشت'}
+              </Button>
+            </ButtonGroup>
           </Stack>
         </Stack>
 
         {isGetMissionError ?
           <Typography variant="h2" sx={{ marginTop: 2 }}>{'تبریک میگم! تمام ماموریت‌ها را انجام دادی🎉'}</Typography> :
           <Fragment>
-            <Typography variant="h2" sx={{ marginTop: 2 }}>{mission?.description}</Typography>
+            <Typography variant="h3" sx={{ marginTop: 2 }}>{mission?.description}</Typography>
 
             <Typography variant="h6">{'کارت‌های داستان:'}</Typography>
-            <Deck cards={(!mission?.initial_cards || mission?.initial_cards.length === 0) ? initialCards : initialCards.filter(card => mission.initial_cards.includes(card.id))} onCardClick={handleCardClick} />
+            <Deck
+              cards={initialCards}
+              onCardClick={handleCardClick}
+            />
 
             <Typography variant="h6" sx={{ marginTop: 2 }}>{'روایت شما:'}</Typography>
-            <Deck cards={selectedCards} onRemoveCard={handleRemoveCard} />
+            <Deck
+              cards={selectedCards}
+              onRemoveCard={handleRemoveCardFromSelectedCards}
+              setCards={setSelectedCards}
+            />
 
-            <Button variant='contained' onClick={handleSubmit}>
-              {'ارسال پاسخ'}
+            <Button fullWidth variant='contained' onClick={handleSubmit} size='large'>
+              <Typography variant='h5' color={'black'}>
+                {'ارسال پاسخ'}
+              </Typography>
             </Button>
           </Fragment>
         }

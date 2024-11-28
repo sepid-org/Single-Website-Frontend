@@ -12,11 +12,13 @@ import { useGetMyDiscountCodesQuery } from 'apps/film-bazi/redux/slices/Discount
 import MyScoresChip from '../components/atoms/chips/MyScoresChip';
 import MyCapitalChip from '../components/atoms/chips/MyCapital';
 import DiscountCode from '../components/organisms/cards/DiscountCode';
+import CustomWarning from '../components/atoms/chips/CustomWarning';
+import TooltipInfo from 'commons/components/atoms/TooltipInfo';
 
 type PropsType = {}
 
 const CapitalPage: FC<PropsType> = ({ }) => {
-  const { data: discountCodes = [] } = useGetMyDiscountCodesQuery();
+  const { data: discountCodes = [], isLoading } = useGetMyDiscountCodesQuery();
 
   return (
     <FilmbaziLayout>
@@ -31,8 +33,14 @@ const CapitalPage: FC<PropsType> = ({ }) => {
         }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
+            <CustomWarning text={'توجه کنید که سرمایه‌ی شما تا ۲۴ ساعت بعد از خرید به‌روز می‌شود'} />
+          </Grid>
+          <Grid item xs={12}>
             <Stack direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
-              <Typography variant="h2">سرمایه من</Typography>
+              <Stack direction={'row'} spacing={1}>
+                <Typography variant="h2">سرمایه من</Typography>
+                <TooltipInfo title={'«سرمایه» از روی تعداد خریدهای شبکه‌ی دوستی‌ات محاسبه می‌شود. هرچقدر که کد تخفیفت را بیشتر به دوستانت بدهی، سرمایه‌ی بیشتری به‌دست می‌آوری'} />
+              </Stack>
               <Button variant='contained' color='info' size='large' disabled={true}>
                 <Typography color={'#120F24'} fontWeight={600}>
                   {'تسویه کن'}
@@ -50,17 +58,24 @@ const CapitalPage: FC<PropsType> = ({ }) => {
             <Typography variant="h2" gutterBottom>کدهای تخفیف من</Typography>
           </Grid>
           <Grid container item xs={12} spacing={2}>
-            {discountCodes.length > 0 ?
-              discountCodes.map(discountCode =>
-                <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
-                  <DiscountCode discountCode={discountCode} />
-                </Grid>
-              ) :
+
+            {isLoading ?
               [1, 2, 3].map((index) =>
                 <Grid container item xs={12} sm={6} md={4} key={index} justifyContent={'center'} alignItems={'center'}>
                   <Skeleton width={'100%'} height={180} variant='rounded' />
                 </Grid>
-              )
+              ) :
+              discountCodes?.length > 0 ?
+                discountCodes.map(discountCode =>
+                  <Grid container item xs={12} sm={6} md={4} key={discountCode.code} justifyContent={'center'} alignItems={'center'}>
+                    <DiscountCode discountCode={discountCode} />
+                  </Grid>
+                ) :
+                <Grid item>
+                  <Typography>
+                    {'کد تخفیفی وجود ندارد :('}
+                  </Typography>
+                </Grid>
             }
           </Grid>
         </Grid >

@@ -1,4 +1,4 @@
-import { FormControl, Grid, MenuItem, Select, Typography } from "@mui/material";
+import { FormControl, MenuItem, Select, Typography } from "@mui/material";
 import React, { Fragment } from "react";
 
 export default function ({ handleChange, referral_method }) {

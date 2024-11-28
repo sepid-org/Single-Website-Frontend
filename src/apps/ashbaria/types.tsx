@@ -27,6 +27,7 @@ export type AshbariaProfileType = {
   created_at: string;
   updated_at: string;
   has_received_reward: boolean;
+  profile_completion_count_from_28Nov: number;
 }
 
 export type UpdateProfileResponse = AshbariaProfileType & {

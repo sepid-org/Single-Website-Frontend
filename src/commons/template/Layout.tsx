@@ -16,7 +16,7 @@ const Layout: FC<LayoutPropsType> = ({
 
   return (
     <Fragment>
-      <AppBar mode={appbarMode} position="relative" />
+      {appbarMode && <AppBar mode={appbarMode} position="relative" />}
       <Container maxWidth='lg'
         sx={{
           display: 'flex',
