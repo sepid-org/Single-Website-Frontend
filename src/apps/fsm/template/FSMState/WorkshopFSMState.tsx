@@ -56,7 +56,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
     )), [notQuestions]);
 
   return (
-    <Layout appbarMode={state.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : 'None'}>
+    <Layout appbarMode={state.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : null}>
       <Grid container spacing={2} justifyContent="center" alignItems='flex-start'>
         <Grid
           item xs={12}

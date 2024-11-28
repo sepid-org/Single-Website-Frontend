@@ -18,7 +18,7 @@ export type AppbarModes =
   'GENERAL' |
   'ARTICLE' |
   'WEBSITE' |
-  'None';
+  null;
 
 export type AppbarItemsType = {
   desktopLeftItems: any[];

@@ -13,7 +13,6 @@ import {
 } from '@mui/material';
 import { Menu as MenuIcon } from '@mui/icons-material';
 import React, { FC, Fragment, useState } from 'react';
-import { connect } from 'react-redux'
 import HideOnScroll from './components/HideOnScroll';
 import useWidth from 'commons/utils/UseWidth';
 import useAppbarItems from './useAppbarModes';
@@ -25,7 +24,6 @@ type AppbarPropsType = {
   showBackOnScroll?: boolean;
   hideOnScroll?: boolean;
   position: "fixed" | "absolute" | "sticky" | "static" | "relative";
-  mentorId: string;
 }
 
 const ResponsiveAppBar: FC<AppbarPropsType> = ({
@@ -33,15 +31,12 @@ const ResponsiveAppBar: FC<AppbarPropsType> = ({
   showBackOnScroll = false,
   hideOnScroll = false,
   position = 'fixed',
-  mentorId,
 }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openToolbar, setOpenToolbar] = useState(true);
   const trigger = useScrollTrigger({ disableHysteresis: true, threshold: 30 });
   const width = useWidth();
-  const appbarItems = useAppbarItems({ mode, mentorId });
-
-  if (mode === 'None') return null;
+  const appbarItems = useAppbarItems({ mode });
 
   const {
     toolbarItems,
@@ -84,7 +79,8 @@ const ResponsiveAppBar: FC<AppbarPropsType> = ({
                       edge="start"
                       color="inherit"
                       aria-label="open drawer"
-                      onClick={() => setDrawerOpen(!drawerOpen)}>
+                      onClick={() => setDrawerOpen(!drawerOpen)}
+                    >
                       <MenuIcon fontSize='large' />
                     </IconButton>
                   )}
@@ -144,12 +140,8 @@ const ResponsiveAppBar: FC<AppbarPropsType> = ({
           ))}
         </List>
       </Drawer>
-    </Fragment >
+    </Fragment>
   );
 }
 
-const mapStateToProps = (state) => ({
-  mentorId: state.account.userInfo?.id,
-})
-
-export default connect(mapStateToProps)(ResponsiveAppBar);
+export default ResponsiveAppBar;
