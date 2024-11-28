@@ -8,11 +8,11 @@ import VerifyIcon from "../atoms/icons/Verify";
 const ScoreRecord = forwardRef<HTMLDivElement, ScoreBoardItemType>(
   ({ rank, name, score, currentUser, profileImg }, ref) => {
     const conditionalRankBackground = currentUser
-      ? "linear-gradient(180deg, #FFEC88 0%, #FFA95A 100%)"
-      : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
+      ? "linear-gradient(180deg, #FFEC88 100%, #FFA95A 100%)"
+      : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 100%, rgba(153, 153, 153, 0.01) 100%)";
     const conditionalRecordBackground = currentUser
       ? "#2B1A42"
-      : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(153, 153, 153, 0.01) 100%)";
+      : "linear-gradient(180deg, rgba(255, 255, 255, 0.1) 100%, rgba(153, 153, 153, 0.01) 100%)";
 
     return (
       <Stack
