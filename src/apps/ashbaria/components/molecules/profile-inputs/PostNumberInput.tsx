@@ -20,6 +20,10 @@ export default function ({ handleChange, postal_code }) {
         name="postal_code"
         onChange={handleChange}
         placeholder="کد پستی خود را وارد کنید."
+        inputProps={{
+          maxLength: 10,
+          inputMode: "numeric",
+        }}
       />
     </Fragment>
   );

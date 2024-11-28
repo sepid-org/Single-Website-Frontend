@@ -142,7 +142,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
         <RegionSelector data={AshbariaProfile} setData={setAshbariaProfile} />
         <Grid item xs={12} sm={6}>
-          <PhoneNumberInput handleChange={handleChange} phone_number={AshbariaProfile?.phone_number} disabled={true} />
+          <PhoneNumberInput setPhoneNumber={handleChange} phoneNumber={AshbariaProfile?.phone_number} disabled={true} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <PostNumberInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
@@ -150,7 +150,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
         </Grid>
         <Grid item xs={12} sm={6}>

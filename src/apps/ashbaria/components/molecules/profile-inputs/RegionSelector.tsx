@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 export default function RegionSelector({ data, setData }) {
   return (
     <Fragment>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} sm={6}>
         <Typography
           sx={{
             marginBottom: '4px',
@@ -31,7 +31,7 @@ export default function RegionSelector({ data, setData }) {
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} sm={6}>
         <Typography
           sx={{
             marginBottom: '4px',
