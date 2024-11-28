@@ -121,6 +121,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             {AshbariaProfile?.has_received_reward === false && <ScoreChip value={150} />}
           </Box>
         </Grid>
+
         <Grid item xs={12} sm={6}>
           <NameInput handleChange={handleChange} first_name={AshbariaProfile?.first_name} />
         </Grid>
@@ -146,15 +147,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <PostNumberInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
         </Grid>
-        {/* <Grid item xs={12}>
-          <CustomWarning text={'.'} />
-        </Grid> */}
         <Grid item xs={12} sm={6}>
           <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
             {'ولش کن'}
