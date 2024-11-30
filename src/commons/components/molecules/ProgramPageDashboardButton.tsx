@@ -20,8 +20,8 @@ const ProgramPageDashboardButton: FC<ProgramPageDashboardButtonPropsType> = ({ b
         onClick={() => setOpenDialog(true)}>
         {buttonLabel}
       </Button>
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} disableScrollLock>
-        <Box position={'relative'} width={{ xs: 300, sm: 400, md: 600 }} height={600} sx={{ overflowX: 'hidden' }}>
+      <Dialog maxWidth='sm' open={openDialog} onClose={() => setOpenDialog(false)} disableScrollLock>
+        <Box padding={2}>
           <Paper mode='general' paperId={paperId} />
         </Box>
       </Dialog>
