@@ -30,7 +30,7 @@ const GameMenu: FC<GameMenuPropsType> = () => {
   }, []);
 
   return (
-    <FullScreenBackgroundImage image={MediaUrls.WALL} styles={{ padding: 0 }}>
+    <FullScreenBackgroundImage image={MediaUrls.WALL} styles={{ padding: 0, overflow: 'hidden' }}>
       <Helmet>
         <title>{'راز آشباریا'}</title>
       </Helmet>
