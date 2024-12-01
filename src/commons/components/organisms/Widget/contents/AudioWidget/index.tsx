@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
-import AudioEditWidget from './edit';
 import { WidgetModes } from '../..';
+import AudioEditWidget from './edit';
 export { AudioEditWidget };
 
 const AudioWidget = ({
   link,
-  autoplay,
+  autoplay = false,
   mode = WidgetModes.View,
   repeat = false,
   volume = 100,
@@ -15,21 +15,22 @@ const AudioWidget = ({
   const intervalRef = useRef(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
 
-  // Handle user interaction
+  // Detect user interaction
   useEffect(() => {
-    const handleInteraction = () => {
+    const handleUserInteraction = () => {
       setHasUserInteracted(true);
-      // Remove event listeners after first interaction
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
+
+      // Remove event listeners after the first interaction
+      window.removeEventListener('click', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
     };
 
-    window.addEventListener('click', handleInteraction);
-    window.addEventListener('touchstart', handleInteraction);
+    window.addEventListener('click', handleUserInteraction);
+    window.addEventListener('touchstart', handleUserInteraction);
 
     return () => {
-      window.removeEventListener('click', handleInteraction);
-      window.removeEventListener('touchstart', handleInteraction);
+      window.removeEventListener('click', handleUserInteraction);
+      window.removeEventListener('touchstart', handleUserInteraction);
     };
   }, []);
 
@@ -38,7 +39,7 @@ const AudioWidget = ({
     if (audioRef.current) {
       audioRef.current.volume = Math.min(Math.max(volume, 0), 100) / 100;
     }
-  }, [volume])
+  }, [volume]);
 
   // Handle autoplay setup
   useEffect(() => {
@@ -80,10 +81,10 @@ const AudioWidget = ({
       loop={repeat}
       style={{
         width: '100%',
-        display: hidden ? 'none' : 'block'
+        display: hidden ? 'none' : 'block',
       }}
       src={link}
-      preload="auto"
+      preload="none"
     />
   );
 };
