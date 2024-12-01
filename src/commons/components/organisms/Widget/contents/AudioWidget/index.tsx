@@ -14,6 +14,7 @@ const AudioWidget = ({
   const audioRef = useRef(null);
   const intervalRef = useRef(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
+  const [hasPlayedOnce, setHasPlayedOnce] = useState(false);
 
   // Detect user interaction
   useEffect(() => {
@@ -45,11 +46,17 @@ const AudioWidget = ({
   useEffect(() => {
     const tryPlayAudio = async () => {
       try {
-        await audioRef.current?.play();
-        // If successful, clear the interval
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
+        if (!hasPlayedOnce) {
+          await audioRef.current?.play();
+
+          // Mark audio as played once
+          setHasPlayedOnce(true);
+
+          // If successful, clear the interval
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+          }
         }
       } catch (e) {
         // console.error("Auto-play prevented or an error occurred:", e);
@@ -57,7 +64,7 @@ const AudioWidget = ({
     };
 
     // Only start the retry interval if autoplay is true and we're in view mode
-    if (autoplay && mode === WidgetModes.View) {
+    if (autoplay && mode === WidgetModes.View && !hasPlayedOnce) {
       // Try immediately after user interaction
       tryPlayAudio();
 
@@ -72,7 +79,7 @@ const AudioWidget = ({
         intervalRef.current = null;
       }
     };
-  }, [autoplay, mode, hasUserInteracted]);
+  }, [autoplay, mode, hasUserInteracted, hasPlayedOnce]);
 
   return (
     <audio
