@@ -9,7 +9,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useRef } from 'react';
 import { useUploadExcelMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
 import { toast } from 'react-toastify';
@@ -22,6 +22,7 @@ const ManageDiscountCodes: FC<PropsType> = () => {
   const [uploadExcel, { isLoading, isSuccess, isError, error }] = useUploadExcelMutation();
   const [filmId, setFilmId] = useState<string>('');
   const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -38,8 +39,15 @@ const ManageDiscountCodes: FC<PropsType> = () => {
     try {
       await uploadExcel({ filmId, file }).unwrap();
       toast.success('فایل با موفقیت بارگذاری شد.');
+
+      // Reset file input
       setFilmId('');
       setFile(null);
+
+      // Clear the file input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
     } catch (err) {
       console.error('خطا در بارگذاری فایل:', err);
       toast.error('خطا در بارگذاری فایل.');
@@ -73,6 +81,7 @@ const ManageDiscountCodes: FC<PropsType> = () => {
         </FormControl>
         <Input
           type="file"
+          inputRef={fileInputRef}
           onChange={handleFileChange}
           inputProps={{ accept: '.xlsx, .xls' }}
         />
