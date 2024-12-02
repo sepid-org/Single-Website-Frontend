@@ -6,23 +6,40 @@ import DarkLockIcon from "apps/ashbaria/components/atoms/icons/DarkLock";
 
 type PropsType = {
   court: CourtType;
-}
+};
 
-const LockedCourtCard: FC<PropsType> = ({
-  court,
-}) => {
-
+const LockedCourtCard: FC<PropsType> = ({ court }) => {
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'} justifyContent={'center'} spacing={1} padding={1}>
-      <Typography fontSize={10} fontWeight={400} color={DarkSecondary} textAlign={'center'}>
-        {'دادگاه'}
+    <Stack
+      width={"100%"}
+      height={"100%"}
+      alignItems={"center"}
+      justifyContent={"center"}
+      spacing={1}
+      padding={1}
+      sx={{ userSelect: "none" }}
+    >
+      <Typography
+        fontSize={10}
+        fontWeight={400}
+        color={DarkSecondary}
+        textAlign={"center"}
+        sx={{ userSelect: "none" }}
+      >
+        {"دادگاه"}
       </Typography>
-      <Typography fontSize={12} fontWeight={600} color={DarkSecondary} textAlign={'center'}>
+      <Typography
+        fontSize={12}
+        fontWeight={600}
+        color={DarkSecondary}
+        textAlign={"center"}
+        sx={{ userSelect: "none" }}
+      >
         {court.title}
       </Typography>
       <DarkLockIcon />
     </Stack>
   );
-}
+};
 
 export default LockedCourtCard;

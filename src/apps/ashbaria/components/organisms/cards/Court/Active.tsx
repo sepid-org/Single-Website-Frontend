@@ -35,6 +35,7 @@ const ActiveCourtCard: FC<PropsType> = ({
         '&:hover': {
           transform: 'scale(1.02)',
         },
+        userSelect: 'none'
       }}
       onClick={handleEnter}
     >
@@ -65,14 +66,29 @@ const ActiveCourtCard: FC<PropsType> = ({
           }
         }}
       >
-        <Typography fontSize={10} fontWeight={400} color={Golden} textAlign={'center'}>
+        <Typography
+          fontSize={10}
+          fontWeight={400}
+          color={Golden}
+          textAlign={'center'}
+          sx={{ userSelect: 'none' }}
+        >
           {'دادگاه'}
         </Typography>
-        <Typography fontSize={12} fontWeight={600} textAlign={'center'}>
+        <Typography
+          fontSize={12}
+          fontWeight={600}
+          textAlign={'center'}
+          sx={{ userSelect: 'none' }}
+        >
           {court.title}
         </Typography>
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-          <Typography fontSize={10} fontWeight={800}>
+          <Typography
+            fontSize={10}
+            fontWeight={800}
+            sx={{ userSelect: 'none' }}
+          >
             {toPersianNumber(court.reward_score)}
           </Typography>
           <VerifyIcon size={20} />

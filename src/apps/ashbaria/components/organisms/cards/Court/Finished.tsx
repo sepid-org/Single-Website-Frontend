@@ -35,28 +35,51 @@ const FinishedCourtCard: FC<PropsType> = ({
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
+        backgroundRepeat: 'no-repeat',
+        userSelect: 'none'
       }}
     >
       {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID &&
-        <Typography fontSize={10} fontWeight={400} color={Secondary} textAlign={'center'}>
+        <Typography
+          fontSize={10}
+          fontWeight={400}
+          color={Secondary}
+          textAlign={'center'}
+          sx={{ userSelect: 'none' }}
+        >
           {'دادگاه'}
         </Typography>
       }
-      <Typography fontSize={12} fontWeight={600} color={Secondary} textAlign={'center'}>
+      <Typography
+        fontSize={12}
+        fontWeight={600}
+        color={Secondary}
+        textAlign={'center'}
+        sx={{ userSelect: 'none' }}
+      >
         {court.title}
       </Typography>
       <Stack direction={'row'} spacing={1}>
         {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID &&
           <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-            <Typography fontSize={10} fontWeight={800} color={Secondary}>
+            <Typography
+              fontSize={10}
+              fontWeight={800}
+              color={Secondary}
+              sx={{ userSelect: 'none' }}
+            >
               {toPersianNumber(finalSupportPercentage)}
             </Typography>
             <GrayLikeIcon size={24} />
           </Stack>
         }
         <Stack alignItems={'center'} justifyContent={'center'} direction={'row'}>
-          <Typography fontSize={10} fontWeight={800} color={Secondary}>
+          <Typography
+            fontSize={10}
+            fontWeight={800}
+            color={Secondary}
+            sx={{ userSelect: 'none' }}
+          >
             {court.corresponding_fsm !== ASHBARIA_SURVEY_CORRESPONDING_FSM_ID ? finalScore : ASHBARIA_SURVEY_SUBMIT_REWARD}
           </Typography>
           <GrayVerifyIcon size={24} />
