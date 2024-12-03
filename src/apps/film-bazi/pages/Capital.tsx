@@ -33,7 +33,7 @@ const CapitalPage: FC<PropsType> = ({ }) => {
         }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <CustomWarning text={'توجه کنید که سرمایه‌ی شما تا ۲۴ ساعت بعد از خرید به‌روز می‌شود'} />
+            <CustomWarning text={'توجه کنید که اطلاعات مربوط به خرید‌های شما تا ۲۴ ساعت بعد از خرید به‌روز می‌شود'} />
           </Grid>
           <Grid item xs={12}>
             <Stack direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
