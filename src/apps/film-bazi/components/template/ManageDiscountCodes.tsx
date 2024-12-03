@@ -1,58 +1,12 @@
-import {
-  Stack,
-  Typography,
-  Button,
-  LinearProgress,
-  Input,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
-} from '@mui/material';
 import React, { FC, useState, useRef } from 'react';
-import { useUploadExcelMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
-import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Box, Stack, Typography } from '@mui/material';
+import BulkUploadDiscountCodes from '../organisms/BulkUploadDiscountCodes';
+import BulkUpdateDiscountCodeUsages from '../organisms/BulkUpdateDiscountCodeUsages';
 
-type PropsType = {}
+const ManageDiscountCodes: FC = () => {
 
-const ManageDiscountCodes: FC<PropsType> = () => {
-  const { data: films = [] } = useGetFilmsQuery();
-  const [uploadExcel, { isLoading, isSuccess, isError, error }] = useUploadExcelMutation();
-  const [filmId, setFilmId] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
-  const handleUpload = async () => {
-    if (!filmId || !file) {
-      toast.error('لطفاً نام فیلم را وارد کنید و فایل انتخاب کنید.');
-      return;
-    }
-
-    try {
-      await uploadExcel({ filmId, file }).unwrap();
-      toast.success('فایل با موفقیت بارگذاری شد.');
-
-      // Reset file input
-      setFilmId('');
-      setFile(null);
-
-      // Clear the file input
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
-      }
-    } catch (err) {
-      console.error('خطا در بارگذاری فایل:', err);
-      toast.error('خطا در بارگذاری فایل.');
-    }
-  };
 
   return (
     <Stack spacing={2} padding={2} alignItems="stretch" justifyContent="center">
@@ -64,38 +18,11 @@ const ManageDiscountCodes: FC<PropsType> = () => {
         </Stack>
       </Stack>
 
-      <Stack spacing={2}>
-        <FormControl required fullWidth>
-          <InputLabel>فیلم</InputLabel>
-          <Select
-            value={filmId}
-            onChange={(e) => setFilmId(e.target.value)}
-            label="فیلم"
-          >
-            {films.map(film =>
-              <MenuItem key={film.id} value={film.id}>
-                {film.name}
-              </MenuItem>
-            )}
-          </Select>
-        </FormControl>
-        <Input
-          type="file"
-          inputRef={fileInputRef}
-          onChange={handleFileChange}
-          inputProps={{ accept: '.xlsx, .xls' }}
-        />
-        <Button
-          variant="contained"
-          onClick={handleUpload}
-          disabled={isLoading || !file || !filmId}
-        >
-          {isLoading ? 'در حال بارگذاری...' : 'بارگذاری فایل'}
-        </Button>
-      </Stack>
+      <BulkUploadDiscountCodes />
 
-      {isLoading && <LinearProgress />}
-
+      <Box paddingTop={2}>
+        <BulkUpdateDiscountCodeUsages />
+      </Box>
     </Stack>
   );
 };
