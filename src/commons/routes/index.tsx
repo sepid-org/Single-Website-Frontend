@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import WebsiteDisplayApp from 'apps/website-display/App';
-import WebsiteFactoryApp from 'apps/website-factory/App';
-import ProgramApp from 'apps/program/App';
-import FSMApp from 'apps/fsm/App';
-
+const WebsiteDisplayApp = React.lazy(() => import('apps/website-display/App'));
+const WebsiteFactoryApp = React.lazy(() => import('apps/website-factory/App'));
+const ProgramApp = React.lazy(() => import('apps/program/App'));
+const FSMApp = React.lazy(() => import('apps/fsm/App'));
 
 const Root = () => {
-
   return (
-    <Routes>
-      <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
-      <Route path="/program/:programSlug/*" element={<ProgramApp />} />
-      <Route path="/management/*" element={<WebsiteFactoryApp />} />
-      <Route path="*" element={<WebsiteDisplayApp />} />
-    </Routes>
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
+        <Route path="/program/:programSlug/*" element={<ProgramApp />} />
+        <Route path="/management/*" element={<WebsiteFactoryApp />} />
+        <Route path="*" element={<WebsiteDisplayApp />} />
+      </Routes>
+    </Suspense>
   );
 };
 
