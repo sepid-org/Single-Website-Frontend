@@ -1,12 +1,10 @@
-import React, { FC, useState, useRef } from 'react';
-import { toast } from 'react-toastify';
+import React, { FC } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { Box, Stack, Typography } from '@mui/material';
-import BulkUploadDiscountCodes from '../organisms/BulkUploadDiscountCodes';
+import BulkAddNewDiscountCodes from '../organisms/BulkAddNewDiscountCodes';
 import BulkUpdateDiscountCodeUsages from '../organisms/BulkUpdateDiscountCodeUsages';
 
 const ManageDiscountCodes: FC = () => {
-
 
   return (
     <Stack spacing={2} padding={2} alignItems="stretch" justifyContent="center">
@@ -18,7 +16,7 @@ const ManageDiscountCodes: FC = () => {
         </Stack>
       </Stack>
 
-      <BulkUploadDiscountCodes />
+      <BulkAddNewDiscountCodes />
 
       <Box paddingTop={2}>
         <BulkUpdateDiscountCodeUsages />

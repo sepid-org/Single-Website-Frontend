@@ -21,6 +21,9 @@ export type DiscountCodeType = {
   code: string;
   usage_count: number;
   max_uses: number;
+  bought_tickets: number;
+  max_tickets_per_use: number;
+  total_cost_paid: number;
   percentage: number;
   film: FilmType;
   start_date: string;
