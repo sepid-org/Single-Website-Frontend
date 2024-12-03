@@ -27,7 +27,7 @@ const CustomBaseQuery = ({ baseUrl }) =>
     let result = await baseQuery(args, api, extraOptions);
 
     // If the access token is expired, attempt to refresh it
-    if (result.error?.status === 401 && !args.url.includes('refresh')) {
+    if (result.error?.status === 401 && !args.url?.includes('refresh')) {
       const refreshResult = await baseQuery(
         {
           url: '/accounts/refresh/',
