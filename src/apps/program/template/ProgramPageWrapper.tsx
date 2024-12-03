@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 type ProgramPageWrapperPropsType = {
   children: React.ReactNode;
@@ -38,7 +39,13 @@ const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({ children }) => {
     }
   }, [program, isAuthenticated, navigate, location]);
 
-  if (isProgramLoading) return <>loading...</>;
+  if (isProgramLoading || isRegistrationFetching) {
+    return (
+      <Backdrop open={true}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    );
+  }
 
   if (program?.is_public || registrationReceipt?.is_participating) {
     return <>{children}</>;
