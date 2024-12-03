@@ -30,7 +30,7 @@ const CustomBaseQuery = ({ baseUrl }) =>
     if (result.error?.status === 401) {
       const refreshResult = await baseQuery(
         {
-          url: '/accounts/refresh/',
+          url: '/auth/accounts/refresh/',
           method: 'POST',
           body: {
             refresh: api.getState().account?.refreshToken,
