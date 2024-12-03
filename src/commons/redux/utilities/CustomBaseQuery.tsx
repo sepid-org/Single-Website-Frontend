@@ -27,7 +27,7 @@ const CustomBaseQuery = ({ baseUrl }) =>
     let result = await baseQuery(args, api, extraOptions);
 
     // If the access token is expired, attempt to refresh it
-    if (result.error?.status === 401 && !args.url?.includes('refresh')) {
+    if (result.error?.status === 401) {
       const refreshResult = await baseQuery(
         {
           url: '/accounts/refresh/',
@@ -40,9 +40,9 @@ const CustomBaseQuery = ({ baseUrl }) =>
         extraOptions
       );
 
-      const refreshResultData = refreshResult.data as any;
-
       if (refreshResult.data) {
+        const refreshResultData = refreshResult.data as any;
+
         // Dispatch the new tokens to the Redux store
         api.dispatch({
           type: 'account/refreshToken',
