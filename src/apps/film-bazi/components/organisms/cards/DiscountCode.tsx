@@ -19,6 +19,7 @@ const DiscountCode: FC<PropsType> = ({ discountCode }) => {
     percentage,
     film,
     usage_count,
+    bought_tickets,
     max_uses,
     start_date,
     end_date,
@@ -42,6 +43,9 @@ const DiscountCode: FC<PropsType> = ({ discountCode }) => {
         </Typography>
         <Typography variant="body2" color="text.secondary">
           تعداد استفاده: {toPersianNumber(usage_count)} از {toPersianNumber(max_uses)}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          تعداد بلیط خریداری‌شده: {toPersianNumber(bought_tickets)}
         </Typography>
         {end_date &&
           <Typography variant="body2" color="text.secondary">

@@ -6,14 +6,29 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 export const FilmsSlice = FilmbaziApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    uploadExcel: builder.mutation({
+    addNewDiscountCodes: builder.mutation({
       query: ({ filmId, file }) => {
         const formData = new FormData();
         formData.append('film_id', filmId);
         formData.append('file', file);
 
         return {
-          url: '/films/discount-codes/upload-excel/',
+          url: '/films/add-new-discount-codes/',
+          method: 'POST',
+          body: formData,
+        };
+      },
+      invalidatesTags: ['DiscountCode'],
+    }),
+
+    updateDiscountCodes: builder.mutation({
+      query: ({ filmId, file }) => {
+        const formData = new FormData();
+        formData.append('film_id', filmId);
+        formData.append('file', file);
+
+        return {
+          url: '/films/update-discount-codes/',
           method: 'POST',
           body: formData,
         };
@@ -40,7 +55,8 @@ export const FilmsSlice = FilmbaziApi.injectEndpoints({
 });
 
 export const {
-  useUploadExcelMutation,
+  useAddNewDiscountCodesMutation,
+  useUpdateDiscountCodesMutation,
   useGetDiscountCodeMutation,
   useGetMyDiscountCodesQuery,
 } = FilmsSlice;

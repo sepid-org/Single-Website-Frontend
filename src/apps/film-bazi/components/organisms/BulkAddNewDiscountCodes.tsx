@@ -10,41 +10,35 @@ import {
   Stack,
   Typography,
   Link,
+  Grid,
 } from '@mui/material';
 import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
-import { useUploadExcelMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
+import { useAddNewDiscountCodesMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { toast } from 'react-toastify';
 
-type BulkUploadDiscountCodesProps = {};
+type BulkAddNewDiscountCodesProps = {};
 
-const BulkUploadDiscountCodes: FC<BulkUploadDiscountCodesProps> = ({
-}) => {
+const BulkAddNewDiscountCodes: FC<BulkAddNewDiscountCodesProps> = () => {
   const { data: films = [] } = useGetFilmsQuery();
-  const [uploadExcel, { isLoading }] = useUploadExcelMutation();
+  const [addNewDiscountCodes, { isLoading }] = useAddNewDiscountCodesMutation();
   const [filmId, setFilmId] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
   const handleUpload = async () => {
-    if (!filmId || !file) {
+    if (!filmId || !fileInputRef.current?.files?.[0]) {
       toast.error('لطفاً نام فیلم را وارد کنید و فایل انتخاب کنید.');
       return;
     }
 
     try {
-      await uploadExcel({ filmId, file }).unwrap();
+      await addNewDiscountCodes({
+        filmId,
+        file: fileInputRef.current.files[0],
+      }).unwrap();
       toast.success('فایل با موفقیت بارگذاری شد.');
 
       // Reset file input
       setFilmId('');
-      setFile(null);
-
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -61,7 +55,7 @@ const BulkUploadDiscountCodes: FC<BulkUploadDiscountCodesProps> = ({
           {'بارگذاری کدهای تخفیف جدید'}
         </Typography>
         <Link
-          href="https://kamva-minio-storage.darkube.app/sepid/projects/filmbazi/upload-discount-codes-sample.xlsx"
+          href="https://kamva-minio-storage.darkube.app/sepid/projects/filmbazi/add-new-discount-codes-sample.xlsx"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -69,29 +63,38 @@ const BulkUploadDiscountCodes: FC<BulkUploadDiscountCodesProps> = ({
         </Link>
       </Stack>
 
-      <FormControl required fullWidth>
-        <InputLabel>فیلم</InputLabel>
-        <Select
-          value={filmId}
-          onChange={(e) => setFilmId(e.target.value)}
-          label="فیلم"
-        >
-          {films.map((film) => (
-            <MenuItem key={film.id} value={film.id}>
-              {film.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-      <Input
-        type="file"
-        onChange={handleFileChange}
-        inputProps={{ accept: '.xlsx, .xls' }}
-      />
+      <Stack>
+        <Grid container spacing={2} alignItems={'end'}>
+          <Grid item xs={12} sm={6}>
+            <FormControl required fullWidth>
+              <InputLabel>فیلم</InputLabel>
+              <Select
+                value={filmId}
+                onChange={(e) => setFilmId(e.target.value)}
+                label="فیلم"
+              >
+                {films.map((film) => (
+                  <MenuItem key={film.id} value={film.id}>
+                    {film.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Input
+              inputRef={fileInputRef}
+              fullWidth
+              type="file"
+              inputProps={{ accept: '.xlsx, .xls' }}
+            />
+          </Grid>
+        </Grid>
+      </Stack>
       <Button
         variant="contained"
         onClick={handleUpload}
-        disabled={isLoading || !file || !filmId}
+        disabled={isLoading || !filmId}
       >
         {isLoading ? 'در حال بارگذاری...' : 'بارگذاری فایل'}
       </Button>
@@ -100,4 +103,4 @@ const BulkUploadDiscountCodes: FC<BulkUploadDiscountCodesProps> = ({
   );
 };
 
-export default BulkUploadDiscountCodes;
+export default BulkAddNewDiscountCodes;

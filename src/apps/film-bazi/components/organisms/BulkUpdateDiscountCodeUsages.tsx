@@ -6,40 +6,45 @@ import {
   Stack,
   Typography,
   Link,
+  FormControl,
+  Select,
+  InputLabel,
+  MenuItem,
+  Grid,
 } from '@mui/material';
-import { useUploadExcelMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
+import { useUpdateDiscountCodesMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { toast } from 'react-toastify';
+import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
+import CustomWarning from '../atoms/chips/CustomWarning';
 
 type BulkUpdateDiscountCodeUsagesProps = {};
 
-const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
-}) => {
-  const [uploadExcel, { isLoading }] = useUploadExcelMutation();
-  const [file, setFile] = useState<File | null>(null);
+const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = () => {
+  const { data: films = [] } = useGetFilmsQuery();
+  const [filmId, setFilmId] = useState<string>('');
+  const [updateDiscountCodes, { isLoading }] = useUpdateDiscountCodesMutation();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
   const handleUpload = async () => {
-    if (!file) {
-      toast.error('لطفاً فایل انتخاب کنید.');
+    if (!filmId || !fileInputRef.current?.files?.[0]) {
+      toast.error('لطفاً نام فیلم را وارد کنید و فایل انتخاب کنید.');
       return;
     }
 
     try {
-      await uploadExcel({ file }).unwrap();
+      await updateDiscountCodes({
+        filmId,
+        file: fileInputRef.current.files[0]
+      }).unwrap();
+
       toast.success('فایل با موفقیت بارگذاری شد.');
 
-      // Reset file input
-      setFile(null);
-
+      // Reset form
+      setFilmId('');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+
     } catch (err) {
       console.error('خطا در بارگذاری فایل:', err);
       toast.error('خطا در بارگذاری فایل.');
@@ -50,10 +55,10 @@ const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
     <Stack spacing={2}>
       <Stack direction={'row'} spacing={1} alignItems={'end'}>
         <Typography variant="h3" gutterBottom>
-          {'به‌روز‌رسانی تعدادبار‌های استفاده'}
+          {'به‌روز‌رسانی تعداد بار‌های استفاده'}
         </Typography>
         <Link
-          href="https://kamva-minio-storage.darkube.app/sepid/projects/filmbazi/upload-discount-codes-sample.xlsx"
+          href="https://kamva-minio-storage.darkube.app/sepid/projects/filmbazi/update-discount-codes-sample.xlsx"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -61,15 +66,41 @@ const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
         </Link>
       </Stack>
 
-      <Input
-        type="file"
-        onChange={handleFileChange}
-        inputProps={{ accept: '.xlsx, .xls' }}
-      />
+      <CustomWarning text={'توجه کنید که با هر بار بارگذاری فایل، مقادیر موجود برای هر کد تخفیف به مقادیر قبلی آن اضافه می‌شوند.'} />
+
+      <Stack>
+        <Grid container spacing={2} alignItems={'end'}>
+          <Grid item xs={12} sm={6}>
+            <FormControl required fullWidth>
+              <InputLabel>فیلم</InputLabel>
+              <Select
+                value={filmId}
+                onChange={(e) => setFilmId(e.target.value)}
+                label="فیلم"
+              >
+                {films.map((film) => (
+                  <MenuItem key={film.id} value={film.id}>
+                    {film.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Input
+              inputRef={fileInputRef}
+              fullWidth
+              type="file"
+              inputProps={{ accept: '.xlsx, .xls' }}
+            />
+          </Grid>
+        </Grid>
+      </Stack>
+
       <Button
         variant="contained"
         onClick={handleUpload}
-        disabled={isLoading || !file}
+        disabled={isLoading || !filmId}
       >
         {isLoading ? 'در حال بارگذاری...' : 'بارگذاری فایل'}
       </Button>
