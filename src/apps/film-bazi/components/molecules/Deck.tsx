@@ -22,7 +22,7 @@ const Deck: FC<DeckPropsType> = ({
 }) => {
 
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-  const dndBackend = HTML5Backend;
+  const dndBackend = isMobile ? TouchBackend : HTML5Backend;
 
   const moveCard = (dragIndex: number, dropIndex: number) => {
     setCards((prevCards) => {
@@ -54,7 +54,13 @@ const Deck: FC<DeckPropsType> = ({
         },
       }}
     >
-      <DndProvider backend={dndBackend}>
+      <DndProvider
+        backend={dndBackend}
+        options={{ 
+          enableMouseEvents: true, 
+          delayTouchStart: isMobile ? 500 : 0 
+        }}
+      >
         {cards.map((card, index) => (
           <Box key={index} sx={{ flex: '0 0 auto' }}>
             <DeckCard
