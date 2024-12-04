@@ -18,34 +18,27 @@ import { toast } from 'react-toastify';
 
 type BulkAddNewDiscountCodesProps = {};
 
-const BulkAddNewDiscountCodes: FC<BulkAddNewDiscountCodesProps> = ({
-}) => {
+const BulkAddNewDiscountCodes: FC<BulkAddNewDiscountCodesProps> = () => {
   const { data: films = [] } = useGetFilmsQuery();
   const [addNewDiscountCodes, { isLoading }] = useAddNewDiscountCodesMutation();
   const [filmId, setFilmId] = useState<string>('');
-  const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
   const handleUpload = async () => {
-    if (!filmId || !file) {
+    if (!filmId || !fileInputRef.current?.files?.[0]) {
       toast.error('لطفاً نام فیلم را وارد کنید و فایل انتخاب کنید.');
       return;
     }
 
     try {
-      await addNewDiscountCodes({ filmId, file }).unwrap();
+      await addNewDiscountCodes({
+        filmId,
+        file: fileInputRef.current.files[0],
+      }).unwrap();
       toast.success('فایل با موفقیت بارگذاری شد.');
 
       // Reset file input
       setFilmId('');
-      setFile(null);
-
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
@@ -90,10 +83,9 @@ const BulkAddNewDiscountCodes: FC<BulkAddNewDiscountCodesProps> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <Input
-              ref={fileInputRef}
+              inputRef={fileInputRef}
               fullWidth
               type="file"
-              onChange={handleFileChange}
               inputProps={{ accept: '.xlsx, .xls' }}
             />
           </Grid>
@@ -102,7 +94,7 @@ const BulkAddNewDiscountCodes: FC<BulkAddNewDiscountCodesProps> = ({
       <Button
         variant="contained"
         onClick={handleUpload}
-        disabled={isLoading || !file || !filmId}
+        disabled={isLoading || !filmId}
       >
         {isLoading ? 'در حال بارگذاری...' : 'بارگذاری فایل'}
       </Button>

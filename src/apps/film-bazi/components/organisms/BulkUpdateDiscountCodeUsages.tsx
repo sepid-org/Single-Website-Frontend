@@ -15,40 +15,36 @@ import {
 import { useUpdateDiscountCodesMutation } from 'apps/film-bazi/redux/slices/DiscountCode';
 import { toast } from 'react-toastify';
 import { useGetFilmsQuery } from 'apps/film-bazi/redux/slices/Film';
+import CustomWarning from '../atoms/chips/CustomWarning';
 
 type BulkUpdateDiscountCodeUsagesProps = {};
 
-const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
-}) => {
+const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = () => {
   const { data: films = [] } = useGetFilmsQuery();
   const [filmId, setFilmId] = useState<string>('');
   const [updateDiscountCodes, { isLoading }] = useUpdateDiscountCodesMutation();
-  const [file, setFile] = useState<File | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setFile(e.target.files[0]);
-    }
-  };
-
   const handleUpload = async () => {
-
-    if (!filmId || !file) {
+    if (!filmId || !fileInputRef.current?.files?.[0]) {
       toast.error('لطفاً نام فیلم را وارد کنید و فایل انتخاب کنید.');
       return;
     }
 
     try {
-      await updateDiscountCodes({ filmId, file }).unwrap();
+      await updateDiscountCodes({
+        filmId,
+        file: fileInputRef.current.files[0]
+      }).unwrap();
+
       toast.success('فایل با موفقیت بارگذاری شد.');
 
-      // Reset file input
-      setFile(null);
-
+      // Reset form
+      setFilmId('');
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+
     } catch (err) {
       console.error('خطا در بارگذاری فایل:', err);
       toast.error('خطا در بارگذاری فایل.');
@@ -70,6 +66,8 @@ const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
         </Link>
       </Stack>
 
+      <CustomWarning text={'توجه کنید که با هر بار بارگذاری فایل، مقادیر موجود برای هر کد تخفیف به مقادیر قبلی آن اضافه می‌شوند.'} />
+
       <Stack>
         <Grid container spacing={2} alignItems={'end'}>
           <Grid item xs={12} sm={6}>
@@ -90,19 +88,19 @@ const BulkUpdateDiscountCodeUsages: FC<BulkUpdateDiscountCodeUsagesProps> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <Input
-              ref={fileInputRef}
+              inputRef={fileInputRef}
               fullWidth
               type="file"
-              onChange={handleFileChange}
               inputProps={{ accept: '.xlsx, .xls' }}
             />
           </Grid>
         </Grid>
       </Stack>
+
       <Button
         variant="contained"
         onClick={handleUpload}
-        disabled={isLoading || !file}
+        disabled={isLoading || !filmId}
       >
         {isLoading ? 'در حال بارگذاری...' : 'بارگذاری فایل'}
       </Button>
