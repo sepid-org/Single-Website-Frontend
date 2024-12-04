@@ -38,24 +38,18 @@ const Deck: FC<DeckPropsType> = ({
 
   const moveCard = (dragId: number, dropId: number) => {
     setCards((prevCards) => {
-      // Create a shallow copy of the previous state
       const updatedCards = [...prevCards];
-  
-      // Find the indices of the dragged and dropped cards
-      const dragIndex = updatedCards.findIndex(card => card.id === dragId);
-      const dropIndex = updatedCards.findIndex(card => card.id === dropId);
-  
-      // Ensure both cards are found
+      const dragIndex = updatedCards.findIndex((card) => card.id === dragId);
+      const dropIndex = updatedCards.findIndex((card) => card.id === dropId);
       if (dragIndex === -1 || dropIndex === -1) return updatedCards;
-  
-      // Swap the two cards in the array
-      [updatedCards[dragIndex], updatedCards[dropIndex]] = [updatedCards[dropIndex], updatedCards[dragIndex]];
-  
+      const [draggedCard] = updatedCards.splice(dragIndex, 1);
+      updatedCards.splice(dropIndex, 0, draggedCard);
       return updatedCards;
     });
   };
-  
-  
+
+
+
 
   return (
     <Stack
