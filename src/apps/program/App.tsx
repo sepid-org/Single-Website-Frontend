@@ -1,14 +1,21 @@
 import React from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 
+import { retryImport } from 'commons/utils/retryImport';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import TeamSetting from './pages/TeamSetting';
 import Registration from './pages/Registration';
 import ProgramManagement from './pages/ProgramManagement';
 import NotFoundPage from 'commons/pages/NotFoundPage';
 import Program from './pages/Program';
-import FilmBaziApp from 'apps/film-bazi/App'
-import AshbariaApp from 'apps/ashbaria/App'
+
+const AshbariaApp = React.lazy(() =>
+  retryImport(() => import('apps/ashbaria/App'))
+);
+
+const FilmBaziApp = React.lazy(() =>
+  retryImport(() => import('apps/film-bazi/App'))
+);
 
 const App = () => {
   const { programSlug } = useParams();
