@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Container,
@@ -28,6 +28,7 @@ import copyToClipboard from 'commons/utils/CopyToClipboard';
 import RewardCodeMission from '../components/molecules/friendship-network/RewardCodeMission';
 import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
 import { MediaUrls } from '../constants/mediaUrls';
+import ScrollableStack from 'commons/components/organisms/ScrollableStack';
 
 const FriendshipNetworkPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
@@ -239,48 +240,3 @@ const FriendshipNetworkPage = () => {
 };
 
 export default FriendshipNetworkPage;
-
-
-function ScrollableStack({ children }) {
-  const stackRef = useRef(null);
-  const [isScrollable, setIsScrollable] = useState(false);
-
-  useEffect(() => {
-    const checkScrollable = () => {
-      if (stackRef.current) {
-        setIsScrollable(stackRef.current.scrollWidth > stackRef.current.clientWidth);
-      }
-    };
-
-    checkScrollable();
-    window.addEventListener('resize', checkScrollable);
-
-    return () => window.removeEventListener('resize', checkScrollable);
-  }, []);
-
-  return (
-    <Stack
-      ref={stackRef}
-      spacing={2}
-      direction={'row-reverse'}
-      overflow={'auto'}
-      sx={{
-        width: '100%',
-        borderRadius: '8px',
-        paddingBottom: isScrollable ? 1.5 : 0,
-        '::-webkit-scrollbar': {
-          height: '8px',
-        },
-        '::-webkit-scrollbar-thumb': {
-          backgroundColor: '#b0bec5',
-          borderRadius: '8px',
-        },
-        '::-webkit-scrollbar-thumb:hover': {
-          backgroundColor: '#90a4ae',
-        },
-      }}
-    >
-      {children}
-    </Stack >
-  );
-}
