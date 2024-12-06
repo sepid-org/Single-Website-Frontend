@@ -1,16 +1,9 @@
 import {
-  Button,
   FormControl,
-  FormControlLabel,
-  FormLabel,
   Grid,
   InputLabel,
   MenuItem,
-  Radio,
-  RadioGroup,
   Select,
-  Stack,
-  TextField,
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import Iran from 'commons/utils/iran';
@@ -39,7 +32,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
 }) => {
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
 
-  console.log(data);
   const handleChange = (event) => {
     setData({
       ...data,
@@ -85,7 +77,14 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <PhoneNumberInput phoneNumber={data.phone_number} setPhoneNumber={handleChange} label={"شماره موبایل"} disabled={true}/>
+        <PhoneNumberInput
+          phoneNumber={data.phone_number}
+          setPhoneNumber={handleChange}
+          label={"شماره موبایل"}
+          disabled={true}
+          setIsChangePhoneNumberDialogOpen={setIsChangePhoneNumberDialogOpen}
+          isChangePhoneNumberDialogOpen={isChangePhoneNumberDialogOpen}
+        />
       </Grid>
 
       {/* <Grid item xs={12} sm={6}>
@@ -117,7 +116,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         </Grid> */}
 
       <Grid item xs={12} sm={6}>
-        <GenderSelector gender={data.gender} handleChange={handleGenderChange}/>
+        <GenderSelector gender={data.gender} handleChange={handleGenderChange} />
       </Grid>
 
       <Grid item container xs={12} sm={6}>

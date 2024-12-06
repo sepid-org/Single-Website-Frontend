@@ -7,9 +7,11 @@ interface PhoneNumberInputProps {
   phoneNumber: number;
   disabled: boolean;
   label?: string;
+  setIsChangePhoneNumberDialogOpen: any;
+  isChangePhoneNumberDialogOpen: boolean;
 }
 
-const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false }) => {
+const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false, setIsChangePhoneNumberDialogOpen, isChangePhoneNumberDialogOpen }) => {
 
   const handleChange = (event) => {
     const value = event.target.value;
@@ -37,7 +39,9 @@ const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton>
+            <IconButton
+              onClick={() => setIsChangePhoneNumberDialogOpen(! isChangePhoneNumberDialogOpen)}
+            >
               <Box component="img" src={edit} width={20} height={20} />
             </IconButton>
           </InputAdornment>
