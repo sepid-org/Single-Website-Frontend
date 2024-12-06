@@ -1,7 +1,8 @@
-import { TextField } from "@mui/material";
+import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import edit from "../../atoms/icons/edit.svg";
 import React from "react";
 
-interface PhoneNumberInputProps{
+interface PhoneNumberInputProps {
   setPhoneNumber: any;
   phoneNumber: number;
   disabled: boolean;
@@ -32,7 +33,16 @@ const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false
         maxLength: 11,
         inputMode: "numeric",
       }}
-      label={label? label : null}
+      label={label ? label : null}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton>
+              <Box component="img" src={edit} width={20} height={20} />
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
     />
   );
 }
