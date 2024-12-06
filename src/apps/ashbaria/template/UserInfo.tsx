@@ -3,15 +3,8 @@ import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/mat
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import GenderSelector from "../components/molecules/profile-inputs/GenderSelector";
-import NameInput from "../components/molecules/profile-inputs/NameInput";
-import LastNameInput from "../components/molecules/profile-inputs/LastNameInput";
-import NationalCodeInput from "../components/molecules/profile-inputs/NationalIDInput";
-import BirthDateInput from "../components/molecules/profile-inputs/BirthDateInput";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
 import RegionSelector from "../components/molecules/profile-inputs/RegionSelector";
-import PhoneNumberInput from "../components/molecules/profile-inputs/PhoneNumberInput";
-import PostNumberInput from "../components/molecules/profile-inputs/PostNumberInput";
-import AddressInput from "../components/molecules/profile-inputs/AddressInput";
 import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
 import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
 import BackButton from "../components/molecules/buttons/Back";
@@ -24,6 +17,13 @@ import CustomDialogContent from "commons/components/molecules/CustomDialogConten
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
+import NameInput from "commons/components/molecules/profile-inputs/NameInput";
+import LastNameInput from "commons/components/molecules/profile-inputs/LastNameInput";
+import NationalCodeInput from "commons/components/molecules/profile-inputs/NationalIDInput";
+import DateInputField from "commons/components/molecules/fields/Date";
+import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
+import PostalCodeInput from "commons/components/molecules/profile-inputs/PostalCodeInput";
+import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
 
 type UserSettingPropsType = {}
 
@@ -123,16 +123,52 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <NameInput handleChange={handleChange} first_name={AshbariaProfile?.first_name} />
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            نام
+          </Typography>
+          <NameInput first_name={AshbariaProfile?.first_name} handleChange={handleChange} />
         </Grid>
         <Grid item xs={12} sm={6}>
+          <Typography
+            sx={{
+              paddingBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            نام خانوادگی
+          </Typography>
           <LastNameInput handleChange={handleChange} last_name={AshbariaProfile?.last_name} />
         </Grid>
         <Grid item xs={12} sm={6}>
+          <Typography fontWeight={400} fontSize={14}
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            کد ملی
+          </Typography>
           <NationalCodeInput handleChange={handleChange} national_code={AshbariaProfile?.national_code} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <BirthDateInput birthDate={AshbariaProfile?.birth_date} setBirthDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })} />
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            تاریخ تولد
+          </Typography>
+          <DateInputField date={AshbariaProfile?.birth_date} setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <GenderSelector gender={AshbariaProfile?.gender} handleChange={handleGenderChange} />
@@ -142,12 +178,39 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
         <RegionSelector data={AshbariaProfile} setData={setAshbariaProfile} />
         <Grid item xs={12} sm={6}>
-          <PhoneNumberInput setPhoneNumber={handleChange} phoneNumber={AshbariaProfile?.phone_number} disabled={true} />
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            تلفن
+          </Typography>
+          <PhoneNumberInput setPhoneNumber={handleChange} phoneNumber={AshbariaProfile?.phone_number} disabled={true} label={undefined} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <PostNumberInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            کد پستی
+          </Typography>
+          <PostalCodeInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            آدرس
+          </Typography>
           <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
         </Grid>
         <Grid item xs={12}>

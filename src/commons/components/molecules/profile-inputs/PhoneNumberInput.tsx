@@ -8,7 +8,7 @@ interface PhoneNumberInputProps{
   label?: string;
 }
 
-const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, disabled = false, label }) => {
+const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false }) => {
 
   const handleChange = (event) => {
     const value = event.target.value;

@@ -13,6 +13,7 @@ const AddressInput: React.FC<AddressInputProps> = ({ handleChange, address, labe
       fullWidth
       required
       multiline
+      minRows={2}
       value={address || ''}
       name="address"
       onChange={handleChange}

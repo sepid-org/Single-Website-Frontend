@@ -3,7 +3,7 @@ import React from "react";
 
 interface PostalCodeInputProps{
   handleChange: any;
-  postal_code: number;
+  postal_code: string;
   label?: string;
 }
 
