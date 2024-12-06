@@ -30,7 +30,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,
 }) => {
-  const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
 
   const handleChange = (event) => {
     setData({
@@ -82,8 +81,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           setPhoneNumber={handleChange}
           label={"شماره موبایل"}
           disabled={true}
-          setIsChangePhoneNumberDialogOpen={setIsChangePhoneNumberDialogOpen}
-          isChangePhoneNumberDialogOpen={isChangePhoneNumberDialogOpen}
         />
       </Grid>
 

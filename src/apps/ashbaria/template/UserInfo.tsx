@@ -70,8 +70,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     }
   }, [updateProfileResult.isSuccess]);
 
-  const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
-
   const handleChange = (event) => {
     setAshbariaProfile({
       ...AshbariaProfile,
@@ -194,8 +192,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             phoneNumber={AshbariaProfile?.phone_number}
             disabled={true}
             label={undefined}
-            isChangePhoneNumberDialogOpen={isChangePhoneNumberDialogOpen}
-            setIsChangePhoneNumberDialogOpen={setIsChangePhoneNumberDialogOpen}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
