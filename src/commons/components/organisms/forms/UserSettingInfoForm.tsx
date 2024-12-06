@@ -20,6 +20,10 @@ import ChangePhoneNumberDialog from 'commons/components/organisms/dialogs/Change
 import UploadImage from 'commons/components/molecules/UploadImage';
 import { UserInfoType } from 'commons/types/profile';
 import DateInputField from 'commons/components/molecules/fields/Date';
+import NameInput from 'commons/components/molecules/profile-inputs/NameInput';
+import LastNameInput from 'commons/components/molecules/profile-inputs/LastNameInput';
+import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
+import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
 
 
 type UserSettingInfoFormPropsType = {
@@ -35,11 +39,19 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
 }) => {
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
 
+  console.log(data);
   const handleChange = (event) => {
     setData({
       ...data,
       [event.target.name]: toEnglishNumber(event.target.value),
     });
+  }
+
+  const handleGenderChange = (selectedGender) => {
+    setData({
+      ...data,
+      gender: selectedGender,
+    })
   }
 
   return (
@@ -58,25 +70,11 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          fullWidth
-          value={data.first_name || ''}
-          name="first_name"
-          onChange={handleChange}
-          label='نام'
-        />
+        <NameInput label='نام' handleChange={handleChange} first_name={data.first_name} />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          fullWidth
-          value={data.last_name || ''}
-          name="last_name"
-          onChange={handleChange}
-          label="نام خانوادگی"
-        />
+        <LastNameInput label='نام خانوادگی' handleChange={handleChange} last_name={data.last_name} />
       </Grid>
 
       <Grid item xs={12} sm={6}>
@@ -87,36 +85,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <Stack direction={'row'} spacing={1}>
-          <TextField
-            fullWidth
-            required
-            disabled={true}
-            value={data.phone_number || ''}
-            onChange={(e) => {
-              if (isNumber(e.target.value)) {
-                handleChange(e);
-              }
-            }}
-            name="phone_number"
-            inputProps={{ className: 'ltr-input' }}
-            label="شماره موبایل"
-          />
-          <Button
-            size='small'
-            variant="contained"
-            color="primary"
-            sx={{
-              width: '40%',
-              whiteSpace: 'nowrap',
-            }}
-            onClick={() => setIsChangePhoneNumberDialogOpen(state => !state)}>
-            {data.phone_number ? 'تغییر' : 'تعیین'}
-          </Button>
-          <ChangePhoneNumberDialog
-            handleClose={() => setIsChangePhoneNumberDialogOpen(state => !state)}
-            open={isChangePhoneNumberDialogOpen} />
-        </Stack>
+        <PhoneNumberInput phoneNumber={data.phone_number} setPhoneNumber={handleChange} label={"شماره موبایل"} disabled={true}/>
       </Grid>
 
       {/* <Grid item xs={12} sm={6}>
@@ -147,28 +116,8 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           />
         </Grid> */}
 
-      <Grid item xs={12}>
-        <FormControl>
-          <FormLabel required>جنسیت</FormLabel>
-          <RadioGroup
-            name="gender"
-            row
-            value={data.gender || ''}
-            onChange={handleChange}>
-            <FormControlLabel
-              value="Male"
-              control={<Radio />}
-              label="پسر"
-              labelPlacement="end"
-            />
-            <FormControlLabel
-              value="Female"
-              control={<Radio />}
-              label="دختر"
-              labelPlacement="end"
-            />
-          </RadioGroup>
-        </FormControl>
+      <Grid item xs={12} sm={6}>
+        <GenderSelector gender={data.gender} handleChange={handleGenderChange}/>
       </Grid>
 
       <Grid item container xs={12} sm={6}>
