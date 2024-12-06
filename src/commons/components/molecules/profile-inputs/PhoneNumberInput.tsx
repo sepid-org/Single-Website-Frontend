@@ -44,6 +44,7 @@ const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false
             <InputAdornment position="end">
               <IconButton
                 onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
+                disabled={phoneNumber ? false : true}
               >
                 <Box component="img" src={edit} width={20} height={20} />
               </IconButton>
@@ -56,7 +57,6 @@ const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false
         open={isChangePhoneNumberDialogOpen}
       />
     </Fragment>
-
   );
 }
 
