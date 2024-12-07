@@ -7,12 +7,11 @@ import { Workshop } from "../../../configs/themes/MuiVariables";
 interface PhoneNumberInputProps {
   setPhoneNumber: any;
   phoneNumber: string;
-  disabled: boolean;
   iconColor: string;
   label?: string;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label, iconColor, disabled = false }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label, iconColor,}) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
@@ -29,7 +28,6 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
   return (
     <Fragment>
       <TextField
-        disabled={disabled}
         fullWidth
         required
         value={phoneNumber || ''}

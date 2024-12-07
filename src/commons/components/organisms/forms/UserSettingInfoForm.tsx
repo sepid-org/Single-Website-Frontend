@@ -18,6 +18,7 @@ import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSe
 import { Workshop } from "commons/configs/themes/MuiVariables";
 import ProvinceSelector from "../../molecules/profile-inputs/ProvinceSelector";
 import CitySelector from 'commons/components/molecules/profile-inputs/CitySelector';
+import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
 
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
@@ -45,27 +46,53 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
     })
   }
 
+  const handleProfileImageChange = (file) => {
+    setData({
+      ...data,
+      profile_image: file,
+    })
+  }
+
   return (
     <Grid container spacing={2}>
+      <Grid
+        item
+        container
+        xs={12}
+        spacing={2}
+        direction={'row-reverse'}
+        alignItems={'start'}
+      >
+        <Grid
+          container
+          item
+          xs={12}
+          sm={6}
+          justifyContent={'end'}
+        >
+          <ProfileImageUploader
+            file={data.profile_image}
+            setFile={handleProfileImageChange}
+          />
+        </Grid>
+        <Grid item container xs={12} sm={6} spacing={2}>
+          <Grid item xs={12}>
+            <NameInput label='نام' handleChange={handleChange} first_name={data.first_name} />
+          </Grid>
 
-      <Grid item xs={12}>
-        <UploadImage
-          setFile={(file) => {
-            setData({
-              ...data,
-              profile_image: file,
-            })
-          }}
-          file={data.profile_image || PROFILE_PICTURE}
-          showImageSelf={true} />
-      </Grid>
+          <Grid item xs={12}>
+            <LastNameInput label='نام خانوادگی' handleChange={handleChange} last_name={data.last_name} />
+          </Grid>
 
-      <Grid item xs={12} sm={6}>
-        <NameInput label='نام' handleChange={handleChange} first_name={data.first_name} />
-      </Grid>
-
-      <Grid item xs={12} sm={6}>
-        <LastNameInput label='نام خانوادگی' handleChange={handleChange} last_name={data.last_name} />
+          <Grid item xs={12}>
+            <PhoneNumberInput
+              phoneNumber={data.phone_number}
+              setPhoneNumber={handleChange}
+              label={"شماره موبایل"}
+              iconColor={Workshop.colors.primary}
+            />
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item xs={12} sm={6}>
@@ -76,14 +103,9 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <PhoneNumberInput
-          phoneNumber={data.phone_number}
-          setPhoneNumber={handleChange}
-          label={"شماره موبایل"}
-          disabled={true}
-          iconColor={Workshop.colors.primary}
-        />
+        <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary} />
       </Grid>
+
 
       {/* <Grid item xs={12} sm={6}>
           <TextField
@@ -112,17 +134,12 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
             label="ایمیل"
           />
         </Grid> */}
- 
-      <Grid item container spacing={2}>
-        {/* First Row */}
-        <Grid item xs={12} sm={6}>
-          <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary} />
-        </Grid>
 
+      <Grid item container spacing={2}>
         {/* Second Row */}
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={12} sm={6}>
-            <ProvinceSelector data={data} setData={setData} label='استان'/>
+            <ProvinceSelector data={data} setData={setData} label='استان' />
           </Grid>
           <Grid item xs={12} sm={6}>
             <CitySelector data={data} setData={setData} label='شهر' />

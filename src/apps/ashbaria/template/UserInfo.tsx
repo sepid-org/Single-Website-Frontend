@@ -234,7 +234,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <PhoneNumberInput
             setPhoneNumber={handleChange}
             phoneNumber={AshbariaProfile?.phone_number}
-            disabled={true}
             label={undefined}
             iconColor={customTheme.palette.primary.main}
           />
