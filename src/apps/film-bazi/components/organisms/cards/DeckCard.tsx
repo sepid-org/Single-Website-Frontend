@@ -45,8 +45,12 @@ const DeckCard: FC<DeckCardPropsType> = ({
 
   return (
     <Card
-      ref={(node) => isDraggable ? dragRef(dropRef(node)) : null}
-      onClick={() => onCardClick ? onCardClick(card, index) : () => { }}
+      ref={(node) => {
+        if (node && isDraggable) {
+          dragRef(dropRef(node));
+        }
+      }}
+      onClick={() => onCardClick ? onCardClick(card, index) : undefined}
       sx={{
         borderRadius: 0,
         cursor: 'pointer',
