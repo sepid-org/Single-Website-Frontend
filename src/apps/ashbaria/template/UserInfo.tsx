@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import GenderSelector from "../components/molecules/profile-inputs/GenderSelector";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
-import RegionSelector from "../components/molecules/profile-inputs/RegionSelector";
 import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
 import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
 import BackButton from "../components/molecules/buttons/Back";
@@ -24,7 +23,9 @@ import DateInputField from "commons/components/molecules/fields/Date";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 import PostalCodeInput from "commons/components/molecules/profile-inputs/PostalCodeInput";
 import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
-import {customTheme} from "../styles/Theme";
+import { customTheme } from "../styles/Theme";
+import ProvinceSelector from "commons/components/molecules/profile-inputs/ProvinceSelector";
+import CitySelector from "commons/components/molecules/profile-inputs/CitySelector";
 
 type UserSettingPropsType = {}
 
@@ -177,7 +178,30 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <IntroductionSelector handleChange={handleChange} referral_method={AshbariaProfile?.referral_method} />
         </Grid>
-        <RegionSelector data={AshbariaProfile} setData={setAshbariaProfile} />
+        <Grid item xs={12} sm={6}>
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            استان
+          </Typography>
+          <ProvinceSelector data={AshbariaProfile} setData={setAshbariaProfile} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            شهر
+          </Typography>
+          <CitySelector data={AshbariaProfile} setData={AshbariaProfile} />
+        </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
             sx={{

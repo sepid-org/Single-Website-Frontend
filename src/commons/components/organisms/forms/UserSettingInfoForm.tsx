@@ -15,8 +15,9 @@ import NameInput from 'commons/components/molecules/profile-inputs/NameInput';
 import LastNameInput from 'commons/components/molecules/profile-inputs/LastNameInput';
 import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
-import {Workshop} from "commons/configs/themes/MuiVariables";
-
+import { Workshop } from "commons/configs/themes/MuiVariables";
+import ProvinceSelector from "../../molecules/profile-inputs/ProvinceSelector";
+import CitySelector from 'commons/components/molecules/profile-inputs/CitySelector';
 
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
@@ -111,47 +112,24 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
             label="ایمیل"
           />
         </Grid> */}
+ 
+      <Grid item container spacing={2}>
+        {/* First Row */}
+        <Grid item xs={12} sm={6}>
+          <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary} />
+        </Grid>
 
-      <Grid item xs={12} sm={6}>
-        <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary}/>
+        {/* Second Row */}
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <ProvinceSelector data={data} setData={setData} label='استان'/>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CitySelector data={data} setData={setData} label='شهر' />
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid item container xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>استان</InputLabel>
-          <Select
-            value={data.province || ''}
-            onChange={handleChange}
-            name="province"
-            label="استان">
-            {Iran.Provinces.map((province) => (
-              <MenuItem key={province.id} value={province.title}>
-                {province.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-
-      <Grid item container xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>شهر</InputLabel>
-          <Select
-            disabled={!data.province && !data.city}
-            value={data.city || ''}
-            onChange={handleChange}
-            name="city"
-            label="شهر">
-            {Iran.Cities.filter((city) =>
-              city.province_id == Iran.Provinces.find(province => province.title == data.province)?.id)
-              .map((city) => (
-                <MenuItem key={city.id} value={city.title}>
-                  {city.title}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-      </Grid>
 
       {/* <Grid item xs={12}>
         <TextField
