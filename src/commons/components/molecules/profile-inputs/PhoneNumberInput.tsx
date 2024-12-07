@@ -8,10 +8,11 @@ interface PhoneNumberInputProps {
   setPhoneNumber: any;
   phoneNumber: string;
   disabled: boolean;
+  iconColor: string;
   label?: string;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label, disabled = false }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label, iconColor, disabled = false }) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
@@ -47,7 +48,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
                 onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
                 disabled={phoneNumber ? false : true}
               >
-                <EditIcon style={{color: (phoneNumber ? Workshop.colors.primary : undefined)}}/>
+                <EditIcon style={{color: (phoneNumber ? iconColor : undefined)}}/>
                 </IconButton>
             </InputAdornment>
           ),

@@ -24,6 +24,7 @@ import DateInputField from "commons/components/molecules/fields/Date";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 import PostalCodeInput from "commons/components/molecules/profile-inputs/PostalCodeInput";
 import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
+import {customTheme} from "../styles/Theme";
 
 type UserSettingPropsType = {}
 
@@ -192,6 +193,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             phoneNumber={AshbariaProfile?.phone_number}
             disabled={true}
             label={undefined}
+            iconColor={customTheme.palette.primary.main}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

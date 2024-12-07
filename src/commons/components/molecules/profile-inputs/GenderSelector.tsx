@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
-import { Workshop } from "../../../configs/themes/MuiVariables";
 import {ReactComponent as BoyHeadIcon} from "../../atoms/icons/boy-purple-head.svg";
 import {ReactComponent as GirlHeadIcon} from "../../atoms/icons/girl-purple-head.svg";
 
-export default function GenderSelector({ gender, handleChange, maleGender = "Male", femaleGender = "Female" }) {
+export default function GenderSelector({ gender, handleChange, maleGender = "Male", femaleGender = "Female", primaryColor, secondareyColor=undefined }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
 
 	useEffect(() => {
@@ -14,10 +13,10 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 	}, [gender])
 
 	const selectColor = (genderValue: string) => {
-		return selectedGender === genderValue ? Workshop.colors.secondary : undefined;
+		return selectedGender === genderValue ? primaryColor : undefined;
 	}
 	const selectBackgroundColor = (genderValue: string) => {
-		return selectedGender === genderValue ? Workshop.colors.primary : undefined;
+		return selectedGender === genderValue ? primaryColor : undefined;
 	}
 	return (
 		<Fragment>

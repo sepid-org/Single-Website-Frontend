@@ -8,8 +8,6 @@ import {
 import React, { FC, useState } from 'react';
 import Iran from 'commons/utils/iran';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
-import isNumber from 'commons/utils/validators/isNumber';
-import ChangePhoneNumberDialog from 'commons/components/organisms/dialogs/ChangePhoneNumberDialog';
 import UploadImage from 'commons/components/molecules/UploadImage';
 import { UserInfoType } from 'commons/types/profile';
 import DateInputField from 'commons/components/molecules/fields/Date';
@@ -17,6 +15,7 @@ import NameInput from 'commons/components/molecules/profile-inputs/NameInput';
 import LastNameInput from 'commons/components/molecules/profile-inputs/LastNameInput';
 import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
+import {Workshop} from "commons/configs/themes/MuiVariables";
 
 
 type UserSettingInfoFormPropsType = {
@@ -81,6 +80,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           setPhoneNumber={handleChange}
           label={"شماره موبایل"}
           disabled={true}
+          iconColor={Workshop.colors.primary}
         />
       </Grid>
 
@@ -113,7 +113,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         </Grid> */}
 
       <Grid item xs={12} sm={6}>
-        <GenderSelector gender={data.gender} handleChange={handleGenderChange} />
+        <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary}/>
       </Grid>
 
       <Grid item container xs={12} sm={6}>
