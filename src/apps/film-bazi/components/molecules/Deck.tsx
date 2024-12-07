@@ -48,9 +48,6 @@ const Deck: FC<DeckPropsType> = ({
     });
   };
 
-
-
-
   return (
     <Stack
       spacing={2}

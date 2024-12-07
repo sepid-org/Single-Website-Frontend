@@ -25,8 +25,6 @@ const DeckCard: FC<DeckCardPropsType> = ({
   moveCard,
   isDraggable,
 }) => {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'CARD',
     item: { id: card.id },
@@ -47,10 +45,7 @@ const DeckCard: FC<DeckCardPropsType> = ({
 
   return (
     <Card
-      ref={(node) => {
-        cardRef.current = node;
-        return isDraggable ? dragRef(dropRef(node)) : null;
-      }}
+      ref={(node) => isDraggable ? dragRef(dropRef(node)) : null}
       onClick={() => onCardClick ? onCardClick(card, index) : () => { }}
       sx={{
         borderRadius: 0,
