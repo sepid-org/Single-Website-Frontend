@@ -1,10 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
-import { ReactComponent as GirlLogo } from "../../../../apps/ashbaria/assets/girl-yellow-head.svg";
-import girlUnselectedIcon from "../../../../apps/ashbaria/assets/girl-purple-head.svg";
-import boySelectedIcon from "../../../../apps/ashbaria/assets/boy-yellow-head.svg";
-import boyUnselectedIcon from "../../../../apps/ashbaria/assets/boy-purple-head.svg";
 import { Workshop } from "../../../configs/themes/MuiVariables";
+import {ReactComponent as BoyHeadIcon} from "../../atoms/icons/boy-purple-head.svg";
+import {ReactComponent as GirlHeadIcon} from "../../atoms/icons/girl-purple-head.svg";
 
 export default function GenderSelector({ gender, handleChange, maleGender = "Male", femaleGender = "Female" }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
@@ -49,12 +47,7 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 						alignItems: "center",
 					}}
 				>
-					<Box
-						component="img"
-						src={selectedGender === maleGender ? boySelectedIcon : boyUnselectedIcon}
-						width={20}
-						height={20}
-					/>
+					<BoyHeadIcon style={{color: selectColor(maleGender)}} />
 					<Typography sx={{ color: selectColor(maleGender) }}>پسر</Typography>
 				</Box>
 				<Box
@@ -75,9 +68,7 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 						alignItems: "center",
 					}}
 				>
-					<GirlLogo
-							fill="green"
-					/>
+					<GirlHeadIcon style={{color: selectColor(femaleGender)}} />
 					<Typography sx={{ color: selectColor(femaleGender) }}>دختر</Typography>
 				</Box>
 			</Box>

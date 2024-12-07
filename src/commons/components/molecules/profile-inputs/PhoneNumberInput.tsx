@@ -1,16 +1,17 @@
-import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
-import edit from "../../atoms/icons/edit.svg";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import ChangePhoneNumberDialog from "commons/components/organisms/dialogs/ChangePhoneNumberDialog";
+import {ReactComponent as EditIcon} from "../../atoms/icons/edit.svg";
+import { Workshop } from "../../../configs/themes/MuiVariables";
 
 interface PhoneNumberInputProps {
   setPhoneNumber: any;
-  phoneNumber: number;
+  phoneNumber: string;
   disabled: boolean;
   label?: string;
 }
 
-const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label, disabled = false }) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
@@ -46,8 +47,8 @@ const PhoneNumberInput = ({ setPhoneNumber, phoneNumber, label, disabled = false
                 onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
                 disabled={phoneNumber ? false : true}
               >
-                <Box component="img" src={edit} width={20} height={20} />
-              </IconButton>
+                <EditIcon style={{color: (phoneNumber ? Workshop.colors.primary : undefined)}}/>
+                </IconButton>
             </InputAdornment>
           ),
         }}
