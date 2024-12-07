@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
-import GenderSelector from "../components/molecules/profile-inputs/GenderSelector";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
 import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
 import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
@@ -26,6 +25,7 @@ import AddressInput from "commons/components/molecules/profile-inputs/AddressInp
 import { customTheme } from "../styles/Theme";
 import ProvinceSelector from "commons/components/molecules/profile-inputs/ProvinceSelector";
 import CitySelector from "commons/components/molecules/profile-inputs/CitySelector";
+import GenderSelector from "commons/components/molecules/profile-inputs/GenderSelector";
 
 type UserSettingPropsType = {}
 
@@ -173,7 +173,26 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <DateInputField date={AshbariaProfile?.birth_date} setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })} />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <GenderSelector gender={AshbariaProfile?.gender} handleChange={handleGenderChange} />
+          <Typography
+            sx={{
+              marginBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            جنسیت
+          </Typography>
+          <GenderSelector
+            gender={AshbariaProfile?.gender}
+            handleChange={handleGenderChange}
+            primaryColor={"#FFA800"}
+            secondareyColor={"#60557E"}
+            primaryBGColor={"#FFC66F33"}
+            secondareyBGColor={"#00000080"}
+            changeBGColor={true}
+            maleGender="M"
+            femaleGender="F"
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <IntroductionSelector handleChange={handleChange} referral_method={AshbariaProfile?.referral_method} />

@@ -1,9 +1,19 @@
 import { Box, Typography } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
-import {ReactComponent as BoyHeadIcon} from "../../atoms/icons/boy-purple-head.svg";
-import {ReactComponent as GirlHeadIcon} from "../../atoms/icons/girl-purple-head.svg";
+import { ReactComponent as BoyHeadIcon } from "../../atoms/icons/boy-purple-head.svg";
+import { ReactComponent as GirlHeadIcon } from "../../atoms/icons/girl-purple-head.svg";
 
-export default function GenderSelector({ gender, handleChange, maleGender = "Male", femaleGender = "Female", primaryColor, secondareyColor=undefined }) {
+export default function GenderSelector({
+	gender,
+	handleChange,
+	maleGender = "Male",
+	femaleGender = "Female",
+	primaryColor,
+	secondareyColor = undefined,
+	changeBGColor = false,
+	primaryBGColor = undefined,
+	secondareyBGColor = undefined
+}) {
 	const [selectedGender, setSelectedGender] = useState(gender);
 
 	useEffect(() => {
@@ -13,10 +23,10 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 	}, [gender])
 
 	const selectColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryColor : undefined;
+		return selectedGender === genderValue ? primaryColor : secondareyColor;
 	}
 	const selectBackgroundColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryColor : undefined;
+		return selectedGender === genderValue ? primaryBGColor : secondareyBGColor;
 	}
 	return (
 		<Fragment>
@@ -40,13 +50,13 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 						borderRadius: "8px 0px 0px 8px",
 						border: "1px solid",
 						borderColor: selectColor(maleGender),
-						//backgroundColor: selectBackgroundColor("M"),
+						backgroundColor: (changeBGColor ? selectBackgroundColor(maleGender) : null),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
 					}}
 				>
-					<BoyHeadIcon style={{color: selectColor(maleGender)}} />
+					<BoyHeadIcon style={{ color: selectColor(maleGender) }} />
 					<Typography sx={{ color: selectColor(maleGender) }}>پسر</Typography>
 				</Box>
 				<Box
@@ -61,13 +71,13 @@ export default function GenderSelector({ gender, handleChange, maleGender = "Mal
 						borderRadius: "0px 8px 8px 0px",
 						border: "1px solid",
 						borderColor: selectColor(femaleGender),
-						//backgroundColor: selectBackgroundColor("F"),
+						backgroundColor: (changeBGColor ? selectBackgroundColor(femaleGender) : null),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
 					}}
 				>
-					<GirlHeadIcon style={{color: selectColor(femaleGender)}} />
+					<GirlHeadIcon style={{ color: selectColor(femaleGender) }} />
 					<Typography sx={{ color: selectColor(femaleGender) }}>دختر</Typography>
 				</Box>
 			</Box>
