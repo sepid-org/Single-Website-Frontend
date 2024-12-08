@@ -74,9 +74,6 @@ const AudioWidget = ({
 
     // Cleanup function
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();  // Stop audio on unmount
-      }
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
