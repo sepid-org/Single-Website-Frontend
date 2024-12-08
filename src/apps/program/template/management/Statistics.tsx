@@ -13,7 +13,6 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import MetabaseDashboard from 'commons/template/MetabaseDashboard';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 
 type StatisticsTabPropsType = {}
@@ -21,7 +20,6 @@ type StatisticsTabPropsType = {}
 const StatisticsTab: FC<StatisticsTabPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
-  const { data: website } = useGetWebsiteQuery();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsmsData } = useGetFSMsQuery({ programSlug, pageNumber }, { skip: !Boolean(program) })
 
@@ -86,8 +84,8 @@ const StatisticsTab: FC<StatisticsTabPropsType> = ({ }) => {
       </Stack>
 
       <Divider />
-      {/* todo: website should not be passed trough this dashboard */}
-      <MetabaseDashboard dashboard_id={5} params={{ website: website.name, program: program.id }} />
+
+      <MetabaseDashboard dashboard_id={5} params={{ program_id: program.id }} />
     </Stack>
   );
 }
