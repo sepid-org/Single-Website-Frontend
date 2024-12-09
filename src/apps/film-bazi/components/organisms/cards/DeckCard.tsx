@@ -14,7 +14,7 @@ type DeckCardPropsType = {
 }
 
 interface DragItem {
-  index: number;
+  id: number;
 }
 
 const DeckCard: FC<DeckCardPropsType> = ({
@@ -25,33 +25,32 @@ const DeckCard: FC<DeckCardPropsType> = ({
   moveCard,
   isDraggable,
 }) => {
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: 'CARD',
-    item: { index },
+    item: { id: card.id },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-  }), [isDraggable]);
+  }), [card]);
 
   const [, dropRef] = useDrop<DragItem>(() => ({
     accept: 'CARD',
     hover: (draggedItem) => {
-      if (draggedItem.index !== index) {
-        moveCard(draggedItem.index, index);
-        draggedItem.index = index;
+      if (draggedItem.id !== card.id) {
+        moveCard(draggedItem.id, card.id);
+        //draggedItem.index = index;
       }
     },
-  }));
+  }), [card]);
 
   return (
     <Card
       ref={(node) => {
-        cardRef.current = node;
-        return isDraggable ? dragRef(dropRef(node)) : null;
+        if (node && isDraggable) {
+          dragRef(dropRef(node));
+        }
       }}
-      onClick={() => onCardClick ? onCardClick(card, index) : () => { }}
+      onClick={() => onCardClick ? onCardClick(card, index) : undefined}
       sx={{
         borderRadius: 0,
         cursor: 'pointer',

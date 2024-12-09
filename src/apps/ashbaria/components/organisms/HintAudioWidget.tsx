@@ -61,6 +61,27 @@ const HintAudioWidget = ({
     };
   }, []);
 
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      const audio = audioRef.current;
+      if (audio) {
+        if (document.hidden) {
+          audio.pause(); // Pause the audio when the page is not visible
+        } else {
+          audio.play().catch((e) => {
+            // Handle playback errors silently
+          });
+        }
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
   const calculateLineStyle = (index) => {
     const patternIndex = index % pattern.length;
     const progressPercentage = (index / patternLength) * 100;
@@ -90,7 +111,9 @@ const HintAudioWidget = ({
 
   const handlePlayPauseClick = () => {
     if (audioRef.current.paused) {
-      audioRef.current.play();
+      audioRef.current.play().catch((e) => {
+        // Handle autoplay errors silently
+      });
     } else {
       audioRef.current.pause();
     }

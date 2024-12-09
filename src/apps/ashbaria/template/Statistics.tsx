@@ -21,7 +21,7 @@ const Statistics: FC<PropsType> = ({ }) => {
       </Stack>
 
       <Stack sx={{ background: 'white', borderRadius: 2 }}>
-        <MetabaseDashboard dashboard_id={7} params={{ website: 'ashbaria' }} />
+        <MetabaseDashboard dashboard_id={7} params={{ website: 'ashbaria', program_id: "52" }} />
       </Stack>
     </Stack>
   );
