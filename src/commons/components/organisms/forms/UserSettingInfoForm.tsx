@@ -1,14 +1,7 @@
-import {
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
-import React, { FC, useState } from 'react';
-import Iran from 'commons/utils/iran';
+import { Grid } from '@mui/material';
+import React, { FC } from 'react';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
-import UploadImage from 'commons/components/molecules/UploadImage';
+import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
 import DateInputField from 'commons/components/molecules/fields/Date';
 import NameInput from 'commons/components/molecules/profile-inputs/NameInput';
@@ -31,6 +24,8 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,
 }) => {
+
+  const theme = useTheme();
 
   const handleChange = (event) => {
     setData({
@@ -89,7 +84,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               phoneNumber={data.phone_number}
               setPhoneNumber={handleChange}
               label={"شماره موبایل"}
-              iconColor={Workshop.colors.primary}
+              iconColor={theme.palette.text.secondary}
             />
           </Grid>
         </Grid>
