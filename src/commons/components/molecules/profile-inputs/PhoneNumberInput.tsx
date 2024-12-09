@@ -36,6 +36,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
           inputProps={{
             maxLength: 11,
             inputMode: "numeric",
+            readOnly: true,
           }}
           label={label ? label : null}
           InputProps={{
