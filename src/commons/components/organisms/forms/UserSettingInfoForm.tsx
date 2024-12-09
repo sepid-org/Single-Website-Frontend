@@ -18,8 +18,6 @@ type UserSettingInfoFormPropsType = {
   setData: Function;
 }
 
-const PROFILE_PICTURE = process.env.PUBLIC_URL + '/images/profile.png';
-
 const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,

@@ -72,7 +72,7 @@ const ProfileImageUploader = ({ file, setFile }) => {
           </Button>
           <input
             type="file"
-            id="file-input"
+            id="userProfilePicture"
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}
@@ -132,7 +132,7 @@ const ProfileImageUploader = ({ file, setFile }) => {
           </Box>
           <input
             type="file"
-            id="file-input"
+            id="userProfilePicture"
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}
