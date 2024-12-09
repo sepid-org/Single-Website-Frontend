@@ -5,6 +5,7 @@ import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import useLocalNavigate from "apps/film-bazi/hooks/useLocalNavigate";
 import useUserProfile from "commons/hooks/useUserProfile";
 import useLogout from "commons/hooks/useLogout";
+import { SHAD_ORIGIN } from "apps/film-bazi/constants/game";
 
 const AccountBadge = () => {
   const localNavigate = useLocalNavigate();
@@ -17,7 +18,9 @@ const AccountBadge = () => {
   const isMenuOpen = Boolean(anchorEl);
 
   const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+    if (userProfile.origin !== SHAD_ORIGIN) {
+      setAnchorEl(event.currentTarget);
+    }
   };
 
   const handleMenuClose = () => {
@@ -64,9 +67,11 @@ const AccountBadge = () => {
           <Typography fontWeight={700} fontSize={16} paddingLeft={1} noWrap sx={{ maxWidth: { xs: 120, sm: 160, md: '100%' } }}>
             {fullName}
           </Typography>
-          {isMenuOpen ?
-            <KeyboardArrowUp sx={{ marginLeft: 1 }} /> :
-            <KeyboardArrowDownIcon sx={{ marginLeft: 1 }} />
+          {userProfile.origin !== SHAD_ORIGIN ?
+            isMenuOpen ?
+              <KeyboardArrowUp sx={{ marginLeft: 1 }} /> :
+              <KeyboardArrowDownIcon sx={{ marginLeft: 1 }} />
+            : null
           }
         </Stack>
       </Button>
