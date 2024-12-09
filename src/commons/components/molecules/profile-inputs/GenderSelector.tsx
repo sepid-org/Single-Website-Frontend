@@ -23,11 +23,16 @@ export default function GenderSelector({
 	}, [gender])
 
 	const selectColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryColor : secondareyColor;
+		return selectedGender === genderValue ? primaryColor : (secondareyColor ? secondareyColor : "gray");
 	}
 	const selectBackgroundColor = (genderValue: string) => {
 		return selectedGender === genderValue ? primaryBGColor : secondareyBGColor;
 	}
+
+	const selectBorderColor = (genderValue: string) => {
+		return selectedGender === genderValue ? primaryColor : (secondareyColor ? secondareyColor : "lightgray");
+	}
+
 	return (
 		<Fragment>
 			<Box
@@ -49,7 +54,7 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "8px 0px 0px 8px",
 						border: "1px solid",
-						borderColor: selectColor(maleGender),
+						borderColor: selectBorderColor(maleGender),
 						backgroundColor: (changeBGColor ? selectBackgroundColor(maleGender) : null),
 						display: "flex",
 						justifyContent: "center",
@@ -57,7 +62,14 @@ export default function GenderSelector({
 					}}
 				>
 					<BoyHeadIcon style={{ color: selectColor(maleGender) }} />
-					<Typography sx={{ color: selectColor(maleGender) }}>پسر</Typography>
+					<Typography
+						sx={{
+							color: selectColor(maleGender),
+							userSelect: "none"
+						}}
+					>
+						پسر
+					</Typography>
 				</Box>
 				<Box
 					onClick={() => {
@@ -70,7 +82,7 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "0px 8px 8px 0px",
 						border: "1px solid",
-						borderColor: selectColor(femaleGender),
+						borderColor: selectBorderColor(femaleGender),
 						backgroundColor: (changeBGColor ? selectBackgroundColor(femaleGender) : null),
 						display: "flex",
 						justifyContent: "center",
@@ -78,7 +90,14 @@ export default function GenderSelector({
 					}}
 				>
 					<GirlHeadIcon style={{ color: selectColor(femaleGender) }} />
-					<Typography sx={{ color: selectColor(femaleGender) }}>دختر</Typography>
+					<Typography
+						sx={{
+							color: selectColor(femaleGender),
+							userSelect: "none"
+						}}
+					>
+						دختر
+					</Typography>
 				</Box>
 			</Box>
 		</Fragment>

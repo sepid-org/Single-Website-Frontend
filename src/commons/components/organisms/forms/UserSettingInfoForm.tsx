@@ -101,35 +101,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary} />
       </Grid>
 
-
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            value={userInfo.national_code || ''}
-            name="national_code"
-            onChange={(e) => {
-              if (isNumber(e.target.value)) {
-                handleFieldsChange(e);
-              }
-            }}
-            inputProps={{ className: 'ltr-input' }}
-            label="کد ملی"
-          />
-        </Grid> */}
-
-      {/* todo: hide email temporarily */}
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            disabled={true}
-            fullWidth
-            value={userInfo.email || ''}
-            name="email"
-            onChange={handleFieldsChange}
-            inputProps={{ className: 'ltr-input' }}
-            label="ایمیل"
-          />
-        </Grid> */}
-
       <Grid item container spacing={2}>
         {/* Second Row */}
         <Grid container item xs={12} spacing={2}>
@@ -142,34 +113,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         </Grid>
       </Grid>
 
-
-      {/* <Grid item xs={12}>
-        <TextField
-          fullWidth
-          helperText='جوایز و یادگاری‌ها به این آدرس ارسال می‌شوند.'
-          value={data.address || ''}
-          name="address"
-          multiline
-          rows={2}
-          onChange={handleChange}
-          label="آدرس منزل (اختیاری)"
-        />
-      </Grid> */}
-
-      {/* <Grid item xs={12} sm={6}>
-        <TextField
-          fullWidth
-          name="postal_code"
-          value={data.postal_code || ''}
-          onChange={(e) => {
-            if (isNumber(e.target.value)) {
-              handleChange(e);
-            }
-          }}
-          inputProps={{ className: 'ltr-input' }}
-          label="کد پستی (اختیاری)"
-        />
-      </Grid> */}
     </Grid >
   );
 }
