@@ -97,14 +97,14 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
                   {program.name}
                 </Typography>
 
-                <Tooltip arrow title={'تعداد کسانی که در این برنامه ثبت‌نام کرده‌اند'}>
+                {/* <Tooltip arrow title={'تعداد کسانی که در این برنامه ثبت‌نام کرده‌اند'}>
                   <Chip
                     size='small'
                     sx={{ userSelect: 'none', marginTop: 0.3 }}
                     icon={<PeopleAltIcon fontSize='small' />}
                     label={toPersianNumber(program.initial_participants_count)}
                   />
-                </Tooltip>
+                </Tooltip> */}
               </Stack>
 
               <Typography textAlign={'start'} variant="body2" color="textSecondary">
@@ -113,7 +113,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
                   : program.description}
               </Typography>
 
-              <Box display="flex" flexWrap="wrap" gap={1}>
+              <Box display="flex" flexWrap="wrap" gap={0.5}>
                 <Chip
                   variant='outlined'
                   color='info'
