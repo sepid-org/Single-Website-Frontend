@@ -22,7 +22,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     username: '',
   });
   const { data: website } = useGetWebsiteQuery();
-  const [login, { isLoading }] = useSimpleLoginMutation();
+  const [simpleLogin, { isLoading }] = useSimpleLoginMutation();
 
   const collectData = (event) => {
     setData({
@@ -31,12 +31,12 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     });
   };
 
-  const regularLogin = () => {
+  const handleSimpleLogin = () => {
     const { username, password } = data;
     if (!username || !password) {
       return;
     }
-    login(data);
+    simpleLogin(data);
   };
 
   const isUserTokenExpired = window.location.href.includes('token-expiration');
@@ -82,7 +82,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
               width={'100%'}
               onKeyDown={(event) => {
                 if (event.key === 'Enter') {
-                  regularLogin();
+                  handleSimpleLogin();
                 }
               }}
               spacing={1.5}>
@@ -129,7 +129,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
             </Stack>
             <Stack width={'100%'} spacing={1.5}>
               <Button
-                onClick={regularLogin}
+                onClick={handleSimpleLogin}
                 variant="contained"
                 color="primary"
                 disabled={isLoading}

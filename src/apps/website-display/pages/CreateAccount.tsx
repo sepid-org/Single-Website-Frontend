@@ -34,7 +34,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
     });
   };
 
-  const handleCreatingAccount = () => {
+  const handleCreateAccount = () => {
     const { phoneNumber, password, firstName, lastName } = data;
     if (!phoneNumber || !password || !firstName || !lastName) {
       toast.error('همه‌ی موارد خواسته شده را پر کن');
@@ -70,7 +70,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
           <Stack
             onKeyDown={(event) => {
               if (event.key === 'Enter') {
-                handleCreatingAccount();
+                handleCreateAccount();
               }
             }}
             width={'100%'}
@@ -113,7 +113,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             <PasswordField collectData={collectData} />
 
             <Button
-              onClick={handleCreatingAccount}
+              onClick={handleCreateAccount}
               variant="contained"
               color="primary"
               disabled={isLoading}
