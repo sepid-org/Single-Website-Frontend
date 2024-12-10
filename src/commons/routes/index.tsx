@@ -1,8 +1,7 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Backdrop, CircularProgress } from '@mui/material';
 import { retryImport } from 'commons/utils/retryImport';
-import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
+import { BrowserRouter } from 'react-router-dom';
 
 // Lazy-loaded components with retry logic
 const WebsiteDisplayApp = React.lazy(() =>
@@ -20,22 +19,14 @@ const FSMApp = React.lazy(() =>
 
 const Root = () => {
   return (
-    <ErrorBoundary>
-      <Suspense
-        fallback={
-          <Backdrop open={true}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        }
-      >
-        <Routes>
-          <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
-          <Route path="/program/:programSlug/*" element={<ProgramApp />} />
-          <Route path="/management/*" element={<WebsiteFactoryApp />} />
-          <Route path="*" element={<WebsiteDisplayApp />} />
-        </Routes>
-      </Suspense>
-    </ErrorBoundary>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
+        <Route path="/program/:programSlug/*" element={<ProgramApp />} />
+        <Route path="/management/*" element={<WebsiteFactoryApp />} />
+        <Route path="*" element={<WebsiteDisplayApp />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
