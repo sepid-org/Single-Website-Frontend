@@ -17,8 +17,6 @@ import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
 import DateInputField from "commons/components/molecules/fields/DateInputField";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
-import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
-import { customTheme } from "../styles/Theme";
 import ProvinceSelector from "commons/components/molecules/profile-inputs/ProvinceSelector";
 import CitySelector from "commons/components/molecules/profile-inputs/CitySelector";
 import GenderSelector from "commons/components/molecules/profile-inputs/GenderSelector";
@@ -26,6 +24,7 @@ import FirstNameField from "commons/components/molecules/profile-inputs/FirstNam
 import LastNameField from "commons/components/molecules/profile-inputs/LastNameField";
 import NationalCodeField from "commons/components/molecules/profile-inputs/NationalCodeField";
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
+import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 
 type UserSettingPropsType = {}
 
@@ -86,6 +85,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     birthDate: false,
     postalCode: false,
     address: false,
+    province: false,
+    city: false,
   });
 
   const handleValidationChange = (field: string, isValid: boolean) => {
@@ -253,7 +254,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             استان
           </Typography>
-          <ProvinceSelector data={AshbariaProfile} setData={setAshbariaProfile} />
+          <ProvinceSelector
+            isRequired={true}
+            data={AshbariaProfile}
+            setData={setAshbariaProfile}
+            onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -265,7 +271,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             شهر
           </Typography>
-          <CitySelector data={AshbariaProfile} setData={setAshbariaProfile} />
+          <CitySelector
+            isRequired={true}
+            data={AshbariaProfile}
+            setData={setAshbariaProfile}
+            onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -310,7 +321,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             آدرس
           </Typography>
-          <AddressInput
+          <AddressField
             onChange={handleChange}
             value={AshbariaProfile?.address}
             isRequired={true}

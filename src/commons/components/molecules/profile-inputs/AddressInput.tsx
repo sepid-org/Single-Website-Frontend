@@ -20,7 +20,6 @@ const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, 
   };
 
   const handleInputChange = (e) => {
-    const inputValue = e.target.value;
     setError(false);
     setHelperText('');
     onValidationChange(true);
