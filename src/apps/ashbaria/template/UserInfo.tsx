@@ -207,7 +207,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             تاریخ تولد
           </Typography>
-          <DateInputField date={AshbariaProfile?.birth_date} setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })} />
+          <DateInputField
+            date={AshbariaProfile?.birth_date}
+            setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })}
+            handleValidationChange={(isValid) => handleValidationChange('birthDate', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
