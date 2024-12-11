@@ -15,9 +15,16 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
 
     // Check if the input contains non-alphabetic characters
     if (/^[\d\u06F0-\u06F9\u0660-\u0669]*$/.test(inputValue)) {
-      setError(false);
-      setHelperText('');
-      onValidationChange(false);
+      if (inputValue.length < 10 && inputValue.length > 0) {
+        setError(true);
+        setHelperText('کد ملی باید ۱۰ رقمی باشد.')
+        onValidationChange(true)
+      }
+      else {
+        setError(false);
+        setHelperText('');
+        onValidationChange(false);
+      }
     } else {
       setError(true);
       setHelperText('فقط ارقام مجاز است.');
@@ -34,7 +41,7 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
     }
   };
 
-  
+
   return (
     <TextField
       fullWidth

@@ -15,7 +15,7 @@ import CustomDialogContent from "commons/components/molecules/CustomDialogConten
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
-import DateInputField from "commons/components/molecules/fields/Date";
+import DateInputField from "commons/components/molecules/fields/DateInputField";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
 import { customTheme } from "../styles/Theme";
@@ -289,7 +289,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             کد پستی
           </Typography>
-          <PostalCodeField onChange={handleChange} value={AshbariaProfile?.postal_code} />
+          <PostalCodeField
+            onChange={handleChange}
+            value={AshbariaProfile?.postal_code}
+            onValidationChange={(isValid) => handleValidationChange('PostalCode', isValid)}
+          />
         </Grid>
         <Grid item xs={12}>
           <Typography

@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
 import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
-import DateInputField from 'commons/components/molecules/fields/Date';
+import DateInputField from 'commons/components/molecules/fields/DateInputField';
 import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
 import { Workshop } from "commons/configs/themes/MuiVariables";
