@@ -276,7 +276,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             setPhoneNumber={handleChange}
             phoneNumber={AshbariaProfile?.phone_number}
             label={undefined}
-            iconColor={customTheme.palette.primary.main}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

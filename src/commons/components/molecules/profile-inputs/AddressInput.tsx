@@ -1,13 +1,29 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import React from "react";
+import React, { useState } from "react";
 
-interface AddressInputProps {
-  handleChange: any;
-  address: string;
-  label?: string;
+interface AddressFieldProps extends Omit<TextFieldProps, 'value'> {
+  value?: string;
 }
 
-const AddressField: React.FC<TextFieldProps> = ({ onChange, value, label }) => {
+const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label }) => {
+  
+  const [error, setError] = useState(false);
+  const [helperText, setHelperText] = useState('');
+
+  const handleBlur = () => {
+    if (!value?.trim()) {
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const inputValue = e.target.value;
+    setError(false);
+    setHelperText('');
+    onChange?.(e);
+  }
+
   return (
     <TextField
       fullWidth
@@ -16,9 +32,12 @@ const AddressField: React.FC<TextFieldProps> = ({ onChange, value, label }) => {
       minRows={2}
       value={value || ''}
       name="address"
-      onChange={onChange}
+      onChange={handleInputChange}
       placeholder="آدرس خود را وارد کنید."
       label={label}
+      onBlur={handleBlur}
+      error={error}
+      helperText={helperText}
     />
   );
 }
