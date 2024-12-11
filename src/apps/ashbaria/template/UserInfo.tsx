@@ -87,6 +87,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     address: false,
     province: false,
     city: false,
+    introduction: false,
+    gender: false,
+    profileImage: false,
   });
 
   const handleValidationChange = (field: string, isValid: boolean) => {
@@ -230,6 +233,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             جنسیت
           </Typography>
           <GenderSelector
+            handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
             gender={AshbariaProfile?.gender}
             handleChange={handleGenderChange}
             primaryColor={"#FFA800"}
@@ -242,7 +246,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <IntroductionSelector handleChange={handleChange} referral_method={AshbariaProfile?.referral_method} />
+          <IntroductionSelector
+            handleChange={handleChange}
+            referral_method={AshbariaProfile?.referral_method}
+            isRequired={true}
+            onValidationChange={(isValid) => handleValidationChange('introduction', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -275,7 +284,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             isRequired={true}
             data={AshbariaProfile}
             setData={setAshbariaProfile}
-            onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('city', isValid)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -308,7 +317,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             isRequired={true}
             onChange={handleChange}
             value={AshbariaProfile?.postal_code}
-            onValidationChange={(isValid) => handleValidationChange('PostalCode', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('postalCode', isValid)}
           />
         </Grid>
         <Grid item xs={12}>
@@ -329,7 +338,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
+          <ProfileImageSelector
+            profile_image={AshbariaProfile?.profile_image}
+            handleChange={handleProfileImgChange}
+            onValidationChange={(isValid) => handleValidationChange('profileImage', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>

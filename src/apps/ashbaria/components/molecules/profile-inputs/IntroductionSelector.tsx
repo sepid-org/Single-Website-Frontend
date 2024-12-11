@@ -1,8 +1,24 @@
-import { FormControl, MenuItem, Select, Typography } from "@mui/material";
-import React, { Fragment } from "react";
+import { FormControl, FormHelperText, MenuItem, Select, Typography } from "@mui/material";
+import React, { Fragment, useState } from "react";
 
-export default function ({ handleChange, referral_method }) {
+export default function ({ handleChange, referral_method, isRequired, onValidationChange }) {
+  const [error, setError] = useState(false);
+	const [helperText, setHelperText] = useState('');
 
+	const handleBlur = () => {
+		if (isRequired && !referral_method?.trim()) {
+			setError(true);
+			setHelperText('این فیلد نمی‌تواند خالی باشد.');
+      onValidationChange(false)
+		}
+	};
+
+	const handleInputChange = (e) => {
+		setError(false);
+		setHelperText('');
+		onValidationChange(true);
+		handleChange?.(e);
+	}
   return (
     <Fragment>
       <Typography
@@ -15,13 +31,15 @@ export default function ({ handleChange, referral_method }) {
         نحوه‌ی آشنایی
       </Typography>
       <FormControl
-        required
+        required={isRequired}
+        onBlur={handleBlur}
         fullWidth
       >
         <Select
           name="referral_method"
           value={referral_method || ''}
-          onChange={handleChange}
+          onChange={(event) => handleInputChange(event)}
+          error={error}
         >
           <MenuItem value="دوستان">دوستان</MenuItem>
           <MenuItem value="مدرسه">مدرسه</MenuItem>
@@ -30,6 +48,7 @@ export default function ({ handleChange, referral_method }) {
           <MenuItem value="سایر">سایر</MenuItem>
         </Select>
       </FormControl>
+			<FormHelperText sx={{color: "#d32f2f"}}>{helperText}</FormHelperText>
     </Fragment>
   );
 }

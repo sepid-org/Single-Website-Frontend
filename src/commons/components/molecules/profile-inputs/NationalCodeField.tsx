@@ -19,17 +19,17 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
       if (inputValue.length < 10 && inputValue.length > 0) {
         setError(true);
         setHelperText('کد ملی باید ۱۰ رقمی باشد.')
-        onValidationChange(true)
+        onValidationChange(false)
       }
       else {
         setError(false);
         setHelperText('');
-        onValidationChange(false);
+        onValidationChange(true);
       }
     } else {
       setError(true);
       setHelperText('فقط ارقام مجاز است.');
-      onValidationChange(true);
+      onValidationChange(false);
     }
 
     onChange?.(e);

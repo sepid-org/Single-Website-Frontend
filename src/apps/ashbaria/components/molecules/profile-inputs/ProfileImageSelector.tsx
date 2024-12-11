@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
-export default function ProfileImageSelector({ profile_image, handleChange }) {
+export default function ProfileImageSelector({ profile_image, handleChange, onValidationChange }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
 
   useEffect(() => {
     if (profile_image) {
+      console.log(profile_image);
       setSelectedProfilePic(profile_image);
+      onValidationChange(true);
     }
   }, [profile_image]);
 

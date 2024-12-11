@@ -12,13 +12,15 @@ export default function GenderSelector({
 	secondareyColor = undefined,
 	changeBGColor = false,
 	primaryBGColor = undefined,
-	secondareyBGColor = undefined
+	secondareyBGColor = undefined,
+	handleValidationChange
 }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
 
 	useEffect(() => {
 		if (gender) {
 			setSelectedGender(gender);
+			handleValidationChange(true);
 		}
 	}, [gender])
 

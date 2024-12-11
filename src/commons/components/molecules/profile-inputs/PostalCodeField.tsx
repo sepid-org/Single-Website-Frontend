@@ -16,24 +16,22 @@ const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '',
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
-
-    // Check if the input contains non-alphabetic characters
     if (/^[\d\u06F0-\u06F9\u0660-\u0669]*$/.test(inputValue)) {
       if (inputValue.length < 10 && inputValue.length > 0) {
         setError(true);
         setHelperText('کد پستی باید ۱۰ رقمی باشد.')
-        onValidationChange(true)
+        onValidationChange(false)
       }
       else {
         setError(false);
         setHelperText('');
-        onValidationChange(false);
+        onValidationChange(true);
       }
     } 
     else {
       setError(true);
       setHelperText('فقط ارقام مجاز است.');
-      onValidationChange(true);
+      onValidationChange(false);
     }
 
     onChange?.(e);

@@ -19,6 +19,7 @@ const CitySelector: React.FC<CitySelectorProps> = ({ data, setData, label, isReq
 		if (isRequired && !data?.city?.trim()) {
 			setError(true);
 			setHelperText('این فیلد نمی‌تواند خالی باشد.');
+			onValidationChange(false);
 		}
 	};
 

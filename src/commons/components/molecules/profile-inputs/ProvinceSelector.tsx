@@ -19,6 +19,7 @@ const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ data, setData, labe
     if (isRequired && !data?.province?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
+			onValidationChange(false);
     }
   };
 

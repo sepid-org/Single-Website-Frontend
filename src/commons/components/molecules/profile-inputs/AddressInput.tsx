@@ -16,6 +16,7 @@ const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, 
     if (isRequired && !value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
+      onValidationChange(false);
     }
   };
 

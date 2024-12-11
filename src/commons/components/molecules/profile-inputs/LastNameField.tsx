@@ -17,11 +17,11 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', lab
     if (/^[a-zA-Z\u0600-\u06FF\s]*$/.test(inputValue)) {
       setError(false);
       setHelperText('');
-      onValidationChange(false);
+      onValidationChange(true);
     } else {
       setError(true);
       setHelperText('فقط حروف الفبایی مجاز است.');
-      onValidationChange(true);
+      onValidationChange(false);
     }
 
     onChange?.(e);
