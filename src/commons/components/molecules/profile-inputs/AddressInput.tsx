@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import React from "react";
 
 interface AddressInputProps {
@@ -7,20 +7,20 @@ interface AddressInputProps {
   label?: string;
 }
 
-const AddressInput: React.FC<AddressInputProps> = ({ handleChange, address, label }) => {
+const AddressField: React.FC<TextFieldProps> = ({ onChange, value, label }) => {
   return (
     <TextField
       fullWidth
       required
       multiline
       minRows={2}
-      value={address || ''}
+      value={value || ''}
       name="address"
-      onChange={handleChange}
+      onChange={onChange}
       placeholder="آدرس خود را وارد کنید."
-      label={label? label : null}
+      label={label}
     />
   );
 }
 
-export default AddressInput;
+export default AddressField;

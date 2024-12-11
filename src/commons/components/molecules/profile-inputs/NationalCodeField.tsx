@@ -1,28 +1,29 @@
-import React, { Fragment } from "react";
-import { TextField, Typography } from "@mui/material";
+import React from "react";
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 interface NationalCodeInputProps {
   handleChange: any;
   national_code: string;
   label?: string;
-}
 
-const NationalCodeInput: React.FC<NationalCodeInputProps> = ({ handleChange, national_code, label }) => {
+} 
+
+const NationalCodeField: React.FC<TextFieldProps> = ({ value, label, onChange }) => {
   return (
     <TextField
       fullWidth
       required
-      value={national_code || ''}
+      value={value || ''}
       name="national_code"
-      onChange={handleChange}
+      onChange={onChange}
       placeholder="کد ملی خود را وارد کنید."
       inputProps={{
         maxLength: 10,
         inputMode: "numeric",
       }}
-      label={label? label : null}
+      label={label}
     />
   );
 }
 
-export default NationalCodeInput;
+export default NationalCodeField;

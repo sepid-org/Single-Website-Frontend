@@ -4,14 +4,14 @@ import { toEnglishNumber } from 'commons/utils/translateNumber';
 import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
 import DateInputField from 'commons/components/molecules/fields/Date';
-import NameInput from 'commons/components/molecules/profile-inputs/NameInput';
-import LastNameInput from 'commons/components/molecules/profile-inputs/LastNameInput';
 import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
 import { Workshop } from "commons/configs/themes/MuiVariables";
 import ProvinceSelector from "../../molecules/profile-inputs/ProvinceSelector";
 import CitySelector from 'commons/components/molecules/profile-inputs/CitySelector';
 import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
+import FirstNameField from 'commons/components/molecules/profile-inputs/FirstNameField';
+import LastNameField from 'commons/components/molecules/profile-inputs/LastNameField';
 
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
@@ -70,11 +70,11 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         </Grid>
         <Grid item container xs={12} sm={6} spacing={2}>
           <Grid item xs={12}>
-            <NameInput label='نام' handleChange={handleChange} first_name={data.first_name} />
+            <FirstNameField label='نام' onChange={handleChange} value={data.first_name} />
           </Grid>
 
           <Grid item xs={12}>
-            <LastNameInput label='نام خانوادگی' handleChange={handleChange} last_name={data.last_name} />
+            <LastNameField label='نام خانوادگی' onChange={handleChange} value={data.last_name} />
           </Grid>
 
           <Grid item xs={12}>

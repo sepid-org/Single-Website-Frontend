@@ -1,11 +1,11 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { TextFieldProps } from '@mui/material/TextField';
 import Iran from "commons/utils/iran";
 import React from "react";
 
-interface ProvinceSelectorProps {
+type ProvinceSelectorProps = TextFieldProps & {
 	data: any;
 	setData: any;
-	label?: string;
 }
 
 const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ data, setData, label }) => {

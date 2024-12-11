@@ -51,7 +51,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
                 <IconButton
                   onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
                 >
-                  <EditIcon style={{ color: iconColor }} />
+                  <EditIcon style={{ color: "primary" }} />
                 </IconButton>
               </InputAdornment>
             ),

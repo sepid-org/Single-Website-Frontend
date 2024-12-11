@@ -15,17 +15,17 @@ import CustomDialogContent from "commons/components/molecules/CustomDialogConten
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
-import NameInput from "commons/components/molecules/profile-inputs/NameInput";
-import LastNameInput from "commons/components/molecules/profile-inputs/LastNameInput";
-import NationalCodeInput from "commons/components/molecules/profile-inputs/NationalIDInput";
 import DateInputField from "commons/components/molecules/fields/Date";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
-import PostalCodeInput from "commons/components/molecules/profile-inputs/PostalCodeInput";
 import AddressInput from "commons/components/molecules/profile-inputs/AddressInput";
 import { customTheme } from "../styles/Theme";
 import ProvinceSelector from "commons/components/molecules/profile-inputs/ProvinceSelector";
 import CitySelector from "commons/components/molecules/profile-inputs/CitySelector";
 import GenderSelector from "commons/components/molecules/profile-inputs/GenderSelector";
+import FirstNameField from "commons/components/molecules/profile-inputs/FirstNameField";
+import LastNameField from "commons/components/molecules/profile-inputs/LastNameField";
+import NationalCodeField from "commons/components/molecules/profile-inputs/NationalCodeField";
+import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 
 type UserSettingPropsType = {}
 
@@ -79,6 +79,23 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     });
   }
 
+  const [validationStatus, setValidationStatus] = useState({
+    firstName: false,
+    lastName: false,
+    nationalCode: false,
+    birthDate: false,
+    postalCode: false,
+  });
+
+  const handleValidationChange = (field: string, isValid: boolean) => {
+    setValidationStatus((prevStatus) => ({
+      ...prevStatus,
+      [field]: isValid,
+    }));
+  };
+
+  const allValid = Object.values(validationStatus).every((status) => status);
+
   const handleGenderChange = (selectedGender) => {
     setAshbariaProfile({
       ...AshbariaProfile,
@@ -96,6 +113,14 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const handleSubmit = () => {
     if (checkForBlankFields(AshbariaProfile)) {
       toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
+      return;
+    }
+    if(AshbariaProfile.national_code.length != 10){
+      toast.error('لطفاً یک کد ملی صحیح وارد کن');
+      return;
+    }
+    if(AshbariaProfile.postal_code.length != 10){
+      toast.error('لطفاً یک کد پستی صحیح وارد کن');
       return;
     }
     updateProfile(AshbariaProfile);
@@ -134,7 +159,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             نام
           </Typography>
-          <NameInput first_name={AshbariaProfile?.first_name} handleChange={handleChange} />
+          <FirstNameField 
+            value={AshbariaProfile?.first_name} 
+            onChange={handleChange} 
+            onValidationChange={(isValid) => handleValidationChange('firstName', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -146,7 +175,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             نام خانوادگی
           </Typography>
-          <LastNameInput handleChange={handleChange} last_name={AshbariaProfile?.last_name} />
+          <LastNameField 
+            onValidationChange={(isValid) => handleValidationChange('lastName', isValid)}
+            onChange={handleChange} 
+            value={AshbariaProfile?.last_name} 
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography fontWeight={400} fontSize={14}
@@ -158,7 +191,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             کد ملی
           </Typography>
-          <NationalCodeInput handleChange={handleChange} national_code={AshbariaProfile?.national_code} />
+          <NationalCodeField onChange={handleChange} value={AshbariaProfile?.national_code} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -219,7 +252,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             شهر
           </Typography>
-          <CitySelector data={AshbariaProfile} setData={AshbariaProfile} />
+          <CitySelector data={AshbariaProfile} setData={setAshbariaProfile} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography
@@ -248,7 +281,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             کد پستی
           </Typography>
-          <PostalCodeInput handleChange={handleChange} postal_code={AshbariaProfile?.postal_code} />
+          <PostalCodeField onChange={handleChange} value={AshbariaProfile?.postal_code} />
         </Grid>
         <Grid item xs={12}>
           <Typography
@@ -260,7 +293,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             آدرس
           </Typography>
-          <AddressInput handleChange={handleChange} address={AshbariaProfile?.address} />
+          <AddressInput onChange={handleChange} value={AshbariaProfile?.address} />
         </Grid>
         <Grid item xs={12}>
           <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />
@@ -272,7 +305,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Button
-            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov)}
+            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || !allValid}
             onClick={() => setIsSubmitConfirmationOpen(true)}
             size="large" fullWidth={true} variant='contained'
           >

@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import React from "react";
 
 interface PostalCodeInputProps{
@@ -7,22 +7,22 @@ interface PostalCodeInputProps{
   label?: string;
 }
 
-const PostalCodeInput: React.FC<PostalCodeInputProps> = ({ handleChange, postal_code, label }) => {
+const PostalCodeField: React.FC<TextFieldProps> = ({ onChange, value, label }) => {
   return (
     <TextField
       fullWidth
       required
-      value={postal_code || ''}
+      value={value || ''}
       name="postal_code"
-      onChange={handleChange}
+      onChange={onChange}
       placeholder="کد پستی خود را وارد کنید."
       inputProps={{
         maxLength: 10,
         inputMode: "numeric",
       }}
-      label={label? label : null}
+      label={label}
     />
   );
 }
 
-export default PostalCodeInput;
+export default PostalCodeField;
