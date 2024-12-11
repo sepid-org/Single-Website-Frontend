@@ -2,7 +2,6 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import ChangePhoneNumberDialog from "commons/components/organisms/dialogs/ChangePhoneNumberDialog";
 import { ReactComponent as EditIcon } from "../../atoms/icons/edit.svg";
-import { Workshop } from "../../../configs/themes/MuiVariables";
 
 interface PhoneNumberInputProps {
   setPhoneNumber: any;
@@ -10,7 +9,7 @@ interface PhoneNumberInputProps {
   label?: string;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber, label,  }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber = '', label,  }) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
@@ -28,7 +27,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
         <TextField
           fullWidth
           required
-          value={phoneNumber || ''}
+          value={phoneNumber}
           name="phone_number"
           onChange={handleChange}
           placeholder="شماره تلفن خود را وارد کنید."

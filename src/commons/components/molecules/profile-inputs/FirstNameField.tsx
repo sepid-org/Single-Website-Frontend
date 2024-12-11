@@ -4,9 +4,10 @@ import React, { useState } from "react";
 interface FirstNameFieldProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
+  isRequired: boolean;
 }
 
-const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', label, onValidationChange }) => {
+const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
@@ -28,7 +29,7 @@ const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', l
   };
 
   const handleBlur = () => {
-    if (!value?.trim()) {
+    if (isRequired &&!value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -36,7 +37,7 @@ const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', l
   
   return (
     <TextField
-      required
+      required={isRequired}
       fullWidth
       value={value || ''}
       name="first_name"

@@ -3,15 +3,17 @@ import React, { useState } from "react";
 
 interface AddressFieldProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
+  isRequired: boolean;
+  onValidationChange: (isValid: boolean) => void;
 }
 
-const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label }) => {
+const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, isRequired, onValidationChange }) => {
   
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
   const handleBlur = () => {
-    if (!value?.trim()) {
+    if (isRequired && !value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -21,13 +23,14 @@ const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label }
     const inputValue = e.target.value;
     setError(false);
     setHelperText('');
+    onValidationChange(true);
     onChange?.(e);
   }
 
   return (
     <TextField
       fullWidth
-      required
+      required={isRequired}
       multiline
       minRows={2}
       value={value || ''}

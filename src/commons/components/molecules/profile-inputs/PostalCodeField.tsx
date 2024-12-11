@@ -5,10 +5,11 @@ import React, { useState } from "react";
 interface PostalCodeInputProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
+  isRequired: boolean;
 }
 
 
-const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '', label, onValidationChange }) => {
+const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
 
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -39,7 +40,7 @@ const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '',
   };
 
   const handleBlur = () => {
-    if (!value?.trim()) {
+    if (isRequired && !value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -48,7 +49,7 @@ const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '',
   return (
     <TextField
       fullWidth
-      required
+      required={isRequired}
       value={value}
       name="postal_code"
       onChange={handleInputChange}

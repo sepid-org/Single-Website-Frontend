@@ -85,6 +85,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     nationalCode: false,
     birthDate: false,
     postalCode: false,
+    address: false,
   });
 
   const handleValidationChange = (field: string, isValid: boolean) => {
@@ -163,6 +164,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.first_name}
             onChange={handleChange}
             onValidationChange={(isValid) => handleValidationChange('firstName', isValid)}
+            isRequired={true}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -179,6 +181,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onValidationChange={(isValid) => handleValidationChange('lastName', isValid)}
             onChange={handleChange}
             value={AshbariaProfile?.last_name}
+            isRequired={true}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -195,6 +198,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onChange={handleChange}
             value={AshbariaProfile?.national_code}
             onValidationChange={(isValid) => handleValidationChange('nationalCode', isValid)}
+            isRequired={true}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -208,6 +212,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             تاریخ تولد
           </Typography>
           <DateInputField
+            isRequired={true}
             date={AshbariaProfile?.birth_date}
             setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })}
             handleValidationChange={(isValid) => handleValidationChange('birthDate', isValid)}
@@ -289,6 +294,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             کد پستی
           </Typography>
           <PostalCodeField
+            isRequired={true}
             onChange={handleChange}
             value={AshbariaProfile?.postal_code}
             onValidationChange={(isValid) => handleValidationChange('PostalCode', isValid)}
@@ -304,7 +310,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             آدرس
           </Typography>
-          <AddressInput onChange={handleChange} value={AshbariaProfile?.address} />
+          <AddressInput
+            onChange={handleChange}
+            value={AshbariaProfile?.address}
+            isRequired={true}
+            onValidationChange={(isValid) => handleValidationChange('address', isValid)}
+          />
         </Grid>
         <Grid item xs={12}>
           <ProfileImageSelector profile_image={AshbariaProfile?.profile_image} handleChange={handleProfileImgChange} />

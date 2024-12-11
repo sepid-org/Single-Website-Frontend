@@ -4,9 +4,10 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 interface LastNameFieldProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
+  isRequired: boolean;
 }
 
-const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', label, onValidationChange }) => {
+const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
@@ -27,7 +28,7 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', lab
   };
 
   const handleBlur = () => {
-    if (!value?.trim()) {
+    if (isRequired && !value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -36,7 +37,7 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', lab
   return (
     <TextField
       fullWidth
-      required
+      required={isRequired}
       value={value}
       name="last_name"
       onChange={handleInputChange}

@@ -4,9 +4,10 @@ import TextField, { TextFieldProps } from '@mui/material/TextField';
 interface NationalCodeInputProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
+  isRequired: boolean;
 }
 
-const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value = '', label, onValidationChange }) => {
+const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
@@ -35,7 +36,7 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
   };
 
   const handleBlur = () => {
-    if (!value?.trim()) {
+    if (isRequired && !value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -45,7 +46,7 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
   return (
     <TextField
       fullWidth
-      required
+      required={isRequired}
       value={value}
       name="national_code"
       onChange={handleInputChange}

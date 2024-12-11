@@ -3,8 +3,8 @@ import { FormControl } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFnsJalali } from "@mui/x-date-pickers/AdapterDateFnsJalali";
 
-export default function DateInputField({ date, setDate, handleValidationChange }) {
-  // Internal state to handle the date object and validation
+export default function DateInputField({ date, setDate, handleValidationChange, isRequired }) {
+
   const [selectedDate, setSelectedDate] = useState(null);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
@@ -12,7 +12,6 @@ export default function DateInputField({ date, setDate, handleValidationChange }
   const minDate = new Date(new Date().getFullYear() - 120, new Date().getMonth(), new Date().getDate());
   const maxDate = new Date();
 
-  // Initialize the date when the component mounts or the date prop changes
   useEffect(() => {
     if (date) {
       try {
@@ -50,6 +49,8 @@ export default function DateInputField({ date, setDate, handleValidationChange }
         const day = String(newValue.getDate()).padStart(2, "0");
         const formattedDate = `${year}-${month}-${day}`;
         setDate(formattedDate);
+        setError(false);
+        setHelperText('');
       } else {
         setDate(null);
       }
@@ -69,11 +70,10 @@ export default function DateInputField({ date, setDate, handleValidationChange }
 
   const handleInput = (event) => {
     const normalizedValue = persianToEnglish(event.target.value);
-    event.target.value = normalizedValue; // Replace the input value with the normalized value
   };
 
   const handleBlur = () => {
-    if (!date?.trim()) {
+    if (isRequired && !date?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
