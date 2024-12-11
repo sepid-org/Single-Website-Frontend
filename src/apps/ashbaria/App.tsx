@@ -12,7 +12,6 @@ import FriendshipNetworkPage from './pages/FriendshipNetwork';
 import Profile from './pages/Profile';
 import CourtInfo from './pages/court/CourtInfo';
 import LandscapeCheckWrapper from './components/organisms/LandscapeCheckWrapper';
-import CustomStylesWrapper from './styles/CustomStylesWrapper';
 import CourtPage from './pages/court/Court';
 import Login from './pages/Login';
 import Introduction from './pages/Introduction';
@@ -28,38 +27,36 @@ const App = () => {
 
   return (
     <ThemeProvider theme={customTheme}>
-      <CustomStylesWrapper>
-        <CssBaseline />
-        <LandscapeCheckWrapper>
+      <CssBaseline />
+      <LandscapeCheckWrapper>
 
-          <Routes>
-            <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-              <Route index element={<GameMenu />} />
-              <Route path='/exam-result/' element={<ExamResultPage />} />
-              <Route path='/start-exam/' element={<StartExamPage />} />
-              <Route path='/exam/' element={<ExamPage />} />
-              <Route path='/what-happened/' element={<WhatHappenedPage />} />
-              <Route path='/menu/' element={<GameMenu />} />
-              <Route path='/mentors/' element={<OldGameMenu />} />
-              <Route path='/court/:fsmId/info/' element={<CourtInfo />} />
-              <Route path="/court/:fsmId/" element={<CourtPage />} />
-              <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
-              <Route path="/manage/" element={<ProgramManagement />} />
-              <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
-              <Route path='/profile/' element={<Profile />} />
-              <Route path='/introduction/' element={<Introduction />} />
-              <Route path='/scoreboard/' element={<ScoreBoard />} />
-              <Route path='/survey/' element={<Survey />} />
-            </Route>
+        <Routes>
+          <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
+            <Route index element={<GameMenu />} />
+            <Route path='/exam-result/' element={<ExamResultPage />} />
+            <Route path='/start-exam/' element={<StartExamPage />} />
+            <Route path='/exam/' element={<ExamPage />} />
+            <Route path='/what-happened/' element={<WhatHappenedPage />} />
+            <Route path='/menu/' element={<GameMenu />} />
+            <Route path='/mentors/' element={<OldGameMenu />} />
+            <Route path='/court/:fsmId/info/' element={<CourtInfo />} />
+            <Route path="/court/:fsmId/" element={<CourtPage />} />
+            <Route path="/court/:fsmId/manage/" element={<FSMManagement />} />
+            <Route path="/manage/" element={<ProgramManagement />} />
+            <Route path='/friendship-network/' element={<FriendshipNetworkPage />} />
+            <Route path='/profile/' element={<Profile />} />
+            <Route path='/introduction/' element={<Introduction />} />
+            <Route path='/scoreboard/' element={<ScoreBoard />} />
+            <Route path='/survey/' element={<Survey />} />
+          </Route>
 
-            <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
-              <Route path='/login/' element={<Login />} />
-              <Route path='/token-expiration/' element={<Login />} />
-            </Route>
-          </Routes>
+          <Route path="/" element={<AnonymousRoute base='/program/ashbaria/' />}>
+            <Route path='/login/' element={<Login />} />
+            <Route path='/token-expiration/' element={<Login />} />
+          </Route>
+        </Routes>
 
-        </LandscapeCheckWrapper>
-      </CustomStylesWrapper>
+      </LandscapeCheckWrapper>
     </ThemeProvider>
   );
 };

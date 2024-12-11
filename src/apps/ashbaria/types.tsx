@@ -1,5 +1,3 @@
-import { ResourceType } from "commons/types/models";
-
 export interface CourtType {
   id: number;
   title: string;

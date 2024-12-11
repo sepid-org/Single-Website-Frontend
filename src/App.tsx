@@ -42,7 +42,6 @@ const App = ({ }) => {
           <GlobalStyles />
           <IntlProvider translations={translations}>
             <CacheProvider value={createEmotionCache(dir)}>
-              <GlobalStyles />
               <ThemeProvider theme={selectTheme(dir)}>
                 <CssBaseline />
                 <ToastContainer
