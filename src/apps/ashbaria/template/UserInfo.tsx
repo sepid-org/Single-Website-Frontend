@@ -115,11 +115,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
       toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
       return;
     }
-    if(AshbariaProfile.national_code.length != 10){
+    if (AshbariaProfile.national_code.length != 10) {
       toast.error('لطفاً یک کد ملی صحیح وارد کن');
       return;
     }
-    if(AshbariaProfile.postal_code.length != 10){
+    if (AshbariaProfile.postal_code.length != 10) {
       toast.error('لطفاً یک کد پستی صحیح وارد کن');
       return;
     }
@@ -159,9 +159,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             نام
           </Typography>
-          <FirstNameField 
-            value={AshbariaProfile?.first_name} 
-            onChange={handleChange} 
+          <FirstNameField
+            value={AshbariaProfile?.first_name}
+            onChange={handleChange}
             onValidationChange={(isValid) => handleValidationChange('firstName', isValid)}
           />
         </Grid>
@@ -175,10 +175,10 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             نام خانوادگی
           </Typography>
-          <LastNameField 
+          <LastNameField
             onValidationChange={(isValid) => handleValidationChange('lastName', isValid)}
-            onChange={handleChange} 
-            value={AshbariaProfile?.last_name} 
+            onChange={handleChange}
+            value={AshbariaProfile?.last_name}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -191,7 +191,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           >
             کد ملی
           </Typography>
-          <NationalCodeField onChange={handleChange} value={AshbariaProfile?.national_code} />
+          <NationalCodeField
+            onChange={handleChange}
+            value={AshbariaProfile?.national_code}
+            onValidationChange={(isValid) => handleValidationChange('nationalCode', isValid)}
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Typography

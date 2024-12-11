@@ -13,23 +13,21 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', lab
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
 
-    // Check if the input contains non-alphabetic characters
-    if (/^[a-zA-Z\s]*$/.test(inputValue)) {
+    if (/^[a-zA-Z\u0600-\u06FF\s]*$/.test(inputValue)) {
       setError(false);
       setHelperText('');
       onValidationChange(false);
     } else {
-      setError(true); // Set error
+      setError(true);
       setHelperText('فقط حروف الفبایی مجاز است.');
       onValidationChange(true);
     }
 
-    onChange?.(e); // Allow the value to propagate
+    onChange?.(e);
   };
 
   const handleBlur = () => {
-    // Trigger error if the field is empty on blur
-    if (!value.trim()) {
+    if (!value?.trim()) {
       setError(true);
       setHelperText('این فیلد نمی‌تواند خالی باشد.');
     }
@@ -39,7 +37,7 @@ const LastNameField: React.FC<LastNameFieldProps> = ({ onChange, value = '', lab
     <TextField
       fullWidth
       required
-      value={value || ""}
+      value={value}
       name="last_name"
       onChange={handleInputChange}
       onBlur={handleBlur}
