@@ -16,9 +16,9 @@ import translations from 'commons/translations';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
 import GlobalStyles from 'commons/configs/styles/GlobalStyles';
 import { DialogProvider } from 'commons/components/organisms/PortalDialog/DialogContext';
-import { ErrorBoundary } from '@sentry/react';
 import InitialApiCalls from 'commons/utils/InitialApiCalls';
 import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
+import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
 
 const App = ({ }) => {
   const locale = useSelector((state: any) => state.Intl.locale);
