@@ -23,7 +23,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
   registrationFormId,
 }) => {
   const [page, setPage] = React.useState(1);
-  const [selectedReceiptId, setSelectedReceiptId] = useState<string>(null);
+  const [selectedReceiptId, setSelectedReceiptId] = useState<number>(null);
   const { data: allRegistrationReceipts } = useGetRegistrationFormAnswerSheetsQuery({
     formId: registrationFormId,
     pageNumber: page.toString()
@@ -62,7 +62,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
       />
       <AreYouSure
         open={Boolean(selectedReceiptId)}
-        callBackFunction={() => { deleteReceipt({ receiptId: selectedReceiptId }) }}
+        callBackFunction={() => { deleteReceipt({ receiptId: selectedReceiptId.toString() }) }}
         handleClose={() => setSelectedReceiptId(null)}
         text='در صورت پاک‌کردن این رسید ثبت‌نام، کاربر از دوره حذف و تمام دسترسی‌های آن به کارگاه‌ها قطع خواهد شد. آیا مطمئنید؟' />
     </Fragment>

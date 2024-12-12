@@ -1,15 +1,10 @@
-import { useGetAnswerSheetByPlayerIdQuery, useGetAnswerSheetQuery } from 'apps/website-display/redux/features/responses/answers/AnswerSheetSlice';
+import { useGetAnswerSheetByPlayerIdQuery } from 'apps/website-display/redux/features/responses/answers/AnswerSheetSlice';
 import { useFSMContext } from './useFSMContext';
+import { useAnswerSheetContext } from './useAnswerSheetContext';
 
-type PropsType = {
-  answerSheetId?: string;
-}
-
-const useAnswerSheet = ({
-  answerSheetId,
-}: PropsType) => {
+const useAnswerSheet = () => {
   const { player } = useFSMContext();
-  const { data: answerSheetByAnswerSheetId } = useGetAnswerSheetQuery({ answerSheetId }, { skip: Boolean(player) || !Boolean(answerSheetId) });
+  const { answerSheet: answerSheetByAnswerSheetId } = useAnswerSheetContext();
   const { data: answerSheetByPlayerId } = useGetAnswerSheetByPlayerIdQuery({ playerId: player?.id }, { skip: !Boolean(player) });
   const answerSheet = answerSheetByAnswerSheetId || answerSheetByPlayerId;
 

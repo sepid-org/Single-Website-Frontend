@@ -51,7 +51,7 @@ const useMultiChoiceQuestionProperties = ({
   const [selectedChoiceIds, setSelectedChoiceIds] = useState<number[]>([]);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
-  const { getQuestionAnswers } = useAnswerSheet({})
+  const { getQuestionAnswers } = useAnswerSheet();
   const questionAnswers = getQuestionAnswers(questionId);
   const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);
 

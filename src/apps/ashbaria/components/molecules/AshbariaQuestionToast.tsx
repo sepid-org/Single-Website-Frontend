@@ -37,7 +37,7 @@ const AshbariaQuestionToast = ({ ...props }) => {
   }, [fsmState, dispatch]);
 
   const multiChoiceQuestion = allMultiChoiceQuestions?.[0];
-  const { getQuestionAnswers } = useAnswerSheet({});
+  const { getQuestionAnswers } = useAnswerSheet();
   const questionAnswers = getQuestionAnswers(parseInt(multiChoiceQuestion?.id));
 
   useEffect(() => {
