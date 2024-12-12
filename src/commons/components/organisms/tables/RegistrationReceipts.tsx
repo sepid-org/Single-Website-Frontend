@@ -35,15 +35,14 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
   return (
     <Fragment>
       <SimpleTable
-        hideRowNumbersColumn={true}
+        hideRowNumbersColumn={false}
+        showLatestFirst={true}
         headers={[
-          { name: 'id', label: 'شناسه' },
           { name: 'name', label: 'نام' },
           { name: 'status', label: 'وضعیت' },
           { name: 'operation', label: 'عملیات' },
         ]}
         rows={allRegistrationReceipts?.results?.map((registrationReceipt) => ({
-          id: registrationReceipt.id,
           name:
             <Button
               href={`/receipt/${registrationReceipt.id}/`}

@@ -19,61 +19,65 @@ type SimpleTablePropsType = {
   count?: number;
   itemsPerPage?: number;
   page?: number;
-  setPage?: Function;
+  setPage?: (page: number) => void;
   hideRowNumbersColumn?: boolean;
+  showLatestFirst?: boolean;
 }
 
 const SimpleTable: FC<SimpleTablePropsType> = ({
   headers,
   rows,
   count,
-  itemsPerPage,
-  page,
+  itemsPerPage = 10,
+  page = 1,
   setPage,
   hideRowNumbersColumn,
+  showLatestFirst = false,
 }) => {
+  // Calculate the starting row number based on current page
+  const startingRowIndex = page ? (page - 1) * itemsPerPage : 0;
 
   return (
-    <Stack>
-      {page &&
+    <Stack spacing={2}>
+      {page && (
         <Pagination
           sx={{ alignSelf: 'center' }}
           count={Math.ceil(count / itemsPerPage) || 1}
           page={page}
-          onChange={(event, value) => setPage(value)}
+          onChange={(event, value) => setPage && setPage(value)}
           defaultPage={1}
           color="primary"
           showFirstButton
           showLastButton
         />
-      }
+      )}
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-              {!hideRowNumbersColumn &&
+              {!hideRowNumbersColumn && (
                 <TableCell align='center'>ردیف</TableCell>
-              }
-              {headers.map((header) =>
-                <TableCell key={header.name} align='center'>{header.label}</TableCell>
               )}
+              {headers.map((header) => (
+                <TableCell key={header.name} align='center'>{header.label}</TableCell>
+              ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows?.map((row, index) =>
+            {rows?.map((row, index) => (
               <TableRow key={index}>
-                {!hideRowNumbersColumn &&
+                {!hideRowNumbersColumn && (
                   <TableCell align='center'>
-                    {index + 1}
-                  </TableCell>
-                }
-                {headers.map((header, index) =>
-                  <TableCell key={index} align='center'>
-                    {row[header.name] || '-'}
+                    {showLatestFirst ? count - startingRowIndex - index : startingRowIndex + index + 1}
                   </TableCell>
                 )}
+                {headers.map((header) => (
+                  <TableCell key={header.name} align='center'>
+                    {row[header.name] ?? '-'}
+                  </TableCell>
+                ))}
               </TableRow>
-            )}
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -81,4 +85,4 @@ const SimpleTable: FC<SimpleTablePropsType> = ({
   );
 }
 
-export default SimpleTable
+export default SimpleTable;
