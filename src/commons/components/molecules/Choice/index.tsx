@@ -23,6 +23,7 @@ const Choice: FC<Partial<ChoicePropsType>> = ({
   onTextChange,
   variant,
   mode,
+  disabled,
 }) => {
 
   if (mode === WidgetModes.Edit) {
@@ -36,6 +37,7 @@ const Choice: FC<Partial<ChoicePropsType>> = ({
 
   if (mode === WidgetModes.View) {
     return <ChoiceView
+      disabled={disabled}
       choice={choice}
       isSelected={isSelected}
       onSelectionChange={onSelectionChange}

@@ -7,7 +7,6 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 export { MultiChoiceQuestionEditWidget };
 
-// Add this utility function at the top of the file or in a separate utils file
 const seededRandom = (seed: string) => {
   // Create a simple hash from the seed string
   let hash = Array.from(seed).reduce((acc, char) => {
@@ -126,13 +125,13 @@ const useMultiChoiceQuestionProperties = ({
   }
 
   useEffect(() => {
-    
+
     const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer);
     if (latestChoice && latestChoice.length > 0 && !selectedChoiceIds.includes(latestChoice[0].choices[0])) {
       setSelectedChoiceIds(latestChoice[0].choices);
     }
   }, [questionAnswers, selectedChoiceIds]);
-  
+
 
   return {
     selectedChoiceIds,
