@@ -1,16 +1,28 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface AddressFieldProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   isRequired: boolean;
   onValidationChange: (isValid: boolean) => void;
+  displayEmptyErrorMessage: boolean;
 }
 
-const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, isRequired, onValidationChange }) => {
+const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, isRequired, onValidationChange, displayEmptyErrorMessage }) => {
   
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
   const handleBlur = () => {
     if (isRequired && !value?.trim()) {

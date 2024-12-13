@@ -1,19 +1,31 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 import { TextFieldProps } from '@mui/material/TextField';
 import Iran from "commons/utils/iran";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type ProvinceSelectorProps = TextFieldProps & {
 	data: any;
 	setData: any;
 	isRequired: boolean;
 	onValidationChange: (isValid: boolean) => void;
+	displayEmptyErrorMessage: boolean;
 }
 
-const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ data, setData, label, isRequired, onValidationChange }) => {
+const ProvinceSelector: React.FC<ProvinceSelectorProps> = ({ data, setData, label, isRequired, onValidationChange, displayEmptyErrorMessage }) => {
 	
 	const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+
+	useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 	
 	const handleBlur = () => {
     if (isRequired && !data?.province?.trim()) {

@@ -1,15 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 
 interface NationalCodeInputProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
   isRequired: boolean;
+  displayEmptyErrorMessage: boolean;
 }
 
-const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
+const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

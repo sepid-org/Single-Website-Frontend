@@ -48,6 +48,19 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   useEffect(() => {
     if (initialAshbariaProfile) {
       setAshbariaProfile(initialAshbariaProfile);
+      setFieldValidationStatus({
+        first_name: initialAshbariaProfile?.first_name ? true : false,
+        last_name: initialAshbariaProfile?.last_name ? true : false,
+        national_code: initialAshbariaProfile?.national_code ? true : false,
+        birth_date: initialAshbariaProfile?.birth_date ? true : false,
+        postal_code: initialAshbariaProfile?.postal_code ? true : false,
+        address: initialAshbariaProfile?.address ? true : false,
+        province: initialAshbariaProfile?.province ? true : false,
+        city: initialAshbariaProfile?.city ? true : false,
+        referral_method: initialAshbariaProfile?.referral_method ? true : false,
+        gender: initialAshbariaProfile?.gender ? true : false,
+        profile_image: initialAshbariaProfile?.profile_image ? true : false,
+      });
     }
   }, [initialAshbariaProfile]);
 
@@ -78,28 +91,42 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     });
   }
 
-  const [validationStatus, setValidationStatus] = useState({
-    firstName: false,
-    lastName: false,
-    nationalCode: false,
-    birthDate: false,
-    postalCode: false,
+  const [fieldValidationStatus, setFieldValidationStatus] = useState({
+    first_name: false,
+    last_name: false,
+    national_code: false,
+    birth_date: false,
+    postal_code: false,
     address: false,
     province: false,
     city: false,
-    introduction: false,
+    referral_method: false,
     gender: false,
-    profileImage: false,
+    profile_image: false,
+  });
+
+  const [displayEmptyErrorMessage, setDisplayEmptyErrorMessage] = useState({
+    first_name: false,
+    last_name: false,
+    national_code: false,
+    birth_date: false,
+    postal_code: false,
+    address: false,
+    province: false,
+    city: false,
+    referral_method: false,
+    gender: false,
+    profile_image: false,
   });
 
   const handleValidationChange = (field: string, isValid: boolean) => {
-    setValidationStatus((prevStatus) => ({
+    setFieldValidationStatus((prevStatus) => ({
       ...prevStatus,
       [field]: isValid,
     }));
   };
 
-  const allValid = Object.values(validationStatus).every((status) => status);
+  const allFieldsValid = Object.values(fieldValidationStatus).every((status) => status);
 
   const handleGenderChange = (selectedGender) => {
     setAshbariaProfile({
@@ -113,22 +140,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
       ...AshbariaProfile,
       profile_image: selectedImg,
     });
-  }
-
-  const handleSubmit = () => {
-    if (checkForBlankFields(AshbariaProfile)) {
-      toast.error('لطفاً همه‌ی مشخصات رو کامل کن');
-      return;
-    }
-    if (AshbariaProfile.national_code.length != 10) {
-      toast.error('لطفاً یک کد ملی صحیح وارد کن');
-      return;
-    }
-    if (AshbariaProfile.postal_code.length != 10) {
-      toast.error('لطفاً یک کد پستی صحیح وارد کن');
-      return;
-    }
-    updateProfile(AshbariaProfile);
   }
 
   return (
@@ -167,8 +178,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <FirstNameField
             value={AshbariaProfile?.first_name}
             onChange={handleChange}
-            onValidationChange={(isValid) => handleValidationChange('firstName', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
             isRequired={true}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.first_name}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -182,10 +194,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             نام خانوادگی
           </Typography>
           <LastNameField
-            onValidationChange={(isValid) => handleValidationChange('lastName', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('last_name', isValid)}
             onChange={handleChange}
             value={AshbariaProfile?.last_name}
             isRequired={true}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.last_name}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -201,8 +214,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <NationalCodeField
             onChange={handleChange}
             value={AshbariaProfile?.national_code}
-            onValidationChange={(isValid) => handleValidationChange('nationalCode', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('national_code', isValid)}
             isRequired={true}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.national_code}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -219,7 +233,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             isRequired={true}
             date={AshbariaProfile?.birth_date}
             setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })}
-            handleValidationChange={(isValid) => handleValidationChange('birthDate', isValid)}
+            handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.birth_date}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -243,6 +258,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             changeBGColor={true}
             maleGender="M"
             femaleGender="F"
+            displayEmptyErrorMessage={displayEmptyErrorMessage.gender}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -250,7 +266,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             handleChange={handleChange}
             referral_method={AshbariaProfile?.referral_method}
             isRequired={true}
-            onValidationChange={(isValid) => handleValidationChange('introduction', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('referral_method', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.referral_method}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -268,6 +285,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             data={AshbariaProfile}
             setData={setAshbariaProfile}
             onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.province}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -285,6 +303,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             data={AshbariaProfile}
             setData={setAshbariaProfile}
             onValidationChange={(isValid) => handleValidationChange('city', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.city}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -317,7 +336,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             isRequired={true}
             onChange={handleChange}
             value={AshbariaProfile?.postal_code}
-            onValidationChange={(isValid) => handleValidationChange('postalCode', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('postal_code', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.postal_code}
           />
         </Grid>
         <Grid item xs={12}>
@@ -335,13 +355,15 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.address}
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('address', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.address}
           />
         </Grid>
         <Grid item xs={12}>
           <ProfileImageSelector
             profile_image={AshbariaProfile?.profile_image}
             handleChange={handleProfileImgChange}
-            onValidationChange={(isValid) => handleValidationChange('profileImage', isValid)}
+            onValidationChange={(isValid) => handleValidationChange('profile_image', isValid)}
+            displayEmptyErrorMessage={displayEmptyErrorMessage.profile_image}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -351,8 +373,18 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
         <Grid item xs={12} sm={6}>
           <Button
-            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || !allValid}
-            onClick={() => setIsSubmitConfirmationOpen(true)}
+            onClick={() => {
+              if (Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || allFieldsValid) {
+                setIsSubmitConfirmationOpen(true)
+              }
+              else {
+                for (const property in fieldValidationStatus) {
+                  if (!fieldValidationStatus[property] && !AshbariaProfile[property]) {
+                    setDisplayEmptyErrorMessage((prevState) => {return { ...prevState, [property]: true }});
+                  }
+                }
+              }
+            }}
             size="large" fullWidth={true} variant='contained'
           >
             {'همینو ذخیره کن'}
@@ -363,27 +395,11 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         text='توجه کن که تنها یک بار می‌تونی نمایه‌ت را ذخیره کنی. آیا مطمئنی؟'
         open={isSubmitConfirmationOpen}
         handleClose={() => setIsSubmitConfirmationOpen(false)}
-        callBackFunction={handleSubmit}
+        callBackFunction={() => updateProfile(AshbariaProfile)}
       />
-    </Container>
+    </Container> 
+    
   );
 }
 
 export default UserInfo;
-
-const checkForBlankFields = (profile: AshbariaProfileType): boolean => {
-  const requiredFields = [
-    'first_name',
-    'last_name',
-    'national_code',
-    'birth_date',
-    'gender',
-    'province',
-    'city',
-    'phone_number',
-    'postal_code',
-    'address',
-  ];
-
-  return requiredFields.some((field) => profile[field as keyof AshbariaProfileType] === null || profile[field as keyof AshbariaProfileType] === '');
-};

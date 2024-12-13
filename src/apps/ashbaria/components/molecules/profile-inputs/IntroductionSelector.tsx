@@ -1,10 +1,21 @@
 import { FormControl, FormHelperText, MenuItem, Select, Typography } from "@mui/material";
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 
-export default function ({ handleChange, referral_method, isRequired, onValidationChange }) {
+export default function ({ handleChange, referral_method, isRequired, onValidationChange, displayEmptyErrorMessage }) {
   const [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState('');
 
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
+  
 	const handleBlur = () => {
 		if (isRequired && !referral_method?.trim()) {
 			setError(true);

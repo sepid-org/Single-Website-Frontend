@@ -13,7 +13,8 @@ export default function GenderSelector({
 	changeBGColor = false,
 	primaryBGColor = undefined,
 	secondareyBGColor = undefined,
-	handleValidationChange
+	handleValidationChange,
+	displayEmptyErrorMessage
 }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
 
@@ -56,7 +57,7 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "8px 0px 0px 8px",
 						border: "1px solid",
-						borderColor: selectBorderColor(maleGender),
+						borderColor: (!gender && displayEmptyErrorMessage) ? "#d32f2f" : selectBorderColor(maleGender),
 						backgroundColor: (changeBGColor ? selectBackgroundColor(maleGender) : null),
 						display: "flex",
 						justifyContent: "center",
@@ -84,7 +85,7 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "0px 8px 8px 0px",
 						border: "1px solid",
-						borderColor: selectBorderColor(femaleGender),
+						borderColor: (!gender && displayEmptyErrorMessage) ? "#d32f2f" : selectBorderColor(femaleGender),
 						backgroundColor: (changeBGColor ? selectBackgroundColor(femaleGender) : null),
 						display: "flex",
 						justifyContent: "center",
@@ -102,6 +103,15 @@ export default function GenderSelector({
 					</Typography>
 				</Box>
 			</Box>
+			<Typography 
+				fontSize={12} 
+				sx={{
+					color: "#d32f2f", 
+					marginTop: "3px",
+				}}
+			>
+				{(!gender && displayEmptyErrorMessage) ? 'این فیلد نمی‌تواند خالی باشد.' : ''}
+			</Typography>
 		</Fragment>
 	);
 }

@@ -1,18 +1,30 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 interface PostalCodeInputProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
   isRequired: boolean;
+  displayEmptyErrorMessage: boolean;
 }
 
 
-const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
+const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
 
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

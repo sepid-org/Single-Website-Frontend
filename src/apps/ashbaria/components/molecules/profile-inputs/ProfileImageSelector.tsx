@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
-export default function ProfileImageSelector({ profile_image, handleChange, onValidationChange }) {
+export default function ProfileImageSelector({ profile_image, handleChange, onValidationChange, displayEmptyErrorMessage }) {
   const [selectedProfilePic, setSelectedProfilePic] = useState<string>(profile_image);
 
   useEffect(() => {
@@ -69,6 +69,15 @@ export default function ProfileImageSelector({ profile_image, handleChange, onVa
           )
         })}
       </Stack>
+      <Typography
+      fontSize={12} 
+				sx={{
+					color: "#d32f2f", 
+					marginTop: "3px",
+				}}
+			>
+				{(!profile_image && displayEmptyErrorMessage) ? 'این فیلد نمی‌تواند خالی باشد.' : ''}
+      </Typography>
     </Fragment >
   );
 }

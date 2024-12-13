@@ -3,11 +3,22 @@ import { FormControl } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFnsJalali } from "@mui/x-date-pickers/AdapterDateFnsJalali";
 
-export default function DateInputField({ date, setDate, handleValidationChange, isRequired }) {
+export default function DateInputField({ date, setDate, handleValidationChange, isRequired, displayEmptyErrorMessage }) {
 
   const [selectedDate, setSelectedDate] = useState(null);
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState("");
+
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
   const minDate = new Date(new Date().getFullYear() - 120, new Date().getMonth(), new Date().getDate());
   const maxDate = new Date();

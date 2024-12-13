@@ -1,15 +1,27 @@
 import TextField, { TextFieldProps } from '@mui/material/TextField';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 interface FirstNameFieldProps extends Omit<TextFieldProps, 'value'> {
   value?: string;
   onValidationChange: (isValid: boolean) => void;
   isRequired: boolean;
+  displayEmptyErrorMessage: boolean;
 }
 
-const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', label, onValidationChange, isRequired }) => {
+const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
+
+  useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;

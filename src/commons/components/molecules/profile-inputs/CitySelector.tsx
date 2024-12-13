@@ -1,6 +1,6 @@
 import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from "@mui/material";
 import Iran from "commons/utils/iran";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextFieldProps } from '@mui/material/TextField';
 
 type CitySelectorProps = TextFieldProps & {
@@ -9,11 +9,23 @@ type CitySelectorProps = TextFieldProps & {
 	isRequired: boolean;
 	onValidationChange: (isValid: boolean) => void;
 	label?: string;
+	displayEmptyErrorMessage: boolean;
 }
 
-const CitySelector: React.FC<CitySelectorProps> = ({ data, setData, label, isRequired, onValidationChange }) => {
+const CitySelector: React.FC<CitySelectorProps> = ({ data, setData, label, isRequired, onValidationChange, displayEmptyErrorMessage }) => {
 	const [error, setError] = useState(false);
 	const [helperText, setHelperText] = useState('');
+
+	useEffect(() => {
+    if(displayEmptyErrorMessage){
+      setError(true);
+      setHelperText('این فیلد نمی‌تواند خالی باشد.');
+    }
+    else{
+      setError(false);
+      setHelperText("");
+    }
+  }, [displayEmptyErrorMessage]);
 
 	const handleBlur = () => {
 		if (isRequired && !data?.city?.trim()) {
