@@ -181,6 +181,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
             isRequired={true}
             displayEmptyErrorMessage={displayEmptyErrorMessage.first_name}
+            placeholder="نام خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -199,6 +200,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.last_name}
             isRequired={true}
             displayEmptyErrorMessage={displayEmptyErrorMessage.last_name}
+            placeholder="نام خانوادگی خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -217,6 +219,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onValidationChange={(isValid) => handleValidationChange('national_code', isValid)}
             isRequired={true}
             displayEmptyErrorMessage={displayEmptyErrorMessage.national_code}
+            placeholder="کد ملی خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -338,6 +341,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.postal_code}
             onValidationChange={(isValid) => handleValidationChange('postal_code', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessage.postal_code}
+            placeholder="کد پستی خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12}>
@@ -356,6 +360,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('address', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessage.address}
+            placeholder="آدرس خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12}>

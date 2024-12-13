@@ -10,7 +10,15 @@ interface PostalCodeInputProps extends Omit<TextFieldProps, 'value'> {
 }
 
 
-const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
+const PostalCodeField: React.FC<PostalCodeInputProps> = ({ 
+  onChange, 
+  value = '', 
+  label, 
+  onValidationChange, 
+  isRequired, 
+  displayEmptyErrorMessage,
+  placeholder,
+}) => {
 
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -66,7 +74,7 @@ const PostalCodeField: React.FC<PostalCodeInputProps> = ({ onChange, value = '',
       onBlur={handleBlur}
       error={error}
       helperText={helperText}
-      placeholder="کد پستی خود را وارد کنید."
+      placeholder={placeholder}
       inputProps={{
         maxLength: 10,
         inputMode: "numeric",

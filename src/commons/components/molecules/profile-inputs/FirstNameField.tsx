@@ -8,7 +8,15 @@ interface FirstNameFieldProps extends Omit<TextFieldProps, 'value'> {
   displayEmptyErrorMessage: boolean;
 }
 
-const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
+const FirstNameField: React.FC<FirstNameFieldProps> = ({ 
+  onChange, 
+  value = '', 
+  label, 
+  onValidationChange, 
+  isRequired, 
+  displayEmptyErrorMessage,
+  placeholder,
+ }) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
@@ -55,7 +63,7 @@ const FirstNameField: React.FC<FirstNameFieldProps> = ({ onChange, value = '', l
       name="first_name"
       onChange={handleInputChange}
       onBlur={handleBlur}
-      placeholder="نام خود را وارد کنید."
+      placeholder={placeholder}
       label={label}
       error={error}
       helperText={helperText}

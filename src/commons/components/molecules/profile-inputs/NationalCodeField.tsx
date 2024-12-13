@@ -8,7 +8,15 @@ interface NationalCodeInputProps extends Omit<TextFieldProps, 'value'> {
   displayEmptyErrorMessage: boolean;
 }
 
-const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value = '', label, onValidationChange, isRequired, displayEmptyErrorMessage }) => {
+const NationalCodeField: React.FC<NationalCodeInputProps> = ({ 
+  onChange, 
+  value = '', 
+  label, 
+  onValidationChange, 
+  isRequired, 
+  displayEmptyErrorMessage,
+  placeholder
+}) => {
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
 
@@ -63,7 +71,7 @@ const NationalCodeField: React.FC<NationalCodeInputProps> = ({ onChange, value =
       name="national_code"
       onChange={handleInputChange}
       onBlur={handleBlur}
-      placeholder="کد ملی خود را وارد کنید."
+      placeholder={placeholder}
       inputProps={{
         maxLength: 10,
         inputMode: "numeric",

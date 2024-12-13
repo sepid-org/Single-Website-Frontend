@@ -8,7 +8,15 @@ interface AddressFieldProps extends Omit<TextFieldProps, 'value'> {
   displayEmptyErrorMessage: boolean;
 }
 
-const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, isRequired, onValidationChange, displayEmptyErrorMessage }) => {
+const AddressField: React.FC<AddressFieldProps> = ({ 
+  onChange, 
+  value='', 
+  label, 
+  isRequired, 
+  onValidationChange, 
+  displayEmptyErrorMessage,
+  placeholder,
+}) => {
   
   const [error, setError] = useState(false);
   const [helperText, setHelperText] = useState('');
@@ -48,7 +56,7 @@ const AddressField: React.FC<AddressFieldProps> = ({ onChange, value='', label, 
       value={value || ''}
       name="address"
       onChange={handleInputChange}
-      placeholder="آدرس خود را وارد کنید."
+      placeholder={placeholder}
       label={label}
       onBlur={handleBlur}
       error={error}
