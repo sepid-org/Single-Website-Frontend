@@ -96,12 +96,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     last_name: false,
     national_code: false,
     birth_date: false,
-    postal_code: false,
-    address: false,
+    gender: false,
+    referral_method: false,
     province: false,
     city: false,
-    referral_method: false,
-    gender: false,
+    postal_code: false,
+    address: false,
     profile_image: false,
   });
 
@@ -110,12 +110,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     last_name: false,
     national_code: false,
     birth_date: false,
-    postal_code: false,
-    address: false,
+    gender: false,
+    referral_method: false,
     province: false,
     city: false,
-    referral_method: false,
-    gender: false,
+    postal_code: false,
+    address: false,
     profile_image: false,
   });
 
@@ -383,6 +383,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                     setDisplayEmptyErrorMessage((prevState) => {return { ...prevState, [property]: true }});
                   }
                 }
+                toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
             size="large" fullWidth={true} variant='contained'
