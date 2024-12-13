@@ -1,11 +1,11 @@
 import { FileType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-type GetRegistrationReceiptsFileInputType = {
+type GetParticipantsFileInputType = {
   formId: string;
 }
 
-type GetRegistrationReceiptsFileOutputType = FileType;
+type GetParticipantsFileOutputType = FileType;
 
 type GetAnswerSheetsFileInputType = {
   formId: string;
@@ -22,10 +22,10 @@ type GetProgramMerchandisesPurchasesFileOutputType = FileType;
 export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
 
-    getRegistrationReceiptsFile: builder.query<GetRegistrationReceiptsFileOutputType, GetRegistrationReceiptsFileInputType>({
+    getParticipantsFile: builder.query<GetParticipantsFileOutputType, GetParticipantsFileInputType>({
       providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ formId }) => ({
-        url: `/report/registration-receipts/?registration_form_id=${formId}`,
+        url: `/report/participants/?registration_form_id=${formId}`,
       }),
     }),
 
@@ -47,7 +47,7 @@ export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useLazyGetRegistrationReceiptsFileQuery,
+  useLazyGetParticipantsFileQuery,
   useLazyGetAnswerSheetsFileQuery,
   useLazyGetProgramMerchandisesPurchasesFileQuery,
 } = ReportSlice;

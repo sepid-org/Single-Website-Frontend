@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import isValidURL from 'commons/utils/validators/urlValidator';
-import { MEDIA_BASE_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/configs/Constants';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 
 type RegistrationPropsType = {}
@@ -30,7 +30,7 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
     if (getAnswerSheetsFileResult.isSuccess) {
       let url = getAnswerSheetsFileResult.data.file;
       if (!isValidURL(url)) {
-        url = `${MEDIA_BASE_URL}${getAnswerSheetsFileResult.data.file}`;
+        url = `${CMS_URL}${getAnswerSheetsFileResult.data.file}`;
       }
       downloadFromURL(url, `answer-sheets.xlsx`);
     }
