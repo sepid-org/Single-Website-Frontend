@@ -7,9 +7,10 @@ interface PhoneNumberInputProps {
   setPhoneNumber: any;
   phoneNumber: string;
   label?: string;
+  iconColor?: string;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber = '', label,  }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber = '', label, iconColor }) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);

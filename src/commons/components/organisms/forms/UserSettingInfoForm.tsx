@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
 import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
@@ -24,6 +24,40 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
 }) => {
 
   const theme = useTheme();
+
+  const [fieldValidationStatus, setFieldValidationStatus] = useState({
+    first_name: false,
+    last_name: false,
+    national_code: false,
+    birth_date: false,
+    gender: false,
+    referral_method: false,
+    province: false,
+    city: false,
+    postal_code: false,
+    address: false,
+    profile_image: false,
+  });
+
+  const [displayEmptyErrorMessage, setDisplayEmptyErrorMessage] = useState({
+    first_name: false,
+    last_name: false,
+    birth_date: false,
+    gender: false,
+    province: false,
+    city: false,
+    profile_image: false,
+  });
+
+  const handleValidationChange = (field: string, isValid: boolean) => {
+    setFieldValidationStatus((prevStatus) => ({
+      ...prevStatus,
+      [field]: isValid,
+    }));
+  };
+
+  const allFieldsValid = Object.values(fieldValidationStatus).every((status) => status);
+
 
   const handleChange = (event) => {
     setData({
@@ -70,11 +104,27 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         </Grid>
         <Grid item container xs={12} sm={6} spacing={2}>
           <Grid item xs={12}>
-            <FirstNameField label='نام' onChange={handleChange} value={data.first_name} />
+            <FirstNameField
+              label='نام'
+              onChange={handleChange}
+              value={data.first_name}
+              isRequired={true}
+              placeholder="نام خود را وارد کنید."
+              onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessage.first_name}
+            />
           </Grid>
 
           <Grid item xs={12}>
-            <LastNameField label='نام خانوادگی' onChange={handleChange} value={data.last_name} />
+            <LastNameField
+              label='نام خانوادگی'
+              onChange={handleChange}
+              value={data.last_name}
+              isRequired={true}
+              displayEmptyErrorMessage={displayEmptyErrorMessage.last_name}
+              onValidationChange={(isValid) => handleValidationChange('last_name', isValid)}
+              placeholder="نام خانوادگی خود را وارد کنید."
+            />
           </Grid>
 
           <Grid item xs={12}>
@@ -92,21 +142,44 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         <DateInputField
           date={data.birth_date}
           setDate={(birthDate) => setData({ ...data, birth_date: birthDate })}
+          isRequired={true}
+          handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
+          displayEmptyErrorMessage={displayEmptyErrorMessage.birth_date}
         />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <GenderSelector gender={data.gender} handleChange={handleGenderChange} primaryColor={Workshop.colors.secondary} />
+        <GenderSelector
+          gender={data.gender}
+          handleChange={handleGenderChange}
+          primaryColor={Workshop.colors.secondary}
+          displayEmptyErrorMessage={displayEmptyErrorMessage.gender}
+          handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
+        />
       </Grid>
 
       <Grid item container spacing={2}>
         {/* Second Row */}
         <Grid container item xs={12} spacing={2}>
           <Grid item xs={12} sm={6}>
-            <ProvinceSelector data={data} setData={setData} label='استان' />
+            <ProvinceSelector
+              data={data}
+              setData={setData}
+              label='استان'
+              isRequired={true}
+              onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessage.province}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <CitySelector data={data} setData={setData} label='شهر' />
+            <CitySelector
+              data={data}
+              isRequired={true}
+              setData={setData}
+              label='شهر'
+              onValidationChange={(isValid) => handleValidationChange('city', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessage.city}
+            />
           </Grid>
         </Grid>
       </Grid>
