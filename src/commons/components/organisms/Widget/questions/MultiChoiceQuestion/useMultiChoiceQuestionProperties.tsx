@@ -48,12 +48,19 @@ const useMultiChoiceQuestionProperties = ({
   randomizeChoices,
   disableAfterAnswer,
 }: PropsType) => {
-  const [selectedChoiceIds, setSelectedChoiceIds] = useState<number[]>([]);
+  const [selectedChoiceIds, _setSelectedChoiceIds] = useState<number[]>([]);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet();
-  const questionAnswers = getQuestionAnswers(questionId);
-  const wholeSelectedChoices = questionAnswers?.flatMap(answer => answer.choices);
+  const allQuestionAnswers = getQuestionAnswers(questionId);
+  const wholeSelectedChoices = allQuestionAnswers?.flatMap(answer => answer.choices);
+
+  useEffect(() => {
+    const latestAnswer = allQuestionAnswers?.find(answer => answer.is_final_answer)
+    if (latestAnswer) {
+      handleSetSelectedChoices(latestAnswer.choices);
+    }
+  }, [allQuestionAnswers]);
 
   const randomizedChoices: ChoiceType[] = useMemo(() => {
     if (randomizeChoices && mode === WidgetModes.View && player?.id) {
@@ -75,7 +82,7 @@ const useMultiChoiceQuestionProperties = ({
 
   const handleSetSelectedChoices = (newSelectedChoices: number[]) => {
     onAnswerChange({ choices: newSelectedChoices });
-    setSelectedChoiceIds(newSelectedChoices);
+    _setSelectedChoiceIds(newSelectedChoices);
   }
 
   const onChoiceSelect = (choice: ChoiceType) => {
@@ -120,18 +127,9 @@ const useMultiChoiceQuestionProperties = ({
   if (selectedChoiceIds?.length > maxSelections) {
     errorMessage = `حداکثر ${toPersianNumber(maxSelections)} گزینه را می‌توانید انتخاب کنید.`;
   }
-  if (disableAfterAnswer && questionAnswers?.some(questionAnswer => haveSameElements(selectedChoiceIds, questionAnswer.choices))) {
+  if (disableAfterAnswer && allQuestionAnswers?.some(questionAnswer => haveSameElements(selectedChoiceIds, questionAnswer.choices))) {
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
-
-  useEffect(() => {
-
-    const latestChoice = questionAnswers?.filter(answer => answer.is_final_answer);
-    if (latestChoice && latestChoice.length > 0 && !selectedChoiceIds.includes(latestChoice[0].choices[0])) {
-      setSelectedChoiceIds(latestChoice[0].choices);
-    }
-  }, [questionAnswers, selectedChoiceIds]);
-
 
   return {
     selectedChoiceIds,
