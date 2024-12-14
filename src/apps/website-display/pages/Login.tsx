@@ -13,6 +13,7 @@ import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
+import UserNameField from 'commons/components/molecules/form-fields/UserNameField';
 
 type LoginPagePropsType = {};
 
@@ -86,20 +87,12 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 }
               }}
               spacing={1.5}>
-
-              <TextField
-                autoComplete="on"
-                variant="outlined"
-                fullWidth
+              
+              <UserNameField 
                 onChange={collectData}
-                value={data.username}
-                name="username"
-                label="شماره تلفن همراه، ایمیل یا نام کاربری"
-                inputProps={{ className: 'ltr-input' }}
-                type='text'
-                inputMode='text'
+                username={data.username}
+                label={"شماره تلفن همراه، ایمیل یا نام کاربری"}
               />
-
               <TextField
                 autoComplete="on"
                 variant="outlined"

@@ -14,6 +14,7 @@ import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
+import UserNameField from 'commons/components/molecules/form-fields/UserNameField';
 
 type LoginPagePropsType = {};
 
@@ -93,18 +94,10 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 }
               }}
               spacing={1.5}>
-
-              <TextField
-                autoComplete="on"
-                variant="outlined"
-                fullWidth
+              <UserNameField 
                 onChange={collectData}
-                value={data.username}
-                name="username"
-                label="شماره تلفن همراه"
-                inputProps={{ className: 'ltr-input' }}
-                type='text'
-                inputMode='text'
+                username={data.username}
+                label={"شماره تلفن همراه"}
               />
 
               <TextField
