@@ -1,33 +1,36 @@
-import React, { PropsWithChildren } from 'react';
+import React, { Component } from 'react';
 
-type ErrorBoundaryProps = PropsWithChildren<{}>;
-type ErrorBoundaryState = { hasError: boolean };
+interface State {
+  hasError: boolean;
+}
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
+interface Props {
+  children: React.ReactNode;  // Declare children prop type
+}
 
-  static getDerivedStateFromError(error: Error) {
-    // Update state so the next render shows the fallback UI
+class AsyncErrorBoundary extends Component<Props, State> {
+  state: State = {
+    hasError: false,
+  };
+
+  static getDerivedStateFromError(error: Error): Partial<State> {
+    // Update state to indicate an error has occurred
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error details if needed
-    console.error('Error caught in boundary:', error, errorInfo);
+  componentDidCatch(error: Error, info: React.ErrorInfo): void {
+    // You can log the error or send it to an error reporting service here
+    console.error("Caught error:", error);
+    console.error("Error info:", info);
   }
 
   render() {
     if (this.state.hasError) {
-      // Render fallback UI
-      return <h1>یه مشکلی پیش اومد! صفحه رو مجدداً بارگذاری کن</h1>;
+      return <h1>{"یه مشکلی پیش اومد! صفحه رو مجدداً بارگذاری کن"}</h1>;
     }
-
-    // Ensure TypeScript knows that `children` is part of props
     return this.props.children;
   }
 }
 
-export default ErrorBoundary;
+export default AsyncErrorBoundary;
+
