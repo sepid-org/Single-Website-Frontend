@@ -48,6 +48,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   useEffect(() => {
     if (initialAshbariaProfile) {
       setAshbariaProfile(initialAshbariaProfile);
+      console.log(Object.values(initialAshbariaProfile ?? {}).some(value => value === null));
       setFieldValidationStatus({
         first_name: initialAshbariaProfile?.first_name ? true : false,
         last_name: initialAshbariaProfile?.last_name ? true : false,
@@ -394,6 +395,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
+            disabled={!Object.values(AshbariaProfile ?? {}).some(value => value === null)}
             size="large" fullWidth={true} variant='contained'
           >
             {'همینو ذخیره کن'}
