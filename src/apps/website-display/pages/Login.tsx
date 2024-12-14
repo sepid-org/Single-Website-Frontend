@@ -14,6 +14,7 @@ import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteS
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
 import UserNameField from 'commons/components/molecules/form-fields/UserNameField';
+import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type LoginPagePropsType = {};
 
@@ -87,38 +88,13 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 }
               }}
               spacing={1.5}>
-              
-              <UserNameField 
+
+              <UserNameField
                 onChange={collectData}
                 username={data.username}
                 label={"شماره تلفن همراه، ایمیل یا نام کاربری"}
               />
-              <TextField
-                autoComplete="on"
-                variant="outlined"
-                fullWidth
-                onChange={collectData}
-                label="گذر‌واژه"
-                name="password"
-                inputProps={{ className: 'ltr-input' }}
-                type="password"
-                inputMode='text'
-                FormHelperTextProps={{
-                  sx: {
-                    marginRight: 0,
-                    marginLeft: 'auto',
-                    marginTop: 0.5,
-                    textAlign: 'right',
-                  }
-                }}
-                helperText={
-                  <Typography component="span">
-                    <Link style={{ textDecoration: 'none' }} to={'/reset-password/'}>
-                      {'رمز عبور را فراموش کرده‌ام'}
-                    </Link>
-                  </Typography>
-                }
-              />
+              <PasswordField collectData={collectData} resetPasswordLink='/reset-password/' />
             </Stack>
             <Stack width={'100%'} spacing={1.5}>
               <Button
