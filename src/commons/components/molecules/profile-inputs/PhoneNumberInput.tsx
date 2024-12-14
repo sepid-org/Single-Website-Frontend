@@ -8,9 +8,22 @@ interface PhoneNumberInputProps {
   phoneNumber: string;
   label?: string;
   iconColor?: string;
+  placeHolder?: string;
+  editable: boolean;
+  textDir?: string;
+  isRequired: boolean;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, phoneNumber = '', label, iconColor }) => {
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ 
+  setPhoneNumber, 
+  phoneNumber = '', 
+  label, 
+  iconColor, 
+  placeHolder, 
+  editable,
+  textDir, 
+  isRequired
+}) => {
 
 
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
@@ -27,15 +40,16 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
       <Box sx={{ position: 'relative' }}>
         <TextField
           fullWidth
-          required
+          required={isRequired}
           value={phoneNumber}
           name="phone_number"
           onChange={handleChange}
-          placeholder="شماره تلفن خود را وارد کنید."
+          placeholder={placeHolder}
           inputProps={{
             maxLength: 11,
             inputMode: "numeric",
-            readOnly: true,
+            readOnly: editable,
+            dir: textDir
           }}
           label={label ? label : null}
           InputProps={{
@@ -47,11 +61,13 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ setPhoneNumber, pho
                   right: 4,
                 }}
               >
-                <IconButton
-                  onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
-                >
-                  <EditIcon  />
-                </IconButton>
+                {editable &&
+                  <IconButton
+                    onClick={() => setIsChangePhoneNumberDialogOpen(!isChangePhoneNumberDialogOpen)}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                }
               </InputAdornment>
             ),
           }}

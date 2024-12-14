@@ -9,6 +9,7 @@ import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteS
 import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
 import { useGetVerificationCodeMutation } from 'commons/redux/apis/party/UserApi';
+import PhoneNumberInput from './profile-inputs/PhoneNumberInput';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
 
@@ -71,10 +72,8 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
 
   return (
     <Stack spacing={1}>
-      <TextField
-        variant="outlined"
-        fullWidth
-        onChange={(e) => {
+      <PhoneNumberInput
+        setPhoneNumber={(e) => {
           if (isNumber(e.target.value)) {
             setData({
               ...data,
@@ -82,15 +81,13 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
             });
           }
         }}
-        value={data.phoneNumber}
-        name="phoneNumber"
-        label="شماره جدید تلفن همراه"
-        placeholder='09...'
-        inputProps={{ className: 'ltr-input' }}
-        type="tel"
-        inputMode='tel'
+        phoneNumber={data.phoneNumber}
+        label={"شماره جدید تلفن همراه"}
+        editable={false}
+        placeHolder={"09..."}
+        textDir={"ltr"}
+        isRequired={false}
       />
-
       <Stack direction='row' spacing={1}>
         <TextField
           variant="outlined"

@@ -133,6 +133,9 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               setPhoneNumber={handleChange}
               label={"شماره موبایل"}
               iconColor={theme.palette.text.secondary}
+              editable={true}
+              placeHolder={"شماره تلفن خود را وارد کنید."}
+              isRequired={true}
             />
           </Grid>
         </Grid>

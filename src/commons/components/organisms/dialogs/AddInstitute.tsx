@@ -18,6 +18,7 @@ import { SchoolType } from 'commons/types/models';
 import { GenderType } from 'commons/types/profile';
 import isNumber from 'commons/utils/validators/isNumber';
 import { useCreateInstituteMutation } from 'commons/redux/apis/party/InstituteSlice';
+import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 
 type AddInstituteDialogPropsType = {
   open: boolean;
@@ -134,17 +135,17 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
             />
           </Grid>
 
-          <Grid item container xs={12} sm={6}>
-            <TextField
-              fullWidth
-              name="phone_number"
-              onChange={(event) => {
+          <Grid item xs={12} sm={6}>
+            <PhoneNumberInput
+              setPhoneNumber={(event) => {
                 if (isNumber(event.target.value)) {
                   setData(event);
                 }
               }}
-              value={data?.phone_number || ''}
-              label="شماره‌تلفن مدرسه"
+              phoneNumber={data?.phone_number}
+              label={"شماره‌تلفن مدرسه"}
+              editable={false}
+              isRequired={false}
             />
           </Grid>
 
@@ -158,17 +159,17 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
             />
           </Grid>
 
-          <Grid item container xs={12} sm={6}>
-            <TextField
-              fullWidth
-              name="principal_phone"
-              value={data?.principal_phone || ''}
-              onChange={(event) => {
+          <Grid item xs={12} sm={6}>
+            <PhoneNumberInput
+              setPhoneNumber={(event) => {
                 if (isNumber(event.target.value)) {
                   setData(event);
                 }
               }}
-              label="شماره‌تلفن مدیر"
+              phoneNumber={data?.principal_phone}
+              label={"شماره‌تلفن مدیر"}
+              editable={false}
+              isRequired={false}
             />
           </Grid>
 

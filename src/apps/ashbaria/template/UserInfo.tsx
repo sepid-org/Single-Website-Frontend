@@ -323,6 +323,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             setPhoneNumber={handleChange}
             phoneNumber={AshbariaProfile?.phone_number}
             label={undefined}
+            editable={true}
+            placeHolder={"شماره تلفن خود را وارد کنید."}
+            isRequired={true}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

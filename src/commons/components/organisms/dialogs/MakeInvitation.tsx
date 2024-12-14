@@ -3,12 +3,12 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  TextField,
   Typography,
 } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import isNumber from 'commons/utils/validators/isNumber';
 import { useInviteMemberMutation } from 'apps/website-display/redux/features/team/InvitationSlice';
+import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 
 type MakeInvitationDialogPropsType = {
   handleClose: any;
@@ -42,17 +42,18 @@ const MakeInvitationDialog: FC<MakeInvitationDialogPropsType> = ({
         <Typography gutterBottom>
           {'شماره تلفن فرد مورد نظر را وارد کنید.'}
         </Typography>
-        <TextField
-          fullWidth
-          placeholder='مثال: 09123456789'
-          variant="outlined"
-          value={phoneNumber}
-          onChange={(e) => {
+        <PhoneNumberInput
+          setPhoneNumber={(e) => {
             if (isNumber(e.target.value)) {
               setPhoneNumber(e.target.value);
             }
           }}
-          inputProps={{ className: 'ltr-input' }}
+          phoneNumber={phoneNumber}
+          label={undefined}
+          editable={false}
+          placeHolder={'مثال: 09123456789'}
+          isRequired={false}
+          textDir={"ltr"}
         />
       </DialogContent>
       <DialogActions>
