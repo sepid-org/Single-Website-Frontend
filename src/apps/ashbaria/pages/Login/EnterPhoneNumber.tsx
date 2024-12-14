@@ -47,7 +47,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
         </Typography>
         <PhoneNumberInput
           phoneNumber={""}
-          setPhoneNumber={handleChangePhoneNumber}
+          setPhoneNumber={(value) => setSearchParams({ phoneNumber: toEnglishNumber(value) })}
           editable={false}
           placeHolder={"09123456789"}
           textDir="ltr"

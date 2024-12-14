@@ -43,10 +43,8 @@ const MakeInvitationDialog: FC<MakeInvitationDialogPropsType> = ({
           {'شماره تلفن فرد مورد نظر را وارد کنید.'}
         </Typography>
         <PhoneNumberInput
-          setPhoneNumber={(e) => {
-            if (isNumber(e.target.value)) {
-              setPhoneNumber(e.target.value);
-            }
+          setPhoneNumber={(value) => {
+            setPhoneNumber(value);
           }}
           phoneNumber={phoneNumber}
           label={undefined}

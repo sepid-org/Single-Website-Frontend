@@ -73,13 +73,11 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   return (
     <Stack spacing={1}>
       <PhoneNumberInput
-        setPhoneNumber={(e) => {
-          if (isNumber(e.target.value)) {
-            setData({
-              ...data,
-              phoneNumber: e.target.value,
-            });
-          }
+        setPhoneNumber={(value) => {
+          setData({
+            ...data,
+            phoneNumber: value,
+          });
         }}
         phoneNumber={data.phoneNumber}
         label={"شماره جدید تلفن همراه"}

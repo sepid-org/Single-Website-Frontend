@@ -137,10 +137,8 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
 
           <Grid item xs={12} sm={6}>
             <PhoneNumberInput
-              setPhoneNumber={(event) => {
-                if (isNumber(event.target.value)) {
-                  setData(event);
-                }
+              setPhoneNumber={(value) => {
+                setData(value);
               }}
               phoneNumber={data?.phone_number}
               label={"شماره‌تلفن مدرسه"}
@@ -161,10 +159,8 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
 
           <Grid item xs={12} sm={6}>
             <PhoneNumberInput
-              setPhoneNumber={(event) => {
-                if (isNumber(event.target.value)) {
-                  setData(event);
-                }
+              setPhoneNumber={(value) => {
+                setData(value);
               }}
               phoneNumber={data?.principal_phone}
               label={"شماره‌تلفن مدیر"}
