@@ -51,7 +51,7 @@ const TeamSetting: FC<TeamSettingPropsType> = ({ }) => {
   const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: team } = useGetTeamQuery({ teamId: registrationReceipt?.team as string }, { skip: !Boolean(registrationReceipt?.team) });
   const [newTeamName, setNewTeamName] = useState('');
-  const isHead = registrationReceipt?.id == team?.team_head.toString()
+  const isHead = registrationReceipt?.id.toString() == team?.team_head;
   const [createAndJoinTeam] = useCreateAndJoinTeamMutation();
   const [deleteTeam, { isSuccess: isDeleteTeamSuccess }] = useDeleteTeamMutation();
   const [deleteInvitation] = useDeleteInvitationMutation();

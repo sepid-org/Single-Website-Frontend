@@ -94,7 +94,7 @@ export const customTheme = createTheme({
           font-display: swap;
         }
         * {
-          font-family: 'Pinar-FD';
+          font-family: 'Pinar-FD', sans-serif !important;
         }
       `
     },

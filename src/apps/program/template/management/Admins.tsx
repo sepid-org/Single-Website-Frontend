@@ -23,7 +23,7 @@ const AdminTab: FC<AdminsTabPropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const [username, setUsername] = useState<string>('');
   const [addAdminToProgram, addAdminToProgramResult] = useAddAdminToProgramMutation();
-  const [removeAdminFromProgram, _] = useRemoveAdminFromProgramMutation();
+  const [removeAdminFromProgram] = useRemoveAdminFromProgramMutation();
   const { data: programAdmins } = useGetProgramAdminsQuery({ programSlug }, { skip: !Boolean(program) });
 
   const addAdmin = () => {

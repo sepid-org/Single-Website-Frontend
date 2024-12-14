@@ -5,7 +5,6 @@ import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import Choice from 'commons/components/molecules/Choice';
-import { toPersianNumber } from 'commons/utils/translateNumber';
 import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';

@@ -75,7 +75,7 @@ const TeamInfoCard: FC<TeamInfoCardPropsType> = ({
             {team.members.length > 0 ? team.members.map((member) => (
               <Box key={member.id}>
                 <TeamMemberListItem
-                  memberId={member.id}
+                  memberId={member.id.toString()}
                   user={member.user}
                   teamId={team.id}
                   username={member.user.username}

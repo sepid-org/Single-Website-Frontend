@@ -1,4 +1,4 @@
-import { Button, TextField, Container, Paper, Typography, Stack, Box } from '@mui/material';
+import { Button, Container, Paper, Typography, Stack, Box } from '@mui/material';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import React, { useState, FC, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,7 +25,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
     });
   };
 
-  const doChangePassword = () => {
+  const handleChangePassword = () => {
     const { phoneNumber, password } = data;
     if (!phoneNumber || !password) {
       toast.error('لطفاً همه‌ی مواردی که ازت خواسته شده رو پر کن');
@@ -66,7 +66,15 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
           padding={2}
           alignItems={'center'}>
 
-          <Stack width={'100%'} spacing={1.5}>
+          <Stack
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                handleChangePassword();
+              }
+            }}
+            width={'100%'}
+            spacing={1.5}
+          >
 
             <Typography
               paddingBottom={2}
@@ -83,7 +91,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
             <PasswordField label='گذرواژه جدید' collectData={collectData} />
 
             <Button
-              onClick={doChangePassword}
+              onClick={handleChangePassword}
               variant="contained"
               color="primary"
               disabled={isLoading}

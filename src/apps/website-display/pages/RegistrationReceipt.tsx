@@ -99,6 +99,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                       <InputLabel>وضعیت ثبت‌نام</InputLabel>
                       <Select
                         value={status}
+                        // todo: it also should be disabled when registrationForm.accepting_status === AutoAccept
                         disabled={registrationReceipt?.is_participating}
                         onChange={(e) => setStatus(e.target.value)}
                         name='status'

@@ -23,7 +23,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
   registrationFormId,
 }) => {
   const [page, setPage] = React.useState(1);
-  const [selectedReceiptId, setSelectedReceiptId] = useState<string>(null);
+  const [selectedReceiptId, setSelectedReceiptId] = useState<number>(null);
   const { data: allRegistrationReceipts } = useGetRegistrationFormAnswerSheetsQuery({
     formId: registrationFormId,
     pageNumber: page.toString()
@@ -35,15 +35,14 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
   return (
     <Fragment>
       <SimpleTable
-        hideRowNumbersColumn={true}
+        hideRowNumbersColumn={false}
+        showLatestFirst={true}
         headers={[
-          { name: 'id', label: 'شناسه' },
           { name: 'name', label: 'نام' },
           { name: 'status', label: 'وضعیت' },
           { name: 'operation', label: 'عملیات' },
         ]}
         rows={allRegistrationReceipts?.results?.map((registrationReceipt) => ({
-          id: registrationReceipt.id,
           name:
             <Button
               href={`/receipt/${registrationReceipt.id}/`}
@@ -63,7 +62,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
       />
       <AreYouSure
         open={Boolean(selectedReceiptId)}
-        callBackFunction={() => { deleteReceipt({ receiptId: selectedReceiptId }) }}
+        callBackFunction={() => { deleteReceipt({ receiptId: selectedReceiptId.toString() }) }}
         handleClose={() => setSelectedReceiptId(null)}
         text='در صورت پاک‌کردن این رسید ثبت‌نام، کاربر از دوره حذف و تمام دسترسی‌های آن به کارگاه‌ها قطع خواهد شد. آیا مطمئنید؟' />
     </Fragment>

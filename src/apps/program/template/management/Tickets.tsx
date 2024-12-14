@@ -22,10 +22,11 @@ import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/featu
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
 import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import { MEDIA_BASE_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/configs/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 
 type TicketsTabPropsType = {}
 
@@ -52,7 +53,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
     if (result.isSuccess) {
       let url = result.data.file;
       if (!isValidURL(url)) {
-        url = `${MEDIA_BASE_URL}${result.data.file}`;
+        url = `${CMS_URL}${result.data.file}`;
       }
       downloadFromURL(url, `purchases.xlsx`);
     }
@@ -91,7 +92,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
           <Typography variant='h2' gutterBottom>
             {'بلیط‌های خریداری‌شده'}
           </Typography>
-          <Button variant='contained' onClick={downloadExcelExport} disabled={result.isLoading}>
+          <Button endIcon={<FileDownloadIcon />} variant='contained' onClick={downloadExcelExport} disabled={result.isLoading}>
             {'خروجی اکسل'}
           </Button>
         </Stack>
