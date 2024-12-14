@@ -58,7 +58,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
 
   const allFieldsValid = Object.values(fieldValidationStatus).every((status) => status);
 
-
   const handleChange = (event) => {
     setData({
       ...data,
@@ -186,7 +185,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           </Grid>
         </Grid>
       </Grid>
-
     </Grid >
   );
 }

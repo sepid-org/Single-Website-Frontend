@@ -37,8 +37,8 @@ const ProfileImageUploader = ({ file, setFile }) => {
   return (
     <Box
       sx={{
-        width: 150,
-        height: 150,
+        width: {xs: 150, sm: 200},
+        height: {xs: 150, sm: 200},
         cursor: "pointer",
       }}
     >
