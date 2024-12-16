@@ -14,7 +14,7 @@ interface BaseQueryArgs {
   onFailure?: (error: any) => void;
 }
 
-const MAX_RETRIES = 4;
+const MAX_RETRIES = 5;
 const BASE_DELAY = 1000; // 1 second initial delay
 
 const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
