@@ -14,27 +14,26 @@ interface BaseQueryArgs {
   onFailure?: (error: any) => void;
 }
 
+const MAX_RETRIES = 4;
+const BASE_DELAY = 1000; // 1 second initial delay
+
 const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
   async (args: BaseQueryArgs | string, api, extraOptions) => {
-    // Create base query with header preparation
     const baseQuery = fetchBaseQuery({
       baseUrl,
       prepareHeaders: (headers, { getState }) => {
         const state = getState() as any;
 
-        // Add access token if available
         const accessToken = state.account?.accessToken;
         if (accessToken) {
           headers.set('Authorization', `JWT ${accessToken}`);
         }
 
-        // Add website header
         const website = state.website?.website;
         if (website) {
           headers.set('Website', website?.name);
         }
 
-        // Add FSM header
         const fsm = state.fsm?.fsm;
         if (fsm) {
           headers.set('FSM', fsm.id);
@@ -44,68 +43,87 @@ const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
       },
     });
 
-    // Perform initial query
-    let result = await baseQuery(args, api, extraOptions);
+    let retries = 0;
+    let result;
 
-    // Handle token expiration (401 status)
-    if (result.error?.status === 401) {
+    while (retries < MAX_RETRIES) {
       try {
-        // Attempt to refresh token
-        const refreshResult = await baseQuery(
-          {
-            url: '/auth/accounts/refresh/',
-            method: 'POST',
-            body: {
-              refresh: api.getState().account?.refreshToken,
-            },
-          },
-          api,
-          extraOptions
-        );
+        // Perform the query
+        result = await baseQuery(args, api, extraOptions);
 
-        // Successfully refreshed token
-        if (refreshResult.data) {
-          const refreshResultData = refreshResult.data as RefreshTokenResponse;
+        if (!result.error) return result;
 
-          // Update tokens in Redux store
-          api.dispatch({
-            type: 'account/refreshToken',
-            payload: {
-              accessToken: refreshResultData.access,
-              refreshToken: refreshResultData.refresh || api.getState().account?.refreshToken,
-            },
-          });
+        // Handle 401 errors for token refresh
+        if (result.error?.status === 401) {
+          try {
+            const refreshResult = await baseQuery(
+              {
+                url: '/auth/accounts/refresh/',
+                method: 'POST',
+                body: {
+                  refresh: api.getState().account?.refreshToken,
+                },
+              },
+              api,
+              extraOptions
+            );
 
-          // Retry original request with new token
-          result = await baseQuery(args, api, extraOptions);
-        } else {
-          // Refresh token failed
-          handleError({
-            error: refreshResult.error,
-            dispatch: api.dispatch
-          });
+            if (refreshResult.data) {
+              const refreshResultData = refreshResult.data as RefreshTokenResponse;
+
+              api.dispatch({
+                type: 'account/refreshToken',
+                payload: {
+                  accessToken: refreshResultData.access,
+                  refreshToken: refreshResultData.refresh || api.getState().account?.refreshToken,
+                },
+              });
+
+              // Retry original request with the new token
+              result = await baseQuery(args, api, extraOptions);
+            } else {
+              handleError({
+                error: refreshResult.error,
+                dispatch: api.dispatch
+              });
+              break; // Stop retrying if token refresh fails
+            }
+          } catch (error) {
+            handleError({
+              error,
+              dispatch: api.dispatch
+            });
+            break; // Stop retrying if an unexpected error occurs
+          }
         }
+
+        // Exit retry loop if non-retriable error
+        if (result.error?.status !== 500 && result.error?.status !== 'FETCH_ERROR') {
+          break;
+        }
+
+        // Exponential backoff
+        const delay = BASE_DELAY * Math.pow(2, retries);
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        retries++;
       } catch (error) {
-        // Handle any unexpected errors during token refresh
-        handleError({
-          error,
-          dispatch: api.dispatch
-        });
+        // Handle unexpected errors
+        if (retries === MAX_RETRIES - 1) {
+          throw error;
+        }
       }
     }
 
     // Handle successful or failed requests
     if (result.error) {
-      // Call onFailure callback if provided
       (args as BaseQueryArgs).body?.onFailure?.(result);
 
-      // Handle and display error
       handleError({
         error: result.error,
         dispatch: api.dispatch
       });
     } else {
-      // Call onSuccess callback if provided
       (args as BaseQueryArgs).body?.onSuccess?.(result);
     }
 
