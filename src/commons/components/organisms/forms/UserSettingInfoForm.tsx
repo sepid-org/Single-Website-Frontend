@@ -17,7 +17,7 @@ type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
   setData: Function;
   handleValidationChange: (field: string, isValid: boolean) => void;
-  displayEmptyErrorMessages: any;
+  displayEmptyErrorMessages: Record<string, boolean>;
 }
 
 const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({

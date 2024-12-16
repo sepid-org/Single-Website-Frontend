@@ -150,7 +150,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onChange={handleChange}
             onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
             isRequired={true}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.first_name}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['first_name']}
             placeholder="نام خود را وارد کنید."
           />
         </Grid>
@@ -169,7 +169,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onChange={handleChange}
             value={AshbariaProfile?.last_name}
             isRequired={true}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.last_name}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['last_name']}
             placeholder="نام خانوادگی خود را وارد کنید."
           />
         </Grid>
@@ -188,7 +188,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.national_code}
             onValidationChange={(isValid) => handleValidationChange('national_code', isValid)}
             isRequired={true}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.national_code}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['national_code']}
             placeholder="کد ملی خود را وارد کنید."
           />
         </Grid>
@@ -207,7 +207,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             date={AshbariaProfile?.birth_date}
             setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })}
             handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.birth_date}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['birth_date']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -231,7 +231,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             changeBGColor={true}
             maleGender="M"
             femaleGender="F"
-            displayEmptyErrorMessage={displayEmptyErrorMessages.gender}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['gender']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -240,7 +240,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             referral_method={AshbariaProfile?.referral_method}
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('referral_method', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.referral_method}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['referral_method']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -258,7 +258,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             data={AshbariaProfile}
             setData={setAshbariaProfile}
             onValidationChange={(isValid) => handleValidationChange('province', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.province}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['province']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -276,7 +276,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             data={AshbariaProfile}
             setData={setAshbariaProfile}
             onValidationChange={(isValid) => handleValidationChange('city', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.city}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['city']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -313,7 +313,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onChange={handleChange}
             value={AshbariaProfile?.postal_code}
             onValidationChange={(isValid) => handleValidationChange('postal_code', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.postal_code}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['postal_code']}
             placeholder="کد پستی خود را وارد کنید."
           />
         </Grid>
@@ -332,7 +332,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             value={AshbariaProfile?.address}
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('address', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.address}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['address']}
             placeholder="آدرس خود را وارد کنید."
           />
         </Grid>
@@ -341,7 +341,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             profile_image={AshbariaProfile?.profile_image}
             handleChange={handleProfileImgChange}
             onValidationChange={(isValid) => handleValidationChange('profile_image', isValid)}
-            displayEmptyErrorMessage={displayEmptyErrorMessages.profile_image}
+            displayEmptyErrorMessage={displayEmptyErrorMessages['profile_image']}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

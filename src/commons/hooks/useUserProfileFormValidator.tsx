@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const useUserProfileFormValidator = (fields) => {
+const useUserProfileFormValidator = (fields: string[]) => {
   
   const initializeState = () => {
     return fields.reduce((acc, field) => {
