@@ -10,7 +10,7 @@ const useUserProfileFormValidator = (fields) => {
   };
 
   const [fieldValidationStatus, setFieldValidationStatus] = useState(initializeState);
-  const [displayEmptyErrorMessage, setDisplayEmptyErrorMessage] = useState(initializeState);
+  const [displayEmptyErrorMessages, setDisplayEmptyErrorMessages] = useState(initializeState);
 
   const handleValidationChange = (field, isValid) => {
     setFieldValidationStatus((prevStatus) => ({
@@ -24,8 +24,8 @@ const useUserProfileFormValidator = (fields) => {
   return {
     fieldValidationStatus,
     setFieldValidationStatus,
-    displayEmptyErrorMessage,
-    setDisplayEmptyErrorMessage,
+    displayEmptyErrorMessages,
+    setDisplayEmptyErrorMessages,
     handleValidationChange,
     allFieldsValid,
   };

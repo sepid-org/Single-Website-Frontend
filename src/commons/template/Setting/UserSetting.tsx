@@ -32,8 +32,8 @@ const UserSetting: FC<UserSettingPropsType> = ({
 
   const {fieldValidationStatus,
     setFieldValidationStatus,
-    displayEmptyErrorMessage,
-    setDisplayEmptyErrorMessage,
+    displayEmptyErrorMessages,
+    setDisplayEmptyErrorMessages,
     handleValidationChange,
     allFieldsValid,} = useUserProfileFormValidator(['first_name', 'last_name', 'birth_date', 'gender', 'province', 'city']);
     
@@ -86,7 +86,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
                 else{
                   for (const property in fieldValidationStatus) {
                     if (!fieldValidationStatus[property] && !userProfile[property]) {
-                      setDisplayEmptyErrorMessage((prevState) => {return { ...prevState, [property]: true }});
+                      setDisplayEmptyErrorMessages((prevState) => {return { ...prevState, [property]: true }});
                     }
                   }
                   toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");  
@@ -100,7 +100,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <UserSettingInfoForm data={userProfile} setData={setUserProfile} handleValidationChange={handleValidationChange} displayEmptyErrorMessage={displayEmptyErrorMessage}/>
+        <UserSettingInfoForm data={userProfile} setData={setUserProfile} handleValidationChange={handleValidationChange} displayEmptyErrorMessages={displayEmptyErrorMessages}/>
       </Grid>
       {isInForm &&
         <Grid item xs={12}>

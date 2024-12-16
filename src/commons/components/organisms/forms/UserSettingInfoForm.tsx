@@ -17,14 +17,14 @@ type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
   setData: Function;
   handleValidationChange: (field: string, isValid: boolean) => void;
-  displayEmptyErrorMessage: any;
+  displayEmptyErrorMessages: any;
 }
 
 const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,
   handleValidationChange,
-  displayEmptyErrorMessage
+  displayEmptyErrorMessages
 }) => {
 
   const theme = useTheme();
@@ -81,7 +81,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               isRequired={true}
               placeholder="نام خود را وارد کنید."
               onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
-              displayEmptyErrorMessage={displayEmptyErrorMessage.first_name}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.first_name}
             />
           </Grid>
 
@@ -91,7 +91,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               onChange={handleChange}
               value={data.last_name}
               isRequired={true}
-              displayEmptyErrorMessage={displayEmptyErrorMessage.last_name}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.last_name}
               onValidationChange={(isValid) => handleValidationChange('last_name', isValid)}
               placeholder="نام خانوادگی خود را وارد کنید."
             />
@@ -117,7 +117,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           setDate={(birthDate) => setData({ ...data, birth_date: birthDate })}
           isRequired={true}
           handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
-          displayEmptyErrorMessage={displayEmptyErrorMessage.birth_date}
+          displayEmptyErrorMessage={displayEmptyErrorMessages.birth_date}
         />
       </Grid>
 
@@ -126,7 +126,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           gender={data.gender}
           handleChange={handleGenderChange}
           primaryColor={Workshop.colors.secondary}
-          displayEmptyErrorMessage={displayEmptyErrorMessage.gender}
+          displayEmptyErrorMessage={displayEmptyErrorMessages.gender}
           handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
         />
       </Grid>
@@ -141,7 +141,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               label='استان'
               isRequired={true}
               onValidationChange={(isValid) => handleValidationChange('province', isValid)}
-              displayEmptyErrorMessage={displayEmptyErrorMessage.province}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.province}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -151,7 +151,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
               setData={setData}
               label='شهر'
               onValidationChange={(isValid) => handleValidationChange('city', isValid)}
-              displayEmptyErrorMessage={displayEmptyErrorMessage.city}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.city}
             />
           </Grid>
         </Grid>
