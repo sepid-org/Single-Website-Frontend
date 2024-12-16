@@ -25,6 +25,7 @@ import LastNameField from "commons/components/molecules/profile-inputs/LastNameF
 import NationalCodeField from "commons/components/molecules/profile-inputs/NationalCodeField";
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
+import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
 
 type UserSettingPropsType = {}
 
@@ -35,6 +36,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
   const [isSubmitConfirmationOpen, setIsSubmitConfirmationOpen] = useState(false);
   const { data: userProfile } = useUserProfile();
+  const {fieldValidationStatus,
+    setFieldValidationStatus,
+    displayEmptyErrorMessage,
+    setDisplayEmptyErrorMessage,
+    handleValidationChange,
+    allFieldsValid,} = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'postal_code', 'address', 'profile_image'])
 
   useEffect(() => {
     if (userProfile) {
@@ -48,7 +55,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   useEffect(() => {
     if (initialAshbariaProfile) {
       setAshbariaProfile(initialAshbariaProfile);
-      console.log(Object.values(initialAshbariaProfile ?? {}).some(value => value === null));
       setFieldValidationStatus({
         first_name: initialAshbariaProfile?.first_name ? true : false,
         last_name: initialAshbariaProfile?.last_name ? true : false,
@@ -91,43 +97,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
       [event.target.name]: toEnglishNumber(event.target.value),
     });
   }
-
-  const [fieldValidationStatus, setFieldValidationStatus] = useState({
-    first_name: false,
-    last_name: false,
-    national_code: false,
-    birth_date: false,
-    gender: false,
-    referral_method: false,
-    province: false,
-    city: false,
-    postal_code: false,
-    address: false,
-    profile_image: false,
-  });
-
-  const [displayEmptyErrorMessage, setDisplayEmptyErrorMessage] = useState({
-    first_name: false,
-    last_name: false,
-    national_code: false,
-    birth_date: false,
-    gender: false,
-    referral_method: false,
-    province: false,
-    city: false,
-    postal_code: false,
-    address: false,
-    profile_image: false,
-  });
-
-  const handleValidationChange = (field: string, isValid: boolean) => {
-    setFieldValidationStatus((prevStatus) => ({
-      ...prevStatus,
-      [field]: isValid,
-    }));
-  };
-
-  const allFieldsValid = Object.values(fieldValidationStatus).every((status) => status);
 
   const handleGenderChange = (selectedGender) => {
     setAshbariaProfile({
@@ -396,7 +365,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
               }
             }}
             disabled={!Object.values(AshbariaProfile ?? {}).some(value => value === null)}
-            size="large" fullWidth={true} variant='contained'
+            size="large" 
+            fullWidth={true} 
+            variant='contained'
           >
             {'همینو ذخیره کن'}
           </Button>

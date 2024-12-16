@@ -16,47 +16,18 @@ import LastNameField from 'commons/components/molecules/profile-inputs/LastNameF
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
   setData: Function;
+  handleValidationChange: (field: string, isValid: boolean) => void;
+  displayEmptyErrorMessage: any;
 }
 
 const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,
+  handleValidationChange,
+  displayEmptyErrorMessage
 }) => {
 
   const theme = useTheme();
-
-  const [fieldValidationStatus, setFieldValidationStatus] = useState({
-    first_name: false,
-    last_name: false,
-    national_code: false,
-    birth_date: false,
-    gender: false,
-    referral_method: false,
-    province: false,
-    city: false,
-    postal_code: false,
-    address: false,
-    profile_image: false,
-  });
-
-  const [displayEmptyErrorMessage, setDisplayEmptyErrorMessage] = useState({
-    first_name: false,
-    last_name: false,
-    birth_date: false,
-    gender: false,
-    province: false,
-    city: false,
-    profile_image: false,
-  });
-
-  const handleValidationChange = (field: string, isValid: boolean) => {
-    setFieldValidationStatus((prevStatus) => ({
-      ...prevStatus,
-      [field]: isValid,
-    }));
-  };
-
-  const allFieldsValid = Object.values(fieldValidationStatus).every((status) => status);
 
   const handleChange = (event) => {
     setData({
