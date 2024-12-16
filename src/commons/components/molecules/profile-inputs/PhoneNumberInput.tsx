@@ -2,6 +2,7 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import ChangePhoneNumberDialog from "commons/components/organisms/dialogs/ChangePhoneNumberDialog";
 import { ReactComponent as EditIcon } from "../../atoms/icons/edit.svg";
+import { toPersianNumber } from "commons/utils/translateNumber";
 
 interface PhoneNumberInputProps {
   setPhoneNumber: any;
@@ -14,14 +15,14 @@ interface PhoneNumberInputProps {
   isRequired: boolean;
 }
 
-const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({ 
-  setPhoneNumber, 
-  phoneNumber = '', 
-  label, 
-  iconColor, 
-  placeHolder, 
+const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
+  setPhoneNumber,
+  phoneNumber = '',
+  label,
+  iconColor,
+  placeHolder,
   editable,
-  textDir, 
+  textDir,
   isRequired
 }) => {
 
@@ -30,7 +31,16 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
 
   const handleChange = (event) => {
     const value = event.target.value;
-    if (/^09\d{0,9}$/.test(value)) {
+    if (
+      value === '' ||
+      (/^[۰0]$/.test(value)) ||
+      value === '09' ||
+      (/^09\d{1,9}$/.test(value)) ||
+      value === '+' ||
+      value === '+9' ||
+      value === '+98' ||
+      (/^\+98\d{1,10}$/.test(value))
+    ) {
       setPhoneNumber(value);
     }
   };
@@ -46,8 +56,7 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
           onChange={handleChange}
           placeholder={placeHolder}
           inputProps={{
-            maxLength: 11,
-            inputMode: "numeric",
+            maxLength: 13,
             readOnly: editable,
             dir: textDir
           }}

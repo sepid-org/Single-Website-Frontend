@@ -82,7 +82,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
         phoneNumber={data.phoneNumber}
         label={"شماره جدید تلفن همراه"}
         editable={false}
-        placeHolder={"09..."}
+        //placeHolder={"09..."}
         textDir={"ltr"}
         isRequired={false}
       />
