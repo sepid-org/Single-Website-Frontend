@@ -42,6 +42,8 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
     });
   }
 
+  throw new Error('Some thing went wrong');
+
   return (
     <Grid container spacing={2}>
 

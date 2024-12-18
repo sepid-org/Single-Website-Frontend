@@ -1,10 +1,14 @@
 import React, { PropsWithChildren } from 'react';
 import * as Sentry from "@sentry/react";
+import errorImg from "../atoms/icons/error1.png";
+import { Box, Button, Container, Typography } from '@mui/material';
+import ReloadIcon from '../atoms/icons/Reload';
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
 type ErrorBoundaryState = {
   hasError: boolean;
   error?: Error | null;
+  isNetworkError: boolean;
 };
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -12,12 +16,12 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     super(props);
     this.state = {
       hasError: false,
-      error: null
+      error: null,
+      isNetworkError: false
     };
   }
 
   static getDerivedStateFromError(error: Error) {
-    // Update state so the next render shows the fallback UI
     return {
       hasError: true,
       error
@@ -25,33 +29,78 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Report error to Sentry
+    if (error.message && (error.message.includes('NetworkError') || !navigator.onLine)) {
+      this.setState({ isNetworkError: true });
+    }
+
     Sentry.withScope((scope) => {
-      // Attach additional context information if needed
       Object.keys(errorInfo).forEach((key) => {
         scope.setExtra(key, errorInfo[key as keyof React.ErrorInfo]);
       });
 
-      // Capture the error with Sentry
       Sentry.captureException(error);
     });
   }
 
   render() {
-    if (this.state.hasError) {
-      // Render fallback UI with error message
+    const { hasError, isNetworkError } = this.state;
+
+    if (hasError) {
+      if (isNetworkError) {
+        return (
+          <Container
+            sx={{
+              width: "100vw",
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column"
+            }}
+          >
+            <Box
+              component="img"
+              src={errorImg}
+            />
+            <Typography fontWeight={30} fontSize={30}>{"اینترنت شما قطع شده!"}</Typography>
+            <br />
+            <Button
+              onClick={() => window.location.reload()}
+              endIcon={<ReloadIcon />}
+              variant='outlined'
+            >
+              {"لطفا اینترنت رو چک کنید و صفحه رو بارگذاری کنید."}
+            </Button>
+          </Container>
+        );
+      }
+
       return (
-        <div className="error-fallback">
-          <h1>مشکلی رخ داده است!</h1>
-          <p className="error-message">
-            {this.state.error?.message || 'خطای ناشناخته'}
-          </p>
-          <div className="error-actions">
-            <button onClick={() => window.location.reload()}>
-              بارگذاری مجدد
-            </button>
-          </div>
-        </div>
+        <Container
+          sx={{
+            width: "100vw",
+            height: "100vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column"
+          }}
+        >
+          <Box
+            component="img"
+            src={errorImg}
+          />
+          <Typography fontWeight={30} fontSize={{xs: 20, md: 30}}>{"یه مشکلی پیش اومده!"}</Typography>
+          <br />
+          <Button
+            onClick={() => window.location.reload()}
+            endIcon={<ReloadIcon />}
+            variant='outlined'
+            size='small'
+          >
+            {"لطفا صفحه رو از اول بارگذاری کن."}
+          </Button>
+        </Container>
       );
     }
     return this.props.children;
