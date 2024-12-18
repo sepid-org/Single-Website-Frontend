@@ -62,12 +62,17 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               component="img"
               src={errorImg}
             />
-            <Typography fontWeight={30} fontSize={30}>{"اینترنت شما قطع شده!"}</Typography>
+            <Typography fontWeight={30} fontSize={{md: 30, xs: 20}}>
+              {"اینترنت شما قطع شده!"}
+              <br />
+              {this.state.error?.message || 'خطای ناشناخته'}
+            </Typography>
             <br />
             <Button
               onClick={() => window.location.reload()}
               endIcon={<ReloadIcon />}
               variant='outlined'
+              size='small'
             >
               {"لطفا اینترنت رو چک کنید و صفحه رو بارگذاری کنید."}
             </Button>
@@ -90,7 +95,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             component="img"
             src={errorImg}
           />
-          <Typography fontWeight={30} fontSize={{xs: 20, md: 30}}>{"یه مشکلی پیش اومده!"}</Typography>
+          <Typography fontWeight={30} fontSize={{ xs: 20, md: 30 }} textAlign={"center"}>
+            {"یه مشکلی پیش اومده!"}
+            <br />
+            {this.state.error?.message || 'خطای ناشناخته'}
+          </Typography>
           <br />
           <Button
             onClick={() => window.location.reload()}
