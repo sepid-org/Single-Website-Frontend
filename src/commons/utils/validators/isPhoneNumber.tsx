@@ -1,6 +1,9 @@
 const isPhoneNumber = (phoneNumber: string | number) => {
-  var regex = new RegExp('09\\d{9}$');
-  if (regex.test(phoneNumber.toString())) {
+  if (
+    /^(۰۹|09)[۰-۹0-9]{9}$/.test(phoneNumber.toString()) ||
+    (/^\+98\d{10}$/.test(phoneNumber.toString())) ||
+    /^\+۹۸[۰-۹]{10}$/.test(phoneNumber.toString())
+  ) {
     return true;
   } else {
     return false;

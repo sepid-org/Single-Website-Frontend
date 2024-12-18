@@ -37,10 +37,10 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
       /^(۰۹|09)$/.test(value) ||
       /^(۰۹|09)[۰-۹0-9]{1,9}$/.test(value) ||
       value === '+' ||
-      value === '+9' ||
-      value === '+98' ||
+      /^(\+۹|\+9)$/.test(value) ||
+      /^(\+۹۸|\+98)$/.test(value) ||
       (/^\+98\d{1,10}$/.test(value)) ||
-      /^(٠\+٩٨|09|٠٩)\d{1,10}$/
+      /^\+۹۸[۰-۹]{1,10}$/.test(value)
     ) {
       setPhoneNumber(value);
     }

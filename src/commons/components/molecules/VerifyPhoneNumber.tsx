@@ -10,6 +10,7 @@ import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
 import { useGetVerificationCodeMutation } from 'commons/redux/apis/party/UserApi';
 import PhoneNumberInput from './profile-inputs/PhoneNumberInput';
+import { normalizePhoneNumber } from 'commons/utils/NormalizePhoneNumber';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
 
@@ -48,7 +49,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
     }
     setIsButtonDisable(true);
     getVerificationCode({
-      phoneNumber: data.phoneNumber,
+      phoneNumber: normalizePhoneNumber(data.phoneNumber),
       codeType: verificationType,
       websiteDisplayName: website.display_name,
     }).then(() => {
