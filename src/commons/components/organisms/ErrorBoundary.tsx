@@ -1,4 +1,5 @@
 import React, { PropsWithChildren } from 'react';
+import * as Sentry from "@sentry/react";
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
 type ErrorBoundaryState = { hasError: boolean };
@@ -15,8 +16,16 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    // Log error details if needed
-    console.error('Error caught in boundary:', error, errorInfo);
+    // Report error to Sentry
+    Sentry.withScope((scope) => {
+      // Attach additional context information if needed
+      Object.keys(errorInfo).forEach((key) => {
+        scope.setExtra(key, errorInfo[key as keyof React.ErrorInfo]);
+      });
+
+      // Capture the error with Sentry
+      Sentry.captureException(error);
+    });
   }
 
   render() {
