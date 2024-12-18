@@ -76,7 +76,7 @@ const ButtonWidgetEditor = ({
           <Stack direction={'row'} spacing={2} alignItems={'start'}>
             <TextField
               fullWidth
-              label={'تصویر دکمه'}
+              label={'پیوند تصویر دکمه'}
               value={buttonFields.background_image}
               inputProps={{ className: 'ltr-input' }}
               placeholder="https://..."
@@ -84,7 +84,6 @@ const ButtonWidgetEditor = ({
                 ...buttonFields,
                 background_image: e.target.value
               })}
-              helperText={t('uploadFileFillUrl')}
             />
             <UploadFileButton
               setFileLink={(link) => setButtonFields({
@@ -116,7 +115,7 @@ const ButtonWidgetEditor = ({
 
           <TextField
             fullWidth
-            label="لینک مقصد"
+            label="پیوند مقصد"
             disabled={buttonFields.destination_states.length > 0}
             value={buttonFields.destination_page_url}
             inputProps={{ className: 'ltr-input' }}
