@@ -72,7 +72,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1}>
         {displayChoices.map((choice) => (
           <Choice
-            disabled={mode === WidgetModes.Review}
+            disabled={submitAnswerResult.isLoading || mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
             mode={WidgetModes.View}
