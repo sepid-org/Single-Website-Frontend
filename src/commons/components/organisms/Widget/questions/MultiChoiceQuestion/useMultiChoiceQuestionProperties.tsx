@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import { ChoiceType } from 'commons/types/widgets';
@@ -52,15 +52,30 @@ const useMultiChoiceQuestionProperties = ({
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
   const { getQuestionAnswers } = useAnswerSheet();
-  const allQuestionAnswers = getQuestionAnswers(questionId);
-  const wholeSelectedChoices = allQuestionAnswers?.flatMap(answer => answer.choices);
+  const allQuestionAnswers = useMemo(
+    () => getQuestionAnswers(questionId),
+    [getQuestionAnswers]
+  );
+  const wholeSelectedChoices = useMemo(
+    () => allQuestionAnswers?.flatMap(answer => answer.choices),
+    [allQuestionAnswers]
+  );
 
+  const handleSetSelectedChoices = useCallback((newSelectedChoices: number[]) => {
+    onAnswerChange({ choices: newSelectedChoices });
+    _setSelectedChoiceIds(newSelectedChoices);
+  }, [onAnswerChange]);
+
+  const hasInitialized = useRef(false);
   useEffect(() => {
-    const latestAnswer = allQuestionAnswers?.find(answer => answer.is_final_answer)
-    if (latestAnswer) {
-      handleSetSelectedChoices(latestAnswer.choices);
+    if (!hasInitialized.current) {
+      const latestAnswer = allQuestionAnswers?.find(answer => answer.is_final_answer);
+      if (latestAnswer) {
+        handleSetSelectedChoices(latestAnswer.choices);
+        hasInitialized.current = true;
+      }
     }
-  }, [allQuestionAnswers]);
+  }, [allQuestionAnswers, handleSetSelectedChoices]);
 
   const randomizedChoices: ChoiceType[] = useMemo(() => {
     if (randomizeChoices && mode === WidgetModes.View && player?.id) {
@@ -79,11 +94,6 @@ const useMultiChoiceQuestionProperties = ({
     ...choice,
     disabled: disableAfterAnswer && maxSelections === 1 && wholeSelectedChoices?.includes(choice.id)
   }))
-
-  const handleSetSelectedChoices = (newSelectedChoices: number[]) => {
-    onAnswerChange({ choices: newSelectedChoices });
-    _setSelectedChoiceIds(newSelectedChoices);
-  }
 
   const onChoiceSelect = (choice: ChoiceType) => {
     const selectedChoiceId = choice.id;
