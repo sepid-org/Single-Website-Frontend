@@ -1,36 +1,61 @@
-import React, { Component } from 'react';
+import React, { PropsWithChildren } from 'react';
+import * as Sentry from "@sentry/react";
 
-interface State {
+type ErrorBoundaryProps = PropsWithChildren<{}>;
+type ErrorBoundaryState = {
   hasError: boolean;
-}
+  error?: Error | null;
+};
 
-interface Props {
-  children: React.ReactNode;  // Declare children prop type
-}
-
-class AsyncErrorBoundary extends Component<Props, State> {
-  state: State = {
-    hasError: false,
-  };
-
-  static getDerivedStateFromError(error: Error): Partial<State> {
-    // Update state to indicate an error has occurred
-    return { hasError: true };
+class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = {
+      hasError: false,
+      error: null
+    };
   }
 
-  componentDidCatch(error: Error, info: React.ErrorInfo): void {
-    // You can log the error or send it to an error reporting service here
-    console.error("Caught error:", error);
-    console.error("Error info:", info);
+  static getDerivedStateFromError(error: Error) {
+    // Update state so the next render shows the fallback UI
+    return {
+      hasError: true,
+      error
+    };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Report error to Sentry
+    Sentry.withScope((scope) => {
+      // Attach additional context information if needed
+      Object.keys(errorInfo).forEach((key) => {
+        scope.setExtra(key, errorInfo[key as keyof React.ErrorInfo]);
+      });
+
+      // Capture the error with Sentry
+      Sentry.captureException(error);
+    });
   }
 
   render() {
     if (this.state.hasError) {
-      return <h1>{"یه مشکلی پیش اومد! صفحه رو مجدداً بارگذاری کن"}</h1>;
+      // Render fallback UI with error message
+      return (
+        <div className="error-fallback">
+          <h1>مشکلی رخ داده است!</h1>
+          <p className="error-message">
+            {this.state.error?.message || 'خطای ناشناخته'}
+          </p>
+          <div className="error-actions">
+            <button onClick={() => window.location.reload()}>
+              بارگذاری مجدد
+            </button>
+          </div>
+        </div>
+      );
     }
     return this.props.children;
   }
 }
 
-export default AsyncErrorBoundary;
-
+export default ErrorBoundary;
