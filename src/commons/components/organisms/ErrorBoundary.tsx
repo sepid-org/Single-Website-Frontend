@@ -2,17 +2,26 @@ import React, { PropsWithChildren } from 'react';
 import * as Sentry from "@sentry/react";
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
-type ErrorBoundaryState = { hasError: boolean };
+type ErrorBoundaryState = {
+  hasError: boolean;
+  error?: Error | null;
+};
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
-    this.state = { hasError: false };
+    this.state = {
+      hasError: false,
+      error: null
+    };
   }
 
   static getDerivedStateFromError(error: Error) {
     // Update state so the next render shows the fallback UI
-    return { hasError: true };
+    return {
+      hasError: true,
+      error
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
@@ -30,8 +39,20 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 
   render() {
     if (this.state.hasError) {
-      // Render fallback UI
-      return <h1>یه مشکلی پیش اومد! صفحه رو مجدداً بارگذاری کن</h1>;
+      // Render fallback UI with error message
+      return (
+        <div className="error-fallback">
+          <h1>مشکلی رخ داده است!</h1>
+          <p className="error-message">
+            {this.state.error?.message || 'خطای ناشناخته'}
+          </p>
+          <div className="error-actions">
+            <button onClick={() => window.location.reload()}>
+              بارگذاری مجدد
+            </button>
+          </div>
+        </div>
+      );
     }
 
     // Ensure TypeScript knows that `children` is part of props
