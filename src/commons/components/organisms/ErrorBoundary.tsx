@@ -3,6 +3,7 @@ import * as Sentry from "@sentry/react";
 import errorImg from "../atoms/icons/error1.png";
 import { Box, Button, Container, Typography } from '@mui/material';
 import ReloadIcon from '../atoms/icons/Reload';
+import ConnectionProblemIcon from '../atoms/icons/ConnectionProblem';
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
 type ErrorBoundaryState = {
@@ -58,11 +59,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               flexDirection: "column"
             }}
           >
-            <Box
-              component="img"
-              src={errorImg}
-            />
-            <Typography fontWeight={30} fontSize={{md: 30, xs: 20}}>
+            <ConnectionProblemIcon />
+            <Typography fontWeight={30} fontSize={{ md: 30, xs: 20 }} textAlign={"center"}>
               {"اینترنت شما قطع شده!"}
               <br />
               {this.state.error?.message || 'خطای ناشناخته'}
@@ -74,7 +72,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               variant='outlined'
               size='small'
             >
-              {"لطفا اینترنت رو چک کنید و صفحه رو بارگذاری کنید."}
+              {"لطفا صفحه رو از اول بارگذاری کن."}
             </Button>
           </Container>
         );
