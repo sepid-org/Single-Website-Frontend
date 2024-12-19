@@ -15,7 +15,9 @@ interface BaseQueryArgs {
 }
 
 const MAX_RETRIES = 5;
-const BASE_DELAY = 1000; // 1 second initial delay
+const BACKOFF_FACTOR = 0.3;
+const TIMEOUT = 10000; // 10 seconds in milliseconds
+const STATUS_FORCELIST = [500, 502, 503, 504];
 
 const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
   async (args: BaseQueryArgs | string, api, extraOptions) => {
@@ -45,6 +47,9 @@ const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
 
     let retries = 0;
     let result;
+
+    // Determine the HTTP method
+    const method = typeof args === 'string' ? 'GET' : args.method?.toUpperCase() || 'GET';
 
     while (retries < MAX_RETRIES) {
       try {
@@ -97,21 +102,34 @@ const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
           }
         }
 
-        // Exit retry loop if non-retriable error
-        if (result.error?.status !== 500 && result.error?.status !== 'FETCH_ERROR') {
+        // Only retry on specified status codes
+        if (!STATUS_FORCELIST.includes(result.error?.status as number) && result.error?.status !== 'FETCH_ERROR') {
           break;
         }
 
-        // Exponential backoff
-        const delay = BASE_DELAY * Math.pow(2, retries);
+        // Calculate backoff delay using the same formula as urllib3.util.Retry
+        const delay = BACKOFF_FACTOR * (1 << retries) * 1000;
         await new Promise(resolve => setTimeout(resolve, delay));
 
         retries++;
       } catch (error) {
-        // Handle unexpected errors
-        if (retries === MAX_RETRIES - 1) {
-          throw error;
+        // If it's a timeout or network error, retry if within status forcelist
+        if (error instanceof Error &&
+          (error.name === 'TimeoutError' || error.name === 'TypeError') &&
+          retries < MAX_RETRIES - 1) {
+          retries++;
+          continue;
         }
+
+        // Return a formatted error response similar to the Python version
+        return {
+          error: {
+            status: 500,
+            data: {
+              error: `Failed to process ${method} request after retries: ${error}`
+            }
+          }
+        };
       }
     }
 
