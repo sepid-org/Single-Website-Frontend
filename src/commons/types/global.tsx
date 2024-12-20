@@ -80,6 +80,7 @@ export type PageMetadataType = {
   og_metadata: OpenGraphMetaData;
   banners: BannerType[];
   appbar: { body: BackendAppbarType };
+  paper_id: number;
 }
 
 export type BackendAppbarType = {

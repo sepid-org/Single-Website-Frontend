@@ -1,4 +1,6 @@
 import { Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import Paper from 'commons/template/Paper';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import React from 'react';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
@@ -7,9 +9,31 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 const PurchaseResult = () => {
   const { programSlug } = useParams();
   const [searchParams] = useSearchParams();
+  const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+
   const navigate = useNavigate();
   const status = searchParams.get('status');
   const refId = searchParams.get('ref_id');
+
+  if (websiteMetadata?.paper_id) {
+
+    return (
+      <Container
+        sx={{
+          display: 'flex',
+          padding: 3,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginRight: 'auto !important',
+          marginLeft: 'auto !important',
+          minHeight: '100vh',
+        }}>
+        <Stack spacing={2} maxWidth='sm' sx={{ width: '100%', paddingBottom: 2 }}>
+          <Paper mode='general' paperId={websiteMetadata.paper_id.toString()} />
+        </Stack>
+      </Container>
+    )
+  }
 
   return (
     <Container>
