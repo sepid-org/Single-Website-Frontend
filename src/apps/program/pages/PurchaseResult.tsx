@@ -1,4 +1,4 @@
-import { Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Backdrop, Button, CircularProgress, Container, Grid, Stack, Typography } from '@mui/material';
 import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Paper from 'commons/template/Paper';
 import { toPersianNumber } from 'commons/utils/translateNumber';
@@ -9,11 +9,19 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 const PurchaseResult = () => {
   const { programSlug } = useParams();
   const [searchParams] = useSearchParams();
-  const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: websiteMetadata, isLoading } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
 
   const navigate = useNavigate();
   const status = searchParams.get('status');
   const refId = searchParams.get('ref_id');
+
+  if (isLoading) {
+    return (
+      <Backdrop open={isLoading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    )
+  }
 
   if (websiteMetadata?.paper_id) {
 
