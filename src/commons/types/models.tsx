@@ -1,7 +1,5 @@
-import { NodeProps } from "@xyflow/react";
-import { HintType } from "./global";
-import { SchoolStudentshipType, UserInfoType } from "./profile";
-import { PositionType, WidgetType } from "./widgets/widget";
+import { AcademicStudentshipType, SchoolStudentshipType, UserInfoType } from "./profile";
+import { WidgetType } from "./widgets/widget";
 import { ObjectType } from "./object/object";
 
 export type PlayerRequestType = any;
@@ -79,7 +77,8 @@ export type RegistrationReceiptType = AnswerSheetType & {
   profile_image: string;
   is_paid: boolean;
   user: UserInfoType;
-  school_studentship: SchoolStudentshipType;
+  school_studentship?: SchoolStudentshipType;
+  academic_studentship?: AcademicStudentshipType;
   is_participating: boolean;
   certificate: CertificateType;
   team: TeamType | string;
