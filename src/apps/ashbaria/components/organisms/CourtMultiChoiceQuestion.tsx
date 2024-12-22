@@ -29,6 +29,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     submitAnswer,
     errorMessage,
     submitAnswerResult,
+    isQuestionLoading,
   } = useMultiChoiceQuestionProperties({
     questionId,
     useSubmitAnswerMutation,
@@ -51,6 +52,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1.5}>
         {displayChoices.map((choice) =>
           <CourtMultiChoiceQuestionChoice
+            disabled={maxSelections === 1 && isQuestionLoading}
             key={choice.id}
             choice={choice}
             isSelected={selectedChoiceIds.includes(choice.id)}
@@ -62,7 +64,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         mode === WidgetModes.View && maxSelections > 1 &&
         <Stack alignItems={'end'}>
           <Button
-            disabled={Boolean(errorMessage)}
+            disabled={isQuestionLoading || Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
             onClick={() => submitAnswer(selectedChoiceIds)}>

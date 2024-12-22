@@ -51,7 +51,7 @@ const useMultiChoiceQuestionProperties = ({
   const [selectedChoiceIds, _setSelectedChoiceIds] = useState<number[]>([]);
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const { player } = useFSMContext();
-  const { getQuestionAnswers } = useAnswerSheet();
+  const { getQuestionAnswers, isLoading: isAnswerSheetLoading } = useAnswerSheet();
   const allQuestionAnswers = useMemo(
     () => getQuestionAnswers(questionId),
     [getQuestionAnswers]
@@ -141,7 +141,10 @@ const useMultiChoiceQuestionProperties = ({
     errorMessage = 'شما این پاسخ را قبل‌تر ثبت کرده‌اید';
   }
 
+  const isQuestionLoading = submitAnswerResult.isLoading || isAnswerSheetLoading;
+
   return {
+    isQuestionLoading,
     selectedChoiceIds,
     displayChoices,
     errorMessage,
