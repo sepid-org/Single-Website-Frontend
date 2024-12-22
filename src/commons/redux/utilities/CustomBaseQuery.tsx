@@ -56,7 +56,7 @@ const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
         // Perform the query
         result = await baseQuery(args, api, extraOptions);
 
-        if (!result.error) return result;
+        if (!result.error) break;
 
         // Handle 401 errors for token refresh
         if (result.error?.status === 401) {

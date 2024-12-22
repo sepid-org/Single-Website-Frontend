@@ -15,7 +15,7 @@ const WidgetEditMenu = ({
 }) => {
   const [openAddAttributeDialog, setAddAttributeDialogOpen] = useState(false);
   const [openDeleteWidgetDialog, setOpenDeleteWidgetDialog] = useState(false);
-  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const [openEditWidgetDialog, setOpenEditWidgetDialog] = useState(false);
   const [openEditHintDialog, setEditHintDialog] = useState(false);
   const {
     onDelete,
@@ -44,7 +44,7 @@ const WidgetEditMenu = ({
         </IconButton>
       </Tooltip>
       <Tooltip title='ویرایش' arrow>
-        <IconButton size='small' onClick={() => { setOpenEditDialog(true) }}>
+        <IconButton size='small' onClick={() => { setOpenEditWidgetDialog(true) }}>
           <EditIcon />
         </IconButton>
       </Tooltip>
@@ -66,8 +66,8 @@ const WidgetEditMenu = ({
         />
         <EditWidgetDialog
           {...widget}
-          open={openEditDialog}
-          handleClose={() => setOpenEditDialog(false)}
+          open={openEditWidgetDialog}
+          handleClose={() => setOpenEditWidgetDialog(false)}
           onMutate={onMutate}
         />
         <DeleteWidgetDialog
