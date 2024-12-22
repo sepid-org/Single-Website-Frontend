@@ -13,7 +13,8 @@ const useAnswerSheet = () => {
     return answerSheet?.answers?.filter(answer => answer.problem === questionId);
   }
 
-  const isLoading = isGetAnswerSheetByPlayerIdLoading || !answerSheet;
+  // const isLoading = isGetAnswerSheetByPlayerIdLoading || !answerSheet;
+  const isLoading = isGetAnswerSheetByPlayerIdLoading;
 
   return {
     isLoading,
