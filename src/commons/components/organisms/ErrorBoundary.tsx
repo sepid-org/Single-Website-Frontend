@@ -72,16 +72,28 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             }}
             spacing={3}
           >
-            <Typography fontWeight={30} fontSize={{ xs: 20, md: 30 }} color={"#3b4573"}>
+            <Typography
+              fontWeight={30}
+              fontSize={{ xs: 20, md: 30 }}
+              color={"#3b4573"}
+            >
               {isNetworkError ?
                 "اینترنت شما قطع شده!" :
                 "یه مشکلی پیش اومده!"
               }
             </Typography>
-            <Typography fontWeight={30} fontSize={{ xs: 10, md: 15 }} color={"#3b4573"}>
+            <Typography
+              fontWeight={30}
+              fontSize={{ xs: 10, md: 15 }}
+              color={"#3b4573"}
+            >
               {this.state.error?.message || 'خطای ناشناخته'}
             </Typography>
-            <Typography fontWeight={30} fontSize={{ xs: 10, md: 15 }} color={"#3b4573"}>
+            <Typography
+              fontWeight={30}
+              fontSize={{ xs: 10, md: 15 }}
+              color={"#3b4573"}
+            >
               {isNetworkError ?
                 "لطفا بعد از بررسی وضعیت اتصال اینترنت، صفحه رو از اول بارگذاری کن." :
                 "لطفا صفحه رو از اول بارگذاری کن."

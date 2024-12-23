@@ -29,43 +29,43 @@ const App = ({ }) => {
   }, [locale]);
 
   return (
-    <ErrorBoundary>
-      <Suspense
-        fallback={
-          <Backdrop open={true}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        }
-      >
-        <InitialApiCalls>
-          <WebsiteMetadataSetter />
-          <GlobalStyles />
-          <IntlProvider translations={translations}>
-            <CacheProvider value={createEmotionCache(dir)}>
-              <ThemeProvider theme={selectTheme(dir)}>
-                <CssBaseline />
-                <ToastContainer
-                  rtl
-                  position="top-right"
-                  autoClose={3000}
-                  transition={Slide}
-                  newestOnTop
-                  hideProgressBar={false}
-                  pauseOnHover={false}
-                  pauseOnFocusLoss={false}
-                  closeOnClick
-                  limit={3}
-                  draggable={false}
-                />
-                <DialogProvider />
-                <ConfettiContainer />
-                <Root />
-              </ThemeProvider>
-            </CacheProvider>
-          </IntlProvider>
-        </InitialApiCalls>
-      </Suspense>
-    </ErrorBoundary>
+    <ThemeProvider theme={selectTheme(dir)}>
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <Backdrop open={true}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          }
+        >
+          <InitialApiCalls>
+            <WebsiteMetadataSetter />
+            <GlobalStyles />
+            <IntlProvider translations={translations}>
+              <CacheProvider value={createEmotionCache(dir)}>
+                  <CssBaseline />
+                  <ToastContainer
+                    rtl
+                    position="top-right"
+                    autoClose={3000}
+                    transition={Slide}
+                    newestOnTop
+                    hideProgressBar={false}
+                    pauseOnHover={false}
+                    pauseOnFocusLoss={false}
+                    closeOnClick
+                    limit={3}
+                    draggable={false}
+                  />
+                  <DialogProvider />
+                  <ConfettiContainer />
+                  <Root />
+              </CacheProvider>
+            </IntlProvider>
+          </InitialApiCalls>
+        </Suspense>
+      </ErrorBoundary>
+    </ThemeProvider>
   );
 };
 
