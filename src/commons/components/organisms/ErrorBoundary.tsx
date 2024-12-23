@@ -1,8 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import * as Sentry from "@sentry/react";
-import errorImg from "../atoms/icons/error1.png";
-import { Box, Button, Container, Typography } from '@mui/material';
-import ReloadIcon from '../atoms/icons/Reload';
+import errorImg from "../atoms/icons/errorImg2.png";
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
+import SyncIcon from '@mui/icons-material/Sync';
 import ConnectionProblemIcon from '../atoms/icons/ConnectionProblem';
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
@@ -68,7 +68,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             <br />
             <Button
               onClick={() => window.location.reload()}
-              endIcon={<ReloadIcon />}
+              endIcon={<SyncIcon />}
               variant='outlined'
               size='small'
             >
@@ -86,27 +86,46 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flexDirection: "column"
+            flexDirection: "row"
           }}
         >
           <Box
             component="img"
             src={errorImg}
+            width={400}
+            height={400}
           />
-          <Typography fontWeight={30} fontSize={{ xs: 20, md: 30 }} textAlign={"center"}>
-            {"یه مشکلی پیش اومده!"}
-            <br />
-            {this.state.error?.message || 'خطای ناشناخته'}
-          </Typography>
-          <br />
-          <Button
-            onClick={() => window.location.reload()}
-            endIcon={<ReloadIcon />}
-            variant='outlined'
-            size='small'
+          <Stack
+            sx={{
+              display: "flex",
+              alignItems: "flex-start",
+              flexDirection: "column",
+            }}
+            spacing={3}
           >
-            {"لطفا صفحه رو از اول بارگذاری کن."}
-          </Button>
+            <Typography fontWeight={30} fontSize={{ xs: 20, md: 30 }} color={"#3b4573"}>
+              {"یه مشکلی پیش اومده!"}
+            </Typography>
+            <Typography fontWeight={30} fontSize={{ xs: 10, md: 15 }} color={"#3b4573"}>
+              {this.state.error?.message || 'خطای ناشناخته'}
+            </Typography>
+            <Typography fontWeight={30} fontSize={{ xs: 10, md: 15 }} color={"#3b4573"}>
+              {"لطفا صفحه رو از اول بارگذاری کن."}
+            </Typography>
+            <Button
+              onClick={() => window.location.reload()}
+              endIcon={<SyncIcon />}
+              variant='outlined'
+              size='small'
+              sx={{
+                alignSelf: "end",
+                borderColor: "#9fa9cf",
+                color: "#3b4573",
+              }}
+            >
+              {"بارگذاری مجدد"}
+            </Button>
+          </Stack>
         </Container>
       );
     }

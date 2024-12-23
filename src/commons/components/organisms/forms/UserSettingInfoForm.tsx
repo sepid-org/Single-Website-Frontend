@@ -42,8 +42,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
     });
   }
 
-  throw new Error('Some thing went wrong');
-
   return (
     <Grid container spacing={2}>
 
@@ -120,34 +118,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
             open={isChangePhoneNumberDialogOpen} />
         </Stack>
       </Grid>
-
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            value={userInfo.national_code || ''}
-            name="national_code"
-            onChange={(e) => {
-              if (isNumber(e.target.value)) {
-                handleFieldsChange(e);
-              }
-            }}
-            inputProps={{ className: 'ltr-input' }}
-            label="کد ملی"
-          />
-        </Grid> */}
-
-      {/* todo: hide email temporarily */}
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            disabled={true}
-            fullWidth
-            value={userInfo.email || ''}
-            name="email"
-            onChange={handleFieldsChange}
-            inputProps={{ className: 'ltr-input' }}
-            label="ایمیل"
-          />
-        </Grid> */}
 
       <Grid item xs={12}>
         <FormControl>

@@ -55,6 +55,8 @@ const UserSetting: FC<UserSettingPropsType> = ({
       ...userProfile,
     });
   }
+  
+  throw new Error("some thing went wrong");
 
   return (
     <Grid container item spacing={2}>
