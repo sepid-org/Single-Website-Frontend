@@ -86,14 +86,14 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            flexDirection: "row"
+            flexDirection: {sm: "row", xs: "column"}
           }}
         >
           <Box
             component="img"
             src={errorImg}
-            width={400}
-            height={400}
+            width={{xs: 200, sm: 400}}
+            height={{xs: 200, sm: 400}}
           />
           <Stack
             sx={{
