@@ -7,7 +7,7 @@ const useGetCourtFinalSupportPercentage = (fsmId: number) => {
   }
   const courtFinalSupportPercentagesSum = balances?.[`ashbaria-support-fsm${fsmId}`] || 0;
   const courtFinalSupportPercentagesCount = balances?.[`ashbaria-support-fsm${fsmId}-count`] || 1;
-  return Math.round(courtFinalSupportPercentagesSum / courtFinalSupportPercentagesCount);
+  return Math.floor(courtFinalSupportPercentagesSum / courtFinalSupportPercentagesCount);
 }
 
 export default useGetCourtFinalSupportPercentage;

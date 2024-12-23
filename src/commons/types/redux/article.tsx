@@ -10,6 +10,7 @@ export type ArticleType = {
     name?: string;
     description?: string;
     cover_page?: string;
+    is_hidden: boolean;
 }
 
 export type ArticlesInitialStateType = {

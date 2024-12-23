@@ -49,6 +49,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   );
 };
 
+// todo: add a loading state
 export const useFSMContext = (): FSMContextType => {
   const context = useContext(FSMContext);
   if (!context) {

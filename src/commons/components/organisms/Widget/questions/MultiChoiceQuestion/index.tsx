@@ -48,6 +48,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     submitAnswer,
     submitAnswerResult,
     errorMessage,
+    isQuestionLoading,
   } = useMultiChoiceQuestionProperties({
     questionId,
     useSubmitAnswerMutation,
@@ -72,7 +73,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1}>
         {displayChoices.map((choice) => (
           <Choice
-            disabled={mode === WidgetModes.Review}
+            disabled={(maxSelections === 1 && isQuestionLoading) || mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
             mode={WidgetModes.View}
@@ -85,7 +86,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
       {mode === WidgetModes.View && maxSelections > 1 && (
         <Stack alignItems={'end'}>
           <Button
-            disabled={Boolean(errorMessage)}
+            disabled={isQuestionLoading || Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
             onClick={() => submitAnswer(selectedChoiceIds)}

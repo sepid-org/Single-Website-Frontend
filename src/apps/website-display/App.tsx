@@ -7,8 +7,6 @@ import RegistrationReceipt from 'apps/website-display/pages/RegistrationReceipt'
 import Programs from 'apps/website-display/pages/Programs';
 import Setting from 'apps/website-display/pages/Setting';
 import Login from 'apps/website-display/pages/Login';
-import FailedPayment from 'apps/program/pages/Message/FailedPayment';
-import SuccessfulPayment from 'apps/program/pages/Message/SuccessfulPayment';
 import Article from 'apps/website-display/pages/Article';
 import Articles from 'apps/website-display/pages/Articles';
 import PrivateRoute from 'commons/routes/PrivateRoute';
@@ -43,14 +41,6 @@ const App = () => {
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/notifications/" element={<Notifications />} />
         <Route path="/edit-article/:articleId/" element={<EditArticle />} />
-        <Route
-          path="/message/payment/success/:paymentId?/"
-          element={<SuccessfulPayment />}
-        />
-        <Route
-          path="/message/payment/failure/:paymentId?/"
-          element={<FailedPayment />}
-        />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />
