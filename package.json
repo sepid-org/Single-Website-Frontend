@@ -63,7 +63,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && npm run sentry:sourcemaps",
+    "build": "react-scripts build",
     "test": "jest",
     "eject": "react-scripts eject",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org sepid-org --project sepid-platform-frontend ./build && sentry-cli --url https://sentry.hamravesh.com sourcemaps upload --org sepid-org --project sepid-platform-frontend ./build",

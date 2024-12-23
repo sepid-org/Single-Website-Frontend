@@ -8,6 +8,7 @@ import Registration from './pages/Registration';
 import ProgramManagement from './pages/ProgramManagement';
 import NotFoundPage from 'commons/pages/NotFoundPage';
 import Program from './pages/Program';
+import PurchaseResult from './pages/PurchaseResult';
 
 const AshbariaApp = React.lazy(() =>
   retryImport(() => import('apps/ashbaria/App'))
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/form/" element={<Registration />} />
         <Route path="/team-setting/" element={<TeamSetting />} />
         <Route path="/manage/" element={<ProgramManagement />} />
+        <Route path="/purchase/" element={<PurchaseResult />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

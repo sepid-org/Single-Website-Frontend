@@ -10,7 +10,7 @@ const useGetCourtFinalScore = (fsmId: number) => {
     return undefined;
   }
 
-  return Math.round(court?.reward_score * courtFinalSupportPercentage / 100);
+  return Math.floor(court?.reward_score * courtFinalSupportPercentage / 100);
 }
 
 export default useGetCourtFinalScore;

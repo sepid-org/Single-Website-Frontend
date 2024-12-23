@@ -60,7 +60,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       <Box
         sx={{
           position: 'relative',
-          minHeight: background_image ? 60 : 100,
+          minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
         }}

@@ -38,7 +38,13 @@ function TextEditWidget({
   };
 
   return (
-    <Dialog disableScrollLock fullWidth open={open} maxWidth='md'>
+    <Dialog
+      disableScrollLock
+      fullWidth
+      open={open}
+      maxWidth='md'
+      disableEnforceFocus
+    >
       <DialogTitle>{t('text')}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>

@@ -17,6 +17,8 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
   const articles = data?.articles || [];
   const count = data?.count || 0;
 
+  const visibleArticles = articles.filter(article => !article.is_hidden)
+
   return (
     <Layout appbarMode='DASHBOARD'>
       <Grid container spacing={4} justifyContent='center'>
@@ -26,18 +28,18 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
           </Typography>
         </Grid>
         <Grid item container spacing={2} xs={12}>
-          {articles?.map((article, index) => (
+          {visibleArticles?.map((article, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
               <ArticleCard article={article} mode='view' />
             </Grid>
           ))}
-          {(isSuccess && articles.length === 0) &&
+          {(isSuccess && visibleArticles.length === 0) &&
             <Grid container justifyContent={'center'}>
               <NoDataFound variant={4} />
             </Grid>
           }
         </Grid>
-        {(isSuccess && articles.length > 0) &&
+        {(isSuccess && visibleArticles.length > 0) &&
           <Grid item>
             <Pagination
               variant="outlined"
