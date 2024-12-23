@@ -34,8 +34,10 @@ const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
     if (
       value === '' ||
       (/^[۰0]$/.test(value)) ||
+      (/^[۹9]$/.test(value)) ||
       /^(۰۹|09)$/.test(value) ||
       /^(۰۹|09)[۰-۹0-9]{1,9}$/.test(value) ||
+      /^(۹|9)[۰-۹0-9]{1,9}$/.test(value) ||
       value === '+' ||
       /^(\+۹|\+9)$/.test(value) ||
       /^(\+۹۸|\+98)$/.test(value) ||

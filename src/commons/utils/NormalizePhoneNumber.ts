@@ -21,6 +21,9 @@ export const normalizePhoneNumber = (phoneNumber: string): string => {
   if (normalizedNumber.startsWith("+98")) {
     normalizedNumber = "09" + normalizedNumber.slice(4);
   }
+  else if(normalizedNumber.startsWith("9")){
+    normalizedNumber = "0" + normalizedNumber;
+  }
 
   return normalizedNumber;
 };
