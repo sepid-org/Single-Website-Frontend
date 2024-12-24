@@ -2,6 +2,14 @@ import { CityType } from "./models"
 
 const Cities: CityType[] = [
   {
+    id: 453,
+    title: 'نکا',
+    slug: 'Neka',
+    province_id: 3,
+    latitude: 0,
+    longitude: 0
+  },
+  {
     id: 452,
     title: 'بشرویه',
     slug: 'Boshruyeh',
