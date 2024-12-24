@@ -1,9 +1,5 @@
 import { useMemo } from 'react';
-
-type ContentNode = {
-  type: 'text' | 'math-inline' | 'math-block' | 'html';
-  content: string;
-};
+import { ContentNode, ContentType } from '../type';
 
 export const useContentParser = (sanitizedContent: string): ContentNode[] => {
   return useMemo(() => {
@@ -15,16 +11,16 @@ export const useContentParser = (sanitizedContent: string): ContentNode[] => {
         const element = node as Element;
         switch (element.tagName.toLowerCase()) {
           case 'math-inline':
-            return { type: 'math-inline', content: element.textContent || '' };
+            return { type: ContentType.MATH_INLINE, content: element.textContent || '' };
           case 'math-block':
-            return { type: 'math-block', content: element.textContent || '' };
+            return { type: ContentType.MATH_BLOCK, content: element.textContent || '' };
           default:
-            return { type: 'html', content: element.outerHTML };
+            return { type: ContentType.HTML, content: element.outerHTML };
         }
       } else if (node.nodeType === Node.TEXT_NODE) {
-        return { type: 'text', content: node.textContent || '' };
+        return { type: ContentType.TEXT, content: node.textContent || '' };
       }
-      return { type: 'text', content: '' };
+      return { type: ContentType.TEXT, content: '' };
     });
   }, [sanitizedContent]);
 };
