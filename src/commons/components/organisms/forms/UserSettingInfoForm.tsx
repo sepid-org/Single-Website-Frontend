@@ -65,7 +65,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           item
           xs={12}
           sm={6}
-          justifyContent={{sm: 'end', xs: "center"}}
+          justifyContent={{ sm: 'end', xs: "center" }}
         >
           <ProfileImageUploader
             file={data.profile_image}
@@ -113,6 +113,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
 
       <Grid item xs={12} sm={6}>
         <DateInputField
+          label={'تاریخ تولد'}
           date={data.birth_date}
           setDate={(birthDate) => setData({ ...data, birth_date: birthDate })}
           isRequired={true}

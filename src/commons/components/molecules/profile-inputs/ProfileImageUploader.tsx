@@ -37,8 +37,8 @@ const ProfileImageUploader = ({ file, setFile }) => {
   return (
     <Box
       sx={{
-        width: {xs: 150, sm: 200},
-        height: {xs: 150, sm: 200},
+        width: { xs: 150, sm: 200 },
+        height: { xs: 150, sm: 200 },
         cursor: "pointer",
       }}
     >
@@ -91,7 +91,7 @@ const ProfileImageUploader = ({ file, setFile }) => {
             src={file}
             width="100%"
             height="100%"
-            sx={{ borderRadius: 1 }}
+            sx={{ borderRadius: 1, objectFit: "cover" }}
           />
           <Box
             sx={{
@@ -115,7 +115,7 @@ const ProfileImageUploader = ({ file, setFile }) => {
             <Button
               sx={{
                 fontWeight: 800,
-                width: "100%", 
+                width: "100%",
                 height: "100%",
                 color: Workshop.colors.primary,
               }}

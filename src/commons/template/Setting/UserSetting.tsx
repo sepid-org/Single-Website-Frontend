@@ -30,13 +30,15 @@ const UserSetting: FC<UserSettingPropsType> = ({
   const { isFetching, isSuccess, data: initialUserProfile } = useUserProfile();
   const [userProfile, setUserProfile] = useState(initialUserProfile);
 
-  const {fieldValidationStatus,
+  const {
+    fieldValidationStatus,
     setFieldValidationStatus,
     displayEmptyErrorMessages,
     setDisplayEmptyErrorMessages,
     handleValidationChange,
-    allFieldsValid,} = useUserProfileFormValidator(['first_name', 'last_name', 'birth_date', 'gender', 'province', 'city']);
-    
+    allFieldsValid
+  } = useUserProfileFormValidator(['first_name', 'last_name', 'birth_date', 'gender', 'province', 'city']);
+
   useEffect(() => {
     if (!isFetching && isSuccess) {
       setUserProfile(initialUserProfile);
@@ -83,13 +85,13 @@ const UserSetting: FC<UserSettingPropsType> = ({
                 if (Boolean(allFieldsValid)) {
                   submitUserInfo();
                 }
-                else{
+                else {
                   for (const property in fieldValidationStatus) {
                     if (!fieldValidationStatus[property] && !userProfile[property]) {
-                      setDisplayEmptyErrorMessages((prevState) => {return { ...prevState, [property]: true }});
+                      setDisplayEmptyErrorMessages((prevState) => { return { ...prevState, [property]: true } });
                     }
                   }
-                  toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");  
+                  toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
                 }
               }}
               variant="contained"
@@ -100,7 +102,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <UserSettingInfoForm data={userProfile} setData={setUserProfile} handleValidationChange={handleValidationChange} displayEmptyErrorMessages={displayEmptyErrorMessages}/>
+        <UserSettingInfoForm data={userProfile} setData={setUserProfile} handleValidationChange={handleValidationChange} displayEmptyErrorMessages={displayEmptyErrorMessages} />
       </Grid>
       {isInForm &&
         <Grid item xs={12}>
