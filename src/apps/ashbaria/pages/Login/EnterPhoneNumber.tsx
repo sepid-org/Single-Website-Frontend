@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import React, { FC, Fragment, useEffect } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { useSearchParams } from "react-router-dom";
@@ -7,6 +7,7 @@ import { LoginTabs } from ".";
 import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
+import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 
 type EnterPhoneNumberPropsType = {}
 
@@ -44,16 +45,13 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
         <Typography textAlign={'center'}>
           {'بی‌زحمت شماره موبایلتو بزن:'}
         </Typography>
-        <TextField
-          value={phoneNumber}
-          placeholder='09123456789'
-          onChange={handleChangePhoneNumber}
-          inputProps={{
-            dir: 'ltr',
-            maxLength: 11,
-            inputMode: 'numeric',
-            type: 'tel',
-          }}
+        <PhoneNumberInput
+          phoneNumber={""}
+          setPhoneNumber={(value) => setSearchParams({ phoneNumber: toEnglishNumber(value) })}
+          editable={false}
+          placeHolder={"09123456789"}
+          textDir="ltr"
+          isRequired={false}
         />
       </Stack>
       <Button fullWidth variant='contained' onClick={handleGetVerificationCode}>

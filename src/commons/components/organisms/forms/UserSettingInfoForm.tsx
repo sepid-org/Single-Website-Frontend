@@ -1,39 +1,33 @@
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Radio,
-  RadioGroup,
-  Select,
-  Stack,
-  TextField,
-} from '@mui/material';
+import { Grid } from '@mui/material';
 import React, { FC, useState } from 'react';
-import Iran from 'commons/utils/iran';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
-import isNumber from 'commons/utils/validators/isNumber';
-import ChangePhoneNumberDialog from 'commons/components/organisms/dialogs/ChangePhoneNumberDialog';
-import UploadImage from 'commons/components/molecules/UploadImage';
+import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
-import DateInputField from 'commons/components/molecules/fields/Date';
-
+import DateInputField from 'commons/components/molecules/fields/DateInputField';
+import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
+import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
+import { Workshop } from "commons/configs/themes/MuiVariables";
+import ProvinceSelector from "../../molecules/profile-inputs/ProvinceSelector";
+import CitySelector from 'commons/components/molecules/profile-inputs/CitySelector';
+import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
+import FirstNameField from 'commons/components/molecules/profile-inputs/FirstNameField';
+import LastNameField from 'commons/components/molecules/profile-inputs/LastNameField';
 
 type UserSettingInfoFormPropsType = {
   data: Partial<UserInfoType>;
   setData: Function;
+  handleValidationChange: (field: string, isValid: boolean) => void;
+  displayEmptyErrorMessages: Record<string, boolean>;
 }
-
-const PROFILE_PICTURE = process.env.PUBLIC_URL + '/images/profile.png';
 
 const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
   data,
   setData,
+  handleValidationChange,
+  displayEmptyErrorMessages
 }) => {
-  const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
+
+  const theme = useTheme();
 
   const handleChange = (event) => {
     setData({
@@ -42,199 +36,126 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
     });
   }
 
+  const handleGenderChange = (selectedGender) => {
+    setData({
+      ...data,
+      gender: selectedGender,
+    })
+  }
+
+  const handleProfileImageChange = (file) => {
+    setData({
+      ...data,
+      profile_image: file,
+    })
+  }
+
   return (
     <Grid container spacing={2}>
+      <Grid
+        item
+        container
+        xs={12}
+        spacing={2}
+        direction={'row-reverse'}
+        alignItems={'start'}
+      >
+        <Grid
+          container
+          item
+          xs={12}
+          sm={6}
+          justifyContent={{sm: 'end', xs: "center"}}
+        >
+          <ProfileImageUploader
+            file={data.profile_image}
+            setFile={handleProfileImageChange}
+          />
+        </Grid>
+        <Grid item container xs={12} sm={6} spacing={2}>
+          <Grid item xs={12}>
+            <FirstNameField
+              label='نام'
+              onChange={handleChange}
+              value={data.first_name}
+              isRequired={true}
+              placeholder="نام خود را وارد کنید."
+              onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.first_name}
+            />
+          </Grid>
 
-      <Grid item xs={12}>
-        <UploadImage
-          setFile={(file) => {
-            setData({
-              ...data,
-              profile_image: file,
-            })
-          }}
-          file={data.profile_image || PROFILE_PICTURE}
-          showImageSelf={true} />
-      </Grid>
+          <Grid item xs={12}>
+            <LastNameField
+              label='نام خانوادگی'
+              onChange={handleChange}
+              value={data.last_name}
+              isRequired={true}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.last_name}
+              onValidationChange={(isValid) => handleValidationChange('last_name', isValid)}
+              placeholder="نام خانوادگی خود را وارد کنید."
+            />
+          </Grid>
 
-      <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          fullWidth
-          value={data.first_name || ''}
-          name="first_name"
-          onChange={handleChange}
-          label='نام'
-        />
-      </Grid>
-
-      <Grid item xs={12} sm={6}>
-        <TextField
-          required
-          fullWidth
-          value={data.last_name || ''}
-          name="last_name"
-          onChange={handleChange}
-          label="نام خانوادگی"
-        />
+          <Grid item xs={12}>
+            <PhoneNumberInput
+              phoneNumber={data.phone_number}
+              setPhoneNumber={handleChange}
+              label={"شماره موبایل"}
+              iconColor={theme.palette.text.secondary}
+              editable={true}
+              placeHolder={"شماره تلفن خود را وارد کنید."}
+              isRequired={true}
+            />
+          </Grid>
+        </Grid>
       </Grid>
 
       <Grid item xs={12} sm={6}>
         <DateInputField
           date={data.birth_date}
           setDate={(birthDate) => setData({ ...data, birth_date: birthDate })}
+          isRequired={true}
+          handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
+          displayEmptyErrorMessage={displayEmptyErrorMessages.birth_date}
         />
       </Grid>
 
       <Grid item xs={12} sm={6}>
-        <Stack direction={'row'} spacing={1}>
-          <TextField
-            fullWidth
-            required
-            disabled={true}
-            value={data.phone_number || ''}
-            onChange={(e) => {
-              if (isNumber(e.target.value)) {
-                handleChange(e);
-              }
-            }}
-            name="phone_number"
-            inputProps={{ className: 'ltr-input' }}
-            label="شماره موبایل"
-          />
-          <Button
-            size='small'
-            variant="contained"
-            color="primary"
-            sx={{
-              width: '40%',
-              whiteSpace: 'nowrap',
-            }}
-            onClick={() => setIsChangePhoneNumberDialogOpen(state => !state)}>
-            {data.phone_number ? 'تغییر' : 'تعیین'}
-          </Button>
-          <ChangePhoneNumberDialog
-            handleClose={() => setIsChangePhoneNumberDialogOpen(state => !state)}
-            open={isChangePhoneNumberDialogOpen} />
-        </Stack>
-      </Grid>
-
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            fullWidth
-            value={userInfo.national_code || ''}
-            name="national_code"
-            onChange={(e) => {
-              if (isNumber(e.target.value)) {
-                handleFieldsChange(e);
-              }
-            }}
-            inputProps={{ className: 'ltr-input' }}
-            label="کد ملی"
-          />
-        </Grid> */}
-
-      {/* todo: hide email temporarily */}
-      {/* <Grid item xs={12} sm={6}>
-          <TextField
-            disabled={true}
-            fullWidth
-            value={userInfo.email || ''}
-            name="email"
-            onChange={handleFieldsChange}
-            inputProps={{ className: 'ltr-input' }}
-            label="ایمیل"
-          />
-        </Grid> */}
-
-      <Grid item xs={12}>
-        <FormControl>
-          <FormLabel required>جنسیت</FormLabel>
-          <RadioGroup
-            name="gender"
-            row
-            value={data.gender || ''}
-            onChange={handleChange}>
-            <FormControlLabel
-              value="Male"
-              control={<Radio />}
-              label="پسر"
-              labelPlacement="end"
-            />
-            <FormControlLabel
-              value="Female"
-              control={<Radio />}
-              label="دختر"
-              labelPlacement="end"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Grid>
-
-      <Grid item container xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>استان</InputLabel>
-          <Select
-            value={data.province || ''}
-            onChange={handleChange}
-            name="province"
-            label="استان">
-            {Iran.Provinces.map((province) => (
-              <MenuItem key={province.id} value={province.title}>
-                {province.title}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-      </Grid>
-
-      <Grid item container xs={12} sm={6}>
-        <FormControl fullWidth required>
-          <InputLabel>شهر</InputLabel>
-          <Select
-            disabled={!data.province && !data.city}
-            value={data.city || ''}
-            onChange={handleChange}
-            name="city"
-            label="شهر">
-            {Iran.Cities.filter((city) =>
-              city.province_id == Iran.Provinces.find(province => province.title == data.province)?.id)
-              .map((city) => (
-                <MenuItem key={city.id} value={city.title}>
-                  {city.title}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-      </Grid>
-
-      {/* <Grid item xs={12}>
-        <TextField
-          fullWidth
-          helperText='جوایز و یادگاری‌ها به این آدرس ارسال می‌شوند.'
-          value={data.address || ''}
-          name="address"
-          multiline
-          rows={2}
-          onChange={handleChange}
-          label="آدرس منزل (اختیاری)"
+        <GenderSelector
+          gender={data.gender}
+          handleChange={handleGenderChange}
+          primaryColor={Workshop.colors.secondary}
+          displayEmptyErrorMessage={displayEmptyErrorMessages.gender}
+          handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
         />
-      </Grid> */}
+      </Grid>
 
-      {/* <Grid item xs={12} sm={6}>
-        <TextField
-          fullWidth
-          name="postal_code"
-          value={data.postal_code || ''}
-          onChange={(e) => {
-            if (isNumber(e.target.value)) {
-              handleChange(e);
-            }
-          }}
-          inputProps={{ className: 'ltr-input' }}
-          label="کد پستی (اختیاری)"
-        />
-      </Grid> */}
+      <Grid item container spacing={2}>
+        {/* Second Row */}
+        <Grid container item xs={12} spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <ProvinceSelector
+              data={data}
+              setData={setData}
+              label='استان'
+              isRequired={true}
+              onValidationChange={(isValid) => handleValidationChange('province', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.province}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <CitySelector
+              data={data}
+              isRequired={true}
+              setData={setData}
+              label='شهر'
+              onValidationChange={(isValid) => handleValidationChange('city', isValid)}
+              displayEmptyErrorMessage={displayEmptyErrorMessages.city}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
     </Grid >
   );
 }
