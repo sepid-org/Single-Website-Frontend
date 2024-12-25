@@ -354,19 +354,18 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <Button
             onClick={() => {
-              if (Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || allFieldsValid) {
+              if (allFieldsValid) {
                 setIsSubmitConfirmationOpen(true)
-              }
-              else {
+              } else {
                 for (const property in fieldValidationStatus) {
                   if (!fieldValidationStatus[property] && !AshbariaProfile[property]) {
-                    setDisplayEmptyErrorMessages((prevState) => { return { ...prevState, [property]: true } });
+                    setDisplayEmptyErrorMessages((prevState) => ({ ...prevState, [property]: true }));
                   }
                 }
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={!Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
@@ -381,7 +380,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         handleClose={() => setIsSubmitConfirmationOpen(false)}
         callBackFunction={() => updateProfile(AshbariaProfile)}
       />
-    </Container>
+    </Container >
 
   );
 }
