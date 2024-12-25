@@ -24,6 +24,7 @@ import { toast } from 'react-toastify';
 import { useGetReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
+import userIcon from '../../../commons/components/atoms/icons/user.png';
 
 type RegistrationReceiptPropsType = {
   validateRegistrationReceipt: any;
@@ -53,7 +54,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     }
     validateRegistrationReceipt({ receiptId: receiptId, status });
   }
-
+  console.log(registrationReceipt);
   return (
     <Layout appbarMode='GENERAL'>
       <Grid container spacing={2} alignItems='flex-start'>
@@ -66,9 +67,18 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
           <Stack component={Paper} spacing={2} sx={{ padding: 1, width: '100%' }}>
             {userInfo &&
               <Fragment>
-                <Typography align='center' variant='h2'>
-                  {(userInfo.first_name && userInfo.last_name) ? `${userInfo.first_name} ${userInfo.last_name}` : 'بی‌نام'}
-                </Typography>
+                <Stack alignItems={"center"} direction='row' spacing={1}>
+                  <Box
+                    component="img"
+                    src={userInfo.profile_image === null ? userIcon : userInfo.profile_image}
+                    width={50}
+                    height={50}
+                    sx={{ borderRadius: '100%' }}
+                  />
+                  <Typography variant='h3'>
+                    {(userInfo.first_name && userInfo.last_name) ? `${userInfo.first_name} ${userInfo.last_name}` : 'بی‌نام'}
+                  </Typography>
+                </Stack>
                 <Divider />
                 <Grid container spacing={1}>
                   <Grid item xs={12}>
