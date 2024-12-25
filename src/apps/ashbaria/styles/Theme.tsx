@@ -46,6 +46,7 @@ export const customTheme = createTheme({
     },
   },
   palette: {
+    divider: '#60557E',
     mode: 'dark',
     primary: {
       main: Primary,

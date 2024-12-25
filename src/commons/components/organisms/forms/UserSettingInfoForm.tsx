@@ -1,12 +1,11 @@
 import { Grid } from '@mui/material';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { toEnglishNumber } from 'commons/utils/translateNumber';
 import { useTheme } from '@mui/material/styles';
 import { UserInfoType } from 'commons/types/profile';
 import DateInputField from 'commons/components/molecules/fields/DateInputField';
 import PhoneNumberInput from 'commons/components/molecules/profile-inputs/PhoneNumberInput';
 import GenderSelector from 'commons/components/molecules/profile-inputs/GenderSelector';
-import { Workshop } from "commons/configs/themes/MuiVariables";
 import ProvinceSelector from "../../molecules/profile-inputs/ProvinceSelector";
 import CitySelector from 'commons/components/molecules/profile-inputs/CitySelector';
 import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
@@ -126,7 +125,6 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
         <GenderSelector
           gender={data.gender}
           handleChange={handleGenderChange}
-          primaryColor={Workshop.colors.secondary}
           displayEmptyErrorMessage={displayEmptyErrorMessages.gender}
           handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
         />

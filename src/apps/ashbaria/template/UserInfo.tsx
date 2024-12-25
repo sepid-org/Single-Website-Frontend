@@ -26,6 +26,7 @@ import NationalCodeField from "commons/components/molecules/profile-inputs/Natio
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
+import { Golden } from "../constants/colors";
 
 type UserSettingPropsType = {}
 
@@ -36,12 +37,14 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
   const [isSubmitConfirmationOpen, setIsSubmitConfirmationOpen] = useState(false);
   const { data: userProfile } = useUserProfile();
-  const {fieldValidationStatus,
+  const {
+    fieldValidationStatus,
     setFieldValidationStatus,
     displayEmptyErrorMessages,
     setDisplayEmptyErrorMessages,
     handleValidationChange,
-    allFieldsValid,} = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'postal_code', 'address', 'profile_image'])
+    allFieldsValid,
+  } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'postal_code', 'address', 'profile_image'])
 
   useEffect(() => {
     if (userProfile) {
@@ -224,11 +227,10 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
             gender={AshbariaProfile?.gender}
             handleChange={handleGenderChange}
-            primaryColor={"#FFA800"}
-            secondareyColor={"#60557E"}
+            primaryColor={Golden}
+            secondaryColor={"#60557E"}
             primaryBGColor={"#FFC66F33"}
-            secondareyBGColor={"#00000080"}
-            changeBGColor={true}
+            secondaryBGColor={"rgba(0, 0, 0, 0.5)"}
             maleGender="M"
             femaleGender="F"
             displayEmptyErrorMessage={displayEmptyErrorMessages['gender']}
@@ -358,15 +360,15 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
               else {
                 for (const property in fieldValidationStatus) {
                   if (!fieldValidationStatus[property] && !AshbariaProfile[property]) {
-                    setDisplayEmptyErrorMessages((prevState) => {return { ...prevState, [property]: true }});
+                    setDisplayEmptyErrorMessages((prevState) => { return { ...prevState, [property]: true } });
                   }
                 }
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
             disabled={!Object.values(AshbariaProfile ?? {}).some(value => value === null)}
-            size="large" 
-            fullWidth={true} 
+            size="large"
+            fullWidth={true}
             variant='contained'
           >
             {'همینو ذخیره کن'}
@@ -379,8 +381,8 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         handleClose={() => setIsSubmitConfirmationOpen(false)}
         callBackFunction={() => updateProfile(AshbariaProfile)}
       />
-    </Container> 
-    
+    </Container>
+
   );
 }
 

@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React, { Fragment, useEffect, useState } from "react";
 import { ReactComponent as BoyHeadIcon } from "../../atoms/icons/boy-purple-head.svg";
 import { ReactComponent as GirlHeadIcon } from "../../atoms/icons/girl-purple-head.svg";
@@ -8,33 +8,40 @@ export default function GenderSelector({
 	handleChange,
 	maleGender = "Male",
 	femaleGender = "Female",
-	primaryColor,
-	secondareyColor = undefined,
-	changeBGColor = false,
-	primaryBGColor = undefined,
-	secondareyBGColor = undefined,
 	handleValidationChange,
-	displayEmptyErrorMessage
+	displayEmptyErrorMessage,
+	primaryColor = null,
+	secondaryColor = null,
+	primaryBGColor = null,
+	secondaryBGColor = null,
 }) {
 	const [selectedGender, setSelectedGender] = useState(gender);
+	const theme = useTheme();
 
 	useEffect(() => {
 		if (gender) {
 			setSelectedGender(gender);
 			handleValidationChange(true);
 		}
-	}, [gender])
+	}, [gender, handleValidationChange]);
 
-	const selectColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryColor : (secondareyColor ? secondareyColor : "gray");
-	}
+	const selectColor = (genderValue: string) =>
+		selectedGender === genderValue
+			? primaryColor || theme.palette.primary.contrastText
+			: secondaryColor || theme.palette.text.secondary;
+
 	const selectBackgroundColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryBGColor : secondareyBGColor;
-	}
+		return selectedGender === genderValue
+			? primaryBGColor || theme.palette.primary.main
+			: secondaryBGColor || "transparent";
+	};
 
 	const selectBorderColor = (genderValue: string) => {
-		return selectedGender === genderValue ? primaryColor : (secondareyColor ? secondareyColor : "lightgray");
-	}
+		if (!gender && displayEmptyErrorMessage) return theme.palette.error.main;
+		return selectedGender === genderValue
+			? primaryColor || theme.palette.primary.main
+			: theme.palette.divider;
+	};
 
 	return (
 		<Fragment>
@@ -43,7 +50,7 @@ export default function GenderSelector({
 					display: "flex",
 					flexDirection: "row",
 					width: "100%",
-					height: 56
+					height: 56,
 				}}
 			>
 				<Box
@@ -57,8 +64,8 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "8px 0px 0px 8px",
 						border: "1px solid",
-						borderColor: (!gender && displayEmptyErrorMessage) ? "#d32f2f" : selectBorderColor(maleGender),
-						backgroundColor: (changeBGColor ? selectBackgroundColor(maleGender) : null),
+						borderColor: selectBorderColor(maleGender),
+						backgroundColor: selectBackgroundColor(maleGender),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
@@ -68,7 +75,7 @@ export default function GenderSelector({
 					<Typography
 						sx={{
 							color: selectColor(maleGender),
-							userSelect: "none"
+							userSelect: "none",
 						}}
 					>
 						پسر
@@ -85,8 +92,8 @@ export default function GenderSelector({
 						gap: 1,
 						borderRadius: "0px 8px 8px 0px",
 						border: "1px solid",
-						borderColor: (!gender && displayEmptyErrorMessage) ? "#d32f2f" : selectBorderColor(femaleGender),
-						backgroundColor: (changeBGColor ? selectBackgroundColor(femaleGender) : null),
+						borderColor: selectBorderColor(femaleGender),
+						backgroundColor: selectBackgroundColor(femaleGender),
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
@@ -96,21 +103,21 @@ export default function GenderSelector({
 					<Typography
 						sx={{
 							color: selectColor(femaleGender),
-							userSelect: "none"
+							userSelect: "none",
 						}}
 					>
 						دختر
 					</Typography>
 				</Box>
 			</Box>
-			<Typography 
-				fontSize={12} 
+			<Typography
+				fontSize={12}
 				sx={{
-					color: "#d32f2f", 
+					color: theme.palette.error.main,
 					marginTop: "3px",
 				}}
 			>
-				{(!gender && displayEmptyErrorMessage) ? 'این فیلد نمی‌تواند خالی باشد.' : ''}
+				{!gender && displayEmptyErrorMessage ? "این فیلد نمی‌تواند خالی باشد." : ""}
 			</Typography>
 		</Fragment>
 	);
