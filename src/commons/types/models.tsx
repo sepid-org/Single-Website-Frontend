@@ -70,6 +70,8 @@ export type AnswerSheetType = {
   id: number;
   answer_sheet_type: AnswerSheetTypeType;
   answers: AnswerType[];
+  created_at: string;
+  updated_at: string;
 }
 
 export type RegistrationReceiptType = AnswerSheetType & {

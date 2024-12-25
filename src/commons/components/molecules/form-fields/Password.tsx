@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { TextField, IconButton, InputAdornment } from '@mui/material';
+import { TextField, IconButton, InputAdornment, Typography } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 
-function PasswordField({ collectData, label = 'گذرواژه' }) {
+function PasswordField({ collectData, label = 'گذرواژه', resetPasswordLink='', }) {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -27,6 +28,14 @@ function PasswordField({ collectData, label = 'گذرواژه' }) {
           </InputAdornment>
         )
       }}
+      helperText={
+        resetPasswordLink != '' && 
+        <Typography component="span">
+          <Link style={{ textDecoration: 'none' }} to={resetPasswordLink}>
+            {'رمز عبور را فراموش کرده‌ام'}
+          </Link>
+        </Typography>
+      }
     />
   );
 }

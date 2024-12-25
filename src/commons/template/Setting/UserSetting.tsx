@@ -10,6 +10,7 @@ import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import UserSettingInfoForm from 'commons/components/organisms/forms/UserSettingInfoForm';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { useUpdateUserProfileMutation } from 'commons/redux/apis/party/ProfileSlice';
+import useUserProfileFormValidator from 'commons/hooks/useUserProfileFormValidator';
 
 type UserSettingPropsType = {
   onSuccessfulSubmission?: any;
@@ -29,9 +30,26 @@ const UserSetting: FC<UserSettingPropsType> = ({
   const { isFetching, isSuccess, data: initialUserProfile } = useUserProfile();
   const [userProfile, setUserProfile] = useState(initialUserProfile);
 
+  const {
+    fieldValidationStatus,
+    setFieldValidationStatus,
+    displayEmptyErrorMessages,
+    setDisplayEmptyErrorMessages,
+    handleValidationChange,
+    allFieldsValid
+  } = useUserProfileFormValidator(['first_name', 'last_name', 'birth_date', 'gender', 'province', 'city']);
+
   useEffect(() => {
     if (!isFetching && isSuccess) {
       setUserProfile(initialUserProfile);
+      setFieldValidationStatus({
+        first_name: initialUserProfile?.first_name ? true : false,
+        last_name: initialUserProfile?.last_name ? true : false,
+        birth_date: initialUserProfile?.birth_date ? true : false,
+        province: initialUserProfile?.province ? true : false,
+        city: initialUserProfile?.city ? true : false,
+        gender: initialUserProfile?.gender ? true : false,
+      });
     }
   }, [isFetching])
 
@@ -65,8 +83,19 @@ const UserSetting: FC<UserSettingPropsType> = ({
           <Typography variant="h2" gutterBottom>اطلاعات فردی</Typography>
           {!isInForm &&
             <Button
-              disabled={deepEqual(initialUserProfile, userProfile)}
-              onClick={submitUserInfo}
+              onClick={() => {
+                if (Boolean(allFieldsValid)) {
+                  submitUserInfo();
+                }
+                else {
+                  for (const property in fieldValidationStatus) {
+                    if (!fieldValidationStatus[property] && !userProfile[property]) {
+                      setDisplayEmptyErrorMessages((prevState) => { return { ...prevState, [property]: true } });
+                    }
+                  }
+                  toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
+                }
+              }}
               variant="contained"
               color="secondary">
               {'به‌روز‌رسانی'}
@@ -75,7 +104,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <UserSettingInfoForm data={userProfile} setData={setUserProfile} />
+        <UserSettingInfoForm data={userProfile} setData={setUserProfile} handleValidationChange={handleValidationChange} displayEmptyErrorMessages={displayEmptyErrorMessages} />
       </Grid>
       {isInForm &&
         <Grid item xs={12}>

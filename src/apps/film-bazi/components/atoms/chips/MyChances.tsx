@@ -15,10 +15,10 @@ const MyChancesChip = ({ }) => {
   const { data: balances } = useGetMyBalancesQuery();
   const seatSelectionsCount = seatSelections.length;
   const extraChances = balances?.[FILMBAZI_EXTRA_CHANCE] || 0;
-  const myDiscountCodeUsages = discountCodes
-    .map(discountCode => discountCode.usage_count)
+  const boughtTickets = discountCodes
+    .map(discountCode => discountCode.bought_tickets)
     .reduce((acc, curr) => acc + curr, 0)
-  const chancesCount = Math.max(myDiscountCodeUsages + extraChances - seatSelectionsCount, 0);
+  const chancesCount = Math.max(boughtTickets + extraChances - seatSelectionsCount, 0);
 
   return (
     <CustomChip>
