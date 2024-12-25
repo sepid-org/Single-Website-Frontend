@@ -365,7 +365,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Boolean(AshbariaProfile.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
