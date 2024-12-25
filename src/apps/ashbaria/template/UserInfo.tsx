@@ -15,7 +15,7 @@ import CustomDialogContent from "commons/components/molecules/CustomDialogConten
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
-import DateInputField from "commons/components/molecules/fields/DateInputField";
+import DateInputField from "commons/components/molecules/profile-inputs/DateInputField";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 import ProvinceSelector from "commons/components/molecules/profile-inputs/ProvinceSelector";
 import CitySelector from "commons/components/molecules/profile-inputs/CitySelector";
@@ -365,7 +365,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={ Object.values(AshbariaProfile ?? {}).some(value => value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
