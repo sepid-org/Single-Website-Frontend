@@ -3,8 +3,8 @@ import React from "react"
 
 const IsRequired = ({ disabled = false, children }) => {
   return (
-    <Box position={'relative'}>
-      {!disabled && <Typography position={'absolute'} left={-2} top={-4} fontWeight={800} color={'red'}>{'*'}</Typography>}
+    <Box display="flex" alignItems="center">
+      {!disabled && <Typography sx={{ mr: 0.5 }} fontWeight={800} color={'red'}>{'*'}</Typography>}
       {children}
     </Box>
   )
