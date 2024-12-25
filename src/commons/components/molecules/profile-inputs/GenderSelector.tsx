@@ -23,7 +23,7 @@ export default function GenderSelector({
 			setSelectedGender(gender);
 			handleValidationChange(true);
 		}
-	}, [gender, handleValidationChange]);
+	}, [gender]);
 
 	const selectColor = (genderValue: string) =>
 		selectedGender === genderValue

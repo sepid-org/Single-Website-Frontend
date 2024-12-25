@@ -1,16 +1,15 @@
 import { useGetUserProfileQuery } from "commons/redux/apis/party/ProfileSlice";
 import { useSelector } from "react-redux";
+import { useMemo } from "react";
 
 const useUserProfile = () => {
   const userInfo = useSelector((state: any) => state.account.userInfo);
-  const {
-    data,
-    isSuccess,
-    isError,
-    isLoading,
-    isFetching,
-  } = useGetUserProfileQuery({ userId: userInfo.id });
-  const fullName = data?.first_name && data?.first_name ? `${data?.first_name} ${data?.last_name}` : '';
+  const { data, isSuccess, isError, isLoading, isFetching } = useGetUserProfileQuery({ userId: userInfo.id });
+
+  const fullName = useMemo(
+    () => (data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : ''),
+    [data?.first_name, data?.last_name]
+  );
 
   return {
     isSuccess,
@@ -22,6 +21,6 @@ const useUserProfile = () => {
       fullName,
     },
   };
-}
+};
 
 export default useUserProfile;
