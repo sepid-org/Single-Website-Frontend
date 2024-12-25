@@ -30,6 +30,7 @@ const App = ({ }) => {
 
   return (
     <ThemeProvider theme={selectTheme(dir)}>
+      <GlobalStyles />
       <ErrorBoundary>
         <Suspense
           fallback={
@@ -40,26 +41,25 @@ const App = ({ }) => {
         >
           <InitialApiCalls>
             <WebsiteMetadataSetter />
-            <GlobalStyles />
             <IntlProvider translations={translations}>
               <CacheProvider value={createEmotionCache(dir)}>
-                  <CssBaseline />
-                  <ToastContainer
-                    rtl
-                    position="top-right"
-                    autoClose={3000}
-                    transition={Slide}
-                    newestOnTop
-                    hideProgressBar={false}
-                    pauseOnHover={false}
-                    pauseOnFocusLoss={false}
-                    closeOnClick
-                    limit={3}
-                    draggable={false}
-                  />
-                  <DialogProvider />
-                  <ConfettiContainer />
-                  <Root />
+                <CssBaseline />
+                <ToastContainer
+                  rtl
+                  position="top-right"
+                  autoClose={3000}
+                  transition={Slide}
+                  newestOnTop
+                  hideProgressBar={false}
+                  pauseOnHover={false}
+                  pauseOnFocusLoss={false}
+                  closeOnClick
+                  limit={3}
+                  draggable={false}
+                />
+                <DialogProvider />
+                <ConfettiContainer />
+                <Root />
               </CacheProvider>
             </IntlProvider>
           </InitialApiCalls>

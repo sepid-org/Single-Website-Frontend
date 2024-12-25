@@ -4,6 +4,7 @@ import errorImg from "../atoms/icons/errorImg2.png";
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
 import ConnectionProblemIcon from '../atoms/icons/connectionError.jpg';
+import "./SecureHTMLDisplay/styles/fonts";
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
 type ErrorBoundaryState = {
@@ -76,9 +77,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               fontWeight={30}
               fontSize={{ xs: 20, md: 30 }}
               color={"#3b4573"}
+              fontFamily={"iranyekan"}
             >
               {isNetworkError ?
-                "اینترنت شما قطع شده!" :
+                "اتصال شبکه قطع شده!" :
                 "یه مشکلی پیش اومده!"
               }
             </Typography>
@@ -86,6 +88,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               fontWeight={30}
               fontSize={{ xs: 10, md: 15 }}
               color={"#3b4573"}
+              fontFamily={"iranyekan"}
             >
               {this.state.error?.message || 'خطای ناشناخته'}
             </Typography>
@@ -93,9 +96,10 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               fontWeight={30}
               fontSize={{ xs: 10, md: 15 }}
               color={"#3b4573"}
+              fontFamily={"iranyekan"}
             >
               {isNetworkError ?
-                "لطفا بعد از بررسی وضعیت اتصال اینترنت، صفحه رو از اول بارگذاری کن." :
+                "لطفا بعد از بررسی وضعیت اتصال شبکه، صفحه رو از اول بارگذاری کن." :
                 "لطفا صفحه رو از اول بارگذاری کن."
               }
             </Typography>
@@ -105,7 +109,6 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               variant='outlined'
               size='small'
               sx={{
-                alignSelf: "end",
                 borderColor: "#9fa9cf",
                 color: "#3b4573",
               }}

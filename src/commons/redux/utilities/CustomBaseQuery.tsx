@@ -19,7 +19,7 @@ const BACKOFF_FACTOR = 0.3;
 const TIMEOUT = 10000; // 10 seconds in milliseconds
 const STATUS_FORCELIST = [500, 502, 503, 504];
 
-const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
+const customBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
   async (args: BaseQueryArgs | string, api, extraOptions) => {
     const baseQuery = fetchBaseQuery({
       baseUrl,
@@ -148,4 +148,4 @@ const CustomBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
     return result;
   };
 
-export default CustomBaseQuery;
+export default customBaseQuery;
