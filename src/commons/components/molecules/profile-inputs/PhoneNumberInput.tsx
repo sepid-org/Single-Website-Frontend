@@ -2,13 +2,12 @@ import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
 import React, { Fragment, useState } from "react";
 import ChangePhoneNumberDialog from "commons/components/organisms/dialogs/ChangePhoneNumberDialog";
 import { ReactComponent as EditIcon } from "../../atoms/icons/edit.svg";
-import { toPersianNumber } from "commons/utils/translateNumber";
+import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 
 interface PhoneNumberInputProps {
   setPhoneNumber: any;
   phoneNumber: string;
   label?: string;
-  iconColor?: string;
   placeHolder?: string;
   editable: boolean;
   textDir?: string;
@@ -17,32 +16,28 @@ interface PhoneNumberInputProps {
 
 const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   setPhoneNumber,
-  phoneNumber = '',
+  phoneNumber,
   label,
-  iconColor,
   placeHolder,
   editable,
   textDir,
   isRequired
 }) => {
-
-
   const [isChangePhoneNumberDialogOpen, setIsChangePhoneNumberDialogOpen] = useState(false);
 
   const handleChange = (event) => {
-    const value = event.target.value;
+    const value = toEnglishNumber(event.target.value);
     if (
       value === '' ||
-      (/^[۰0]$/.test(value)) ||
-      (/^[۹9]$/.test(value)) ||
-      /^(۰۹|09)$/.test(value) ||
-      /^(۰۹|09)[۰-۹0-9]{1,9}$/.test(value) ||
-      /^(۹|9)[۰-۹0-9]{1,9}$/.test(value) ||
+      (/^[0]$/.test(value)) ||
+      (/^[9]$/.test(value)) ||
+      /^(09)$/.test(value) ||
+      /^(09)[0-9]{1,9}$/.test(value) ||
+      /^(9)[0-9]{1,9}$/.test(value) ||
       value === '+' ||
-      /^(\+۹|\+9)$/.test(value) ||
-      /^(\+۹۸|\+98)$/.test(value) ||
-      (/^\+98\d{1,10}$/.test(value)) ||
-      /^\+۹۸[۰-۹]{1,10}$/.test(value)
+      /^(\+9)$/.test(value) ||
+      /^(\+98)$/.test(value) ||
+      (/^\+98\d{1,10}$/.test(value))
     ) {
       setPhoneNumber(value);
     }

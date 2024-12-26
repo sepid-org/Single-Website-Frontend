@@ -57,7 +57,10 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
 
   useEffect(() => {
     if (initialAshbariaProfile) {
-      setAshbariaProfile(initialAshbariaProfile);
+      setAshbariaProfile({
+        ...initialAshbariaProfile,
+        phone_number: initialAshbariaProfile.phone_number || userProfile?.phone_number
+      });
       setFieldValidationStatus({
         first_name: initialAshbariaProfile?.first_name ? true : false,
         last_name: initialAshbariaProfile?.last_name ? true : false,
@@ -293,7 +296,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <PhoneNumberInput
             setPhoneNumber={handleChange}
-            phoneNumber={AshbariaProfile?.phone_number}
+            phoneNumber={AshbariaProfile?.phone_number || ''}
             label={undefined}
             editable={true}
             placeHolder={"شماره تلفن خود را وارد کنید."}
@@ -365,7 +368,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Boolean(AshbariaProfile.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
