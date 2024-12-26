@@ -25,6 +25,7 @@ import { useGetReceiptQuery } from 'apps/website-display/redux/features/form/Rec
 import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import userIcon from '../../../commons/components/atoms/icons/user.png';
+import convertToPersianDate from 'commons/utils/convertToPersianDate';
 
 type RegistrationReceiptPropsType = {
   validateRegistrationReceipt: any;
@@ -54,7 +55,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     }
     validateRegistrationReceipt({ receiptId: receiptId, status });
   }
-  console.log(registrationReceipt);
+
   return (
     <Layout appbarMode='GENERAL'>
       <Grid container spacing={2} alignItems='flex-start'>
@@ -101,6 +102,9 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                   </Grid>
                   <Grid item xs={12}>
                     <Typography >{`ایمیل: ${userInfo.email ? userInfo.email : '؟'}`}</Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography >{`زمان ثبت‌نام: ${registrationReceipt ? convertToPersianDate(registrationReceipt?.created_at) : '?'}`}</Typography>
                   </Grid>
                 </Grid>
                 {status &&
