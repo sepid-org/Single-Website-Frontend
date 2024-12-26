@@ -8,6 +8,7 @@ import isPhoneNumber from "commons/utils/validators/isPhoneNumber";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
+import formatPhoneNumber from "commons/utils/formatPhoneNumber";
 
 type EnterPhoneNumberPropsType = {}
 
@@ -29,11 +30,11 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
       toast.error('بی‌خیال، یه شماره تلفن معتبر وارد کن')
       return;
     }
-    getVerificationCode({ phoneNumber, websiteDisplayName: 'آشباریا', codeType: 'create-user-account' });
+    getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: 'آشباریا', codeType: 'create-user-account' });
   };
 
-  const handleChangePhoneNumber = (e) => {
-    setSearchParams({ phoneNumber: toEnglishNumber(e.target.value) })
+  const handleChangePhoneNumber = (value) => {
+    setSearchParams({ phoneNumber: toEnglishNumber(value) })
   }
 
   const phoneNumber = searchParams.get('phoneNumber') || '';
@@ -47,7 +48,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
         </Typography>
         <PhoneNumberInput
           phoneNumber={phoneNumber}
-          setPhoneNumber={(value) => setSearchParams({ phoneNumber: toEnglishNumber(value) })}
+          setPhoneNumber={handleChangePhoneNumber}
           editable={false}
           placeHolder={"09123456789"}
           textDir="ltr"
