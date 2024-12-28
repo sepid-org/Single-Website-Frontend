@@ -74,7 +74,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             spacing={3}
           >
             <Typography
-              fontWeight={30}
+              fontWeight={400}
               fontSize={{ xs: 20, md: 30 }}
               color={"#3b4573"}
               fontFamily={"iranyekan"}
@@ -85,7 +85,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               }
             </Typography>
             <Typography
-              fontWeight={30}
+              fontWeight={400}
               fontSize={{ xs: 10, md: 15 }}
               color={"#3b4573"}
               fontFamily={"iranyekan"}
@@ -93,7 +93,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
               {this.state.error?.message || 'خطای ناشناخته'}
             </Typography>
             <Typography
-              fontWeight={30}
+              fontWeight={400}
               fontSize={{ xs: 10, md: 15 }}
               color={"#3b4573"}
               fontFamily={"iranyekan"}
@@ -105,7 +105,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             </Typography>
             <Button
               onClick={() => window.location.reload()}
-              endIcon={<SyncIcon />}
+              endIcon={<SyncIcon sx={{ml: -1}}/>}
               variant='outlined'
               size='small'
               sx={{
