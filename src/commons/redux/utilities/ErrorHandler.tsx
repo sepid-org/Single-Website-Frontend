@@ -140,13 +140,13 @@ const handleError = ({
   const handleStatusCodeErrors = (error: ErrorResponse) => {
     switch (error.status) {
       case 400:
-        // toast.error('درخواست نامعتبر');
+        toast.error('درخواست نامعتبر');
         break;
       case 401:
-        // toast.error('احراز هویت ناموفق');
+        toast.error('احراز هویت ناموفق');
         break;
       case 403:
-        // toast.error('دسترسی غیرمجاز');
+        toast.error('دسترسی غیرمجاز');
         break;
       case 404:
         // toast.error('منبع مورد نظر یافت نشد');
