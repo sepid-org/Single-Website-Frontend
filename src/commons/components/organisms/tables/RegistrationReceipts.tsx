@@ -8,6 +8,7 @@ import { useDeleteReceiptMutation } from 'apps/website-display/redux/features/fo
 import DeleteIcon from '@mui/icons-material/Delete';
 import AreYouSure from '../dialogs/AreYouSure';
 import { useGetRegistrationFormAnswerSheetsQuery } from 'apps/website-display/redux/features/form/RegistrationFormSlice';
+import convertToPersianDate from 'commons/utils/convertToPersianDate';
 
 const STATUS = {
   Waiting: 'منتظر',
@@ -39,6 +40,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
         showLatestFirst={true}
         headers={[
           { name: 'name', label: 'نام' },
+          { name: 'registrationDate', label: 'تاریخ ثبت'},
           { name: 'status', label: 'وضعیت' },
           { name: 'operation', label: 'عملیات' },
         ]}
@@ -49,6 +51,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
               component="a" target="_blank">
               {(registrationReceipt.user.first_name && registrationReceipt.user.last_name) ? `${registrationReceipt.user.first_name} ${registrationReceipt.user.last_name}` : 'بی‌نام'}
             </Button>,
+          registrationDate: convertToPersianDate(registrationReceipt?.created_at),
           status: registrationReceipt.is_participating ? 'قطعی' : STATUS[registrationReceipt.status],
           operation:
             <IconButton onClick={() => setSelectedReceiptId(registrationReceipt.id)}>
