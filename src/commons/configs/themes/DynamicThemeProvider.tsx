@@ -1,13 +1,11 @@
-import { createTheme } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { ThemeProvider } from "styled-components";
 import themeData from "../themes/themeConfig.json";
 import selectTheme from 'commons/configs/themes';
 import typography from "./typography";
 
 const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
-	const theme2 = selectTheme('rtl');
 	useEffect(() => {
 		const loadTheme = () => {
 			themeData.fonts.forEach((font) => {
@@ -36,13 +34,15 @@ const DynamicThemeProvider = ({ children }) => {
 		};
 		loadTheme();
 	}, []);
-	console.log("theme2: ", theme2);
-	console.log(children);
-	if(!children){
+	if(!children || !theme){
 		return null;
 	}
-	console.log(theme)
-	return <ThemeProvider theme={selectTheme('rtl')}>{children}</ThemeProvider>;
+
+	return (
+		<ThemeProvider theme={theme}>
+			{children}
+		</ThemeProvider>
+	);
 
 }
 
