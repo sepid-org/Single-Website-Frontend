@@ -1,5 +1,5 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import handleError from './ErrorHandler';
+import handleError from './handleError';
 
 interface RefreshTokenResponse {
   access: string;
