@@ -162,9 +162,7 @@ const handleError = ({
         toast.error('دسترسی غیرمجاز');
         break;
       case 404:
-        // toast.error('منبع مورد نظر یافت نشد');
         break;
-      // todo: what to do with 500 errors? is just showing toast enough?
       case 500:
         toast.error('یه خطای سروری پیش اومده! لطفاً بهمون خبر بده.');
         break;
