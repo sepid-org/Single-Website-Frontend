@@ -3,7 +3,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Slide, ToastContainer } from 'react-toastify';
 import React, { Suspense, useEffect } from 'react';
-import { Backdrop, CircularProgress, CssBaseline } from '@mui/material';
+import { Backdrop, Button, CircularProgress, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
 import { useSelector } from 'react-redux';
@@ -19,6 +19,7 @@ import { DialogProvider } from 'commons/components/organisms/PortalDialog/Dialog
 import InitialApiCalls from 'commons/utils/InitialApiCalls';
 import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
 import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
+import DynamicThemeProvider from 'commons/configs/themes/DynamicThemeProvider';
 
 const App = ({ }) => {
   const locale = useSelector((state: any) => state.Intl.locale);
@@ -42,25 +43,10 @@ const App = ({ }) => {
           <GlobalStyles />
           <IntlProvider translations={translations}>
             <CacheProvider value={createEmotionCache(dir)}>
-              <ThemeProvider theme={selectTheme(dir)}>
-                <CssBaseline />
-                <ToastContainer
-                  rtl
-                  position="top-right"
-                  autoClose={3000}
-                  transition={Slide}
-                  newestOnTop
-                  hideProgressBar={false}
-                  pauseOnHover={false}
-                  pauseOnFocusLoss={false}
-                  closeOnClick
-                  limit={3}
-                  draggable={false}
-                />
-                <DialogProvider />
-                <ConfettiContainer />
-                <Root />
-              </ThemeProvider>
+              <DynamicThemeProvider>
+                
+                <p>{"دوره‌های گذشته"}</p>
+              </DynamicThemeProvider>
             </CacheProvider>
           </IntlProvider>
         </InitialApiCalls>

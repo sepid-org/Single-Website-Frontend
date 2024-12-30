@@ -1,0 +1,31 @@
+{
+  "palette": {
+    "primary": {
+      "main": "#0088aa",
+      "light": "#5E60CE",
+      "dark": "#7400B8"
+    },
+    "secondary": {
+      "main": "#1361A4"
+    },
+    "inheritDefault1": "#fefefe",
+    "inheritDefault2": "#f8f9ff",
+    "second": "#070919",
+    "indigo": "#7420ff",
+    "purple": "#793de6",
+    "pink": "#fc26a4",
+    "red": "#eb1748",
+    "orange": "#f4772e",
+    "yellow": "#ffc926",
+    "green": "#9AFF9A",
+    "teal": "#18e1a5",
+    "cyan": "#27dcf3"
+  },
+  "fonts": [
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "src": "local('IRANYekan'), url(https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan.woff) format('woff')"
+    }
+  ]
+}
