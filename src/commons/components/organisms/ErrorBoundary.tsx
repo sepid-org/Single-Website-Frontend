@@ -11,6 +11,7 @@ type ErrorBoundaryState = {
   hasError: boolean;
   error?: Error | null;
   isNetworkError: boolean;
+  isGlobalError: boolean;
 };
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -19,7 +20,8 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     this.state = {
       hasError: false,
       error: null,
-      isNetworkError: false
+      isNetworkError: false,
+      isGlobalError: false,
     };
   }
 
@@ -27,6 +29,18 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return {
       hasError: true,
       error
+    };
+  }
+
+  componentDidMount() {
+    window.onerror = (message, source, lineno, colno, error) => {
+      this.setState({
+        hasError: true,
+        error,
+        isGlobalError: true,
+      });
+      Sentry.captureException(error);
+      return true;
     };
   }
 
@@ -105,7 +119,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
             </Typography>
             <Button
               onClick={() => window.location.reload()}
-              endIcon={<SyncIcon sx={{ml: -1}}/>}
+              endIcon={<SyncIcon sx={{ ml: -1 }} />}
               variant='outlined'
               size='small'
               sx={{
