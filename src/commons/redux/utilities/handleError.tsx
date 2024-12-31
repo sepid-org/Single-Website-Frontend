@@ -1,3 +1,4 @@
+import * as Sentry from '@sentry/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { toast } from 'react-toastify';
 import { persianMessages } from 'commons/redux/utilities/messages';
@@ -115,8 +116,20 @@ const handleError = ({
   // Handle no error scenario
   if (!normalizedError) {
     toast.error('ارتباط با سرور دچار مشکل شده است.');
+    Sentry.captureException(new Error('No error provided (unknown error)'));
     return;
   }
+
+  // Send error details to Sentry for tracking
+  Sentry.captureException(new Error(`API Error: ${normalizedError.message || 'Unknown error'}`), {
+    tags: {
+      status: normalizedError.status,
+      message: normalizedError.message || 'No message available',
+    },
+    extra: {
+      data: normalizedError.data,
+    }
+  });
 
   // Handle token-related errors
   if (normalizedError.data?.code && ['user_not_found', 'token_not_valid'].includes(normalizedError.data.code)) {
@@ -149,13 +162,18 @@ const handleError = ({
         toast.error('دسترسی غیرمجاز');
         break;
       case 404:
-        // toast.error('منبع مورد نظر یافت نشد');
         break;
       case 500:
-        toast.error('ایراد سروری پیش آمده! لطفاً ما را در جریان بگذارید.');
+        toast.error('یه خطای سروری پیش اومده! لطفاً بهمون خبر بده.');
+        break;
+      case 502:
+        toast.error('مشکلی در ارتباط با سرور پیش اومده. لطفاً یه کم بعد دوباره امتحان کن.');
         break;
       case 503:
-        toast.error('سرویس در حال حاضر در دسترس نیست');
+        toast.error('سرویس به خاطر شلوغی یا تعمیرات موقت در دسترس نیست. لطفاً یه کم بعد دوباره امتحان کن.');
+        break;
+      case 504:
+        toast.error('سرور جواب نداد. لطفاً یه کم بعد دوباره امتحان کن.');
         break;
       default:
         toast.error(error.message || 'خطای نامشخص در ارتباط با سرور');

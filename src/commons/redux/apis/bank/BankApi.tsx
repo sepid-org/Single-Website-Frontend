@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import customBaseQuery from 'commons/redux/utilities/CustomBaseQuery';
+import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
 import { BANK_URL } from 'commons/configs/Constants';
 import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
