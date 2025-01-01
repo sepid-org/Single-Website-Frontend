@@ -1,11 +1,13 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import themeData from "../themes/themeConfig.json";
-import selectTheme from 'commons/configs/themes';
 import typography from "./typography";
+import { useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
 
 const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
+	const { data: website } = useGetWebsiteQuery();
+
 	useEffect(() => {
 		const loadTheme = () => {
 			themeData.fonts.forEach((font) => {
@@ -15,6 +17,7 @@ const DynamicThemeProvider = ({ children }) => {
 				}).catch((e) => console.error('Font loading failed', e));
 			});
 			setTheme(createTheme({
+				typography,
 				...themeData,
 				components: {
 					MuiCssBaseline: {
@@ -27,14 +30,15 @@ const DynamicThemeProvider = ({ children }) => {
 						}
 					}
 				},
-				typography,
-				direction: 'rtl'
+				...website.theme,
+				direction: 'rtl',
 			}
 			));
 		};
 		loadTheme();
-	}, []);
-	if(!children || !theme){
+	}, [website]);
+	
+	if (!children || !theme) {
 		return null;
 	}
 
