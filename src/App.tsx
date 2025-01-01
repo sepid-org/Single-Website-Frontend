@@ -2,7 +2,7 @@ import 'commons/configs/styles/App.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Slide, ToastContainer } from 'react-toastify';
-import React, { Suspense, useEffect } from 'react';
+import React, { Fragment, Suspense, useEffect } from 'react';
 import { Backdrop, CircularProgress, CssBaseline } from '@mui/material';
 import { ThemeProvider } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
@@ -29,43 +29,45 @@ const App = ({ }) => {
   }, [locale]);
 
   return (
-    <ErrorBoundary>
-      <Suspense
-        fallback={
-          <Backdrop open={true}>
-            <CircularProgress color="inherit" />
-          </Backdrop>
-        }
-      >
-        <InitialApiCalls>
-          <WebsiteMetadataSetter />
-          <GlobalStyles />
-          <IntlProvider translations={translations}>
-            <CacheProvider value={createEmotionCache(dir)}>
-              <ThemeProvider theme={selectTheme(dir)}>
-                <CssBaseline />
-                <ToastContainer
-                  rtl
-                  position="top-right"
-                  autoClose={3000}
-                  transition={Slide}
-                  newestOnTop
-                  hideProgressBar={false}
-                  pauseOnHover={false}
-                  pauseOnFocusLoss={false}
-                  closeOnClick
-                  limit={3}
-                  draggable={false}
-                />
-                <DialogProvider />
-                <ConfettiContainer />
-                <Root />
-              </ThemeProvider>
-            </CacheProvider>
-          </IntlProvider>
-        </InitialApiCalls>
-      </Suspense>
-    </ErrorBoundary>
+    <Fragment>
+      <GlobalStyles />
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <Backdrop open={true}>
+              <CircularProgress color="inherit" />
+            </Backdrop>
+          }
+        >
+          <InitialApiCalls>
+            <WebsiteMetadataSetter />
+            <IntlProvider translations={translations}>
+              <CacheProvider value={createEmotionCache(dir)}>
+                <ThemeProvider theme={selectTheme(dir)}>
+                  <CssBaseline />
+                  <ToastContainer
+                    rtl
+                    position="top-right"
+                    autoClose={3000}
+                    transition={Slide}
+                    newestOnTop
+                    hideProgressBar={false}
+                    pauseOnHover={false}
+                    pauseOnFocusLoss={false}
+                    closeOnClick
+                    limit={3}
+                    draggable={false}
+                  />
+                  <DialogProvider />
+                  <ConfettiContainer />
+                  <Root />
+                </ThemeProvider>
+              </CacheProvider>
+            </IntlProvider>
+          </InitialApiCalls>
+        </Suspense>
+      </ErrorBoundary>
+    </Fragment>
   );
 };
 
