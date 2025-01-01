@@ -9,5 +9,5 @@ export default function convertToPersianDate(time) {
 
   let formattedTime = `${String(hours).padStart(2, '۰')}:${String(minutes).padStart(2, '۰')}`;
 
-  return `${persianDate} ${formattedTime}`;
+  return `${persianDate} - ${formattedTime}`;
 }
