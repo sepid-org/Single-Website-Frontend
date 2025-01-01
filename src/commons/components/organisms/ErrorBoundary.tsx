@@ -4,7 +4,6 @@ import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import SyncIcon from '@mui/icons-material/Sync';
 import ConnectionProblemIcon from '../atoms/icons/connectionError.jpg';
 import errorImg from "../atoms/icons/errorImg2.png";
-import "./SecureHTMLDisplay/styles/fonts";
 
 type ErrorBoundaryProps = PropsWithChildren<{}>;
 type ErrorBoundaryState = {
