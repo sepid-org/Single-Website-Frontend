@@ -1,57 +1,49 @@
-import React, { FC, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
-import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import { Backdrop, CircularProgress } from '@mui/material';
 
-type ProgramPageWrapperPropsType = {
+interface Props {
   children: React.ReactNode;
-};
+}
 
-const ProgramPageWrapper: FC<ProgramPageWrapperPropsType> = ({ children }) => {
-  const { isAuthenticated } = useUserAuthentication();
+const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
   const { programSlug } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const { data: program, isLoading: isProgramLoading } = useGetProgramQuery({ programSlug });
   const {
-    data: registrationReceipt,
-    isSuccess: isRegistrationSuccess,
-    isFetching: isRegistrationFetching,
+    data: program,
+    isLoading: isProgramLoading
+  } = useGetProgramQuery({ programSlug });
+
+  const {
+    data: receipt,
+    isSuccess: isReceiptSuccess,
+    isLoading: isReceiptLoading,
   } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
-    {
-      skip: !program?.registration_form || program?.is_public || !isAuthenticated,
-    }
+    { skip: !Boolean(program?.registration_form) }
   );
 
   useEffect(() => {
-    if (isRegistrationSuccess && !isRegistrationFetching && !registrationReceipt?.is_participating) {
-      navigate(`/program/${programSlug}/form/`, { state: { from: location } });
+    const shouldRedirectToRegistrationForm = isReceiptSuccess && !receipt.is_participating;
+    if (shouldRedirectToRegistrationForm) {
+      navigate(`/program/${programSlug}/form/`);
     }
-  }, [isRegistrationSuccess, isRegistrationFetching, registrationReceipt, navigate, programSlug, location]);
+  }, [isReceiptSuccess, receipt]);
 
-  useEffect(() => {
-    if (program && !program.is_public && !isAuthenticated) {
-      navigate('/login/', { state: { from: location } });
-    }
-  }, [program, isAuthenticated, navigate, location]);
-
-  if (isProgramLoading || isRegistrationFetching) {
+  if (isProgramLoading || isReceiptLoading) {
     return (
-      <Backdrop open={true}>
+      <Backdrop open>
         <CircularProgress color="inherit" />
       </Backdrop>
     );
   }
 
-  if (program?.is_public || registrationReceipt?.is_participating) {
-    return <>{children}</>;
-  }
+  const hasAccess = receipt.is_participating;
 
-  return null;
+  return hasAccess ? children : null;
 };
 
-export default ProgramPageWrapper;
+export default PrivateProgramPageWrapper;

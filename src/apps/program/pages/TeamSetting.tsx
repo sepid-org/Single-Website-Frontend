@@ -29,7 +29,7 @@ import { toast } from 'react-toastify';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import ProgramTeamSettingBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramTeamSetting';
-import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
+import PrivateProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 import { useCreateAndJoinTeamMutation, useDeleteTeamMutation, useGetTeamQuery } from '../../website-display/redux/features/team/TeamSlice';
 import { useDeleteInvitationMutation, useGetMyInvitationsQuery, useGetTeamInvitationsQuery, useInviteMemberMutation } from '../../website-display/redux/features/team/InvitationSlice';
 
@@ -81,7 +81,7 @@ const TeamSetting: FC<TeamSettingPropsType> = ({ }) => {
   }
 
   return (
-    <ProgramPageWrapper>
+    <PrivateProgramPageWrapper>
       <Layout appbarMode='GENERAL'>
         <Grid
           container
@@ -296,7 +296,7 @@ const TeamSetting: FC<TeamSettingPropsType> = ({ }) => {
           callBackFunction={() => submitDeleteTeam(team.id)}
         />
       </Layout>
-    </ProgramPageWrapper>
+    </PrivateProgramPageWrapper>
   );
 };
 

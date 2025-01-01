@@ -31,9 +31,9 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='/' element={<Program />} />
 
       <Route path="" element={<PrivateRoute />}>
+        <Route index element={<Program />} />
         <Route path="/form/" element={<Registration />} />
         <Route path="/team-setting/" element={<TeamSetting />} />
         <Route path="/manage/" element={<ProgramManagement />} />

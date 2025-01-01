@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import EventProgram from 'apps/program/template/EventProgram';
-import ProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
+import PrivateProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
 
 type ProgramPropsType = {}
 
 const Program: FC<ProgramPropsType> = ({ }) => {
   return (
-    <ProgramPageWrapper>
+    <PrivateProgramPageWrapper>
       <EventProgram />
-    </ProgramPageWrapper>
+    </PrivateProgramPageWrapper>
   )
 }
 
