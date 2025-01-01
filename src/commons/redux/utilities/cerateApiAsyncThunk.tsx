@@ -1,5 +1,5 @@
 import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
-import handleError from 'commons/redux/utilities/ErrorHandler';
+import handleError from 'commons/redux/utilities/handleError';
 import { toast } from 'react-toastify';
 
 type CreateAsyncThunkApiType =
