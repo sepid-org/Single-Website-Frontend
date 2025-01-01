@@ -100,7 +100,7 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
   Iframe: {
     WidgetComponent: IframeWidget,
     EditWidgetDialog: IframeEditWidget,
-    label: 'بازی',
+    label: 'آی‌فریم',
     backendType: 'Iframe',
   },
   ButtonWidget: {
