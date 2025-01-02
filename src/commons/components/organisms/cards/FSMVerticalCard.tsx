@@ -32,7 +32,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   const [openPassword, setOpenPassword] = useState(false);
   const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
 
-  const isCardEnabled = fsm?.is_active || userStatus?.is_enabled_for_user;
+  const isCardEnabled = fsm?.is_active && userStatus?.is_enabled_for_user;
 
   const handleCardClick = () => {
     if (isCardEnabled) {
