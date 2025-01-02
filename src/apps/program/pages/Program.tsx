@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import EventProgram from 'apps/program/template/EventProgram';
-import PrivateProgramPageWrapper from 'apps/program/template/ProgramPageWrapper';
+import PrivateProgramPageWrapper from 'apps/program/template/PrivateProgramPageWrapper';
 
 type ProgramPropsType = {}
 

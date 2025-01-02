@@ -9,7 +9,7 @@ import {
   Skeleton,
   Chip,
 } from '@mui/material';
-import { Lock, Group, Person } from '@mui/icons-material';
+import { Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import React, { useState, Fragment, FC } from 'react';
 import { Link } from 'react-router-dom';
@@ -32,8 +32,12 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   const [openPassword, setOpenPassword] = useState(false);
   const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
 
+  const isCardEnabled = fsm?.is_active || userStatus?.is_enabled_for_user;
+
   const handleCardClick = () => {
-    startFSM({});
+    if (isCardEnabled) {
+      startFSM({});
+    }
   };
 
   return (
@@ -43,12 +47,12 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        height: 380, // Set a fixed height for consistency
-        cursor: fsm?.is_active ? 'pointer' : 'default',
-        opacity: fsm?.is_active ? 1 : 0.6,
+        height: 380,
+        cursor: isCardEnabled ? 'pointer' : 'default',
+        opacity: isCardEnabled ? 1 : 0.6,
         transition: 'opacity 0.3s, box-shadow 0.3s',
         '&:hover': {
-          boxShadow: fsm?.is_active ? 6 : 3,
+          boxShadow: isCardEnabled ? 6 : 3,
         },
       }}
       onClick={handleCardClick}
