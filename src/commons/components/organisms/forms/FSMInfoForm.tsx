@@ -74,7 +74,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
             name='fsm_learning_type'
             label='نوع آموزش'>
             <MenuItem value={'Unsupervised'}>{'بدون همیار'}</MenuItem>
-            <MenuItem value={'Supervised'}>{'با همیار'}</MenuItem>
+            <MenuItem disabled value={'Supervised'}>{'با همیار'}</MenuItem>
           </Select>
           <FormHelperText>{'همیار می‌تواند در محیط سامانه، به‌صورت در لحظه، به سوالات شرکت‌کنندگان پاسخ دهد و با آن‌ها گفتگو کند.'}</FormHelperText>
         </FormControl>
@@ -88,8 +88,8 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
             name='fsm_p_type'
             label='وضعیت کارگاه'>
             <MenuItem value={'Individual'}>{'فردی'}</MenuItem>
-            <MenuItem value={'Team'}>{'تیمی'}</MenuItem>
-            {/* <MenuItem value={'Hybrid'}>{'هیبرید'}</MenuItem> */}
+            <MenuItem disabled value={'Team'}>{'تیمی'}</MenuItem>
+            <MenuItem disabled value={'Hybrid'}>{'هیبرید'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>
@@ -101,7 +101,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           label={'اولویت نمایش'}
           name='order'
           onChange={putData}
-          helperText={'کارگاه با اولویت نمایش بزرگ‌تر، زودتر در صفحه‌ی اصلی دوره نمایش داده می‌شود.'}
+          helperText={'کارگاه با اولویت نمایش کوچک‌تر، زودتر در صفحه‌ی اصلیِ دوره نمایش داده می‌شود.'}
         />
       </Grid>
       <Grid item xs={12} md={6}>
@@ -111,9 +111,9 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
             value={data.card_type}
             onChange={putData}
             name='card_type'
-            label='وضعیت کارگاه'>
-            <MenuItem value={'horizontal1'}>{'افقی ۱'}</MenuItem>
+            label='نوع کارت'>
             <MenuItem value={'vertical1'}>{'عمودی ۱'}</MenuItem>
+            <MenuItem disabled value={'horizontal1'}>{'افقی ۱'}</MenuItem>
           </Select>
         </FormControl>
       </Grid>
