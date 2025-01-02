@@ -11,7 +11,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
 
-import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { toast } from 'react-toastify';
 import { ProgramType } from 'commons/types/models';
 import ProgramInfoForm from 'commons/components/organisms/forms/ProgramInfoForm';
@@ -47,7 +46,10 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
       toast.error('لطفاً توضیحات دوره را بنویسید.');
       return;
     }
-    createProgram({ websiteName, ...removeBlankAttributes(properties), onSuccess: handleClose });
+    createProgram({
+      website: websiteName,
+      ...properties
+    });
   }
 
   useEffect(() => {

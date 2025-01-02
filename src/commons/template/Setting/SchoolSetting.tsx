@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import SchoolSettingInfoForm from 'commons/components/organisms/forms/SchoolSettingInfoForm';
 import { SchoolType } from 'commons/types/models';
@@ -52,7 +51,7 @@ const SchoolSetting: FC<SchoolSettingPropsType> = ({
       toast.error('لطفاً همه‌ی اطلاعات خواسته‌شده را وارد کنید');
       return;
     }
-    updateSchoolStudentship(removeBlankAttributes(schoolStudentship));
+    updateSchoolStudentship(schoolStudentship);
   };
 
   return (

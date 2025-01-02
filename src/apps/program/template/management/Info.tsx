@@ -14,7 +14,6 @@ import { toast } from 'react-toastify';
 import { useGetProgramQuery, useUpdateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
 
 import { ProgramType } from 'commons/types/models';
-import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 
 type InfoTabPropsType = {}
 
@@ -41,7 +40,10 @@ const InfoTab: FC<InfoTabPropsType> = ({ }) => {
       toast.error('لطفاً نام دوره را انتخاب کنید.');
       return;
     }
-    updateProgram({ programSlug, ...removeBlankAttributes(properties) });
+    updateProgram({
+      programSlug,
+      ...properties
+    });
   }
 
   return (

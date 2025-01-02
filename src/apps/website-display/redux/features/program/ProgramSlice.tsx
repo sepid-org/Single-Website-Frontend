@@ -31,16 +31,15 @@ type GetProgramUserFSMsStatusOutputType = UserFSMStatusType[];
 
 type UpdateProgramInputType = {
   programSlug: string;
-  body: any;
-};
+} & Partial<ProgramType>;
 
 type UpdateProgramOutputType = {
 
 }
 
 type CreateProgramInputType = {
-  body: any;
-};
+  website: string;
+} & Partial<ProgramType>;
 
 type CreateProgramOutputType = {
 
