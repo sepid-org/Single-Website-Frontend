@@ -65,7 +65,7 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
 
   return (
     <Stack alignItems='center' justifyContent='space-between' direction='row' spacing={1}>
-      <IsRequired disabled={!questionWidgetProps.is_required}>
+      <IsRequired hidden={!questionWidgetProps.is_required}>
         <Typography>{text}</Typography>
       </IsRequired>
       <Stack justifyContent='flex-end' spacing={1}>

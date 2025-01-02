@@ -64,7 +64,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   return (
     <Stack spacing={1}>
-      <IsRequired disabled={!questionWidgetProps.is_required}>
+      <IsRequired hidden={!questionWidgetProps.is_required}>
         <TinyPreview
           styles={{ width: '100%' }}
           content={questionText}
@@ -73,7 +73,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1}>
         {displayChoices.map((choice) => (
           <Choice
-            disabled={(maxSelections === 1 && isQuestionLoading) || mode === WidgetModes.Review}
+            inactive={(maxSelections === 1 && isQuestionLoading) || mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
             mode={WidgetModes.View}

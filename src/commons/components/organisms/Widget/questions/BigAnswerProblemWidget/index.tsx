@@ -47,7 +47,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
 
   return (
     <Stack spacing={1}>
-      <IsRequired disabled={!questionWidgetFields.is_required}>
+      <IsRequired hidden={!questionWidgetFields.is_required}>
         <TinyPreview
           styles={{ width: '100%' }}
           content={text}

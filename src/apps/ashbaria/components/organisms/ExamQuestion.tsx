@@ -68,7 +68,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
         <Typography color="#FFA800" fontWeight={600} fontSize={16}>{currentFSMState?.title}</Typography>
       </Stack>
       <Box mb={1}>
-        <IsRequired disabled={!questionWidgetProps.is_required}>
+        <IsRequired hidden={!questionWidgetProps.is_required}>
           <TinyPreview
             styles={{
               width: '100%',

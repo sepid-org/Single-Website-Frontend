@@ -7,7 +7,7 @@ type ChoiceViewPropsType = {
   isSelected: boolean;
   onSelectionChange: any;
   variant: ChoiceVariantType;
-  disabled: boolean;
+  inactive: boolean;
 }
 
 const ChoiceView: FC<ChoiceViewPropsType> = ({
@@ -15,14 +15,20 @@ const ChoiceView: FC<ChoiceViewPropsType> = ({
   isSelected,
   onSelectionChange,
   variant,
-  disabled,
+  inactive,
 }) => {
+
+  const onSelectionChangeWrapper = () => {
+    if (!inactive && !choice.disabled) {
+      onSelectionChange(choice);
+    }
+  }
 
   return (
     <Stack direction={'row'} alignItems={'start'}>
       {variant === 'radio' ?
-        <Radio disabled={disabled || choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} /> :
-        <Checkbox disabled={disabled || choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={() => onSelectionChange(choice)} />
+        <Radio disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={onSelectionChangeWrapper} /> :
+        <Checkbox disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={onSelectionChangeWrapper} />
       }
       <Typography>
         {choice.text}

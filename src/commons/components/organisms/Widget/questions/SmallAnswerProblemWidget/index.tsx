@@ -66,7 +66,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
   return (
     <Fragment>
       <Stack spacing={1}>
-        <IsRequired disabled={!questionWidgetProps.is_required}>
+        <IsRequired hidden={!questionWidgetProps.is_required}>
           <TinyPreview
             styles={{ width: '100%' }}
             content={problemText}
