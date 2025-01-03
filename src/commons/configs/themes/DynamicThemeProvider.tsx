@@ -1,44 +1,29 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import themeData from "../themes/themeConfig.json";
-import typography from "./typography";
+import React, { Fragment, useEffect, useState } from "react";
+import themeData from "commons/configs/themes/themeConfig.json";
 import { useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
+import convertCSSFont from "commons/utils/convertToCSSFontFormat";
 
 const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
 	const { data: website } = useGetWebsiteQuery();
 
 	useEffect(() => {
-		const loadTheme = () => {
-			themeData.fonts.forEach((font) => {
-				const fontFace = new FontFace(font.fontFamily, font.src);
-				fontFace.load().then(() => {
-					document.fonts.add(fontFace);
-				}).catch((e) => console.error('Font loading failed', e));
-			});
-			setTheme(createTheme({
-				typography,
-				...themeData,
-				components: {
-					MuiCssBaseline: {
-						styleOverrides: {
-							'@font-face': themeData.fonts.map(font => ({
-								fontFamily: font.fontFamily,
-								fontStyle: font.fontStyle,
-								src: font.src
-							}))
-						}
-					}
-				},
-				...website.theme,
-				direction: 'rtl',
-			}
-			));
-		};
-		loadTheme();
+		const themeConfig = createTheme({
+			components: {
+				MuiCssBaseline: {
+					styleOverrides: website.theme.hasOwnProperty('fonts') ? convertCSSFont(website.theme['font']) : convertCSSFont(themeData.fonts)
+				}
+			},
+			...themeData,
+			...website.theme,
+			direction: 'rtl',
+		});
+		setTheme(themeConfig);
+
 	}, [website]);
-	
-	if (!children || !theme) {
+
+	if (theme === null || !children) {
 		return null;
 	}
 
@@ -47,7 +32,6 @@ const DynamicThemeProvider = ({ children }) => {
 			{children}
 		</ThemeProvider>
 	);
-
-}
+};
 
 export default DynamicThemeProvider;

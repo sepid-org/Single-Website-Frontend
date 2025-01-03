@@ -2,7 +2,7 @@ import 'commons/configs/styles/App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide, ToastContainer } from 'react-toastify';
 import React, { Fragment, Suspense, useEffect } from 'react';
-import { Backdrop, Button, CircularProgress, CssBaseline } from '@mui/material';
+import { Backdrop, CircularProgress, CssBaseline } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
 import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-redux-multilingual';
@@ -34,10 +34,10 @@ const App = ({ }) => {
         }
       >
         <InitialApiCalls>
-          <WebsiteMetadataSetter />
-          <IntlProvider translations={translations}>
-            <CacheProvider value={createEmotionCache(dir)}>
-              <DynamicThemeProvider>
+          <DynamicThemeProvider>
+            <WebsiteMetadataSetter />
+            <IntlProvider translations={translations}>
+              <CacheProvider value={createEmotionCache(dir)}>
                 <Fragment>
                   <CssBaseline />
                   <ToastContainer
@@ -57,9 +57,9 @@ const App = ({ }) => {
                   <ConfettiContainer />
                   <Root />
                 </Fragment>
-              </DynamicThemeProvider>
-            </CacheProvider>
-          </IntlProvider>
+              </CacheProvider>
+            </IntlProvider>
+          </DynamicThemeProvider>
         </InitialApiCalls>
       </Suspense>
     </ErrorBoundary>

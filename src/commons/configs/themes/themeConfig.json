@@ -21,11 +21,111 @@
     "teal": "#18e1a5",
     "cyan": "#27dcf3"
   },
+  "typography": {
+    "fontFamily": "iranyekan",
+    "h1": {
+      "fontWeight": 900,
+      "fontSize": "32px",
+      "lineHeight": "36px"
+    },
+    "h2": {
+      "fontWeight": 800,
+      "fontSize": "28px",
+      "lineHeight": "32px"
+    },
+    "h3": {
+      "fontWeight": 500,
+      "fontSize": "24px",
+      "lineHeight": "28px"
+    },
+    "h4": {
+      "fontWeight": 500,
+      "fontSize": "20px",
+      "lineHeight": "24px"
+    },
+    "h5": {
+      "fontWeight": 500,
+      "fontSize": "16px",
+      "lineHeight": "20px"
+    },
+    "h6": {
+      "fontWeight": 500,
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    },
+    "subtitle1": {
+      "fontSize": "16px",
+      "lineHeight": "25px"
+    },
+    "subtitle2": {
+      "fontWeight": 400,
+      "fontSize": "14px"
+    },
+    "body2": {
+      "fontWeight": 300,
+      "fontSize": "14px"
+    },
+    "button": {
+      "fontWeight": 300,
+      "fontSize": "14px"
+    },
+    "caption": {
+      "fontWeight": 300,
+      "fontSize": "12px"
+    },
+    "overline": {
+      "fontSize": "12px",
+      "fontWeight": 500
+    }
+  },
   "fonts": [
     {
       "fontFamily": "iranyekan",
       "fontStyle": "normal",
+      "fontWeight": 100,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan thin.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 300,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan light.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 400,
       "src": "local('IRANYekan'), url(https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan.woff) format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 500,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan medium.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 700,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan bold.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 800,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan extrabold.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 900,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan black.woff') format('woff')"
+    },
+    {
+      "fontFamily": "iranyekan",
+      "fontStyle": "normal",
+      "fontWeight": 950,
+      "src": "local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan extrablack.woff') format('woff')"
     }
   ]
 }
