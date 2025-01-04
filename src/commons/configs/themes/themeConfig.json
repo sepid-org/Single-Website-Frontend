@@ -78,6 +78,35 @@
       "fontWeight": 500
     }
   },
+  "shape": {
+    "borderRadius": 8
+  },
+  "overrides": {
+    "MuiButton": {
+      "text": {
+        "paddingLeft": "14px",
+        "paddingRight": "14px"
+      },
+      "containedSizeSmall": {
+        "paddingLeft": "14px",
+        "paddingRight": "14px"
+      },
+      "root": {
+        "textTransform": "none",
+        "fontWeight": "normal"
+      }
+    },
+    "MuiTooltip": {
+      "tooltip": {
+        "backgroundColor": "variables.colors.second",
+        "padding": "8px 16px",
+        "fontSize": "13px"
+      },
+      "arrow": {
+        "color": "variables.colors.second"
+      }
+    }
+  },
   "fonts": [
     {
       "fontFamily": "iranyekan",
