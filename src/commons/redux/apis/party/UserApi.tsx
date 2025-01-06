@@ -141,6 +141,10 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
+    checkAuthentication: builder.query<void, void>({
+      query: () => 'auth/accounts/check-authentication/',
+    }),
+
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
@@ -219,6 +223,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useCheckAuthenticationQuery,
   useSimpleLoginMutation,
   useGoogleLoginMutation,
   useOtpLoginMutation,
