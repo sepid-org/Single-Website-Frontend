@@ -22,13 +22,18 @@ const STATUS_FORCELIST = [500, 502, 503, 504];
 const getRandomJitter = () => Math.random() * 1000; // Jitter between 0ms and 1000ms
 
 const refreshAccessToken = async (baseQuery: any, api: any, extraOptions: any) => {
+  const refreshToken = api.getState().account?.refreshToken;
+  if (!refreshToken) {
+    return false;
+  }
+
   try {
     const refreshResult = await baseQuery(
       {
         url: '/auth/accounts/refresh/',
         method: 'POST',
         body: {
-          refresh: api.getState().account?.refreshToken,
+          refresh: refreshToken,
         },
       },
       api,
@@ -43,7 +48,7 @@ const refreshAccessToken = async (baseQuery: any, api: any, extraOptions: any) =
         type: 'account/refreshToken',
         payload: {
           accessToken: refreshResultData.access,
-          refreshToken: refreshResultData.refresh || api.getState().account?.refreshToken,
+          refreshToken: refreshResultData.refresh,
         },
       });
 

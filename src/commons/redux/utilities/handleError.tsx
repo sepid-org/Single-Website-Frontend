@@ -151,13 +151,6 @@ const handleError = ({
     return;
   }
 
-  // Handle specific error codes or details
-  if (normalizedError.data?.code || normalizedError.data?.detail) {
-    const message = getLocalizedErrorMessage(normalizedError.data);
-    toast.error(message);
-    return;
-  }
-
   // Handle form field errors
   if (handleFieldErrors(normalizedError)) {
     return;
@@ -170,7 +163,6 @@ const handleError = ({
         toast.error('درخواست نامعتبر');
         break;
       case 401:
-        toast.error('احراز هویت ناموفق');
         break;
       case 403:
         toast.error('دسترسی غیرمجاز');
