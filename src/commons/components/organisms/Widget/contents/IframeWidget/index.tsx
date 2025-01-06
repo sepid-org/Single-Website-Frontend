@@ -63,11 +63,11 @@ const IframeWidget = ({ link = '' }) => {
     <Box position={'relative'}>
       <iframe
         loading='eager'
-        title={t('game')}
         src={link}
         ref={iframeRef}
         height={iFrameHeight}
-        allowFullScreen
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
+        allow="autoplay; fullscreen"
         style={{
           zIndex: 0,
           width: '100%',
