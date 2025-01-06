@@ -132,7 +132,21 @@ const handleError = ({
   });
 
   // Handle token-related errors
-  if (normalizedError.data?.code && ['user_not_found', 'token_not_valid'].includes(normalizedError.data.code)) {
+  if (
+    normalizedError.data?.code &&
+    [
+      'user_not_found',
+      'token_not_valid',
+      'token_expired',
+      'authentication_failed',
+      'bad_authorization_header',
+      'not_authenticated',
+      'token_blacklisted',
+      'user_inactive',
+      'user_deleted',
+      'invalid_token',
+    ].includes(normalizedError.data.code)
+  ) {
     handleTokenExpiration(dispatch);
     return;
   }
