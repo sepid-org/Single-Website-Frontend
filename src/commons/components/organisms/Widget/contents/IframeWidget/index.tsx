@@ -66,8 +66,9 @@ const IframeWidget = ({ link = '' }) => {
         src={link}
         ref={iframeRef}
         height={iFrameHeight}
+        allow="autoplay; fullscreen; accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        allowFullScreen={true}
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms allow-presentation"
-        allow="autoplay; fullscreen"
         style={{
           zIndex: 0,
           width: '100%',
