@@ -12,12 +12,8 @@ type ArticlesPropsType = {}
 
 const Articles: FC<ArticlesPropsType> = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
-
-  const { data, isSuccess } = useGetArticlesQuery({ pageNumber });
-  const articles = data?.articles || [];
-  const count = data?.count || 0;
-
-  const visibleArticles = articles.filter(article => !article.is_hidden)
+  const { data: articlesData, isSuccess } = useGetArticlesQuery({ pageNumber, isHidden: false });
+  const articles = articlesData?.articles || [];
 
   return (
     <Layout appbarMode='DASHBOARD'>
@@ -28,24 +24,24 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
           </Typography>
         </Grid>
         <Grid item container spacing={2} xs={12}>
-          {visibleArticles?.map((article, index) => (
+          {articles?.map((article, index) => (
             <Grid key={index} item xs={12} sm={6} md={4} lg={3}>
               <ArticleCard article={article} mode='view' />
             </Grid>
           ))}
-          {(isSuccess && visibleArticles.length === 0) &&
+          {(isSuccess && articles.length === 0) &&
             <Grid container justifyContent={'center'}>
               <NoDataFound variant={4} />
             </Grid>
           }
         </Grid>
-        {(isSuccess && visibleArticles.length > 0) &&
+        {(isSuccess && articles.length > 0) &&
           <Grid item>
             <Pagination
               variant="outlined"
               color="primary"
               shape='rounded'
-              count={Math.ceil(count / ITEMS_PER_PAGE_NUMBER)}
+              count={Math.ceil(articlesData.count / ITEMS_PER_PAGE_NUMBER)}
               page={pageNumber}
               onChange={(e, value) => setPageNumber(value)}
             />

@@ -5,6 +5,7 @@ import { ArticleType } from 'commons/types/redux/article';
 type GetArticleOutputType = ArticleType;
 
 type GetArticlesInputType = {
+  isHidden?: boolean;
   pageNumber: number;
 }
 
@@ -27,7 +28,13 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
 
     getArticles: builder.query<GetArticlesOutputType, GetArticlesInputType>({
       providesTags: tagGenerationWithErrorCheck(['articles']),
-      query: ({ pageNumber }) => `fsm/article/?page=${pageNumber}`,
+      query: ({ pageNumber = 1, isHidden }) => ({
+        url: `fsm/article/`,
+        params: {
+          page: pageNumber,
+          is_hidden: isHidden,
+        },
+      }),
       transformResponse: (response: any): GetArticlesOutputType => {
         return {
           count: response.count,
