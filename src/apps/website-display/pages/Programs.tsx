@@ -47,9 +47,11 @@ const Programs = ({ }) => {
   return (
     <Layout appbarMode='DASHBOARD'>
       <Stack width={'100%'} spacing={4} alignItems={'center'} justifyContent='center'>
-        <Box width={'100%'}>
-          <Banner banners={pageMetadata?.banners} />
-        </Box>
+        {pageMetadata?.banners.length > 0 &&
+          <Box width={'100%'}>
+            <Banner banners={pageMetadata.banners} />
+          </Box>
+        }
         <Typography variant="h1" align='center'>
           {'دوره‌‌ها'}
         </Typography>
