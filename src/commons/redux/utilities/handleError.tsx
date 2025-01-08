@@ -151,6 +151,13 @@ const handleError = ({
     return;
   }
 
+  // Handle specific error codes or details
+  if (normalizedError.data?.code) {
+    toast.error(getLocalizedErrorMessage(normalizedError.data));
+    return;
+  }
+
+  // todo: forms-related errors should be handled by form component
   // Handle form field errors
   if (handleFieldErrors(normalizedError)) {
     return;
