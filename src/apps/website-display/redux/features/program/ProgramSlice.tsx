@@ -3,6 +3,7 @@ import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetProgramsInputType = {
+  isVisible?: boolean;
   pageNumber?: number;
 }
 
@@ -73,14 +74,18 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getPrograms: builder.query<GetProgramsOutputType, GetProgramsInputType>({
+      query: ({ pageNumber = 1, isVisible }) => ({
+        url: 'fsm/program/',
+        params: {
+          page: pageNumber,
+          is_visible: isVisible,
+        },
+      }),
+      transformResponse: (response: any): GetProgramsOutputType => ({
+        programs: response.results,
+        count: response.count,
+      }),
       providesTags: [{ type: 'Program', id: 'ALL' }],
-      query: ({ pageNumber = 1 }) => `fsm/program/?page=${pageNumber}`,
-      transformResponse: (response: any): GetProgramsOutputType => {
-        return {
-          programs: response.results,
-          count: response.count,
-        };
-      },
     }),
 
     getProgram: builder.query<GetProgramOutputType, GetProgramInputType>({
