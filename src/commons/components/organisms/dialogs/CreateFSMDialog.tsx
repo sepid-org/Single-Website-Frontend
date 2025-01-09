@@ -12,7 +12,6 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
 
 import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
-import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 import { toast } from 'react-toastify';
 import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
 import { FSMType } from 'commons/types/models';
@@ -34,8 +33,8 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
   const [properties, setProperties] = useState<Partial<FSMType>>({
     name: '',
     description: '',
-    fsm_learning_type: '',
-    fsm_p_type: '',
+    fsm_learning_type: 'Unsupervised',
+    fsm_p_type: 'Individual',
     cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
     is_active: true,
     is_visible: true,
@@ -58,11 +57,8 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
       return;
     }
     createFSM({
-      ...removeBlankAttributes({
-        ...properties,
-        program: program.id,
-      }),
-      onSuccess: handleClose,
+      program: parseInt(program.id),
+      ...properties,
     });
   }
 
@@ -88,14 +84,13 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
               <FSMInfoForm data={properties} setData={setProperties} />
             </Grid>
           </Grid>
-          <Grid item container xs={12} md={4} spacing={2}>
+          <Grid item container xs={12} md={4} spacing={2}
+            sx={{ display: { xs: 'none', md: 'inline' } }}
+          >
             <Grid item xs={12}>
               <Typography gutterBottom>{'خروجی کار:'}</Typography>
             </Grid>
-            <Grid item xs={12} sx={{
-              display: { xs: 'none', md: 'inline' },
-              opacity: properties.is_visible ? 1 : 0.2
-            }}>
+            <Grid item xs={12} sx={{ opacity: properties.is_visible ? 1 : 0.2 }}>
               <VerticalFSMCard fsm={properties} />
             </Grid>
           </Grid>

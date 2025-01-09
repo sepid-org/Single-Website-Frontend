@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Box,
   Button,
   Divider,
@@ -24,6 +25,8 @@ import { toast } from 'react-toastify';
 import { useGetReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
+import convertToPersianDate from 'commons/utils/convertToPersianDate';
+import { stringToColor } from 'commons/utils/stringToColor';
 
 type RegistrationReceiptPropsType = {
   validateRegistrationReceipt: any;
@@ -66,11 +69,21 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
           <Stack component={Paper} spacing={2} sx={{ padding: 1, width: '100%' }}>
             {userInfo &&
               <Fragment>
-                <Typography align='center' variant='h2'>
-                  {(userInfo.first_name && userInfo.last_name) ? `${userInfo.first_name} ${userInfo.last_name}` : 'بی‌نام'}
-                </Typography>
+                <Stack alignItems={"center"} direction='row' spacing={1}>
+                  <Avatar
+                    src={userInfo.profile_image}
+                    sx={{ backgroundColor: stringToColor(userInfo.first_name) }}
+                    alt="avatar"
+                  />
+                  <Typography variant='h3'>
+                    {(userInfo.first_name && userInfo.last_name) ? `${userInfo.first_name} ${userInfo.last_name}` : 'بی‌نام'}
+                  </Typography>
+                </Stack>
                 <Divider />
                 <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <Typography >{`زمان ثبت‌نام: ${registrationReceipt ? convertToPersianDate(registrationReceipt?.created_at) : '?'}`}</Typography>
+                  </Grid>
                   <Grid item xs={12}>
                     <Typography >{`مدرسه: ${getInstituteFullName(registrationReceipt.school_studentship?.school)}`}</Typography>
                   </Grid>

@@ -16,7 +16,7 @@ interface PhoneNumberInputProps {
 
 const PhoneNumberInput: React.FC<PhoneNumberInputProps> = ({
   setPhoneNumber,
-  phoneNumber,
+  phoneNumber = '',
   label,
   placeHolder,
   editable,

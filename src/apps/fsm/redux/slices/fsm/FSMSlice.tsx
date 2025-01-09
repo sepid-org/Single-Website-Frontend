@@ -10,8 +10,8 @@ type UpdateFSMOutputType = {
 }
 
 type CreateFSMInputType = {
-  body: any;
-};
+  program: number;
+} & Partial<FSMType>;
 
 type CreateFSMOutputType = {
 

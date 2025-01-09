@@ -1,6 +1,6 @@
 import { Paper, Stack, styled, Typography } from '@mui/material';
 import React, { FC } from 'react';
-import { ChoiceType } from 'commons/types/widgets';
+import { ChoicePropsType } from 'commons/components/molecules/Choice';
 
 const ChoicePaper = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'disabled',
@@ -40,19 +40,19 @@ const ChoicePaper = styled(Paper, {
   },
 }));
 
-type ChoicePropsType = {
-  choice: ChoiceType;
-  isSelected: boolean;
-  onSelectionChange: () => void;
-  disabled: boolean;
-}
-
-const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
+const CourtMultiChoiceQuestionChoice: FC<Partial<ChoicePropsType>> = ({
   choice,
   isSelected,
   onSelectionChange,
-  disabled,
+  inactive,
 }) => {
+
+  const onSelectionChangeWrapper = () => {
+    if (!inactive && !choice.disabled) {
+      onSelectionChange();
+    }
+  }
+
   return (
     <Stack
       direction={'row'}
@@ -60,8 +60,8 @@ const CourtMultiChoiceQuestionChoice: FC<ChoicePropsType> = ({
       justifyContent={'center'}
       component={ChoicePaper}
       isSelected={isSelected}
-      disabled={disabled || choice.disabled}
-      onClick={!choice.disabled ? onSelectionChange : undefined}
+      disabled={choice.disabled}
+      onClick={onSelectionChangeWrapper}
     >
       <Typography
         color={'black'}

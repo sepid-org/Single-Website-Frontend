@@ -64,29 +64,31 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
           lg={notQuestions.length > 0 ? 4 : 8}
           position={{ xs: null, md: 'sticky' }} top={0}>
           <Stack spacing={2}>
-            <Stack spacing={2} component={Paper} sx={{ padding: 2 }} position={'relative'}>
-              <Box sx={{ position: 'absolute', left: -26, top: -24, rotate: '24deg' }}>
+            <Stack component={Paper} sx={{ padding: 2 }} position={'relative'}>
+              <Box position={'absolute'} left={-26} top={-24} sx={{ rotate: '24deg' }}>
                 <FSMStateHintsButton fsmStateId={fsmStateId} />
               </Box>
-              <Typography component="h2" variant="h3" align='center' alignSelf={'center'}>
+              <Typography component="h2" variant="h3" textAlign={'center'} mb={2}>
                 {state?.title}
               </Typography>
-              {questionWidgets}
-              {!(inward_edges?.length === 0 && outward_edges?.length === 0) &&
-                <Divider sx={{ display: { xs: 'none', md: 'inherit' } }} />
-              }
-              <Stack sx={{ display: { xs: 'none', md: 'inherit' } }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <FSMBackStateButton />
+              <Stack spacing={2}>
+                {questionWidgets}
+                {!(inward_edges?.length === 0 && outward_edges?.length === 0) &&
+                  <Divider sx={{ display: { xs: 'none', md: 'inherit' } }} />
+                }
+                <Stack sx={{ display: { xs: 'none', md: 'inherit' } }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <FSMBackStateButton />
+                    </Grid>
+                    <Grid item xs={6}>
+                      {state?.is_end ?
+                        <FinishFSMButton /> :
+                        <FSMNextStateButton />
+                      }
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    {state?.is_end ?
-                      <FinishFSMButton /> :
-                      <FSMNextStateButton />
-                    }
-                  </Grid>
-                </Grid>
+                </Stack>
               </Stack>
             </Stack>
             {(state && fsm?.show_roadmap) &&

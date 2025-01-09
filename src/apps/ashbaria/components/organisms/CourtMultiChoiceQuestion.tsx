@@ -52,7 +52,7 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
       <Stack spacing={1.5}>
         {displayChoices.map((choice) =>
           <CourtMultiChoiceQuestionChoice
-            disabled={maxSelections === 1 && isQuestionLoading}
+            inactive={maxSelections === 1 && isQuestionLoading}
             key={choice.id}
             choice={choice}
             isSelected={selectedChoiceIds.includes(choice.id)}

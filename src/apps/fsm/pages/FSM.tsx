@@ -19,8 +19,6 @@ import { FSMProvider } from 'commons/hooks/useFSMContext';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-var moment = require('moment');
-
 type FSMPagePropsType = {
   mentorGetCurrentState: any;
   // todo:

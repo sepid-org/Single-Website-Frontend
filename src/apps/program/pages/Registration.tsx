@@ -1,6 +1,6 @@
 import { Stack, Grid } from '@mui/material';
 import React, { FC, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import Stepper from 'commons/components/organisms/Stepper';
 import Layout from 'commons/template/Layout';
@@ -10,7 +10,6 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 type RegistrationProcessPropsType = {}
 
 const RegistrationProcess: FC<RegistrationProcessPropsType> = ({ }) => {
-  const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
 
@@ -22,9 +21,9 @@ const RegistrationProcess: FC<RegistrationProcessPropsType> = ({ }) => {
 
   useEffect(() => {
     if (currentStepNameIndex === steps.length - 1) {
-      navigate(`/program/${programSlug}/`);
+      window.location.href = `/program/${programSlug}/`;
     }
-  }, [currentStepNameIndex])
+  }, [currentStepNameIndex, steps])
 
   return (
     <Layout appbarMode='PROGRAM'>

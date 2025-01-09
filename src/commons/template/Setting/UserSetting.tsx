@@ -73,7 +73,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
       ...userProfile,
     });
   }
-
+  
   return (
     <Grid container item spacing={2}>
       <Grid item xs={12}>

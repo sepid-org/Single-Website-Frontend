@@ -10,7 +10,6 @@ import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetFSMQuery, useUpdateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { FSMType } from 'commons/types/models';
-import removeBlankAttributes from 'commons/utils/removeBlankAttributes';
 
 type InfoPropsType = {}
 
@@ -47,7 +46,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
       toast.error('لطفاً وضعیت فردی یا تیمی بودن کارگاه را انتخاب کنید.');
       return;
     }
-    updateFSM({ fsmId, ...removeBlankAttributes(properties) });
+    updateFSM({ fsmId, ...properties });
   }
 
   return (

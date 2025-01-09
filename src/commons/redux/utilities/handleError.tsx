@@ -132,18 +132,32 @@ const handleError = ({
   });
 
   // Handle token-related errors
-  if (normalizedError.data?.code && ['user_not_found', 'token_not_valid'].includes(normalizedError.data.code)) {
+  if (
+    normalizedError.data?.code &&
+    [
+      'user_not_found',
+      'token_not_valid',
+      'token_expired',
+      'authentication_failed',
+      'bad_authorization_header',
+      'not_authenticated',
+      'token_blacklisted',
+      'user_inactive',
+      'user_deleted',
+      'invalid_token',
+    ].includes(normalizedError.data.code)
+  ) {
     handleTokenExpiration(dispatch);
     return;
   }
 
   // Handle specific error codes or details
-  if (normalizedError.data?.code || normalizedError.data?.detail) {
-    const message = getLocalizedErrorMessage(normalizedError.data);
-    toast.error(message);
+  if (normalizedError.data?.code) {
+    toast.error(getLocalizedErrorMessage(normalizedError.data));
     return;
   }
 
+  // todo: forms-related errors should be handled by form component
   // Handle form field errors
   if (handleFieldErrors(normalizedError)) {
     return;
@@ -156,7 +170,6 @@ const handleError = ({
         toast.error('درخواست نامعتبر');
         break;
       case 401:
-        toast.error('احراز هویت ناموفق');
         break;
       case 403:
         toast.error('دسترسی غیرمجاز');
