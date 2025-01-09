@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useEffect } from 'react';
+import React, { FC, Fragment, useState, useEffect, useRef } from 'react';
 import { Box, ButtonBase } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
@@ -7,7 +7,7 @@ import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 
-// Utility function to extract path data from an SVG file (basic example)
+
 const extractSvgPath = (svgUrl: string) => {
   return new Promise<string>((resolve, reject) => {
     fetch(svgUrl)
@@ -15,9 +15,19 @@ const extractSvgPath = (svgUrl: string) => {
       .then((svgText) => {
         const parser = new DOMParser();
         const doc = parser.parseFromString(svgText, 'image/svg+xml');
-        const path = doc.querySelector('path');
-        if (path) {
-          resolve(path.getAttribute('d') || ''); // Extract path data
+        const paths = doc.querySelectorAll('path');
+        const dAttributes: string[] = [];
+
+        paths.forEach(path => {
+          const d = path.getAttribute('d');
+          if (d) {
+            dAttributes.push(d);
+          }
+        });
+
+        if (dAttributes.length > 0) {
+          const mergedD = dAttributes.join(' ');
+          resolve(mergedD);
         } else {
           reject('No path found in SVG');
         }
@@ -33,7 +43,7 @@ type ButtonWidgetPropsType = {
   destination_states: string[];
   mode: WidgetModes;
   id: string;
-}
+};
 
 const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   label,
@@ -47,21 +57,81 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [changeState, changeStateResult] = useChangeState();
   const [submitButton, submitButtonResult] = useSubmitButton();
-  const [clipPath, setClipPath] = useState<string>(''); // To hold the clip-path value
+  const [clipPath, setClipPath] = useState<string>('');
 
-  // Extract SVG path on mount
   useEffect(() => {
     if (background_image.endsWith('.svg')) {
       extractSvgPath(background_image).then((pathData) => {
         if (pathData) {
-          console.log(pathData)
           setClipPath(`path('${pathData}')`);
         }
       }).catch((error) => {
         console.error('Error loading SVG:', error);
       });
+      fetch(background_image)
+        .then(response => response.text())
+        .then(svgContent => {
+          const parser = new DOMParser();
+          const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
+          const svgElement = svgDoc.documentElement;
+
+          const width = svgElement.getAttribute('width') || 0;
+          const height = svgElement.getAttribute('height') || 0;
+
+          if (!width || !height) {
+            const viewBox = svgElement.getAttribute('viewBox');
+            if (viewBox) {
+              const viewBoxValues = viewBox.split(' ');
+              setDimensions({
+                width: parseFloat(viewBoxValues[2]),
+                height: parseFloat(viewBoxValues[3]),
+              });
+            }
+          } else {
+            setDimensions({ width: parseFloat(width), height: parseFloat(height) });
+          }
+        })
+        .catch(error => { });
+    }
+    else {
+      const img = new Image();
+      img.src = background_image;
+      img.onload = function () {
+        setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+        setClipPath('none');
+      }
     }
   }, [background_image]);
+
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    fetch(background_image)
+      .then(response => response.text())
+      .then(svgContent => {
+        const parser = new DOMParser();
+        const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
+        const svgElement = svgDoc.documentElement;
+
+        const width = svgElement.getAttribute('width') || 0;
+        const height = svgElement.getAttribute('height') || 0;
+
+        if (!width || !height) {
+          const viewBox = svgElement.getAttribute('viewBox');
+          if (viewBox) {
+            const viewBoxValues = viewBox.split(' ');
+            setDimensions({
+              width: parseFloat(viewBoxValues[2]),
+              height: parseFloat(viewBoxValues[3]),
+            });
+          }
+        } else {
+          setDimensions({ width: parseFloat(width), height: parseFloat(height) });
+        }
+      })
+      .catch(error => console.error('Error loading SVG:', error));
+  }, [background_image]);
+
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -82,7 +152,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       window.location.href = destination_page_url;
       return;
     }
-    // If none of the above conditions were met, just submit the button:
     submitButton({
       clickedButtonId: widgetId,
     });
@@ -93,7 +162,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       <Box
         sx={{
           position: 'relative',
-          minHeight: background_image ? 400 : 600,
+          minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
         }}
@@ -105,8 +174,8 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
             top: 0,
             left: 0,
             borderRadius: 1,
-            width: '100%',
-            height: '100%',
+            width: dimensions.width,
+            height: dimensions.height,
             backgroundImage: `url(${background_image})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
@@ -114,7 +183,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
             padding: 0,
             textTransform: 'none',
             zIndex: 0,
-            clipPath: clipPath,
+            clipPath,
           }}
         />
 
