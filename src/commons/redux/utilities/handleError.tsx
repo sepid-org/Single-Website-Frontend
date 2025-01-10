@@ -96,6 +96,16 @@ const handleFieldErrors = (error: ErrorResponse): boolean => {
   return false;
 };
 
+// Check if error should be reported to Sentry
+const shouldReportToSentry = (status: number | string): boolean => {
+  if (typeof status === 'number') {
+    // Don't report 4xx errors
+    return status < 400 || status >= 500;
+  }
+  // Report all non-numeric status codes (like 'FETCH_ERROR' or 'unknown')
+  return true;
+};
+
 // Main error handling utility
 const handleError = ({
   error,
@@ -120,16 +130,18 @@ const handleError = ({
     return;
   }
 
-  // Send error details to Sentry for tracking
-  Sentry.captureException(new Error(`API Error: ${normalizedError.message || 'Unknown error'}`), {
-    tags: {
-      status: normalizedError.status,
-      message: normalizedError.message || 'No message available',
-    },
-    extra: {
-      data: normalizedError.data,
-    }
-  });
+  // Only send to Sentry if it's not a 4xx error
+  if (shouldReportToSentry(normalizedError.status)) {
+    Sentry.captureException(new Error(`API Error: ${normalizedError.message || 'Unknown error'}`), {
+      tags: {
+        status: normalizedError.status,
+        message: normalizedError.message || 'No message available',
+      },
+      extra: {
+        data: normalizedError.data,
+      }
+    });
+  }
 
   // Handle token-related errors
   if (
