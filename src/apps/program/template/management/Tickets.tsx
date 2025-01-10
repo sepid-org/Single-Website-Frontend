@@ -4,12 +4,6 @@ import {
   Divider,
   IconButton,
   Stack,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -27,6 +21,7 @@ import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 
 type TicketsTabPropsType = {}
 
@@ -113,56 +108,40 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
           </Fragment>
         </Stack>
 
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell align='center'>اسم صاحب</TableCell>
-                <TableCell align='center'>کد تخفیف</TableCell>
-                <TableCell align='center'>میزان تخفیف</TableCell>
-                <TableCell align='center'>بلیط‌ها</TableCell>
-                <TableCell align='center'>دفعات باقی‌مانده</TableCell>
-                <TableCell align='center'>حداکثر میزان تخفیف (تومان)</TableCell>
-                <TableCell align='center'>عملیات</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {discountCodes?.map((discountCode, index) =>
-                <TableRow key={index}>
-                  <TableCell align='center'>
-                    {discountCode?.user?.first_name && discountCode.user?.last_name ?
-                      `${discountCode.user.first_name} ${discountCode.user.last_name}` :
-                      '-'
-                    }
-                  </TableCell>
-                  <TableCell align='center'>
-                    {discountCode?.code}
-                  </TableCell>
-                  <TableCell align='center'>
-                    {toPersianNumber(discountCode?.value)}
-                  </TableCell>
-                  <TableCell align='center'>
-                    <Stack spacing={1} alignItems={'center'}>
-                      {discountCode?.merchandises.map(merchandise => <Chip label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
-                    </Stack>
-                  </TableCell>
-                  <TableCell align='center'>
-                    {toPersianNumber(discountCode?.remaining)}
-                  </TableCell>
-                  <TableCell align='center'>
-                    {discountCode?.discount_code_limit ? toPersianNumber(discountCode.discount_code_limit) : '-'}
-                  </TableCell>
-                  <TableCell align='center'>
-                    <IconButton size='small'
-                      onClick={() => { handleDeleteDiscountCode(discountCode?.id) }}>
-                      <ClearIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <SimpleTable
+          hideRowNumbersColumn={false}
+          showLatestFirst={true}
+          headers={[
+            { name: 'name', label: 'صاحب' },
+            { name: 'code', label: 'کد تخفیف' },
+            { name: 'value', label: 'میزان تخفیف' },
+            { name: 'merchandises', label: 'بلیط‌ها' },
+            { name: 'remaining', label: 'دفعات باقی‌مانده' },
+            { name: 'limit', label: 'حداکثر میزان تخفیف (تومان)' },
+            { name: 'operation', label: 'عملیات' },
+          ]}
+          rows={discountCodes?.map((discountCode) => ({
+            name:
+              discountCode?.user?.first_name && discountCode.user?.last_name ?
+                `${discountCode.user.first_name} ${discountCode.user.last_name}` :
+                '-'
+            ,
+            code: discountCode?.code,
+            value: toPersianNumber(discountCode?.value),
+            merchandises:
+              <Stack spacing={1} alignItems={'center'}>
+                {discountCode?.merchandises.map(merchandise => <Chip label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
+              </Stack>,
+            remaining: toPersianNumber(discountCode?.remaining),
+            limit: discountCode?.discount_code_limit ? toPersianNumber(discountCode.discount_code_limit) : '-',
+            operation:
+              <IconButton size='small'
+                onClick={() => { handleDeleteDiscountCode(discountCode?.id) }}>
+                <ClearIcon />
+              </IconButton>,
+          }))}
+          count={discountCodes?.length}
+        />
       </Stack>
     </Stack >
   );
