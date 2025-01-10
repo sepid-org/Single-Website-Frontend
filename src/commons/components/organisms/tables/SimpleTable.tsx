@@ -21,18 +21,18 @@ type SimpleTablePropsType = {
   page?: number;
   setPage?: (page: number) => void;
   hideRowNumbersColumn?: boolean;
-  reverseIndexing?: boolean;
+  reverseRowNumber?: boolean;
 }
 
 const SimpleTable: FC<SimpleTablePropsType> = ({
   headers,
   rows,
   count,
-  itemsPerPage = 10,
-  page = 1,
+  itemsPerPage,
+  page,
   setPage,
   hideRowNumbersColumn,
-  reverseIndexing: showLatestFirst = false,
+  reverseRowNumber = false,
 }) => {
   // Calculate the starting row number based on current page
   const startingRowIndex = page ? (page - 1) * itemsPerPage : 0;
@@ -68,7 +68,7 @@ const SimpleTable: FC<SimpleTablePropsType> = ({
               <TableRow key={index}>
                 {!hideRowNumbersColumn && (
                   <TableCell align='center'>
-                    {showLatestFirst ? count - startingRowIndex - index : startingRowIndex + index + 1}
+                    {reverseRowNumber ? count - startingRowIndex - index : startingRowIndex + index + 1}
                   </TableCell>
                 )}
                 {headers.map((header) => (
