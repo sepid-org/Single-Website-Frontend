@@ -21,7 +21,7 @@ type SimpleTablePropsType = {
   page?: number;
   setPage?: (page: number) => void;
   hideRowNumbersColumn?: boolean;
-  showLatestFirst?: boolean;
+  reverseIndexing?: boolean;
 }
 
 const SimpleTable: FC<SimpleTablePropsType> = ({
@@ -32,7 +32,7 @@ const SimpleTable: FC<SimpleTablePropsType> = ({
   page = 1,
   setPage,
   hideRowNumbersColumn,
-  showLatestFirst = false,
+  reverseIndexing: showLatestFirst = false,
 }) => {
   // Calculate the starting row number based on current page
   const startingRowIndex = page ? (page - 1) * itemsPerPage : 0;

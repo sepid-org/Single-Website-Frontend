@@ -110,7 +110,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
 
         <SimpleTable
           hideRowNumbersColumn={false}
-          showLatestFirst={true}
+          reverseIndexing={true}
           headers={[
             { name: 'name', label: 'صاحب' },
             { name: 'code', label: 'کد تخفیف' },
