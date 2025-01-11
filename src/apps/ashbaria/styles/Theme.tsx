@@ -1,9 +1,9 @@
 import { createTheme } from '@mui/material/styles';
-import selectTheme from 'commons/configs/themes';
-import { Black, DarkSecondary, Golden, Gray, Primary, Secondary } from '../constants/colors';
+import { Black, Golden, Gray, Primary, Secondary } from '../constants/colors';
+import defaultTheme from "commons/styles/themes/defaultTheme.json";
 
 export const customTheme = createTheme({
-  ...selectTheme('rtl'),
+  ...defaultTheme,
   breakpoints: {
     values: {
       xs: 0,

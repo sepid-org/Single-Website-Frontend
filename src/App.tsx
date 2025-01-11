@@ -1,4 +1,4 @@
-import 'commons/configs/styles/App.css';
+import 'commons/styles/App.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { Slide, ToastContainer } from 'react-toastify';
 import React, { Fragment, Suspense, useEffect } from 'react';
@@ -14,7 +14,7 @@ import { DialogProvider } from 'commons/components/organisms/PortalDialog/Dialog
 import InitialApiCalls from 'commons/utils/InitialApiCalls';
 import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
 import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
-import DynamicThemeProvider from 'commons/configs/themes/DynamicThemeProvider';
+import DynamicThemeProvider from 'commons/styles/themes/DynamicThemeProvider';
 
 const App = ({ }) => {
   const locale = useSelector((state: any) => state.Intl.locale);

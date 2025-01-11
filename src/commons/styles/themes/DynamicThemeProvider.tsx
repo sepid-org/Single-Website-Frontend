@@ -1,8 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import React, { Fragment, useEffect, useState } from "react";
-import themeData from "commons/configs/themes/themeConfig.json";
+import React, { useEffect, useState } from "react";
+import defaultTheme from "commons/styles/themes/defaultTheme.json";
 import { useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
-import convertCSSFont from "commons/utils/convertToCSSFontFormat";
+import { fontsStyles } from "../fonts";
 
 const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
@@ -10,28 +10,26 @@ const DynamicThemeProvider = ({ children }) => {
 
 	useEffect(() => {
 		const themeConfig = createTheme({
+			direction: 'rtl',
 			components: {
 				MuiCssBaseline: {
-					styleOverrides: website.theme.hasOwnProperty('fonts') ? convertCSSFont(website.theme['font']) : convertCSSFont(themeData.fonts)
+					styleOverrides: fontsStyles.toString(),
 				}
 			},
-			...themeData,
+			...defaultTheme,
 			...website.theme,
-			direction: 'rtl',
 		});
 		setTheme(themeConfig);
 
 	}, [website]);
 
-	if (theme === null || !children) {
-		return null;
+	if (theme) {
+		return (
+			<ThemeProvider theme={theme}>
+				{children}
+			</ThemeProvider>
+		);
 	}
-
-	return (
-		<ThemeProvider theme={theme}>
-			{children}
-		</ThemeProvider>
-	);
 };
 
 export default DynamicThemeProvider;
