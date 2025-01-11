@@ -2,9 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { Black, Golden, Gray, Primary, Secondary } from '../constants/colors';
 import defaultTheme from "commons/styles/themes/defaultTheme.json";
 
-const staticBaseUrl = process.env.NODE_ENV === 'development'
-  ? 'https://kamva-minio-storage.darkube.app'
-  : 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
+const staticBaseUrl = 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
 
 const fontFamilyName = 'Pinar-FD';
 const fontWeights = [

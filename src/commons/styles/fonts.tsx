@@ -1,8 +1,6 @@
 import { css } from 'styled-components';
 
-const staticBaseUrl = process.env.NODE_ENV === 'development'
-  ? 'https://kamva-minio-storage.darkube.app'
-  : 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
+const staticBaseUrl = 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
 
 // Define font weights and their corresponding filenames
 const fontVariants = [
