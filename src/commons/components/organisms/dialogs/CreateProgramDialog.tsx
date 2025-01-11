@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { ProgramType } from 'commons/types/models';
 import ProgramInfoForm from 'commons/components/organisms/forms/ProgramInfoForm';
 import { useCreateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { StaticFiles } from 'commons/constants/mediaUrls';
 
 type CreateProgramDialogPropsType = {
   open: boolean;
@@ -31,7 +32,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
   const [properties, setProperties] = useState<Partial<ProgramType>>({
     name: '',
     description: '',
-    cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+    cover_page: StaticFiles.TemplateImage,
     is_active: true,
     is_visible: true,
     accessible_after_closure: true,

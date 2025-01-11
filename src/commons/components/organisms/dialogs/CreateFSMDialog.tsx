@@ -17,6 +17,7 @@ import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
 import { FSMType } from 'commons/types/models';
 import { useCreateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { StaticFiles } from 'commons/constants/mediaUrls';
 
 type CreateFSMDialog = {
   open: boolean;
@@ -35,7 +36,7 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
     description: '',
     fsm_learning_type: 'Unsupervised',
     fsm_p_type: 'Individual',
-    cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+    cover_page: StaticFiles.TemplateImage,
     is_active: true,
     is_visible: true,
     card_type: 'vertical1',

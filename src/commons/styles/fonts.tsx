@@ -1,63 +1,39 @@
 import { css } from 'styled-components';
 
+const staticBaseUrl = process.env.NODE_ENV === 'development'
+  ? 'https://kamva-minio-storage.darkube.app'
+  : 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
+
+// Define font weights and their corresponding filenames
+const fontVariants = [
+  { weight: 100, name: 'thin' },
+  { weight: 300, name: 'light' },
+  { weight: 400, name: 'regular' },
+  { weight: 500, name: 'medium' },
+  { weight: 700, name: 'bold' },
+  { weight: 800, name: 'extrabold' },
+  { weight: 900, name: 'black' },
+  { weight: 950, name: 'extrablack' }
+];
+
+// Generate @font-face declarations dynamically
+const fontFaceDeclarations = fontVariants
+  .map(({ weight, name }) => `
+    @font-face {
+      font-family: 'IRANYekan';
+      font-style: normal;
+      font-weight: ${weight};
+      src: local('IRANYekan'),
+           url('${staticBaseUrl}/fonts/Qs_Iranyekan ${name}.woff') format('woff');
+      font-display: swap;
+    }
+  `)
+  .join('');
+
 export const fontsStyles = css`
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 100;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan thin.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 300;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan light.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 400;
-    src: local('IRANYekan'), url(https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan.woff) format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 500;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan medium.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 700;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan bold.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 800;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan extrabold.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 900;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan black.woff') format('woff')
-  }
-
-  @font-face {
-    font-family: iranyekan;
-    font-style: normal;
-    font-weight: 950;
-    src: local('IRANYekan'), url('https://kamva-minio-storage.darkube.app/fonts/Qs_Iranyekan extrablack.woff') format('woff')
-  }
+  ${fontFaceDeclarations}
 
   * {
-    font-family: 'iranyekan';
+    font-family: 'IRANYekan', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;
