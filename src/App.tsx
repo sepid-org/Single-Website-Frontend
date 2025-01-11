@@ -6,7 +6,7 @@ import { Backdrop, CircularProgress, CssBaseline } from '@mui/material';
 import { CacheProvider } from "@emotion/react";
 import { useSelector } from 'react-redux';
 import { IntlProvider } from 'react-redux-multilingual';
-import createEmotionCache from 'commons/configs/CreateEmotionCache'
+import createEmotionCache from 'commons/styles/CreateEmotionCache'
 import Root from 'commons/routes';
 import translations from 'commons/translations';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';

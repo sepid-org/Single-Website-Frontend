@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import MentorFSMCard from 'commons/components/organisms/cards/MentorFSMCard';
 import CreateFSMDialog from 'commons/components/organisms/dialogs/CreateFSMDialog';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';

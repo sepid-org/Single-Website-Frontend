@@ -1,6 +1,6 @@
 import { SchoolStudentshipType, UserInfoType } from 'commons/types/profile';
 import { WebsiteType } from 'commons/types/global';
-import { WMS_URL } from 'commons/configs/Constants';
+import { WMS_URL } from 'commons/constants/Constants';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import { UserPublicInfoType } from 'commons/types/models';
 

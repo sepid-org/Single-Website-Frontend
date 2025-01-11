@@ -4,7 +4,7 @@ import React, { FC, useState } from 'react';
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
 import Layout from 'commons/template/Layout';
 
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 

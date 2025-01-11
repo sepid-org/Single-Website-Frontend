@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 export const ContentManagementServiceApi = createApi({

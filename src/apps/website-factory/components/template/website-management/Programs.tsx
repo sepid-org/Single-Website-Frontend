@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { Pagination } from '@mui/material';
 import React, { useState, Fragment, FC } from 'react';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetProgramsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import ManageProgramCard from 'commons/components/organisms/cards/ManageProgramCard';

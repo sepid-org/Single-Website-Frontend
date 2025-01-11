@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import isValidURL from 'commons/utils/validators/urlValidator';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';

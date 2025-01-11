@@ -1,5 +1,5 @@
 import Parse from 'parse';
-import { IMS_SERVER_URL, IMS_LIVE_QUERY_SERVER_URL } from 'commons/configs/Constants';
+import { IMS_SERVER_URL, IMS_LIVE_QUERY_SERVER_URL } from 'commons/constants/Constants';
 
 export const initParseServer = () => {
   if (process.env.REACT_APP_APPLICATION_ID && process.env.REACT_APP_JAVASCRIPT_KEY) {
