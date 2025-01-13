@@ -72,7 +72,8 @@ type OTPLoginOutputType = {
 
 type UUIDLoginInputType = {
   userId: string;
-  origin?: string;
+  origin: string;
+  landingId: number;
 }
 
 type UUIDLoginOutputType = {
@@ -171,11 +172,12 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     uuidLogin: builder.mutation<UUIDLoginOutputType, UUIDLoginInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
-      query: ({ userId, ...props }) => ({
+      query: ({ userId, landingId, ...props }) => ({
         url: 'auth/accounts/uuid-login/',
         method: 'POST',
         body: {
           user_id: userId,
+          landing_id: landingId,
           ...props,
         },
       }),
