@@ -37,7 +37,7 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
     <Fragment>
       <SimpleTable
         hideRowNumbersColumn={false}
-        showLatestFirst={true}
+        reverseRowNumber={true}
         headers={[
           { name: 'name', label: 'نام' },
           { name: 'registrationDate', label: 'تاریخ ثبت'},
