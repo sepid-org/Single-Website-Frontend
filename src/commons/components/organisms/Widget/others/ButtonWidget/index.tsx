@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useEffect, useRef } from 'react';
+import React, { FC, Fragment, useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Box, ButtonBase } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
@@ -6,35 +6,7 @@ import { WidgetModes } from '../..';
 import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
-
-
-const extractSvgPath = (svgUrl: string) => {
-  return new Promise<string>((resolve, reject) => {
-    fetch(svgUrl)
-      .then((response) => response.text())
-      .then((svgText) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(svgText, 'image/svg+xml');
-        const paths = doc.querySelectorAll('path');
-        const dAttributes: string[] = [];
-
-        paths.forEach(path => {
-          const d = path.getAttribute('d');
-          if (d) {
-            dAttributes.push(d);
-          }
-        });
-
-        if (dAttributes.length > 0) {
-          const mergedD = dAttributes.join(' ');
-          resolve(mergedD);
-        } else {
-          reject('No path found in SVG');
-        }
-      })
-      .catch(reject);
-  });
-};
+import extractSvgPath from 'commons/utils/extractSVGPath';
 
 type ButtonWidgetPropsType = {
   label: string;
@@ -58,6 +30,9 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const [changeState, changeStateResult] = useChangeState();
   const [submitButton, submitButtonResult] = useSubmitButton();
   const [clipPath, setClipPath] = useState<string>('');
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [scale, setScale] = useState({ widthScale: 0, heightScale: 0 });
+  const oueterBoxRef = useRef(null);
 
   useEffect(() => {
     if (background_image.endsWith('.svg')) {
@@ -103,35 +78,28 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     }
   }, [background_image]);
 
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  useLayoutEffect(() => {
+    const updateScale = () => {
+      if (oueterBoxRef.current) {
+        setScale({
+          widthScale: oueterBoxRef.current.offsetWidth,
+          heightScale: oueterBoxRef.current.offsetHeight,
+        });
+      }
+    };
+    updateScale();
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (oueterBoxRef.current) {
+      resizeObserver.observe(oueterBoxRef.current);
+    }
 
-  useEffect(() => {
-    fetch(background_image)
-      .then(response => response.text())
-      .then(svgContent => {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
-        const svgElement = svgDoc.documentElement;
-
-        const width = svgElement.getAttribute('width') || 0;
-        const height = svgElement.getAttribute('height') || 0;
-
-        if (!width || !height) {
-          const viewBox = svgElement.getAttribute('viewBox');
-          if (viewBox) {
-            const viewBoxValues = viewBox.split(' ');
-            setDimensions({
-              width: parseFloat(viewBoxValues[2]),
-              height: parseFloat(viewBoxValues[3]),
-            });
-          }
-        } else {
-          setDimensions({ width: parseFloat(width), height: parseFloat(height) });
-        }
-      })
-      .catch(error => console.error('Error loading SVG:', error));
-  }, [background_image]);
-
+    return () => {
+      if (oueterBoxRef.current) {
+        resizeObserver.unobserve(oueterBoxRef.current);
+      }
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -160,19 +128,21 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   return (
     <Fragment>
       <Box
+        ref={oueterBoxRef}
+        alignItems={'center'}
+        justifyContent={'center'}
         sx={{
-          position: 'relative',
+          display: 'flex',
           minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
+          transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
         }}
       >
         <ButtonBase
           onClick={handleClick}
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
             borderRadius: 1,
             width: dimensions.width,
             height: dimensions.height,
@@ -190,8 +160,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         <Box
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
             width: '100%',
             height: '100%',
             display: 'flex',
