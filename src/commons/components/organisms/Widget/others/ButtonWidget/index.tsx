@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useState, useEffect, useRef } from 'react';
+import React, { FC, Fragment, useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { Box, ButtonBase } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
@@ -30,6 +30,9 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const [changeState, changeStateResult] = useChangeState();
   const [submitButton, submitButtonResult] = useSubmitButton();
   const [clipPath, setClipPath] = useState<string>('');
+  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  const [scale, setScale] = useState({ widthScale: 0, heightScale: 0 });
+  const oueterBoxRef = useRef(null);
 
   useEffect(() => {
     if (background_image.endsWith('.svg')) {
@@ -75,7 +78,28 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     }
   }, [background_image]);
 
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
+  useLayoutEffect(() => {
+    const updateScale = () => {
+      if (oueterBoxRef.current) {
+        setScale({
+          widthScale: oueterBoxRef.current.offsetWidth,
+          heightScale: oueterBoxRef.current.offsetHeight,
+        });
+      }
+    };
+    updateScale();
+    const resizeObserver = new ResizeObserver(updateScale);
+    if (oueterBoxRef.current) {
+      resizeObserver.observe(oueterBoxRef.current);
+    }
+
+    return () => {
+      if (oueterBoxRef.current) {
+        resizeObserver.unobserve(oueterBoxRef.current);
+      }
+      resizeObserver.disconnect();
+    };
+  }, []);
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
@@ -104,21 +128,21 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   return (
     <Fragment>
       <Box
+        ref={oueterBoxRef}
+        alignItems={'center'}
+        justifyContent={'center'}
         sx={{
-          position: 'relative',
+          display: 'flex',
           minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
-          display: 'inline-block',
-          transform: `scale(${400 / dimensions.height})`,
+          transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
         }}
       >
         <ButtonBase
           onClick={handleClick}
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
             borderRadius: 1,
             width: dimensions.width,
             height: dimensions.height,
@@ -136,8 +160,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         <Box
           sx={{
             position: 'absolute',
-            top: 0,
-            left: 0,
             width: '100%',
             height: '100%',
             display: 'flex',
