@@ -7,7 +7,6 @@ import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 
-
 const extractSvgPath = (svgUrl: string) => {
   return new Promise<string>((resolve, reject) => {
     fetch(svgUrl)
@@ -105,34 +104,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
 
-  useEffect(() => {
-    fetch(background_image)
-      .then(response => response.text())
-      .then(svgContent => {
-        const parser = new DOMParser();
-        const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
-        const svgElement = svgDoc.documentElement;
-
-        const width = svgElement.getAttribute('width') || 0;
-        const height = svgElement.getAttribute('height') || 0;
-
-        if (!width || !height) {
-          const viewBox = svgElement.getAttribute('viewBox');
-          if (viewBox) {
-            const viewBoxValues = viewBox.split(' ');
-            setDimensions({
-              width: parseFloat(viewBoxValues[2]),
-              height: parseFloat(viewBoxValues[3]),
-            });
-          }
-        } else {
-          setDimensions({ width: parseFloat(width), height: parseFloat(height) });
-        }
-      })
-      .catch(error => console.error('Error loading SVG:', error));
-  }, [background_image]);
-
-
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
       return;
@@ -165,6 +136,8 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
+          display: 'inline-block',
+          transform: `scale(${400 / dimensions.height})`,
         }}
       >
         <ButtonBase
