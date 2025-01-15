@@ -12,7 +12,7 @@ import { useGetVerificationCodeMutation } from 'commons/redux/apis/party/UserApi
 import PhoneNumberInput from './profile-inputs/PhoneNumberInput';
 import { normalizePhoneNumber } from 'commons/utils/NormalizePhoneNumber';
 
-type VerificationCodeType = 'create-user-account' | 'change-user-phone-number';
+type VerificationCodeType = 'create-user-account' | 'change-user-password' | 'change-user-phone-number';
 
 type VerifyPhoneNumberPropsType = {
   data: {

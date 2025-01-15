@@ -84,7 +84,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
             <VerifyPhoneNumber
               data={data}
               setData={setData}
-              verificationType='change-user-phone-number'
+              verificationType='change-user-password'
             />
 
             <PasswordField label='گذرواژه جدید' collectData={collectData} />
