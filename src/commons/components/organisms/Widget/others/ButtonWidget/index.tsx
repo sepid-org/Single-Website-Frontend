@@ -136,7 +136,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
-          transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
         }}
       >
         <ButtonBase
@@ -154,6 +153,8 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
             textTransform: 'none',
             zIndex: 0,
             clipPath,
+            transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
+
           }}
         />
 
