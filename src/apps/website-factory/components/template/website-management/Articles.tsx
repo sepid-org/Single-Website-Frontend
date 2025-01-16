@@ -9,8 +9,8 @@ import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
-import { toast } from 'react-toastify';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
+import CreateArticleDialog from 'commons/components/organisms/dialogs/CreateArticleDialog';
 
 type ArticlesTabPropsType = {
 }
@@ -41,10 +41,11 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
             </Typography>
           </Grid>
           <Grid item>
-            <AddNewThingButton label={'افزودن مقاله جدید'} onClick={() => {
-              toast.warn('هنوز آماده نشده! ایشالا به‌زودی می‌زنیمش :)')
-              setOpenCreateArticleDialog(true);
-            }} />
+            <AddNewThingButton
+              label={'افزودن مقاله جدید'}
+              onClick={() => {
+                setOpenCreateArticleDialog(true);
+              }} />
           </Grid>
         </Grid>
 
@@ -85,6 +86,10 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
           </Grid>
         </Grid>
       </Grid>
+      <CreateArticleDialog
+        open={openCreateArticleDialog}
+        handleClose={() => setOpenCreateArticleDialog(!openCreateArticleDialog)}
+      />
     </Fragment>
   );
 }
