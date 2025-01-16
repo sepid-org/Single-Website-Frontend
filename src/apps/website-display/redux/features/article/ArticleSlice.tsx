@@ -14,6 +14,14 @@ type GetArticlesOutputType = {
   articles: ArticleType[];
 }
 
+type CreateArticleInputType = {
+  website: string;
+} & Partial<ArticleType>;
+
+type CreateArticelOutputType = {}
+
+type UpdateArticelOutputType = {}
+
 export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getArticle: builder.query<GetArticleOutputType, { articleId: string }>({
@@ -41,11 +49,24 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
           articles: response.results,
         }
       },
-    })
+    }),
+
+    createArticle: builder.mutation<CreateArticelOutputType, CreateArticleInputType>({
+      invalidatesTags: [{ type: 'Article', id: 'ALL' }],
+      query: (body) => ({
+        url: `/fsm/articel/`,
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: any): UpdateArticelOutputType => {
+        return response;
+      },
+    }),
   })
 });
 
 export const {
   useGetArticleQuery,
   useGetArticlesQuery,
+  useCreateArticleMutation,
 } = ArticleSlice;

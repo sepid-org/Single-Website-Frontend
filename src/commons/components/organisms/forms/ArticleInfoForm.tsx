@@ -6,16 +6,15 @@ import {
 } from '@mui/material';
 import UploadImage from 'commons/components/molecules/UploadImage';
 import React, { FC } from 'react';
+import { ArticleType } from 'commons/types/redux/article';
 
-import { ProgramType } from 'commons/types/models';
-
-type ProgramInfoFormPropsType = {
-  data: Partial<ProgramType>;
+type ArticleInfoFormPropsType = {
+  data: Partial<ArticleType>;
   setData: any;
   showCoverImage?: boolean;
 }
 
-const ArticleInfoForm: FC<ProgramInfoFormPropsType> = ({
+const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
   data,
   setData,
   showCoverImage = false,
@@ -63,7 +62,7 @@ const ArticleInfoForm: FC<ProgramInfoFormPropsType> = ({
       <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_visible'
-          checked={data.is_visible}
+          checked={!data.is_hidden}
           onChange={() => toggleValue('is_visible')}
           control={<Switch color="primary" />}
           label="قابل مشاهده برای مخاطبان:"

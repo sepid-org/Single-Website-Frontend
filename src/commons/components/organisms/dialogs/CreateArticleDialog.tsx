@@ -10,31 +10,28 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router';
-
 import { toast } from 'react-toastify';
-import { ProgramType } from 'commons/types/models';
-import { useCreateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
 import ArticleInfoForm from '../forms/ArticleInfoForm';
+import { useCreateArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
+import { ArticleType } from 'commons/types/redux/article';
 
-type CreateProgramDialogPropsType = {
+type CreateArticleDialogPropsType = {
   open: boolean;
   handleClose: any;
 }
 
-const CreateArticleDialog: FC<CreateProgramDialogPropsType> = ({
+const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
   open,
   handleClose,
 }) => {
   const t = useTranslate();
   const { websiteName } = useParams();
-  const [createProgram, result] = useCreateProgramMutation()
-  const [properties, setProperties] = useState<Partial<ProgramType>>({
+  const [createArticle, result] = useCreateArticleMutation()
+  const [properties, setProperties] = useState<Partial<ArticleType>>({
     name: '',
     description: '',
     cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
-    is_active: true,
-    is_visible: true,
-    accessible_after_closure: true,
+    is_hidden: false,
   });
 
   const handleCreateProgram = () => {
@@ -46,7 +43,7 @@ const CreateArticleDialog: FC<CreateProgramDialogPropsType> = ({
       toast.error('لطفاً توضیحات مقاله را بنویسید.');
       return;
     }
-    createProgram({
+    createArticle({
       website: websiteName,
       ...properties
     });
