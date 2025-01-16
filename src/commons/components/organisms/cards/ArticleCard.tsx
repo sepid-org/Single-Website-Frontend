@@ -21,11 +21,7 @@ type ArticleCardPropsType = {
 };
 
 const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
-  const t = useTranslate();
-
-  const handleCardClick = () => {
-    window.location.href = `/article/${article.id}/`;
-  };
+  const navigate = useNavigate();
 
   return (
     <ButtonBase
@@ -38,7 +34,7 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
         textAlign: 'initial',
         padding: 0,
       }}
-      onClick={handleCardClick}
+      onClick={() => navigate(`/article/${article.id}/`)}
     >
       <Card
         sx={{
