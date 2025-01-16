@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import React, { FC } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { ArticleType } from 'commons/types/redux/article';
 
 type ArticleCardPropsType = {
@@ -47,6 +47,8 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
           height: '100%',
           width: '100%',
           justifyContent: 'space-between',
+          boxShadow: '0 0 1px 0rem rgba(0, 0, 0, 0.5)',
+          transition: 'all 0.1s ease-in-out',
           '&:hover': {
             transform: 'translateY(-0.1rem) scale(1.02)',
             boxShadow: '0 0.5em 2rem -1rem rgba(0, 0, 0, 0.5)',
