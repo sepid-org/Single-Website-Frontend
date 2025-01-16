@@ -25,6 +25,7 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
 
   return (
     <ButtonBase
+      disableRipple
       sx={{
         display: 'flex',
         flexDirection: 'column',
