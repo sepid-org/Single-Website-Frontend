@@ -86,6 +86,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
               data={data}
               setData={setData}
               verificationType='change-user-password'
+              label={"شماره تلفن همراه"}
             />
 
             <PasswordField label='گذرواژه جدید' collectData={collectData} />
