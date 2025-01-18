@@ -32,7 +32,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const [clipPath, setClipPath] = useState<string>('');
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [scale, setScale] = useState({ widthScale: 0, heightScale: 0 });
-  const oueterBoxRef = useRef(null);
+  const outerBoxRef = useRef(null);
 
   useEffect(() => {
     if (background_image.endsWith('.svg')) {
@@ -80,22 +80,22 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
 
   useLayoutEffect(() => {
     const updateScale = () => {
-      if (oueterBoxRef.current) {
+      if (outerBoxRef.current) {
         setScale({
-          widthScale: oueterBoxRef.current.offsetWidth,
-          heightScale: oueterBoxRef.current.offsetHeight,
+          widthScale: outerBoxRef.current.offsetWidth,
+          heightScale: outerBoxRef.current.offsetHeight,
         });
       }
     };
     updateScale();
     const resizeObserver = new ResizeObserver(updateScale);
-    if (oueterBoxRef.current) {
-      resizeObserver.observe(oueterBoxRef.current);
+    if (outerBoxRef.current) {
+      resizeObserver.observe(outerBoxRef.current);
     }
 
     return () => {
-      if (oueterBoxRef.current) {
-        resizeObserver.unobserve(oueterBoxRef.current);
+      if (outerBoxRef.current) {
+        resizeObserver.unobserve(outerBoxRef.current);
       }
       resizeObserver.disconnect();
     };
@@ -127,7 +127,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   return (
     <Fragment>
       <Box
-        ref={oueterBoxRef}
+        ref={outerBoxRef}
         alignItems={'center'}
         justifyContent={'center'}
         sx={{
@@ -155,21 +155,20 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               clipPath,
               transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
             }}
-          />
-          :
+          /> :
           <Button
+            onClick={handleClick}
             sx={{
               width: '100%',
               height: '100%',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              zIndex: 1,
             }}
           >
             <TinyPreview
-              styles={{ 
-                width: '100%', 
+              styles={{
+                width: '100%',
                 height: '100%',
                 display: 'flex',
                 alignItems: 'center',
