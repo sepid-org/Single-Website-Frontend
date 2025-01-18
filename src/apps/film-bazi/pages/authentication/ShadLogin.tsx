@@ -5,7 +5,7 @@ import {
 import { useSearchParams } from 'react-router-dom';
 import { useUuidLoginMutation } from 'commons/redux/apis/party/UserApi';
 import useLocalNavigate from 'apps/film-bazi/hooks/useLocalNavigate';
-import { FILMBAZI_ORIGIN_NAME } from 'apps/film-bazi/constants/game';
+import { FILMBAZI_ORIGIN_NAME, FILMBAZI_SHAD_LANDING_ID } from 'apps/film-bazi/constants/game';
 
 function convertToUUID(str: string): string {
   // Remove any non-alphanumeric characters, just in case
@@ -34,7 +34,11 @@ const ShadLogin: FC<PropsType> = ({ }) => {
 
   useEffect(() => {
     if (userId) {
-      uuidLogin({ userId, origin: FILMBAZI_ORIGIN_NAME });
+      uuidLogin({
+        userId,
+        landingId: FILMBAZI_SHAD_LANDING_ID,
+        origin: FILMBAZI_ORIGIN_NAME,
+      });
     }
   }, [userId]);
 

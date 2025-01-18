@@ -18,9 +18,7 @@ const AccountBadge = () => {
   const isMenuOpen = Boolean(anchorEl);
 
   const handleMenuOpen = (event) => {
-    if (userProfile.origin !== SHAD_ORIGIN) {
-      setAnchorEl(event.currentTarget);
-    }
+    setAnchorEl(event.currentTarget);
   };
 
   const handleMenuClose = () => {

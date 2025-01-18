@@ -43,24 +43,27 @@ const FIELD_TRANSLATIONS: Record<string, string> = {
   'phone': 'شماره تلفن',
 };
 
-// Token expiration paths
-const TOKEN_EXPIRATION_PATHS: Record<string, string> = {
-  'filmbazi': '/program/filmbazi/token-expiration/',
-  'ashbaria': '/program/ashbaria/token-expiration/',
-  'default': '/token-expiration/'
+const DOMAIN_TO_PATH_MAP: Record<string, string> = {
+  'filmbazi.ir': '/program/filmbazi/token-expiration/',
+  'ashbaria.ir': '/program/ashbaria/token-expiration/',
+  'default': '/token-expiration/',
 };
 
-// Centralized token expiration handling
-const handleTokenExpiration = (dispatch: (action: { type: string }) => void) => {
-  const currentPath = window.location.pathname;
+const navigateTo = (url: string) => {
+  try {
+    window.location.href = url;
+  } catch (error) {
+    toast.error('Redirection failed:', error);
+  }
+};
 
-  // Determine appropriate redirection path
-  const redirectPath = Object.entries(TOKEN_EXPIRATION_PATHS)
-    .find(([key]) => currentPath.includes(key))?.[1]
-    || TOKEN_EXPIRATION_PATHS.default;
+const handleTokenExpiration = (dispatch: (action: { type: string }) => void) => {
+  const currentDomain = window.location.hostname;
+
+  const redirectPath = DOMAIN_TO_PATH_MAP[currentDomain] || DOMAIN_TO_PATH_MAP.default;
 
   // Redirect and logout
-  window.location.href = redirectPath;
+  navigateTo(redirectPath);
   dispatch({ type: 'account/logout' });
 };
 

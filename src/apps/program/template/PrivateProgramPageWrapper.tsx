@@ -41,7 +41,7 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
     );
   }
 
-  const hasAccess = receipt.is_participating;
+  const hasAccess = receipt?.is_participating;
 
   return hasAccess ? children : null;
 };
