@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { Box, ButtonBase } from '@mui/material';
+import { Box, Button, ButtonBase } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
@@ -124,7 +124,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       clickedButtonId: widgetId,
     });
   };
-
   return (
     <Fragment>
       <Box
@@ -136,43 +135,50 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           minHeight: background_image ? 40 : 60,
           width: '100%',
           height: '100%',
-          transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
         }}
       >
-        <ButtonBase
-          onClick={handleClick}
-          sx={{
-            position: 'absolute',
-            borderRadius: 1,
-            width: dimensions.width,
-            height: dimensions.height,
-            backgroundImage: `url(${background_image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            padding: 0,
-            textTransform: 'none',
-            zIndex: 0,
-            clipPath,
-          }}
-        />
-
-        <Box
-          sx={{
-            position: 'absolute',
-            width: '100%',
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            zIndex: 1,
-            pointerEvents: 'none',
-          }}
-        >
-          <TinyPreview
-            styles={{ width: '100%' }}
-            content={label}
+        {background_image ?
+          <ButtonBase
+            onClick={handleClick}
+            sx={{
+              position: 'absolute',
+              borderRadius: 1,
+              width: dimensions.width,
+              height: dimensions.height,
+              backgroundImage: `url(${background_image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              padding: 0,
+              textTransform: 'none',
+              zIndex: 0,
+              clipPath,
+              transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
+            }}
           />
-        </Box>
+          :
+          <Button
+            sx={{
+              width: '100%',
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              zIndex: 1,
+            }}
+          >
+            <TinyPreview
+              styles={{ 
+                width: '100%', 
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              content={label}
+            />
+          </Button>
+        }
       </Box>
       <ChangeStateDialog
         open={openChangeStateDialog}
