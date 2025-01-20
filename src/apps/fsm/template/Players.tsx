@@ -10,7 +10,6 @@ import React, { useEffect, FC } from 'react';
 import { useParams } from 'react-router-dom';
 import InfoIcon from '@mui/icons-material/Info';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
-import { useGetFSMMentorsQuery } from 'apps/fsm/redux/slices/fsm/MentorSlice';
 import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import { CMS_URL } from 'commons/configs/Constants';
@@ -20,7 +19,6 @@ type PropsType = {}
 
 const Players: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { data: fsmMentors } = useGetFSMMentorsQuery({ fsmId });
   const [trigger, result] = useLazyGetAnswerSheetsFileQuery();
 
   const downloadExcelExport = () => {
@@ -64,18 +62,13 @@ const Players: FC<PropsType> = ({ }) => {
 
       <Divider />
 
-      <SimpleTable
+      {/* <SimpleTable
         headers={[
           { name: 'first_name', label: 'نام' },
           { name: 'last_name', label: 'نام خانوادگی' },
-          { name: 'phone_number', label: 'شماره تماس' },
-          { name: 'email', label: 'ایمیل' },
         ]}
-
-        rows={fsmMentors?.map(mentor => ({
-          ...mentor,
-        }))}
-      />
+        rows={[]}
+      /> */}
     </Stack>
   );
 }
