@@ -26,10 +26,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={MediaUrls.WINDMILL} styles={{ padding: 2 }}>
       <Stack maxWidth={'md'} width={'100%'} component={Paper} padding={2} spacing={2} justifyContent={'space-between'}>
-        <FSMProvider
-          fsmId={fsmId}
-          player={player}
-        >
+        <FSMProvider fsmId={fsmId}>
           <FSMStateProvider
             fsmStateId={player?.current_state}
             widgetRegistry={CUSTOM_WIDGET_REGISTRY}

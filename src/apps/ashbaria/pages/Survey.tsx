@@ -9,7 +9,6 @@ import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullSc
 import { MediaUrls } from '../constants/mediaUrls';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
-import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from '../constants/game-info';
 import { toast } from 'react-toastify';
@@ -17,12 +16,8 @@ import { toast } from 'react-toastify';
 type PropsType = {}
 
 const SurveyWrapper = () => {
-  const { data: player } = useGetMyPlayerQuery({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID });
   return (
-    <FSMProvider
-      fsmId={ASHBARIA_SURVEY_CORRESPONDING_FSM_ID}
-      player={player}
-    >
+    <FSMProvider fsmId={ASHBARIA_SURVEY_CORRESPONDING_FSM_ID}>
       <Survey />
     </FSMProvider>
   )

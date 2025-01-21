@@ -33,10 +33,7 @@ const CinemaGame: FC<SeatsGamePropsType> = ({ }) => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-      <FSMProvider
-        player={null}
-        fsmId={fsmId}
-      >
+      <FSMProvider fsmId={fsmId}>
         <FSMStateProvider
           fsmStateId={fsmStateId}
           complementaryObjects={complementaryObjects}
