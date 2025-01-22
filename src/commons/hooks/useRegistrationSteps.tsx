@@ -38,13 +38,13 @@ const useRegistrationSteps = ({
     }
 
     const getStepIndex = (stepName: RegistrationStepNameType) => {
-      return steps.indexOf(steps.find(step => step.name === stepName));
+      return _steps.indexOf(_steps.find(step => step.name === stepName));
     }
 
-    if (!program || !registrationForm || !registrationReceipt) return;
-    const steps: RegistrationStepType[] = [];
+    if (!program || !registrationForm) return;
+    const _steps: RegistrationStepType[] = [];
 
-    steps.push({
+    _steps.push({
       name: 'user-setting',
       label: 'تکمیل اطلاعات شخصی',
       component: <UserSetting isInForm={true} onSuccessfulSubmission={() => goToNextStep()} />,
@@ -52,7 +52,7 @@ const useRegistrationSteps = ({
     })
 
     if (registrationForm.audience_type === 'Student') {
-      steps.push({
+      _steps.push({
         name: 'school-setting',
         label: 'تکمیل اطلاعات دانش‌آموزی',
         component: <SchoolSetting isInForm={true} onSuccessfulSubmission={() => goToNextStep()} />,
@@ -61,7 +61,7 @@ const useRegistrationSteps = ({
     }
 
     if (registrationForm.audience_type === 'Academic') {
-      steps.push({
+      _steps.push({
         name: 'university-setting',
         label: 'تکمیل اطلاعات دانشجویی',
         component: <UniversitySetting onSuccessfulSubmission={() => goToNextStep()} />,
@@ -69,7 +69,7 @@ const useRegistrationSteps = ({
       })
     }
 
-    steps.push({
+    _steps.push({
       name: 'form',
       label: 'ثبت‌نام در دوره',
       disabled: true,
@@ -78,7 +78,7 @@ const useRegistrationSteps = ({
     })
 
     if (registrationForm.accepting_status == 'Manual') {
-      steps.push({
+      _steps.push({
         name: 'status',
         label: 'وضعیت ثبت‌نام',
         component: <RegistrationStatus />,
@@ -87,7 +87,7 @@ const useRegistrationSteps = ({
     }
 
     if (!program.is_free) {
-      steps.push({
+      _steps.push({
         name: 'payment',
         label: 'پرداخت هزینه',
         component: <Payment />,
@@ -95,17 +95,14 @@ const useRegistrationSteps = ({
       })
     }
 
-    steps.push({
+    _steps.push({
       name: 'program',
       label: 'ورود به دوره',
       component: null,
     })
 
-    if (isFirstRender) {
-      if (program.is_user_participating) {
-        goToStep(getStepIndex('form') + 1);
-      }
-      if (['Waiting', 'Rejected'].includes(registrationReceipt.status)) {
+    if (isFirstRender && registrationReceipt) {
+      if (['Waiting', 'Rejected'].includes(registrationReceipt?.status)) {
         goToStep(getStepIndex('status'));
       }
       if (!program.is_free && registrationReceipt?.status === 'Accepted') {
@@ -114,7 +111,7 @@ const useRegistrationSteps = ({
       setIsFirstRender(false);
     }
 
-    setSteps(steps);
+    setSteps(_steps);
   }, [program, registrationForm, currentStepNameIndex, lastActiveStepIndex, registrationReceipt]);
 
   return {

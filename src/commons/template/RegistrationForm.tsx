@@ -47,23 +47,6 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
     }
   }, [submitRegistrationFormResult])
 
-  const isSubmitButtonDisabled = (): { isDisabled: boolean; message: string; } => {
-    return {
-      isDisabled:
-        registrationReceipt.status == 'DeadlineMissed' ||
-        registrationReceipt.status == 'NotPermitted' ||
-        registrationReceipt.status == 'GradeNotAvailable' ||
-        registrationReceipt.status == 'StudentshipDataIncomplete',
-      message:
-        registrationReceipt.status == 'DeadlineMissed' ? 'مهلت ثبت‌نام تمام شده است' :
-          registrationReceipt.status == 'NotPermitted' ? 'با توجه به پایه تحصیلیتان، شما مجاز به شرکت در این دوره نیستید' :
-            registrationReceipt.status == 'GradeNotSuitable' ? 'با توجه به پایه تحصیلیتان، شما مجاز به شرکت در این دوره نیستید' :
-              registrationReceipt.status == 'GradeNotAvailable' ? 'ابتدا پایه‌ی تحصیلی خود را انتخاب کنید' :
-                registrationReceipt.status == 'StudentshipDataIncomplete' ? 'مشخصات دانش‌آموزی‌تان کامل نیست' :
-                  'خبری نیست، سلامتی!'
-    }
-  }
-
   useEffect(() => {
     // todo: when registration form is editable, this "if" should be removed
     if (registrationReceipt?.is_participating) {
@@ -71,7 +54,7 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
     }
   }, [registrationReceipt])
 
-  if (!program || !registrationForm || !registrationReceipt) return null;
+  if (!program || !registrationForm) return null;
 
   return (
     <Stack spacing={2}>
@@ -83,16 +66,11 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
           answers={answers}
           getAnswerCollector={getAnswerCollector}
         />
-        {isSubmitButtonDisabled().isDisabled &&
-          <Typography color={'red'} textAlign={'center'} fontSize={24} fontWeight={400}>
-            {isSubmitButtonDisabled().message}
-          </Typography>
-        }
         <Button
-          disabled={isSubmitButtonDisabled().isDisabled}
           variant="contained"
           color="primary"
-          onClick={() => setDialogStatus(true)}>
+          onClick={() => setDialogStatus(true)}
+        >
           {'ثبت‌نام'}
         </Button>
       </Stack >

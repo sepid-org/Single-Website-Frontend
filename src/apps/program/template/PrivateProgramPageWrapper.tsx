@@ -19,6 +19,7 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
 
   const {
     data: receipt,
+    isError: isReceiptError,
     isSuccess: isReceiptSuccess,
     isLoading: isReceiptLoading,
   } = useGetMyReceiptQuery(
@@ -27,11 +28,11 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
   );
 
   useEffect(() => {
-    const shouldRedirectToRegistrationForm = isReceiptSuccess && !receipt.is_participating;
+    const shouldRedirectToRegistrationForm = isReceiptError || (isReceiptSuccess && !receipt.is_participating);
     if (shouldRedirectToRegistrationForm) {
       navigate(`/program/${programSlug}/form/`);
     }
-  }, [isReceiptSuccess, receipt]);
+  }, [isReceiptError, isReceiptSuccess, receipt]);
 
   if (isProgramLoading || isReceiptLoading) {
     return (

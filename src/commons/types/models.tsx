@@ -41,7 +41,6 @@ export type ProgramType = {
   id: string;
   is_active: boolean;
   is_approved: boolean;
-  is_user_participating: boolean;
   maximum_participant: number | null;
   name: string;
   initial_participants_count: number;
@@ -74,6 +73,8 @@ export type AnswerSheetType = {
   updated_at: string;
 }
 
+export type RegistrationReceiptTypes = 'Waiting' | 'Rejected' | 'Accepted';
+
 export type RegistrationReceiptType = AnswerSheetType & {
   form: string
   profile_image: string;
@@ -84,17 +85,7 @@ export type RegistrationReceiptType = AnswerSheetType & {
   is_participating: boolean;
   certificate: CertificateType;
   team: TeamType | string;
-  status:
-  'Waiting' |
-  'Rejected' |
-  'Accepted' |
-  'DeadlineMissed' |
-  'NotPermitted' |
-  'NotRegistered' |
-  'NotStarted' |
-  'GradeNotAvailable' |
-  'GradeNotSuitable' |
-  'StudentshipDataIncomplete';
+  status: RegistrationReceiptTypes;
 }
 
 type StateTemplateTypes = 'normal' | 'board';
