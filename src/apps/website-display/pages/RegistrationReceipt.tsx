@@ -170,7 +170,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
       <AreYouSure
         open={openConfirmRegistrationStatus}
         handleClose={() => setOpenConfirmRegistrationStatus(false)}
-        text='با قطعی‌کردن ثبت‌نام، کاربر در دوره ثبت‌نام می‌شود و نیازی به پرداخت نخواهد داشت.'
+        text='با قطعی‌کردن ثبت‌نام، کاربر در دوره ثبت‌نام می‌شود و نیازی به پرداخت نخواهد داشت. آیا مطمئن هستید؟'
         callBackFunction={handleConfirmRegistration}
       />
     </Layout>
