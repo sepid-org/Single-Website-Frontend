@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={'/programs/'} />} />
+      <Route index element={<Navigate to={'/programs/'} />} />
       <Route path="/articles/" element={<Articles />} />
       <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
