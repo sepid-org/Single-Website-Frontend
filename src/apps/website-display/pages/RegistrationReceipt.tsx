@@ -34,7 +34,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
   const { receiptId } = useParams();
   const [status, setStatus] = useState<RegistrationReceiptTypes>(null);
   const { data: registrationReceipt } = useGetReceiptQuery({ receiptId });
-  const [validateRegistrationReceipt, validateRegistrationResult] = useValidateRegistrationReceiptMutation({})
+  const [validateRegistrationReceipt, validateRegistrationResult] = useValidateRegistrationReceiptMutation()
 
   useEffect(() => {
     if (registrationReceipt?.status) {

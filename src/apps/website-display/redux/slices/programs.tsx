@@ -6,7 +6,6 @@ import {
   getCertificateUrl,
   registerUsersViaCSVUrl,
   getPlayerFromTeamUrl,
-  validateRegistrationReceiptUrl,
 } from '../constants/urls';
 import { getRequests, deleteRequest } from 'apps/website-display/parse/mentor'
 import { InitialState } from 'commons/types/redux/program'
