@@ -33,7 +33,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
   return (
     <ButtonBase
       disableRipple
-      onClick={() => program.is_active && navigate(`/program/${program.slug}/`)}>
+      onClick={() => program.is_active && navigate(`/program/${program.slug}/registration/`)}>
       <Card
         sx={{
           position: 'relative',

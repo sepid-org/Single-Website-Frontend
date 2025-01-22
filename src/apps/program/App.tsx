@@ -34,7 +34,7 @@ const App = () => {
 
       <Route path="" element={<PrivateRoute />}>
         <Route index element={<Program />} />
-        <Route path="/form/" element={<Registration />} />
+        <Route path="/registration/" element={<Registration />} />
         <Route path="/team-setting/" element={<TeamSetting />} />
         <Route path="/manage/" element={<ProgramManagement />} />
         <Route path="/purchase/" element={<PurchaseResult />} />

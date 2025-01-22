@@ -24,14 +24,7 @@ export const RegistrationFormSlice = ContentManagementServiceApi.injectEndpoints
     }),
 
     submitRegistrationForm: builder.mutation<SubmitRegistrationFormOutputType, SubmitRegistrationFormInputType>({
-      invalidatesTags: (result, error, item) => {
-        if (!error) {
-          return ([
-            { type: 'registration-receipt', id: result.id },
-            { type: 'form', id: item.formId },
-          ]);
-        }
-      },
+      invalidatesTags: [{ type: 'registration-receipt', id: 'MY' }],
       query: ({ formId, ...body }) => ({
         url: `fsm/registration/${formId}/register/`,
         method: 'POST',

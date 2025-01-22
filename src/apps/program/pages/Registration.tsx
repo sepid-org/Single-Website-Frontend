@@ -1,29 +1,32 @@
 import { Stack, Grid } from '@mui/material';
 import React, { FC, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Stepper from 'commons/components/organisms/Stepper';
 import Layout from 'commons/template/Layout';
 import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 
-type RegistrationProcessPropsType = {}
+type PropsType = {}
 
-const RegistrationProcess: FC<RegistrationProcessPropsType> = ({ }) => {
+const Registration: FC<PropsType> = ({ }) => {
+  const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
+  const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
 
   const {
     currentStepNameIndex,
     lastActiveStepIndex,
     steps,
-  } = useRegistrationSteps({ program });
+  } = useRegistrationSteps();
 
   useEffect(() => {
-    if (currentStepNameIndex === steps.length - 1) {
-      window.location.href = `/program/${programSlug}/`;
+    if (registrationReceipt?.is_participating) {
+      navigate(`/program/${programSlug}/`);
     }
-  }, [currentStepNameIndex, steps])
+  }, [registrationReceipt])
 
   return (
     <Layout appbarMode='PROGRAM'>
@@ -43,4 +46,4 @@ const RegistrationProcess: FC<RegistrationProcessPropsType> = ({ }) => {
   );
 };
 
-export default RegistrationProcess;
+export default Registration;

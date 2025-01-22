@@ -30,7 +30,7 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
   useEffect(() => {
     const shouldRedirectToRegistrationForm = isReceiptError || (isReceiptSuccess && !receipt.is_participating);
     if (shouldRedirectToRegistrationForm) {
-      navigate(`/program/${programSlug}/form/`);
+      navigate(`/program/${programSlug}/registration/`);
     }
   }, [isReceiptError, isReceiptSuccess, receipt]);
 

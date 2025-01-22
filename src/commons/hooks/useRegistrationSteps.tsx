@@ -4,20 +4,17 @@ import RegistrationForm from 'commons/template/RegistrationForm';
 import RegistrationStatus from 'commons/template/RegistrationStatus';
 import Payment from 'commons/template/Payment';
 import { RegistrationStepNameType, RegistrationStepType } from 'commons/types/global';
-import { ProgramType } from 'commons/types/models';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';
+import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { useParams } from 'react-router-dom';
 
-type propsType = {
-  program: ProgramType;
-}
-
-const useRegistrationSteps = ({
-  program,
-}: propsType) => {
+const useRegistrationSteps = () => {
+  const { programSlug } = useParams();
+  const { data: program } = useGetProgramQuery({ programSlug });
   const [currentStepNameIndex, setCurrentStepIndex] = useState<number>(0);
   const [lastActiveStepIndex, setLastActiveIndex] = useState<number>(0);
   const [steps, setSteps] = useState<RegistrationStepType[]>([]);
