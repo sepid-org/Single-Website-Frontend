@@ -6,13 +6,25 @@ type ValidateRegistrationInputType = {
   status: RegistrationReceiptTypes;
 }
 
+type ConfirmRegistrationInputType = {
+  receiptId: number;
+};
+
 const RegistrationSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    validateRegistrationReceipt: builder.mutation<void, ValidateRegistrationInputType>({
+    updateRegistrationStatus: builder.mutation<void, ValidateRegistrationInputType>({
       query: ({ receiptId, ...props }) => ({
-        url: `/fsm/receipts/${receiptId}/validate/`,
+        url: `/fsm/receipts/${receiptId}/update-registration-status/`,
         method: 'POST',
         body: props,
+      }),
+      invalidatesTags: ['registration-receipt'],
+    }),
+
+    confirmRegistration: builder.mutation<void, ConfirmRegistrationInputType>({
+      query: ({ receiptId }) => ({
+        url: `/fsm/receipts/${receiptId}/confirm-registration/`,
+        method: 'POST',
       }),
       invalidatesTags: ['registration-receipt'],
     }),
@@ -20,5 +32,6 @@ const RegistrationSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useValidateRegistrationReceiptMutation,
+  useUpdateRegistrationStatusMutation,
+  useConfirmRegistrationMutation,
 } = RegistrationSlice;

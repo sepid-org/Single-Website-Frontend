@@ -113,5 +113,6 @@ export const persianMessages = { //todo: handle english
   '6004': 'با توجه به پایه‌ی تحصیلی‌تان، شما مجاز به شرکت در این رویداد نیستید.',
 
   'No active account found with the given credentials': 'کاربری با این مشخصات وجود ندارد.',
-  'ERR_FSM_PARTICIPATION_LIMIT_EXCEEDED': 'شما به سقف تعداد شرکت در این کارگاه رسیده‌اید.'
+  'ERR_FSM_PARTICIPATION_LIMIT_EXCEEDED': 'شما به سقف تعداد شرکت در این کارگاه رسیده‌اید.',
+  'REGISTRATION_NOT_ACCEPTED': "فقط ثبت‌نام‌های تایید‌شده می‌توانند نهایی شوند.",
 }

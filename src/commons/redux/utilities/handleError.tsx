@@ -23,7 +23,7 @@ const normalizeFetchError = (error: FetchBaseQueryError): ErrorResponse => {
       data: error.data as ErrorResponse['data'],
       message: error.status === 'FETCH_ERROR'
         ? 'خطا در برقراری ارتباط با سرور'
-        : error.data?.['error'] || undefined
+        : error.data?.['error'] || error.data?.['detail'] || error.data?.['error_code'] || error.data?.['code'] || undefined
     };
   }
 
@@ -71,11 +71,11 @@ const handleTokenExpiration = (dispatch: (action: { type: string }) => void) => 
 const getLocalizedErrorMessage = (errorData?: NonNullable<ErrorResponse['data']>): string => {
   if (!errorData) return 'خطای نامشخص';
 
+  const temp = errorData.code || errorData.detail || errorData.error_code || errorData.error;
+
   return (
-    persianMessages[errorData.code as string] ||
-    persianMessages[errorData.detail as string] ||
-    errorData.detail ||
-    errorData.code ||
+    persianMessages[temp] ||
+    temp ||
     'خطای نامشخص'
   );
 };
@@ -167,7 +167,7 @@ const handleError = ({
   }
 
   // Handle specific error codes or details
-  if (normalizedError.data?.code) {
+  if (normalizedError.data) {
     toast.error(getLocalizedErrorMessage(normalizedError.data));
     return;
   }

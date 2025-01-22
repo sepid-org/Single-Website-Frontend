@@ -23,8 +23,12 @@ import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import convertToPersianDate from 'commons/utils/convertToPersianDate';
 import { stringToColor } from 'commons/utils/stringToColor';
-import { useValidateRegistrationReceiptMutation } from '../redux/features/program/Registration';
+import {
+  useUpdateRegistrationStatusMutation,
+  useConfirmRegistrationMutation,
+} from '../redux/features/program/Registration';
 import { RegistrationReceiptTypes } from 'commons/types/models';
+import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 
 type RegistrationReceiptPropsType = {}
 
@@ -34,7 +38,10 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
   const { receiptId } = useParams();
   const [status, setStatus] = useState<RegistrationReceiptTypes>(null);
   const { data: registrationReceipt } = useGetReceiptQuery({ receiptId });
-  const [validateRegistrationReceipt, validateRegistrationResult] = useValidateRegistrationReceiptMutation()
+  const [updateRegistrationStatus, updateRegistrationStatusResult] = useUpdateRegistrationStatusMutation()
+  const [openConfirmRegistrationStatus, setOpenConfirmRegistrationStatus] = useState(false);
+  const [confirmRegistration, confirmRegistrationResult] = useConfirmRegistrationMutation()
+  const userInfo = registrationReceipt?.user;
 
   useEffect(() => {
     if (registrationReceipt?.status) {
@@ -42,21 +49,30 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     }
   }, [registrationReceipt])
 
+
   useEffect(() => {
-    if (validateRegistrationResult.isSuccess) {
-      toast.success('وضعیت رسید ثبت‌نام با موفقیت ثبت شد.')
+    if (confirmRegistrationResult.isSuccess) {
+      toast.success('وضعیت ثبت‌نام با موفقیت قطعی شد.')
     }
-  }, [validateRegistrationResult])
+  }, [confirmRegistrationResult])
 
-  const userInfo = registrationReceipt?.user;
-  const answers = registrationReceipt?.answers;
+  useEffect(() => {
+    if (updateRegistrationStatusResult.isSuccess) {
+      toast.success('وضعیت ثبت‌نام با موفقیت به‌روز شد.')
+    }
+  }, [updateRegistrationStatusResult])
 
-  const handleButtonClick = () => {
+
+  const handleConfirmRegistration = () => {
+    confirmRegistration({ receiptId: parseInt(receiptId) });
+  }
+
+  const handleUpdateRegistrationStatus = () => {
     if (!status) {
       toast.error('لطفاً وضعیت ثبت‌نام را تعیین کن!');
       return;
     }
-    validateRegistrationReceipt({ receiptId: parseInt(receiptId), status });
+    updateRegistrationStatus({ receiptId: parseInt(receiptId), status });
   }
 
   return (
@@ -108,39 +124,56 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                     <Typography >{`ایمیل: ${userInfo.email ? userInfo.email : '؟'}`}</Typography>
                   </Grid>
                 </Grid>
-                {status &&
-                  <Fragment>
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel>وضعیت ثبت‌نام</InputLabel>
-                      <Select
-                        value={status}
-                        // todo: it also should be disabled when registrationForm.accepting_status === AutoAccept
-                        disabled={registrationReceipt?.is_participating}
-                        onChange={(e) => setStatus(e.target.value as RegistrationReceiptTypes)}
-                        name='status'
-                        label='وضعیت ثبت‌نام'>
-                        <MenuItem value={'Waiting'} >{'منتظر'}</MenuItem>
-                        <MenuItem value={'Accepted'} >{'مجاز به پرداخت'}</MenuItem>
-                        <MenuItem value={'Rejected'} >{'ردشده'}</MenuItem>
-                      </Select>
-                    </FormControl >
-                    <Box mt={1}>
-                      <Button
-                        disabled={registrationReceipt?.is_participating}
-                        fullWidth variant='contained'
-                        onClick={handleButtonClick}
-                        color='primary'>
-                        {registrationReceipt?.is_participating ? 'ثبت‌نام قطعی است' : 'ثبت'}
-                      </Button>
-                    </Box>
-                  </Fragment>
-                }
+
+                <Stack direction="row">
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>وضعیت ثبت‌نام</InputLabel>
+                    <Select
+                      sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                      value={status || ''}
+                      disabled={registrationReceipt?.is_participating}
+                      onChange={(e) => setStatus(e.target.value as RegistrationReceiptTypes)}
+                      name="status"
+                      label="وضعیت ثبت‌نام"
+                    >
+                      <MenuItem value="Waiting">منتظر</MenuItem>
+                      <MenuItem value="Accepted">تایید‌شده</MenuItem>
+                      <MenuItem value="Rejected">ردشده</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Button
+                    disableElevation
+                    sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                    disabled={registrationReceipt?.is_participating}
+                    variant="contained"
+                    onClick={handleUpdateRegistrationStatus}
+                    color="primary"
+                  >
+                    {'ثبت'}
+                  </Button>
+                </Stack>
+
+                <Button
+                  disabled={registrationReceipt?.is_participating}
+                  variant="contained"
+                  onClick={() => setOpenConfirmRegistrationStatus(true)}
+                  color="primary"
+                >
+                  {registrationReceipt?.is_participating ? 'ثبت‌نام قطعی است' : 'قطعی‌کردن ثبت‌نام'}
+                </Button>
+
               </Fragment>
             }
           </Stack>
         </Grid>
       </Grid>
-    </Layout >
+      <AreYouSure
+        open={openConfirmRegistrationStatus}
+        handleClose={() => setOpenConfirmRegistrationStatus(false)}
+        text='با قطعی‌کردن ثبت‌نام، کاربر در دوره ثبت‌نام می‌شود و نیازی به پرداخت نخواهد داشت.'
+        callBackFunction={handleConfirmRegistration}
+      />
+    </Layout>
   );
 }
 
