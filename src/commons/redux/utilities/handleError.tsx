@@ -8,7 +8,6 @@ interface ErrorResponse {
   status: number | string;
   data?: {
     code?: string;
-    detail?: string;
     [key: string]: any;
   };
   message?: string;
@@ -69,15 +68,8 @@ const handleTokenExpiration = (dispatch: (action: { type: string }) => void) => 
 
 // Get localized error message
 const getLocalizedErrorMessage = (errorData?: NonNullable<ErrorResponse['data']>): string => {
-  if (!errorData) return 'خطای نامشخص';
-
-  const temp = errorData.code || errorData.detail || errorData.error_code || errorData.error;
-
-  return (
-    persianMessages[temp] ||
-    temp ||
-    'خطای نامشخص'
-  );
+  const temp = errorData.code || errorData.error_code;
+  return (persianMessages[temp] || temp);
 };
 
 // Handle form field-specific errors
@@ -168,8 +160,11 @@ const handleError = ({
 
   // Handle specific error codes or details
   if (normalizedError.data) {
-    toast.error(getLocalizedErrorMessage(normalizedError.data));
-    return;
+    const message = getLocalizedErrorMessage(normalizedError.data);
+    if (message) {
+      toast.error(message);
+      return;
+    }
   }
 
   // todo: forms-related errors should be handled by form component
