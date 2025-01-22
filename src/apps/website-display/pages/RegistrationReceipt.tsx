@@ -13,12 +13,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router-dom';
-import {
-  validateRegistrationReceiptAction,
-} from 'apps/website-display/redux/slices/programs'
 import { faSeri } from 'commons/utils/translateNumber';
 import Layout from 'commons/template/Layout';
 import { toast } from 'react-toastify';
@@ -27,18 +23,18 @@ import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import convertToPersianDate from 'commons/utils/convertToPersianDate';
 import { stringToColor } from 'commons/utils/stringToColor';
+import { useValidateRegistrationReceiptMutation } from '../redux/features/program/Registration';
+import { RegistrationReceiptTypes } from 'commons/types/models';
 
-type RegistrationReceiptPropsType = {
-  validateRegistrationReceipt: any;
-}
+type RegistrationReceiptPropsType = {}
 
 const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
-  validateRegistrationReceipt,
 }) => {
   const t = useTranslate();
   const { receiptId } = useParams();
-  const [status, setStatus] = useState<string>(null);
+  const [status, setStatus] = useState<RegistrationReceiptTypes>(null);
   const { data: registrationReceipt } = useGetReceiptQuery({ receiptId });
+  const [validateRegistrationReceipt, validateRegistrationResult] = useValidateRegistrationReceiptMutation({})
 
   useEffect(() => {
     if (registrationReceipt?.status) {
@@ -46,15 +42,21 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     }
   }, [registrationReceipt])
 
+  useEffect(() => {
+    if (validateRegistrationResult.isSuccess) {
+      toast.success('وضعیت رسید ثبت‌نام با موفقیت ثبت شد.')
+    }
+  }, [validateRegistrationResult])
+
   const userInfo = registrationReceipt?.user;
   const answers = registrationReceipt?.answers;
 
   const handleButtonClick = () => {
     if (!status) {
-      toast.error('لطفاً وضعیت را تعیین کن!');
+      toast.error('لطفاً وضعیت ثبت‌نام را تعیین کن!');
       return;
     }
-    validateRegistrationReceipt({ receiptId: receiptId, status });
+    validateRegistrationReceipt({ receiptId: parseInt(receiptId), status });
   }
 
   return (
@@ -114,7 +116,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                         value={status}
                         // todo: it also should be disabled when registrationForm.accepting_status === AutoAccept
                         disabled={registrationReceipt?.is_participating}
-                        onChange={(e) => setStatus(e.target.value)}
+                        onChange={(e) => setStatus(e.target.value as RegistrationReceiptTypes)}
                         name='status'
                         label='وضعیت ثبت‌نام'>
                         <MenuItem value={'Waiting'} >{'منتظر'}</MenuItem>
@@ -142,6 +144,4 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
   );
 }
 
-export default connect(null, {
-  validateRegistrationReceipt: validateRegistrationReceiptAction,
-})(RegistrationReceipt);
+export default RegistrationReceipt;

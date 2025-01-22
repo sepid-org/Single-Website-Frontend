@@ -57,17 +57,6 @@ export const registerUsersViaCSVAction = createAsyncThunkApi(
   }
 );
 
-export const validateRegistrationReceiptAction = createAsyncThunkApi(
-  'programs/validateRegistrationReceiptAction',
-  Apis.POST,
-  validateRegistrationReceiptUrl,
-  {
-    defaultNotification: {
-      success: 'وضعیت رسید ثبت‌نام با موفقیت ثبت شد.',
-    },
-  }
-);
-
 export const getPlayerFromTeamAction = createAsyncThunkApi(
   'programs/getPlayerFromTeamAction',
   Apis.POST,
