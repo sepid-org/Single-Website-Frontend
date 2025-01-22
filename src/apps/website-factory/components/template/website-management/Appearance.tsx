@@ -1,13 +1,11 @@
 import { Grid, Typography } from '@mui/material';
 import React, { Fragment, FC } from 'react';
-import { useParams } from 'react-router-dom';
 
 type AppearanceTabPropsType = {
 }
 
 const AppearanceTab: FC<AppearanceTabPropsType> = ({
 }) => {
-  const { websiteName } = useParams();
 
   return (
     <Fragment>
