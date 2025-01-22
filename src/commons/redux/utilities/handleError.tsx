@@ -23,7 +23,7 @@ const normalizeFetchError = (error: FetchBaseQueryError): ErrorResponse => {
       data: error.data as ErrorResponse['data'],
       message: error.status === 'FETCH_ERROR'
         ? 'خطا در برقراری ارتباط با سرور'
-        : undefined
+        : error.data?.['error'] || undefined
     };
   }
 
