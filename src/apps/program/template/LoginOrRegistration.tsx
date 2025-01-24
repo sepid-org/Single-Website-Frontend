@@ -58,7 +58,6 @@ const LoginOrRegistration: FC<PropsType> = ({
   useEffect(() => {
     if (simpleLoginResult.isSuccess || otpLoginResult.isSuccess) {
       onSuccessfulSubmission()
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     }
   }, [simpleLoginResult, otpLoginResult])
 
@@ -67,9 +66,9 @@ const LoginOrRegistration: FC<PropsType> = ({
   }
 
   return (
-    <Container maxWidth='xs'>
-      <Stack spacing={2}>
-        <Typography variant='h2' paddingBottom={2}>{'ورود | ثبت‌نام'}</Typography>
+    <Stack spacing={2} alignItems={'center'}>
+      <Typography textAlign={'start'} variant='h2' paddingBottom={2}>{'ورود | ثبت‌نام'}</Typography>
+      <Stack width={'100%'} maxWidth={440} spacing={2}>
         <Stack direction={'row'}>
           <UsernameField
             InputProps={{ sx: { borderTopRightRadius: 0, borderBottomRightRadius: 0 }, disabled: hasSubmittedUsername }}
@@ -88,15 +87,12 @@ const LoginOrRegistration: FC<PropsType> = ({
             variant='contained'
             onClick={handleCheckUserRegistration}
           >
-            {hasSubmittedUsername ? 'ثبت مجدد' : 'ثبت'}
+            {hasSubmittedUsername ? 'اصلاح شماره' : 'ثبت'}
           </Button>
         </Stack>
-        {isRegistered === true &&
+        {hasSubmittedUsername && isRegistered === true &&
           <>
-            <PasswordField
-              onChange={(event) => setPassword(event.target.value)}
-              resetPasswordLink='/reset-password/'
-            />
+            <PasswordField onChange={(event) => setPassword(event.target.value)} />
             <Button
               fullWidth
               variant='contained'
@@ -106,7 +102,7 @@ const LoginOrRegistration: FC<PropsType> = ({
             </Button>
           </>
         }
-        {isRegistered === false &&
+        {hasSubmittedUsername && isRegistered === false &&
           <>
             <VerificationCodeField
               onChange={(event) => setVerificationCode(event.target.value)}
@@ -121,7 +117,7 @@ const LoginOrRegistration: FC<PropsType> = ({
           </>
         }
       </Stack>
-    </Container>
+    </Stack>
   );
 }
 
