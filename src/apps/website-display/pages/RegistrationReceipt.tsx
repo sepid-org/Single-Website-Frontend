@@ -137,7 +137,7 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                       label="وضعیت ثبت‌نام"
                     >
                       <MenuItem value="Waiting">منتظر</MenuItem>
-                      <MenuItem value="Accepted">تایید‌شده</MenuItem>
+                      <MenuItem value="Accepted">مجاز به پرداخت</MenuItem>
                       <MenuItem value="Rejected">ردشده</MenuItem>
                     </Select>
                   </FormControl>

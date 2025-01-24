@@ -12,7 +12,7 @@ import convertToPersianDate from 'commons/utils/convertToPersianDate';
 
 const STATUS = {
   Waiting: 'منتظر',
-  Accepted: 'تایید‌شده',
+  Accepted: 'مجاز به پرداخت',
   Rejected: 'رد‌شده',
 }
 
