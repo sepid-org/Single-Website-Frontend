@@ -100,6 +100,13 @@ type GetVerificationCodeOutputType = void;
 
 export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
+    checkUserRegistration: builder.query<{ is_registered: boolean }, { username: string }>({
+      query: ({ username }) => ({
+        url: 'auth/accounts/check-user-registration/',
+        params: { username },
+      }),
+    }),
+
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsAcrossApis(),
@@ -147,7 +154,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['player', 'registration-receipt', { type: 'Profile', id: 'MY' }]),
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/simple-login/',
@@ -225,6 +232,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useLazyCheckUserRegistrationQuery,
   useCheckAuthenticationQuery,
   useSimpleLoginMutation,
   useGoogleLoginMutation,

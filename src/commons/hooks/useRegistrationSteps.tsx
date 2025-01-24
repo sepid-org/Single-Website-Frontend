@@ -12,6 +12,8 @@ import Payment from 'commons/template/Payment';
 import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';
+import useUserAuthentication from './useUserAuthentication';
+import LoginOrRegistration from 'apps/program/template/LoginOrRegistration';
 
 const useRegistrationSteps = () => {
   const { programSlug } = useParams();
@@ -24,6 +26,7 @@ const useRegistrationSteps = () => {
     { formId: program?.registration_form },
     { skip: !Boolean(program?.registration_form) }
   );
+  const { isAuthenticated } = useUserAuthentication();
 
   const [currentStepNameIndex, setCurrentStepIndex] = useState<number>(0);
   const [lastActiveStepIndex, setLastActiveIndex] = useState<number>(0);
@@ -48,14 +51,21 @@ const useRegistrationSteps = () => {
       goToStep(currentStepNameIndex + 1);
     };
 
-    const _steps: RegistrationStepType[] = [
-      {
-        name: 'user-setting',
-        label: 'تکمیل اطلاعات شخصی',
-        component: <UserSetting isInForm={true} onSuccessfulSubmission={goToNextStep} />,
-        onClick: () => goToStep(getStepIndex('user-setting')),
-      }
-    ];
+    const _steps: RegistrationStepType[] = [];
+
+    _steps.push({
+      name: 'login | registration',
+      label: 'ورود | ثبت‌نام',
+      component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
+      onClick: () => { },
+    })
+
+    _steps.push({
+      name: 'user-setting',
+      label: 'تکمیل اطلاعات شخصی',
+      component: <UserSetting isInForm={true} onSuccessfulSubmission={goToNextStep} />,
+      onClick: () => goToStep(getStepIndex('user-setting')),
+    });
 
     if (registrationForm.audience_type === 'Student') {
       _steps.push({
@@ -107,19 +117,25 @@ const useRegistrationSteps = () => {
       component: null,
     });
 
-    if (isFirstRender && registrationReceipt) {
-      const receiptStatus = registrationReceipt.status;
-      if (['Waiting', 'Rejected'].includes(receiptStatus)) {
-        goToStep(getStepIndex('status'));
-      }
-      if (!program.is_free && receiptStatus === 'Accepted') {
-        goToStep(getStepIndex('payment'));
+    if (isAuthenticated) {
+      goToStep(getStepIndex('user-setting'));
+    }
+
+    if (isFirstRender) {
+      if (registrationReceipt) {
+        const receiptStatus = registrationReceipt.status;
+        if (['Waiting', 'Rejected'].includes(receiptStatus)) {
+          goToStep(getStepIndex('status'));
+        }
+        if (!program.is_free && receiptStatus === 'Accepted') {
+          goToStep(getStepIndex('payment'));
+        }
       }
       setIsFirstRender(false);
     }
 
     setSteps(_steps);
-  }, [program, registrationForm, currentStepNameIndex, lastActiveStepIndex, registrationReceipt]);
+  }, [program, registrationForm, currentStepNameIndex, lastActiveStepIndex, registrationReceipt, isAuthenticated]);
 
   return {
     currentStepNameIndex,

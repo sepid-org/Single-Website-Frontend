@@ -88,7 +88,7 @@ const ResetPassword: FC<ResetPasswordPropsType> = ({ }) => {
               verificationType='change-user-password'
             />
 
-            <PasswordField label='گذرواژه جدید' collectData={collectData} />
+            <PasswordField label='گذرواژه جدید' onChange={collectData} />
 
             <Button
               onClick={handleChangePassword}
