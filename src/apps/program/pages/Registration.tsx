@@ -13,7 +13,7 @@ type PropsType = {}
 const Registration: FC<PropsType> = ({ }) => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
-  const { data: program } = useGetProgramQuery({ programSlug });
+  const { data: program, isLoading: isGetProgramLoading } = useGetProgramQuery({ programSlug });
   const { data: registrationReceipt, isLoading: isRegistrationReceiptLoading } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
 
   const {
@@ -28,7 +28,7 @@ const Registration: FC<PropsType> = ({ }) => {
     }
   }, [registrationReceipt]);
 
-  if (isRegistrationReceiptLoading) {
+  if (isGetProgramLoading || isRegistrationReceiptLoading) {
     return;
   }
 

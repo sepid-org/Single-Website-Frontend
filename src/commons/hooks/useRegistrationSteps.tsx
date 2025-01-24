@@ -31,13 +31,11 @@ const useRegistrationSteps = () => {
   const [currentStepNameIndex, setCurrentStepIndex] = useState<number>(0);
   const [lastActiveStepIndex, setLastActiveIndex] = useState<number>(0);
   const [steps, setSteps] = useState<RegistrationStepType[]>([]);
-  const [isFirstRender, setIsFirstRender] = useState(true);
+  const [isInitialStepSat, setIsInitialStepSat] = useState(false);
 
-  useEffect(() => {
-    if (!program || !registrationForm) return;
-
+  const createStepNavigationHandlers = () => {
     const getStepIndex = (stepName: RegistrationStepNameType): number => {
-      return _steps.findIndex(step => step.name === stepName);
+      return steps.findIndex(step => step.name === stepName);
     };
 
     const goToStep = (destinationStepIndex: number) => {
@@ -51,41 +49,48 @@ const useRegistrationSteps = () => {
       goToStep(currentStepNameIndex + 1);
     };
 
-    const _steps: RegistrationStepType[] = [];
+    return { getStepIndex, goToStep, goToNextStep };
+  };
 
-    _steps.push({
-      name: 'login | registration',
-      label: 'ورود | ثبت‌نام',
-      component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
-      onClick: () => { },
-    })
+  const buildRegistrationSteps = (
+    form: any,
+    programDetails: any,
+    { goToStep, goToNextStep }: ReturnType<typeof createStepNavigationHandlers>
+  ): RegistrationStepType[] => {
+    const steps: RegistrationStepType[] = [
+      {
+        name: 'login | registration',
+        label: 'ورود | ثبت‌نام',
+        component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
+        onClick: () => { },
+      },
+      {
+        name: 'user-setting',
+        label: 'تکمیل اطلاعات شخصی',
+        component: <UserSetting isInForm={true} onSuccessfulSubmission={goToNextStep} />,
+        onClick: () => goToStep(steps.findIndex(step => step.name === 'user-setting')),
+      }
+    ];
 
-    _steps.push({
-      name: 'user-setting',
-      label: 'تکمیل اطلاعات شخصی',
-      component: <UserSetting isInForm={true} onSuccessfulSubmission={goToNextStep} />,
-      onClick: () => goToStep(getStepIndex('user-setting')),
-    });
-
-    if (registrationForm.audience_type === 'Student') {
-      _steps.push({
+    if (form.audience_type === 'Student') {
+      steps.push({
         name: 'school-setting',
         label: 'تکمیل اطلاعات دانش‌آموزی',
         component: <SchoolSetting isInForm={true} onSuccessfulSubmission={goToNextStep} />,
-        onClick: () => goToStep(getStepIndex('school-setting'))
+        onClick: () => goToStep(steps.findIndex(step => step.name === 'school-setting'))
       });
     }
 
-    if (registrationForm.audience_type === 'Academic') {
-      _steps.push({
+    if (form.audience_type === 'Academic') {
+      steps.push({
         name: 'university-setting',
         label: 'تکمیل اطلاعات دانشجویی',
         component: <UniversitySetting onSuccessfulSubmission={goToNextStep} />,
-        onClick: () => goToStep(getStepIndex('university-setting'))
+        onClick: () => goToStep(steps.findIndex(step => step.name === 'university-setting'))
       });
     }
 
-    _steps.push({
+    steps.push({
       name: 'form',
       label: 'ثبت‌نام در دوره',
       disabled: true,
@@ -93,45 +98,75 @@ const useRegistrationSteps = () => {
       onClick: () => { },
     });
 
-    if (registrationForm.accepting_status === 'Manual') {
-      _steps.push({
+    if (form.accepting_status === 'Manual') {
+      steps.push({
         name: 'status',
         label: 'وضعیت ثبت‌نام',
         component: <RegistrationStatus />,
-        onClick: () => goToStep(getStepIndex('status')),
+        onClick: () => goToStep(steps.findIndex(step => step.name === 'status')),
       });
     }
 
-    if (!program.is_free) {
-      _steps.push({
+    if (!programDetails.is_free) {
+      steps.push({
         name: 'payment',
         label: 'پرداخت هزینه',
         component: <Payment />,
-        onClick: () => goToStep(getStepIndex('payment')),
+        onClick: () => goToStep(steps.findIndex(step => step.name === 'payment')),
       });
     }
 
-    _steps.push({
+    steps.push({
       name: 'program',
       label: 'ورود به دوره',
       component: null,
     });
 
+    return steps;
+  };
+
+  const determineInitialStep = (
+    steps: RegistrationStepType[],
+    { goToStep }: ReturnType<typeof createStepNavigationHandlers>,
+    { program, receipt, isAuthenticated }: {
+      program: any,
+      receipt: any,
+      isAuthenticated: boolean
+    }
+  ) => {
+    const receiptStatus = receipt?.status;
+
     if (isAuthenticated) {
-      goToStep(getStepIndex('user-setting'));
+      goToStep(steps.findIndex(step => step.name === 'user-setting'));
+      return true;
     }
 
-    if (isFirstRender) {
-      if (registrationReceipt) {
-        const receiptStatus = registrationReceipt.status;
-        if (['Waiting', 'Rejected'].includes(receiptStatus)) {
-          goToStep(getStepIndex('status'));
-        }
-        if (!program.is_free && receiptStatus === 'Accepted') {
-          goToStep(getStepIndex('payment'));
-        }
-      }
-      setIsFirstRender(false);
+    if (['Waiting', 'Rejected'].includes(receiptStatus)) {
+      goToStep(steps.findIndex(step => step.name === 'status'));
+      return true;
+    }
+
+    if (!program.is_free && receiptStatus === 'Accepted') {
+      goToStep(steps.findIndex(step => step.name === 'payment'));
+      return true;
+    }
+
+    return false;
+  };
+
+  useEffect(() => {
+    if (!program || !registrationForm) return;
+
+    const navigationHandlers = createStepNavigationHandlers();
+    const _steps = buildRegistrationSteps(registrationForm, program, navigationHandlers);
+
+    if (!isInitialStepSat) {
+      const initialStepSet = determineInitialStep(_steps, navigationHandlers, {
+        program,
+        receipt: registrationReceipt,
+        isAuthenticated
+      });
+      setIsInitialStepSat(initialStepSet);
     }
 
     setSteps(_steps);
