@@ -114,5 +114,5 @@ export const persianMessages = { //todo: handle english
 
   'No active account found with the given credentials': 'کاربری با این مشخصات وجود ندارد.',
   'ERR_FSM_PARTICIPATION_LIMIT_EXCEEDED': 'شما به سقف تعداد شرکت در این کارگاه رسیده‌اید.',
-  'REGISTRATION_NOT_ACCEPTED': "فقط ثبت‌نام‌های تایید‌شده می‌توانند نهایی شوند.",
+  'REGISTRATION_NOT_ACCEPTED': "فقط ثبت‌نامی‌هایی که مجاز به پرداخت هستند، می‌توانند نهایی شوند.",
 }
