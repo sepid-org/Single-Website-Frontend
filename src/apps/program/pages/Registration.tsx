@@ -14,7 +14,7 @@ const Registration: FC<PropsType> = ({ }) => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
+  const { data: registrationReceipt, isLoading: isRegistrationReceiptLoading } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
 
   const {
     currentStepNameIndex,
@@ -26,7 +26,11 @@ const Registration: FC<PropsType> = ({ }) => {
     if (registrationReceipt?.is_participating) {
       navigate(`/program/${programSlug}/`);
     }
-  }, [registrationReceipt])
+  }, [registrationReceipt]);
+
+  if (isRegistrationReceiptLoading) {
+    return;
+  }
 
   return (
     <Layout appbarMode='PROGRAM'>
