@@ -10,11 +10,23 @@ import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/R
 
 type PropsType = {}
 
-const Registration: FC<PropsType> = ({ }) => {
+const Registration: FC<PropsType> = () => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
-  const { data: program, isLoading: isGetProgramLoading } = useGetProgramQuery({ programSlug });
-  const { data: registrationReceipt, isLoading: isRegistrationReceiptLoading } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
+
+  // Group related queries together
+  const {
+    data: program,
+    isLoading: isGetProgramLoading,
+  } = useGetProgramQuery({ programSlug });
+
+  const {
+    data: registrationReceipt,
+    isLoading: isRegistrationReceiptLoading
+  } = useGetMyReceiptQuery(
+    { formId: program?.registration_form },
+    { skip: !program?.registration_form }
+  );
 
   const {
     currentStepNameIndex,
@@ -22,22 +34,33 @@ const Registration: FC<PropsType> = ({ }) => {
     steps,
   } = useRegistrationSteps();
 
+  // Handle successful registration
   useEffect(() => {
     if (registrationReceipt?.is_participating) {
       navigate(`/program/${programSlug}/`);
     }
-  }, [registrationReceipt]);
+  }, [registrationReceipt, programSlug, navigate]);
 
+  // Handle loading state
   if (isGetProgramLoading || isRegistrationReceiptLoading) {
     return;
   }
 
   return (
     <Layout appbarMode='PROGRAM'>
-      <Grid container spacing={2}
+      <Grid
+        container
+        spacing={2}
         alignItems={{ xs: 'center', md: 'start' }}
-        justifyContent={{ xs: 'center', md: 'flex-start' }}>
-        <Grid item xs={12} md={3} position={{ xs: null, md: 'sticky' }} top={0}>
+        justifyContent={{ xs: 'center', md: 'flex-start' }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={3}
+          position={{ xs: 'static', md: 'sticky' }}
+          top={0}
+        >
           <Stepper steps={steps} activeStepIndex={lastActiveStepIndex} />
         </Grid>
         <Grid item xs={12} md={9}>
@@ -46,7 +69,7 @@ const Registration: FC<PropsType> = ({ }) => {
           </Stack>
         </Grid>
       </Grid>
-    </Layout >
+    </Layout>
   );
 };
 
