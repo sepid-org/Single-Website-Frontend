@@ -2,7 +2,7 @@ import { Stack, Grid } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Stepper from 'commons/components/organisms/Stepper';
+import MyStepper from 'commons/components/organisms/MyStepper';
 import Layout from 'commons/template/Layout';
 import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
@@ -14,7 +14,6 @@ const Registration: FC<PropsType> = () => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
 
-  // Group related queries together
   const {
     data: program,
     isLoading: isGetProgramLoading,
@@ -34,14 +33,12 @@ const Registration: FC<PropsType> = () => {
     steps,
   } = useRegistrationSteps();
 
-  // Handle successful registration
   useEffect(() => {
     if (registrationReceipt?.is_participating) {
       navigate(`/program/${programSlug}/`);
     }
   }, [registrationReceipt, programSlug, navigate]);
 
-  // Handle loading state
   if (isGetProgramLoading || isRegistrationReceiptLoading) {
     return;
   }
@@ -61,7 +58,7 @@ const Registration: FC<PropsType> = () => {
           position={{ xs: 'static', md: 'sticky' }}
           top={0}
         >
-          <Stepper steps={steps} activeStepIndex={lastActiveStepIndex} />
+          <MyStepper steps={steps} activeStepIndex={lastActiveStepIndex} />
         </Grid>
         <Grid item xs={12} md={9}>
           <Stack>
