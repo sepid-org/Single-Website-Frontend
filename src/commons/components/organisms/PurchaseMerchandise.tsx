@@ -28,6 +28,8 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
     if (purchaseResult.isSuccess) {
       if (purchaseResult.data.is_payment_required) {
         window.location.href = purchaseResult.data.payment_link;
+      } else {
+        toast.success('ثبت‌نامت با موفقیت انجام شد')
       }
     }
   }, [purchaseResult])
