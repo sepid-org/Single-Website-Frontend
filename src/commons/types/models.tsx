@@ -245,7 +245,6 @@ export type PurchaseType = {
   discount_code: string;
   id: string;
   merchandise: string;
-  payment_link: string;
   ref_id?: string;
   status: 'Started' | 'Success' | 'Repetitious' | 'Failed';
   uniq_code: string;

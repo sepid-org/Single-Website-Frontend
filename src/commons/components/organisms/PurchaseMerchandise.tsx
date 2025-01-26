@@ -26,10 +26,9 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
 
   useEffect(() => {
     if (purchaseResult.isSuccess) {
-      toast.success('در حال انتقال به صفحه‌ی پرداخت...');
-      setTimeout(() => {
+      if (purchaseResult.data.is_payment_required) {
         window.location.href = purchaseResult.data.payment_link;
-      }, 3000);
+      }
     }
   }, [purchaseResult])
 
@@ -40,7 +39,7 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
     }
   }, [applyDiscountCodeResult])
 
-  const goForPurchase = () => {
+  const handlePurchase = () => {
     purchase({ merchandiseId: merchandise.id, discountCode });
   };
 
@@ -104,7 +103,7 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
                 fullWidth
                 variant="contained"
                 color="primary"
-                onClick={goForPurchase}>
+                onClick={handlePurchase}>
                 {'پرداخت'}
               </Button>
             </Stack>
