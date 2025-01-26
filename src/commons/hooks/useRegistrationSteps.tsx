@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { RegistrationStepNameType, RegistrationStepType } from 'commons/types/global';
+import { RegistrationStepType } from 'commons/types/global';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
@@ -28,40 +28,54 @@ const useRegistrationSteps = () => {
   );
   const { isAuthenticated } = useUserAuthentication();
 
-  const [currentStepNameIndex, setCurrentStepIndex] = useState<number>(0);
-  const [lastActiveStepIndex, setLastActiveIndex] = useState<number>(0);
   const [steps, setSteps] = useState<RegistrationStepType[]>([]);
-  const [isInitialStepSat, setIsInitialStepSat] = useState(false);
+  const [stepIndexes, setStepIndexes] = useState({
+    currentStepIndex: 0,
+    lastActiveStepIndex: 0,
+  });
 
-  const createStepNavigationHandlers = () => {
-    const getStepIndex = (stepName: RegistrationStepNameType): number => {
-      return steps.findIndex(step => step.name === stepName);
-    };
-
+  const getStepNavigationHandlers = () => {
     const goToStep = (destinationStepIndex: number) => {
-      setCurrentStepIndex(destinationStepIndex);
-      if (destinationStepIndex > lastActiveStepIndex) {
-        setLastActiveIndex(destinationStepIndex);
-      }
+      setStepIndexes(indexes => {
+        return {
+          currentStepIndex: destinationStepIndex,
+          lastActiveStepIndex: destinationStepIndex > indexes.lastActiveStepIndex ? destinationStepIndex : indexes.lastActiveStepIndex,
+        }
+      });
     };
 
     const goToNextStep = () => {
-      goToStep(currentStepNameIndex + 1);
+      setStepIndexes(indexes => {
+        const destinationStepIndex = indexes.currentStepIndex + 1;
+        return {
+          currentStepIndex: destinationStepIndex,
+          lastActiveStepIndex: destinationStepIndex > indexes.lastActiveStepIndex ? destinationStepIndex : indexes.lastActiveStepIndex,
+        }
+      });
     };
 
-    return { getStepIndex, goToStep, goToNextStep };
+    const getCurrentStepIndex = () => {
+      return stepIndexes.currentStepIndex;
+    };
+
+    return {
+      goToStep,
+      goToNextStep,
+      getCurrentStepIndex,
+    };
   };
 
   const buildRegistrationSteps = (
     form: any,
     programDetails: any,
-    { goToStep, goToNextStep }: ReturnType<typeof createStepNavigationHandlers>
+    { goToStep, goToNextStep }: ReturnType<typeof getStepNavigationHandlers>
   ): RegistrationStepType[] => {
     const steps: RegistrationStepType[] = [
       {
         name: 'login | registration',
         label: 'ورود | ثبت‌نام',
         component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
+        disabled: true,
         onClick: () => { },
       },
       {
@@ -127,54 +141,57 @@ const useRegistrationSteps = () => {
 
   const determineInitialStep = (
     steps: RegistrationStepType[],
-    { goToStep }: ReturnType<typeof createStepNavigationHandlers>,
-    { program, receipt, isAuthenticated }: {
+    { goToStep, getCurrentStepIndex }: ReturnType<typeof getStepNavigationHandlers>,
+    { program, registrationReceipt: receipt, isAuthenticated }: {
       program: any,
-      receipt: any,
+      registrationReceipt: any,
       isAuthenticated: boolean
     }
   ) => {
     const receiptStatus = receipt?.status;
 
-    if (isAuthenticated) {
-      goToStep(steps.findIndex(step => step.name === 'user-setting'));
-      return true;
+    // put conditions in reverse order
+
+    if (!program.is_free && receiptStatus === 'Accepted') {
+      if (getCurrentStepIndex() < steps.findIndex(step => step.name === 'payment')) {
+        goToStep(steps.findIndex(step => step.name === 'payment'));
+      }
+      return;
     }
 
     if (['Waiting', 'Rejected'].includes(receiptStatus)) {
-      goToStep(steps.findIndex(step => step.name === 'status'));
-      return true;
+      if (getCurrentStepIndex() < steps.findIndex(step => step.name === 'status')) {
+        goToStep(steps.findIndex(step => step.name === 'status'));
+      }
+      return;
     }
 
-    if (!program.is_free && receiptStatus === 'Accepted') {
-      goToStep(steps.findIndex(step => step.name === 'payment'));
-      return true;
+    if (isAuthenticated) {
+      if (getCurrentStepIndex() < steps.findIndex(step => step.name === 'user-setting')) {
+        goToStep(steps.findIndex(step => step.name === 'user-setting'));
+      }
+      return;
     }
-
-    return false;
   };
 
   useEffect(() => {
     if (!program || !registrationForm) return;
-
-    const navigationHandlers = createStepNavigationHandlers();
-    const _steps = buildRegistrationSteps(registrationForm, program, navigationHandlers);
-
-    if (!isInitialStepSat) {
-      const initialStepSet = determineInitialStep(_steps, navigationHandlers, {
+    const navigationHandlers = getStepNavigationHandlers();
+    const steps = buildRegistrationSteps(registrationForm, program, navigationHandlers);
+    determineInitialStep(
+      steps,
+      navigationHandlers,
+      {
         program,
-        receipt: registrationReceipt,
+        registrationReceipt,
         isAuthenticated
-      });
-      setIsInitialStepSat(initialStepSet);
-    }
-
-    setSteps(_steps);
-  }, [program, registrationForm, currentStepNameIndex, lastActiveStepIndex, registrationReceipt, isAuthenticated]);
+      }
+    );
+    setSteps(steps);
+  }, [program, registrationForm, registrationReceipt, isAuthenticated]);
 
   return {
-    currentStepNameIndex,
-    lastActiveStepIndex,
+    ...stepIndexes,
     steps,
   };
 };

@@ -31,9 +31,6 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
         window.location.href = purchaseResult.data.payment_link;
       }, 3000);
     }
-    if (purchaseResult.isError) {
-      toast.error('مشکلی در ارتباط با سرور پرداخت وجود دارد. اگر از VPN استفاده می‌کنید، آن را خاموش کن!');
-    }
   }, [purchaseResult])
 
   useEffect(() => {

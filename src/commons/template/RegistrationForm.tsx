@@ -35,11 +35,11 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
   };
 
   useEffect(() => {
-    if (submitRegistrationFormResult?.isSuccess) {
+    if (submitRegistrationFormResult.isSuccess) {
       toast.success('فرم ثبت‌نام با موفقیت تکمیل شد.')
       onSuccess?.();
     }
-    if (submitRegistrationFormResult?.isError) {
+    if (submitRegistrationFormResult.isError) {
       onFailure?.();
     }
   }, [submitRegistrationFormResult])

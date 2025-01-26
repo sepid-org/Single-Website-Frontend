@@ -29,7 +29,7 @@ const Registration: FC<PropsType> = () => {
   );
 
   const {
-    currentStepNameIndex,
+    currentStepIndex,
     lastActiveStepIndex,
     steps,
   } = useRegistrationSteps();
@@ -65,7 +65,7 @@ const Registration: FC<PropsType> = () => {
         </Grid>
         <Grid item xs={12} md={9}>
           <Stack>
-            {steps[currentStepNameIndex]?.component}
+            {steps[currentStepIndex]?.component}
           </Stack>
         </Grid>
       </Grid>
