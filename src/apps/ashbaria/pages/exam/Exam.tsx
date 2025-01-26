@@ -4,7 +4,7 @@ import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
 import ExamTemplate from "../../template/Exam";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";

@@ -7,7 +7,7 @@ import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import MyTotalScoreChip from '../components/molecules/chips/MyTotalScore';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
-import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
+import FullScreenBackgroundImage from '../../../commons/components/molecules/FullScreenBackgroundImage';
 import useGetGameMenuComplementaryWidgets from '../hooks/useGetGameMenuComplementaryWidgets';
 import GameMenuPanel from '../components/organisms/GameMenuPanel';
 import HelpButton from '../components/molecules/buttons/HelpButton';

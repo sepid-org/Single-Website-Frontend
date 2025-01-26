@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import HintsTemplate from "../../template/Hints";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import CourtDocuments from "apps/ashbaria/components/organisms/document/CourtDocuments";
 import DocumentsArchive from "apps/ashbaria/components/organisms/document/DocumentsArchive";
 import CourtChelos from "apps/ashbaria/components/organisms/document/CourtChelos";

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { Button, Stack } from "@mui/material";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";

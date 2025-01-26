@@ -3,7 +3,7 @@ import React, { FC, Fragment, useState } from "react";
 import EnterVerificationCode from "./EnterVerificationCode";
 import EnterPhoneNumber from "./EnterPhoneNumber";
 import { useSearchParams } from "react-router-dom";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 import banner from "../../assets/banner.png";
 

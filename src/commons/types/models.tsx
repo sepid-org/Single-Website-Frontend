@@ -116,10 +116,11 @@ export type FSMType = ObjectType & {
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
-export type FormType = {
+export type FormType = ObjectType & {
   audience_type: AudienceTypes;
   start_date: string;
   end_date: string;
+  background_image?: string;
 }
 
 export type RegistrationFormType = FormType & {
