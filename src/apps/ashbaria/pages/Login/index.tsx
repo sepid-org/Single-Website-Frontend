@@ -32,7 +32,7 @@ const Login: FC<LoginPropsType> = () => {
 
   return (
     <Fragment>
-      {/* {showBanner &&
+      {showBanner &&
         <div
           style={{
             position: 'fixed',
@@ -70,7 +70,7 @@ const Login: FC<LoginPropsType> = () => {
             />
           </Stack>
         </div>
-      } */}
+      }
       <FullScreenBackgroundImage image={MediaUrls.BEACH}>
         <Stack
           width={300}
