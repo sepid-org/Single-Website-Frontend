@@ -99,7 +99,7 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
                   fontSize: 25,
                   fontWeight: 400,
                 }}>
-                {`${toPersianNumber(price)} تومان`}
+                {price === 0 ? 'رایگان!' : `${toPersianNumber(price)} تومان`}
               </Typography>
               <Button
                 fullWidth
