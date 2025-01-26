@@ -18,6 +18,9 @@ const WidgetType2AnswerType = {
 const useCollectWidgetsAnswers = (initialAnswers: any[]) => {
   const [answers, _setAnswers] = useState(initialAnswers);
 
+  const reset = () => {
+    _setAnswers([]);
+  }
 
   const getAnswerCollector = ({ widgetId, widgetType }: collectAnswersPropsType) => (data: object) => {
     let isFound = false;
@@ -48,7 +51,7 @@ const useCollectWidgetsAnswers = (initialAnswers: any[]) => {
     _setAnswers(tempAnswers);
   };
 
-  return { answers, getAnswerCollector };
+  return { answers, getAnswerCollector, reset };
 }
 
 export default useCollectWidgetsAnswers;

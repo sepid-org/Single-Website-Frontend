@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
-import { TextField, IconButton, InputAdornment, Typography } from '@mui/material';
+import {
+  TextField,
+  TextFieldProps,
+  IconButton,
+  InputAdornment,
+  Typography
+} from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 
-function PasswordField({ collectData, label = 'گذرواژه', resetPasswordLink='', }) {
+type PasswordFieldProps = TextFieldProps & {
+  resetPasswordLink?: string;
+  label?: string;
+};
+
+const PasswordField: React.FC<PasswordFieldProps> = ({
+  onChange,
+  label = 'گذرواژه',
+  resetPasswordLink = '',
+  ...props
+}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -14,12 +30,16 @@ function PasswordField({ collectData, label = 'گذرواژه', resetPasswordLin
     <TextField
       variant="outlined"
       fullWidth
-      onChange={collectData}
+      onChange={onChange}
       label={label}
       name="password"
-      inputProps={{ className: 'ltr-input' }}
+      inputProps={{
+        className: 'ltr-input',
+        ...props.inputProps
+      }}
       type={showPassword ? "text" : "password"}
       InputProps={{
+        ...props.InputProps,
         endAdornment: (
           <InputAdornment position="end">
             <IconButton onClick={togglePasswordVisibility} edge="end">
@@ -29,13 +49,15 @@ function PasswordField({ collectData, label = 'گذرواژه', resetPasswordLin
         )
       }}
       helperText={
-        resetPasswordLink != '' && 
-        <Typography component="span">
-          <Link style={{ textDecoration: 'none' }} to={resetPasswordLink}>
-            {'رمز عبور را فراموش کرده‌ام'}
-          </Link>
-        </Typography>
+        resetPasswordLink && (
+          <Typography component="span">
+            <Link style={{ textDecoration: 'none' }} to={resetPasswordLink}>
+              {'رمز عبور را فراموش کرده‌ام'}
+            </Link>
+          </Typography>
+        )
       }
+      {...props}
     />
   );
 }

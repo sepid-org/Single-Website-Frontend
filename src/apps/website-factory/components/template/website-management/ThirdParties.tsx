@@ -1,13 +1,11 @@
 import { Grid, Typography } from '@mui/material';
 import React, { Fragment, FC } from 'react';
-import { useParams } from 'react-router-dom';
 
 type ThirdPartiesTabPropsType = {
 }
 
 const ThirdPartiesTab: FC<ThirdPartiesTabPropsType> = ({
 }) => {
-  const { websiteName } = useParams();
 
   return (
     <Fragment>

@@ -33,7 +33,7 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
 
   const downloadAnswerSheetsExcel = () => {
     if (program) {
-      triggerGetAnswerSheets({ formId: program?.registration_form });
+      triggerGetAnswerSheets({ formId: parseInt(program?.registration_form) });
     }
   }
 

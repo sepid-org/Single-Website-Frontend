@@ -66,19 +66,19 @@ export const tagTypes = [
 // Define a type for the tag types used in your app
 type TagTypes = typeof tagTypes[number];
 
-// Helper function to create a tag with an optional id
-const createTag = (type: TagTypes, id?: string | number): TagDescription<TagTypes> =>
-  id ? { type, id } : { type };
+const createTag = <T extends TagTypes>(tag: T | { type: T, id?: string | number }): TagDescription<T> =>
+  typeof tag === 'string'
+    ? { type: tag }
+    : { type: tag.type, id: tag.id };
 
-// Updated helper function
-const tagGenerationWithErrorCheck = (
-  tags: TagTypes[] | ((result: any, error: any, arg: any) => TagDescription<TagTypes>[])
+const tagGenerationWithErrorCheck = <T extends TagTypes>(
+  tags: (T | { type: T, id?: string | number })[] | ((result: any, error: any, arg: any) => TagDescription<T>[])
 ) =>
-  (result: any, error: any, arg: any): TagDescription<TagTypes>[] => {
+  (result: any, error: any, arg: any): TagDescription<T>[] => {
     if (!error && typeof tags === 'function') {
       return tags(result, error, arg);
     }
-    if (!error && typeof tags === 'object') {
+    if (!error && Array.isArray(tags)) {
       return tags.map(tag => createTag(tag));
     }
     return [];

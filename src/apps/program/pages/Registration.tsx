@@ -1,46 +1,73 @@
 import { Stack, Grid } from '@mui/material';
 import React, { FC, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import Stepper from 'commons/components/organisms/Stepper';
+import MyStepper from 'commons/components/organisms/MyStepper';
 import Layout from 'commons/template/Layout';
 import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 
-type RegistrationProcessPropsType = {}
+type PropsType = {}
 
-const RegistrationProcess: FC<RegistrationProcessPropsType> = ({ }) => {
+const Registration: FC<PropsType> = () => {
+  const navigate = useNavigate();
   const { programSlug } = useParams();
-  const { data: program } = useGetProgramQuery({ programSlug });
 
   const {
-    currentStepNameIndex,
+    data: program,
+    isLoading: isGetProgramLoading,
+  } = useGetProgramQuery({ programSlug });
+
+  const {
+    data: registrationReceipt,
+    isLoading: isRegistrationReceiptLoading
+  } = useGetMyReceiptQuery(
+    { formId: program?.registration_form },
+    { skip: !program?.registration_form }
+  );
+
+  const {
+    currentStepIndex,
     lastActiveStepIndex,
     steps,
-  } = useRegistrationSteps({ program });
+  } = useRegistrationSteps();
 
   useEffect(() => {
-    if (currentStepNameIndex === steps.length - 1) {
-      window.location.href = `/program/${programSlug}/`;
+    if (registrationReceipt?.is_participating) {
+      navigate(`/program/${programSlug}/`);
     }
-  }, [currentStepNameIndex, steps])
+  }, [registrationReceipt, programSlug, navigate]);
+
+  if (isGetProgramLoading || isRegistrationReceiptLoading) {
+    return;
+  }
 
   return (
     <Layout appbarMode='PROGRAM'>
-      <Grid container spacing={2}
+      <Grid
+        container
+        spacing={2}
         alignItems={{ xs: 'center', md: 'start' }}
-        justifyContent={{ xs: 'center', md: 'flex-start' }}>
-        <Grid item xs={12} md={3} position={{ xs: null, md: 'sticky' }} top={0}>
-          <Stepper steps={steps} activeStepIndex={lastActiveStepIndex} />
+        justifyContent={{ xs: 'center', md: 'flex-start' }}
+      >
+        <Grid
+          item
+          xs={12}
+          md={3}
+          position={{ xs: 'static', md: 'sticky' }}
+          top={0}
+        >
+          <MyStepper steps={steps} activeStepIndex={lastActiveStepIndex} />
         </Grid>
         <Grid item xs={12} md={9}>
           <Stack>
-            {steps[currentStepNameIndex]?.component}
+            {steps[currentStepIndex]?.component}
           </Stack>
         </Grid>
       </Grid>
-    </Layout >
+    </Layout>
   );
 };
 
-export default RegistrationProcess;
+export default Registration;

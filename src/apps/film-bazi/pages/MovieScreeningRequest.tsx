@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
+import FullScreenBackgroundImage from 'commons/components/molecules/FullScreenBackgroundImage';
 import { MediaUrls } from '../constants/mediaUrls';
 
 type MovieScreeningRequestPropsType = {}

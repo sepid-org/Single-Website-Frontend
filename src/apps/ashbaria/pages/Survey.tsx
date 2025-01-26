@@ -5,11 +5,10 @@ import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useParams } from 'react-router-dom';
 import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import FullScreenBackgroundImage from 'apps/ashbaria/components/molecules/FullScreenBackgroundImage';
+import FullScreenBackgroundImage from 'commons/components/molecules/FullScreenBackgroundImage';
 import { MediaUrls } from '../constants/mediaUrls';
 import useLocalNavigate from '../hooks/useLocalNavigate';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
-import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from '../constants/game-info';
 import { toast } from 'react-toastify';
@@ -17,12 +16,8 @@ import { toast } from 'react-toastify';
 type PropsType = {}
 
 const SurveyWrapper = () => {
-  const { data: player } = useGetMyPlayerQuery({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID });
   return (
-    <FSMProvider
-      fsmId={ASHBARIA_SURVEY_CORRESPONDING_FSM_ID}
-      player={player}
-    >
+    <FSMProvider fsmId={ASHBARIA_SURVEY_CORRESPONDING_FSM_ID}>
       <Survey />
     </FSMProvider>
   )

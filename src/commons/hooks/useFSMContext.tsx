@@ -1,6 +1,7 @@
 import React, { useState, createContext, FC, useContext, ReactNode } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
+import { Dialog } from '@mui/material';
 import { PlayerType } from 'commons/types/models';
+import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
 interface FSMContextType {
   fsmId: number;
@@ -15,7 +16,6 @@ const FSMContext = createContext<FSMContextType | null>(null);
 
 interface FSMProviderPropsType {
   fsmId: number;
-  player: PlayerType;
   children: ReactNode;
 }
 
@@ -23,6 +23,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   children,
   ...props
 }) => {
+  const { data: player } = useGetMyPlayerQuery({ fsmId: props.fsmId });
   const [open, setOpen] = useState(false);
   const [dialogProps, setDialogProps] = useState({
     children: null,
@@ -40,7 +41,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   };
 
   return (
-    <FSMContext.Provider value={{ ...props, openDialog, closeDialog }}>
+    <FSMContext.Provider value={{ ...props, player, openDialog, closeDialog }}>
       {children}
       <Dialog open={open} onClose={closeDialog}>
         {dialogProps.children}

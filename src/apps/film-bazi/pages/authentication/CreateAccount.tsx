@@ -123,7 +123,7 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
               verificationType='create-user-account'
             />
 
-            <PasswordField collectData={collectData} />
+            <PasswordField onChange={collectData} />
 
             {/* <FormControl fullWidth>
               <InputLabel>گروه انتخابی</InputLabel>

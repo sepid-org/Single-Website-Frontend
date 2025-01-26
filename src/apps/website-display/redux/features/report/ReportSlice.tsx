@@ -8,7 +8,8 @@ type GetParticipantsFileInputType = {
 type GetParticipantsFileOutputType = FileType;
 
 type GetAnswerSheetsFileInputType = {
-  formId: string;
+  formId?: number;
+  fsmId?: number;
 }
 
 type GetAnswerSheetsFileOutputType = FileType;
@@ -25,21 +26,24 @@ export const ReportSlice = ContentManagementServiceApi.injectEndpoints({
     getParticipantsFile: builder.query<GetParticipantsFileOutputType, GetParticipantsFileInputType>({
       providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ formId }) => ({
-        url: `/report/participants/?registration_form_id=${formId}`,
+        url: `/report/participants/`,
+        params: { registration_form_id: formId },
       }),
     }),
 
     getAnswerSheetsFile: builder.query<GetAnswerSheetsFileOutputType, GetAnswerSheetsFileInputType>({
       providesTags: [{ type: 'Program', id: 'ALL' }],
-      query: ({ formId }) => ({
-        url: `/report/answer-sheets/?form_id=${formId}`,
+      query: ({ formId, fsmId }) => ({
+        url: `/report/answer-sheets/`,
+        params: { form_id: formId, fsm_id: fsmId },
       }),
     }),
 
     getProgramMerchandisesPurchasesFile: builder.query<GetProgramMerchandisesPurchasesFileOutputType, GetProgramMerchandisesPurchasesFileInputType>({
       providesTags: [{ type: 'Program', id: 'ALL' }],
       query: ({ programSlug }) => ({
-        url: `/report/program-merchandises-purchases/?program_id=${programSlug}`,
+        url: `/report/program-merchandises-purchases/`,
+        params: { program_id: programSlug },
       }),
     }),
 

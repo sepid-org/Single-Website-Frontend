@@ -13,7 +13,7 @@ import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
-import UserNameField from 'commons/components/molecules/form-fields/UserNameField';
+import UsernameField from 'commons/components/molecules/form-fields/UsernameField';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type LoginPagePropsType = {};
@@ -89,12 +89,15 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
               }}
               spacing={1.5}>
 
-              <UserNameField
+              <UsernameField
                 onChange={collectData}
                 username={data.username}
                 label={"شماره تلفن همراه، ایمیل یا نام کاربری"}
               />
-              <PasswordField collectData={collectData} resetPasswordLink='/reset-password/' />
+              <PasswordField
+                onChange={collectData}
+                resetPasswordLink='/reset-password/'
+              />
             </Stack>
             <Stack width={'100%'} spacing={1.5}>
               <Button

@@ -21,7 +21,7 @@ import FriendshipNetworkPoints from '../components/molecules/friendship-network/
 import CopyIcon from '../components/atoms/icons/Copy';
 import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
 import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
-import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
+import FullScreenBackgroundImage from '../../../commons/components/molecules/FullScreenBackgroundImage';
 import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';

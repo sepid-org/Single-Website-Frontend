@@ -133,10 +133,7 @@ const FSM: FC<FSMPagePropsType> = ({
   if (!player?.current_state || !fsm) return null;
 
   return (
-    <FSMProvider
-      player={player}
-      fsmId={fsmId}
-    >
+    <FSMProvider fsmId={fsmId}>
       <FSMStateProvider
         fsmStateId={player?.current_state}
         isMentor={false}

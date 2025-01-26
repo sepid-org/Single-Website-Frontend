@@ -81,7 +81,7 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
             label='قیمت (تومان)'
             fullWidth
             required
-            value={merchandise?.price || ''}
+            defaultValue={merchandise?.price}
             onChange={(event) => setData({ fieldName: 'price', newValue: parseInt(event.target.value) })} />
         </Grid>
         <Grid item xs={6}>
@@ -89,7 +89,7 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
             size="small"
             label='قیمت تخفیف‌خورده (تومان)'
             fullWidth
-            value={merchandise?.discounted_price || ''}
+            defaultValue={merchandise?.discounted_price}
             onChange={(event) => setData({ fieldName: 'discounted_price', newValue: parseInt(event.target.value) })} />
         </Grid>
       </Grid>

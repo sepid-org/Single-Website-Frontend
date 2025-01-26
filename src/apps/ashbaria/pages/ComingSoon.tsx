@@ -1,7 +1,7 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
-import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "../../../commons/components/molecules/FullScreenBackgroundImage";
 import BuyBookButton from "../components/molecules/buttons/BuyBook";
 import { MediaUrls } from "../constants/mediaUrls";
 

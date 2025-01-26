@@ -68,20 +68,28 @@ const CreateMerchandiseDialog: FC<CreateMerchandiseDialogPropsType> = ({
               label='قیمت (تومان)'
               fullWidth
               required
-              value={merchandise?.price || ''}
+              defaultValue={merchandise?.price}
               onChange={(event) =>
                 setMerchandise({ ...merchandise, price: parseInt(event.target.value) })
-              } />
+              }
+              inputProps={{
+                inputMode: "numeric",
+              }}
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
               size="small"
               label='قیمت تخفیف‌خورده (تومان)'
               fullWidth
-              value={merchandise?.discounted_price || ''}
+              defaultValue={merchandise?.discounted_price}
               onChange={(event) =>
-                setMerchandise({ ...merchandise, discounted_price: parseInt(event.target.value) })
-              } />
+                setMerchandise({ ...merchandise, discounted_price: isNaN(parseInt(event.target.value)) ? 0 : parseInt(event.target.value) })
+              }
+              inputProps={{
+                inputMode: "numeric",
+              }}
+            />
           </Grid>
         </Grid >
       </DialogContent>

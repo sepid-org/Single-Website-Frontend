@@ -19,7 +19,7 @@ const ManageMovieScreeningResponds: FC<ManageMovieScreeningRespondsPropsType> = 
   const [trigger, result] = useLazyGetAnswerSheetsFileQuery();
 
   const downloadExcelExport = () => {
-    trigger({ formId: program.registration_form })
+    trigger({ formId: parseInt(program.registration_form) })
   }
   useEffect(() => {
     if (result.isSuccess) {

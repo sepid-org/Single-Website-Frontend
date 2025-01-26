@@ -5,26 +5,16 @@ import Layout from 'commons/template/Layout';
 import { PaperEditor } from 'commons/template/Paper';
 import { useGetArticleQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 
-const EditArticle = ({ }) => {
-	const { articleId } = useParams();
-	const { data: article } = useGetArticleQuery({ articleId });
+const FormEditor = ({ }) => {
+	const { formId } = useParams();
 
 	return (
 		<Layout appbarMode='ARTICLE'>
 			<Stack spacing={2} maxWidth='md' sx={{ width: '100%', paddingBottom: 2 }}>
-				<Typography
-					align="center"
-					component="h1"
-					variant="h3"
-					gutterBottom>
-					{article?.name}
-				</Typography>
-				{article &&
-					<PaperEditor paperId={articleId} />
-				}
+				<PaperEditor paperId={formId} />
 			</Stack>
 		</Layout>
 	);
 };
 
-export default EditArticle;
+export default FormEditor;

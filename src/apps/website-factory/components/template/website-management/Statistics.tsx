@@ -3,7 +3,6 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC, useState } from 'react';
-import { useParams } from 'react-router-dom';
 
 type StatisticsTabPropsType = {
 
@@ -12,7 +11,6 @@ type StatisticsTabPropsType = {
 const StatisticsTab: FC<StatisticsTabPropsType> = ({
 
 }) => {
-  const { websiteName } = useParams();
   const [pageNumber, setPageNumber] = useState(1);
 
   return (

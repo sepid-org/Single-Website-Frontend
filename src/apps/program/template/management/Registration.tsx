@@ -23,7 +23,7 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
   const [trigger, getAnswerSheetsFileResult] = useLazyGetAnswerSheetsFileQuery();
 
   const downloadExcelExport = () => {
-    trigger({ formId: program.registration_form })
+    trigger({ formId: parseInt(program.registration_form) })
   }
 
   useEffect(() => {

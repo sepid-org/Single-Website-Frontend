@@ -9,13 +9,13 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useParams } from 'react-router';
 
 import { toast } from 'react-toastify';
 import { ProgramType } from 'commons/types/models';
 import ProgramInfoForm from 'commons/components/organisms/forms/ProgramInfoForm';
 import { useCreateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { StaticFiles } from 'commons/constants/mediaUrls';
+import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type CreateProgramDialogPropsType = {
   open: boolean;
@@ -27,7 +27,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
   handleClose,
 }) => {
   const t = useTranslate();
-  const { websiteName } = useParams();
+  const { data: website } = useGetWebsiteQuery();
   const [createProgram, result] = useCreateProgramMutation()
   const [properties, setProperties] = useState<Partial<ProgramType>>({
     name: '',
@@ -48,7 +48,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
       return;
     }
     createProgram({
-      website: websiteName,
+      website: website.name,
       ...properties
     });
   }

@@ -33,9 +33,10 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
   return (
     <ButtonBase
       disableRipple
-      onClick={() => navigate(`/program/${program.slug}/`)}>
+      onClick={() => program.is_active && navigate(`/program/${program.slug}/registration/`)}>
       <Card
         sx={{
+          position: 'relative',
           height: { xs: 480, md: 240 },
           width: '100%',
           padding: '0px !important',
@@ -43,7 +44,10 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
           overflow: 'hidden',
           boxShadow: '0 0 1px 0rem rgba(0, 0, 0, 0.5)',
           transition: 'all 0.1s ease-in-out',
-          '&:hover': {
+          filter: program.is_active ? 'none' : 'grayscale(100%)',
+          opacity: program.is_active ? 1 : 0.6,
+          cursor: program.is_active ? 'pointer' : 'not-allowed',
+          '&:hover': program.is_active && {
             transform: 'translateY(-0.1rem) scale(1.02)',
             boxShadow: '0 0.5em 2rem -1rem rgba(0, 0, 0, 0.5)',
           },
@@ -96,15 +100,6 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
                   variant="h3">
                   {program.name}
                 </Typography>
-
-                {/* <Tooltip arrow title={'تعداد کسانی که در این برنامه ثبت‌نام کرده‌اند'}>
-                  <Chip
-                    size='small'
-                    sx={{ userSelect: 'none', marginTop: 0.3 }}
-                    icon={<PeopleAltIcon fontSize='small' />}
-                    label={toPersianNumber(program.initial_participants_count)}
-                  />
-                </Tooltip> */}
               </Stack>
 
               <Typography textAlign={'start'} variant="body2" color="textSecondary">

@@ -16,6 +16,7 @@ import { useGetProgramQuery, useGetProgramUserPermissionsQuery } from 'apps/webs
 import ShareProgramButton from 'commons/components/atoms/ShareProgramButton';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
+import { RegistrationFormType } from 'commons/types/models';
 
 type ProgramPageSidebarPropsType = {
   getCertificate: any;
@@ -29,7 +30,7 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: registrationForm } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
+  const { data: registrationForm } = useGetFormQuery<{ data: RegistrationFormType }>({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: registrationReceipt } = useGetMyReceiptQuery({ formId: program?.registration_form }, { skip: !Boolean(program?.registration_form) });
   const { data: programPermissions } = useGetProgramUserPermissionsQuery({ programSlug });
 

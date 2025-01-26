@@ -10,11 +10,13 @@ import Login from 'apps/website-display/pages/Login';
 import Article from 'apps/website-display/pages/Article';
 import Articles from 'apps/website-display/pages/Articles';
 import PrivateRoute from 'commons/routes/PrivateRoute';
-import EditArticle from 'apps/website-display/pages/EditArticle';
+import ArticleEditor from 'apps/website-display/pages/ArticleEditor';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import Notifications from 'apps/chat/pages/Notifications';
 import NotFoundPage from 'commons/pages/NotFoundPage';
+import Form from './pages/Form';
+import FormEditor from './pages/FormEditor';
 
 const App = () => {
   const navigate = useNavigate();
@@ -32,7 +34,8 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={'/programs/'} />} />
+      <Route index element={<Navigate to={'/programs/'} />} />
+      <Route path="/form/:formId/" element={<Form />} />
       <Route path="/articles/" element={<Articles />} />
       <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
@@ -40,7 +43,8 @@ const App = () => {
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/notifications/" element={<Notifications />} />
-        <Route path="/edit-article/:articleId/" element={<EditArticle />} />
+        <Route path="/edit-form/:formId/" element={<FormEditor />} />
+        <Route path="/edit-article/:articleId/" element={<ArticleEditor />} />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />

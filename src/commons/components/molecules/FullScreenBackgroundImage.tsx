@@ -3,7 +3,7 @@ import React, { FC, ReactNode } from 'react';
 
 
 type FullScreenBackgroundImagePropsType = {
-  image: any;
+  image?: string;
   children: ReactNode;
   styles?: any;
 }
@@ -24,7 +24,7 @@ const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundImage: `url(${image})`,
+        backgroundImage: image ? `url(${image})` : null,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
