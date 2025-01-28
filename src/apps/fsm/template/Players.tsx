@@ -12,8 +12,8 @@ import InfoIcon from '@mui/icons-material/Info';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import isValidURL from 'commons/utils/validators/urlValidator';
-import { CMS_URL } from 'commons/configs/Constants';
 import downloadFromURL from 'commons/utils/downloadFromURL';
+import { CMS_URL } from 'commons/constants/Constants';
 
 type PropsType = {}
 

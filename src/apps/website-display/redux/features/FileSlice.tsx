@@ -2,7 +2,7 @@ import jsonToFormData from 'commons/utils/jsonToFromDate';
 import { ContentManagementServiceApi } from './ManageContentServiceApiSlice';
 import axios from 'axios';
 import { setUploadProgress } from 'apps/website-display/redux/slices/Global';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 
 type CreateFileInputType = {
   file: File;

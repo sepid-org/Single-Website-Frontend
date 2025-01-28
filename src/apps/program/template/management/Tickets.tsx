@@ -16,7 +16,7 @@ import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/featu
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
 import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';

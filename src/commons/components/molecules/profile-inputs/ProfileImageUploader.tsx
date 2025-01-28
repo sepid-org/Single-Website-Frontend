@@ -1,22 +1,22 @@
 import React, { useEffect } from "react";
 import { Box, Button, CircularProgress } from "@mui/material";
-import { Workshop } from "commons/configs/themes/MuiVariables";
+import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { useUploadFileMutation } from "apps/website-display/redux/features/FileSlice";
 import { toast } from "react-toastify";
 
 const ProfileImageUploader = ({ file, setFile }) => {
-
+  const theme = useTheme();
   const { uploadProgress } = useSelector((state) => (state as any).global);
   const [uploadFile, result] = useUploadFileMutation();
 
   const validateFile = (file) => {
     if (file.name.length > 100) {
-      toast.error('حداکثر طول نام فایل حداکثر ۱۰۰ کاراکتر است.');
+      toast.error("حداکثر طول نام فایل حداکثر ۱۰۰ کاراکتر است.");
       return false;
     }
     if (file.size >= 4e6) {
-      toast.error('حداکثر حجم فایل ۳ مگابایت است.');
+      toast.error("حداکثر حجم فایل ۳ مگابایت است.");
       return false;
     }
     return true;
@@ -33,7 +33,8 @@ const ProfileImageUploader = ({ file, setFile }) => {
     if (result.data) {
       setFile(result.data.file);
     }
-  }, [result])
+  }, [result]);
+
   return (
     <Box
       sx={{
@@ -51,7 +52,7 @@ const ProfileImageUploader = ({ file, setFile }) => {
             width: "100%",
             height: "100%",
             border: "2px dashed",
-            borderColor: Workshop.colors.primary,
+            borderColor: theme.palette.primary.main,
             borderRadius: 1,
           }}
         >
@@ -59,14 +60,21 @@ const ProfileImageUploader = ({ file, setFile }) => {
             sx={{
               width: "100%",
               height: "100%",
-              color: Workshop.colors.primary,
+              color: theme.palette.primary.main,
             }}
             disabled={result.isLoading}
             endIcon={
-              uploadProgress &&
-              <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} />
+              uploadProgress && (
+                <CircularProgress
+                  color="secondary"
+                  thickness={4}
+                  size={24}
+                  variant="determinate"
+                  value={uploadProgress}
+                />
+              )
             }
-            onClick={() => document.getElementById('userProfilePicture').click()}
+            onClick={() => document.getElementById("userProfilePicture").click()}
           >
             {"+ افزودن تصویر"}
           </Button>
@@ -117,15 +125,22 @@ const ProfileImageUploader = ({ file, setFile }) => {
                 fontWeight: 800,
                 width: "100%",
                 height: "100%",
-                color: Workshop.colors.primary,
+                color: theme.palette.primary.main,
               }}
               disabled={result.isLoading}
               endIcon={
-                uploadProgress &&
-                <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} />
+                uploadProgress && (
+                  <CircularProgress
+                    color="secondary"
+                    thickness={4}
+                    size={24}
+                    variant="determinate"
+                    value={uploadProgress}
+                  />
+                )
               }
               color="primary"
-              onClick={() => document.getElementById('userProfilePicture').click()}
+              onClick={() => document.getElementById("userProfilePicture").click()}
             >
               {"تغییر تصویر"}
             </Button>

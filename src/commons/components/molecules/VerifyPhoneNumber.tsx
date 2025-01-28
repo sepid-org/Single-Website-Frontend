@@ -21,12 +21,14 @@ type VerifyPhoneNumberPropsType = {
     verificationCode: string;
   };
   setData: any;
+  label: string;
   verificationType: VerificationCodeType
 }
 
 const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   data,
   setData,
+  label,
   verificationType,
 }) => {
   const [isButtonDisabled, setIsButtonDisable] = useState(false);
@@ -82,7 +84,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
           });
         }}
         phoneNumber={data.phoneNumber}
-        label={"شماره جدید تلفن همراه"}
+        label={label}
         editable={false}
         //placeHolder={"09..."}
         textDir={"ltr"}

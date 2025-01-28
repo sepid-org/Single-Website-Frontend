@@ -8,7 +8,7 @@ import { Pagination } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import MentorStaticsFSMCard from 'commons/components/organisms/cards/MentorStaticsFSMCard';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import MetabaseDashboard from 'commons/template/MetabaseDashboard';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';

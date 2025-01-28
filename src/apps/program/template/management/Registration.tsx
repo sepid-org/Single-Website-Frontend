@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import isValidURL from 'commons/utils/validators/urlValidator';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 
 type RegistrationPropsType = {}

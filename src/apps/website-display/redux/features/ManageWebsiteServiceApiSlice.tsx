@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { WMS_URL } from 'commons/configs/Constants'
+import { WMS_URL } from 'commons/constants/Constants'
 import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
 import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 

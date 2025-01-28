@@ -4,6 +4,7 @@ import IntroductionPage1 from "./IntroductionPage1";
 import IntroductionPage2 from "./IntroductionPage2";
 import IntroductionPage3 from "./IntroductionPage3";
 import AudioWidget from "commons/components/organisms/Widget/contents/AudioWidget";
+import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 
 export enum LoginTabs {
   EnterPhoneNumber = 'EnterPhoneNumber',
@@ -20,7 +21,7 @@ const Introduction: FC<LoginPropsType> = () => {
     <Fragment>
       <AudioWidget
         hidden={true}
-        link='https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/Krampus-Workshop.mp3'
+        link={MediaUrls.INTRODUCTION_BACKGROUND_SOUND}
         autoplay={true}
         repeat={true}
       />

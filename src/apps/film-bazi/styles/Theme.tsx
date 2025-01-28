@@ -1,9 +1,9 @@
 import { createTheme } from '@mui/material/styles';
-import selectTheme from 'commons/configs/themes';
 import { DarkSecondary, Gray, PrimaryColor, SecondaryColor } from '../constants/colors';
+import defaultTheme from "commons/styles/themes/defaultTheme.json";
 
 export const customTheme = createTheme({
-  ...selectTheme('rtl'),
+  ...defaultTheme,
   palette: {
     mode: 'dark', // Set the theme to dark mode
     primary: {
