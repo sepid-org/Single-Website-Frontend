@@ -40,7 +40,7 @@ const Form: FC<PropsType> = ({ }) => {
 
   return (
     <Fragment>
-      <FullScreenBackgroundImage image={form.background_image}>
+      <FullScreenBackgroundImage image={form.background_image} styles={{ padding: 0 }}>
         <Container maxWidth='md'
           sx={{
             display: 'flex',
@@ -52,7 +52,7 @@ const Form: FC<PropsType> = ({ }) => {
           }}>
           <Stack width={'100%'}>
             <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-              <Typography variant="h2">{form.title}</Typography>
+              <Typography variant="h2" textAlign={'center'}>{form.title}</Typography>
             </Stack>
 
             {isUserSubmittedForm ?
