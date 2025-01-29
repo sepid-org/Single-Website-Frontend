@@ -54,7 +54,7 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
     createArticle: builder.mutation<CreateArticelOutputType, CreateArticleInputType>({
       invalidatesTags: [{ type: 'Article', id: 'ALL' }],
       query: (body) => ({
-        url: `/fsm/articel/`,
+        url: `/fsm/article/`,
         method: 'POST',
         body,
       }),
