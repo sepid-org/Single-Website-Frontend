@@ -58,7 +58,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
             <Stack direction='row' spacing={1} alignItems={'center'}>
               <SettingsIcon />
               <Typography>
-                {'تنظیمات آکادمی'}
+                {'تنظیمات آموزشگاه'}
               </Typography>
             </Stack>
           </MenuItem>
