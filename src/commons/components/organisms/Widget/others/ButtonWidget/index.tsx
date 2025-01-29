@@ -35,7 +35,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   const outerBoxRef = useRef(null);
 
   useEffect(() => {
-    if (background_image.endsWith('.svg')) {
+    /*if (background_image.endsWith('.svg')) {
       extractSvgPath(background_image).then((pathData) => {
         if (pathData) {
           setClipPath(`path('${pathData}')`);
@@ -68,14 +68,14 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         })
         .catch(error => { });
     }
-    else {
+    else {*/
       const img = new Image();
       img.src = background_image;
       img.onload = function () {
         setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
         setClipPath('none');
       }
-    }
+    //}
   }, [background_image]);
 
   useLayoutEffect(() => {
