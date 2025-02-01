@@ -1,6 +1,8 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
 import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
+import BaleIcon from "commons/components/atoms/icons/Bale";
+import EitaaIcon from "commons/components/atoms/icons/Eitaa";
 
 type PropsType = {
 }
@@ -12,7 +14,6 @@ const GameEnd: FC<PropsType> = ({ }) => {
       sx={{
         minHeight: "100vh",
         minWidth: "100vw",
-        padding: 4,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -26,13 +27,46 @@ const GameEnd: FC<PropsType> = ({ }) => {
       <Container maxWidth='sm' component={Paper}>
         <Grid container padding={4} alignItems={'center'} justifyContent={'center'}>
           <Grid item xs={12} sm={8}>
-            <Stack spacing={2}>
-              <Typography variant="h4" textAlign="center" lineHeight={1.5}>
-                {'بازی تمام شد!'}
+            <Stack spacing={3} alignItems="center">
+              <Typography variant="h4" textAlign="center" fontWeight="bold" gutterBottom>
+                بازی تمام شد!
               </Typography>
-              <Typography textAlign="center">
-                {'منتظر اعلام نتایج از طرف ما باشید'}
+
+              <Typography variant="body1" textAlign="center" color="textSecondary">
+                منتظر اعلام نتایج از طرف ما باشید
               </Typography>
+
+              <Stack spacing={2} alignItems="center">
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <EitaaIcon />
+                  <Typography
+                    variant="body1"
+                    component="a"
+                    href="https://eitaa.com/qandilsch"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    color="primary"
+                    sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                  >
+                    https://eitaa.com/qandilsch
+                  </Typography>
+                </Stack>
+
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <BaleIcon />
+                  <Typography
+                    variant="body1"
+                    component="a"
+                    href="https://ble.ir/qandilsch"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    color="primary"
+                    sx={{ textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}
+                  >
+                    https://ble.ir/qandilsch
+                  </Typography>
+                </Stack>
+              </Stack>
             </Stack>
           </Grid>
           <Grid item xs={12} sm={4} container alignItems={'center'} justifyContent={'center'}>
