@@ -140,6 +140,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         {background_image ?
           <ButtonBase
             onClick={handleClick}
+            disableRipple={true} //set disable ripple
             sx={{
               position: 'absolute',
               borderRadius: 1,

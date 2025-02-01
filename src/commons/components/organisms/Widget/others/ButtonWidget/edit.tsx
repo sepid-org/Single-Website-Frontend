@@ -8,6 +8,8 @@ import {
   TextField,
   FormLabel,
   Autocomplete,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -124,6 +126,13 @@ const ButtonWidgetEditor = ({
               ...buttonFields,
               destination_page_url: e.target.value
             })}
+          />
+          <FormControlLabel
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            control={<Switch defaultChecked />} //to do: set chached
+            label={'موج‌دار شدن هنگام کلیک'}
+            labelPlacement='start'
+            onChange={() => {}} //to do: set onChange
           />
         </Stack>
       </DialogContent>
