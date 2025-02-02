@@ -9,6 +9,7 @@ export type ObjectType = {
   title: string;
   position: PositionType;
   order: string;
+  is_hidden: boolean;
 }
 
 export type ComplementaryObjectType = {

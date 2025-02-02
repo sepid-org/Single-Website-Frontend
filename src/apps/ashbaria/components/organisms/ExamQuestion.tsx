@@ -35,7 +35,6 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
     questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
-    id: questionId,
     choices: questionChoices,
     mode,
     minSelections,
