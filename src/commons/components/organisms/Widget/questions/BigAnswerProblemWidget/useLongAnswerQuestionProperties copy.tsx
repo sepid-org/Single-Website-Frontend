@@ -11,7 +11,7 @@ type PropsType = {
   mode: WidgetModes;
 }
 
-const useSmallAnswerQuestionProperties = ({
+const useLongAnswerQuestionProperties = ({
   useSubmitAnswerMutation,
   onAnswerChange,
   questionId,
@@ -21,8 +21,6 @@ const useSmallAnswerQuestionProperties = ({
   const [_submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
   const [answer, _setAnswer] = useState<string>(null);
   const { getQuestionAnswers, isLoading: isAnswerSheetLoading } = useAnswerSheet();
-  const [hasAnswered, setHasAnswered] = useState(false);
-  const [hasAnsweredCorrectly, setHasAnsweredCorrectly] = useState(false);
 
   const allQuestionAnswers = useMemo(
     () => getQuestionAnswers(questionId),
@@ -40,23 +38,19 @@ const useSmallAnswerQuestionProperties = ({
     }
   }, [allQuestionAnswers, _setAnswer]);
 
-  const changeAnswer = (e) => {
+  const changeAnswer = (val: string) => {
     if (mode === WidgetModes.InForm) {
-      onAnswerChange({ text: e.target.value });
-    }
-    _setAnswer(e.target.value);
+      onAnswerChange({ text: val });
+    };
+    _setAnswer(val);
   }
 
-  const submitAnswer = () => {
+  const submitAnswer = (e) => {
     if (!answer) {
       toast.info('چیزی بنویس!');
       return;
     }
-    _submitAnswer({
-      playerId: player.id,
-      questionId,
-      text: answer,
-    });
+    _submitAnswer({ questionId, text: answer, playerId: player.id })
   }
 
   const isQuestionLoading = submitAnswerResult.isLoading || isAnswerSheetLoading;
@@ -65,8 +59,6 @@ const useSmallAnswerQuestionProperties = ({
 
   return {
     answer,
-    hasAnsweredCorrectly,
-    hasAnswered,
     changeAnswer,
     submitAnswer,
     isQuestionLoading,
@@ -74,4 +66,4 @@ const useSmallAnswerQuestionProperties = ({
   };
 };
 
-export default useSmallAnswerQuestionProperties;
+export default useLongAnswerQuestionProperties;

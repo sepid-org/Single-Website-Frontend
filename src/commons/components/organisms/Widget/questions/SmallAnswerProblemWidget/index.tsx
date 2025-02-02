@@ -25,8 +25,9 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
     answer,
     hasAnsweredCorrectly,
     hasAnswered,
-    changeText,
     isQuestionLoading,
+    errorMessage,
+    changeAnswer,
     submitAnswer,
   } = useSmallAnswerQuestionProperties({
     useSubmitAnswerMutation,
@@ -59,7 +60,7 @@ const SmallAnswerProblemWidget: FC<SmallAnswerProblemWidgetPropsType> = ({
                 error={hasAnswered && !hasAnsweredCorrectly}
                 autoComplete='false'
                 placeholder={'لطفاً پاسخ خود را وارد کنید.'}
-                onChange={changeText}
+                onChange={changeAnswer}
                 size='small'
               />
               {mode === WidgetModes.View &&
