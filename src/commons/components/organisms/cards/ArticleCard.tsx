@@ -55,7 +55,7 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
         <Box>
           <CardMedia
             sx={{ height: 200 }}
-            image={article.cover_page ? article.cover_page : `${process.env.PUBLIC_URL}/logo.png`}
+            image={article.cover_image ? article.cover_image : `${process.env.PUBLIC_URL}/logo.png`}
             title={article.name}
           />
           <CardContent>
