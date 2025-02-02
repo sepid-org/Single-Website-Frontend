@@ -10,6 +10,8 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import FormPaperEditor from '../template/FormPaperEditor';
 import Info from '../template/Info';
 import Statistics from '../template/Statistics';
+import PersonIcon from '@mui/icons-material/Person';
+import Responses from '../template/Responses';
 
 const tabs: DashboardTabType[] = [
   {
@@ -23,6 +25,12 @@ const tabs: DashboardTabType[] = [
     label: 'ویجت‌ها',
     icon: WidgetsIcon,
     component: <FormPaperEditor />,
+  },
+  {
+    slug: 'responses',
+    label: 'پاسخ‌ها',
+    icon: PersonIcon,
+    component: <Responses />,
   },
   {
     slug: 'statistics',
