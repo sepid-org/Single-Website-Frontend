@@ -3,21 +3,20 @@ import { Route, Routes } from 'react-router-dom';
 
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import ArticleManagement from './pages/ArticleManagement';
-import Article from './pages/Article';
-
+import Form from 'apps/form/pages/Form';
+import FormManagement from './pages/FormManagement';
 
 type PropsType = {}
 
-const ArticleApp: FC<PropsType> = ({ }) => {
+const FormApp: FC<PropsType> = ({ }) => {
 
   return (
     <Fragment>
       <Routes>
-        <Route index element={<Article />} />
+        <Route index element={<Form />} />
 
         <Route path="/" element={<PrivateRoute />}>
-          <Route path="manage" element={<ArticleManagement />} />
+          <Route path="manage" element={<FormManagement />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
@@ -27,4 +26,4 @@ const ArticleApp: FC<PropsType> = ({ }) => {
 };
 
 
-export default ArticleApp;
+export default FormApp;

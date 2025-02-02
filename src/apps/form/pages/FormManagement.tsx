@@ -7,7 +7,7 @@ import Layout from 'commons/template/Layout';
 import { DashboardTabType } from 'commons/types/global';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import WidgetsIcon from '@mui/icons-material/Widgets';
-import ArticlePaperEditor from '../template/ArticlePaperEditor';
+import FormPaperEditor from '../template/FormPaperEditor';
 import Info from '../template/Info';
 import Statistics from '../template/Statistics';
 
@@ -22,7 +22,7 @@ const tabs: DashboardTabType[] = [
     slug: 'widgets',
     label: 'ویجت‌ها',
     icon: WidgetsIcon,
-    component: <ArticlePaperEditor />,
+    component: <FormPaperEditor />,
   },
   {
     slug: 'statistics',
@@ -34,8 +34,8 @@ const tabs: DashboardTabType[] = [
 
 type PropsType = {}
 
-const ArticleManagement: FC<PropsType> = ({ }) => {
-  const articleId = parseInt(useParams().articleId);
+const FormManagement: FC<PropsType> = ({ }) => {
+  const formId = parseInt(useParams().formId);
 
   return (
     <Layout appbarMode='GENERAL'>
@@ -48,4 +48,4 @@ const ArticleManagement: FC<PropsType> = ({ }) => {
   );
 };
 
-export default ArticleManagement;
+export default FormManagement;

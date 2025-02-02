@@ -13,8 +13,6 @@ import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import Notifications from 'apps/chat/pages/Notifications';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import Form from './pages/Form';
-import FormEditor from './pages/FormEditor';
 
 const App = () => {
   const navigate = useNavigate();
@@ -33,14 +31,12 @@ const App = () => {
   return (
     <Routes>
       <Route index element={<Navigate to={'/programs/'} />} />
-      <Route path="/form/:formId/" element={<Form />} />
       <Route path="/articles/" element={<Articles />} />
       <Route path="/programs/" element={<Programs />} />
       <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/notifications/" element={<Notifications />} />
-        <Route path="/edit-form/:formId/" element={<FormEditor />} />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />

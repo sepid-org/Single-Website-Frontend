@@ -5,21 +5,21 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetArticleQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
-import { ArticleType } from 'commons/types/redux/article';
+import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
+import { FormType } from 'commons/types/models';
 
 type InfoPropsType = {}
 
 const Info: FC<InfoPropsType> = ({ }) => {
-  const { articleId } = useParams();
-  const [properties, setProperties] = useState<ArticleType>();
-  const { data: article } = useGetArticleQuery({ articleId });
+  const { articleId: formId } = useParams();
+  const [properties, setProperties] = useState<FormType>();
+  const { data: form } = useGetFormQuery({ formId });
 
   useEffect(() => {
-    if (article) {
-      setProperties(article);
+    if (form) {
+      setProperties(form);
     }
-  }, [article]);
+  }, [form]);
 
   const handleUpdateArticle = () => {
 
@@ -30,7 +30,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
       <Stack padding={2}>
         <Stack direction={'row'} alignItems={'start'} justifyContent={'space-between'}>
           <Typography variant='h2' gutterBottom>
-            {'مشخصات مقاله'}
+            {'مشخصات فرم'}
           </Typography>
         </Stack>
         <Stack>

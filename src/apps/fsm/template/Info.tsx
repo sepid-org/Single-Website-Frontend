@@ -70,7 +70,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
           variant="contained"
           color="primary"
           onClick={handleUpdateFSM}>
-          {'به‌روز رسانی'}
+          {'به‌روز‌رسانی'}
         </Button>
       </Stack>
     </Stack>
