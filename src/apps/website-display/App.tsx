@@ -7,10 +7,8 @@ import RegistrationReceipt from 'apps/website-display/pages/RegistrationReceipt'
 import Programs from 'apps/website-display/pages/Programs';
 import Setting from 'apps/website-display/pages/Setting';
 import Login from 'apps/website-display/pages/Login';
-import Article from 'apps/website-display/pages/Article';
 import Articles from 'apps/website-display/pages/Articles';
 import PrivateRoute from 'commons/routes/PrivateRoute';
-import ArticleEditor from 'apps/website-display/pages/ArticleEditor';
 import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import Notifications from 'apps/chat/pages/Notifications';
@@ -37,14 +35,12 @@ const App = () => {
       <Route index element={<Navigate to={'/programs/'} />} />
       <Route path="/form/:formId/" element={<Form />} />
       <Route path="/articles/" element={<Articles />} />
-      <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
       <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/notifications/" element={<Notifications />} />
         <Route path="/edit-form/:formId/" element={<FormEditor />} />
-        <Route path="/edit-article/:articleId/" element={<ArticleEditor />} />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
         <Route path="/articles/" element={<Articles />} />
