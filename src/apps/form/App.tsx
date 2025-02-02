@@ -3,8 +3,15 @@ import { Route, Routes } from 'react-router-dom';
 
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import Form from 'apps/form/pages/Form';
-import FormManagement from './pages/FormManagement';
+import { retryImport } from 'commons/utils/retryImport';
+
+const Form = React.lazy(() =>
+  retryImport(() => import('apps/form/pages/Form'))
+);
+
+const FormManagement = React.lazy(() =>
+  retryImport(() => import('apps/form/pages/FormManagement'))
+);
 
 type PropsType = {}
 

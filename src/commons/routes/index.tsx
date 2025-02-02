@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import { retryImport } from 'commons/utils/retryImport';
 import { BrowserRouter } from 'react-router-dom';
 
-// Lazy-loaded components with retry logic
 const WebsiteDisplayApp = React.lazy(() =>
   retryImport(() => import('apps/website-display/App'))
 );

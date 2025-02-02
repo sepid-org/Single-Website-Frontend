@@ -3,9 +3,15 @@ import { Route, Routes } from 'react-router-dom';
 
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import ArticleManagement from './pages/ArticleManagement';
-import Article from './pages/Article';
+import { retryImport } from 'commons/utils/retryImport';
 
+const Article = React.lazy(() =>
+  retryImport(() => import('apps/article/pages/Article'))
+);
+
+const ArticleManagement = React.lazy(() =>
+  retryImport(() => import('apps/article/pages/ArticleManagement'))
+);
 
 type PropsType = {}
 
