@@ -7,6 +7,7 @@ import {
 import UploadImage from 'commons/components/molecules/UploadImage';
 import React, { FC } from 'react';
 import { ArticleType } from 'commons/types/redux/article';
+import TagField from 'commons/components/molecules/TagField';
 
 type ArticleInfoFormPropsType = {
   data: Partial<ArticleType>;
@@ -34,6 +35,13 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
     }));
   }
 
+  const setTags = (newTags: string[]) => {
+    setData({
+      ...data,
+      tags: newTags,
+    });
+  }
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} md={6}>
@@ -58,6 +66,9 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
           name='description'
           onChange={putData}
         />
+      </Grid>
+      <Grid item xs={12}>
+        <TagField setTags={setTags} tags={data.tags}/>
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormControlLabel

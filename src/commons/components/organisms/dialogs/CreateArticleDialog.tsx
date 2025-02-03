@@ -32,6 +32,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
     description: '',
     cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
     is_hidden: false,
+    tags: [],
   });
 
   const handleCreateProgram = () => {
@@ -55,7 +56,6 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
       handleClose(false);
     }
   }, [result])
-
 
   return (
     <Dialog disableScrollLock open={open} maxWidth="md">
