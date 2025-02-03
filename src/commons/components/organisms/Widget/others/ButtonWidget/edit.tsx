@@ -39,6 +39,7 @@ const ButtonWidgetEditor = ({
     background_image: widgetProps.background_image || '',
     destination_page_url: widgetProps.destination_page_url || '',
     destination_states: widgetProps.destination_states || [],
+    has_ripple_on_click: widgetProps.has_ripple_on_click,
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
@@ -129,10 +130,15 @@ const ButtonWidgetEditor = ({
           />
           <FormControlLabel
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            control={<Switch defaultChecked />} //to do: set chached
+            control={<Switch checked={buttonFields.has_ripple_on_click} />}
             label={'موج‌دار شدن هنگام کلیک'}
             labelPlacement='start'
-            onChange={() => {}} //to do: set onChange
+            onChange={(e) => {
+              setButtonFields({
+                ...buttonFields,
+                has_ripple_on_click: !buttonFields.has_ripple_on_click,
+              })
+            }}
           />
         </Stack>
       </DialogContent>

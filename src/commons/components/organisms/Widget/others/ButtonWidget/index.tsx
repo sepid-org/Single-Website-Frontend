@@ -15,6 +15,7 @@ type ButtonWidgetPropsType = {
   destination_states: string[];
   mode: WidgetModes;
   id: string;
+  has_ripple_on_click: boolean;
 };
 
 const ButtonWidget: FC<ButtonWidgetPropsType> = ({
@@ -22,6 +23,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   background_image,
   destination_page_url,
   destination_states = [],
+  has_ripple_on_click,
   mode,
   id: widgetId,
   ...objectFields
@@ -140,7 +142,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         {background_image ?
           <ButtonBase
             onClick={handleClick}
-            disableRipple={true} //set disable ripple
+            disableRipple={!has_ripple_on_click}
             sx={{
               position: 'absolute',
               borderRadius: 1,
