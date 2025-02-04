@@ -8,7 +8,7 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 
 import RegistrationForm from 'commons/template/RegistrationForm';
 import RegistrationStatus from 'commons/template/RegistrationStatus';
-import Payment from 'commons/template/Payment';
+import Payment from 'apps/program/template/Payment';
 import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';

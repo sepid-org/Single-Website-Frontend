@@ -1,5 +1,5 @@
 import { Grid, Paper, Stack, Typography } from '@mui/material';
-import PurchaseMerchandise from 'commons/components/organisms/PurchaseMerchandise';
+import PurchaseMerchandise from 'apps/program/components/organisms/PurchaseMerchandise';
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
