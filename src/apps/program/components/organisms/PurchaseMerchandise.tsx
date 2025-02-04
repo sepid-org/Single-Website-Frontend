@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { useApplyDiscountCodeMutation, usePurchaseMutation } from "apps/website-display/redux/features/sales/Purchase";
 import { MerchandiseType } from "commons/types/models";
 import { toPersianNumber } from "commons/utils/translateNumber";
+import { useParams } from "react-router-dom";
 
 type PurchaseMerchandisePropsType = {
   merchandise: MerchandiseType;
@@ -19,6 +20,7 @@ type PurchaseMerchandisePropsType = {
 const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
   merchandise,
 }) => {
+  const { programSlug } = useParams();
   const [discountCode, setDiscountCode] = useState(null);
   const [price, setPrice] = useState(merchandise.price);
   const [applyDiscountCode, applyDiscountCodeResult] = useApplyDiscountCodeMutation();
@@ -29,7 +31,7 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
       if (purchaseResult.data.is_payment_required) {
         window.location.href = purchaseResult.data.payment_link;
       } else {
-        toast.success('ثبت‌نامت با موفقیت انجام شد')
+        window.location.href = `/program/${programSlug}/purchase/?status=success`;
       }
     }
   }, [purchaseResult])
