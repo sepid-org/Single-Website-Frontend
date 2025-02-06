@@ -70,7 +70,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         address: initialAshbariaProfile?.address ? true : false,
         province: initialAshbariaProfile?.province ? true : false,
         city: initialAshbariaProfile?.city ? true : false,
-        school: initialAshbariaProfile?.school ? true : false,
         referral_method: initialAshbariaProfile?.referral_method ? true : false,
         gender: initialAshbariaProfile?.gender ? true : false,
         profile_image: initialAshbariaProfile?.profile_image ? true : false,
@@ -387,7 +386,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={Object.values(AshbariaProfile ?? {}).some(value => !value)}
             size="large"
             fullWidth={true}
             variant='contained'
