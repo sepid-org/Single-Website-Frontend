@@ -300,7 +300,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             onChange={handleChange}
             value={AshbariaProfile?.school || ''}
             name="school"
-            placeholder="مدرسه"
+            placeholder="نام مدرسه خود را وارد کنید."
           />
         </Grid>
         <Grid item xs={12} sm={6}>
