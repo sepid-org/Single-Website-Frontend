@@ -71,9 +71,13 @@ const GameEnd: FC<PropsType> = ({ }) => {
 
               <Stack spacing={1} alignItems="center">
                 <Typography variant="body1" textAlign="center" color="textSecondary">
-                  برای دریافت جوایز، تکمیل نمایه الزامی است
+                  برای دریافت جوایز، تکمیل نمایه با{' '}
+                  <Box component="span" fontWeight="bold" color="primary.main">
+                    اطلاعات صحیح
+                  </Box>{' '}
+                  الزامی است
                 </Typography>
-                <Button fullWidth variant='contained' onClick={() => localNavigate('/profile/')}>
+                <Button fullWidth variant="contained" onClick={() => localNavigate('/profile/')}>
                   {'تکمیل نمایه'}
                 </Button>
               </Stack>

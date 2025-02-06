@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
@@ -44,7 +44,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     setDisplayEmptyErrorMessages,
     handleValidationChange,
     allFieldsValid,
-  } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'postal_code', 'address', 'profile_image'])
+  } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'school', 'postal_code', 'address', 'profile_image'])
 
   useEffect(() => {
     if (userProfile) {
@@ -70,6 +70,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         address: initialAshbariaProfile?.address ? true : false,
         province: initialAshbariaProfile?.province ? true : false,
         city: initialAshbariaProfile?.city ? true : false,
+        school: initialAshbariaProfile?.school ? true : false,
         referral_method: initialAshbariaProfile?.referral_method ? true : false,
         gender: initialAshbariaProfile?.gender ? true : false,
         profile_image: initialAshbariaProfile?.profile_image ? true : false,
@@ -287,6 +288,24 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <Typography
             sx={{
+              paddingBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            مدرسه
+          </Typography>
+          <TextField
+            fullWidth
+            onChange={handleChange}
+            value={AshbariaProfile?.school || ''}
+            name="school"
+            placeholder="مدرسه"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography
+            sx={{
               marginBottom: '4px',
               fontSize: 14,
               fonWeight: 400,
@@ -378,7 +397,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
       </Grid>
       <AreYouSure
-        text='توجه کن که تنها یک بار می‌تونی نمایه‌ت را ذخیره کنی. آیا مطمئنی؟'
+        text='آیا از صحیح بودن اطلاعات مطمئنی؟ جوایز تنها به دادبستان‌هایی تعلق می‌گیرد که نمایه‌شان را با اطلاعات صحیح تکمیل کرده باشند.'
         open={isSubmitConfirmationOpen}
         handleClose={() => setIsSubmitConfirmationOpen(false)}
         callBackFunction={() => updateProfile(AshbariaProfile)}
