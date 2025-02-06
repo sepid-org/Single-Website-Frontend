@@ -1,13 +1,15 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
-import { Box, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
 import BaleIcon from "commons/components/atoms/icons/Bale";
 import EitaaIcon from "commons/components/atoms/icons/Eitaa";
+import useLocalNavigate from "../hooks/useLocalNavigate";
 
 type PropsType = {
 }
 
 const GameEnd: FC<PropsType> = ({ }) => {
+  const localNavigate = useLocalNavigate();
 
   return (
     <Box
@@ -32,11 +34,10 @@ const GameEnd: FC<PropsType> = ({ }) => {
                 بازی تمام شد!
               </Typography>
 
-              <Typography variant="body1" textAlign="center" color="textSecondary">
-                منتظر اعلام نتایج از طرف ما باشید
-              </Typography>
-
-              <Stack spacing={2} alignItems="center">
+              <Stack spacing={1} alignItems="center">
+                <Typography variant="body1" textAlign="center" color="textSecondary">
+                  منتظر اعلام نتایج از طرف ما باشید
+                </Typography>
                 <Stack direction="row" spacing={1} alignItems="center">
                   <EitaaIcon />
                   <Typography
@@ -66,6 +67,15 @@ const GameEnd: FC<PropsType> = ({ }) => {
                     https://ble.ir/qandilsch
                   </Typography>
                 </Stack>
+              </Stack>
+
+              <Stack spacing={1} alignItems="center">
+                <Typography variant="body1" textAlign="center" color="textSecondary">
+                  برای دریافت جوایز، تکمیل نمایه الزامی است
+                </Typography>
+                <Button fullWidth variant='contained' onClick={() => localNavigate('/profile/')}>
+                  {'تکمیل نمایه'}
+                </Button>
               </Stack>
             </Stack>
           </Grid>
