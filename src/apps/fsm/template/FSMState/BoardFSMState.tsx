@@ -3,7 +3,7 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import Board from 'commons/template/Board';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
@@ -42,7 +42,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [fsmState]);
+  }, []);
 
   return (
     <Box position={'relative'}>
@@ -51,7 +51,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
         </Box>
       )}
-      <PapersBoardScene
+      <Board
         mode={mode}
         boardWidth={boardWidth}
         boardHeight={boardHeight}

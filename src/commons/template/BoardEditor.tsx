@@ -8,7 +8,7 @@ import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
-import PaperWidgets from '../Paper/PapersBoardScene/PaperWidgets';
+import Layer from './Board/Layer';
 
 const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
   const { data: paper } = useGetPaperQuery(
@@ -147,7 +147,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
           }}
         />
         {backgroundPaperIds.map(backgroundPaperId =>
-          <PaperWidgets key={backgroundPaperId} paperId={backgroundPaperId} widgetsMode={WidgetModes.Disable} />
+          <Layer key={backgroundPaperId} paperId={backgroundPaperId} widgetsMode={WidgetModes.Disable} />
         )}
         {widgets.map((widget) => (
           <Rnd
