@@ -118,6 +118,9 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     });
   }
 
+  console.log(AshbariaProfile)
+  console.log(Object.values(AshbariaProfile ?? {}).some(value => !value))
+
   return (
     <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
       <Grid container spacing={2}>
