@@ -118,9 +118,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     });
   }
 
-  console.log(AshbariaProfile)
-  console.log(Object.values(AshbariaProfile ?? {}).some(value => !value))
-
   return (
     <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
       <Grid container spacing={2}>
@@ -389,7 +386,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Object.values(AshbariaProfile ?? {}).some(value => !value)}
+            disabled={Object.values(AshbariaProfile ?? {}).some(value => value === '' || value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
