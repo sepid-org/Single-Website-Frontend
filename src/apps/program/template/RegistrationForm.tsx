@@ -6,7 +6,7 @@ import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import ProgramInfo from 'commons/components/organisms/ProgramInfo';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import Paper from './Paper';
+import Paper from '../../../commons/template/Paper';
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import { toast } from 'react-toastify';
 import { useSubmitRegistrationFormMutation } from 'apps/website-display/redux/features/form/RegistrationFormSlice';
