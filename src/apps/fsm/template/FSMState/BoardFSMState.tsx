@@ -27,14 +27,17 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
       let calculatedHeight = window.innerHeight;
+      let calculatedWidth = window.innerWidth;
       if (appbarRef.current) {
         calculatedHeight -= appbarRef.current.offsetHeight;
       }
       setContainerHeight(calculatedHeight);
+      setContainerWidth(calculatedWidth);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -56,6 +59,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         boardWidth={boardWidth}
         boardHeight={boardHeight}
         parentHeight={containerHeight}
+        parentWidth={containerWidth}
         paperIds={fsmState?.papers}
       />
       {isMentor &&
