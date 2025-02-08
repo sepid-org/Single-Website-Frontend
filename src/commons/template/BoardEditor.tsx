@@ -10,7 +10,7 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import Layer from './Board/Layer';
 
-const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
+const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
   const { data: paper } = useGetPaperQuery(
     { paperId },
     {
@@ -19,9 +19,13 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
         ...result,
         data: paperId ? result.data : null,
       }),
-    });
+    }
+  );
   const [updatePositions] = useUpdatePositionsMutation();
+
   const [scale, setScale] = useState(0.6);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+
   const containerRef = useRef(null);
 
   const widgets = paper?.widgets || [];
@@ -37,24 +41,26 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
           ...updatedWidget.position,
           x: Math.round(d.x),
           y: Math.round(d.y),
-        }
-      ]
+        },
+      ],
     });
-  }, [widgets, updatePositions]);
+  }, [widgets, updatePositions, paperId]);
 
   const handleResize = useCallback((id, ref, position) => {
     const updatedWidget = widgets.find(widget => widget.id === id);
     updatePositions({
       paperId,
-      positions: [{
-        ...updatedWidget.position,
-        width: Math.round(ref.offsetWidth),
-        height: Math.round(ref.offsetHeight),
-        x: Math.round(position.x),
-        y: Math.round(position.y),
-      }]
+      positions: [
+        {
+          ...updatedWidget.position,
+          width: Math.round(ref.offsetWidth),
+          height: Math.round(ref.offsetHeight),
+          x: Math.round(position.x),
+          y: Math.round(position.y),
+        },
+      ],
     });
-  }, [widgets, updatePositions]);
+  }, [widgets, updatePositions, paperId]);
 
   const handleZoom = useCallback((delta) => {
     setScale(prevScale => {
@@ -68,6 +74,7 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
 
   const handleResetView = () => {
     setScale(0.6);
+    setPan({ x: 0, y: 0 });
   };
 
   const handleWheel = useCallback((event) => {
@@ -75,6 +82,12 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
       event.preventDefault();
       const delta = event.deltaY < 0 ? 0.1 : -0.1;
       handleZoom(delta);
+    } else {
+      // برای جابجایی صفحه با موس
+      setPan((prevPan) => ({
+        x: prevPan.x + event.deltaX,
+        y: prevPan.y - event.deltaY,
+      }));
     }
   }, [handleZoom]);
 
@@ -83,6 +96,25 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
       handleZoomIn();
     } else if (event.key === '-' || event.key === '_') {
       handleZoomOut();
+    }
+
+    // برای جابجایی صفحه با کیبورد
+    const panSpeed = 10; // سرعت جابجایی
+    switch (event.key) {
+      case 'ArrowUp':
+        setPan((prevPan) => ({ ...prevPan, y: prevPan.y + panSpeed }));
+        break;
+      case 'ArrowDown':
+        setPan((prevPan) => ({ ...prevPan, y: prevPan.y - panSpeed }));
+        break;
+      case 'ArrowLeft':
+        setPan((prevPan) => ({ ...prevPan, x: prevPan.x - panSpeed }));
+        break;
+      case 'ArrowRight':
+        setPan((prevPan) => ({ ...prevPan, x: prevPan.x + panSpeed }));
+        break;
+      default:
+        break;
     }
   }, [handleZoomIn, handleZoomOut]);
 
@@ -108,11 +140,11 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
   return (
     <Stack
       ref={containerRef}
+      position="relative"
+      height="100%"
+      width="100%"
       sx={{
         overflow: 'hidden',
-        position: 'relative',
-        height: '100%',
-        width: '100%',
       }}
       alignItems={'center'}
       justifyContent={'center'}
@@ -131,12 +163,12 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
       </Stack>
       <Box
         sx={{
-          transform: `scale(${scale})`,
+          transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
           transformOrigin: 'center center',
-          transition: 'transform 0.1s ease-out',
+          transition: 'transform 0.1s ease',
+          backgroundColor: 'orange',
           height: plateHeight,
           width: plateWidth,
-          position: 'relative',
         }}
       >
         <Box
@@ -147,7 +179,11 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
           }}
         />
         {backgroundPaperIds.map(backgroundPaperId =>
-          <Layer key={backgroundPaperId} paperId={backgroundPaperId} widgetsMode={WidgetModes.Disable} />
+          <Layer
+            key={backgroundPaperId}
+            paperId={backgroundPaperId}
+            widgetsMode={WidgetModes.Disable}
+          />
         )}
         {widgets.map((widget) => (
           <Rnd
@@ -169,13 +205,17 @@ const BoardPaperEditor = ({ paperId, backgroundPaperIds = [] }) => {
             dragGrid={[5, 5]}
             resizeGrid={[5, 5]}
           >
-            <Widget coveredWithPaper={false} widget={widget} paperId={paperId} mode={WidgetModes.Edit} />
+            <Widget
+              coveredWithPaper={false}
+              widget={widget}
+              paperId={paperId}
+              mode={WidgetModes.Edit}
+            />
           </Rnd>
         ))}
-
       </Box>
     </Stack>
   );
 };
 
-export default BoardPaperEditor;
+export default BoardEditor;
