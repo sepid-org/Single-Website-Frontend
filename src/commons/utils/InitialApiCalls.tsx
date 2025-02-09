@@ -17,7 +17,7 @@ const InitialApiCalls = ({ children }) => {
   }
 
   if (isError) {
-    throw Error(`Get Website Error: ${(error as any)?.error}`);
+    throw Error(`Get Website Error: ${error?.data?.error}`);
   } else {
     return children;
   }
