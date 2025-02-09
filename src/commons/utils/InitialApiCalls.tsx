@@ -17,10 +17,10 @@ const InitialApiCalls = ({ children }) => {
   }
 
   if (isError) {
-    return Error(`Get Website Error: ${(error as any)?.error}`);
+    throw Error(`Get Website Error: ${(error as any)?.error}`);
+  } else {
+    return children;
   }
-
-  return children;
 };
 
 export default InitialApiCalls;
