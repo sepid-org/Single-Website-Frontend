@@ -82,7 +82,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => localNavigate("/")}
+              onClick={() => localNavigate("/menu/")}
             >
               فعلا بیخیالش!
             </Button>

@@ -80,7 +80,7 @@ const Survey: FC<PropsType> = ({ }) => {
               >
                 {'پاسخت با موفقیت ثبت شد و ۲۶۰ امتیاز گرفتی😊'}
               </Typography>
-              <Button variant='contained' size='large' onClick={() => localNavigate('/')}>
+              <Button variant='contained' size='large' onClick={() => localNavigate('/menu/')}>
                 {'بازگشت به صفحه اول'}
               </Button>
             </Fragment>
