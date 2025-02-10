@@ -19,12 +19,15 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   fsmStateId,
   boardWidth,
   boardHeight,
-  mode,
+  mode = 'fit-width',
 }) => {
   const { fsmId } = useFSMContext();
-  const { isMentor } = useFSMStateContext()
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
-  const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { isMentor } = useFSMStateContext();
+  const { data: fsmState, error: fsmStateError } = useGetFSMStateQuery(
+    { fsmStateId },
+    { skip: !fsmStateId }
+  );
+  const { data: fsm, error: fsmError } = useGetFSMQuery({ fsmId });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
@@ -39,19 +42,28 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
       setContainerHeight(calculatedHeight);
       setContainerWidth(calculatedWidth);
     };
+
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [appbarRef]);
+
+  if (fsmStateError || fsmError) {
+    throw new Error("Error loading FSM data");
+  }
+
+  if (!fsmState || !fsm || containerHeight === 0 || containerWidth === 0) {
+    return;
+  }
 
   return (
-    <Fragment>
-      {fsmState?.show_appbar && (
+    <Box position={'relative'}>
+      {fsmState.show_appbar && (
         <Box ref={appbarRef}>
-          <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
+          <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position="relative" />
         </Box>
       )}
       <Board
@@ -60,23 +72,23 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         boardHeight={boardHeight}
         parentHeight={containerHeight}
         parentWidth={containerWidth}
-        paperIds={fsmState?.papers}
+        paperIds={fsmState.papers}
       />
-      {isMentor &&
-        <Box position={'absolute'} top={10} left={10} component={Paper} paddingX={1}>
-          <CollapsibleTitle title='راهنمای همیاران'>
+      {isMentor && (
+        <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>
+          <CollapsibleTitle title="راهنمای همیاران">
             <Fragment>
               <Typography>
-                {`کارگاه ${fsm?.id}: ${fsm?.name}`}
+                {`کارگاه ${fsm.id}: ${fsm.name}`}
               </Typography>
               <Typography>
-                {`گام ${fsmState?.id}: ${fsmState?.title}`}
+                {`گام ${fsmState.id}: ${fsmState.title}`}
               </Typography>
             </Fragment>
           </CollapsibleTitle>
         </Box>
-      }
-    </Fragment>
+      )}
+    </Box>
   );
 };
 
