@@ -48,7 +48,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   }, []);
 
   return (
-    <Box position={'relative'}>
+    <Fragment>
       {fsmState?.show_appbar && (
         <Box ref={appbarRef}>
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
@@ -76,7 +76,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
           </CollapsibleTitle>
         </Box>
       }
-    </Box>
+    </Fragment>
   );
 };
 
