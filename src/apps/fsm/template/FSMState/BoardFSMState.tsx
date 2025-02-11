@@ -19,7 +19,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   fsmStateId,
   boardWidth,
   boardHeight,
-  mode = 'fit-width',
+  mode,
 }) => {
   const { fsmId } = useFSMContext();
   const { isMentor } = useFSMStateContext();
