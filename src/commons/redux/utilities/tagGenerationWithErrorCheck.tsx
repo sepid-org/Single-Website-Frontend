@@ -1,6 +1,8 @@
 import { TagDescription } from '@reduxjs/toolkit/query';
 
 export const tagTypes = [
+  // Party Management
+  'UserAuthentication',
   // Website Management
   'Website',
   // Content Management

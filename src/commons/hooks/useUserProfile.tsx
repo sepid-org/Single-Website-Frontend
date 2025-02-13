@@ -11,7 +11,7 @@ const useUserProfile = () => {
     isError,
     isLoading,
     isFetching,
-  } = useGetUserProfileQuery({ userId: userInfo.id });
+  } = useGetUserProfileQuery({ userId: userInfo?.id }, { skip: !Boolean(userInfo) });
 
   const fullName = useMemo(() => {
     return data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : '';

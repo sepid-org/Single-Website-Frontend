@@ -7,13 +7,4 @@ const baseAxios = Axios.create({
   maxRedirects: 5,
 });
 
-export const updateToken = (accessToken: string): void => {
-  if (accessToken) {
-    baseAxios.defaults.headers.common['Authorization'] = 'JWT ' + accessToken;
-  } else {
-    baseAxios.defaults.headers.common['Authorization'] = null;
-    delete baseAxios.defaults.headers.common['Authorization'];
-  }
-};
-
 export default baseAxios;
