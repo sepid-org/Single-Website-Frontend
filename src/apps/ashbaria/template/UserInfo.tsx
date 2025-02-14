@@ -128,7 +128,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           alignItems="center"
         >
           <Box position={'absolute'} left={10} top={10}>
-            <BackButton />
+            <BackButton destination="/" />
           </Box>
           <Stack direction={'row'}>
             <PersonIcon />
