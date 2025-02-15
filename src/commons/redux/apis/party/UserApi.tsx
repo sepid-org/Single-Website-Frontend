@@ -115,7 +115,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    checkAuthentication: builder.query<void, void>({
+    checkAuthentication: builder.query<{ status: 'authenticated' | 'unauthenticated' }, void>({
       providesTags: ['UserAuthentication'],
       query: () => 'auth/accounts/check-authentication/',
     }),

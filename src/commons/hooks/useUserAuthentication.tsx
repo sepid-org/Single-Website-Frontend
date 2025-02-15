@@ -1,9 +1,9 @@
 import { useCheckAuthenticationQuery } from "commons/redux/apis/party/UserApi";
 
 const useUserAuthentication = () => {
-  const { isSuccess, isLoading } = useCheckAuthenticationQuery();
+  const { data, isLoading } = useCheckAuthenticationQuery();
 
-  const isAuthenticated = isLoading ? undefined : isSuccess;
+  const isAuthenticated = isLoading ? undefined : data.status === 'authenticated';
 
   return {
     isAuthenticated,
