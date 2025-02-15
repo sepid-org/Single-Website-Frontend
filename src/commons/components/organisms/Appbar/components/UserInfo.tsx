@@ -9,8 +9,8 @@ const UserInfo = ({ }) => {
 
   return (
     <Stack direction={'row'} alignItems={'center'} justifyContent={'center'}>
-      {isAuthenticated === true && <Avatar />}
-      {isAuthenticated === false &&
+      {isAuthenticated ?
+        <Avatar /> :
         <Stack direction={'row'} spacing={1}>
           <DashboardButton variant='outlined' label='ورود' to={'/login/'} onClick={null} />
           <DashboardButton variant='contained' label='ثبت‌نام' to={'/create-account/'} onClick={null} />

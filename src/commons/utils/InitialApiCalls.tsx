@@ -1,6 +1,6 @@
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
-import { useCheckAuthenticationQuery } from 'commons/redux/apis/party/UserApi';
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import React, { useState, useEffect } from 'react';
 
 const InitialApiCalls = ({ children }) => {
@@ -10,17 +10,15 @@ const InitialApiCalls = ({ children }) => {
     error: websiteError,
     isLoading: isWebsiteLoading
   } = useGetWebsiteQuery();
-  const {
-    isLoading: isAuthLoading
-  } = useCheckAuthenticationQuery();
+  const { isAuthenticatedLoading } = useUserAuthentication();
 
   useEffect(() => {
-    if (!isWebsiteLoading && !isAuthLoading && !initialLoadDone) {
+    if (!isWebsiteLoading && !isAuthenticatedLoading && !initialLoadDone) {
       setInitialLoadDone(true);
     }
-  }, [isWebsiteLoading, isAuthLoading, initialLoadDone]);
+  }, [isWebsiteLoading, isAuthenticatedLoading, initialLoadDone]);
 
-  if (!initialLoadDone && (isWebsiteLoading || isAuthLoading)) {
+  if (!initialLoadDone && (isWebsiteLoading || isAuthenticatedLoading)) {
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />
