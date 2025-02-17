@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-const staticBaseUrl = 'https://sepid-platform-frontend-statics.s3.ir-thr-at1.arvanstorage.ir';
+const staticBaseUrl = 'https://static.sepid.org';
 
 // Define font weights and their corresponding filenames
 const fontVariants = [
