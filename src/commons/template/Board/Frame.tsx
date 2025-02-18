@@ -10,7 +10,7 @@ export type BoardScenePropsType = {
   children: React.ReactNode;
 }
 
-const BoardScene: FC<BoardScenePropsType> = ({
+const Frame: FC<BoardScenePropsType> = ({
   parentWidth = window.innerWidth,
   parentHeight = window.innerHeight,
   boardWidth = 1600,
@@ -100,4 +100,4 @@ const BoardScene: FC<BoardScenePropsType> = ({
   );
 };
 
-export default BoardScene;
+export default Frame;

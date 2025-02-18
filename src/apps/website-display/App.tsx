@@ -3,20 +3,35 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import ResetPassword from 'apps/website-display/pages/ResetPassword';
 import CreateAccount from 'apps/website-display/pages/CreateAccount';
-import RegistrationReceipt from 'apps/website-display/pages/RegistrationReceipt';
-import Programs from 'apps/website-display/pages/Programs';
-import Setting from 'apps/website-display/pages/Setting';
 import Login from 'apps/website-display/pages/Login';
-import Article from 'apps/website-display/pages/Article';
-import Articles from 'apps/website-display/pages/Articles';
 import PrivateRoute from 'commons/routes/PrivateRoute';
-import ArticleEditor from 'apps/website-display/pages/ArticleEditor';
-import ProfilePage from 'apps/website-display/pages/Profile';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
-import Notifications from 'apps/chat/pages/Notifications';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import Form from './pages/Form';
-import FormEditor from './pages/FormEditor';
+import { retryImport } from 'commons/utils/retryImport';
+
+const Articles = React.lazy(() =>
+  retryImport(() => import('apps/website-display/pages/Articles'))
+);
+
+const Programs = React.lazy(() =>
+  retryImport(() => import('apps/website-display/pages/Programs'))
+);
+
+const Profile = React.lazy(() =>
+  retryImport(() => import('apps/website-display/pages/Profile'))
+);
+
+const Notifications = React.lazy(() =>
+  retryImport(() => import('apps/chat/pages/Notifications'))
+);
+
+const RegistrationReceipt = React.lazy(() =>
+  retryImport(() => import('apps/website-display/pages/RegistrationReceipt'))
+);
+
+const Setting = React.lazy(() =>
+  retryImport(() => import('apps/website-display/pages/Setting'))
+);
 
 const App = () => {
   const navigate = useNavigate();
@@ -35,19 +50,14 @@ const App = () => {
   return (
     <Routes>
       <Route index element={<Navigate to={'/programs/'} />} />
-      <Route path="/form/:formId/" element={<Form />} />
       <Route path="/articles/" element={<Articles />} />
-      <Route path="/article/:articleId/" element={<Article />} />
       <Route path="/programs/" element={<Programs />} />
-      <Route path="/profile/:partyType/:partyId/" element={<ProfilePage />} />
+      <Route path="/profile/:partyType/:partyId/" element={<Profile />} />
 
       <Route path="/" element={<PrivateRoute />}>
         <Route path="/notifications/" element={<Notifications />} />
-        <Route path="/edit-form/:formId/" element={<FormEditor />} />
-        <Route path="/edit-article/:articleId/" element={<ArticleEditor />} />
         <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
         <Route path="/setting/" element={<Setting />} />
-        <Route path="/articles/" element={<Articles />} />
       </Route>
 
       <Route path="/" element={<AnonymousRoute />}>

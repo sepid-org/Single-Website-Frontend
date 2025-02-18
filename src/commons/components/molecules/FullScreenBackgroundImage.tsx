@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
 import React, { FC, ReactNode } from 'react';
 
 
@@ -15,15 +15,14 @@ const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
 }) => {
 
   return (
-    <Box
+    <Stack
+      alignItems={'center'}
+      justifyContent={'center'}
       position={'relative'}
+      padding={4}
+      minHeight={'100vh'}
+      minWidth={"100vw"}
       sx={{
-        padding: 4,
-        minHeight: "100vh",
-        minWidth: "100vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
         backgroundImage: image ? `url(${image})` : null,
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -33,7 +32,7 @@ const FullScreenBackgroundImage: FC<FullScreenBackgroundImagePropsType> = ({
       }}
     >
       {children}
-    </Box>
+    </Stack>
   );
 }
 

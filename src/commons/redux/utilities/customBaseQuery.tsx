@@ -1,5 +1,6 @@
 import { fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import handleError from './handleError';
+import { toast } from 'react-toastify';
 
 interface RefreshTokenResponse {
   access: string;
@@ -16,48 +17,38 @@ interface BaseQueryArgs {
 
 const MAX_RETRIES = 5;
 const BACKOFF_FACTOR = 0.3;
-const TIMEOUT = 10000; // 10 seconds in milliseconds
-const STATUS_FORCELIST = [500, 502, 503, 504];
+const TIMEOUT = 10000;
+const STATUS_FORCELIST = [502, 503, 504];
 
-const getRandomJitter = () => Math.random() * 1000; // Jitter between 0ms and 1000ms
+const getRandomJitter = () => Math.random() * 1000;
 
 const refreshAccessToken = async (baseQuery: any, api: any, extraOptions: any) => {
-  const refreshToken = api.getState().account?.refreshToken;
-  if (!refreshToken) {
-    return false;
-  }
-
   try {
     const refreshResult = await baseQuery(
       {
         url: '/auth/accounts/refresh/',
         method: 'POST',
-        body: {
-          refresh: refreshToken,
-        },
       },
       api,
       extraOptions
     );
 
     if (refreshResult.data) {
-      const refreshResultData = refreshResult.data as RefreshTokenResponse;
-
-      // Dispatch token refresh action
-      api.dispatch({
-        type: 'account/refreshToken',
-        payload: {
-          accessToken: refreshResultData.access,
-          refreshToken: refreshResultData.refresh,
-        },
-      });
-
       return true;
     }
 
+    await baseQuery(
+      { url: '/auth/accounts/logout/', method: 'POST' },
+      api,
+      extraOptions
+    );
     return false;
   } catch (error) {
-    handleError({ error, dispatch: api.dispatch });
+    await baseQuery(
+      { url: '/auth/accounts/logout/', method: 'POST' },
+      api,
+      extraOptions
+    );
     return false;
   }
 };
@@ -68,16 +59,15 @@ const customBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
       baseUrl,
       prepareHeaders: (headers, { getState }) => {
         const state = getState() as any;
-        const accessToken = state.account?.accessToken;
         const website = state.website?.website;
         const fsm = state.fsm?.fsm;
 
-        if (accessToken) headers.set('Authorization', `JWT ${accessToken}`);
         if (website) headers.set('Website', website?.name);
         if (fsm) headers.set('FSM', fsm.id);
 
         return headers;
       },
+      credentials: 'include',
     });
 
     let retries = 0;

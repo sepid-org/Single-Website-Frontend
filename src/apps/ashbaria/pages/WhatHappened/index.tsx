@@ -21,7 +21,7 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
             controls
           />
         </Stack>
-        <Button sx={{}} variant="contained" onClick={() => localNavigate('/')} size='large'>
+        <Button sx={{}} variant="contained" onClick={() => localNavigate('/menu/')} size='large'>
           {'بزن بریم...'}
         </Button>
       </Stack>

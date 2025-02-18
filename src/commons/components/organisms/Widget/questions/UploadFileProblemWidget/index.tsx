@@ -1,15 +1,12 @@
 import { Button, IconButton, Stack, Typography } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import React, { useEffect, useState, FC } from 'react';
-import { useTranslate } from 'react-redux-multilingual/lib/context';
+import React, { FC } from 'react';
 import UploadFileProblemEditWidget from './edit';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import UploadFileButton from 'commons/components/molecules/UploadFileButton';
-import { AnswerType } from 'commons/types/models';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import { useClearQuestionAnswerMutation } from 'commons/redux/apis/cms/response/Answer';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import useUploadFileQuestionProperties from './useUploadFileQuestionProperties';
 
 type UploadFileProblemWidgetPropsType = {
   onAnswerChange: any;
@@ -19,7 +16,6 @@ type UploadFileProblemWidgetPropsType = {
   text: string;
   answer_file: string;
   mode: WidgetModes;
-  submittedAnswer: AnswerType;
 } & QuestionWidgetType;
 
 const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
@@ -29,39 +25,21 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   id: questionId,
   text = 'محل بارگذاری فایل:',
   mode,
-  submittedAnswer,
   ...questionWidgetProps
 }) => {
-  const t = useTranslate();
-  const [fileLink, setFileLink] = useState<string>(submittedAnswer?.answer_file || '');
-  const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
-  const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const { player } = useFSMContext();
 
-  useEffect(() => {
-    if (fileLink) {
-      onAnswerChange({ answer_file: fileLink });
-      if (mode === WidgetModes.View) {
-        submitAnswer({
-          playerId: player.id,
-          questionId,
-          answerFile: fileLink,
-        })
-      }
-    }
-  }, [fileLink])
-
-  const clearFile = (e) => {
-    e.preventDefault();
-    clearQuestionAnswer({ questionId });
-  }
-
-  useEffect(() => {
-    if (clearQuestionAnswerResult.isSuccess) {
-      setFileLink('');
-      onAnswerChange({ answer_file: '' });
-    }
-  }, [clearQuestionAnswerResult])
+  const {
+    uploadedFileLink,
+    setUploadedFileLink,
+    clearFile,
+    errorMessage,
+    isQuestionLoading,
+  } = useUploadFileQuestionProperties({
+    useSubmitAnswerMutation,
+    onAnswerChange,
+    questionId,
+    mode,
+  });
 
   return (
     <Stack alignItems='center' justifyContent='space-between' direction='row' spacing={1}>
@@ -70,9 +48,9 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
       </IsRequired>
       <Stack justifyContent='flex-end' spacing={1}>
         {(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
-          <UploadFileButton setFileLink={setFileLink} />
+          <UploadFileButton setFileLink={setUploadedFileLink} />
         }
-        {(mode !== WidgetModes.Edit && mode !== WidgetModes.Disable && fileLink) &&
+        {(mode !== WidgetModes.Edit && mode !== WidgetModes.Disable && uploadedFileLink) &&
           <Button
             size="small"
             variant='outlined'
@@ -85,14 +63,14 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
                   <ClearIcon sx={{ fontSize: 14 }} />
                 </IconButton>
               )}
-            href={fileLink}
+            href={uploadedFileLink}
             component="a"
             target="_blank">
             {'آخرین فایل ارسالی'}
           </Button>
         }
       </Stack>
-      {mode === WidgetModes.Review && !fileLink &&
+      {mode === WidgetModes.Review && !uploadedFileLink &&
         <Typography color='red' variant='caption'>
           {'پاسخی برای این سوال ثبت نشده است.'}
         </Typography>

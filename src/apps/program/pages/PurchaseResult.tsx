@@ -7,11 +7,10 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 
 
 const PurchaseResult = () => {
-  const { programSlug } = useParams();
-  const [searchParams] = useSearchParams();
-  const { data: websiteMetadata, isLoading } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-
   const navigate = useNavigate();
+  const { programSlug } = useParams();
+  const { data: websiteMetadata, isLoading } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
   const refId = searchParams.get('ref_id');
 
@@ -23,7 +22,7 @@ const PurchaseResult = () => {
     )
   }
 
-  if (websiteMetadata?.paper_id) {
+  if (websiteMetadata?.paper_id && status === 'success') {
 
     return (
       <Container

@@ -1,12 +1,13 @@
-import { useSelector } from "react-redux";
+import { useCheckAuthenticationQuery } from "commons/redux/apis/party/UserApi";
 
 const useUserAuthentication = () => {
-  const accessToken = useSelector((state: any) => state.account.accessToken);
+  const { data, isLoading } = useCheckAuthenticationQuery();
 
-  const isAuthenticated = Boolean(accessToken);
+  const isAuthenticated = isLoading ? false : data.status === 'authenticated';
+
   return {
     isAuthenticated,
-    accessToken,
+    isAuthenticatedLoading: isLoading,
   };
 }
 

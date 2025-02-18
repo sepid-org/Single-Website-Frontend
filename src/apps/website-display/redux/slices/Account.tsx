@@ -6,13 +6,6 @@ import { UserInfoType } from 'commons/types/profile';
 interface AccountState {
   id: string | null;
   userInfo: UserInfoType | null;
-  accessToken: string;
-  refreshToken: string;
-}
-
-interface TokenPayload {
-  accessToken: string;
-  refreshToken: string;
 }
 
 interface AccountPayload {
@@ -25,8 +18,6 @@ interface AccountPayload {
 const initialState: AccountState = {
   id: null,
   userInfo: null,
-  accessToken: null,
-  refreshToken: null,
 };
 
 // Helper function to handle common login success pattern
@@ -36,8 +27,6 @@ const handleLoginSuccess = (
 ): void => {
   state.userInfo = { ...state.userInfo, ...payload.user };
   state.id = payload.user.id;
-  state.accessToken = payload.access;
-  state.refreshToken = payload.refresh;
 };
 
 // Login endpoints that need to be matched
@@ -56,10 +45,6 @@ const AccountSlice = createSlice({
     logout: (state) => {
       return initialState;
     },
-    refreshToken: (state, action: PayloadAction<TokenPayload>) => {
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
-    },
   },
   extraReducers: (builder) => {
     loginEndpoints.forEach((endpoint) => {
@@ -74,7 +59,7 @@ const AccountSlice = createSlice({
 });
 
 // Export actions
-export const { refreshToken, logout } = AccountSlice.actions;
+export const { logout } = AccountSlice.actions;
 
 // Export reducer
 export const { reducer: AccountReducer } = AccountSlice;

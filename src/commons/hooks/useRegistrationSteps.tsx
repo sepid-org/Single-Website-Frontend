@@ -6,9 +6,9 @@ import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/R
 import { useGetFormQuery } from 'apps/website-display/redux/features/form/FormSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-import RegistrationForm from 'commons/template/RegistrationForm';
-import RegistrationStatus from 'commons/template/RegistrationStatus';
-import Payment from 'commons/template/Payment';
+import RegistrationForm from 'apps/program/template/RegistrationForm';
+import RegistrationStatus from 'apps/program/template/RegistrationStatus';
+import Payment from 'apps/program/template/Payment';
 import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';

@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import PaperWidgets from 'commons/template/Paper/PapersBoardScene/PaperWidgets';
-import BoardScene from 'commons/template/Paper/PapersBoardScene/BoardScene';
+import Layer from 'commons/template/Board/Layer';
+import Frame from 'commons/template/Board/Frame';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 
-export type PapersBoardScenePropsType = {
+export type PropsType = {
   paperIds: string[];
   parentWidth?: number;
   parentHeight?: number;
@@ -12,7 +12,7 @@ export type PapersBoardScenePropsType = {
   mode?: 'fit-height' | 'fit-width';
 };
 
-const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
+const Board: FC<PropsType> = ({
   paperIds = [],
   parentWidth,
   parentHeight,
@@ -22,7 +22,7 @@ const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
 }) => {
 
   return (
-    <BoardScene
+    <Frame
       mode={mode}
       boardHeight={boardHeight}
       boardWidth={boardWidth}
@@ -30,10 +30,10 @@ const PapersBoardScene: FC<PapersBoardScenePropsType> = ({
       parentWidth={parentWidth}
     >
       {paperIds.map(paperId => (
-        <PaperWidgets key={paperId} paperId={paperId} widgetsMode={WidgetModes.View} />
+        <Layer key={paperId} paperId={paperId} widgetsMode={WidgetModes.View} />
       ))}
-    </BoardScene>
+    </Frame>
   );
 };
 
-export default PapersBoardScene;
+export default Board;

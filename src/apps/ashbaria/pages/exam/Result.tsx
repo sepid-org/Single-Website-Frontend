@@ -108,7 +108,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         <Button
           fullWidth
           variant="outlined"
-          onClick={() => localNavigate("/")}
+          onClick={() => localNavigate("/menu/")}
         >
           برگردیم به خانه
         </Button>

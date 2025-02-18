@@ -3,7 +3,7 @@ import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import PapersBoardScene from 'commons/template/Paper/PapersBoardScene';
+import Board from 'commons/template/Board';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
@@ -22,56 +22,72 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   mode,
 }) => {
   const { fsmId } = useFSMContext();
-  const { isMentor } = useFSMStateContext()
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
-  const { data: fsm } = useGetFSMQuery({ fsmId });
+  const { isMentor } = useFSMStateContext();
+  const { data: fsmState, error: fsmStateError } = useGetFSMStateQuery(
+    { fsmStateId },
+    { skip: !fsmStateId }
+  );
+  const { data: fsm, error: fsmError } = useGetFSMQuery({ fsmId });
   const appbarRef = useRef<HTMLDivElement>(null);
   const [containerHeight, setContainerHeight] = useState<number>(0);
+  const [containerWidth, setContainerWidth] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
       let calculatedHeight = window.innerHeight;
+      let calculatedWidth = window.innerWidth;
       if (appbarRef.current) {
         calculatedHeight -= appbarRef.current.offsetHeight;
       }
       setContainerHeight(calculatedHeight);
+      setContainerWidth(calculatedWidth);
     };
+
     handleResize();
     window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [fsmState]);
+  }, [appbarRef]);
+
+  if (fsmStateError || fsmError) {
+    throw new Error("Error loading FSM data");
+  }
+
+  if (!fsmState || !fsm || containerHeight === 0 || containerWidth === 0) {
+    return;
+  }
 
   return (
     <Box position={'relative'}>
-      {fsmState?.show_appbar && (
+      {fsmState.show_appbar && (
         <Box ref={appbarRef}>
-          <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position='relative' />
+          <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position="relative" />
         </Box>
       )}
-      <PapersBoardScene
+      <Board
         mode={mode}
         boardWidth={boardWidth}
         boardHeight={boardHeight}
         parentHeight={containerHeight}
-        paperIds={fsmState?.papers}
+        parentWidth={containerWidth}
+        paperIds={fsmState.papers}
       />
-      {isMentor &&
-        <Box position={'absolute'} top={10} left={10} component={Paper} paddingX={1}>
-          <CollapsibleTitle title='راهنمای همیاران'>
+      {isMentor && (
+        <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>
+          <CollapsibleTitle title="راهنمای همیاران">
             <Fragment>
               <Typography>
-                {`کارگاه ${fsm?.id}: ${fsm?.name}`}
+                {`کارگاه ${fsm.id}: ${fsm.name}`}
               </Typography>
               <Typography>
-                {`گام ${fsmState?.id}: ${fsmState?.title}`}
+                {`گام ${fsmState.id}: ${fsmState.title}`}
               </Typography>
             </Fragment>
           </CollapsibleTitle>
         </Box>
-      }
+      )}
     </Box>
   );
 };

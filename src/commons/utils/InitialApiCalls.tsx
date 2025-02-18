@@ -1,14 +1,24 @@
 import { Backdrop, CircularProgress } from '@mui/material';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
-import { useCheckAuthenticationQuery } from 'commons/redux/apis/party/UserApi';
-import React from 'react';
-
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
+import React, { useState, useEffect } from 'react';
 
 const InitialApiCalls = ({ children }) => {
-  const { isError, error, isLoading: isGetWebsiteLoading } = useGetWebsiteQuery();
-  const { isLoading: isCheckAuthenticationLoading } = useCheckAuthenticationQuery();
+  const [initialLoadDone, setInitialLoadDone] = useState(false);
+  const {
+    isError: isWebsiteError,
+    error: websiteError,
+    isLoading: isWebsiteLoading
+  } = useGetWebsiteQuery();
+  const { isAuthenticatedLoading } = useUserAuthentication();
 
-  if (isGetWebsiteLoading || isCheckAuthenticationLoading) {
+  useEffect(() => {
+    if (!isWebsiteLoading && !isAuthenticatedLoading && !initialLoadDone) {
+      setInitialLoadDone(true);
+    }
+  }, [isWebsiteLoading, isAuthenticatedLoading, initialLoadDone]);
+
+  if (!initialLoadDone && (isWebsiteLoading || isAuthenticatedLoading)) {
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />
@@ -16,8 +26,8 @@ const InitialApiCalls = ({ children }) => {
     );
   }
 
-  if (isError) {
-    return Error(`Get Website Error: ${(error as any)?.error}`);
+  if (isWebsiteError) {
+    throw new Error(`Get Website Error: ${websiteError?.data?.error}`);
   }
 
   return children;

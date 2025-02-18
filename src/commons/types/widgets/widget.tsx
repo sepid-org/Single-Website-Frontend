@@ -22,9 +22,8 @@ export type PositionType = {
 }
 
 export type WidgetType = ObjectType & {
-  name: string;
+  id: number;
   mode: WidgetModes;
   widget_type: WidgetTypes;
   hints: HintType[];
-  is_hidden: boolean;
 }

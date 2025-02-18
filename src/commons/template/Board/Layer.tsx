@@ -4,12 +4,12 @@ import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 
-export type PaperWidgetsPropsType = {
+export type PropsType = {
   paperId: string;
   widgetsMode: WidgetModes;
 }
 
-const PaperWidgets: FC<PaperWidgetsPropsType> = ({
+const Layer: FC<PropsType> = ({
   paperId,
   widgetsMode,
 }) => {
@@ -44,4 +44,4 @@ const PaperWidgets: FC<PaperWidgetsPropsType> = ({
   return widgetsComponents;
 };
 
-export default PaperWidgets;
+export default Layer;

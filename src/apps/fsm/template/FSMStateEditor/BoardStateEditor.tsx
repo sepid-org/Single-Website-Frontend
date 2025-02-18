@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
+import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
-import BoardPaperEditor from 'commons/template/PaperEditor/BoardPaperEditor';
+import BoardEditor from 'commons/template/BoardEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
 
 type BoardStateEditorPropsType = {
@@ -23,13 +23,14 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   }
 
   return (
-    <Grid container spacing={2} overflow={'hidden'} alignItems={'start'}>
+    <Grid container overflow={'hidden'} alignItems={'start'} style={{ flexWrap: 'nowrap' }}>
       <Grid item md={3}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
         <FSMStatePapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
       </Grid>
+      <Divider orientation='vertical' flexItem />
       <Grid item md={9}>
-        <BoardPaperEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
+        <BoardEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
       </Grid>
     </Grid>
   );

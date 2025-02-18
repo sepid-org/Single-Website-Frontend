@@ -7,11 +7,11 @@ import DefaultAppbarItems from './DefaultAppbarItems';
 import UserInfo from '../components/UserInfo';
 import { useSelector } from 'react-redux';
 import NotificationButton from 'apps/chat/components/atoms/NotificationButton';
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 
 const DashboardAppbarItems = ({ }) => {
-
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-  const isUserAuthenticated = useSelector((state: any) => state.account.accessToken);
+  const { isAuthenticated } = useUserAuthentication();
 
   if (!pageMetadata?.appbar?.body) {
     return DefaultAppbarItems({})
@@ -37,7 +37,7 @@ const DashboardAppbarItems = ({ }) => {
     desktopLeftItems: [
       ...desktopLeftItems,
       userInfo,
-      isUserAuthenticated ? notificationButton : null,
+      isAuthenticated ? notificationButton : null,
     ],
     desktopRightItems: [
       websiteLogo,
@@ -45,7 +45,7 @@ const DashboardAppbarItems = ({ }) => {
     ],
     mobileLeftItems: [
       userInfo,
-      isUserAuthenticated ? notificationButton : null,
+      isAuthenticated ? notificationButton : null,
     ],
     mobileRightItems: [],
     mobileMenuListItems: [
