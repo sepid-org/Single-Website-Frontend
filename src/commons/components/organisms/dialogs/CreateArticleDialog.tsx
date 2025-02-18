@@ -30,12 +30,12 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
   const [properties, setProperties] = useState<Partial<ArticleType>>({
     name: '',
     description: '',
-    cover_page: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+    cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
     is_hidden: false,
     tags: [],
   });
 
-  const handleCreateProgram = () => {
+  const handleCreateArticle = () => {
     if (!properties.name) {
       toast.error('لطفاً نام مقاله را انتخاب کنید.');
       return;
@@ -82,7 +82,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
         <Button
           variant="contained"
           color="primary"
-          onClick={handleCreateProgram}>
+          onClick={handleCreateArticle}>
           {t('create')}
         </Button>
       </DialogActions>
