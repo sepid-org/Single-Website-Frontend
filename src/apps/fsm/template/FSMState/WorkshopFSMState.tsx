@@ -117,7 +117,18 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
               <Stack component={Paper} sx={{ padding: 1 }} spacing={1}>
                 {notQuestionWidgets}
               </Stack>
-              <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
+              <Stack
+                component={Paper}
+                justifyContent={'space-around'}
+                sx={{
+                  display: { xs: 'inherit', md: 'none' },
+                  position: 'fixed',
+                  bottom: 0,
+                  right: 0,
+                  left: 0,
+                  padding: 1,
+                }}
+              >
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <FSMBackStateButton />
