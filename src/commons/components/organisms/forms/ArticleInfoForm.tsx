@@ -55,7 +55,7 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
         />
       </Grid>
       <Grid item xs={12} md={6} alignItems={'stretch'} justifyContent={'stretch'}>
-        <UploadImage showImageSelf={showCoverImage} file={data.cover_page} setFile={(file) => setData(properties => ({ ...properties, cover_page: file }))} />
+        <UploadImage showImageSelf={showCoverImage} file={data.cover_image} setFile={(file) => setData(properties => ({ ...properties, cover_page: file }))} />
       </Grid>
       <Grid item xs={12}>
         <TextField
