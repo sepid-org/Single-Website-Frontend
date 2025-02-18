@@ -15,6 +15,8 @@ type ButtonWidgetPropsType = {
   destination_states: string[];
   mode: WidgetModes;
   id: string;
+  has_ripple_on_click: boolean;
+  has_hover_effect: boolean;
 };
 
 const ButtonWidget: FC<ButtonWidgetPropsType> = ({
@@ -22,6 +24,8 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   background_image,
   destination_page_url,
   destination_states = [],
+  has_ripple_on_click,
+  has_hover_effect,
   mode,
   id: widgetId,
   ...objectFields
@@ -69,12 +73,12 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         .catch(error => { });
     }
     else {*/
-      const img = new Image();
-      img.src = background_image;
-      img.onload = function () {
-        setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-        setClipPath('none');
-      }
+    const img = new Image();
+    img.src = background_image;
+    img.onload = function () {
+      setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
+      setClipPath('none');
+    }
     //}
   }, [background_image]);
 
@@ -140,6 +144,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         {background_image ?
           <ButtonBase
             onClick={handleClick}
+            disableRipple={!has_ripple_on_click}
             sx={{
               position: 'absolute',
               borderRadius: 1,
@@ -154,6 +159,10 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               zIndex: 0,
               clipPath,
               transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
+              '&:hover': has_hover_effect ? {
+                transform: `scaleX(${(scale.widthScale / dimensions.width) * 1.05}) scaleY(${(scale.heightScale / dimensions.height) * 1.05})`,
+                boxShadow: '0 0.5em 2rem -1rem rgba(0, 0, 0, 1)',
+              } : {},
             }}
           /> :
           <Button

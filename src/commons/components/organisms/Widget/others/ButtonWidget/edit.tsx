@@ -8,6 +8,8 @@ import {
   TextField,
   FormLabel,
   Autocomplete,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -37,6 +39,8 @@ const ButtonWidgetEditor = ({
     background_image: widgetProps.background_image || '',
     destination_page_url: widgetProps.destination_page_url || '',
     destination_states: widgetProps.destination_states || [],
+    has_ripple_on_click: widgetProps.has_ripple_on_click,
+    has_hover_effect: widgetProps.has_hover_effect,
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
@@ -124,6 +128,30 @@ const ButtonWidgetEditor = ({
               ...buttonFields,
               destination_page_url: e.target.value
             })}
+          />
+          <FormControlLabel
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            control={<Switch checked={buttonFields.has_ripple_on_click} />}
+            label={'موج‌دار شدن هنگام کلیک'}
+            labelPlacement='start'
+            onChange={(e) => {
+              setButtonFields({
+                ...buttonFields,
+                has_ripple_on_click: !buttonFields.has_ripple_on_click,
+              })
+            }}
+          />
+          <FormControlLabel
+            sx={{ display: 'flex', justifyContent: 'flex-end' }}
+            control={<Switch checked={buttonFields.has_hover_effect} />}
+            label={'افکت داشتن هنگام عبور موس'}
+            labelPlacement='start'
+            onChange={(e) => {
+              setButtonFields({
+                ...buttonFields,
+                has_hover_effect: !buttonFields.has_hover_effect,
+              })
+            }}
           />
         </Stack>
       </DialogContent>
