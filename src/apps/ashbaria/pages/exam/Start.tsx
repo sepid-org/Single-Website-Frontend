@@ -2,7 +2,7 @@ import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
@@ -82,7 +82,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
             <Button
               fullWidth
               variant="outlined"
-              onClick={() => localNavigate("/")}
+              onClick={() => localNavigate("/menu/")}
             >
               فعلا بیخیالش!
             </Button>

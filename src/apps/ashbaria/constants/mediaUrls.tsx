@@ -13,4 +13,6 @@ export const MediaUrls = {
   KOHSHAD: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/Kohshad.png',
 
   WHAT_HAPPENED: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/what-happened.mp4',
+
+  INTRODUCTION_BACKGROUND_SOUND: 'https://kamva-minio-storage.darkube.app/sepid/projects/ashbaria/Krampus-Workshop.mp3',
 };

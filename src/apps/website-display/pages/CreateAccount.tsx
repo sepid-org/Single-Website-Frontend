@@ -107,10 +107,11 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
             <VerifyPhoneNumber
               data={data}
               setData={setData}
+              label={"شماره تلفن همراه"}
               verificationType='create-user-account'
             />
 
-            <PasswordField collectData={collectData} />
+            <PasswordField onChange={collectData} />
 
             <Button
               onClick={handleCreateAccount}

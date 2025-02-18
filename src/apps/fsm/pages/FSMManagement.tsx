@@ -2,7 +2,6 @@ import { Grid } from '@mui/material';
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import DesignServicesIcon from '@mui/icons-material/DesignServices';
 import InfoIcon from '@mui/icons-material/Info';
@@ -16,13 +15,14 @@ import IndividualRequests from 'apps/fsm/template/IndividualRequests';
 import Info from 'apps/fsm/template/Info';
 import TeamRequests from 'apps/fsm/template/TeamRequests';
 import Mentors from 'apps/fsm/template/Mentors';
-import GoToAnswer from 'apps/fsm/template/GoToAnswer';
 import { DashboardTabType } from 'commons/types/global';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FSMManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/FSMManagement';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import MapIcon from '@mui/icons-material/Map';
 import FSMMapEditor from '../template/FSMMapEditor';
+import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
+import Players from '../template/Players';
 
 const initialTabs: DashboardTabType[] = [
   {
@@ -50,18 +50,25 @@ const initialTabs: DashboardTabType[] = [
     component: <Edges />,
   },
   {
-    slug: 'mentors',
-    label: 'همیارها',
+    slug: 'players',
+    label: 'شرکت‌کنندگان',
     icon: PersonIcon,
-    component: <Mentors />,
-  },
-  {
-    slug: 'correction',
-    label: 'تصحیح',
-    icon: BorderColorIcon,
-    component: <GoToAnswer />,
+    component: <Players />,
     disabled: false,
   },
+  {
+    slug: 'mentors',
+    label: 'همیارها',
+    icon: SupervisorAccountIcon,
+    component: <Mentors />,
+  },
+  // {
+  //   slug: 'correction',
+  //   label: 'تصحیح',
+  //   icon: BorderColorIcon,
+  //   component: <GoToAnswer />,
+  //   disabled: false,
+  // },
   {
     slug: 'statistics',
     label: 'آمار',

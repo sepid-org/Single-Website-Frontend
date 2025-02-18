@@ -1,7 +1,7 @@
 import React from 'react';
 import Scores from '../components/organisms/Scores';
 import { Box, Paper } from '@mui/material';
-import FullScreenBackgroundImage from '../components/molecules/FullScreenBackgroundImage';
+import FullScreenBackgroundImage from '../../../commons/components/molecules/FullScreenBackgroundImage';
 import { MediaUrls } from '../constants/mediaUrls';
 
 const ScoreBoard: React.FC = () => {

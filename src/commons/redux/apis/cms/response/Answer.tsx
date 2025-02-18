@@ -64,11 +64,11 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    clearQuestionAnswer: builder.mutation<void, { questionId: string }>({
+    clearQuestionAnswer: builder.mutation<void, { questionId: number }>({
       query: ({ questionId }) => ({
         url: '/response/answers/clear_question_answer/',
         method: 'POST',
-        body: { question: questionId },
+        body: { question_id: questionId },
       }),
     }),
   }),

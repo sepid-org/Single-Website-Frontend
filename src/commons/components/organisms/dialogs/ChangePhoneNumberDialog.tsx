@@ -45,6 +45,7 @@ const ChangePhoneNumberDialog: FC<ChangePhoneNumberDialogPropsType> = ({
         <VerifyPhoneNumber
           verificationType='change-user-phone-number'
           data={data}
+          label={"شماره جدید تلفن همراه"}
           setData={setData}
         />
       </DialogContent>

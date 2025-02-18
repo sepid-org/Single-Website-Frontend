@@ -65,7 +65,7 @@ const SimpleTable: FC<SimpleTablePropsType> = ({
           </TableHead>
           <TableBody>
             {rows?.map((row, index) => (
-              <TableRow key={index}>
+              <TableRow key={row.id || index}>
                 {!hideRowNumbersColumn && (
                   <TableCell align='center'>
                     {reverseRowNumber ? count - startingRowIndex - index : startingRowIndex + index + 1}

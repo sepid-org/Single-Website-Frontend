@@ -25,14 +25,7 @@ export const ReceiptSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getMyReceipt: builder.query<RegistrationReceiptType, { formId: string }>({
-      providesTags: (result, error, item) => {
-        if (!error) {
-          return ([
-            { type: 'registration-receipt', id: result.id },
-            { type: 'form', id: item.formId },
-          ])
-        }
-      },
+      providesTags: [{ type: 'registration-receipt', id: 'MY' }],
       query: ({ formId }) => `fsm/receipts/my_receipt/?form=${formId}`,
       transformResponse: (response: any): RegistrationReceiptType => {
         return response;

@@ -11,7 +11,7 @@ import RegisterUserInProgram from './RegisterUserInProgram';
 import RegistrationReceiptsTable from 'commons/components/organisms/tables/RegistrationReceipts';
 import { useLazyGetParticipantsFileQuery, useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
 import downloadFromURL from 'commons/utils/downloadFromURL';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
@@ -33,7 +33,7 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
 
   const downloadAnswerSheetsExcel = () => {
     if (program) {
-      triggerGetAnswerSheets({ formId: program?.registration_form });
+      triggerGetAnswerSheets({ formId: parseInt(program?.registration_form) });
     }
   }
 

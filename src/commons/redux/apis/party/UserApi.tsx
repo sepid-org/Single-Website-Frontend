@@ -100,8 +100,28 @@ type GetVerificationCodeOutputType = void;
 
 export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
+    logout: builder.mutation<{ detail: string }, void>({
+      invalidatesTags: ['UserAuthentication'],
+      query: () => ({
+        url: 'auth/accounts/logout/',
+        method: 'POST',
+      }),
+    }),
+
+    checkUserRegistration: builder.query<{ is_registered: boolean }, { username: string }>({
+      query: ({ username }) => ({
+        url: 'auth/accounts/check-user-registration/',
+        params: { username },
+      }),
+    }),
+
+    checkAuthentication: builder.query<{ status: 'authenticated' | 'unauthenticated' }, void>({
+      providesTags: ['UserAuthentication'],
+      query: () => 'auth/accounts/check-authentication/',
+    }),
+
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
@@ -119,35 +139,8 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
-      query: (body) => ({
-        url: `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${body.accessToken}`,
-        headers: {
-          Authorization: `Bearer ${body.accessToken}`,
-          Accept: 'application/json'
-        }
-      })
-    }),
-
-    googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
-      onQueryStarted: invalidateMyTagsAcrossApis(),
-      query: (body) => ({
-        url: 'auth/accounts/google-login/',
-        method: 'POST',
-        body,
-      }),
-      transformResponse: (response: any): GoogleLoginUserOutputType => {
-        return response;
-      },
-    }),
-
-    checkAuthentication: builder.query<void, void>({
-      query: () => 'auth/accounts/check-authentication/',
-    }),
-
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication']),
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/simple-login/',
@@ -157,7 +150,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/otp-login/',
@@ -170,7 +163,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     uuidLogin: builder.mutation<UUIDLoginOutputType, UUIDLoginInputType>({
-      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }],
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
       onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ userId, landingId, ...props }) => ({
         url: 'auth/accounts/uuid-login/',
@@ -181,6 +174,29 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
           ...props,
         },
       }),
+    }),
+
+    getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
+      query: (body) => ({
+        url: `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${body.accessToken}`,
+        headers: {
+          Authorization: `Bearer ${body.accessToken}`,
+          Accept: 'application/json'
+        }
+      })
+    }),
+
+    googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
+      invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
+      query: (body) => ({
+        url: 'auth/accounts/google-login/',
+        method: 'POST',
+        body,
+      }),
+      transformResponse: (response: any): GoogleLoginUserOutputType => {
+        return response;
+      },
     }),
 
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
@@ -225,6 +241,8 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useLogoutMutation,
+  useLazyCheckUserRegistrationQuery,
   useCheckAuthenticationQuery,
   useSimpleLoginMutation,
   useGoogleLoginMutation,

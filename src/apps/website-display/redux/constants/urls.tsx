@@ -7,7 +7,6 @@ export const articlesUrl = ({ pageNumber, articleId }) => articleId ? `fsm/artic
 //////////// RECEIPT /////////////
 export const getCertificateUrl = ({ receiptId }) => `/fsm/receipts/${receiptId}/get_certificate/`;
 export const allRegistrationReceiptsUrl = ({ registrationFormId, pageNumber }) => `fsm/form/${registrationFormId}/receipts/?page=${pageNumber}`;
-export const validateRegistrationReceiptUrl = ({ receiptId }) => `/fsm/receipts/${receiptId}/validate/`;
 
 // Team:
 export const registerUsersViaCSVUrl = ({ registrationFormId }) => `fsm/registration_form_admin/${registrationFormId}/register_participants_via_list/`;

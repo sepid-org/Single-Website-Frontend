@@ -5,7 +5,7 @@ import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard'
 import useWidth from 'commons/utils/UseWidth';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { useParams } from 'react-router-dom';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FSMHorizontalCard from './cards/FSMHorizontalCard';

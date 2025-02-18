@@ -87,12 +87,7 @@ const DetailBoxEditDialog = ({
         {activeStep === 1 &&
           <Fragment>
             <DialogContentText gutterBottom>ویجت‌هایی را که می‌خواهید به‌صورت پنهان‌شده باشند، اینجا بگذارید.</DialogContentText>
-            {detailsId &&
-              <PaperEditor
-                paperId={detailsId}
-                mode='contents'
-              />
-            }
+            {detailsId && <PaperEditor paperId={detailsId} mode='contents' />}
           </Fragment>
         }
       </DialogContent>

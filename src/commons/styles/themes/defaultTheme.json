@@ -1,0 +1,110 @@
+{
+  "palette": {
+    "primary": {
+      "main": "#0088aa",
+      "light": "#5E60CE",
+      "dark": "#7400B8"
+    },
+    "secondary": {
+      "main": "#1361A4"
+    },
+    "inheritDefault1": "#fefefe",
+    "inheritDefault2": "#f8f9ff",
+    "second": "#070919",
+    "indigo": "#7420ff",
+    "purple": "#793de6",
+    "pink": "#fc26a4",
+    "red": "#eb1748",
+    "orange": "#f4772e",
+    "yellow": "#ffc926",
+    "green": "#9AFF9A",
+    "teal": "#18e1a5",
+    "cyan": "#27dcf3"
+  },
+  "typography": {
+    "fontFamily": "iranyekan",
+    "h1": {
+      "fontWeight": 900,
+      "fontSize": "32px",
+      "lineHeight": "36px"
+    },
+    "h2": {
+      "fontWeight": 800,
+      "fontSize": "28px",
+      "lineHeight": "32px"
+    },
+    "h3": {
+      "fontWeight": 500,
+      "fontSize": "24px",
+      "lineHeight": "28px"
+    },
+    "h4": {
+      "fontWeight": 500,
+      "fontSize": "20px",
+      "lineHeight": "24px"
+    },
+    "h5": {
+      "fontWeight": 500,
+      "fontSize": "16px",
+      "lineHeight": "20px"
+    },
+    "h6": {
+      "fontWeight": 500,
+      "fontSize": "14px",
+      "lineHeight": "20px"
+    },
+    "subtitle1": {
+      "fontSize": "16px",
+      "lineHeight": "25px"
+    },
+    "subtitle2": {
+      "fontWeight": 400,
+      "fontSize": "14px"
+    },
+    "body2": {
+      "fontWeight": 300,
+      "fontSize": "14px"
+    },
+    "button": {
+      "fontWeight": 300,
+      "fontSize": "14px"
+    },
+    "caption": {
+      "fontWeight": 300,
+      "fontSize": "12px"
+    },
+    "overline": {
+      "fontSize": "12px",
+      "fontWeight": 500
+    }
+  },
+  "shape": {
+    "borderRadius": 8
+  },
+  "overrides": {
+    "MuiButton": {
+      "text": {
+        "paddingLeft": "14px",
+        "paddingRight": "14px"
+      },
+      "containedSizeSmall": {
+        "paddingLeft": "14px",
+        "paddingRight": "14px"
+      },
+      "root": {
+        "textTransform": "none",
+        "fontWeight": "normal"
+      }
+    },
+    "MuiTooltip": {
+      "tooltip": {
+        "backgroundColor": "variables.colors.second",
+        "padding": "8px 16px",
+        "fontSize": "13px"
+      },
+      "arrow": {
+        "color": "variables.colors.second"
+      }
+    }
+  }
+}

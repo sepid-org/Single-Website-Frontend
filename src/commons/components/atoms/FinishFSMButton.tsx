@@ -16,7 +16,7 @@ const FinishFSMButton: FC<FinishFSMButtonPropsType> = ({ }) => {
       variant="contained"
       color="primary"
       onClick={finishFSM}>
-      {'اتمام کارگاه'}
+      {'پایان'}
     </Button>
   )
 }

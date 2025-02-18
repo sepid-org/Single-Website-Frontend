@@ -16,7 +16,7 @@ import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/featu
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
 import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import { CMS_URL } from 'commons/configs/Constants';
+import { CMS_URL } from 'commons/constants/Constants';
 import isValidURL from 'commons/utils/validators/urlValidator';
 import downloadFromURL from 'commons/utils/downloadFromURL';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
@@ -130,7 +130,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
             value: toPersianNumber(discountCode?.value),
             merchandises:
               <Stack spacing={1} alignItems={'center'}>
-                {discountCode?.merchandises.map(merchandise => <Chip label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
+                {discountCode?.merchandises.map(merchandise => <Chip key={merchandise.id} label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
               </Stack>,
             remaining: toPersianNumber(discountCode?.remaining),
             limit: discountCode?.discount_code_limit ? toPersianNumber(discountCode.discount_code_limit) : '-',

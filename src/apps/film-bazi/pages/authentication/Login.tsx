@@ -14,7 +14,7 @@ import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
-import UserNameField from 'commons/components/molecules/form-fields/UserNameField';
+import UsernameField from 'commons/components/molecules/form-fields/UsernameField';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
 
 type LoginPagePropsType = {};
@@ -95,12 +95,15 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 }
               }}
               spacing={1.5}>
-              <UserNameField 
+              <UsernameField
                 onChange={collectData}
                 username={data.username}
                 label={"شماره تلفن همراه"}
               />
-              <PasswordField collectData={collectData} resetPasswordLink='/program/filmbazi/reset-password/'/>
+              <PasswordField
+                onChange={collectData}
+                resetPasswordLink='/program/filmbazi/reset-password/'
+              />
             </Stack>
             <Stack width={'100%'} spacing={1.5}>
               <Button

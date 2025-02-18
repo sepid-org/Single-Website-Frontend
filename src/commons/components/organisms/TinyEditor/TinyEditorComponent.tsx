@@ -1,6 +1,6 @@
 import React from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { fontsStyles } from 'commons/components/organisms/SecureHTMLDisplay/styles/fonts';
+import { fontsStyles } from 'commons/styles/fonts';
 
 // TinyMCE imports
 import 'tinymce/tinymce';

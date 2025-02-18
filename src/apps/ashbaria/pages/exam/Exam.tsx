@@ -4,7 +4,7 @@ import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { FSMProvider } from "commons/hooks/useFSMContext";
 import ExamTemplate from "../../template/Exam";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
@@ -26,10 +26,7 @@ const ExamPage: FC<ExamPagePropsType> = () => {
   return (
     <FullScreenBackgroundImage image={MediaUrls.WINDMILL} styles={{ padding: 2 }}>
       <Stack maxWidth={'md'} width={'100%'} component={Paper} padding={2} spacing={2} justifyContent={'space-between'}>
-        <FSMProvider
-          fsmId={fsmId}
-          player={player}
-        >
+        <FSMProvider fsmId={fsmId}>
           <FSMStateProvider
             fsmStateId={player?.current_state}
             widgetRegistry={CUSTOM_WIDGET_REGISTRY}

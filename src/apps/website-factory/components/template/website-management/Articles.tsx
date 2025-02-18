@@ -5,7 +5,7 @@ import {
 } from '@mui/material';
 import { Pagination } from '@mui/material';
 import React, { useState, Fragment, FC } from 'react';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';

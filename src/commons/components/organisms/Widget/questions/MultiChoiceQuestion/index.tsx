@@ -5,25 +5,17 @@ import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import MultiChoiceQuestionEditWidget from './edit';
 import Choice from 'commons/components/molecules/Choice';
-import { AnswerType } from 'commons/types/models';
 import { ChoiceType } from 'commons/types/widgets';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from './useMultiChoiceQuestionProperties';
 
 export type MultiChoiceQuestionWidgetPropsType = {
-  useSubmitAnswerMutation: any;
-  onAnswerChange: any;
-  id: string;
-  text: string;
   choices: ChoiceType[];
-  mode: WidgetModes;
   max_selections: number;
   min_selections: number;
   disable_after_answer: boolean;
   randomize_choices: boolean;
-  submittedAnswer: AnswerType;
-  paperId: string;
 } & QuestionWidgetType;
 
 const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
@@ -37,10 +29,9 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   min_selections: minSelections,
   disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
-  submittedAnswer,
-  paperId,
-  ...questionWidgetProps
+  is_required,
 }) => {
+
   const {
     selectedChoiceIds,
     displayChoices,
@@ -50,10 +41,9 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
     errorMessage,
     isQuestionLoading,
   } = useMultiChoiceQuestionProperties({
-    questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
-    id: questionId,
+    questionId,
     choices: questionChoices,
     mode,
     minSelections,
@@ -64,7 +54,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
 
   return (
     <Stack spacing={1}>
-      <IsRequired hidden={!questionWidgetProps.is_required}>
+      <IsRequired hidden={!is_required}>
         <TinyPreview
           styles={{ width: '100%' }}
           content={questionText}

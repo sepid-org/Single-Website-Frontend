@@ -1,14 +1,14 @@
-import { AnswerType, RegistrationFormType, RegistrationReceiptType } from 'commons/types/models';
+import { AnswerType, FormType, RegistrationFormType, RegistrationReceiptType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-type GetFormOutputType = RegistrationFormType;
+type GetFormOutputType = FormType;
 
 type SubmitFormInputType = {
   formId: string;
   answers: AnswerType[];
 }
 
-type SubmitFormOutputType = RegistrationReceiptType;
+type SubmitFormOutputType = FormType;
 
 type UpdateFormInputType = Partial<RegistrationFormType>
 

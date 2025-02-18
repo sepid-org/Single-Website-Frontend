@@ -119,7 +119,7 @@ const GameMenuPanel: FC<PropsType> = () => {
             <Typography color={'white'}>
               {isGetMyRankLoading ?
                 <Skeleton width={10} height={20} /> :
-                <>{myRank?.rank || '-'}</>
+                <>{myRank?.rank + 10 || '-'}</>
               }
             </Typography>
           </Stack>

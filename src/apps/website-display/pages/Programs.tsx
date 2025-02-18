@@ -7,7 +7,7 @@ import Banner from 'commons/components/molecules/Banner';
 import { useGetProgramsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/configs/Constants';
+import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 
 const Programs = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);

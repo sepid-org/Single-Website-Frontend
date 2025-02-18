@@ -16,6 +16,7 @@ export type AshbariaProfileType = {
   birth_date: string | null;
   gender: 'M' | 'F' | null;
   referral_method: string;
+  school: string;
   province: string | null;
   city: string | null;
   phone_number: string | null;

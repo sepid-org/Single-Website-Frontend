@@ -59,8 +59,9 @@ const UploadFileButton: FC<UploadFileButtonPropsType> = ({
         component="label"
         htmlFor={`upload-widget-file-${id}`}
         variant="contained"
-        color="primary">
-        <Typography textAlign={'center'}>
+        color="primary"
+      >
+        <Typography textAlign={'center'} noWrap variant='button'>
           {'بارگذاری فایل'}
         </Typography>
       </Button>

@@ -1,6 +1,6 @@
 import React from "react";
 import UserInfo from "../template/UserInfo";
-import FullScreenBackgroundImage from "../components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "../../../commons/components/molecules/FullScreenBackgroundImage";
 import { MediaUrls } from "../constants/mediaUrls";
 
 

@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
@@ -44,7 +44,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
     setDisplayEmptyErrorMessages,
     handleValidationChange,
     allFieldsValid,
-  } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'postal_code', 'address', 'profile_image'])
+  } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'school', 'postal_code', 'address', 'profile_image'])
 
   useEffect(() => {
     if (userProfile) {
@@ -128,7 +128,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           alignItems="center"
         >
           <Box position={'absolute'} left={10} top={10}>
-            <BackButton />
+            <BackButton destination="/" />
           </Box>
           <Stack direction={'row'}>
             <PersonIcon />
@@ -287,6 +287,24 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         <Grid item xs={12} sm={6}>
           <Typography
             sx={{
+              paddingBottom: '4px',
+              fontSize: 14,
+              fonWeight: 400,
+            }}
+          >
+            مدرسه
+          </Typography>
+          <TextField
+            fullWidth
+            onChange={handleChange}
+            value={AshbariaProfile?.school || ''}
+            name="school"
+            placeholder="نام مدرسه خود را وارد کنید."
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Typography
+            sx={{
               marginBottom: '4px',
               fontSize: 14,
               fonWeight: 400,
@@ -368,7 +386,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
                 toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
               }
             }}
-            disabled={Boolean(AshbariaProfile?.profile_completion_count_from_28Nov) || Object.values(AshbariaProfile ?? {}).some(value => value === null)}
+            disabled={Object.values(AshbariaProfile ?? {}).some(value => value === '' || value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
@@ -378,7 +396,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
       </Grid>
       <AreYouSure
-        text='توجه کن که تنها یک بار می‌تونی نمایه‌ت را ذخیره کنی. آیا مطمئنی؟'
+        text='آیا از صحیح بودن اطلاعات مطمئنی؟ جوایز تنها به دادبستان‌هایی تعلق می‌گیرد که نمایه‌شان را با اطلاعات صحیح تکمیل کرده باشند.'
         open={isSubmitConfirmationOpen}
         handleClose={() => setIsSubmitConfirmationOpen(false)}
         callBackFunction={() => updateProfile(AshbariaProfile)}

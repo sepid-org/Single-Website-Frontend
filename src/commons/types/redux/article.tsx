@@ -9,7 +9,7 @@ export type ArticleType = {
     id: number;
     name?: string;
     description?: string;
-    cover_page?: string;
+    cover_image?: string;
     is_hidden: boolean;
     tags: string[];
 }

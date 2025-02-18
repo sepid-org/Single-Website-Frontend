@@ -32,7 +32,7 @@ export default function Scores() {
 
 	const currentUserScoreRecord = useRef(null);
 	useEffect(() => {
-		if(currentUserScoreRecord.current){
+		if (currentUserScoreRecord.current) {
 			currentUserScoreRecord.current.scrollIntoView({
 				behavior: 'smooth',
 				block: 'center',
@@ -60,7 +60,7 @@ export default function Scores() {
 				</Box> */}
 			</Stack>
 
-			<Stack paddingTop={1}>
+			{/* <Stack paddingTop={1}>
 				{winnerScores.length > 0 ?
 					<Container
 						sx={{
@@ -141,7 +141,7 @@ export default function Scores() {
 					</Container> :
 					<WinnerCardsSkeleton />
 				}
-			</Stack>
+			</Stack> */}
 
 			{scoreRecordsState.winnerUsersInfo.length > 0 ? (
 				<Fragment>
@@ -157,18 +157,20 @@ export default function Scores() {
 					/>
 				*/}
 					{/* Mapped ScoreRecord components */}
-					{scoreRecordsState.winnerUsersInfo.map((record, index) => (
-						<ScoreRecord
-							key={record.user_id}
-							rank={index + 1}
-							name={getDisplayName(record.user_id, record.first_name, record.last_name)}
-							score={record.score}
-							currentUser={record.currentUser}
-							user_id={record.user_id}
-							profileImg={record.profile_image}
-							ref={record.currentUser ? currentUserScoreRecord : null}
-						/>
-					))}
+					{scoreRecordsState.winnerUsersInfo
+						.slice(0, 990)
+						.map((record, index) => (
+							<ScoreRecord
+								key={record.user_id}
+								rank={index + 11}
+								name={getDisplayName(record.user_id, record.first_name, record.last_name)}
+								score={record.score}
+								currentUser={record.currentUser}
+								user_id={record.user_id}
+								profileImg={record.profile_image}
+								ref={record.currentUser ? currentUserScoreRecord : null}
+							/>
+						))}
 				</Fragment>
 			) : (
 				<ScoreRecordSkeleton />

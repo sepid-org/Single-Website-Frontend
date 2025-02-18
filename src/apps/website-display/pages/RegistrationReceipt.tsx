@@ -13,12 +13,8 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useParams } from 'react-router-dom';
-import {
-  validateRegistrationReceiptAction,
-} from 'apps/website-display/redux/slices/programs'
 import { faSeri } from 'commons/utils/translateNumber';
 import Layout from 'commons/template/Layout';
 import { toast } from 'react-toastify';
@@ -27,18 +23,25 @@ import AnswerSheet from 'commons/template/AnswerSheet';
 import getInstituteFullName from 'commons/utils/getInstituteFullName';
 import convertToPersianDate from 'commons/utils/convertToPersianDate';
 import { stringToColor } from 'commons/utils/stringToColor';
+import {
+  useUpdateRegistrationStatusMutation,
+  useConfirmRegistrationMutation,
+} from '../redux/features/program/Registration';
+import { RegistrationReceiptTypes } from 'commons/types/models';
+import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 
-type RegistrationReceiptPropsType = {
-  validateRegistrationReceipt: any;
-}
+type RegistrationReceiptPropsType = {}
 
 const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
-  validateRegistrationReceipt,
 }) => {
   const t = useTranslate();
   const { receiptId } = useParams();
-  const [status, setStatus] = useState<string>(null);
+  const [status, setStatus] = useState<RegistrationReceiptTypes>(null);
   const { data: registrationReceipt } = useGetReceiptQuery({ receiptId });
+  const [updateRegistrationStatus, updateRegistrationStatusResult] = useUpdateRegistrationStatusMutation()
+  const [openConfirmRegistrationStatus, setOpenConfirmRegistrationStatus] = useState(false);
+  const [confirmRegistration, confirmRegistrationResult] = useConfirmRegistrationMutation()
+  const userInfo = registrationReceipt?.user;
 
   useEffect(() => {
     if (registrationReceipt?.status) {
@@ -46,15 +49,30 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     }
   }, [registrationReceipt])
 
-  const userInfo = registrationReceipt?.user;
-  const answers = registrationReceipt?.answers;
 
-  const handleButtonClick = () => {
+  useEffect(() => {
+    if (confirmRegistrationResult.isSuccess) {
+      toast.success('وضعیت ثبت‌نام با موفقیت قطعی شد.')
+    }
+  }, [confirmRegistrationResult])
+
+  useEffect(() => {
+    if (updateRegistrationStatusResult.isSuccess) {
+      toast.success('وضعیت ثبت‌نام با موفقیت به‌روز شد.')
+    }
+  }, [updateRegistrationStatusResult])
+
+
+  const handleConfirmRegistration = () => {
+    confirmRegistration({ receiptId: parseInt(receiptId) });
+  }
+
+  const handleUpdateRegistrationStatus = () => {
     if (!status) {
-      toast.error('لطفاً وضعیت را تعیین کن!');
+      toast.error('لطفاً وضعیت ثبت‌نام را تعیین کن!');
       return;
     }
-    validateRegistrationReceipt({ receiptId: receiptId, status });
+    updateRegistrationStatus({ receiptId: parseInt(receiptId), status });
   }
 
   return (
@@ -106,42 +124,57 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
                     <Typography >{`ایمیل: ${userInfo.email ? userInfo.email : '؟'}`}</Typography>
                   </Grid>
                 </Grid>
-                {status &&
-                  <Fragment>
-                    <FormControl fullWidth variant="outlined">
-                      <InputLabel>وضعیت ثبت‌نام</InputLabel>
-                      <Select
-                        value={status}
-                        // todo: it also should be disabled when registrationForm.accepting_status === AutoAccept
-                        disabled={registrationReceipt?.is_participating}
-                        onChange={(e) => setStatus(e.target.value)}
-                        name='status'
-                        label='وضعیت ثبت‌نام'>
-                        <MenuItem value={'Waiting'} >{'منتظر'}</MenuItem>
-                        <MenuItem value={'Accepted'} >{'مجاز به پرداخت'}</MenuItem>
-                        <MenuItem value={'Rejected'} >{'ردشده'}</MenuItem>
-                      </Select>
-                    </FormControl >
-                    <Box mt={1}>
-                      <Button
-                        disabled={registrationReceipt?.is_participating}
-                        fullWidth variant='contained'
-                        onClick={handleButtonClick}
-                        color='primary'>
-                        {registrationReceipt?.is_participating ? 'ثبت‌نام قطعی است' : 'ثبت'}
-                      </Button>
-                    </Box>
-                  </Fragment>
-                }
+
+                <Stack direction="row">
+                  <FormControl fullWidth variant="outlined">
+                    <InputLabel>وضعیت ثبت‌نام</InputLabel>
+                    <Select
+                      sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                      value={status || ''}
+                      disabled={registrationReceipt?.is_participating}
+                      onChange={(e) => setStatus(e.target.value as RegistrationReceiptTypes)}
+                      name="status"
+                      label="وضعیت ثبت‌نام"
+                    >
+                      <MenuItem value="Waiting">منتظر</MenuItem>
+                      <MenuItem value="Accepted">مجاز به پرداخت</MenuItem>
+                      <MenuItem value="Rejected">ردشده</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Button
+                    disableElevation
+                    sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                    disabled={registrationReceipt?.is_participating}
+                    variant="contained"
+                    onClick={handleUpdateRegistrationStatus}
+                    color="primary"
+                  >
+                    {'ثبت'}
+                  </Button>
+                </Stack>
+
+                <Button
+                  disabled={registrationReceipt?.is_participating}
+                  variant="contained"
+                  onClick={() => setOpenConfirmRegistrationStatus(true)}
+                  color="primary"
+                >
+                  {registrationReceipt?.is_participating ? 'ثبت‌نام قطعی است' : 'قطعی‌کردن ثبت‌نام'}
+                </Button>
+
               </Fragment>
             }
           </Stack>
         </Grid>
       </Grid>
-    </Layout >
+      <AreYouSure
+        open={openConfirmRegistrationStatus}
+        handleClose={() => setOpenConfirmRegistrationStatus(false)}
+        text='با قطعی‌کردن ثبت‌نام، کاربر در دوره ثبت‌نام می‌شود و نیازی به پرداخت نخواهد داشت. آیا مطمئن هستید؟'
+        callBackFunction={handleConfirmRegistration}
+      />
+    </Layout>
   );
 }
 
-export default connect(null, {
-  validateRegistrationReceipt: validateRegistrationReceiptAction,
-})(RegistrationReceipt);
+export default RegistrationReceipt;

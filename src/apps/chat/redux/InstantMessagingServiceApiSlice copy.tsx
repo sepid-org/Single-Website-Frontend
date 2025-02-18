@@ -1,5 +1,5 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
-import { IMS_URL } from 'commons/configs/Constants';
+import { IMS_URL } from 'commons/constants/Constants';
 import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
 
 export const InstantMessagingServiceApiSlice = createApi({

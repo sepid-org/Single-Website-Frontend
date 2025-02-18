@@ -6,10 +6,19 @@ import { Route, Routes } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import FSM from './pages/FSM';
-import Correction from './pages/Correction';
-import FSMManagement from './pages/FSMManagement';
+import { retryImport } from 'commons/utils/retryImport';
 
+const Correction = React.lazy(() =>
+  retryImport(() => import('apps/fsm/pages/Correction'))
+);
+
+const FSM = React.lazy(() =>
+  retryImport(() => import('apps/fsm/pages/FSM'))
+);
+
+const FSMManagement = React.lazy(() =>
+  retryImport(() => import('apps/fsm/pages/FSMManagement'))
+);
 
 type FSMPagePropsType = {}
 

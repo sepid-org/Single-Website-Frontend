@@ -1,5 +1,6 @@
 import { PurchaseType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type ApplyDiscountCodeInputType = {
   merchandiseId: string;
@@ -15,7 +16,10 @@ type PurchaseInputType = {
   discountCode: string;
 }
 
-type PurchaseOutputType = PurchaseType;
+type PurchaseOutputType = PurchaseType & {
+  payment_link: string;
+  is_payment_required: boolean;
+};
 
 export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
@@ -31,6 +35,7 @@ export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     purchase: builder.mutation<PurchaseOutputType, PurchaseInputType>({
+      invalidatesTags: tagGenerationWithErrorCheck([{ type: 'registration-receipt', id: 'MY' }]),
       query: ({ ...body }) => ({
         url: `sale/payment/purchase/`,
         method: 'POST',

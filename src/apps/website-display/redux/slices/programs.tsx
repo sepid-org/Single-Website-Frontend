@@ -6,7 +6,6 @@ import {
   getCertificateUrl,
   registerUsersViaCSVUrl,
   getPlayerFromTeamUrl,
-  validateRegistrationReceiptUrl,
 } from '../constants/urls';
 import { getRequests, deleteRequest } from 'apps/website-display/parse/mentor'
 import { InitialState } from 'commons/types/redux/program'
@@ -53,17 +52,6 @@ export const registerUsersViaCSVAction = createAsyncThunkApi(
     defaultNotification: {
       success: 'کاربران در دست افزودن قرار گرفتند...',
       error: 'اشکالی در افزودن کاربران وجود داشت.'
-    },
-  }
-);
-
-export const validateRegistrationReceiptAction = createAsyncThunkApi(
-  'programs/validateRegistrationReceiptAction',
-  Apis.POST,
-  validateRegistrationReceiptUrl,
-  {
-    defaultNotification: {
-      success: 'وضعیت رسید ثبت‌نام با موفقیت ثبت شد.',
     },
   }
 );

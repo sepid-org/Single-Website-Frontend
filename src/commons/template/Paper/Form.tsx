@@ -37,7 +37,7 @@ const FormPaper: FC<FormPaperPropsType> = ({
   }
   widgets = widgets || [];
   const visibleWidgets = widgets.filter(widget => !widget.is_hidden)
-  console.log(widgets);
+
   return (
     <Fragment>
       {visibleWidgets.map((widget) => (

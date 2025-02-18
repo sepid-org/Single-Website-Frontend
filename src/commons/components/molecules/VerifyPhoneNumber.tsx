@@ -11,6 +11,7 @@ import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
 import { useGetVerificationCodeMutation } from 'commons/redux/apis/party/UserApi';
 import PhoneNumberInput from './profile-inputs/PhoneNumberInput';
 import { normalizePhoneNumber } from 'commons/utils/NormalizePhoneNumber';
+import VerificationCodeField from './form-fields/VerificationCode';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-password' | 'change-user-phone-number';
 
@@ -20,12 +21,14 @@ type VerifyPhoneNumberPropsType = {
     verificationCode: string;
   };
   setData: any;
+  label: string;
   verificationType: VerificationCodeType
 }
 
 const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   data,
   setData,
+  label,
   verificationType,
 }) => {
   const [isButtonDisabled, setIsButtonDisable] = useState(false);
@@ -81,32 +84,14 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
           });
         }}
         phoneNumber={data.phoneNumber}
-        label={"شماره جدید تلفن همراه"}
+        label={label}
         editable={false}
         //placeHolder={"09..."}
         textDir={"ltr"}
         isRequired={false}
       />
       <Stack direction='row' spacing={1}>
-        <TextField
-          variant="outlined"
-          fullWidth
-          onChange={(e) => {
-            if (isNumber(e.target.value)) {
-              setData({
-                ...data,
-                verificationCode: e.target.value,
-              });
-            }
-          }}
-          value={data.verificationCode}
-          name="verificationCode"
-          label="کد تایید پیامک‌شده"
-          inputProps={{ className: 'ltr-input' }}
-          autoComplete='false'
-          type='number'
-          inputMode='numeric'
-        />
+        <VerificationCodeField onChange={(e) => setData({ ...data, verificationCode: e.target.value })} />
         <Button
           size="small"
           variant="contained"

@@ -4,7 +4,7 @@ import { Handle, Position, NodeProps, useReactFlow } from '@xyflow/react';
 import { Box, IconButton, Typography } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
-import FSMStateEditor from 'commons/template/FSMStateEditor';
+import FSMStateEditor from 'apps/fsm/template/FSMStateEditor';
 
 interface stateNodeProps extends NodeProps {
 	data: {

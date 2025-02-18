@@ -1,9 +1,38 @@
 import { createTheme } from '@mui/material/styles';
-import selectTheme from 'commons/configs/themes';
-import { Black, DarkSecondary, Golden, Gray, Primary, Secondary } from '../constants/colors';
+import { Black, Golden, Gray, Primary, Secondary } from '../constants/colors';
+import defaultTheme from "commons/styles/themes/defaultTheme.json";
+
+const staticBaseUrl = 'https://static.sepid.org';
+
+const fontFamilyName = 'Pinar-FD';
+const fontWeights = [
+  { weight: 900, name: 'Black' },
+  { weight: 800, name: 'ExtraBold' },
+  { weight: 700, name: 'Bold' },
+  { weight: 400, name: 'Regular' }
+];
+
+const styleOverrides = `
+  ${fontWeights
+    .map(
+      ({ weight, name }) => `
+      @font-face {
+        font-family: '${fontFamilyName}';
+        src: url('${staticBaseUrl}/fonts/${fontFamilyName}-${name}.woff2') format('woff2');
+        font-weight: ${weight};
+        font-style: normal;
+        font-display: swap;
+      }`
+    )
+    .join('')}
+
+  * {
+    font-family: '${fontFamilyName}', sans-serif !important;
+  }
+`;
 
 export const customTheme = createTheme({
-  ...selectTheme('rtl'),
+  ...defaultTheme,
   breakpoints: {
     values: {
       xs: 0,
@@ -65,39 +94,7 @@ export const customTheme = createTheme({
   },
   components: {
     MuiCssBaseline: {
-      styleOverrides: `
-        @font-face {
-          font-family: 'Pinar-FD';
-          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Black.woff2') format('woff2');
-          font-weight: 900;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Pinar-FD';
-          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-ExtraBold.woff2') format('woff2');
-          font-weight: 800;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Pinar-FD';
-          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Bold.woff2') format('woff2');
-          font-weight: 700;
-          font-style: normal;
-          font-display: swap;
-        }
-        @font-face {
-          font-family: 'Pinar-FD';
-          src: url('https://kamva-minio-storage.darkube.app/fonts/Pinar-FD-Regular.woff2') format('woff2');
-          font-weight: 400;
-          font-style: normal;
-          font-display: swap;
-        }
-        * {
-          font-family: 'Pinar-FD', sans-serif !important;
-        }
-      `
+      styleOverrides,
     },
     MuiPaper: {
       styleOverrides: {

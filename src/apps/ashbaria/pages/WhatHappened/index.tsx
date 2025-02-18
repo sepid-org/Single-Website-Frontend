@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import FullScreenBackgroundImage from "apps/ashbaria/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { Button, Stack } from "@mui/material";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import { MediaUrls } from "apps/ashbaria/constants/mediaUrls";
@@ -21,7 +21,7 @@ const WhatHappenedPage: FC<WhatHappenedPagePropsType> = () => {
             controls
           />
         </Stack>
-        <Button sx={{}} variant="contained" onClick={() => localNavigate('/')} size='large'>
+        <Button sx={{}} variant="contained" onClick={() => localNavigate('/menu/')} size='large'>
           {'بزن بریم...'}
         </Button>
       </Stack>

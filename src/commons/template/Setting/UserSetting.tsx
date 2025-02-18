@@ -54,7 +54,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
   }, [isFetching])
 
   useEffect(() => {
-    if (updateUserProfileResult?.isSuccess) {
+    if (updateUserProfileResult.isSuccess) {
       toast.success('اطلاعات با موفقیت ثبت شد');
       onSuccessfulSubmission?.()
     }
@@ -73,7 +73,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
       ...userProfile,
     });
   }
-  
+
   return (
     <Grid container item spacing={2}>
       <Grid item xs={12}>

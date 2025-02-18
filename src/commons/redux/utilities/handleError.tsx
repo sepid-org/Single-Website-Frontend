@@ -8,7 +8,6 @@ interface ErrorResponse {
   status: number | string;
   data?: {
     code?: string;
-    detail?: string;
     [key: string]: any;
   };
   message?: string;
@@ -23,7 +22,7 @@ const normalizeFetchError = (error: FetchBaseQueryError): ErrorResponse => {
       data: error.data as ErrorResponse['data'],
       message: error.status === 'FETCH_ERROR'
         ? 'خطا در برقراری ارتباط با سرور'
-        : undefined
+        : error.data?.['error'] || error.data?.['detail'] || error.data?.['error_code'] || error.data?.['code'] || undefined
     };
   }
 
@@ -69,15 +68,8 @@ const handleTokenExpiration = (dispatch: (action: { type: string }) => void) => 
 
 // Get localized error message
 const getLocalizedErrorMessage = (errorData?: NonNullable<ErrorResponse['data']>): string => {
-  if (!errorData) return 'خطای نامشخص';
-
-  return (
-    persianMessages[errorData.code as string] ||
-    persianMessages[errorData.detail as string] ||
-    errorData.detail ||
-    errorData.code ||
-    'خطای نامشخص'
-  );
+  const temp = errorData.code || errorData.error_code;
+  return (persianMessages[temp] || temp);
 };
 
 // Handle form field-specific errors
@@ -167,9 +159,12 @@ const handleError = ({
   }
 
   // Handle specific error codes or details
-  if (normalizedError.data?.code) {
-    toast.error(getLocalizedErrorMessage(normalizedError.data));
-    return;
+  if (normalizedError.data) {
+    const message = getLocalizedErrorMessage(normalizedError.data);
+    if (message) {
+      toast.error(message);
+      return;
+    }
   }
 
   // todo: forms-related errors should be handled by form component
