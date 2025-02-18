@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import ArticleInfoForm from '../forms/ArticleInfoForm';
 import { useCreateArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
 import { ArticleType } from 'commons/types/redux/article';
+import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type CreateArticleDialogPropsType = {
   open: boolean;
@@ -25,7 +25,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
   handleClose,
 }) => {
   const t = useTranslate();
-  const { websiteName } = useParams();
+  const { data: website } = useGetWebsiteQuery();
   const [createArticle, result] = useCreateArticleMutation()
   const [properties, setProperties] = useState<Partial<ArticleType>>({
     name: '',
@@ -45,7 +45,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
       return;
     }
     createArticle({
-      website: websiteName,
+      website: website.name,
       ...properties
     });
   }

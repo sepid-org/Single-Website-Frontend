@@ -35,7 +35,6 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
         textAlign: 'initial',
         padding: 0,
       }}
-      onClick={() => navigate(`/article/${article.id}/`)}
     >
       <Card
         sx={{
@@ -70,7 +69,7 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
         <CardActions>
           <ButtonGroup fullWidth>
             {mode === 'edit' && (
-              <Button component={Link} to={`/edit-article/${article.id}/`}>
+              <Button component={Link} to={`/article/${article.id}/manage/`}>
                 {'ویرایش'}
               </Button>
             )}

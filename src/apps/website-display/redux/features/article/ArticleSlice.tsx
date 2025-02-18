@@ -35,7 +35,7 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getArticles: builder.query<GetArticlesOutputType, GetArticlesInputType>({
-      providesTags: tagGenerationWithErrorCheck(['articles']),
+      providesTags: tagGenerationWithErrorCheck([{ type: 'Article', id: 'ALL' }]),
       query: ({ pageNumber = 1, isHidden }) => ({
         url: `fsm/article/`,
         params: {
