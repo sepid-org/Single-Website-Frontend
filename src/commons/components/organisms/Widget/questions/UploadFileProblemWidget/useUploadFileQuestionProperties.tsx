@@ -20,7 +20,7 @@ const useMultiChoiceQuestionProperties = ({
   const { player } = useFSMContext();
   const [clearQuestionAnswer, clearQuestionAnswerResult] = useClearQuestionAnswerMutation()
   const [submitAnswer, submitAnswerResult] = useSubmitAnswerMutation();
-  const [uploadedFileLink, setUploadedFileLink] = useState<string>(null);
+  const [uploadedFileLink, _setUploadedFileLink] = useState<string>(null);
   const { getQuestionAnswers, isLoading: isAnswerSheetLoading } = useAnswerSheet();
 
   const allQuestionAnswers = useMemo(
@@ -33,24 +33,11 @@ const useMultiChoiceQuestionProperties = ({
     if (!hasInitialized.current) {
       const latestAnswer = allQuestionAnswers?.find(answer => answer.is_final_answer);
       if (latestAnswer) {
-        setUploadedFileLink(latestAnswer.answer_file);
+        _setUploadedFileLink(latestAnswer.answer_file);
         hasInitialized.current = true;
       }
     }
-  }, [allQuestionAnswers, setUploadedFileLink]);
-
-  useEffect(() => {
-    if (uploadedFileLink) {
-      onAnswerChange({ answer_file: uploadedFileLink });
-      if (mode === WidgetModes.View) {
-        submitAnswer({
-          playerId: player.id,
-          questionId,
-          answerFile: uploadedFileLink,
-        })
-      }
-    }
-  }, [uploadedFileLink])
+  }, [allQuestionAnswers, _setUploadedFileLink]);
 
   const clearFile = (e) => {
     e.preventDefault();
@@ -59,10 +46,22 @@ const useMultiChoiceQuestionProperties = ({
 
   useEffect(() => {
     if (clearQuestionAnswerResult.isSuccess) {
-      setUploadedFileLink('');
+      _setUploadedFileLink('');
       onAnswerChange({ answer_file: '' });
     }
   }, [clearQuestionAnswerResult])
+
+  const setUploadedFileLink = (link) => {
+    _setUploadedFileLink(link);
+    onAnswerChange({ answer_file: link });
+    if (mode === WidgetModes.View) {
+      submitAnswer({
+        playerId: player.id,
+        questionId,
+        answerFile: link,
+      })
+    }
+  }
 
   const isQuestionLoading = submitAnswerResult.isLoading || isAnswerSheetLoading;
 
@@ -70,7 +69,7 @@ const useMultiChoiceQuestionProperties = ({
 
   return {
     uploadedFileLink,
-    setUploadedFileLink: setUploadedFileLink,
+    setUploadedFileLink,
     clearFile,
     errorMessage,
     isQuestionLoading,
