@@ -6,7 +6,7 @@ import {
 } from '../models'
 
 export type ArticleType = {
-    id: number;
+    id: string;
     name?: string;
     description?: string;
     cover_image?: string;

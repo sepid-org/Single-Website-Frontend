@@ -11,6 +11,7 @@ import { useGetArticleQuery, useUpdateArticleMutation } from 'apps/website-displ
 import { ArticleType } from 'commons/types/redux/article';
 import ArticleInfoForm from 'commons/components/organisms/forms/ArticleInfoForm';
 import { toast } from 'react-toastify';
+import SoftDeleteArticleButton from 'commons/components/atoms/SoftDeleteArticleButton';
 
 type InfoPropsType = {}
 
@@ -51,7 +52,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
           <Typography variant='h2' gutterBottom>
             {'مشخصات مقاله'}
           </Typography>
-          {/*delete button */}
+          <SoftDeleteArticleButton />
         </Stack>
         <Box>
           {properties &&

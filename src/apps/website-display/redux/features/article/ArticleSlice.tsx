@@ -79,9 +79,9 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    softDeleteArticle: builder.mutation<any, { articleID: number }>({
+    softDeleteArticle: builder.mutation<any, { articleId: string }>({
       invalidatesTags: [{ type: 'Article', id: 'ALL' }],
-      query: ({ articleID }) => `fsm/article/${articleID}/soft_delete/`
+      query: ({ articleId }) => `fsm/article/${articleId}/soft_delete/`
     }),
 
   })
