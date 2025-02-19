@@ -7,9 +7,10 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useGetArticleQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
+import { useGetArticleQuery, useUpdateArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
 import { ArticleType } from 'commons/types/redux/article';
 import ArticleInfoForm from 'commons/components/organisms/forms/ArticleInfoForm';
+import { toast } from 'react-toastify';
 
 type InfoPropsType = {}
 
@@ -17,6 +18,8 @@ const Info: FC<InfoPropsType> = ({ }) => {
   const { articleId } = useParams();
   const [properties, setProperties] = useState<Partial<ArticleType>>();
   const { data: article } = useGetArticleQuery({ articleId });
+  const [updateArticle, result] = useUpdateArticleMutation();
+
 
   useEffect(() => {
     if (article) {
@@ -25,8 +28,21 @@ const Info: FC<InfoPropsType> = ({ }) => {
   }, [article]);
 
   const handleUpdateArticle = () => {
-
+    if (!properties.name) {
+      toast.error('لطفاً نام مقاله را انتخاب کنید.');
+      return;
+    }
+    updateArticle({
+      articleId,
+      ...properties
+    });
   }
+
+  useEffect(() => {
+    if (result.isSuccess) {
+      toast.success('مشخصات مقاله با موفقیت به‌روز شد.')
+    }
+  }, [result])
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
