@@ -16,7 +16,7 @@ const FSMLogo: FC<FSMLogoPropsType> = ({ }) => {
   }
 
   return (
-    <Stack direction={'row'} alignItems={'center'} spacing={1}>
+    <Stack direction={'row'} alignItems={'center'} spacing={1} width={'100%'}>
       <Tooltip title={fsm.name} arrow>
         <span>
           <IconButton disabled={width !== 'xs'} sx={{ padding: 0 }}>
@@ -35,9 +35,13 @@ const FSMLogo: FC<FSMLogoPropsType> = ({ }) => {
         </span>
       </Tooltip>
       <Typography
-        fontSize={20} color={'black'}
-        maxWidth={{ xs: 120, sm: 240, md: 360 }} whiteSpace={'nowrap'}
-        overflow={'hidden'} textOverflow={'ellipsis'}>
+        fontSize={20} 
+        color={'black'}
+        //maxWidth={{ xs: 120, sm: 240, md: 360 }} 
+        whiteSpace={'nowrap'}
+        overflow={'hidden'}
+        textOverflow={'ellipsis'}
+      >
         {fsm.name}
       </Typography>
     </Stack>

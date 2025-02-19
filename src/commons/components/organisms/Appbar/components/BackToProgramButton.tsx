@@ -27,13 +27,6 @@ const BackToProgramButton: FC<BackToProgramButtonPropsType> = ({ }) => {
     >
       <ArrowBackIcon color='primary'/>
     </IconButton>
-    /*<Button
-      variant={'text'}
-      onClick={handleOnClick}>
-      <Typography fontSize={14} fontWeight={400}>
-        {'بازگشت به دوره'}
-      </Typography>
-    </Button>*/
   );
 }
 
