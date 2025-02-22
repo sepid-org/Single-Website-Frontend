@@ -34,7 +34,7 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
   return (
     <Stack justifyContent={'space-between'} spacing={2} width={220}>
       <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-        <img src={program.cover_page} alt='program-cover-page' width={200} style={{ borderRadius: 8 }} />
+        <img src={program.cover_image} alt='program-cover-page' width={200} style={{ borderRadius: 8 }} />
       </Stack>
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>

@@ -16,7 +16,7 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 
 const MentorStaticsFSMCard = ({
   name,
-  cover_page,
+  cover_image,
   players_count,
 }) => {
 
@@ -45,10 +45,10 @@ const MentorStaticsFSMCard = ({
         },
       }}>
       <CardActionArea disabled>
-        {cover_page &&
+        {cover_image &&
           <CardMedia
             sx={{ height: 150 }}
-            image={cover_page}
+            image={cover_image}
             title={name}
           />
         }

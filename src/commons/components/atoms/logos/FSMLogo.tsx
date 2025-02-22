@@ -20,7 +20,7 @@ const FSMLogo: FC<FSMLogoPropsType> = ({ }) => {
       <Tooltip title={fsm.name} arrow>
         <IconButton disabled={width !== 'xs'} sx={{ padding: 0 }}>
           <img
-            src={fsm.cover_page}
+            src={fsm.cover_image}
             alt='logo'
             style={{
               objectFit: 'cover',

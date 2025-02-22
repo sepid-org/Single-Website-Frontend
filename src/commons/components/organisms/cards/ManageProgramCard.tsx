@@ -70,7 +70,7 @@ const ManageProgramCard: FC<ManageProgramCardPropsType> = ({
           },
         })}>
         <Grid sx={{ padding: 0 }} item container justifyContent="center" alignItems="center" xs={12} md={5}>
-          <img src={program.cover_page} alt=""
+          <img src={program.cover_image} alt=""
             style={{
               height: '100%',
               width: '100%',

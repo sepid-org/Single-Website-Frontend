@@ -70,7 +70,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
             justifyContent="center" alignItems="center">
             <img
               alt=""
-              src={program.cover_page}
+              src={program.cover_image}
               style={{
                 height: '100%',
                 width: '100%',

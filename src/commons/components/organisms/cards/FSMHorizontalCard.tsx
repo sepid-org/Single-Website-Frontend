@@ -40,11 +40,11 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
 
   return (
     <Card sx={{ display: 'flex', width: cardWidth, height: { xs: 150, sm: 200, md: 250 }, mb: 2 }}>
-      {fsm.cover_page && (
+      {fsm.cover_image && (
         <CardMedia
           component="img"
           sx={{ width: imageWidth, objectFit: 'cover' }}
-          image={fsm.cover_page}
+          image={fsm.cover_image}
           alt={fsm.name}
         />
       )}

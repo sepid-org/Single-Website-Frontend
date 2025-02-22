@@ -67,11 +67,11 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
         />
       ) : (
         <Fragment>
-          {fsm.cover_page && (
+          {fsm.cover_image && (
             <CardMedia
               component="img"
               sx={{ height: 240, objectFit: 'cover' }}
-              image={fsm.cover_page}
+              image={fsm.cover_image}
               title={fsm.name}
             />
           )}
