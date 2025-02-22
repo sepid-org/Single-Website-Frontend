@@ -53,12 +53,6 @@ const FSMAppbarItems = ({ }) => {
     toolbarItems.push(whiteboardButton, chatRoomButton)
   }
 
-  if (fsm?.fsm_p_type == 'Team') {
-    desktopLeftItems.push(teamAvatar);
-  } else {
-    desktopLeftItems.push(userAvatar);
-  }
-
   desktopLeftItems.push(backToProgram);
   mobileLeftItems.push(backToProgram);
 
