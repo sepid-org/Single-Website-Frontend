@@ -1,5 +1,3 @@
-import { css } from 'styled-components';
-
 const staticBaseUrl = 'https://static.sepid.org';
 
 // Define font weights and their corresponding filenames
@@ -28,7 +26,7 @@ const fontFaceDeclarations = fontVariants
   `)
   .join('');
 
-export const fontsStyles = css`
+export const fontsStyles = `
   ${fontFaceDeclarations}
 
   * {
