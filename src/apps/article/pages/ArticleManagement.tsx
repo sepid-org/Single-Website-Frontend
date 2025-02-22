@@ -41,7 +41,7 @@ const ArticleManagement: FC<PropsType> = ({ }) => {
     <Layout appbarMode='GENERAL'>
       <Grid container spacing={2} justifyContent="center">
         <Grid item xs={12}>
-          <Dashboard tabs={tabs} returnDirection={'/'} />
+          <Dashboard tabs={tabs} returnDirection={'/management/?tab=articles'} />
         </Grid>
       </Grid>
     </Layout>
