@@ -67,6 +67,17 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
     if (result.isSuccess) {
       toast.success('کارگاه با موفقیت ساخته شد.');
       handleClose(false);
+      setProperties({
+        name: '',
+        description: '',
+        fsm_learning_type: 'Unsupervised',
+        fsm_p_type: 'Individual',
+        cover_page: StaticFiles.TemplateImage,
+        is_active: true,
+        is_visible: true,
+        card_type: 'vertical1',
+        show_roadmap: true,
+      });
     }
   }, [result])
 
@@ -101,7 +112,20 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
         <Button
           variant="outlined"
           color="primary"
-          onClick={handleClose}>
+          onClick={() => {
+            handleClose();
+            setProperties({
+              name: '',
+              description: '',
+              fsm_learning_type: 'Unsupervised',
+              fsm_p_type: 'Individual',
+              cover_page: StaticFiles.TemplateImage,
+              is_active: true,
+              is_visible: true,
+              card_type: 'vertical1',
+              show_roadmap: true,
+            });
+          }}>
           {'انصراف'}
         </Button>
         <Button

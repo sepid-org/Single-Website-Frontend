@@ -1,28 +1,35 @@
 import { Box, Chip, InputAdornment, TextField } from "@mui/material";
+import { TagType } from "commons/types/redux/article";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import React, { useState } from "react";
 
 const tagNumber = 5;
 
 type TagFieldPropsType = {
-	tags: string[];
+	tags: TagType[];
 	setTags: any;
 }
-
-const TagField: React.FC<TagFieldPropsType> = ({setTags, tags}) => {
+const TagField: React.FC<TagFieldPropsType> = ({ setTags, tags }) => {
 
 	const [inputValue, setInputValue] = useState('');
 
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
 		if (event.key === 'Enter' && inputValue.trim() && tags.length < tagNumber) {
 			event.preventDefault();
-			setTags([...tags, inputValue.trim()]);
+			setTags([
+				...tags,
+				{
+					id: Date.now(), //to do: set appropriate id
+					name: inputValue.trim(),
+					created_at: new Date().toISOString()
+				}
+			]);
 			setInputValue('');
 		}
 	};
-	
-	const handleDelete = (tagToDelete: string) => {
-		setTags(tags.filter((tag) => tag !== tagToDelete));
+
+	const handleDelete = (tagToDelete: TagType) => {
+		setTags(tags.filter((tag) => tag.id !== tagToDelete.id));
 	};
 
 	return (
@@ -40,8 +47,8 @@ const TagField: React.FC<TagFieldPropsType> = ({setTags, tags}) => {
 						<InputAdornment position="start">
 							{tags.map((tag) => (
 								<Chip
-									key={tag}
-									label={tag}
+									key={tag.id}
+									label={tag.name}
 									onDelete={() => handleDelete(tag)}
 									size="small"
 									style={{ marginRight: 4 }}

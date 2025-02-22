@@ -20,7 +20,11 @@ type CreateArticleInputType = {
 
 type CreateArticelOutputType = {}
 
-type UpdateArticelOutputType = {}
+type UpdateArticleInputType = {
+  articleId: string;
+} & Partial<ArticleType>;
+
+type UpdateArticleOutputType = {}
 
 export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
@@ -58,10 +62,31 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: any): UpdateArticelOutputType => {
+      transformResponse: (response: any): UpdateArticleOutputType => {
         return response;
       },
     }),
+
+    updateArticle: builder.mutation<UpdateArticleOutputType, UpdateArticleInputType>({
+      invalidatesTags: ['Article', { type: 'Article', id: 'ALL' }],
+      query: ({ articleId, ...body }) => ({
+        url: `/fsm/article/${articleId}/`,
+        method: 'PATCH',
+        body,
+      }),
+      transformResponse: (response: any): UpdateArticleOutputType => {
+        return response;
+      },
+    }),
+
+    deleteArticle: builder.mutation<any, { articleId: string }>({
+      invalidatesTags: [{ type: 'Article', id: 'ALL' }],
+      query: ({ articleId }) => ({
+        url: `/fsm/article/${articleId}/`,
+        method: 'DELETE',
+      }),
+    }),
+
   })
 });
 
@@ -69,4 +94,6 @@ export const {
   useGetArticleQuery,
   useGetArticlesQuery,
   useCreateArticleMutation,
+  useUpdateArticleMutation,
+  useDeleteArticleMutation,
 } = ArticleSlice;

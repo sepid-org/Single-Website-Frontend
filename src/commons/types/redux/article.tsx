@@ -6,12 +6,18 @@ import {
 } from '../models'
 
 export type ArticleType = {
-    id: number;
+    id: string;
     name?: string;
     description?: string;
     cover_image?: string;
     is_hidden: boolean;
-    tags: string[];
+    tags: TagType[];
+}
+
+export type TagType = {
+    id: number; 
+    name: string; 
+    created_at: string;
 }
 
 export type ArticlesInitialStateType = {
