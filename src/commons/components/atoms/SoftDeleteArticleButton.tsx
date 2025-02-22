@@ -4,7 +4,7 @@ import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useSoftDeleteArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
+import { useDeleteArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
 
 type SoftDeleteArticleButtonPropsType = {}
 
@@ -12,12 +12,12 @@ const SoftDeleteArticleButton: FC<SoftDeleteArticleButtonPropsType> = ({ }) => {
   const { articleId } = useParams();
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
-  const [softDeleteArticle, result] = useSoftDeleteArticleMutation();
+  const [deleteArticle, result] = useDeleteArticleMutation();
 
   useEffect(() => {
     if (result?.isSuccess) {
       toast.success('مقاله با موفقیت حذف شد.');
-      navigate(`/articles/`);
+      navigate(`/management/?tab=articles/`);
     }
   }, [result])
 
@@ -31,7 +31,7 @@ const SoftDeleteArticleButton: FC<SoftDeleteArticleButtonPropsType> = ({ }) => {
       <AreYouSure
         text='آیا مطمئنید؟ با پاک‌کردن مقاله، تمامی محتوای آن پاک خواهد شد و دیگر قابل بازیابی نخواهد بود.'
         open={openDialog}
-        callBackFunction={() => softDeleteArticle({ articleId })}
+        callBackFunction={() => deleteArticle({ articleId })}
         handleClose={() => setOpenDialog(openDialog => !openDialog)} />
     </Fragment>
   );

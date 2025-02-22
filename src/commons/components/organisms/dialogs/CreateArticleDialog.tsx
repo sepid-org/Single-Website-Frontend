@@ -14,6 +14,7 @@ import ArticleInfoForm from '../forms/ArticleInfoForm';
 import { useCreateArticleMutation } from 'apps/website-display/redux/features/article/ArticleSlice';
 import { ArticleType } from 'commons/types/redux/article';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { StaticFiles } from 'commons/constants/mediaUrls';
 
 type CreateArticleDialogPropsType = {
   open: boolean;
@@ -30,7 +31,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
   const [properties, setProperties] = useState<Partial<ArticleType>>({
     name: '',
     description: '',
-    cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+    cover_image: StaticFiles.TemplateImage,
     is_hidden: false,
     tags: [],
   });
@@ -57,7 +58,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
       setProperties({
         name: '',
         description: '',
-        cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+        cover_image: StaticFiles.TemplateImage,
         is_hidden: false,
         tags: [],
       });
@@ -88,7 +89,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
             setProperties({
               name: '',
               description: '',
-              cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+              cover_image: StaticFiles.TemplateImage,
               is_hidden: false,
               tags: [],
             });
