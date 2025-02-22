@@ -13,7 +13,7 @@ const DynamicThemeProvider = ({ children }) => {
 			direction: 'rtl',
 			components: {
 				MuiCssBaseline: {
-					styleOverrides: fontsStyles.toString(),
+					styleOverrides: fontsStyles,
 				}
 			},
 			...defaultTheme,
