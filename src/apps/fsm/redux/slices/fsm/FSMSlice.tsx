@@ -102,7 +102,7 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
 
     softDeleteFSM: builder.mutation<any, { fsmId: number }>({
       invalidatesTags: [{ type: 'FSM', id: 'ALL' }],
-      query: ({ fsmId }) => `fsm/fsm/${fsmId}/soft_delete/`
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/delete/`
     }),
 
     setFSMFirstState: builder.mutation<any, { fsmId: number; fsmStateId: string }>({

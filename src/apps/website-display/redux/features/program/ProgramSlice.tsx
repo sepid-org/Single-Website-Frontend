@@ -118,7 +118,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
 
     softDeleteProgram: builder.mutation<any, { programSlug: string }>({
       invalidatesTags: [{ type: 'Program', id: 'ALL' }],
-      query: ({ programSlug }) => `fsm/program/${programSlug}/soft_delete/`
+      query: ({ programSlug }) => `fsm/program/${programSlug}/delete/`
     }),
 
     registerUserInProgram: builder.mutation<any, { registrationFormId: string, username: string }>({

@@ -71,7 +71,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
 
     softDeleteMerchandise: builder.mutation<SoftDeleteOutputType, SoftDeleteInputType>({
       invalidatesTags: ['merchandises', 'merchandise', { type: 'Program', id: 'ALL' }],
-      query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/soft_delete/`,
+      query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/delete/`,
     }),
 
   })
