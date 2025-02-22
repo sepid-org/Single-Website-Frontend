@@ -58,7 +58,7 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
         <UploadImage
           showImageSelf={showCoverImage}
           file={data.cover_image}
-          setFile={(file) => setData(properties => ({ ...properties, cover_image: file }))}        />
+          setFile={(file) => setData(properties => ({ ...properties, cover_image: file }))} />
       </Grid>
       <Grid item xs={12}>
         <TextField
@@ -75,9 +75,9 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormControlLabel
-          name='is_visible'
+          name='is_hidden'
           checked={!data.is_hidden}
-          onChange={() => toggleValue('is_visible')}
+          onChange={() => toggleValue('is_hidden')}
           control={<Switch color="primary" />}
           label="قابل مشاهده برای مخاطبان:"
           labelPlacement='start'

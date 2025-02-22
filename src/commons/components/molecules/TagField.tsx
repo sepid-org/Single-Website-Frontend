@@ -3,7 +3,7 @@ import { TagType } from "commons/types/redux/article";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import React, { useState } from "react";
 
-const tagNumber = 5;
+const MAXIMUM_TAG_NUMBER = 5;
 
 type TagFieldPropsType = {
 	tags: TagType[];
@@ -14,22 +14,15 @@ const TagField: React.FC<TagFieldPropsType> = ({ setTags, tags }) => {
 	const [inputValue, setInputValue] = useState('');
 
 	const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-		if (event.key === 'Enter' && inputValue.trim() && tags.length < tagNumber) {
+		if (event.key === 'Enter' && inputValue.trim() && tags.length < MAXIMUM_TAG_NUMBER) {
 			event.preventDefault();
-			setTags([
-				...tags,
-				{
-					id: Date.now(), //to do: set appropriate id
-					name: inputValue.trim(),
-					created_at: new Date().toISOString()
-				}
-			]);
+			setTags([...tags, inputValue.trim()]);
 			setInputValue('');
 		}
 	};
 
 	const handleDelete = (tagToDelete: TagType) => {
-		setTags(tags.filter((tag) => tag.id !== tagToDelete.id));
+		setTags(tags.filter((tag) => tag !== tagToDelete));
 	};
 
 	return (
@@ -37,8 +30,8 @@ const TagField: React.FC<TagFieldPropsType> = ({ setTags, tags }) => {
 			<TextField
 				variant="outlined"
 				value={inputValue}
-				label={'تگ‌ها را در این قسمت وارد کنید'}
-				placeholder={tags.length < tagNumber ? `${toPersianNumber(tagNumber - tags.length)} تگ دیگر می‌توانید وارد کنید` : ''}
+				label={'موضوعات مرتبط'}
+				placeholder={tags.length < MAXIMUM_TAG_NUMBER ? `${toPersianNumber(MAXIMUM_TAG_NUMBER - tags.length)} موضوع دیگر می‌توانید وارد کنید` : ''}
 				onChange={(e) => setInputValue(e.target.value)}
 				onKeyDown={handleKeyDown}
 				fullWidth
@@ -47,8 +40,8 @@ const TagField: React.FC<TagFieldPropsType> = ({ setTags, tags }) => {
 						<InputAdornment position="start">
 							{tags.map((tag) => (
 								<Chip
-									key={tag.id}
-									label={tag.name}
+									key={tag}
+									label={tag}
 									onDelete={() => handleDelete(tag)}
 									size="small"
 									style={{ marginRight: 4 }}
@@ -56,9 +49,8 @@ const TagField: React.FC<TagFieldPropsType> = ({ setTags, tags }) => {
 							))}
 						</InputAdornment>
 					),
-					endAdornment: tags.length >= tagNumber ? null : undefined,
 				}}
-				disabled={tags.length >= tagNumber}
+				disabled={tags.length >= MAXIMUM_TAG_NUMBER}
 			/>
 		</Box>
 	);

@@ -14,11 +14,7 @@ export type ArticleType = {
     tags: TagType[];
 }
 
-export type TagType = {
-    id: number; 
-    name: string; 
-    created_at: string;
-}
+export type TagType = string;
 
 export type ArticlesInitialStateType = {
     isFetching: boolean;
