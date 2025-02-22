@@ -62,11 +62,11 @@ export const FSMCard: FC<FSMCardPropsType> = ({
         />
       ) : (
         <Fragment>
-          {fsm.cover_page && (
+          {fsm.cover_image && (
             <CardMedia
               component="img"
               sx={{ height: 240, objectFit: 'cover' }}
-              image={fsm.cover_page}
+              image={fsm.cover_image}
               title={fsm.name}
             />
           )}

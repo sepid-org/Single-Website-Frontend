@@ -33,7 +33,7 @@ export type ProgramType = {
   program_contact_info: ProgramContactInfoType;
   is_visible: boolean;
   accessible_after_closure: boolean;
-  cover_page: string;
+  cover_image: string;
   creator: string;
   description: string;
   end_date: string | null;
@@ -105,7 +105,7 @@ export type FSMType = ObjectType & {
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
   program_slug: string;
-  cover_page: string;
+  cover_image: string;
   is_active: boolean;
   is_visible: boolean;
   card_type: 'vertical1' | 'horizontal1';

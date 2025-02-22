@@ -48,10 +48,10 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
           }}>
           <Stack width={'100%'}>
             <Stack spacing={1} sx={{ userSelect: 'none' }} alignItems={'center'}>
-              {program?.cover_page ?
+              {program?.cover_image ?
                 <Box
                   component="img"
-                  src={program?.cover_page}
+                  src={program?.cover_image}
                   alt="program-cover-page"
                   width={200}
                   sx={{ borderRadius: 1, cursor: 'pointer' }}

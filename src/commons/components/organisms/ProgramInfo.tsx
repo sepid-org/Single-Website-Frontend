@@ -25,7 +25,7 @@ const ProgramInfo: FC<ProgramInfoPropsType> = ({
       alignItems='center'
       justifyContent="space-between">
       <img
-        src={program.cover_page}
+        src={program.cover_image}
         alt=""
         style={width == 'xs' ? {
           flex: 0,

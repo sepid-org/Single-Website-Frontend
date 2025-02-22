@@ -32,7 +32,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
   const [properties, setProperties] = useState<Partial<ProgramType>>({
     name: '',
     description: '',
-    cover_page: StaticFiles.TemplateImage,
+    cover_image: StaticFiles.TemplateImage,
     is_active: true,
     is_visible: true,
     accessible_after_closure: true,
@@ -60,7 +60,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
       setProperties({
         name: '',
         description: '',
-        cover_page: StaticFiles.TemplateImage,
+        cover_image: StaticFiles.TemplateImage,
         is_active: true,
         is_visible: true,
         accessible_after_closure: true,
@@ -93,7 +93,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
             setProperties({
               name: '',
               description: '',
-              cover_page: StaticFiles.TemplateImage,
+              cover_image: StaticFiles.TemplateImage,
               is_active: true,
               is_visible: true,
               accessible_after_closure: true,

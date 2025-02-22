@@ -14,7 +14,7 @@ import { Link } from 'react-router-dom';
 const MentorFSMCard = ({
   id,
   name,
-  cover_page,
+  cover_image,
   description,
 }) => {
 
@@ -43,10 +43,10 @@ const MentorFSMCard = ({
         },
       }}>
       <CardActionArea disabled>
-        {cover_page &&
+        {cover_image &&
           <CardMedia
             sx={{ height: 150 }}
-            image={cover_page}
+            image={cover_image}
             title={name}
           />
         }
