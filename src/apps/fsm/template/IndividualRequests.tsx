@@ -28,7 +28,7 @@ type InfoPropsType = {
   getFSMPlayers: Function,
   getRequestMentor: Function,
   deleteRequestMentor: Function,
-  accessToken: Token,
+  accessToken?: Token,
   requests: PlayerRequestType,
   players: PlayerType[],
   createRequestMentor: Function,

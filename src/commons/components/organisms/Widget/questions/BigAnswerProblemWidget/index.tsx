@@ -1,4 +1,4 @@
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, Stack, TextField, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
@@ -35,7 +35,6 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     questionId,
     mode,
   })
-
   return (
     <Stack spacing={1}>
       <IsRequired hidden={!is_required}>
@@ -44,12 +43,19 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
           content={questionText}
         />
       </IsRequired>
-      {(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
+      {/*(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
         <TinyEditorComponent
           content={answer}
           onChange={changeAnswer}
         />
-      }
+      */}
+      <TextField
+        multiline
+        rows={3}
+        placeholder={'پاسخ خود را وارد کنید.'}
+        value={answer}
+        onChange={(e) => changeAnswer(e.target.value)}
+      />
       {mode === WidgetModes.View &&
         <Button
           disabled={isQuestionLoading}
