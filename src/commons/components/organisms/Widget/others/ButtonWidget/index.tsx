@@ -28,7 +28,6 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   has_hover_effect,
   mode,
   id: widgetId,
-  ...objectFields
 }) => {
   const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
   const [changeState, changeStateResult] = useChangeState();
@@ -128,6 +127,9 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
       clickedButtonId: widgetId,
     });
   };
+
+  const ButtonComponent = has_hover_effect ? Button : ButtonBase;
+
   return (
     <Fragment>
       <Box
@@ -142,12 +144,12 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         }}
       >
         {background_image ?
-          <ButtonBase
+          <ButtonComponent
             onClick={handleClick}
             disableRipple={!has_ripple_on_click}
             sx={{
               position: 'absolute',
-              borderRadius: 1,
+              borderRadius: 2,
               width: dimensions.width,
               height: dimensions.height,
               backgroundImage: `url(${background_image})`,
@@ -159,14 +161,11 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               zIndex: 0,
               clipPath,
               transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
-              '&:hover': has_hover_effect ? {
-                transform: `scaleX(${(scale.widthScale / dimensions.width) * 1.05}) scaleY(${(scale.heightScale / dimensions.height) * 1.05})`,
-                boxShadow: '0 0.5em 2rem -1rem rgba(0, 0, 0, 1)',
-              } : {},
             }}
           /> :
-          <Button
+          <ButtonComponent
             onClick={handleClick}
+            disableRipple={!has_ripple_on_click}
             sx={{
               width: '100%',
               height: '100%',
@@ -185,7 +184,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               }}
               content={label}
             />
-          </Button>
+          </ButtonComponent>
         }
       </Box>
       <ChangeStateDialog

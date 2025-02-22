@@ -132,7 +132,7 @@ const ButtonWidgetEditor = ({
           <FormControlLabel
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
             control={<Switch checked={buttonFields.has_ripple_on_click} />}
-            label={'موج‌دار شدن هنگام کلیک'}
+            label={'نمایش موج در هنگام کلیک'}
             labelPlacement='start'
             onChange={(e) => {
               setButtonFields({
@@ -144,7 +144,7 @@ const ButtonWidgetEditor = ({
           <FormControlLabel
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
             control={<Switch checked={buttonFields.has_hover_effect} />}
-            label={'افکت داشتن هنگام عبور موس'}
+            label={'نمایش افکت هنگام عبور موس'}
             labelPlacement='start'
             onChange={(e) => {
               setButtonFields({
