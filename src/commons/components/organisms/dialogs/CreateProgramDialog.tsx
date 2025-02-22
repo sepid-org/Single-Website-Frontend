@@ -57,6 +57,14 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
     if (result.isSuccess) {
       toast.success('دوره با موفقیت ساخته شد.');
       handleClose(false);
+      setProperties({
+        name: '',
+        description: '',
+        cover_page: StaticFiles.TemplateImage,
+        is_active: true,
+        is_visible: true,
+        accessible_after_closure: true,
+      });
     }
   }, [result])
 
@@ -80,7 +88,17 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
         <Button
           variant="outlined"
           color="primary"
-          onClick={handleClose}>
+          onClick={() => {
+            handleClose()
+            setProperties({
+              name: '',
+              description: '',
+              cover_page: StaticFiles.TemplateImage,
+              is_active: true,
+              is_visible: true,
+              accessible_after_closure: true,
+            });
+          }}>
           {'انصراف'}
         </Button>
         <Button

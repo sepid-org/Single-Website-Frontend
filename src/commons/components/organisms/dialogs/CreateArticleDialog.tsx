@@ -54,6 +54,13 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
     if (result.isSuccess) {
       toast.success('مقاله با موفقیت ساخته شد.');
       handleClose(false);
+      setProperties({
+        name: '',
+        description: '',
+        cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+        is_hidden: false,
+        tags: [],
+      });
     }
   }, [result])
 
@@ -76,7 +83,16 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
         <Button
           variant="outlined"
           color="primary"
-          onClick={handleClose}>
+          onClick={() => {
+            handleClose();
+            setProperties({
+              name: '',
+              description: '',
+              cover_image: 'https://kamva-minio-storage.darkube.app/sepid/fsm-placeholder-image.png',
+              is_hidden: false,
+              tags: [],
+            });
+          }}>
           {'انصراف'}
         </Button>
         <Button
