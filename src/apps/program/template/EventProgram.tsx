@@ -6,7 +6,7 @@ import { Helmet } from "react-helmet";
 import FSMsGrid from 'commons/components/organisms/FSMsGrid';
 import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Layout from 'commons/template/Layout';
 
 type EventProgramPropsType = {}
@@ -15,10 +15,17 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: websitedata } = useGetWebsiteQuery();
 
   return (
     <Fragment>
-      {pageMetadata && program &&
+      {!(pageMetadata && program) && websitedata && websitedata.header &&
+        <Helmet>
+          <title>{websitedata.header.title}</title>
+        </Helmet>
+      }
+      {
+        (pageMetadata && program) &&
         <Helmet>
           <title>{pageMetadata.header_data.title + ' | ' + program.name}</title>
         </Helmet>
