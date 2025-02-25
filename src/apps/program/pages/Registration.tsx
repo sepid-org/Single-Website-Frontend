@@ -32,7 +32,7 @@ const Registration: FC<PropsType> = () => {
     }
   }, [registrationReceipt, programSlug, navigate]);
 
-  if (registrationReceipt?.is_participating === false) {
+  if (!isAuthenticated || registrationReceipt?.is_participating === false) {
     return (
       <Layout appbarMode='GENERAL'>
         <Grid
