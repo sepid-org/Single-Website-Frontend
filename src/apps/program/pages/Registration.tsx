@@ -7,6 +7,7 @@ import Layout from 'commons/template/Layout';
 import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 
 type PropsType = {}
 
@@ -19,12 +20,14 @@ const Registration: FC<PropsType> = () => {
     isLoading: isGetProgramLoading,
   } = useGetProgramQuery({ programSlug });
 
+  const { isAuthenticated } = useUserAuthentication();
+
   const {
     data: registrationReceipt,
     isLoading: isRegistrationReceiptLoading
   } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
-    { skip: !program?.registration_form }
+    { skip: !program?.registration_form || !isAuthenticated }
   );
 
   const {
@@ -44,7 +47,7 @@ const Registration: FC<PropsType> = () => {
   }
 
   return (
-    <Layout appbarMode='PROGRAM'>
+    <Layout appbarMode='GENERAL'>
       <Grid
         container
         spacing={2}

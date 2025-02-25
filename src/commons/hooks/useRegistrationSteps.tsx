@@ -22,11 +22,11 @@ const useRegistrationSteps = () => {
     { formId: program?.registration_form },
     { skip: !Boolean(program?.registration_form) }
   );
+  const { isAuthenticated } = useUserAuthentication();
   const { data: registrationReceipt } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
-    { skip: !Boolean(program?.registration_form) }
+    { skip: !Boolean(program?.registration_form) || !isAuthenticated }
   );
-  const { isAuthenticated } = useUserAuthentication();
 
   const [steps, setSteps] = useState<RegistrationStepType[]>([]);
   const [stepIndexes, setStepIndexes] = useState({
