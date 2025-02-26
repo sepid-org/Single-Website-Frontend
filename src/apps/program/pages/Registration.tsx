@@ -34,7 +34,7 @@ const Registration: FC<PropsType> = () => {
 
   if (!isAuthenticated || getMyReceiptError || registrationReceipt?.is_participating === false) {
     return (
-      <Layout appbarMode='GENERAL'>
+      <Layout appbarMode='PROGRAM'>
         <Grid
           container
           spacing={2}
