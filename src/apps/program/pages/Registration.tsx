@@ -16,7 +16,7 @@ const Registration: FC<PropsType> = () => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { isAuthenticated } = useUserAuthentication();
-  const { data: registrationReceipt } = useGetMyReceiptQuery(
+  const { data: registrationReceipt, error: getMyReceiptError } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
     { skip: !program?.registration_form || !isAuthenticated }
   );
@@ -32,7 +32,7 @@ const Registration: FC<PropsType> = () => {
     }
   }, [registrationReceipt, programSlug, navigate]);
 
-  if (!isAuthenticated || registrationReceipt?.is_participating === false) {
+  if (!isAuthenticated || getMyReceiptError || registrationReceipt?.is_participating === false) {
     return (
       <Layout appbarMode='GENERAL'>
         <Grid
