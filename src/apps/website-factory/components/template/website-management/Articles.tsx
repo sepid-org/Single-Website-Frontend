@@ -11,6 +11,7 @@ import { useGetArticlesQuery } from 'apps/website-display/redux/features/article
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import CreateArticleDialog from 'commons/components/organisms/dialogs/CreateArticleDialog';
+import EditArticleCard from 'commons/components/organisms/cards/EridArticleCard';
 
 type ArticlesTabPropsType = {
 }
@@ -68,7 +69,7 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
           }
           {articles?.map((article) => (
             <Grid container item xs={12} sm={6} md={4} key={article.id} alignItems='center' justifyContent='center'>
-              <ArticleCard article={article} mode='edit' />
+              <EditArticleCard article={article} />
             </Grid>
           ))}
         </Grid>

@@ -1,39 +1,33 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
   Card,
-  CardActions,
   CardContent,
   CardMedia,
-  Stack,
   Typography,
   ButtonBase,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ArticleType } from 'commons/types/redux/article';
 
 type ArticleCardPropsType = {
   article: Partial<ArticleType>;
-  mode: 'view' | 'edit';
 };
 
-const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
+const ArticleCard: FC<ArticleCardPropsType> = ({ article }) => {
   const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/article/${article.id}/`);
+  };
 
   return (
     <ButtonBase
-      disableRipple
+      onClick={handleCardClick}
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
+        width: '100%',
         height: '100%',
-        width: "100%",
-        justifyContent: 'space-between',
-        textAlign: 'initial',
-        padding: 0,
+        textAlign: 'left',
       }}
     >
       <Card
@@ -66,15 +60,6 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article, mode }) => {
             </Typography>
           </CardContent>
         </Box>
-        <CardActions>
-          <ButtonGroup fullWidth>
-            {mode === 'edit' && (
-              <Button component={Link} to={`/article/${article.id}/manage/`}>
-                {'ویرایش'}
-              </Button>
-            )}
-          </ButtonGroup>
-        </CardActions>
       </Card>
     </ButtonBase>
   );
