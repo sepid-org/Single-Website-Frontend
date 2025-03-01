@@ -15,7 +15,7 @@ const DashboardAppbarItems = ({ }) => {
   const desktopLeftItems = [];
   const desktopRightItems = [];
 
-  if (pageMetadata.appbar?.body) {
+  if (pageMetadata?.appbar?.body) {
     pageMetadata.appbar.body.desktopLeftItems.filter(item => item.position === 'left').forEach((item, index) => {
       desktopLeftItems.push(
         <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
