@@ -1,12 +1,13 @@
 import { createTheme, ThemeProvider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import defaultTheme from "commons/styles/themes/defaultTheme.json";
-import { useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
+import { useGetPageMetadataQuery, useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
 import { fontsStyles } from "../fonts";
 
 const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
 	const { data: website } = useGetWebsiteQuery();
+	const {data: pageMetadata} = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
 
 	useEffect(() => {
 		const themeConfig = createTheme({
@@ -17,11 +18,12 @@ const DynamicThemeProvider = ({ children }) => {
 				}
 			},
 			...defaultTheme,
-			...website.theme,
+			...website?.theme,
+			...pageMetadata?.theme,
 		});
 		setTheme(themeConfig);
 
-	}, [website]);
+	}, [website, pageMetadata]);
 
 	if (theme) {
 		return (
