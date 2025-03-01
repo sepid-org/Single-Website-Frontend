@@ -79,10 +79,10 @@ export type PartyType = {
 
 export type PageMetadataType = {
   address_pattern: string;
-  header_data: HeaderMetaData;
-  og_metadata: OpenGraphMetaData;
-  banners: BannerType[];
-  appbar: { body: BackendAppbarType };
+  header_data?: HeaderMetaData;
+  og_metadata?: OpenGraphMetaData;
+  banners?: BannerType[];
+  appbar?: { body: BackendAppbarType };
   paper_id: number;
   theme: JSON;
 }
