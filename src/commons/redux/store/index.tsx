@@ -1,7 +1,7 @@
 import { UserInfoType } from 'commons/types/profile';
 import createStore from './createStore';
 
-export const getPersistedState = (): { userInfo: UserInfoType } => {
+export const getPersistedState = (): { userInfo?: UserInfoType } => {
   return localStorage.getItem('sepid-state')
     ? JSON.parse(localStorage.getItem('sepid-state'))
     : {};
