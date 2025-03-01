@@ -7,7 +7,7 @@ import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPar
 
 const WebsiteMetadataSetter = ({ }) => {
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-  const { data: websitedata } = useGetWebsiteQuery();
+  const { data: websiteData } = useGetWebsiteQuery();
   const { data: thirdPartiesTokens } = useGetThirdPartiesQuery()
 
   useEffect(() => {
@@ -18,15 +18,15 @@ const WebsiteMetadataSetter = ({ }) => {
 
   return (
     <Fragment>
-      { websitedata?.header && !(pageMetadata?.header_data) &&
+      {websiteData?.header && !(pageMetadata?.header_data) &&
         <Helmet>
-          <title>{websitedata.header.title}</title>
-          <link rel="icon" href={websitedata.header.icon} />
-          <meta name="description" content={websitedata.header.description} />
-          <meta name="theme-color" content={websitedata.header.theme_color} />
+          <title>{websiteData.header.title}</title>
+          <link rel="icon" href={websiteData.header.icon} />
+          <meta name="description" content={websiteData.header.description} />
+          <meta name="theme-color" content={websiteData.header.theme_color} />
 
-          <meta name="msapplication-TileImage" content={websitedata.header.icon} />
-          <meta name="msapplication-TileColor" content={websitedata.header.theme_color} />
+          <meta name="msapplication-TileImage" content={websiteData.header.icon} />
+          <meta name="msapplication-TileColor" content={websiteData.header.theme_color} />
 
           {/* <link rel="manifest" href="/site.webmanifest" /> */}
         </Helmet>

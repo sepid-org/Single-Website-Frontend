@@ -15,13 +15,13 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-  const { data: websitedata } = useGetWebsiteQuery();
+  const { data: websiteData } = useGetWebsiteQuery();
 
   return (
     <Fragment>
-      {!(pageMetadata && program) && websitedata && websitedata.header &&
+      {!(pageMetadata && program) && websiteData && websiteData.header &&
         <Helmet>
-          <title>{websitedata.header.title}</title>
+          <title>{websiteData.header.title}</title>
         </Helmet>
       }
       {

@@ -7,13 +7,13 @@ import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-displa
 const NotFoundPage = () => {
   const navigate = useNavigate();
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-  const { data: websitedata } = useGetWebsiteQuery();
+  const { data: websiteData } = useGetWebsiteQuery();
 
   return (
     <Fragment>
-      {websitedata && !pageMetadata &&
+      {websiteData && !pageMetadata &&
         <Helmet>
-          <title>{websitedata.header.title + ' | خطای ۴۰۴'}</title>
+          <title>{websiteData.header.title + ' | خطای ۴۰۴'}</title>
         </Helmet>
       }
       {pageMetadata &&
