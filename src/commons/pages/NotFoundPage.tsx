@@ -11,14 +11,14 @@ const NotFoundPage = () => {
 
   return (
     <Fragment>
-      {websiteData && !pageMetadata &&
+      {websiteData?.header &&
         <Helmet>
           <title>{websiteData.header.title + ' | خطای ۴۰۴'}</title>
         </Helmet>
       }
-      {pageMetadata &&
+      {pageMetadata?.header &&
         <Helmet>
-          <title>{pageMetadata.header_data.title + ' | خطای ۴۰۴'}</title>
+          <title>{pageMetadata.header.title + ' | خطای ۴۰۴'}</title>
         </Helmet>
       }
       <Container>

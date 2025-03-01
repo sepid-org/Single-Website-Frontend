@@ -18,7 +18,7 @@ const WebsiteMetadataSetter = ({ }) => {
 
   return (
     <Fragment>
-      {websiteData?.header && !(pageMetadata?.header_data) &&
+      {websiteData?.header && !(pageMetadata?.header) &&
         <Helmet>
           <title>{websiteData.header.title}</title>
           <link rel="icon" href={websiteData.header.icon} />
@@ -31,26 +31,26 @@ const WebsiteMetadataSetter = ({ }) => {
           {/* <link rel="manifest" href="/site.webmanifest" /> */}
         </Helmet>
       }
-      {pageMetadata?.header_data &&
+      {pageMetadata?.header &&
         <Helmet>
-          <title>{pageMetadata.header_data.title}</title>
-          <link rel="icon" href={pageMetadata.header_data.icon} />
-          <meta name="description" content={pageMetadata.header_data.description} />
-          <meta name="theme-color" content={pageMetadata.header_data.theme_color} />
+          <title>{pageMetadata.header.title}</title>
+          <link rel="icon" href={pageMetadata.header.icon} />
+          <meta name="description" content={pageMetadata.header.description} />
+          <meta name="theme-color" content={pageMetadata.header.theme_color} />
 
-          <meta name="msapplication-TileImage" content={pageMetadata.header_data.icon} />
-          <meta name="msapplication-TileColor" content={pageMetadata.header_data.theme_color} />
+          <meta name="msapplication-TileImage" content={pageMetadata.header.icon} />
+          <meta name="msapplication-TileColor" content={pageMetadata.header.theme_color} />
 
           {/* <link rel="manifest" href="/site.webmanifest" /> */}
         </Helmet>
       }
-      {pageMetadata?.og_metadata &&
+      {pageMetadata?.open_graph &&
         <Helmet>
-          <meta property="og:title" content={pageMetadata.og_metadata.title} />
-          <meta property="og:description" content={pageMetadata.og_metadata.description} />
-          <meta property="og:type" content={pageMetadata.og_metadata.type} />
-          <meta property="og:image" content={pageMetadata.og_metadata.image} />
-          <meta property="og:url" content={pageMetadata.og_metadata.url} />
+          <meta property="og:title" content={pageMetadata.open_graph.title} />
+          <meta property="og:description" content={pageMetadata.open_graph.description} />
+          <meta property="og:type" content={pageMetadata.open_graph.type} />
+          <meta property="og:image" content={pageMetadata.open_graph.image} />
+          <meta property="og:url" content={pageMetadata.open_graph.url} />
         </Helmet>
       }
     </Fragment >

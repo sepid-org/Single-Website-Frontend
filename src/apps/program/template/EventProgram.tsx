@@ -19,15 +19,14 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
 
   return (
     <Fragment>
-      {!(pageMetadata && program) && websiteData && websiteData.header &&
+      {(websiteData?.header && program) &&
         <Helmet>
-          <title>{websiteData.header.title}</title>
+          <title>{websiteData.header.title + ' | ' + program.name}</title>
         </Helmet>
       }
-      {
-        (pageMetadata && program) &&
+      {(pageMetadata?.header && program) &&
         <Helmet>
-          <title>{pageMetadata.header_data.title + ' | ' + program.name}</title>
+          <title>{pageMetadata.header.title + ' | ' + program.name}</title>
         </Helmet>
       }
       <Layout appbarMode='PROGRAM'>
