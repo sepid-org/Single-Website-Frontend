@@ -2,17 +2,23 @@ import { Button, ButtonGroup, Container, Grid, Typography } from '@mui/material'
 import React, { Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 const NotFoundPage = () => {
   const navigate = useNavigate();
-  const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: websiteData } = useGetWebsiteQuery();
 
   return (
     <Fragment>
-      {websiteMetadata &&
+      {websiteData?.header &&
         <Helmet>
-          <title>{websiteMetadata.header_data.title + ' | خطای ۴۰۴'}</title>
+          <title>{websiteData.header.title + ' | خطای ۴۰۴'}</title>
+        </Helmet>
+      }
+      {pageMetadata?.header &&
+        <Helmet>
+          <title>{pageMetadata.header.title + ' | خطای ۴۰۴'}</title>
         </Helmet>
       }
       <Container>

@@ -64,7 +64,7 @@ export type WebsiteType = {
   logo: LogoType;
   appbar: { body: BackendAppbarType };
   header: HeaderMetaData;
-  og_metadata: OpenGraphMetaData;
+  open_graph: OpenGraphMetaData;
   has_login_with_google: boolean;
   theme: JSON;
 }
@@ -79,10 +79,10 @@ export type PartyType = {
 
 export type PageMetadataType = {
   address_pattern: string;
-  header_data: HeaderMetaData;
-  og_metadata: OpenGraphMetaData;
-  banners: BannerType[];
-  appbar: { body: BackendAppbarType };
+  header?: HeaderMetaData;
+  open_graph?: OpenGraphMetaData;
+  banners?: BannerType[];
+  appbar?: { body: BackendAppbarType };
   paper_id: number;
   theme: JSON;
 }

@@ -47,7 +47,7 @@ const Programs = ({ }) => {
   return (
     <Layout appbarMode='DASHBOARD'>
       <Stack width={'100%'} spacing={4} alignItems={'center'} justifyContent='center'>
-        {pageMetadata?.banners.length > 0 &&
+        {pageMetadata?.banners?.length > 0 &&
           <Box width={'100%'}>
             <Banner banners={pageMetadata.banners} />
           </Box>

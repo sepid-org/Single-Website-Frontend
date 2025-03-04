@@ -1,12 +1,13 @@
 import React, { Fragment, useEffect } from 'react';
 import { Helmet } from "react-helmet";
 
-import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/ThirdPartySlice';
 import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPartyApps';
 
 const WebsiteMetadataSetter = ({ }) => {
-  const { data: websiteMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: websiteData } = useGetWebsiteQuery();
   const { data: thirdPartiesTokens } = useGetThirdPartiesQuery()
 
   useEffect(() => {
@@ -17,26 +18,39 @@ const WebsiteMetadataSetter = ({ }) => {
 
   return (
     <Fragment>
-      {websiteMetadata?.header_data &&
+      {websiteData?.header && !(pageMetadata?.header) &&
         <Helmet>
-          <title>{websiteMetadata.header_data.title}</title>
-          <link rel="icon" href={websiteMetadata.header_data.icon} />
-          <meta name="description" content={websiteMetadata.header_data.description} />
-          <meta name="theme-color" content={websiteMetadata.header_data.theme_color} />
+          <title>{websiteData.header.title}</title>
+          <link rel="icon" href={websiteData.header.icon} />
+          <meta name="description" content={websiteData.header.description} />
+          <meta name="theme-color" content={websiteData.header.theme_color} />
 
-          <meta name="msapplication-TileImage" content={websiteMetadata.header_data.icon} />
-          <meta name="msapplication-TileColor" content={websiteMetadata.header_data.theme_color} />
+          <meta name="msapplication-TileImage" content={websiteData.header.icon} />
+          <meta name="msapplication-TileColor" content={websiteData.header.theme_color} />
 
           {/* <link rel="manifest" href="/site.webmanifest" /> */}
         </Helmet>
       }
-      {websiteMetadata?.og_metadata &&
+      {pageMetadata?.header &&
         <Helmet>
-          <meta property="og:title" content={websiteMetadata.og_metadata.title} />
-          <meta property="og:description" content={websiteMetadata.og_metadata.description} />
-          <meta property="og:type" content={websiteMetadata.og_metadata.type} />
-          <meta property="og:image" content={websiteMetadata.og_metadata.image} />
-          <meta property="og:url" content={websiteMetadata.og_metadata.url} />
+          <title>{pageMetadata.header.title}</title>
+          <link rel="icon" href={pageMetadata.header.icon} />
+          <meta name="description" content={pageMetadata.header.description} />
+          <meta name="theme-color" content={pageMetadata.header.theme_color} />
+
+          <meta name="msapplication-TileImage" content={pageMetadata.header.icon} />
+          <meta name="msapplication-TileColor" content={pageMetadata.header.theme_color} />
+
+          {/* <link rel="manifest" href="/site.webmanifest" /> */}
+        </Helmet>
+      }
+      {pageMetadata?.open_graph &&
+        <Helmet>
+          <meta property="og:title" content={pageMetadata.open_graph.title} />
+          <meta property="og:description" content={pageMetadata.open_graph.description} />
+          <meta property="og:type" content={pageMetadata.open_graph.type} />
+          <meta property="og:image" content={pageMetadata.open_graph.image} />
+          <meta property="og:url" content={pageMetadata.open_graph.url} />
         </Helmet>
       }
     </Fragment >
