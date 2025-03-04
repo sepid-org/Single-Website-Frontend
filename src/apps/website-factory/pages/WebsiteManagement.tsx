@@ -46,7 +46,7 @@ const tabs: DashboardTabType[] = [
     label: 'تنظیمات ظاهری',
     icon: VisibilityIcon,
     component: <AppearanceTab />,
-    disabled: true,
+    disabled: false,
   },
   {
     slug: 'statistics',
