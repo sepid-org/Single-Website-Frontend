@@ -1,6 +1,6 @@
 const staticBaseUrl = 'https://static.sepid.org';
 
-// Define font weights and their corresponding filenames
+
 const IranYekanfontVariants = [
   { weight: 100, name: 'thin' },
   { weight: 300, name: 'light' },
@@ -20,7 +20,6 @@ const PinarfontVariants = [
 ];
 
 
-// Generate @font-face declarations dynamically
 const IranYekanfontFaceDeclarations = IranYekanfontVariants
   .map(({ weight, name }) => `
     @font-face {
@@ -40,8 +39,7 @@ const PinarfontFaceDeclarations = PinarfontVariants
       font-family: 'Pinar-FD';
       font-style: normal;
       font-weight: ${weight};
-      src: local('Pinar-FD'),
-           url('${staticBaseUrl}/fonts/Pinar-FD-${name}.woff2') format('woff2');
+      src: url('${staticBaseUrl}/fonts/Pinar-FD-${name}.woff2') format('woff2');
       font-display: swap;
     }
   `)
@@ -49,7 +47,7 @@ const PinarfontFaceDeclarations = PinarfontVariants
 
 export const fontsStyles = `
   ${IranYekanfontFaceDeclarations}
-  ${{PinarfontFaceDeclarations}}
+  ${PinarfontFaceDeclarations}
   * {
     font-family: 'IRANYekan', 'Pinar-FD', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
