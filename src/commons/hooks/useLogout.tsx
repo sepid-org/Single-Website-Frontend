@@ -3,21 +3,17 @@ import { logout as logoutAction } from 'apps/website-display/redux/slices/Accoun
 import { toast } from "react-toastify";
 import { AppDispatch } from 'commons/redux/store';
 import { useLogoutMutation } from 'commons/redux/apis/party/UserApi';
-import { useEffect } from 'react';
+import useUserAuthentication from './useUserAuthentication';
 
 const useLogout = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { refreshToken } = useUserAuthentication();
   const [_logout, logoutResult] = useLogoutMutation();
 
-  useEffect(() => {
-    if (logoutResult.isSuccess) {
-      toast.info('خدا به همراهتان👋');
-      dispatch(logoutAction());
-    }
-  }, [logoutResult])
-
   const logout = () => {
-    _logout();
+    dispatch(logoutAction());
+    toast.info('خدا به همراهتان👋');
+    _logout({ refreshToken });
   };
 
   return { logout };

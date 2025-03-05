@@ -1,7 +1,8 @@
 import { UserInfoType } from 'commons/types/profile';
+import { updateToken } from 'commons/configs/axios';
 import createStore from './createStore';
 
-export const getPersistedState = (): { userInfo?: UserInfoType } => {
+export const getPersistedState = (): { userInfo: UserInfoType; accessToken: string; refreshToken: string; } => {
   return localStorage.getItem('sepid-state')
     ? JSON.parse(localStorage.getItem('sepid-state'))
     : {};
@@ -16,6 +17,8 @@ reduxStore.subscribe(() => {
     JSON.stringify({
       account: {
         userInfo: state.account.userInfo,
+        accessToken: state.account.accessToken,
+        refreshToken: state.account.refreshToken,
       },
       website: {
         website: state.website.website,
@@ -23,6 +26,7 @@ reduxStore.subscribe(() => {
       Intl: state.Intl,
     })
   );
+  updateToken(state.account.accessToken);
 });
 
 export default reduxStore;
