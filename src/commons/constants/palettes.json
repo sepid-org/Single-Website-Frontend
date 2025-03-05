@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Light Theme",
+    "primary": "#1976d2",
+    "secondary": "#9c27b0",
+    "error": "#d32f2f",
+    "text": "#212121",
+    "background": "#f4f6f8"
+  },
+  {
+    "name": "Dark Theme",
+    "primary": "#90caf9",
+    "secondary": "#ce93d8",
+    "error": "#f44336",
+    "text": "#ffffff",
+    "background": "#121212"
+  },
+  {
+    "name": "Ocean Theme",
+    "primary": "#2196f3",
+    "secondary": "#4caf50",
+    "error": "#ff5722",
+    "text": "#000000",
+    "background": "#e0f7fa"
+  },
+  {
+    "name": "Sunset Theme",
+    "primary": "#ff9800",
+    "secondary": "#e91e63",
+    "error": "#f44336",
+    "text": "#212121",
+    "background": "#fff3e0"
+  },
+  {
+    "name": "Minimal Theme",
+    "primary": "#607d8b",
+    "secondary": "#ffc107",
+    "error": "#d32f2f",
+    "text": "#212121",
+    "background": "#ffffff"
+  }
+]

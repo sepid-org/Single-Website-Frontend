@@ -5,9 +5,7 @@ const FontSelector = () => {
   const [selectedFont, setSelectedFont] = useState('iranyekan');
 
   const handleFontChange = (event) => {
-    const newFont = event.target.value;
-    setSelectedFont(newFont);
-    document.body.style.fontFamily = newFont;
+    setSelectedFont(event.target.value);
   };
 
   const fontMap = {

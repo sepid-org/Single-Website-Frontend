@@ -1,4 +1,5 @@
-import { Grid, Typography } from '@mui/material';
+import { Divider, Grid, Typography } from '@mui/material';
+import ColorPaletteSelector from 'commons/components/organisms/ColorSelector';
 import FontSelector from 'commons/components/organisms/FontSelector';
 import React, { Fragment, FC } from 'react';
 
@@ -27,11 +28,23 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
           <Grid item xs={12} sm={6}>
             <Typography
               variant='h4'
-              sx={{marginBottom: 1}}
+              sx={{ marginBottom: 1 }}
             >
               {'فونت'}
             </Typography>
             <FontSelector />
+          </Grid>
+          <Grid item xs={12} marginTop={2} marginBottom={2}>          
+            <Divider/>
+          </Grid>
+          <Grid item xs={12}>
+            <Typography
+              variant='h4'
+              sx={{ marginBottom: 1 }}
+            >
+              {'پالت رنگ'}
+            </Typography>
+            <ColorPaletteSelector />
           </Grid>
         </Grid>
       </Grid>
