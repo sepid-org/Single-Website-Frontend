@@ -1,5 +1,4 @@
 import React from 'react';
-
 import DashboardButton from '../components/DashboardButton';
 import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
@@ -8,6 +7,7 @@ import NotificationButton from 'apps/chat/components/atoms/NotificationButton';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 
 const DashboardAppbarItems = ({ }) => {
+
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const { data: websiteData } = useGetWebsiteQuery();
   const { isAuthenticated } = useUserAuthentication();

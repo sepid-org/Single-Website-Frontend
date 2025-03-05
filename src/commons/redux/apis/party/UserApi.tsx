@@ -100,12 +100,15 @@ type GetVerificationCodeOutputType = void;
 
 export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    logout: builder.mutation<{ detail: string }, void>({
+    logout: builder.mutation<{ detail: string }, { refreshToken: string }>({
       invalidatesTags: ['UserAuthentication'],
       onQueryStarted: invalidateMyTagsAcrossApis(),
-      query: () => ({
+      query: ({ refreshToken }) => ({
         url: 'auth/accounts/logout/',
         method: 'POST',
+        body: {
+          refresh: refreshToken
+        }
       }),
     }),
 

@@ -39,7 +39,7 @@ const Teams: FC<InfoPropsType> = ({
   getFSMPlayers,
   getRequestMentor,
   deleteRequestMentor,
-  accessToken = 'IS_ALWAYS_NULL',
+  accessToken,
   requests,
   players,
   createRequestMentor,
@@ -149,6 +149,7 @@ const Teams: FC<InfoPropsType> = ({
 }
 
 const mapStateToProps = (state) => ({
+  accessToken: state.account.accessToken,
   players: state.workshop.players,
   requests: state.programs.teamsRequests || {},
 });
