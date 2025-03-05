@@ -114,7 +114,6 @@ const ColorPaletteSelector = () => {
         ))}
       </Grid>
 
-      {/* Predefined Palettes */}
       <Grid item container xs={12}>
         <Grid item xs={12}>
           <Typography>
@@ -134,7 +133,7 @@ const ColorPaletteSelector = () => {
               sm={6}
               md={4}
               display={'flex'}
-              justifyContent={{xs: 'center', sm: 'space-between'}}
+              justifyContent={{ xs: 'center', sm: 'space-between' }}
             >
               <Button
                 key={index}
@@ -171,14 +170,24 @@ const ColorPaletteSelector = () => {
       </Grid>
 
       <Dialog open={openDialog} onClose={handleDialogClose}>
-        <DialogTitle>Select {currentColorKey} Color</DialogTitle>
-        <DialogContent>
-          <ChromePicker color={currentColor} onChangeComplete={handleColorChange} />
-        </DialogContent>
+        <DialogTitle>
+          {'انتخاب رنگ ' + colorTranslations[currentColorKey]}
+        </DialogTitle>
+        <ChromePicker
+          styles={{
+            default: {
+              picker: {
+                boxShadow: 'none',
+              },
+            },
+          }}
+          color={currentColor}
+          onChangeComplete={handleColorChange}
+        />
         <DialogActions>
-          <Button onClick={handleDialogClose}>Cancel</Button>
+          <Button onClick={handleDialogClose}>{'بی‌خیال'}</Button>
           <Button onClick={handleSelectColor} variant="contained">
-            Select
+            {'انتخاب'}
           </Button>
         </DialogActions>
       </Dialog>
