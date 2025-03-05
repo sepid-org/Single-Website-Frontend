@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography } from '@mui/material';
+import { Box, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography, Stack } from '@mui/material';
 import { ChromePicker } from 'react-color';
 
 const predefinedPalettes = [
@@ -25,6 +25,14 @@ const predefinedPalettes = [
     text: '#4a148c',
   },
 ];
+
+const colorTranslations = {
+  primary: 'اصلی',
+  secondary: 'ثانویه',
+  error: 'خطا',
+  background: 'پس‌زمینه',
+  text: 'متن',
+}
 
 const ColorPaletteSelector = () => {
   const [selectedColors, setSelectedColors] = useState({
@@ -100,7 +108,7 @@ const ColorPaletteSelector = () => {
               textOverflow="ellipsis"
               whiteSpace="nowrap"
             >
-              {key}
+              {colorTranslations[key]}
             </Typography>
           </Grid>
         ))}
@@ -117,8 +125,7 @@ const ColorPaletteSelector = () => {
           container
           item
           xs={12}
-          display={'flex'}
-          justifyContent={'center'}
+          spacing={1}
         >
           {predefinedPalettes.map((palette, index) => (
             <Grid
@@ -127,43 +134,42 @@ const ColorPaletteSelector = () => {
               sm={6}
               md={4}
               display={'flex'}
-              
+              justifyContent={{xs: 'center', sm: 'space-between'}}
             >
               <Button
                 key={index}
                 onClick={() => handlePaletteSelect(palette)}
                 sx={{
                   padding: 0,
-                  width: '100%',
                   textTransform: 'none',
+                  width: '100%',
+                  maxWidth: 200,
                 }}
               >
-                <Box
-                  sx={{
-                    display: 'flex',
-                    width: '100%'
-                  }}
+                <Stack
+                  width={'100%'}
+                  display={'flex'}
+                  direction={'row'}
                 >
                   {Object.entries(palette).map(([key, value]) => (
                     <Box
                       key={key}
                       sx={{
-                        width: '16.6%',
+                        width: '20%',
                         maxWidth: 40,
-                        height: 40, // Rectangle shape (width > height)
+                        height: 40,
                         backgroundColor: value,
                         border: '1px solid #ccc',
                       }}
                     />
                   ))}
-                </Box>
+                </Stack>
               </Button>
             </Grid>
           ))}
         </Grid>
       </Grid>
 
-      {/* Color Picker Dialog */}
       <Dialog open={openDialog} onClose={handleDialogClose}>
         <DialogTitle>Select {currentColorKey} Color</DialogTitle>
         <DialogContent>
