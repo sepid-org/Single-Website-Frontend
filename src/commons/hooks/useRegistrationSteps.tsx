@@ -22,10 +22,10 @@ const useRegistrationSteps = () => {
     { formId: program?.registration_form },
     { skip: !Boolean(program?.registration_form) }
   );
-  const { isAuthenticated } = useUserAuthentication();
+  const { isUserAuthenticated } = useUserAuthentication();
   const { data: registrationReceipt } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
-    { skip: !Boolean(program?.registration_form) || !isAuthenticated }
+    { skip: !Boolean(program?.registration_form) || !isUserAuthenticated }
   );
 
   const [steps, setSteps] = useState<RegistrationStepType[]>([]);
@@ -142,10 +142,10 @@ const useRegistrationSteps = () => {
   const determineInitialStep = (
     steps: RegistrationStepType[],
     { goToStep, getCurrentStepIndex }: ReturnType<typeof getStepNavigationHandlers>,
-    { program, registrationReceipt: receipt, isAuthenticated }: {
+    { program, registrationReceipt: receipt, isUserAuthenticated }: {
       program: any,
       registrationReceipt: any,
-      isAuthenticated: boolean
+      isUserAuthenticated: boolean
     }
   ) => {
     const receiptStatus = receipt?.status;
@@ -166,7 +166,7 @@ const useRegistrationSteps = () => {
       return;
     }
 
-    if (isAuthenticated) {
+    if (isUserAuthenticated) {
       if (getCurrentStepIndex() < steps.findIndex(step => step.name === 'user-setting')) {
         goToStep(steps.findIndex(step => step.name === 'user-setting'));
       }
@@ -184,11 +184,11 @@ const useRegistrationSteps = () => {
       {
         program,
         registrationReceipt,
-        isAuthenticated
+        isUserAuthenticated
       }
     );
     setSteps(steps);
-  }, [program, registrationForm, registrationReceipt, isAuthenticated]);
+  }, [program, registrationForm, registrationReceipt, isUserAuthenticated]);
 
   return {
     ...stepIndexes,

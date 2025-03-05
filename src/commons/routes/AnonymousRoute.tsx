@@ -5,18 +5,18 @@ import { toast } from 'react-toastify';
 
 const AnonymousRoute = ({ base = '/' }) => {
   const location = useLocation();
-  const { isAuthenticated } = useUserAuthentication();
+  const { isUserAuthenticated } = useUserAuthentication();
 
   useEffect(() => {
-    if (isAuthenticated && location.pathname === '/login') {
+    if (isUserAuthenticated && location.pathname === '/login') {
       toast.success(`خوش آمدید!`);
     }
-  }, [isAuthenticated, location.pathname]);
+  }, [isUserAuthenticated, location.pathname]);
 
   const previousLocation = location.state?.from?.pathname;
   const destinationLocation = previousLocation || base;
 
-  if (isAuthenticated) {
+  if (isUserAuthenticated) {
     return <Navigate to={destinationLocation} replace />;
   }
 

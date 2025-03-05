@@ -15,10 +15,10 @@ const Registration: FC<PropsType> = () => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { isAuthenticated } = useUserAuthentication();
+  const { isUserAuthenticated } = useUserAuthentication();
   const { data: registrationReceipt, error: getMyReceiptError } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
-    { skip: !program?.registration_form || !isAuthenticated }
+    { skip: !program?.registration_form || !isUserAuthenticated }
   );
   const {
     currentStepIndex,
@@ -32,7 +32,7 @@ const Registration: FC<PropsType> = () => {
     }
   }, [registrationReceipt, programSlug, navigate]);
 
-  if (!isAuthenticated || getMyReceiptError || registrationReceipt?.is_participating === false) {
+  if (!isUserAuthenticated || getMyReceiptError || registrationReceipt?.is_participating === false) {
     return (
       <Layout appbarMode='PROGRAM'>
         <Grid

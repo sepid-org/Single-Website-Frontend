@@ -10,7 +10,7 @@ const DashboardAppbarItems = ({ }) => {
 
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const { data: websiteData } = useGetWebsiteQuery();
-  const { isAuthenticated } = useUserAuthentication();
+  const { isUserAuthenticated } = useUserAuthentication();
 
   const desktopLeftItems = [];
   const desktopRightItems = [];
@@ -47,7 +47,7 @@ const DashboardAppbarItems = ({ }) => {
     desktopLeftItems: [
       ...desktopLeftItems,
       userInfo,
-      isAuthenticated ? notificationButton : null,
+      isUserAuthenticated ? notificationButton : null,
     ],
     desktopRightItems: [
       websiteLogo,
@@ -55,7 +55,7 @@ const DashboardAppbarItems = ({ }) => {
     ],
     mobileLeftItems: [
       userInfo,
-      isAuthenticated ? notificationButton : null,
+      isUserAuthenticated ? notificationButton : null,
     ],
     mobileRightItems: [],
     mobileMenuListItems: [

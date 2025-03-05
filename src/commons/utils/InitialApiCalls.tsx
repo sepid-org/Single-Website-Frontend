@@ -10,15 +10,15 @@ const InitialApiCalls = ({ children }) => {
     error: websiteError,
     isLoading: isWebsiteLoading
   } = useGetWebsiteQuery();
-  const { isAuthenticatedLoading } = useUserAuthentication();
+  const { isUserAuthenticatedLoading } = useUserAuthentication();
 
   useEffect(() => {
-    if (!isWebsiteLoading && !isAuthenticatedLoading && !initialLoadDone) {
+    if (!isWebsiteLoading && !isUserAuthenticatedLoading && !initialLoadDone) {
       setInitialLoadDone(true);
     }
-  }, [isWebsiteLoading, isAuthenticatedLoading, initialLoadDone]);
+  }, [isWebsiteLoading, isUserAuthenticatedLoading, initialLoadDone]);
 
-  if (!initialLoadDone && (isWebsiteLoading || isAuthenticatedLoading)) {
+  if (!initialLoadDone && (isWebsiteLoading || isUserAuthenticatedLoading)) {
     return (
       <Backdrop open={true}>
         <CircularProgress color="inherit" />

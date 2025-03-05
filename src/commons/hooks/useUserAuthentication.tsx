@@ -8,13 +8,13 @@ const useUserAuthentication = () => {
   const accessToken = useSelector((state: RootState) => state.account.accessToken);
   const refreshToken = useSelector((state: RootState) => state.account.refreshToken);
 
-  const isAuthenticated = isLoading ? false : data.status === 'authenticated';
+  const isUserAuthenticated = isLoading ? false : data.status === 'authenticated';
 
   return {
     accessToken,
     refreshToken,
-    isAuthenticated,
-    isAuthenticatedLoading: isLoading,
+    isUserAuthenticated,
+    isUserAuthenticatedLoading: isLoading,
   };
 }
 
