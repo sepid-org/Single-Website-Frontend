@@ -1,13 +1,23 @@
 import { Divider, Grid, Typography } from '@mui/material';
 import ColorPaletteSelector from 'commons/components/organisms/ColorSelector';
 import FontSelector from 'commons/components/organisms/FontSelector';
-import React, { Fragment, FC } from 'react';
+import React, { Fragment, FC, useState } from 'react';
 
 type AppearanceTabPropsType = {
 }
 
 const AppearanceTab: FC<AppearanceTabPropsType> = ({
 }) => {
+
+  const [selectedColors, setSelectedColors] = useState({
+    primary: '',
+    secondary: '',
+    error: '',
+    background: '',
+    text: '',
+  });
+
+  const [selectedFont, setSelectedFont] = useState('iranyekan');
 
   return (
     <Fragment>
@@ -32,10 +42,13 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
             >
               {'فونت'}
             </Typography>
-            <FontSelector />
+            <FontSelector
+              selectedFont={selectedFont}
+              setSelectedFont={setSelectedFont}
+            />
           </Grid>
-          <Grid item xs={12} marginTop={2} marginBottom={2}>          
-            <Divider/>
+          <Grid item xs={12} marginTop={2} marginBottom={2}>
+            <Divider />
           </Grid>
           <Grid item xs={12}>
             <Typography
@@ -44,7 +57,10 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
             >
               {'پالت رنگ'}
             </Typography>
-            <ColorPaletteSelector />
+            <ColorPaletteSelector
+              selectedColors={selectedColors}
+              setSelectedColors={setSelectedColors}
+            />
           </Grid>
         </Grid>
       </Grid>

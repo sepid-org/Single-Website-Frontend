@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { FormControl, Select, MenuItem, Typography } from '@mui/material';
 
-const FontSelector = () => {
-  const [selectedFont, setSelectedFont] = useState('iranyekan');
+interface FontSelectorProps{
+  selectedFont: any;
+  setSelectedFont: any;
+}
+
+const FontSelector: React.FC<FontSelectorProps> = ({selectedFont, setSelectedFont}) => {
 
   const handleFontChange = (event) => {
     setSelectedFont(event.target.value);

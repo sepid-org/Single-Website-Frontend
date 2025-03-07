@@ -34,15 +34,13 @@ const colorTranslations = {
   text: 'متن',
 }
 
-const ColorPaletteSelector = () => {
-  const [selectedColors, setSelectedColors] = useState({
-    primary: '',
-    secondary: '',
-    error: '',
-    background: '',
-    text: '',
-  });
+interface ColorPaletteSelectorProps{
+  selectedColors: any;
+  setSelectedColors: any;
+}
 
+const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({selectedColors, setSelectedColors}) => {
+  
   const [openDialog, setOpenDialog] = useState(false);
   const [currentColorKey, setCurrentColorKey] = useState('');
   const [currentColor, setCurrentColor] = useState('');
