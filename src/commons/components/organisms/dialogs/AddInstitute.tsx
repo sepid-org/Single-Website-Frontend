@@ -37,11 +37,11 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
   city,
   gender_type,
 }) => {
-  const [data, _setData] = useState<SchoolType>(null);
+  const [data, setData] = useState<SchoolType>(null);
   const [createInstitute, result] = useCreateInstituteMutation();
 
-  const setData = (event) => {
-    _setData({
+  const setDataWrapper = (event) => {
+    setData({
       ...data,
       [event.target.name]: event.target.value,
     });
@@ -65,6 +65,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
     if (result.isSuccess) {
       handleClose(false);
       onSuccess(result);
+      setData(null);
     }
   }, [result])
 
@@ -84,7 +85,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               <InputLabel>نوع</InputLabel>
               <Select
                 value={data?.school_type || ''}
-                onChange={setData}
+                onChange={setDataWrapper}
                 name="school_type"
                 label="پایه">
                 <MenuItem value={'Elementary'}>
@@ -111,7 +112,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               <Select
                 value={gender_type}
                 disabled
-                onChange={setData}
+                onChange={setDataWrapper}
                 name="gender_type"
                 label="دخترانه یا پسرانه">
                 <MenuItem value={'Female'}>
@@ -130,7 +131,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               fullWidth
               name="name"
               value={data?.name || ''}
-              onChange={setData}
+              onChange={setDataWrapper}
               label="نام مدرسه"
             />
           </Grid>
@@ -138,7 +139,10 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
           <Grid item xs={12} sm={6}>
             <PhoneNumberInput
               setPhoneNumber={(value) => {
-                setData(value);
+                setData(data => ({
+                  ...data,
+                  phone_number: value,
+                }));
               }}
               phoneNumber={data?.phone_number}
               label={"شماره‌تلفن مدرسه"}
@@ -152,7 +156,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               fullWidth
               name="principal_name"
               value={data?.principal_name || ''}
-              onChange={setData}
+              onChange={setDataWrapper}
               label="نام مدیر"
             />
           </Grid>
@@ -160,7 +164,10 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
           <Grid item xs={12} sm={6}>
             <PhoneNumberInput
               setPhoneNumber={(value) => {
-                setData(value);
+                setData(data => ({
+                  ...data,
+                  principal_phone: value,
+                }));
               }}
               phoneNumber={data?.principal_phone}
               label={"شماره‌تلفن مدیر"}
@@ -196,7 +203,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               fullWidth
               name="address"
               value={data?.address || ''}
-              onChange={setData}
+              onChange={setDataWrapper}
               label="آدرس"
             />
           </Grid>
@@ -208,7 +215,7 @@ const AddInstituteDialog: FC<AddInstituteDialogPropsType> = ({
               value={data?.postal_code || ''}
               onChange={(event) => {
                 if (isNumber(event.target.value)) {
-                  setData(event);
+                  setDataWrapper(event);
                 }
               }}
               label="کد پستی"
