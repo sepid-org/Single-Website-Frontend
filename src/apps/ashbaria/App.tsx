@@ -33,8 +33,8 @@ const App = () => {
 
         <Routes>
           <Route path="/" element={<PrivateRoute loginUrl='/program/ashbaria/login/' />}>
-            <Route index element={<GameEnd />} />
-            {/* <Route index element={<GameMenu />} /> */}
+            {/* <Route index element={<GameEnd />} /> */}
+            <Route index element={<GameMenu />} />
             <Route path='/exam-result/' element={<ExamResultPage />} />
             <Route path='/start-exam/' element={<StartExamPage />} />
             <Route path='/exam/' element={<ExamPage />} />
