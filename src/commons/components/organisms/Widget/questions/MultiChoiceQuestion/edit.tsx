@@ -84,7 +84,6 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
 
   const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
 
-
   const handleSubmit = () => {
     onMutate({
       paper: paperId,
