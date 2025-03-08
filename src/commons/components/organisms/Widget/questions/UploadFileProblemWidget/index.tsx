@@ -42,7 +42,14 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
   });
 
   return (
-    <Stack alignItems='center' justifyContent='space-between' direction='row' spacing={1}>
+    <Stack
+      alignItems='center'
+      justifyContent='space-between'
+      direction='row'
+      spacing={1}
+      visibility={questionWidgetProps.is_hidden && mode === 1 ? 'hidden' : 'visible'}
+      sx={{ opacity: (questionWidgetProps.is_hidden && mode === 2 ? 0.2 : 1) }}
+    >
       <IsRequired hidden={!questionWidgetProps.is_required}>
         <Typography>{text}</Typography>
       </IsRequired>
