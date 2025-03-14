@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom';
 import {
   useGetMyPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
-import FSMStart from './Start';
+import FSMStart from './FSMStart';
 import FSMBody from './Body';
-import FSMResult from './Result';
 
 type PropsType = {}
 
@@ -23,12 +22,6 @@ const FSM: FC<PropsType> = ({ }) => {
   if (player && player.started_at) {
     return (
       <FSMBody />
-    )
-  }
-
-  if (player && player.finished_at) {
-    return (
-      <FSMResult />
     )
   }
 };

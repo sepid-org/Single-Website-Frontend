@@ -31,7 +31,7 @@ const Survey: FC<PropsType> = ({ }) => {
   const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading, isError, error }] = useSubmitFormMutation();
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId: ASHBARIA_SURVEY_CORRESPONDING_FSM_ID, navigateAfter: false });
+  const [finishFSM, finishFSMResult] = useFinishFSM();
 
   const submit = () => {
     submitForm({

@@ -46,7 +46,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const [clickedButton, setClickedButton] = useState<'return-to-home' | 'go-to-next-court'>('return-to-home');
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId, navigateAfter: false });
+  const [finishFSM, finishFSMResult] = useFinishFSM();
   const { data: courts } = useGetCourtsQuery();
   const finalSupportPercentage = useGetCourtFinalSupportPercentage(fsmId);
 

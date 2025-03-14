@@ -1,14 +1,21 @@
 import { Button } from '@mui/material';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-type FinishFSMButtonPropsType = {}
+type PropsType = {}
 
-const FinishFSMButton: FC<FinishFSMButtonPropsType> = ({ }) => {
+const FinishFSMButton: FC<PropsType> = ({ }) => {
+  const navigate = useNavigate();
   const fsmId = parseInt(useParams().fsmId);
-  const [finishFSM] = useFinishFSM({ fsmId });
+  const [finishFSM, finishFSMResult] = useFinishFSM();
+
+  useEffect(() => {
+    if (finishFSMResult.isSuccess) {
+      navigate(`/fsm/${fsmId}/player-performance/`);
+    }
+  }, [finishFSMResult])
 
   return (
     <Button

@@ -1,5 +1,5 @@
 import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
@@ -11,7 +11,7 @@ type PropsType = {};
 const FSMStart: FC<PropsType> = () => {
   const fsmId = parseInt(useParams().fsmId);
   const navigate = useNavigate();
-  const [startFSM] = useStartFSM({ fsmId });
+  const [startFSM, startFSMResult] = useStartFSM({ fsmId });
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !fsm?.program_slug });
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
@@ -65,7 +65,7 @@ const FSMStart: FC<PropsType> = () => {
               fontWeight={400}
               fontSize={16}
             >
-              {!canStartFSM && 'فرصت‌های شرکت تموم شده :('}
+              {!canStartFSM && 'فرصتی باقی نمانده :('}
             </Typography>
             <Button
               fullWidth

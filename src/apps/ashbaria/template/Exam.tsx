@@ -20,7 +20,7 @@ const ExamTemplate: FC<PropsType> = () => {
   const paperId = currentFSMState?.papers?.[0];
   const { transitForward, result: transitForwardResult, canTransitForward } = useTransitionForward({ player })
   const { transitBackward, result: transitBackwardResult, canTransitBack } = useTransitionBackward({ player });
-  const [finishFSM, finishFSMResult] = useFinishFSM({ fsmId, navigateAfter: false });
+  const [finishFSM, finishFSMResult] = useFinishFSM();
 
   const localNavigate = useLocalNavigate();
 
