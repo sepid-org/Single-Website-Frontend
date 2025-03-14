@@ -12,14 +12,14 @@ import {
   useGetPlayerQuery,
   useGetMyPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
-import FSMState from '../template/FSMState';
+import FSMState from '../../template/FSMState';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-type FSMPagePropsType = {
+type PropsType = {
   mentorGetCurrentState: any;
   // todo:
   openChatRoom: any;
@@ -28,7 +28,7 @@ type FSMPagePropsType = {
   teamId: string;
 }
 
-const FSM: FC<FSMPagePropsType> = ({
+const FSMBody: FC<PropsType> = ({
   mentorGetCurrentState,
   // todo:
   openChatRoom,
@@ -123,14 +123,7 @@ const FSM: FC<FSMPagePropsType> = ({
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }, [player])
 
-  // todo:
-  useEffect(() => {
-    if (player && !player.current_state) {
-      startFSM({});
-    }
-  }, [player]);
-
-  if (!player?.current_state || !fsm) return null;
+  if (!fsm) return null;
 
   return (
     <FSMProvider fsmId={fsmId}>
@@ -156,4 +149,4 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default connect(mapStateToProps, {
   changeOpenChatRoom: changeOpenChatRoomAction,
-})(FSM);
+})(FSMBody);

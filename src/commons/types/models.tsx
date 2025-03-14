@@ -253,10 +253,14 @@ export type PurchaseType = {
   voucher?: VoucherType;
 }
 
-export type PlayerType = {
+export type PlayerMinimalType = {
   id: string;
   current_state: string;
   started_at: string;
+  finished_at?: string;
+}
+
+export type PlayerType = PlayerMinimalType & {
   user?: string;
   last_visit?: string;
 }

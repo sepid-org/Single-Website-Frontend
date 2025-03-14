@@ -1,4 +1,4 @@
-import { PlayerType } from 'commons/types/models';
+import { PlayerMinimalType, PlayerType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type TransitToStateInputType = {
@@ -42,7 +42,7 @@ type GetMyPlayerInputType = {
   fsmId: number;
 }
 
-type GetMyPlayerOutputType = PlayerType;
+type GetMyPlayerOutputType = PlayerMinimalType;
 
 type FinishFSMInputType = {
   playerId: string;
