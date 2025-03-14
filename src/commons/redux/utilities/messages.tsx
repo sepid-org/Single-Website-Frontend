@@ -113,6 +113,9 @@ export const persianMessages = { //todo: handle english
   '6004': 'با توجه به پایه‌ی تحصیلی‌تان، شما مجاز به شرکت در این رویداد نیستید.',
 
   'No active account found with the given credentials': 'کاربری با این مشخصات وجود ندارد.',
-  'ERR_FSM_PARTICIPATION_LIMIT_EXCEEDED': 'شما به سقف تعداد شرکت در این کارگاه رسیده‌اید.',
-  'REGISTRATION_NOT_ACCEPTED': "فقط ثبت‌نامی‌هایی که مجاز به پرداخت هستند، می‌توانند نهایی شوند.",
+  FSM_PARTICIPATION_LIMIT_EXCEEDED: 'شما به سقف تعداد شرکت در این کارگاه رسیده‌اید.',
+  FORM_SUBMISSION_LIMIT_EXCEEDED: 'شما به سقف تعداد ثبت این فرم رسیده‌اید',
+  REGISTRATION_NOT_ACCEPTED: "فقط ثبت‌نامی‌هایی که مجاز به پرداخت هستند، می‌توانند نهایی شوند.",
+  ALREADY_SPENT_ON_OBJECT: 'شما پیش از این، این شئ را خریداری کرده‌اید',
+  ALREADY_FINISHED_FSM: 'شما پیش‌تر این کارگاه را تمام کرده بودید',
 }

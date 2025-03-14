@@ -115,9 +115,6 @@ const handleError = ({
     ? normalizeFetchError(error as FetchBaseQueryError)
     : error as ErrorResponse;
 
-  // Log the full error for debugging
-  console.error('API Error:', normalizedError);
-
   // Handle no error scenario
   if (!normalizedError) {
     toast.error('ارتباط با سرور دچار مشکل شده است.');
@@ -139,21 +136,18 @@ const handleError = ({
   }
 
   // Handle token-related errors
-  if (
-    normalizedError.data?.code &&
-    [
-      'user_not_found',
-      'token_not_valid',
-      'token_expired',
-      'authentication_failed',
-      'bad_authorization_header',
-      'not_authenticated',
-      'token_blacklisted',
-      'user_inactive',
-      'user_deleted',
-      'invalid_token',
-    ].includes(normalizedError.data.code)
-  ) {
+  if ([
+    'user_not_found',
+    'token_not_valid',
+    'token_expired',
+    'authentication_failed',
+    'bad_authorization_header',
+    'not_authenticated',
+    'token_blacklisted',
+    'user_inactive',
+    'user_deleted',
+    'invalid_token',
+  ].includes(normalizedError.data?.code)) {
     handleTokenExpiration(dispatch);
     return;
   }
