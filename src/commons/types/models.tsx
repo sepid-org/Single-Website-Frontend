@@ -110,6 +110,7 @@ export type FSMType = ObjectType & {
   is_visible: boolean;
   card_type: 'vertical1' | 'horizontal1';
   show_roadmap: boolean;
+  show_player_performance_on_end: boolean;
   participant_limit: number;
   duration: number;
 };

@@ -63,7 +63,7 @@ const FSMStart: FC<PropsType> = () => {
                 fontWeight={400}
                 fontSize={12}
               >
-                {'تعداد دفعات مجاز برای شرکت در آزمون به پایان رسیده است 😔'}
+                {`تعداد دفعات مجاز برای شرکت در ${fsm.name} به پایان رسیده است 😔`}
               </Typography>
             }
             <Button
@@ -74,13 +74,20 @@ const FSMStart: FC<PropsType> = () => {
             >
               {'شروع'}
             </Button>
-            {fsm.program_slug &&
+            {fsm.program_slug ?
               <Button
                 fullWidth
                 variant="outlined"
                 onClick={() => navigate(`/program/${fsm.program_slug}/`)}
               >
                 {'بازگشت به دوره'}
+              </Button> :
+              <Button
+                fullWidth
+                variant="outlined"
+                onClick={() => navigate('/')}
+              >
+                {'بازگشت به خانه'}
               </Button>
             }
           </>

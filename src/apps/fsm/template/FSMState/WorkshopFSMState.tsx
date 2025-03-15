@@ -22,10 +22,9 @@ export type WorkshopFSMStatePropsType = {
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const navigate = useNavigate();
-  const fsmId = parseInt(useParams().fsmId);
   const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state?.papers[0];
-  const { player } = useFSMContext();
+  const { player, fsmId } = useFSMContext();
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [finishFSM] = useFinishFSM();
@@ -63,7 +62,13 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
 
   const handleTimeFinish = () => {
     finishFSM();
-    navigate(`/fsm/${fsmId}/player/${player.id}/performance/`)
+    if (fsm.show_player_performance_on_end) {
+      navigate(`/fsm/${fsmId}/player/${player.id}/performance/`)
+    } else if (fsm.program_slug) {
+      navigate(`/program/${fsm.program_slug}/`)
+    } else {
+      navigate('/');
+    }
   }
 
   return (
