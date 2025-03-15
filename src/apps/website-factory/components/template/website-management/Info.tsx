@@ -23,7 +23,7 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         justifyContent="center"
         direction="row">
         <Grid item xs={12}>
-          <Typography variant='h1' align='center'>{website?.display_name}</Typography>
+          <Typography variant='h1' align='center'>{website?.title}</Typography>
         </Grid>
       </Grid>
     </Fragment>
