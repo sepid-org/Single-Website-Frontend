@@ -46,11 +46,7 @@ const FSMStart: FC<PropsType> = () => {
           </Stack>
         ) : (
           <>
-            <Typography
-              fontWeight={600}
-              fontSize={24}
-              color={"#FFA800"}
-            >
+            <Typography fontWeight={600} fontSize={24}>
               {fsm.name}
             </Typography>
             <Typography
@@ -73,7 +69,7 @@ const FSMStart: FC<PropsType> = () => {
               disabled={isLoading || !canStartFSM}
               onClick={() => startFSM({})}
             >
-              {'بزن بریم...'}
+              {'شروع'}
             </Button>
             {fsm.program_slug &&
               <Button
