@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
-import { CMS_URL } from 'commons/constants/Constants';
+import { WMS_URL } from 'commons/constants/Constants';
 import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type UpdateFontInputType = {
@@ -22,7 +22,7 @@ type UpdatePaletteOutputType = {};
 export const AppearanceSlice = createApi({
   reducerPath: 'appearance-settings-api',
   tagTypes,
-  baseQuery: customBaseQuery({ baseUrl: CMS_URL + 'api/' }),
+  baseQuery: customBaseQuery({ baseUrl: WMS_URL + 'api/' }),
   endpoints: (builder) => ({
     updateFont: builder.mutation<UpdateFontOutputType, UpdateFontInputType>({
       query: (body: UpdateFontInputType) => ({

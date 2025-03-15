@@ -13,9 +13,9 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
   const [selectedColors, setSelectedColors] = useState({
     primary: '',
     secondary: '',
-    error: '',
     background: '',
     text: '',
+    accent: '',
   });
   const [selectedFont, setSelectedFont] = useState('iranyekan');
   const [updateFont] = useUpdateFontMutation();
@@ -30,7 +30,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
 
   const handlePaletteUpdate = async () => {
     try {
-      const result = await updateFont({ font: selectedFont });
+      const result = await updatePalette(selectedColors);
     } catch (error) {
     }
   };

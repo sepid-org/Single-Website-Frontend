@@ -6,21 +6,21 @@ const predefinedPalettes = [
   {
     primary: '#3f51b5',
     secondary: '#f50057',
-    error: '#f44336',
+    accent: '#f44336',
     background: '#ffffff',
     text: '#000000',
   },
   {
     primary: '#90caf9',
     secondary: '#f48fb1',
-    error: '#e57373',
+    accent: '#e57373',
     background: '#121212',
     text: '#ffffff',
   },
   {
     primary: '#a6d4fa',
     secondary: '#f8bbd0',
-    error: '#ffcdd2',
+    accent: '#ffcdd2',
     background: '#f3e5f5',
     text: '#4a148c',
   },
@@ -29,7 +29,7 @@ const predefinedPalettes = [
 const colorTranslations = {
   primary: 'اصلی',
   secondary: 'ثانویه',
-  error: 'خطا',
+  accent: 'تاکیدی',
   background: 'پس‌زمینه',
   text: 'متن',
 }
