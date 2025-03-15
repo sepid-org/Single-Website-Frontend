@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { useUploadFileMutation } from "apps/website-display/redux/features/FileSlice";
 import { toast } from "react-toastify";
 
-const ProfileImageUploader = ({ file, setFile }) => {
+const ProfileImageUploader = ({ file, setFile, id }) => {
   const theme = useTheme();
   const { uploadProgress } = useSelector((state) => (state as any).global);
   const [uploadFile, result] = useUploadFileMutation();
@@ -74,13 +74,13 @@ const ProfileImageUploader = ({ file, setFile }) => {
                 />
               )
             }
-            onClick={() => document.getElementById("userProfilePicture").click()}
+            onClick={() => document.getElementById(id).click()}
           >
             {"+ افزودن تصویر"}
           </Button>
           <input
             type="file"
-            id="userProfilePicture"
+            id={id}
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}
@@ -140,14 +140,14 @@ const ProfileImageUploader = ({ file, setFile }) => {
                 )
               }
               color="primary"
-              onClick={() => document.getElementById("userProfilePicture").click()}
+              onClick={() => document.getElementById(id).click()}
             >
               {"تغییر تصویر"}
             </Button>
           </Box>
           <input
             type="file"
-            id="userProfilePicture"
+            id={id}
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}
