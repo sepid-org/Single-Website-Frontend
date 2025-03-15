@@ -26,7 +26,7 @@ const FSMStart: FC<PropsType> = () => {
   return (
     <FullScreenBackgroundImage styles={{ padding: 2 }}>
       <Stack
-        width={400}
+        maxWidth={'sm'}
         component={Paper}
         padding={2}
         paddingX={4}
@@ -56,13 +56,16 @@ const FSMStart: FC<PropsType> = () => {
             >
               {fsm.description}
             </Typography>
-            <Typography
-              align="center"
-              fontWeight={400}
-              fontSize={16}
-            >
-              {!canStartFSM && 'فرصتی باقی نمانده :('}
-            </Typography>
+            {!canStartFSM &&
+              <Typography
+                paddingTop={1}
+                align="center"
+                fontWeight={400}
+                fontSize={12}
+              >
+                {'تعداد دفعات مجاز برای شرکت در آزمون به پایان رسیده است 😔'}
+              </Typography>
+            }
             <Button
               fullWidth
               variant="contained"

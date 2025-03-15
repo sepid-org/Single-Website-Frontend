@@ -11,9 +11,13 @@ type PropsType = {}
 
 const FSM: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { data: player } = useGetMyPlayerQuery({ fsmId });
+  const { data: player, isLoading } = useGetMyPlayerQuery({ fsmId });
 
-  if (player && !player.started_at) {
+  if (isLoading) {
+    return null;
+  }
+
+  if (!player || player.finished_at) {
     return (
       <FSMStart />
     )

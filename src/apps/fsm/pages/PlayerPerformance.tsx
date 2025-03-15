@@ -2,20 +2,19 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { useNavigate, useParams } from "react-router-dom";
-import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import usePlayerPerformance from "commons/hooks/fsm/useGetPlayerPerformance";
+import ScoreChip from "commons/components/atoms/chips/Score";
 
 type PropsType = {};
 
-const PlayerPerformance: FC<PropsType> = () => {
+const PlayerPerformance: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
+  const playerId = parseInt(useParams().playerId);
   const navigate = useNavigate();
-  const { data: player, isLoading: isLoadingPlayer } = useGetMyPlayerQuery({ fsmId });
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
-  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
-  const isLoading = isLoadingPlayer || isLoadingFSM || isLoadingPlayerPerformance;
+  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId });
+  const isLoading = isLoadingFSM || isLoadingPlayerPerformance;
 
   if (!fsm) {
     return null;
@@ -24,7 +23,7 @@ const PlayerPerformance: FC<PropsType> = () => {
   return (
     <FullScreenBackgroundImage styles={{ padding: 2 }}>
       <Stack
-        width={400}
+        maxWidth={'sm'}
         component={Paper}
         padding={2}
         paddingX={4}
@@ -32,12 +31,8 @@ const PlayerPerformance: FC<PropsType> = () => {
         alignItems={'center'}
         justifyContent={'center'}
       >
-        <Typography
-          fontSize={24}
-          fontWeight={600}
-          color={'#FFA800'}
-        >
-          {'عملکرد شما'}
+        <Typography fontSize={24} fontWeight={600}>
+          {'تعداد پاسخ‌های صحیح شما: '}
         </Typography>
 
         <ScoreChip value={correctAnswersCount} isLoading={isLoading} />

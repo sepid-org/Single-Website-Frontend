@@ -1,11 +1,11 @@
 import React, { useState, createContext, FC, useContext, ReactNode } from 'react';
 import { Dialog } from '@mui/material';
-import { PlayerType } from 'commons/types/models';
+import { PlayerMinimalType } from 'commons/types/models';
 import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
 interface FSMContextType {
   fsmId: number;
-  player: PlayerType;
+  player: PlayerMinimalType;
   openDialog: (
     children: ReactNode,
   ) => void;
