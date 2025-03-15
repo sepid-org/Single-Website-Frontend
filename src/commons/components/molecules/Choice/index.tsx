@@ -27,12 +27,14 @@ const Choice: FC<Partial<ChoicePropsType>> = ({
 }) => {
 
   if (mode === WidgetModes.Edit) {
-    return <ChoiceEdit
-      choice={choice}
-      onSelectionChange={onSelectionChange}
-      onDelete={onDelete}
-      onTextChange={onTextChange}
-    />
+    return (
+      <ChoiceEdit
+        choice={choice}
+        onSelectionChange={onSelectionChange}
+        onDelete={onDelete}
+        onTextChange={onTextChange}
+      />
+    )
   }
 
   if (mode === WidgetModes.View) {

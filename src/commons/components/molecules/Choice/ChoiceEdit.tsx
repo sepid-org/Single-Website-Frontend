@@ -29,9 +29,11 @@ const ChoiceEdit: FC<ChoiceEditPropsType> = ({
           </InputAdornment>,
         endAdornment:
           <InputAdornment position='end'>
-            <Typography variant='caption'>
-              {`#${choice.id}`}
-            </Typography>
+            {choice.id &&
+              <Typography variant='caption'>
+                {`#${choice.id}`}
+              </Typography>
+            }
             <Tooltip title='حذف' arrow>
               <IconButton onClick={onDelete}>
                 <DeleteIcon />

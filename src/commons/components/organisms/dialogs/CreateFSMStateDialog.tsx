@@ -34,7 +34,6 @@ const CreateFSMStateDialog: FC<CreateStateDialogPropsType> = ({
 
   useEffect(() => {
     if (result.isSuccess) {
-      toast.success('گام جدید با موفقیت ساخته شد.')
       handleClose();
     }
   }, [result])
