@@ -12,13 +12,7 @@ const useFinishFSM = () => {
 
   useEffect(() => {
     if (finishFSMResult.isSuccess) {
-      if (fsm.show_player_performance_on_end) {
-        navigate(`/fsm/${fsmId}/player/${player.id}/performance/`)
-      } else if (fsm.program_slug) {
-        navigate(`/program/${fsm.program_slug}/`)
-      } else {
-        navigate('/');
-      }
+      navigate(`/fsm/${fsmId}/player/${player.id}/completion`);
     }
   }, [finishFSMResult])
 

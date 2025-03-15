@@ -1,5 +1,5 @@
 import { Button, Paper, Stack, Typography } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";

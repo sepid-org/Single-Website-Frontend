@@ -33,7 +33,7 @@ const App: FC<FSMPagePropsType> = ({ }) => {
       <Routes>
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/" element={<FSM />} />
-          <Route path="/player/:playerId/performance/" element={<FSMCompletionPage />} />
+          <Route path="/player/:playerId/completion/" element={<FSMCompletionPage />} />
           <Route path="/manage/correction/:answerId/" element={<Correction />} />
           <Route path="/manage/" element={<FSMManagement />} />
         </Route>
