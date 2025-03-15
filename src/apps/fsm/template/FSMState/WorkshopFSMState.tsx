@@ -8,7 +8,7 @@ import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHi
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Layout from 'commons/template/Layout';
@@ -21,6 +21,7 @@ export type WorkshopFSMStatePropsType = {
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
+  const navigate = useNavigate();
   const fsmId = parseInt(useParams().fsmId);
   const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state?.papers[0];
@@ -60,6 +61,11 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
       </Stack>
     )), [notQuestions]);
 
+  const handleTimeFinish = () => {
+    finishFSM();
+    navigate(`/fsm/${fsmId}/player/${player.id}/performance/`)
+  }
+
   return (
     <Layout appbarMode={state.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : null}>
       <Grid container spacing={2} justifyContent="center" alignItems='flex-start'>
@@ -78,7 +84,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
               </Typography>
               {fsm?.duration > 0 &&
                 <Box position={'absolute'} right={8} top={8}>
-                  <Timer onTimeFinish={() => finishFSM()} duration={fsm?.duration} startTime={player?.started_at} />
+                  <Timer onTimeFinish={() => handleTimeFinish()} duration={fsm?.duration} startTime={player?.started_at} />
                 </Box>
               }
               <Stack spacing={2}>
