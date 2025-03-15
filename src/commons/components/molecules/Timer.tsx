@@ -1,9 +1,10 @@
-import { Skeleton, Stack, Typography } from "@mui/material";
+import { Box, Skeleton, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import ClockIcon from "commons/components/atoms/icons/Clock";
+import { toPersianNumber } from "commons/utils/translateNumber";
 
 const Timer = ({ onTimeFinish, duration, startTime: initialStartTime }) => {
-  const [time, setTime] = useState(duration * 60); // Convert duration to seconds
+  const [time, setTime] = useState(null); // Convert duration to seconds
   const [hasFinished, setHasFinished] = useState(false); // Track if handleTimeFinish was called
 
   useEffect(() => {
@@ -24,7 +25,6 @@ const Timer = ({ onTimeFinish, duration, startTime: initialStartTime }) => {
 
     updateTimer(); // Initial update
     const intervalId = setInterval(updateTimer, 1000);
-
     return () => clearInterval(intervalId); // Cleanup interval
   }, [duration, initialStartTime, onTimeFinish, hasFinished]);
 
@@ -36,25 +36,37 @@ const Timer = ({ onTimeFinish, duration, startTime: initialStartTime }) => {
 
   return (
     <Stack
-      direction={'row'}
-      alignItems={'center'}
-      justifyContent={'center'}
+      position="relative"
+      direction="row"
+      alignItems="center"
+      justifyContent="center"
       padding={1}
+      spacing={1}
       sx={{
         backgroundColor: "#00000080",
-        borderRadius: 12,
-        width: 120,
-        height: 50,
+        borderRadius: 8,
+        width: 90,
+        height: 40,
       }}
     >
-      {time ?
-        <Typography width={"50%"} textAlign="center" variant="h6">
-          {formatTime(time)}
-        </Typography> :
-        <Skeleton variant='rounded' width={'50%'} height={40} />
-      }
-      <Stack width={"30%"} display="flex" alignItems="center">
-        <ClockIcon />
+      <Stack alignItems={'center'} justifyContent={'center'} paddingRight={4}>
+        {time !== null ? (
+          <Typography textAlign="center" fontSize={16}>
+            {toPersianNumber(formatTime(time))}
+          </Typography>
+        ) : (
+          <Skeleton variant="rounded" width="50%" height={30} />
+        )}
+      </Stack>
+      <Stack
+        alignItems={'center'}
+        justifyContent={'center'}
+        sx={{
+          position: "absolute",
+          right: 12,
+        }}
+      >
+        <ClockIcon size={24} />
       </Stack>
     </Stack>
   );

@@ -12,6 +12,9 @@ import { useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Layout from 'commons/template/Layout';
+import Timer from 'commons/components/molecules/Timer';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
+import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
@@ -21,8 +24,10 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state?.papers[0];
+  const { player } = useFSMContext();
   const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  const [finishFSM] = useFinishFSM();
   // todo:
   const { isMentor } = useFSMStateContext();
 
@@ -71,6 +76,11 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
               <Typography component="h2" variant="h3" textAlign={'center'} mb={2}>
                 {state?.title}
               </Typography>
+              {fsm?.duration &&
+                <Box position={'absolute'} right={8} top={8}>
+                  <Timer onTimeFinish={() => finishFSM()} duration={fsm?.duration} startTime={player?.started_at} />
+                </Box>
+              }
               <Stack spacing={2}>
                 {questionWidgets}
                 {!(inward_edges?.length === 0 && outward_edges?.length === 0) &&

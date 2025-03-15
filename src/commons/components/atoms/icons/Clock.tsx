@@ -2,13 +2,13 @@ import { Box } from "@mui/material";
 import clock from "./clock.svg";
 import React from "react";
 
-const ClockIcon = () => {
-	return(
-		<Box 
+const ClockIcon = ({ size = 32 }) => {
+	return (
+		<Box
 			component="img"
 			src={clock}
-			width={40}
-			height={40}
+			width={size}
+			height={size}
 		/>
 	);
 }
