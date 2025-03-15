@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import clock from "../../../assets/clock.svg";
+import clock from "./clock.svg";
 import React from "react";
 
 const ClockIcon = () => {

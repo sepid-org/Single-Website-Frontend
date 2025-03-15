@@ -6,7 +6,7 @@ import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import Paper from "commons/template/Paper";
 import useTransitionForward from "commons/hooks/fsm/useTransitionForward";
 import { useFSMContext } from "commons/hooks/useFSMContext";
-import ExamTimer from "../components/molecules/ExamTimer";
+import Timer from "commons/components/molecules/Timer";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import useLocalNavigate from "../hooks/useLocalNavigate";
 
@@ -46,8 +46,8 @@ const ExamTemplate: FC<PropsType> = () => {
       <Paper mode="general" paperId={paperId} />
 
       <Box position='absolute' top={0} right={0}>
-        <ExamTimer
-          handleTimeFinish={handleFinishExam}
+        <Timer
+          onTimeFinish={handleFinishExam}
           duration={fsm?.duration}
           startTime={player?.started_at}
         />

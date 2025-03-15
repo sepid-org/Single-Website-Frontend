@@ -1,8 +1,8 @@
 import { Skeleton, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ClockIcon from "../atoms/icons/Clock";
+import ClockIcon from "commons/components/atoms/icons/Clock";
 
-const ExamTimer = ({ handleTimeFinish, duration, startTime: initialStartTime }) => {
+const Timer = ({ onTimeFinish, duration, startTime: initialStartTime }) => {
   const [time, setTime] = useState(duration * 60); // Convert duration to seconds
   const [hasFinished, setHasFinished] = useState(false); // Track if handleTimeFinish was called
 
@@ -18,7 +18,7 @@ const ExamTimer = ({ handleTimeFinish, duration, startTime: initialStartTime }) 
 
       if (remainingTime <= 0 && !hasFinished) {
         setHasFinished(true);
-        handleTimeFinish(); // Call handleTimeFinish only once
+        onTimeFinish(); // Call onTimeFinish only once
       }
     };
 
@@ -26,7 +26,7 @@ const ExamTimer = ({ handleTimeFinish, duration, startTime: initialStartTime }) 
     const intervalId = setInterval(updateTimer, 1000);
 
     return () => clearInterval(intervalId); // Cleanup interval
-  }, [duration, initialStartTime, handleTimeFinish, hasFinished]);
+  }, [duration, initialStartTime, onTimeFinish, hasFinished]);
 
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -60,4 +60,4 @@ const ExamTimer = ({ handleTimeFinish, duration, startTime: initialStartTime }) 
   );
 };
 
-export default ExamTimer;
+export default Timer;
