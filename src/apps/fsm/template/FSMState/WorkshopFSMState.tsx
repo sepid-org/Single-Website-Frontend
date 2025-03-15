@@ -1,5 +1,5 @@
 import { Box, Divider, Grid, Paper, Typography, Stack } from '@mui/material';
-import React, { FC, Fragment, useMemo } from 'react';
+import React, { FC, useMemo } from 'react';
 import Widget from 'commons/components/organisms/Widget';
 import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
 import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
@@ -8,7 +8,6 @@ import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHi
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useNavigate, useParams } from 'react-router-dom';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Layout from 'commons/template/Layout';
@@ -21,7 +20,6 @@ export type WorkshopFSMStatePropsType = {
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
-  const navigate = useNavigate();
   const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
   const paperId = state?.papers[0];
   const { player, fsmId } = useFSMContext();
@@ -62,13 +60,6 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
 
   const handleTimeFinish = () => {
     finishFSM();
-    if (fsm.show_player_performance_on_end) {
-      navigate(`/fsm/${fsmId}/player/${player.id}/performance/`)
-    } else if (fsm.program_slug) {
-      navigate(`/program/${fsm.program_slug}/`)
-    } else {
-      navigate('/');
-    }
   }
 
   return (
