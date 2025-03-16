@@ -54,7 +54,7 @@ const FSMCompletionPage: FC<PropsType> = ({ }) => {
           </Button>
         }
       </Stack>
-      <Confetti recycle={false} height={window.innerHeight} tweenDuration={18000} numberOfPieces={1800} />
+      <Confetti recycle={false} height={window.innerHeight} gravity={0.3} tweenDuration={3000} numberOfPieces={1200} />
     </FullScreenBackgroundImage>
   );
 };
