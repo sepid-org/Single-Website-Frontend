@@ -35,8 +35,8 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
       component: <StateInfoEditor />
     },
     {
-      slug: 'papers',
-      label: 'ویجت‌ها',
+      slug: 'contents',
+      label: 'محتوا',
       icon: InfoIcon,
       component:
         fsmState.template === 'normal' ?
