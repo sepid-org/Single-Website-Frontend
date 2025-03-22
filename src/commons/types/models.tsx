@@ -155,8 +155,6 @@ export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
   fsm: string;
-  inward_edges: FSMEdgeType[];
-  outward_edges: FSMEdgeType[];
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;

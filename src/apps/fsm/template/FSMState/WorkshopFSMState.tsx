@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Paper, Typography, Stack } from '@mui/material';
+import { Box, Divider, Grid, Typography, Stack, useTheme, useMediaQuery } from '@mui/material';
 import React, { FC, useMemo } from 'react';
 import Widget from 'commons/components/organisms/Widget';
 import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
@@ -6,7 +6,7 @@ import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
 import FSMStateRoadMap from 'commons/components/organisms/FSMStateRoadMap';
 import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHints';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useGetFSMStateInwardEdgesQuery, useGetFSMStateOutwardEdgesQuery, useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -28,10 +28,12 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const [finishFSM] = useFinishFSM();
   // todo:
   const { isMentor } = useFSMStateContext();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
-  const inward_edges = state?.inward_edges || [];
-  const outward_edges = state?.outward_edges || [];
+  const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })
+  const { data: outward_edges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })
 
   visibleWidgets.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
@@ -42,7 +44,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const questionWidgets = useMemo(() =>
     questions.map((widget, index) => (
       <Stack key={widget.id}>
-        <Divider style={{ marginBottom: 20 }} />
+        <Divider style={{ marginBottom: theme.spacing(2) }} />
         <Widget paperId={paperId} coveredWithPaper={false} key={widget.id} widget={widget} />
       </Stack>
     )), [questions]);
@@ -64,10 +66,10 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
 
   return (
     <Layout appbarMode={state.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : null}>
-      <Grid container spacing={2} justifyContent="center" alignItems='flex-start'>
+      <Grid container spacing={2} justifyContent={notQuestions.length > 0 ? "space-between" : 'center'} alignItems='flex-start'>
         <Grid
           item xs={12}
-          md={notQuestions.length > 0 ? 3.8 : 6}
+          md={notQuestions.length > 0 ? 3.7 : 6}
           lg={notQuestions.length > 0 ? 3.8 : 8}
           position={{ xs: null, md: 'sticky' }} top={0}>
           <Stack spacing={2}>
@@ -85,7 +87,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
               }
               <Stack spacing={2}>
                 {questionWidgets}
-                {!(inward_edges?.length === 0 && outward_edges?.length === 0) &&
+                {(inwardEdges?.length !== 0 || outward_edges?.length !== 0) &&
                   <Divider sx={{ display: { xs: 'none', md: 'inherit' } }} />
                 }
                 <Stack sx={{ display: { xs: 'none', md: 'inherit' } }}>
@@ -124,9 +126,21 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
           </Stack>
         </Grid>
 
-        <Grid item sx={{ height: '100%' }} >
-          <Divider orientation='vertical' />
-        </Grid>
+        {notQuestions.length > 0 &&
+          <Grid
+            item
+            sx={{
+              justifyContent: 'center',
+              width: isMobile ? '100%' : 'auto',
+              height: isMobile ? 'auto' : '100%',
+            }}>
+            <Divider orientation={isMobile ? 'horizontal' : 'vertical'}
+              sx={{
+                width: isMobile ? '100%' : 'auto',
+                height: isMobile ? 'auto' : '100%',
+              }} />
+          </Grid>
+        }
 
         {notQuestions.length > 0 && (
           <Grid item xs={12} md={8} lg={8}>
