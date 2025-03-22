@@ -67,11 +67,11 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
       <Grid container spacing={2} justifyContent="center" alignItems='flex-start'>
         <Grid
           item xs={12}
-          md={notQuestions.length > 0 ? 4 : 6}
-          lg={notQuestions.length > 0 ? 4 : 8}
+          md={notQuestions.length > 0 ? 3.8 : 6}
+          lg={notQuestions.length > 0 ? 3.8 : 8}
           position={{ xs: null, md: 'sticky' }} top={0}>
           <Stack spacing={2}>
-            <Stack component={Paper} sx={{ padding: 2 }} position={'relative'}>
+            <Stack position={'relative'}>
               <Box position={'absolute'} left={-26} top={-24} sx={{ rotate: '24deg' }}>
                 <FSMStateHintsButton fsmStateId={fsmStateId} />
               </Box>
@@ -123,14 +123,18 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
             }
           </Stack>
         </Grid>
+
+        <Grid item sx={{ height: '100%' }} >
+          <Divider orientation='vertical' />
+        </Grid>
+
         {notQuestions.length > 0 && (
           <Grid item xs={12} md={8} lg={8}>
             <Stack spacing={2}>
-              <Stack component={Paper} sx={{ padding: 1 }} spacing={1}>
+              <Stack spacing={1}>
                 {notQuestionWidgets}
               </Stack>
               <Stack
-                component={Paper}
                 justifyContent={'space-around'}
                 sx={{
                   display: { xs: 'inherit', md: 'none' },
