@@ -80,7 +80,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
               </Typography>
               {fsm?.duration > 0 &&
                 <Box position={'absolute'} right={8} top={8}>
-                  <Timer onTimeFinish={() => handleTimeFinish()} duration={fsm?.duration} startTime={player?.started_at} />
+                  <Timer onTimeFinish={handleTimeFinish} duration={fsm?.duration} startTime={player?.started_at} />
                 </Box>
               }
               <Stack spacing={2}>
