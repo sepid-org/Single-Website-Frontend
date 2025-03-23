@@ -22,29 +22,16 @@ const VideoWidget: React.FC<VideoWidgetProps> = ({ link, id: contentId }) => {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video!.currentTime);
 
-      // به‌روز رسانی آخرین زمان مجاز در صورتی که کاربر به میزان طبیعی به جلو برود)
-      if (lastAllowedTimeRef.current < currentTime && currentTime < lastAllowedTimeRef.current + 2) {
-        lastAllowedTimeRef.current = currentTime;
+      // ارسال آپدیت به بک‌اند هر ۱۰ ثانیه
+      if (currentTime >= lastUpdateRef.current + 10) {
+        lastUpdateRef.current = Math.floor(currentTime / 10) * 10;
 
-        // ارسال آپدیت به بک‌اند هر ۱۰ ثانیه
-        if (currentTime >= lastUpdateRef.current + 10) {
-          lastUpdateRef.current = Math.floor(currentTime / 10) * 10;
-
-          // ارسال لاگ به بک‌اند
-          sendContentLog({
-            content_id: contentId,
-            event_type: 'progress',
-            details: { time: currentTime },
-          });
-        }
-      }
-    };
-
-    const handleSeeking = (e: Event) => {
-      const targetTime = (e.target as HTMLVideoElement).currentTime; // زمان هدف که کاربر به آن می‌رود
-      // اگر زمان هدف از زمان مجاز بیشتر باشد، پخش را به زمان مجاز بازگردانید
-      if (targetTime > lastAllowedTimeRef.current) {
-        (e.target as HTMLVideoElement).currentTime = lastAllowedTimeRef.current;
+        // ارسال لاگ به بک‌اند
+        sendContentLog({
+          content_id: contentId,
+          event_type: 'progress',
+          details: { time: currentTime },
+        });
       }
     };
 
@@ -60,14 +47,12 @@ const VideoWidget: React.FC<VideoWidgetProps> = ({ link, id: contentId }) => {
     if (video) {
       video.addEventListener('ended', handleEnded);
       video.addEventListener('timeupdate', handleTimeUpdate);
-      video.addEventListener('seeking', handleSeeking);
     }
 
     return () => {
       if (video) {
         video.removeEventListener('ended', handleEnded);
         video.removeEventListener('timeupdate', handleTimeUpdate);
-        video.removeEventListener('seeking', handleSeeking);
       }
     };
   }, [contentId, sendContentLog]);
