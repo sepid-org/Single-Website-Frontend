@@ -15,7 +15,7 @@ export const ButtonWidgetSlice = ContentManagementServiceApi.injectEndpoints({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: ({ playerId, destinationStateId, clickedButtonId }) => ({
-        url: '/response/submit-button/',
+        url: '/engagement/submit-button/',
         method: 'POST',
         body: {
           player_id: playerId,

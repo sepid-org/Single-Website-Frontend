@@ -19,7 +19,7 @@ export const getFSMPlayersUrl = ({ fsmId }) => `fsm/fsm/${fsmId}/players/`;
 export const getPlayerFromTeamUrl = ({ id }) => `/fsm/fsm/${id}/get_player_from_team/`;
 
 // response
-export const answerCRUDUrl = ({ answerId }) => answerId ? `response/answers/${answerId}/` : 'response/answers/';
+export const answerCRUDUrl = ({ answerId }) => answerId ? `/engagement/answers/${answerId}/` : '/engagement/answers/';
 
 
 // assessment:

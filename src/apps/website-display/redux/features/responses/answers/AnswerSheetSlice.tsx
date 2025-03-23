@@ -18,14 +18,14 @@ export const AnswerSheetSlice = ContentManagementServiceApi.injectEndpoints({
     getAnswerSheet: builder.query<GetAnswerSheetAnswersOutputType, GetAnswerSheetAnswersInputType>({
       providesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ answerSheetId }) => ({
-        url: `response/answer-sheets/${answerSheetId}/`,
+        url: `/engagement/answer-sheets/${answerSheetId}/`,
       }),
     }),
 
     getAnswerSheetByPlayerId: builder.query<GetAnswerSheetAnswersOutputType, { playerId: string }>({
       providesTags: ['player'],
       query: ({ playerId }) => ({
-        url: `response/answer-sheets/by-player/?player_id=${playerId}`,
+        url: `/engagement/answer-sheets/by-player/?player_id=${playerId}`,
       }),
     }),
   })

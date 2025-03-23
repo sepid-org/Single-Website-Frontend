@@ -58,7 +58,7 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
       invalidatesTags: tagGenerationWithErrorCheck(['player']),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: (answer) => ({
-        url: '/response/answers/submit-answer/',
+        url: '/engagement/answers/submit-answer/',
         method: 'POST',
         body: createAnswerBody(answer),
       }),
@@ -66,7 +66,7 @@ export const AnswerSlice = ContentManagementServiceApi.injectEndpoints({
 
     clearQuestionAnswer: builder.mutation<void, { questionId: number }>({
       query: ({ questionId }) => ({
-        url: '/response/answers/clear_question_answer/',
+        url: '/engagement/answers/clear_question_answer/',
         method: 'POST',
         body: { question_id: questionId },
       }),
