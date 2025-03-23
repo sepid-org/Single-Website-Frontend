@@ -13,8 +13,8 @@ interface VideoWidgetProps {
 const VideoWidget: React.FC<VideoWidgetProps> = ({ link, id: contentId }) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [sendContentLog] = useSendContentLogMutation();
-  const lastAllowedTimeRef = useRef(0);
-  const lastUpdateRef = useRef(0);
+  // استفاده از مجموعه برای ذخیره زمان‌هایی که لاگ شده‌اند
+  const loggedTimesRef = useRef<Set<number>>(new Set());
 
   useEffect(() => {
     const video = videoRef.current;
@@ -22,21 +22,21 @@ const VideoWidget: React.FC<VideoWidgetProps> = ({ link, id: contentId }) => {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video!.currentTime);
 
-      // ارسال آپدیت به بک‌اند هر ۱۰ ثانیه
-      if (currentTime >= lastUpdateRef.current + 10) {
-        lastUpdateRef.current = Math.floor(currentTime / 10) * 10;
+      // چک می‌کنیم اگر زمان فعلی مضرب ۱۰ ثانیه است و قبلاً لاگ نشده
+      if (currentTime % 10 === 0 && !loggedTimesRef.current.has(currentTime)) {
+        loggedTimesRef.current.add(currentTime);
 
         // ارسال لاگ به بک‌اند
         sendContentLog({
           content_id: contentId,
-          event_type: 'progress',
+          event_type: currentTime === 0 ? 'play' : 'progress',
           details: { time: currentTime },
         });
       }
     };
 
     const handleEnded = () => {
-      // وقتی ویدئو به پایان رسید، می‌توانیم فرض کنیم که کاربر کل ویدئو را تماشا کرده است.
+      // وقتی ویدئو به پایان رسید، فرض می‌کنیم کاربر کل ویدئو را تماشا کرده است.
       sendContentLog({
         content_id: contentId,
         event_type: 'completed',
