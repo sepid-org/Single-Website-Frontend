@@ -135,16 +135,16 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           labelPlacement='start'
         />
       </Grid>
-      {/* <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='show_scores'
           checked={data.show_scores}
           onChange={() => toggleValue('show_scores')}
           control={<Switch color="primary" />}
-          label="نمایش امتیازات به کاربران"
+          label="نمایش جدول امتیازات"
           labelPlacement='start'
         />
-      </Grid> */}
+      </Grid>
     </Grid>
   );
 }

@@ -15,6 +15,7 @@ export type AppbarModes =
   'FSM' |
   'MENTOR_FSM' |
   'PROGRAM' |
+  'PROGRAM_SECTION' |
   'GENERAL' |
   'ARTICLE' |
   'WEBSITE' |

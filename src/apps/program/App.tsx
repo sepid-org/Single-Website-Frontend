@@ -22,6 +22,10 @@ const TeamSetting = React.lazy(() =>
   retryImport(() => import('apps/program/pages/TeamSetting'))
 );
 
+const ScoreBoard = React.lazy(() =>
+  retryImport(() => import('apps/scoreboard/pages/ScoreBoard'))
+);
+
 const AshbariaApp = React.lazy(() =>
   retryImport(() => import('apps/ashbaria/App'))
 );
@@ -51,6 +55,7 @@ const App = () => {
         <Route path="/team-setting/" element={<TeamSetting />} />
         <Route path="/manage/" element={<ProgramManagement />} />
         <Route path="/purchase/" element={<PurchaseResult />} />
+        <Route path="/scoreboard/" element={<ScoreBoard />} />
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

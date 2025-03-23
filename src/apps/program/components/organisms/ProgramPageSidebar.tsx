@@ -75,6 +75,16 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
             {'گواهی حضور'}
           </Button>
         }
+        {program.show_scores &&
+          <Button
+            size='large'
+            variant="contained"
+            color='info'
+            fullWidth
+            onClick={() => navigate(`/program/${programSlug}/scoreboard`)}>
+            {'جدول امتیازات'}
+          </Button>
+        }
         {program.site_help_paper_id &&
           <ProgramPageDashboardButton paperId={program.site_help_paper_id} buttonLabel='راهنمای سایت' />
         }

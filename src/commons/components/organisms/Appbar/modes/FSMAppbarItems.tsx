@@ -6,18 +6,14 @@ import ReviewAnswersButton from '../components/ReviewAnswersButton';
 import TeamAvatar from '../components/TeamAvatar';
 import WhiteboardButton from '../components/WhiteboardButton';
 import ScoresDialogButton from '../components/ScoresDialogButton';
-import DashboardButton from '../components/DashboardButton';
 import FSMLogo from '../../../atoms/logos/FSMLogo';
 import UserAvatar from '../components/UserAvatar';
 import { useParams } from 'react-router-dom';
-import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import BackToProgramButton from '../components/BackToProgramButton';
 
 const FSMAppbarItems = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  // todo: refactor: fetch program minimal info (not whole program info!)
-  // const { data: program } = useGetProgramQuery({ programSlug });
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const reviewAnswers = <ReviewAnswersButton />
@@ -39,10 +35,6 @@ const FSMAppbarItems = ({ }) => {
 
   // if (fsm?.first_state?.is_exam) {
   //   toolbarItems.push(reviewAnswers);
-  // }
-
-  // if (program?.show_scores) {
-  //   toolbarItems.push(scoresDialogButton);
   // }
 
   if (fsm?.fsm_learning_type == 'Supervised') {
