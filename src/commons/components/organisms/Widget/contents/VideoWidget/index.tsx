@@ -22,21 +22,21 @@ const VideoWidget: React.FC<VideoWidgetProps> = ({ link, id: contentId }) => {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video!.currentTime);
 
-      // به‌روز رسانی آخرین زمان مجاز در صورتی که کاربر به جلو برود (با مشاهده واقعی)
+      // به‌روز رسانی آخرین زمان مجاز در صورتی که کاربر به میزان طبیعی به جلو برود)
       if (lastAllowedTimeRef.current < currentTime && currentTime < lastAllowedTimeRef.current + 2) {
         lastAllowedTimeRef.current = currentTime;
-      }
 
-      // ارسال آپدیت به بک‌اند هر ۱۰ ثانیه
-      if (currentTime >= lastUpdateRef.current + 10) {
-        lastUpdateRef.current = Math.floor(currentTime / 10) * 10;
+        // ارسال آپدیت به بک‌اند هر ۱۰ ثانیه
+        if (currentTime >= lastUpdateRef.current + 10) {
+          lastUpdateRef.current = Math.floor(currentTime / 10) * 10;
 
-        // ارسال لاگ به بک‌اند
-        sendContentLog({
-          content_id: contentId,
-          event_type: 'progress',
-          details: { time: currentTime },
-        });
+          // ارسال لاگ به بک‌اند
+          sendContentLog({
+            content_id: contentId,
+            event_type: 'progress',
+            details: { time: currentTime },
+          });
+        }
       }
     };
 
