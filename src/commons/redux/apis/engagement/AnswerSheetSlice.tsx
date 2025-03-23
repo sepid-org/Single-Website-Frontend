@@ -1,4 +1,4 @@
-import { ContentManagementServiceApi } from '../../ManageContentServiceApiSlice';
+import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import { AnswerSheetType, AnswerType } from 'commons/types/models';
 
 type GetAnswerSheetAnswersInputType = {
