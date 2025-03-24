@@ -1,12 +1,12 @@
 import React from 'react';
-import CompetitionScores from '../components/CompetitionScores';
+import ScoresTable from '../components/ScoresTable';
 import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Layout from 'commons/template/Layout';
 
-const ScoreBoard: React.FC = () => {
+const ScoreBoardPage: React.FC = () => {
 	const { programSlug } = useParams();
-	const [searchParams, setSearchParams] = useSearchParams();
+	const [searchParams] = useSearchParams();
 	const currency = searchParams.get('currency') || `${programSlug}-coin`;
 
 	const {
@@ -17,10 +17,10 @@ const ScoreBoard: React.FC = () => {
 	} = useGetScoreBoardData(currency);
 
 	return (
-		<Layout appbarMode='PROGRAM_SECTION'>
-			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
+		<Layout appbarMode='PROGRAM_SUBSECTION'>
+			<ScoresTable allScores={scoreRecordsState} winnerScores={winnerScores} />
 		</Layout>
 	);
 };
 
-export default ScoreBoard;
+export default ScoreBoardPage;

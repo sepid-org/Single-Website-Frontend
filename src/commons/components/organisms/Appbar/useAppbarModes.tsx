@@ -12,7 +12,7 @@ const mode2component = {
   FSM: FSMAppbarItems,
   MENTOR_FSM: MentorFSMAppBar,
   PROGRAM: ProgramAppBarItems,
-  PROGRAM_SECTION: ProgramSectionAppbarItems,
+  PROGRAM_SUBSECTION: ProgramSectionAppbarItems,
   GENERAL: GeneralAppbarItems,
   ARTICLE: GeneralAppbarItems,
   WEBSITE: WebsiteAppbarItems,

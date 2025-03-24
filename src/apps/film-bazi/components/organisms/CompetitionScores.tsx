@@ -6,34 +6,7 @@ import ScoreRecordSkeleton from "../molecules/ScoreRecordsSkeleton";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import hashStringToNumber from "commons/utils/hashStringToNumber";
-
-
-interface WinnerRecord {
-	bio: null | string;
-	first_name: string;
-	gender: null | string;
-	last_name: string;
-	profile_image: string | null;
-	score: number;
-	user_id: string;
-	currentUser?: boolean;
-}
-
-interface CompetitionScoresProps {
-	allScores: {
-		currentUser: {
-			currentUser: boolean;
-			first_name: string;
-			last_name: string;
-			user_id: string;
-			score: number;
-			rank: null | number;
-		};
-		currentUserExistsInWinners: boolean;
-		winnerUsersInfo: WinnerRecord[];
-	};
-	winnerScores: WinnerRecord[];
-}
+import { CompetitionScoresProps } from "apps/scoreboard/types";
 
 const CompetitionScores: React.FC<CompetitionScoresProps> = ({ allScores, winnerScores }) => {
 	const getDisplayName = (user_id: string, first_name: string, last_name: string) => {

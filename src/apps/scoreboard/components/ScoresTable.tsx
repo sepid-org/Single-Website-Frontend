@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Box, Grid, Stack } from "@mui/material";
 import WinnerCard from "../../film-bazi/components/molecules/WinnerCard";
 import ScoreRecord from "../../film-bazi/components/molecules/ScoreRecord";
@@ -6,46 +6,22 @@ import ScoreRecordSkeleton from "../../film-bazi/components/molecules/ScoreRecor
 import WinnerCardsSkeleton from "../../film-bazi/components/molecules/WinnerCardsSkeleton";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import hashStringToNumber from "commons/utils/hashStringToNumber";
+import { CompetitionScoresProps } from "../types";
 
 
-interface WinnerRecord {
-	bio: null | string;
-	first_name: string;
-	gender: null | string;
-	last_name: string;
-	profile_image: string | null;
-	score: number;
-	user_id: string;
-	currentUser?: boolean;
-}
 
-interface CompetitionScoresProps {
-	allScores: {
-		currentUser: {
-			currentUser: boolean;
-			first_name: string;
-			last_name: string;
-			user_id: string;
-			score: number;
-			rank: null | number;
-		};
-		currentUserExistsInWinners: boolean;
-		winnerUsersInfo: WinnerRecord[];
-	};
-	winnerScores: WinnerRecord[];
-}
-
-const CompetitionScores: React.FC<CompetitionScoresProps> = ({ allScores, winnerScores }) => {
-	const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
-		if (first_name && last_name) {
-			return `${first_name} ${last_name}`;
-		}
-
-		const hashCode = hashStringToNumber(user_id);
-
-		return `کاربر ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
+const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
+	if (first_name && last_name) {
+		return `${first_name} ${last_name}`;
 	}
 
+	const hashCode = hashStringToNumber(user_id);
+
+	return `کاربر ${toPersianNumber(hashCode.toString().padStart(4, '0'))}`;
+}
+
+
+const ScoresTable: React.FC<CompetitionScoresProps> = ({ allScores, winnerScores }) => {
 	const currentUserRef = useRef(null);
 
 	useEffect(() => {
@@ -137,4 +113,4 @@ const CompetitionScores: React.FC<CompetitionScoresProps> = ({ allScores, winner
 		</Stack>
 	);
 }
-export default CompetitionScores;
+export default ScoresTable;

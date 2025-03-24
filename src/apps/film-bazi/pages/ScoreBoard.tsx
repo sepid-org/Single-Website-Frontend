@@ -2,7 +2,7 @@ import CompetitionScores from '../components/organisms/CompetitionScores';
 import { FILMBAZI_COIN } from '../constants/game';
 import React from 'react';
 import FilmbaziLayout from '../components/molecules/Layout';
-import useGetScoreBoardData from '../hooks/useGetScoreboardData';
+import useGetScoreBoardData from 'apps/scoreboard/hooks/useGetScoreboardData';
 import { MediaUrls } from '../constants/mediaUrls';
 
 const ScoreBoard: React.FC = () => {

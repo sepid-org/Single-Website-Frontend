@@ -3,7 +3,7 @@ import { useGetScoreboardQuery } from 'commons/redux/apis/bank/scoreboard/Scoreb
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
 import { useGetMyBalancesQuery } from 'commons/redux/apis/bank/MyInfo';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import useGetUsersNames from '../../film-bazi/hooks/useGetUsersNames';
+import useGetUsersNames from './useGetUsersNames';
 
 const useGetScoreBoardData = (currencyName) => {
   // Fetch data from API
