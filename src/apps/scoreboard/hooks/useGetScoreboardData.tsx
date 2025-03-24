@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useGetScoreboardQuery } from 'commons/redux/apis/bank/scoreboard/Scoreboard';
+import { useGetScoreboardQuery } from 'apps/scoreboard/redux/ScoreboardSlice';
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
 import { useGetMyBalancesQuery } from 'commons/redux/apis/bank/MyInfo';
 import useUserProfile from 'commons/hooks/useUserProfile';

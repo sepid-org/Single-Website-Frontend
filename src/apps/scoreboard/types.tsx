@@ -1,4 +1,4 @@
-interface WinnerRecord {
+export interface WinnerRecord {
   first_name: string;
   last_name: string;
   profile_image: string | null;
@@ -21,4 +21,16 @@ export interface CompetitionScoresProps {
     winnerUsersInfo: WinnerRecord[];
   };
   winnerScores: WinnerRecord[];
+}
+
+export interface UserRecordType {
+  user_id: string;
+  score: number;
+}
+
+export interface TableRecordType extends UserRecordType {
+  name: string;
+  rank: number;
+  currentUser: boolean;
+  profileImg?: string;
 }

@@ -1,8 +1,10 @@
 import React from 'react';
-import ScoresTable from '../components/ScoresTable';
+import Table from '../components/organisms/Table';
 import useGetScoreBoardData from '../hooks/useGetScoreboardData';
 import { useParams, useSearchParams } from 'react-router-dom';
 import Layout from 'commons/template/Layout';
+import TopThree from '../components/organisms/TopThree';
+import { Stack } from '@mui/material';
 
 const ScoreBoardPage: React.FC = () => {
 	const { programSlug } = useParams();
@@ -18,7 +20,10 @@ const ScoreBoardPage: React.FC = () => {
 
 	return (
 		<Layout appbarMode='PROGRAM_SUBSECTION'>
-			<ScoresTable allScores={scoreRecordsState} winnerScores={winnerScores} />
+			<Stack maxWidth={'sm'} width={'100%'} alignItems={'center'} justifyContent={'center'}>
+				<TopThree winnerScores={winnerScores} />
+				<Table allScores={scoreRecordsState} />
+			</Stack>
 		</Layout>
 	);
 };

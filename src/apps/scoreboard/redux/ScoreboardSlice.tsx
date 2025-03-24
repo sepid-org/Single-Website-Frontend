@@ -1,9 +1,9 @@
-import { ScoreBoardRecordType } from 'commons/types/bank';
-import { BankApi } from '../BankApi';
+import { UserRecordType } from 'apps/scoreboard/types';
+import { BankApi } from 'commons/redux/apis/bank/BankApi';
 
 type GetScoreboardInputType = { currencyName: string };
 
-type GetScoreboardOutputType = ScoreBoardRecordType[];
+type GetScoreboardOutputType = UserRecordType[];
 
 export const ScoreboardSlice = BankApi.injectEndpoints({
   endpoints: (builder) => ({

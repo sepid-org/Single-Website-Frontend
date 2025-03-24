@@ -1,11 +1,11 @@
 import React, { forwardRef } from "react";
 import { Box, Typography, Stack } from "@mui/material";
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import { ScoreBoardItemType } from "commons/types/bank";
+import { TableRecordType } from "apps/scoreboard/types";
 import VerifyIcon from "../atoms/icons/Verify";
 
 // Use forwardRef with props and ref types
-const ScoreRecord = forwardRef<HTMLDivElement, ScoreBoardItemType>(
+const ScoreRecord = forwardRef<HTMLDivElement, TableRecordType>(
   ({ rank, name, score, currentUser, profileImg }, ref) => {
     const conditionalRankBackground = currentUser
       ? "linear-gradient(180deg, #FFEC88 100%, #FFA95A 100%)"

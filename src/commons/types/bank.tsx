@@ -1,16 +1,3 @@
-
-export interface ScoreBoardRecordType {
-  user_id: string;
-  score: number;
-}
-
-export interface ScoreBoardItemType extends ScoreBoardRecordType {
-  name: string;
-  rank: number;
-  currentUser: boolean;
-  profileImg?: string;
-}
-
 export type BalancesType = {
   [key: string]: number;
 };

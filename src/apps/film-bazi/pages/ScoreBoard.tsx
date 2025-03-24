@@ -1,9 +1,12 @@
-import CompetitionScores from '../components/organisms/CompetitionScores';
-import { FILMBAZI_COIN } from '../constants/game';
 import React from 'react';
+import { Stack } from '@mui/material';
+
+import { FILMBAZI_COIN } from '../constants/game';
 import FilmbaziLayout from '../components/molecules/Layout';
 import useGetScoreBoardData from 'apps/scoreboard/hooks/useGetScoreboardData';
 import { MediaUrls } from '../constants/mediaUrls';
+import Table from 'apps/scoreboard/components/organisms/Table';
+import TopThree from 'apps/scoreboard/components/organisms/TopThree';
 
 const ScoreBoard: React.FC = () => {
 	const {
@@ -15,7 +18,10 @@ const ScoreBoard: React.FC = () => {
 
 	return (
 		<FilmbaziLayout backgroundImage={MediaUrls.SCOREBOARD_BACKGROUND}>
-			<CompetitionScores allScores={scoreRecordsState} winnerScores={winnerScores} />
+			<Stack justifySelf={'center'} maxWidth={'sm'} width={'100%'} alignItems={'center'} paddingY={2}>
+				<TopThree winnerScores={winnerScores} />
+				<Table allScores={scoreRecordsState} />
+			</Stack>
 		</FilmbaziLayout>
 	);
 };
