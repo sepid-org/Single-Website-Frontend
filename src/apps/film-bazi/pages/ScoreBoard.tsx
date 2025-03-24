@@ -10,8 +10,8 @@ import TopThree from 'apps/scoreboard/components/organisms/TopThree';
 
 const ScoreBoard: React.FC = () => {
 	const {
-		winnerScores,
-		scoreRecordsState,
+		winners,
+		tableState,
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(FILMBAZI_COIN);
@@ -19,8 +19,8 @@ const ScoreBoard: React.FC = () => {
 	return (
 		<FilmbaziLayout backgroundImage={MediaUrls.SCOREBOARD_BACKGROUND}>
 			<Stack justifySelf={'center'} maxWidth={'sm'} width={'100%'} alignItems={'center'} paddingY={2}>
-				<TopThree winnerScores={winnerScores} />
-				<Table allScores={scoreRecordsState} />
+				<TopThree winners={winners} />
+				<Table {...tableState} />
 			</Stack>
 		</FilmbaziLayout>
 	);

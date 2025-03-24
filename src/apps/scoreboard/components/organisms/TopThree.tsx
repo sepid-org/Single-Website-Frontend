@@ -4,7 +4,7 @@ import WinnerCard from "../molecules/WinnerCard";
 import WinnerCardsSkeleton from "../molecules/WinnerCardsSkeleton";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import hashStringToNumber from "commons/utils/hashStringToNumber";
-import { WinnerRecord } from "../../types";
+import { TableRecordType } from "../../types";
 
 const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
 	if (first_name && last_name) {
@@ -15,27 +15,27 @@ const getDisplayName = (user_id: string, first_name: string, last_name: string) 
 }
 
 type PropsType = {
-	winnerScores: WinnerRecord[]
+	winners: TableRecordType[]
 }
 
-const TopThree: React.FC<PropsType> = ({ winnerScores }) => {
-	if (winnerScores?.length > 0) {
+const TopThree: React.FC<PropsType> = ({ winners }) => {
+	if (winners?.length > 0) {
 		return (
 			<Stack direction={'row'} alignItems={'end'}>
 				<WinnerCard
-					score={winnerScores[2]?.score}
+					score={winners[2]?.score}
 					rank={3}
-					name={getDisplayName(winnerScores[2]?.user_id, winnerScores[2]?.first_name, winnerScores[2]?.last_name)}
+					name={getDisplayName(winners[2]?.user_id, winners[2]?.first_name, winners[2]?.last_name)}
 				/>
 				<WinnerCard
-					score={winnerScores[0]?.score}
+					score={winners[0]?.score}
 					rank={1}
-					name={getDisplayName(winnerScores[0]?.user_id, winnerScores[0]?.first_name, winnerScores[0]?.last_name)}
+					name={getDisplayName(winners[0]?.user_id, winners[0]?.first_name, winners[0]?.last_name)}
 				/>
 				<WinnerCard
-					score={winnerScores[1]?.score}
+					score={winners[1]?.score}
 					rank={2}
-					name={getDisplayName(winnerScores[1]?.user_id, winnerScores[1]?.first_name, winnerScores[1]?.last_name)}
+					name={getDisplayName(winners[1]?.user_id, winners[1]?.first_name, winners[1]?.last_name)}
 				/>
 			</Stack>
 		);

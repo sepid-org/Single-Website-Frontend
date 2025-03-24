@@ -14,11 +14,10 @@ const useGetScoreBoardData = (currencyName) => {
   const userIds = useMemo(() => scoreRecords.map(user => user.user_id), [scoreRecords]);
   const { data: usersInfo, loading: isUserListLoading, error: userListError } = useGetUsersNames(userIds);
 
-
   // State for results
-  const [winnerScores, setWinnerScores] = useState([]);
-  const [scoreRecordsState, setScoreRecordsState] = useState({
-    winnerUsersInfo: [],
+  const [winners, setWinners] = useState([]);
+  const [tableState, setTableState] = useState({
+    records: [],
     currentUser: null,
     currentUserExistsInWinners: false,
   });
@@ -28,15 +27,14 @@ const useGetScoreBoardData = (currencyName) => {
 
   // Set winner scores
   useEffect(() => {
-    if (scoreRecordsState.winnerUsersInfo.length > 0) {
-      setWinnerScores(scoreRecordsState.winnerUsersInfo.slice(0, 3));
+    if (tableState.records.length > 0) {
+      setWinners(tableState.records.slice(0, 3));
     }
-  }, [scoreRecordsState]);
+  }, [tableState]);
 
   // Set score records state
   useEffect(() => {
     if (usersInfo && scoreRecords) {
-
       const newScoreRecords = scoreRecords
         .map(scoreRecord => {
           const userInfo = usersInfo.find(userInfo => userInfo.user_id === scoreRecord.user_id);
@@ -51,8 +49,8 @@ const useGetScoreBoardData = (currencyName) => {
           exists = true;
         }
       }
-      setScoreRecordsState({
-        winnerUsersInfo: newScoreRecords,
+      setTableState({
+        records: newScoreRecords,
         currentUser: {
           first_name: userProfile?.first_name,
           last_name: userProfile?.last_name,
@@ -66,7 +64,7 @@ const useGetScoreBoardData = (currencyName) => {
     }
   }, [isLoading]);
 
-  return { winnerScores, scoreRecordsState, isWinnerScoresLoading: isScoreBoardLoading, isScoreRecordsLoading: isLoading };
+  return { winners, tableState, isWinnerScoresLoading: isScoreBoardLoading, isScoreRecordsLoading: isLoading };
 };
 
 export default useGetScoreBoardData;

@@ -1,12 +1,3 @@
-export interface WinnerRecord {
-  first_name: string;
-  last_name: string;
-  profile_image: string | null;
-  score: number;
-  user_id: string;
-  currentUser?: boolean;
-}
-
 export interface CompetitionScoresProps {
   allScores: {
     currentUser: {
@@ -18,9 +9,9 @@ export interface CompetitionScoresProps {
       currentUser: boolean;
     };
     currentUserExistsInWinners: boolean;
-    winnerUsersInfo: WinnerRecord[];
+    winnerUsersInfo: TableRecordType[];
   };
-  winnerScores: WinnerRecord[];
+  winnerScores: TableRecordType[];
 }
 
 export interface UserRecordType {
@@ -29,8 +20,11 @@ export interface UserRecordType {
 }
 
 export interface TableRecordType extends UserRecordType {
+  first_name?: string;
+  last_name?: string;
+  profile_image?: string;
+  profileImg?: string;
   name: string;
   rank: number;
   currentUser: boolean;
-  profileImg?: string;
 }

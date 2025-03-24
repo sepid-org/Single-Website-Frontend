@@ -12,8 +12,8 @@ const ScoreBoardPage: React.FC = () => {
 	const currency = searchParams.get('currency') || `${programSlug}-coin`;
 
 	const {
-		winnerScores,
-		scoreRecordsState,
+		winners,
+		tableState,
 		isWinnerScoresLoading,
 		isScoreRecordsLoading,
 	} = useGetScoreBoardData(currency);
@@ -21,8 +21,8 @@ const ScoreBoardPage: React.FC = () => {
 	return (
 		<Layout appbarMode='PROGRAM_SUBSECTION'>
 			<Stack maxWidth={'sm'} width={'100%'} alignItems={'center'} justifyContent={'center'}>
-				<TopThree winnerScores={winnerScores} />
-				<Table allScores={scoreRecordsState} />
+				<TopThree winners={winners} />
+				<Table {...tableState} />
 			</Stack>
 		</Layout>
 	);

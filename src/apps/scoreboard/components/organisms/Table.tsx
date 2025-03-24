@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { Fragment, useEffect, useRef } from "react";
 import { Box, Stack } from "@mui/material";
 import TableRecord from "../molecules/TableRecord";
 import ScoreRecordsSkeleton from "../molecules/TableRecordsSkeleton";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import hashStringToNumber from "commons/utils/hashStringToNumber";
-import { WinnerRecord } from "../../types";
+import { TableRecordType } from "../../types";
 
 const getDisplayName = (user_id: string, first_name: string, last_name: string) => {
 	if (first_name && last_name) {
@@ -17,33 +17,31 @@ const getDisplayName = (user_id: string, first_name: string, last_name: string) 
 }
 
 type PropsType = {
-	allScores: {
-		currentUser: {
-			first_name: string;
-			last_name: string;
-			user_id: string;
-			score: number;
-			rank: null | number;
-			currentUser: boolean;
-		};
-		currentUserExistsInWinners: boolean;
-		winnerUsersInfo: WinnerRecord[];
+	currentUser: {
+		first_name: string;
+		last_name: string;
+		user_id: string;
+		score: number;
+		rank: null | number;
+		currentUser: boolean;
 	};
+	currentUserExistsInWinners: boolean;
+	records: TableRecordType[];
 }
 
-const Table: React.FC<PropsType> = ({ allScores }) => {
+const Table: React.FC<PropsType> = ({ currentUser, currentUserExistsInWinners, records }) => {
 	const currentUserRef = useRef(null);
 
 	useEffect(() => {
 		if (currentUserRef.current) {
 			currentUserRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
 		}
-	}, [allScores.winnerUsersInfo]);
+	}, [records]);
 
 	return (
 		<Stack width={'100%'} alignItems={'center'} justifyContent={'center'} spacing={2}>
-			{allScores.winnerUsersInfo.length > 0 ?
-				allScores.winnerUsersInfo.map((record, index) => (
+			{records.length > 0 ?
+				records.map((record, index) => (
 					<TableRecord
 						key={record.user_id}
 						rank={index + 1}
@@ -54,21 +52,21 @@ const Table: React.FC<PropsType> = ({ allScores }) => {
 				)) :
 				<ScoreRecordsSkeleton />
 			}
-			{(allScores.currentUser != null && allScores.winnerUsersInfo && !allScores.currentUserExistsInWinners) &&
-				<>
+			{(currentUser && records && !currentUserExistsInWinners) &&
+				<Fragment>
 					<Box sx={{ marginTop: 0, marginBottom: 2 }}>
-						<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
-						<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
-						<Box sx={{ backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
+						<Box sx={{ border: 1, backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
+						<Box sx={{ border: 1, backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
+						<Box sx={{ border: 1, backgroundColor: "white", borderRadius: "50%", width: "10px", height: "10px", margin: "2px" }} />
 					</Box>
 					<TableRecord
-						key={allScores.currentUser.user_id}
-						rank={allScores.currentUser.rank}
-						name={getDisplayName(allScores.currentUser.user_id, allScores.currentUser.first_name, allScores.currentUser.last_name)}
-						score={allScores.currentUser.score}
-						currentUser={allScores.currentUser.currentUser}
+						key={currentUser.user_id}
+						rank={currentUser.rank}
+						name={getDisplayName(currentUser.user_id, currentUser.first_name, currentUser.last_name)}
+						score={currentUser.score}
+						currentUser={currentUser.currentUser}
 					/>
-				</>
+				</Fragment>
 			}
 		</Stack>
 	);
