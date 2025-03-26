@@ -23,6 +23,7 @@ const ArticleCard: FC<ArticleCardPropsType> = ({ article }) => {
 
   return (
     <ButtonBase
+      disableRipple
       onClick={handleCardClick}
       sx={{
         width: '100%',
