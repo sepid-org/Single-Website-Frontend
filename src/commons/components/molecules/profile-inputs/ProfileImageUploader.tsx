@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { Box, Button, CircularProgress } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-import { useUploadFileMutation } from "apps/website-display/redux/features/FileSlice";
 import { toast } from "react-toastify";
+import { useUploadFileWithProgress } from "commons/hooks/useUploadFileWithProgress";
 
 const ProfileImageUploader = ({ file, setFile }) => {
   const theme = useTheme();
-  const { uploadProgress } = useSelector((state) => (state as any).global);
-  const [uploadFile, result] = useUploadFileMutation();
+  const { uploadFile, result, progress } = useUploadFileWithProgress();
+
 
   const validateFile = (file) => {
     if (file.name.length > 100) {
@@ -64,13 +63,13 @@ const ProfileImageUploader = ({ file, setFile }) => {
             }}
             disabled={result.isLoading}
             endIcon={
-              uploadProgress && (
+              progress && (
                 <CircularProgress
                   color="secondary"
                   thickness={4}
                   size={24}
                   variant="determinate"
-                  value={uploadProgress}
+                  value={progress}
                 />
               )
             }
@@ -129,13 +128,13 @@ const ProfileImageUploader = ({ file, setFile }) => {
               }}
               disabled={result.isLoading}
               endIcon={
-                uploadProgress && (
+                progress && (
                   <CircularProgress
                     color="secondary"
                     thickness={4}
                     size={24}
                     variant="determinate"
-                    value={uploadProgress}
+                    value={progress}
                   />
                 )
               }

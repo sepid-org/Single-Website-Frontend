@@ -1,12 +1,11 @@
 import jsonToFormData from 'commons/utils/jsonToFromDate';
 import { ContentManagementServiceApi } from './ManageContentServiceApiSlice';
 import axios from 'axios';
-import { setUploadProgress } from 'apps/website-display/redux/slices/Global';
 import { CMS_URL } from 'commons/constants/Constants';
 
 type CreateFileInputType = {
   file: File;
-  // todo: add "party" as the folder name
+  progressCallback?: (progress: number | null) => void;
 }
 
 type CreateFileOutputType = {
@@ -22,15 +21,19 @@ export const FileSlice = ContentManagementServiceApi.injectEndpoints({
             `${CMS_URL}api/file-storage/file/`,
             jsonToFormData(data),
             {
-              //...other options like headers here
               onUploadProgress: upload => {
-                //Set the progress value to show the progress bar
                 const uploadProgress = Math.round((100 * upload.loaded) / upload.total);
-                api.dispatch(setUploadProgress(uploadProgress));
+                if (data.progressCallback) {
+                  data.progressCallback(uploadProgress);
+                }
               },
-            });
-          api.dispatch(setUploadProgress(null));
-          return { data: result.data }
+            }
+          );
+          // Signal completion by sending null progress
+          if (data.progressCallback) {
+            data.progressCallback(null);
+          }
+          return { data: result.data };
         } catch (axiosError) {
           let err: any = axiosError;
           return {
@@ -38,8 +41,8 @@ export const FileSlice = ContentManagementServiceApi.injectEndpoints({
               status: err.response?.status,
               data: err.response?.data || err.message,
             },
-          }
-        };
+          };
+        }
       }
     }),
   })

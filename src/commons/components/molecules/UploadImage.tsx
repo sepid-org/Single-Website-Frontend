@@ -1,14 +1,11 @@
 import {
   Button,
   CircularProgress,
-  Icon,
   Stack,
-  Typography,
 } from '@mui/material';
 import React, { FC, Fragment, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify'
-import { useUploadFileMutation } from 'apps/website-display/redux/features/FileSlice';
+import { useUploadFileWithProgress } from 'commons/hooks/useUploadFileWithProgress';
 
 type UploadImagePropsType = {
   file?: any;
@@ -21,8 +18,7 @@ const UploadImage: FC<UploadImagePropsType> = ({
   file,
   showImageSelf = false,
 }) => {
-  const { uploadProgress } = useSelector((state) => (state as any).global);
-  const [uploadFile, result] = useUploadFileMutation();
+  const { uploadFile, result, progress } = useUploadFileWithProgress();
 
   const validateFile = (file) => {
     if (file.name.length > 100) {
@@ -59,8 +55,8 @@ const UploadImage: FC<UploadImagePropsType> = ({
           size='small'
           disabled={result.isLoading}
           endIcon={
-            uploadProgress &&
-            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} />
+            progress &&
+            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={progress} />
           }
           variant="contained"
           color="secondary"

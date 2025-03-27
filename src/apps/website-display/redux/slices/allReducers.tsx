@@ -6,14 +6,12 @@ import { whiteboardReducer } from './whiteboard';
 import { workshopReducer } from './workshop';
 import { assessmentReducer } from './assessment';
 import { WebsiteReducer } from './Website';
-import { GlobalReducer } from './Global';
 import { FSMReducer } from './FSM';
 import { websocketReducer } from 'apps/chat/redux/websocket';
 
 const allReducers = {
   account: AccountReducer,
   websocket: websocketReducer,
-  global: GlobalReducer,
   website: WebsiteReducer,
   fsm: FSMReducer,
   currentState: currentStateReducer,

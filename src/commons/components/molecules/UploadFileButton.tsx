@@ -1,16 +1,14 @@
 import {
   Button,
   CircularProgress,
-  Stack,
   Typography,
 } from '@mui/material';
 import {
   CloudUpload as CloudUploadIcon,
 } from '@mui/icons-material';
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useEffect } from 'react';
 import { toast } from 'react-toastify'
-import { useUploadFileMutation } from 'apps/website-display/redux/features/FileSlice';
-import { useSelector } from 'react-redux';
+import { useUploadFileWithProgress } from 'commons/hooks/useUploadFileWithProgress';
 
 type UploadFileButtonPropsType = {
   setFileLink: any;
@@ -23,8 +21,7 @@ const UploadFileButton: FC<UploadFileButtonPropsType> = ({
   id = Math.ceil(Math.random() * 1000),
   acceptableFileFormats = "video/* ,image/*, audio/mp3, application/pdf",
 }) => {
-  const [uploadFile, result] = useUploadFileMutation();
-  const { uploadProgress } = useSelector((state) => (state as any).global);
+  const { uploadFile, result, progress } = useUploadFileWithProgress();
 
   const handleUploadFile = (e) => {
     const file = e.target.files[0];
@@ -51,8 +48,8 @@ const UploadFileButton: FC<UploadFileButtonPropsType> = ({
       <Button
         startIcon={<CloudUploadIcon />}
         endIcon={
-          uploadProgress ?
-            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={uploadProgress} /> :
+          progress ?
+            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={progress} /> :
             null
         }
         disabled={result.isLoading}
