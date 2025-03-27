@@ -10,13 +10,13 @@ import React, { FC, Fragment, useEffect } from 'react';
 import { toast } from 'react-toastify'
 import { useUploadFileWithProgress } from 'commons/hooks/useUploadFileWithProgress';
 
-type UploadFileButtonPropsType = {
+type PropsType = {
   setFileLink: any;
   id?: string;
   acceptableFileFormats?: string;
 }
 
-const UploadFileButton: FC<UploadFileButtonPropsType> = ({
+const FileUploadButton: FC<PropsType> = ({
   setFileLink,
   id = Math.ceil(Math.random() * 1000),
   acceptableFileFormats = "video/* ,image/*, audio/mp3, application/pdf",
@@ -73,4 +73,4 @@ const UploadFileButton: FC<UploadFileButtonPropsType> = ({
   );
 }
 
-export default UploadFileButton;
+export default FileUploadButton;

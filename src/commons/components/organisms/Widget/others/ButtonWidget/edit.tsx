@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import UploadFileButton from 'commons/components/molecules/UploadFileButton';
+import FileUploadButton from 'commons/components/molecules/UploadFileButton';
 import EditObjectFields from 'commons/components/organisms/forms/EditObject';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
@@ -89,7 +89,7 @@ const ButtonWidgetEditor = ({
                 background_image: e.target.value
               })}
             />
-            <UploadFileButton
+            <FileUploadButton
               setFileLink={(link) => setButtonFields({
                 ...buttonFields,
                 background_image: link,

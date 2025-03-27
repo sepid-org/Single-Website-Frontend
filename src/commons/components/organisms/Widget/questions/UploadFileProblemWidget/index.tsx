@@ -3,7 +3,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 import React, { FC } from 'react';
 import UploadFileProblemEditWidget from './edit';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import UploadFileButton from 'commons/components/molecules/UploadFileButton';
+import FileUploadButton from 'commons/components/molecules/UploadFileButton';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useUploadFileQuestionProperties from './useUploadFileQuestionProperties';
@@ -48,7 +48,7 @@ const UploadFileProblemWidget: FC<UploadFileProblemWidgetPropsType> = ({
       </IsRequired>
       <Stack justifyContent='flex-end' spacing={1}>
         {(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
-          <UploadFileButton setFileLink={setUploadedFileLink} />
+          <FileUploadButton setFileLink={setUploadedFileLink} />
         }
         {(mode !== WidgetModes.Edit && mode !== WidgetModes.Disable && uploadedFileLink) &&
           <Button

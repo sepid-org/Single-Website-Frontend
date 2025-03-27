@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 import { useTranslate } from 'react-redux-multilingual/lib/context'
-import UploadFileButton from 'commons/components/molecules/UploadFileButton'
+import FileUploadButton from 'commons/components/molecules/UploadFileButton'
 import EditObjectFields from 'commons/components/organisms/forms/EditObject'
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget'
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle'
