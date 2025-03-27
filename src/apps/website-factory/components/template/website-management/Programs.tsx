@@ -18,7 +18,7 @@ const ProgramsTab: FC<ProgramsTabPropsType> = ({
 }) => {
   const [openCreateProgramDialog, setOpenCreateProgramDialog] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, isLoading } = useGetProgramsQuery({});
+  const { data, isLoading } = useGetProgramsQuery({ pageNumber });
 
   const programs = data?.programs;
   const count = data?.count || 0;

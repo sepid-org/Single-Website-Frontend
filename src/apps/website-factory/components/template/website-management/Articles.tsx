@@ -20,7 +20,7 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
 }) => {
   const [openCreateArticleDialog, setOpenCreateArticleDialog] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, isLoading } = useGetArticlesQuery({ pageNumber: 1 });
+  const { data, isLoading } = useGetArticlesQuery({ pageNumber });
 
   const articles = data?.articles || [];
   const count = data?.count || 0;
