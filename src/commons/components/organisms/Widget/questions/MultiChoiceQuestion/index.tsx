@@ -30,6 +30,7 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
   is_required,
+  ...widgetProps
 }) => {
 
   const {
@@ -53,7 +54,11 @@ const MultiChoiceQuestionWidget: FC<MultiChoiceQuestionWidgetPropsType> = ({
   });
 
   return (
-    <Stack spacing={1}>
+    <Stack
+      spacing={1}
+      visibility={widgetProps.is_hidden && mode === 1 ? 'hidden' : 'visible'}
+      sx={{opacity: (widgetProps.is_hidden && mode === 2 ? 0.2 : 1)}}
+    >
       <IsRequired hidden={!is_required}>
         <TinyPreview
           styles={{ width: '100%' }}

@@ -4,7 +4,7 @@ import { useTheme } from "@mui/material/styles";
 import { toast } from "react-toastify";
 import { useUploadFileWithProgress } from "commons/hooks/useUploadFileWithProgress";
 
-const ProfileImageUploader = ({ file, setFile }) => {
+const ProfileImageUploader = ({ file, setFile, id }) => {
   const theme = useTheme();
   const { uploadFile, result, progress } = useUploadFileWithProgress();
 
@@ -73,13 +73,13 @@ const ProfileImageUploader = ({ file, setFile }) => {
                 />
               )
             }
-            onClick={() => document.getElementById("userProfilePicture").click()}
+            onClick={() => document.getElementById(id).click()}
           >
             {"+ افزودن تصویر"}
           </Button>
           <input
             type="file"
-            id="userProfilePicture"
+            id={id}
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}
@@ -139,14 +139,14 @@ const ProfileImageUploader = ({ file, setFile }) => {
                 )
               }
               color="primary"
-              onClick={() => document.getElementById("userProfilePicture").click()}
+              onClick={() => document.getElementById(id).click()}
             >
               {"تغییر تصویر"}
             </Button>
           </Box>
           <input
             type="file"
-            id="userProfilePicture"
+            id={id}
             style={{ display: "none" }}
             accept="image/*"
             onChange={handleUploadFile}

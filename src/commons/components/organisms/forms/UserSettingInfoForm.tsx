@@ -67,6 +67,7 @@ const UserSettingInfoForm: FC<UserSettingInfoFormPropsType> = ({
           justifyContent={{ sm: 'end', xs: "center" }}
         >
           <ProfileImageUploader
+            id={'profile'}
             file={data.profile_image}
             setFile={handleProfileImageChange}
           />
