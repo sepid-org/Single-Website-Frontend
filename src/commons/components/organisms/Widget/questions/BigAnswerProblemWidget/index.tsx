@@ -2,7 +2,6 @@ import { Button, Stack, TextField, Typography } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
-import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import BigAnswerProblemEditWidget from './edit';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
@@ -58,7 +57,7 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
         multiline
         rows={3}
         placeholder={'پاسخ خود را وارد کنید.'}
-        value={answer}
+        value={answer || ''}
         onChange={(e) => changeAnswer(e.target.value)}
       />
       {mode === WidgetModes.View &&
