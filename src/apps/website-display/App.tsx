@@ -8,14 +8,8 @@ import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
 import { retryImport } from 'commons/utils/retryImport';
-
-const Articles = React.lazy(() =>
-  retryImport(() => import('apps/website-display/pages/Articles'))
-);
-
-const Programs = React.lazy(() =>
-  retryImport(() => import('apps/website-display/pages/Programs'))
-);
+import Articles from './pages/Articles';
+import Programs from './pages/Programs';
 
 const Profile = React.lazy(() =>
   retryImport(() => import('apps/website-display/pages/Profile'))
