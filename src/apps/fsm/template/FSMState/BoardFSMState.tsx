@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, FC, Fragment } from 'react';
+import React, { useState, useEffect, FC, Fragment } from 'react';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
@@ -28,17 +28,20 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     { skip: !fsmStateId }
   );
   const { data: fsm, error: fsmError } = useGetFSMQuery({ fsmId });
-  const appbarRef = useRef<HTMLDivElement>(null);
+  const [appbarHeight, setAppbarHeight] = useState(0);
+  const handleAppbarRef = (node: HTMLDivElement | null) => {
+    if (node) {
+      setAppbarHeight(node.offsetHeight);
+    }
+  };
+
   const [containerHeight, setContainerHeight] = useState<number>(0);
   const [containerWidth, setContainerWidth] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
-      let calculatedHeight = window.innerHeight;
-      let calculatedWidth = window.innerWidth;
-      if (appbarRef.current) {
-        calculatedHeight -= appbarRef.current.offsetHeight;
-      }
+      const calculatedHeight = window.innerHeight - appbarHeight;
+      const calculatedWidth = window.innerWidth;
       setContainerHeight(calculatedHeight);
       setContainerWidth(calculatedWidth);
     };
@@ -49,7 +52,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [appbarRef]);
+  }, [appbarHeight]);
 
   if (fsmStateError || fsmError) {
     throw new Error("Error loading FSM data");
@@ -62,7 +65,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   return (
     <Box position={'relative'}>
       {fsmState.show_appbar && (
-        <Box ref={appbarRef}>
+        <Box ref={handleAppbarRef}>
           <Appbar mode={isMentor ? 'MENTOR_FSM' : 'FSM'} position="relative" />
         </Box>
       )}
