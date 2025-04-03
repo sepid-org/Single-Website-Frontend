@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   TextField,
   Typography,
@@ -6,24 +7,32 @@ import {
 import React, { FC, Fragment, useState } from 'react';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
+import { useUpdateWebsiteMutation } from 'apps/website-factory/redux/features/website/WebsiteSlice';
 
-type WebsiteInfoTabPropsType = {
-
-}
+type WebsiteInfoTabPropsType = {}
 
 const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
 
 }) => {
   const { data: website } = useGetWebsiteQuery();
-  const [academyName, setAcademyName] = useState('');
-  const [mobileAcademyLogo, setMobileAcademyLogo] = useState('');
-  const [desktopAcademyLogo, setDesktopAcademyLogo] = useState('');
+  const [title, setAcademyTitle] = useState(website.title);
+  const [mobileLogo, setMobileAcademyLogo] = useState(website.logo?.mobile_image);
+  const [desktopLogo, setDesktopAcademyLogo] = useState(website.logo?.desktop_image);
+  const [updateWebsite, updateWebsiteResult] = useUpdateWebsiteMutation();
+
+  const handleClick = () => {
+    updateWebsite({
+      title,
+      mobile_image: mobileLogo,
+      desktop_image: desktopLogo,
+    })
+  }
 
   return (
     <Fragment>
       <Grid
         container item
-        spacing={5}
+        spacing={2}
         alignItems="center"
         justifyContent="center"
         direction="row">
@@ -33,8 +42,8 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         <Grid item xs={12}>
           <TextField
             label={'عنوان آموزشگاه'}
-            value={academyName}
-            onChange={(e) => setAcademyName(e.target.value)}
+            value={title}
+            onChange={(e) => setAcademyTitle(e.target.value)}
             variant='outlined'
             size='medium'
             sx={{ minWidth: '50%' }}
@@ -43,7 +52,7 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         <Grid item xs={12} sm={6}>
           <Typography>{'لوگوی حالت موبایل:'}</Typography>
           <ProfileImageUploader
-            file={mobileAcademyLogo}
+            file={mobileLogo}
             setFile={setMobileAcademyLogo}
             id={'mobile'}
           />
@@ -51,10 +60,15 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         <Grid item xs={12} sm={6}>
           <Typography>{'لوگوی حالت دسکتاپ:'}</Typography>
           <ProfileImageUploader
-            file={desktopAcademyLogo}
+            file={desktopLogo}
             setFile={setDesktopAcademyLogo}
             id={'desktop'}
           />
+        </Grid>
+        <Grid>
+          <Button onClick={handleClick}>
+            {'ثبت'}
+          </Button>
         </Grid>
       </Grid>
     </Fragment>
