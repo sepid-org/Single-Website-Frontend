@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FormControl, Select, MenuItem, Typography } from '@mui/material';
 
 interface FontSelectorProps{

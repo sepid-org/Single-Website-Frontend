@@ -35,18 +35,18 @@ const tabs: DashboardTabType[] = [
     component: <ArticlesTab />,
   },
   {
-    slug: 'third-parties',
-    label: 'افزونه‌ها',
-    icon: ExtensionIcon,
-    component: <ThirdPartiesTab />,
-    disabled: true,
-  },
-  {
     slug: 'appearance',
     label: 'تنظیمات ظاهری',
     icon: VisibilityIcon,
     component: <AppearanceTab />,
     disabled: false,
+  },
+  {
+    slug: 'third-parties',
+    label: 'افزونه‌ها',
+    icon: ExtensionIcon,
+    component: <ThirdPartiesTab />,
+    disabled: true,
   },
   {
     slug: 'statistics',

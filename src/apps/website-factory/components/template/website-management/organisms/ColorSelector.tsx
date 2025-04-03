@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid, Button, Dialog, DialogTitle, DialogContent, DialogActions, Typography, Stack } from '@mui/material';
+import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack } from '@mui/material';
 import { ChromePicker } from 'react-color';
 
 const predefinedPalettes = [
@@ -34,13 +34,13 @@ const colorTranslations = {
   text: 'متن',
 }
 
-interface ColorPaletteSelectorProps{
+interface ColorPaletteSelectorProps {
   selectedColors: any;
   setSelectedColors: any;
 }
 
-const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({selectedColors, setSelectedColors}) => {
-  
+const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedColors, setSelectedColors }) => {
+
   const [openDialog, setOpenDialog] = useState(false);
   const [currentColorKey, setCurrentColorKey] = useState('');
   const [currentColor, setCurrentColor] = useState('');
@@ -87,7 +87,8 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({selectedColo
         {Object.entries(selectedColors).map(([key, value]) => (
           <Grid
             item
-            xs={2}
+            xs={12 / 5}
+            md={2}
             key={key}
             onClick={() => handleColorClick(key)}
             sx={{
@@ -114,8 +115,8 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({selectedColo
 
       <Grid item container xs={12}>
         <Grid item xs={12}>
-          <Typography>
-            {'پالت‌های پیشنهادی'}
+          <Typography gutterBottom>
+            {'پالت‌های پیشنهادی:'}
           </Typography>
         </Grid>
         <Grid
