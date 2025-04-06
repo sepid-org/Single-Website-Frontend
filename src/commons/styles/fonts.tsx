@@ -1,6 +1,26 @@
 const staticBaseUrl = 'https://static.sepid.org';
 
-const IranYekanFontVariants = [
+const EstedadFontVariants = [
+  { weight: 100, name: 'Thin' },
+  { weight: 200, name: 'ExtraLight' },
+  { weight: 300, name: 'Light' },
+  { weight: 400, name: 'Regular' },
+  { weight: 500, name: 'Medium' },
+  { weight: 600, name: 'SemiBold' },
+  { weight: 700, name: 'Bold' },
+  { weight: 800, name: 'Extrabold' },
+  { weight: 900, name: 'Black' },
+];
+
+const VazirFontVariants = [
+  { weight: 100, name: 'Thin' },
+  { weight: 300, name: 'Light' },
+  { weight: 400, name: 'Regular' },
+  { weight: 500, name: 'Medium' },
+  { weight: 700, name: 'Bold' },
+];
+
+const IranyekanFontVariants = [
   { weight: 100, name: 'Thin' },
   { weight: 300, name: 'Light' },
   { weight: 400, name: 'Regular' },
@@ -11,7 +31,7 @@ const IranYekanFontVariants = [
   { weight: 950, name: 'Extrablack' }
 ];
 
-const PinarFDFontVariants = [
+const PinarFontVariants = [
   { weight: 300, name: 'Light' },
   { weight: 400, name: 'Regular' },
   { weight: 500, name: 'Medium' },
@@ -22,20 +42,47 @@ const PinarFDFontVariants = [
 ];
 
 
-const IranYekanFontFaceDeclarations = IranYekanFontVariants
+const EstedadFontFaceDeclarations = EstedadFontVariants
   .map(({ weight, name }) => `
     @font-face {
-      font-family: 'IRANYekan';
+      font-family: 'Estedad';
       font-style: normal;
       font-weight: ${weight};
-      src: local('IRANYekan'),
+      src: local('Estedad'),
+           url('${staticBaseUrl}/fonts/Estedad-${name}.woff2') format('woff2');
+      font-display: swap;
+    }
+  `)
+  .join('');
+
+const VazirFontFaceDeclarations = VazirFontVariants
+  .map(({ weight, name }) => `
+    @font-face {
+      font-family: 'Vazir';
+      font-style: normal;
+      font-weight: ${weight};
+      src: local('Vazir'),
+           url('${staticBaseUrl}/fonts/Vazir-${name}.woff2') format('woff2');
+      font-display: swap;
+    }
+  `)
+  .join('');
+
+
+const IranyekanFontFaceDeclarations = IranyekanFontVariants
+  .map(({ weight, name }) => `
+    @font-face {
+      font-family: 'Iranyekan';
+      font-style: normal;
+      font-weight: ${weight};
+      src: local('Iranyekan'),
            url('${staticBaseUrl}/fonts/Iranyekan-${name}.woff2') format('woff2');
       font-display: swap;
     }
   `)
   .join('');
 
-const PinarFontFaceDeclarations = PinarFDFontVariants
+const PinarFontFaceDeclarations = PinarFontVariants
   .map(({ weight, name }) => `
     @font-face {
       font-family: 'Pinar-FD';
@@ -48,9 +95,11 @@ const PinarFontFaceDeclarations = PinarFDFontVariants
   .join('');
 
 export const fontsStyles = `
-  ${IranYekanFontFaceDeclarations}
+  ${EstedadFontFaceDeclarations}
+  ${VazirFontFaceDeclarations}
+  ${IranyekanFontFaceDeclarations}
   ${PinarFontFaceDeclarations}
   * {
-    font-family: 'IRANYekan', 'Pinar-FD', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: Iranyekan, Pinar-FD, Estedad, Vazir, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;

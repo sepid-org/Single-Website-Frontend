@@ -1,12 +1,12 @@
 import React from 'react';
 import { FormControl, Select, MenuItem, Typography } from '@mui/material';
 
-interface FontSelectorProps{
+interface FontSelectorProps {
   selectedFont: any;
   setSelectedFont: any;
 }
 
-const FontSelector: React.FC<FontSelectorProps> = ({selectedFont, setSelectedFont}) => {
+const FontSelector: React.FC<FontSelectorProps> = ({ selectedFont, setSelectedFont }) => {
 
   const handleFontChange = (event) => {
     setSelectedFont(event.target.value);
@@ -14,13 +14,15 @@ const FontSelector: React.FC<FontSelectorProps> = ({selectedFont, setSelectedFon
 
   const fontMap = {
     'Pinar-FD': 'پینار',
-    'iranyekan': 'ایران‌یکان',
+    'Iranyekan': 'ایران‌یکان',
+    'Estedad': 'استعداد',
+    'Vazir': 'وزیر',
   };
 
-  const fonts = ['iranyekan', 'Pinar-FD'];
+  const fonts = ['Iranyekan', 'Pinar-FD', 'Estedad', 'Vazir'];
 
   return (
-		<FormControl fullWidth>
+    <FormControl fullWidth>
       <Select
         value={selectedFont}
         onChange={handleFontChange}
