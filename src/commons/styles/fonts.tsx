@@ -1,7 +1,7 @@
 const staticBaseUrl = 'https://static.sepid.org';
 
 
-const IranYekanfontVariants = [
+const IranYekanFontVariants = [
   { weight: 100, name: 'thin' },
   { weight: 300, name: 'light' },
   { weight: 400, name: 'regular' },
@@ -12,7 +12,7 @@ const IranYekanfontVariants = [
   { weight: 950, name: 'extrablack' }
 ];
 
-const PinarfontVariants = [
+const PinarFDFontVariants = [
   { weight: 900, name: 'Black' },
   { weight: 800, name: 'ExtraBold' },
   { weight: 700, name: 'Bold' },
@@ -20,7 +20,7 @@ const PinarfontVariants = [
 ];
 
 
-const IranYekanfontFaceDeclarations = IranYekanfontVariants
+const IranYekanfontFaceDeclarations = IranYekanFontVariants
   .map(({ weight, name }) => `
     @font-face {
       font-family: 'IRANYekan';
@@ -33,7 +33,7 @@ const IranYekanfontFaceDeclarations = IranYekanfontVariants
   `)
   .join('');
 
-const PinarfontFaceDeclarations = PinarfontVariants
+const PinarfontFaceDeclarations = PinarFDFontVariants
   .map(({ weight, name }) => `
     @font-face {
       font-family: 'Pinar-FD';

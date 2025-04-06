@@ -1,15 +1,7 @@
-import { createApi } from '@reduxjs/toolkit/query/react';
-import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
-import { WMS_URL } from 'commons/constants/Constants';
-import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
+import { WebsiteManagementServiceApi } from 'apps/website-display/redux/features/ManageWebsiteServiceApiSlice';
 
-type UpdateFontInputType = {
+type UpdateThemeInputType = {
   font: string;
-};
-
-type UpdateFontOutputType = {};
-
-type UpdatePaletteInputType = {
   primary: string;
   secondary: string;
   background: string;
@@ -17,33 +9,17 @@ type UpdatePaletteInputType = {
   accent: string;
 };
 
-type UpdatePaletteOutputType = {};
+type UpdateThemeOutputType = {};
 
-export const AppearanceSlice = createApi({
-  reducerPath: 'appearance-settings-api',
-  tagTypes,
-  baseQuery: customBaseQuery({ baseUrl: WMS_URL + 'api/' }),
+export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
-    updateFont: builder.mutation<UpdateFontOutputType, UpdateFontInputType>({
-      query: (body: UpdateFontInputType) => ({
-        url: 'website/update-font/',
+    updateTheme: builder.mutation<UpdateThemeOutputType, UpdateThemeInputType>({
+      query: (body: UpdateThemeInputType) => ({
+        url: 'website/update-theme/',
         method: 'PATCH',
         body,
       }),
-      transformResponse: (response: any): UpdateFontOutputType => {
-        return {
-          message: response.message,
-        };
-      },
-    }),
-
-    updatePalette: builder.mutation<UpdatePaletteOutputType, UpdatePaletteInputType>({
-      query: (body: UpdatePaletteInputType) => ({
-        url: 'website/update-palette/',
-        method: 'PATCH',
-        body,
-      }),
-      transformResponse: (response: any): UpdatePaletteOutputType => {
+      transformResponse: (response: any): UpdateThemeOutputType => {
         return {
           message: response.message,
         };
@@ -53,6 +29,5 @@ export const AppearanceSlice = createApi({
 });
 
 export const {
-  useUpdateFontMutation,
-  useUpdatePaletteMutation,
+  useUpdateThemeMutation,
 } = AppearanceSlice;

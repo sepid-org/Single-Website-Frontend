@@ -1,9 +1,10 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { Button, Divider, Grid, Typography } from '@mui/material';
-import { useUpdateFontMutation, useUpdatePaletteMutation } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
+import { useUpdateThemeMutation } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
 import ColorPaletteSelector from 'apps/website-factory/components/template/website-management/organisms/ColorSelector';
 import FontSelector from 'apps/website-factory/components/template/website-management/organisms/FontSelector';
+import { toast } from 'react-toastify';
 
 type AppearanceTabPropsType = {
 }
@@ -19,22 +20,20 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
     accent: '',
   });
   const [selectedFont, setSelectedFont] = useState('iranyekan');
-  const [updateFont] = useUpdateFontMutation();
-  const [updatePalette] = useUpdatePaletteMutation();
+  const [updateTheme, updateThemeResult] = useUpdateThemeMutation();
 
-  const handleFontUpdate = async () => {
-    try {
-      const result = await updateFont({ font: selectedFont });
-    } catch (error) {
-    }
+  const handleThemeUpdate = async () => {
+    updateTheme({
+      font: selectedFont,
+      ...selectedColors,
+    });
   };
 
-  const handlePaletteUpdate = async () => {
-    try {
-      const result = await updatePalette(selectedColors);
-    } catch (error) {
+  useEffect(() => {
+    if (updateThemeResult.isSuccess) {
+      toast.success('تم سایت با موفقیت به‌روز شد.')
     }
-  };
+  }, [updateThemeResult])
 
   return (
     <Grid
@@ -84,10 +83,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
         <Grid item>
           <Button
             variant='outlined'
-            onClick={() => {
-              handleFontUpdate();
-              handlePaletteUpdate();
-            }}
+            onClick={handleThemeUpdate}
             size='large'
           >
             {'ثبت'}
