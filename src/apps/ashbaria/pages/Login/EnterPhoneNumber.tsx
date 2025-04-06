@@ -23,7 +23,7 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
         phoneNumber,
       });
     }
-  }, [getVerificationCodeResult]);
+  }, [getVerificationCodeResult.isSuccess]);
 
   const handleGetVerificationCode = () => {
     if (!isPhoneNumber(phoneNumber)) {

@@ -40,7 +40,7 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
     if (updateMerchandiseResult.isSuccess) {
       toast.success('بلیط با موفقیت به‌روز شد.')
     }
-  }, [updateMerchandiseResult])
+  }, [updateMerchandiseResult.isSuccess])
 
   const onSubmit = () => {
     if (merchandise.discounted_price > merchandise.price) {

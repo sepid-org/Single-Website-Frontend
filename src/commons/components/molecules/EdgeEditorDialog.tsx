@@ -31,19 +31,19 @@ const EdgeEditorDialog: FC<EdgeEditorDialogPropsType> = ({
     if (createFSMEdgeResult.isSuccess) {
       onClose();
     }
-  }, [createFSMEdgeResult])
+  }, [createFSMEdgeResult.isSuccess])
 
   useEffect(() => {
     if (updateFSMEdgeResult.isSuccess) {
       onClose();
     }
-  }, [updateFSMEdgeResult])
+  }, [updateFSMEdgeResult.isSuccess])
 
   useEffect(() => {
     if (deleteFSMEdgeResult.isSuccess) {
       onClose();
     }
-  }, [deleteFSMEdgeResult])
+  }, [deleteFSMEdgeResult.isSuccess])
 
   useEffect(() => {
     if (initialEdge) {

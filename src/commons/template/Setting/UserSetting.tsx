@@ -58,7 +58,7 @@ const UserSetting: FC<UserSettingPropsType> = ({
       toast.success('اطلاعات با موفقیت ثبت شد');
       onSuccessfulSubmission?.()
     }
-  }, [updateUserProfileResult])
+  }, [updateUserProfileResult.isSuccess])
 
   if (!userProfile) return null;
 

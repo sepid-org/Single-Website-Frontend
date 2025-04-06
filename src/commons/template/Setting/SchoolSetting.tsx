@@ -38,11 +38,11 @@ const SchoolSetting: FC<SchoolSettingPropsType> = ({
   }, [isFetching])
 
   useEffect(() => {
-    if (updateUserStudentshipResult?.isSuccess) {
+    if (updateUserStudentshipResult.isSuccess) {
       toast.success('اطلاعات با موفقیت ثبت شد');
       onSuccessfulSubmission?.()
     }
-  }, [updateUserStudentshipResult])
+  }, [updateUserStudentshipResult.isSuccess])
 
   if (!userProfile || !schoolStudentship) return null;
 

@@ -47,7 +47,7 @@ const Edges: FC<IndexPropsType> = ({ }) => {
     if (createFSMEdgeResult.isSuccess) {
       setNewEdge(newEdgeInitialValue);
     }
-  }, [createFSMEdgeResult])
+  }, [createFSMEdgeResult.isSuccess])
 
   return (
     <Stack>

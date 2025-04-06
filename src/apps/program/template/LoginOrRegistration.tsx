@@ -46,7 +46,7 @@ const LoginOrRegistration: FC<PropsType> = ({
     if (getVerificationCodeResult.isSuccess) {
       toast.success('کد تایید فرستاده شد! این کد بعد از ۵ دقیقه منقضی می‌شود');
     }
-  }, [getVerificationCodeResult])
+  }, [getVerificationCodeResult.isSuccess])
 
   const handleRegularLogin = () => {
     if (!phoneNumber || !password) {
@@ -59,7 +59,7 @@ const LoginOrRegistration: FC<PropsType> = ({
     if (simpleLoginResult.isSuccess || otpLoginResult.isSuccess) {
       onSuccessfulSubmission()
     }
-  }, [simpleLoginResult, otpLoginResult])
+  }, [simpleLoginResult.isSuccess, otpLoginResult.isSuccess])
 
   const handleOtpLogin = () => {
     otpLogin({ phoneNumber: formatPhoneNumber(phoneNumber), verificationCode });

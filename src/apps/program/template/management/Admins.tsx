@@ -34,7 +34,7 @@ const AdminTab: FC<AdminsTabPropsType> = ({ }) => {
     if (addAdminToProgramResult.isSuccess) {
       setUsername('');
     }
-  }, [addAdminToProgramResult])
+  }, [addAdminToProgramResult.isSuccess])
 
   const removeAdmin = (username) => {
     removeAdminFromProgram({ programSlug, username })

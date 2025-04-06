@@ -36,7 +36,7 @@ const EnterVerificationCode: FC = () => {
       localStorage.setItem(TIMER_KEY, endTime.toString());
       setCountdown(90);
     }
-  }, [getVerificationCodeResult]);
+  }, [getVerificationCodeResult.isSuccess]);
 
   useEffect(() => {
     let timer: NodeJS.Timeout;

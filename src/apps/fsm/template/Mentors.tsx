@@ -35,7 +35,7 @@ const Mentors: FC<MentorsPropsType> = ({ }) => {
     if (addMentorToFSMResult.isSuccess) {
       setUsername('');
     }
-  }, [addMentorToFSMResult])
+  }, [addMentorToFSMResult.isSuccess])
 
   const removeMentor = (username) => {
     removeMentorFromFSM({

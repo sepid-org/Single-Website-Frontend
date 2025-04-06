@@ -34,14 +34,14 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({
         window.location.href = `/program/${programSlug}/purchase/?status=success`;
       }
     }
-  }, [purchaseResult])
+  }, [purchaseResult.isSuccess])
 
   useEffect(() => {
     if (applyDiscountCodeResult.isSuccess) {
       toast.success('کد تخفیف با موفقیت اعمال شد.');
       setPrice(applyDiscountCodeResult.data.new_price);
     }
-  }, [applyDiscountCodeResult])
+  }, [applyDiscountCodeResult.isSuccess])
 
   const handlePurchase = () => {
     purchase({ merchandiseId: merchandise.id, discountCode });

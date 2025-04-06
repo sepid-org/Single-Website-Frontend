@@ -66,7 +66,7 @@ const FriendshipNetworkPage = () => {
           />
       })
     }
-  }, [completeMissionResult])
+  }, [completeMissionResult.isSuccess, completeMissionResult.isError])
 
   useEffect(() => {
     if (followResult.isSuccess) {
@@ -94,7 +94,7 @@ const FriendshipNetworkPage = () => {
         })
       }
     }
-  }, [followResult])
+  }, [followResult.isSuccess, followResult.isError])
 
   const copyToClipboardWrapper = () => {
     if (myFriendshipNetwork) {

@@ -49,7 +49,7 @@ const useMultiChoiceQuestionProperties = ({
       _setUploadedFileLink('');
       onAnswerChange({ answer_file: '' });
     }
-  }, [clearQuestionAnswerResult])
+  }, [clearQuestionAnswerResult.isSuccess])
 
   const setUploadedFileLink = (link) => {
     _setUploadedFileLink(link);

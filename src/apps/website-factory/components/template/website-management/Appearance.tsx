@@ -33,7 +33,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
     if (updateThemeResult.isSuccess) {
       toast.success('تنظیمات ظاهری با موفقیت به‌روز شد.')
     }
-  }, [updateThemeResult])
+  }, [updateThemeResult.isSuccess])
 
   return (
     <Grid

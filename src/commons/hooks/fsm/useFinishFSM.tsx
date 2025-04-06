@@ -14,7 +14,7 @@ const useFinishFSM = () => {
     if (finishFSMResult.isSuccess) {
       navigate(`/fsm/${fsmId}/player/${player.id}/completion`);
     }
-  }, [finishFSMResult])
+  }, [finishFSMResult.isSuccess])
 
   const finishFSM = useCallback(() => {
     if (!player?.id) return;

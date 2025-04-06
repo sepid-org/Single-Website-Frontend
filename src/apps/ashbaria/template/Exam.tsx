@@ -29,10 +29,10 @@ const ExamTemplate: FC<PropsType> = () => {
   }
 
   useEffect(() => {
-    if (finishFSMResult?.isSuccess || finishFSMResult?.isError) {
+    if (finishFSMResult.isSuccess || finishFSMResult.isError) {
       localNavigate("/exam-result/");
     }
-  }, [finishFSMResult])
+  }, [finishFSMResult.isSuccess, finishFSMResult.isError])
 
   return (
     <Stack

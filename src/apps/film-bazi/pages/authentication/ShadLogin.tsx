@@ -46,7 +46,7 @@ const ShadLogin: FC<PropsType> = ({ }) => {
     if (uuidLoginResult.isSuccess) {
       localNavigate('/');
     }
-  }, [uuidLoginResult]);
+  }, [uuidLoginResult.isSuccess]);
 
   if (uuidLoginResult.isLoading) {
     return (

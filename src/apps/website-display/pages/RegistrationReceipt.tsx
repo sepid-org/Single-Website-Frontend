@@ -54,13 +54,13 @@ const RegistrationReceipt: FC<RegistrationReceiptPropsType> = ({
     if (confirmRegistrationResult.isSuccess) {
       toast.success('وضعیت ثبت‌نام با موفقیت قطعی شد.')
     }
-  }, [confirmRegistrationResult])
+  }, [confirmRegistrationResult.isSuccess])
 
   useEffect(() => {
     if (updateRegistrationStatusResult.isSuccess) {
       toast.success('وضعیت ثبت‌نام با موفقیت به‌روز شد.')
     }
-  }, [updateRegistrationStatusResult])
+  }, [updateRegistrationStatusResult.isSuccess])
 
 
   const handleConfirmRegistration = () => {

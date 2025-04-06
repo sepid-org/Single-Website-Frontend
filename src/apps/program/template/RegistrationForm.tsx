@@ -42,7 +42,7 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
     if (submitRegistrationFormResult.isError) {
       onFailure?.();
     }
-  }, [submitRegistrationFormResult])
+  }, [submitRegistrationFormResult.isSuccess, submitRegistrationFormResult.isError])
 
   if (!program || !registrationForm) return null;
 
