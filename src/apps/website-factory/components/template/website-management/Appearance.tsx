@@ -31,7 +31,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
 
   useEffect(() => {
     if (updateThemeResult.isSuccess) {
-      toast.success('تم سایت با موفقیت به‌روز شد.')
+      toast.success('تنظیمات ظاهری با موفقیت به‌روز شد.')
     }
   }, [updateThemeResult])
 
