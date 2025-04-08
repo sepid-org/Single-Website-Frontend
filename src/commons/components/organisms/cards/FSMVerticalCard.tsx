@@ -48,7 +48,7 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
         width: '100%',
         display: 'flex',
         flexDirection: 'column',
-        height: 380,
+        height: 360,
         cursor: isCardEnabled ? 'pointer' : 'default',
         opacity: isCardEnabled ? 1 : 0.6,
         transition: 'opacity 0.3s, box-shadow 0.3s',
@@ -119,12 +119,14 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
             </Typography>
             <Stack direction="row" alignItems="center" spacing={1}>
               {/* {fsm?.has_entrance_lock && <Lock fontSize="small" />} */}
-              <Chip
-                icon={fsm?.fsm_p_type === 'Team' ? <Group /> : <Person />}
-                label={fsm?.fsm_p_type === 'Team' ? 'تیمی' : 'فردی'}
-                size="small"
-                variant="outlined"
-              />
+              {fsm?.fsm_p_type === 'Team' &&
+                <Chip
+                  icon={fsm?.fsm_p_type === 'Team' ? <Group /> : <Person />}
+                  label={fsm?.fsm_p_type === 'Team' ? 'تیمی' : 'فردی'}
+                  size="small"
+                  variant="outlined"
+                />
+              }
             </Stack>
           </CardContent>
         </Fragment>
