@@ -11,6 +11,26 @@ type UpdateThemeInputType = {
 
 type UpdateThemeOutputType = {};
 
+type ThemeBody = {
+  text: string;
+  accent: string;
+  primary: string;
+  secondary: string;
+  background: string;
+};
+
+type Theme = {
+  title: string;
+  body: ThemeBody;
+};
+
+type ThemesResponse = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: Theme[];
+};
+
 export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     updateTheme: builder.mutation<UpdateThemeOutputType, UpdateThemeInputType>({
@@ -25,9 +45,16 @@ export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
         };
       },
     }),
+
+    getThemeTemplates: builder.query<ThemesResponse, void>({
+      query: () => 'appearance/themes/templates/',
+      providesTags: ['ThemeTemplates'], // Add appropriate tag if needed
+    }),
+
   }),
 });
 
 export const {
   useUpdateThemeMutation,
+  useGetThemeTemplatesQuery
 } = AppearanceSlice;
