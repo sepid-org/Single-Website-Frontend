@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from 'react';
-
 import { Button, Divider, Grid, Typography } from '@mui/material';
 import { useUpdateThemeMutation } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
 import ColorPaletteSelector from 'apps/website-factory/components/template/website-management/organisms/ColorSelector';
 import FontSelector from 'apps/website-factory/components/template/website-management/organisms/FontSelector';
 import { toast } from 'react-toastify';
+import { useTheme } from '@mui/material/styles';
+
 
 type AppearanceTabPropsType = {
 }
@@ -12,12 +13,14 @@ type AppearanceTabPropsType = {
 const AppearanceTab: FC<AppearanceTabPropsType> = ({
 }) => {
 
+  const theme = useTheme();
+console.log(theme)
   const [selectedColors, setSelectedColors] = useState({
-    primary: '',
-    secondary: '',
-    background: '',
-    text: '',
-    accent: '',
+    primary: theme.palette.primary.main,
+    secondary: theme.palette.secondary.main,
+    background: theme.palette.background.default,
+    text: theme.palette.text.primary,
+    accent: theme.palette.accent,
   });
   const [selectedFont, setSelectedFont] = useState('iranyekan');
   const [updateTheme, updateThemeResult] = useUpdateThemeMutation();

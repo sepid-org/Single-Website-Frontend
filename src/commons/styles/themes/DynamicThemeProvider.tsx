@@ -8,7 +8,6 @@ const DynamicThemeProvider = ({ children }) => {
 	const [theme, setTheme] = useState(null);
 	const { data: website } = useGetWebsiteQuery();
 	const {data: pageMetadata} = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-
 	useEffect(() => {
 		const themeConfig = createTheme({
 			direction: 'rtl',

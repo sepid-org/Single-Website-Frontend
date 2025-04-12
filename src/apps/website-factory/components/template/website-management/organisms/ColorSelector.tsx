@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack } from '@mui/material';
+import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack, useTheme } from '@mui/material';
 import { ChromePicker } from 'react-color';
 import { useGetThemeTemplatesQuery } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
  
@@ -29,7 +29,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
     setOpenDialog(true);
   };
 
-  const handleColorChange = (color) => {
+  const handleColorChange  = (color) => {
     setCurrentColor(color.hex);
   };
 

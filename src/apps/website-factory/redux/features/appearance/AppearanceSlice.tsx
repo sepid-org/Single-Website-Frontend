@@ -48,7 +48,7 @@ export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
 
     getThemeTemplates: builder.query<ThemesResponse, void>({
       query: () => 'appearance/themes/templates/',
-      providesTags: ['ThemeTemplates'], // Add appropriate tag if needed
+      providesTags: ['ThemeTemplates'],
     }),
 
   }),
