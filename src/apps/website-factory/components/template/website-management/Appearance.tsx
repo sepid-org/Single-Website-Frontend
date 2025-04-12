@@ -14,7 +14,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
 }) => {
 
   const theme = useTheme();
-console.log(theme)
+
   const [selectedColors, setSelectedColors] = useState({
     primary: theme.palette.primary.main,
     secondary: theme.palette.secondary.main,
@@ -22,7 +22,7 @@ console.log(theme)
     text: theme.palette.text.primary,
     accent: theme.palette.accent,
   });
-  const [selectedFont, setSelectedFont] = useState('iranyekan');
+  const [selectedFont, setSelectedFont] = useState(theme.typography.fontFamily);
   const [updateTheme, updateThemeResult] = useUpdateThemeMutation();
 
   const handleThemeUpdate = async () => {
