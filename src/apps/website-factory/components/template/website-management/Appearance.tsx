@@ -23,7 +23,17 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
     accent: theme.palette.accent,
   });
   const [selectedFont, setSelectedFont] = useState(theme.typography.fontFamily);
+  const [disableRegister, setDisableRegister] = useState(true);
   const [updateTheme, updateThemeResult] = useUpdateThemeMutation();
+
+  const initialFont = theme.typography.fontFamily;
+  const initialPalette = {
+    primary: theme.palette.primary.main,
+    secondary: theme.palette.secondary.main,
+    background: theme.palette.background.default,
+    text: theme.palette.text.primary,
+    accent: theme.palette.accent,
+  }
 
   const handleThemeUpdate = async () => {
     updateTheme({
@@ -38,60 +48,78 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
     }
   }, [updateThemeResult.isSuccess])
 
+  useEffect(() => {
+    if(
+      selectedFont != initialFont || 
+      selectedColors.primary != initialPalette.primary ||
+      selectedColors.secondary != initialPalette.secondary ||
+      selectedColors.accent != initialPalette.accent ||
+      selectedColors.background != initialPalette.background ||
+      selectedColors.text != initialPalette.text
+    ){
+      setDisableRegister(false);
+    }
+  }, [selectedFont, selectedColors])
+
   return (
     <Grid
       container
       item
       spacing={2}
       alignItems="center"
-      justifyContent="center"
       direction="row"
     >
-      <Grid item container xs={12} spacing={2} style={{ marginTop: 2 }}>
-        <Grid item xs={12}>
+      <Grid
+        item
+        container
+        xs={12}
+        spacing={2}
+        sx={{ 
+          marginTop: 2,
+          justifyContent: 'space-between'
+        }}
+      >
+        <Grid item>
           <Typography variant='h2'>
             {'تنظیمات ظاهری'}
           </Typography>
         </Grid>
-        <Grid item xs={12} sm={6}>
-          <Typography
-            variant='h4'
-            sx={{ marginBottom: 1 }}
-          >
-            {'فونت'}
-          </Typography>
-          <FontSelector
-            selectedFont={selectedFont}
-            setSelectedFont={setSelectedFont}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item xs={12}>
-          <Typography
-            variant='h4'
-            sx={{ marginBottom: 1 }}
-          >
-            {'پالت رنگ'}
-          </Typography>
-          <ColorPaletteSelector
-            selectedColors={selectedColors}
-            setSelectedColors={setSelectedColors}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
         <Grid item>
           <Button
-            variant='outlined'
+            variant='contained'
+            disabled = {disableRegister}
             onClick={handleThemeUpdate}
-            size='large'
           >
             {'ثبت'}
           </Button>
         </Grid>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Typography
+          variant='h4'
+          sx={{ marginBottom: 1 }}
+        >
+          {'فونت'}
+        </Typography>
+        <FontSelector
+          selectedFont={selectedFont}
+          setSelectedFont={setSelectedFont}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <Divider />
+      </Grid>
+      <Grid item xs={12}>
+        <Typography
+          variant='h4'
+          sx={{ marginBottom: 1 }}
+        >
+          {'پالت رنگ'}
+        </Typography>
+        <ColorPaletteSelector
+          selectedColors={selectedColors}
+          setSelectedColors={setSelectedColors}
+        />
       </Grid>
     </Grid>
   );
