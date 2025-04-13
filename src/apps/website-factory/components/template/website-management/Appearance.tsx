@@ -52,7 +52,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({ }) => {
     } else {
       setDisableSubmit(false);
     }
-  }, [selectedFont, selectedColors])
+  }, [initialFont, initialPalette, selectedFont, selectedColors])
 
   return (
     <Grid container spacing={2} alignItems="center">

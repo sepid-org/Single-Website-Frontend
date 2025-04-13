@@ -35,14 +35,23 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({ }) => {
   }
 
   useEffect(() => {
-    if (shallowEqual(title, initialTitle)
-      && shallowEqual(desktopLogo, initialDesktopLogo)
-      && shallowEqual(mobileLogo, initialMobileLogo)) {
+    if (shallowEqual(
+      {
+        a: title,
+        b: desktopLogo,
+        c: mobileLogo,
+      },
+      {
+        a: initialTitle,
+        b: initialDesktopLogo,
+        c: initialMobileLogo,
+      }
+    )) {
       setDisableSubmit(true);
     } else {
       setDisableSubmit(false);
     }
-  }, [title, desktopLogo, mobileLogo])
+  }, [title, desktopLogo, mobileLogo, initialTitle, initialDesktopLogo, initialMobileLogo])
 
   useEffect(() => {
     if (updateWebsiteResult.isSuccess) {

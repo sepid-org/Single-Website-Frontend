@@ -8,6 +8,7 @@ type WebsitePermissionsType = {
 export const WebsiteSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getWebsite: builder.query<WebsiteType, void>({
+      providesTags: [{ type: 'Website' }],
       query: () => `website/get-website/`,
     }),
     getWebsitePermission: builder.query<WebsitePermissionsType, void>({

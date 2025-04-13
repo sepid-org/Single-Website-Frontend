@@ -34,6 +34,7 @@ type ThemesResponse = {
 export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     updateTheme: builder.mutation<UpdateThemeOutputType, UpdateThemeInputType>({
+      invalidatesTags: [{ type: 'Website' }],
       query: (body: UpdateThemeInputType) => ({
         url: 'website/update-theme/',
         method: 'PATCH',
