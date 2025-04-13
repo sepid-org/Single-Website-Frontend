@@ -5,13 +5,11 @@ import ColorPaletteSelector from 'apps/website-factory/components/template/websi
 import FontSelector from 'apps/website-factory/components/template/website-management/organisms/FontSelector';
 import { toast } from 'react-toastify';
 import { useTheme } from '@mui/material/styles';
+import { shallowEqual } from 'commons/utils/ObjectEqualityChecker';
 
+type AppearanceTabPropsType = {}
 
-type AppearanceTabPropsType = {
-}
-
-const AppearanceTab: FC<AppearanceTabPropsType> = ({
-}) => {
+const AppearanceTab: FC<AppearanceTabPropsType> = ({ }) => {
 
   const theme = useTheme();
 
@@ -23,7 +21,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
     accent: theme.palette.accent,
   });
   const [selectedFont, setSelectedFont] = useState(theme.typography.fontFamily);
-  const [disableRegister, setDisableRegister] = useState(true);
+  const [disableSubmit, setDisableSubmit] = useState(true);
   const [updateTheme, updateThemeResult] = useUpdateThemeMutation();
 
   const initialFont = theme.typography.fontFamily;
@@ -49,35 +47,21 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
   }, [updateThemeResult.isSuccess])
 
   useEffect(() => {
-    if(
-      selectedFont != initialFont || 
-      selectedColors.primary != initialPalette.primary ||
-      selectedColors.secondary != initialPalette.secondary ||
-      selectedColors.accent != initialPalette.accent ||
-      selectedColors.background != initialPalette.background ||
-      selectedColors.text != initialPalette.text
-    ){
-      setDisableRegister(false);
+    if (shallowEqual(selectedFont, initialFont) && shallowEqual(selectedColors, initialPalette)) {
+      setDisableSubmit(true);
+    } else {
+      setDisableSubmit(false);
     }
   }, [selectedFont, selectedColors])
 
   return (
-    <Grid
-      container
-      item
-      spacing={2}
-      alignItems="center"
-      direction="row"
-    >
+    <Grid container spacing={2} alignItems="center">
       <Grid
         item
         container
         xs={12}
         spacing={2}
-        sx={{ 
-          marginTop: 2,
-          justifyContent: 'space-between'
-        }}
+        justifyContent={'space-between'}
       >
         <Grid item>
           <Typography variant='h2'>
@@ -87,7 +71,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
         <Grid item>
           <Button
             variant='contained'
-            disabled = {disableRegister}
+            disabled={disableSubmit}
             onClick={handleThemeUpdate}
           >
             {'ثبت'}
@@ -95,10 +79,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
         </Grid>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Typography
-          variant='h4'
-          sx={{ marginBottom: 1 }}
-        >
+        <Typography variant='h3' gutterBottom>
           {'فونت'}
         </Typography>
         <FontSelector
@@ -110,10 +91,7 @@ const AppearanceTab: FC<AppearanceTabPropsType> = ({
         <Divider />
       </Grid>
       <Grid item xs={12}>
-        <Typography
-          variant='h4'
-          sx={{ marginBottom: 1 }}
-        >
+        <Typography variant='h3' gutterBottom>
           {'پالت رنگ'}
         </Typography>
         <ColorPaletteSelector
