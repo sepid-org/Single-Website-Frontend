@@ -1,30 +1,8 @@
 import React, { useState } from 'react';
-import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack } from '@mui/material';
+import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack, useTheme } from '@mui/material';
 import { ChromePicker } from 'react-color';
-
-const predefinedPalettes = [
-  {
-    primary: '#3f51b5',
-    secondary: '#f50057',
-    accent: '#f44336',
-    background: '#ffffff',
-    text: '#000000',
-  },
-  {
-    primary: '#90caf9',
-    secondary: '#f48fb1',
-    accent: '#e57373',
-    background: '#121212',
-    text: '#ffffff',
-  },
-  {
-    primary: '#a6d4fa',
-    secondary: '#f8bbd0',
-    accent: '#ffcdd2',
-    background: '#f3e5f5',
-    text: '#4a148c',
-  },
-];
+import { useGetThemeTemplatesQuery } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
+ 
 
 const colorTranslations = {
   primary: 'اصلی',
@@ -40,7 +18,7 @@ interface ColorPaletteSelectorProps {
 }
 
 const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedColors, setSelectedColors }) => {
-
+  const { data, isLoading, error } = useGetThemeTemplatesQuery();
   const [openDialog, setOpenDialog] = useState(false);
   const [currentColorKey, setCurrentColorKey] = useState('');
   const [currentColor, setCurrentColor] = useState('');
@@ -51,7 +29,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
     setOpenDialog(true);
   };
 
-  const handleColorChange = (color) => {
+  const handleColorChange  = (color) => {
     setCurrentColor(color.hex);
   };
 
@@ -73,7 +51,6 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
 
   return (
     <Grid container item xs={12}>
-      {/* Main Color Palette */}
       <Grid
         container
         item
@@ -125,7 +102,8 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
           xs={12}
           spacing={1}
         >
-          {predefinedPalettes.map((palette, index) => (
+          {data?.results
+          .map((palette, index) => (
             <Grid
               item
               xs={12}
@@ -136,7 +114,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
             >
               <Button
                 key={index}
-                onClick={() => handlePaletteSelect(palette)}
+                onClick={() => handlePaletteSelect(palette.body)}
                 sx={{
                   padding: 0,
                   textTransform: 'none',
@@ -149,7 +127,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
                   display={'flex'}
                   direction={'row'}
                 >
-                  {Object.entries(palette).map(([key, value]) => (
+                  {Object.entries(palette.body).map(([key, value]) => (
                     <Box
                       key={key}
                       sx={{
