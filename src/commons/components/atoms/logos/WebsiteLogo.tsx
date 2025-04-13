@@ -45,7 +45,7 @@ const WebsiteLogo: FC<WebsiteLogoPropsType> = ({
 
   return (
     <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to='/'>
-      <img alt="website-logo" unselectable="on" src={website.logo.desktop_image} style={{ maxWidth: logoSize.maxWidth, maxHeight: logoSize.maxHeight }} />
+      <img alt="website-logo" width={logoSize.width} height={logoSize.height} unselectable="on" src={website.logo.desktop_image} style={{ maxWidth: logoSize.maxWidth, maxHeight: logoSize.maxHeight }} />
     </IconButton>
   );
 }
