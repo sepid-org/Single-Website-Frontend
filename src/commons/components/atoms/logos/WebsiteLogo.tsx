@@ -51,7 +51,8 @@ const WebsiteLogo: FC<WebsiteLogoPropsType> = ({
           minHeight: logoSize.height,
           maxWidth: logoSize.maxWidth,
           maxHeight: logoSize.maxHeight,
-        }} />
+        }}
+      />
     </IconButton>
   );
 }
