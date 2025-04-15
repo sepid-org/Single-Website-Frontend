@@ -13,7 +13,7 @@ const FinishFSMButton: FC<PropsType> = ({ }) => {
       fullWidth
       variant="contained"
       color="primary"
-      onClick={finishFSM}>
+      onClick={() => finishFSM()}>
       {'پایان'}
     </Button>
   )
