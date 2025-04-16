@@ -72,10 +72,6 @@ const GameMenuPanel: FC<PropsType> = () => {
         )
       }
 
-      {/* <Typography textAlign={'center'}>
-          {'مهلت تا پایان دوره: ۱۷ روز'}
-        </Typography> */}
-
       <Button
         sx={{ background: 'linear-gradient(0deg, #006D5A 100%, #01BE9C 100%)' }}
         fullWidth variant='contained' onClick={() => localNavigate('/friendship-network/')}
@@ -119,7 +115,7 @@ const GameMenuPanel: FC<PropsType> = () => {
             <Typography color={'white'}>
               {isGetMyRankLoading ?
                 <Skeleton width={10} height={20} /> :
-                <>{myRank?.rank + 10 || '-'}</>
+                <>{myRank?.rank ? myRank?.rank + 10 : '-'}</>
               }
             </Typography>
           </Stack>
