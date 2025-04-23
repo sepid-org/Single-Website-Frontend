@@ -13,7 +13,7 @@ type AddMentorOutputType = {
 
 type DeleteMentorInputType = {
   fsmId: number;
-  username: string;
+  id: string;
 }
 
 type DeleteMentorOutputType = {

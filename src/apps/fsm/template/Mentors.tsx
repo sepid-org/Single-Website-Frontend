@@ -37,10 +37,10 @@ const Mentors: FC<MentorsPropsType> = ({ }) => {
     }
   }, [addMentorToFSMResult.isSuccess])
 
-  const removeMentor = (username) => {
+  const removeMentor = (id) => {
     removeMentorFromFSM({
       fsmId,
-      username,
+      id,
     });
   }
 
@@ -102,7 +102,7 @@ const Mentors: FC<MentorsPropsType> = ({ }) => {
           activities:
             <Tooltip title='حذف همیار' arrow>
               <IconButton size='small'
-                onClick={() => removeMentor(mentor.username)}>
+                onClick={() => removeMentor(mentor.id)}>
                 <ClearIcon />
               </IconButton>
             </Tooltip>
