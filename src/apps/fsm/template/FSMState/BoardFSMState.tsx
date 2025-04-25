@@ -70,12 +70,12 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         </Box>
       )}
       <Board
+        fsmStateId={fsmState.id}
         mode={mode}
         boardWidth={boardWidth}
         boardHeight={boardHeight}
         parentHeight={containerHeight}
         parentWidth={containerWidth}
-        paperIds={fsmState.papers}
       />
       {isMentor && (
         <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>
