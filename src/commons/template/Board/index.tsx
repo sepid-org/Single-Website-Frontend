@@ -15,7 +15,7 @@ export type PropsType = {
 
 type BoardState = {
   displayPapers: string[];
-  pendingPapers: string[] | null;
+  pendingPapers: string[];
   loadedSet: Set<string>;
 };
 
@@ -36,20 +36,18 @@ const Board: FC<PropsType> = ({
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],
-    pendingPapers: null,
+    pendingPapers: [],
     loadedSet: new Set(),
   });
-
-  console.log(boardState.loadedSet, boardState.pendingPapers, boardState.displayPapers);
 
   // whenever FSM query returns new paper IDs, start “pending” phase
   useEffect(() => {
     if (isStateSuccess && fsmState?.papers) {
-      setBoardState({
-        displayPapers: boardState.displayPapers, // keep old display
+      setBoardState((prev) => ({
+        ...prev,
         pendingPapers: fsmState.papers,
         loadedSet: new Set(),
-      });
+      }));
     }
   }, [isStateSuccess, fsmState?.papers]);
 
@@ -64,16 +62,15 @@ const Board: FC<PropsType> = ({
     []
   );
 
-  // once **all** pending paper‐IDs have loaded, flip to display them
+  // once "all" pending paper‐IDs have loaded, flip to display them
   useEffect(() => {
     if (
-      boardState.pendingPapers &&
       boardState.pendingPapers.length > 0 &&
       boardState.loadedSet.size === boardState.pendingPapers.length
     ) {
       setBoardState((prev) => ({
-        displayPapers: prev.pendingPapers || [],
-        pendingPapers: null,
+        displayPapers: prev.pendingPapers,
+        pendingPapers: [],
         loadedSet: new Set(),
       }));
     }
@@ -97,7 +94,7 @@ const Board: FC<PropsType> = ({
       ))}
 
       {/* concurrently mount the “new” pending papers in hidden mode */}
-      {boardState.pendingPapers?.map((paperId) => (
+      {boardState.pendingPapers.map((paperId) => (
         <Layer
           key={paperId}
           paperId={paperId}

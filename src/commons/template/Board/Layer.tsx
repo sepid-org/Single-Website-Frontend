@@ -28,7 +28,7 @@ const Layer: FC<LayerProps> = ({
     if (isSuccess && paper) {
       onLoaded?.();
     }
-  }, [isSuccess, paper, onLoaded]);
+  }, [isSuccess, paper]);
 
   const widgetsComponents = useMemo(
     () =>
