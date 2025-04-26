@@ -137,7 +137,7 @@ const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
               <Typography variant="body2" gutterBottom color={Yellow} fontSize={14}>
                 {`کارگردان: ${film.director.first_name} ${film.director.last_name}`}
               </Typography>
-              <Typography variant="caption" textAlign={'justify'}>
+              <Typography variant="caption">
                 {film.description}
               </Typography>
             </Stack>
