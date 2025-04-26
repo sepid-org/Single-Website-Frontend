@@ -1,30 +1,50 @@
 import React, { Fragment, useState } from 'react';
-import { Card, CardMedia, Typography, Box, Button, Stack, Skeleton } from '@mui/material';
+import { Card, CardMedia, Typography, Box, Button, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 import { FilmType } from '../../types';
 import DiscountDialog from './DiscountCodeDialog';
 import { Golden, Orange, Yellow } from 'apps/film-bazi/constants/colors';
 
-const HoverCard = styled(Card)(() => ({
+// Avoid forwarding custom prop to DOM
+const HoverCard = styled(Card, {
+  shouldForwardProp: (prop) => prop !== 'isFinished',
+})<{ isFinished: boolean }>(({ isFinished }) => ({
   borderRadius: '24px !important',
   position: 'relative',
   overflow: 'hidden',
   width: '100%',
   height: '100%',
-  aspectRatio: '2 / 3', // Adjust this ratio to match your typical card aspect ratio
+  aspectRatio: '2 / 3',
+  cursor: isFinished ? 'default' : 'pointer',
 }));
 
-const HoverContent = styled(Box)(({ theme }) => ({
+const HoverContent = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isFinished',
+})<{ isFinished: boolean }>(({ theme, isFinished }) => ({
   position: 'absolute',
   bottom: 0,
   left: 0,
   right: 0,
   top: 0,
-  background: 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #000000 96%)',
+  background: isFinished
+    ? 'rgba(0, 0, 0, 0.6)'
+    : 'linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, #000000 96%)',
   color: 'white',
   padding: theme.spacing(2),
-  opacity: 0,
+  opacity: isFinished ? 1 : 0,
   transition: 'opacity 0.3s ease-in-out',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+}));
+
+const FinishedOverlay = styled(Box)(() => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: 'rgba(0, 0, 0, 0.6)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -56,7 +76,6 @@ const StyledButton = styled(Button)(() => ({
 const ButtonContent = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
-  fontFamily: 'IRANSansX, iranyekan',
   fontSize: '24px',
   fontWeight: 700,
   lineHeight: '36px',
@@ -64,12 +83,16 @@ const ButtonContent = styled(Box)(() => ({
   color: Yellow,
 }));
 
-const FilmCard: React.FC<{ film: FilmType | null }> = ({ film }) => {
+const FilmCard: React.FC<{ film: FilmType }> = ({ film }) => {
   const [isCardHovered, setIsCardHovered] = useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
+  if (!film) return null;
+
+  const isFinished = film.status === 'finished';
+
   const handleOpenDialog = () => {
-    setIsDialogOpen(true);
+    if (!isFinished) setIsDialogOpen(true);
   };
 
   const handleCloseDialog = () => {
@@ -79,47 +102,52 @@ const FilmCard: React.FC<{ film: FilmType | null }> = ({ film }) => {
   return (
     <Fragment>
       <HoverCard
-        onMouseEnter={() => setIsCardHovered(true)}
-        onMouseLeave={() => setIsCardHovered(false)}
+        isFinished={isFinished}
+        onMouseEnter={() => !isFinished && setIsCardHovered(true)}
+        onMouseLeave={() => !isFinished && setIsCardHovered(false)}
       >
         <CardMedia
           component="img"
           image={film.image}
           alt={film.name}
-          sx={{
-            height: '100%',
-            objectFit: 'cover',
-          }}
+          sx={{ height: '100%', objectFit: 'cover' }}
         />
-        <HoverContent className="hoverContent" sx={{ opacity: isCardHovered || isDialogOpen ? 1 : 0 }}>
-          <Stack sx={{
-            padding: 2,
-            width: '100%',
-            position: 'absolute',
-            bottom: 0,
-          }}>
-            <Typography variant="h5" gutterBottom color={'#26B7B4'} fontWeight={700} fontSize={20}>
-              {film.name}
+
+        {isFinished ? (
+          <FinishedOverlay>
+            <Typography variant="h5" color="white" fontWeight={700}>
+              به پایان رسیده
             </Typography>
-            <Typography variant="body2" gutterBottom color={Yellow} fontSize={14} marginBottom={1}>
-              {`کارگردان: ${film.director.first_name} ${film.director.last_name}`}
-            </Typography>
-            <Typography variant="body2">
-              {film.description}
-            </Typography>
-          </Stack>
-          <StyledButton onClick={handleOpenDialog}>
-            <ButtonContent>
-              {'دریافت کد تخفیف'}
-            </ButtonContent>
-          </StyledButton>
-        </HoverContent>
+          </FinishedOverlay>
+        ) : (
+          <HoverContent
+            isFinished={isFinished}
+            sx={{ opacity: isCardHovered || isDialogOpen ? 1 : 0 }}
+          >
+            <Stack sx={{ padding: 2, width: '100%', position: 'absolute', bottom: 0 }}>
+              <Typography
+                variant="h5"
+                gutterBottom
+                color={'#26B7B4'}
+                fontWeight={700}
+                fontSize={20}
+              >
+                {film.name}
+              </Typography>
+              <Typography variant="body2" gutterBottom color={Yellow} fontSize={14}>
+                {`کارگردان: ${film.director.first_name} ${film.director.last_name}`}
+              </Typography>
+              <Typography variant="caption" textAlign={'justify'}>
+                {film.description}
+              </Typography>
+            </Stack>
+            <StyledButton onClick={handleOpenDialog}>
+              <ButtonContent>دریافت کد تخفیف</ButtonContent>
+            </StyledButton>
+          </HoverContent>
+        )}
       </HoverCard>
-      <DiscountDialog
-        open={isDialogOpen}
-        onClose={handleCloseDialog}
-        film={film}
-      />
+      <DiscountDialog open={isDialogOpen} onClose={handleCloseDialog} film={film} />
     </Fragment>
   );
 };
