@@ -18,7 +18,7 @@ const GRID_COLOR = '#ddd';
 const MIN_ZOOM_FOR_IMAGES = 2;
 const FONT_SIZE_BASE = 16;
 const FONT_SIZE_MIN = 12;
-const FONT_FAMILY = 'iranyekan';
+const FONT_FAMILY = 'IRANYekan';
 const TEXT_PADDING = 10;
 
 export {

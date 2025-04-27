@@ -14,6 +14,7 @@ export type FilmType = {
   image: string;
   director: ArtistType;
   description: string;
+  status: 'upcoming' | 'released' | 'finished';
   gisheh7_link: string;
 }
 

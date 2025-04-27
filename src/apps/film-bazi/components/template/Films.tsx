@@ -1,6 +1,7 @@
 import {
   Grid,
   Stack,
+  Typography,
 } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { Helmet } from "react-helmet";
@@ -20,6 +21,9 @@ const Films: FC<FilmsPropsType> = ({ }) => {
         <title>{`فیلم‌بازی | فیلم‌ها`}</title>
       </Helmet>
       <Stack>
+        <Typography gutterBottom mb={2} variant='h4' component={'p'} sx={{ fontWeight: 'bold' }}>
+          {'🎬 روی هر فیلمی که دلت می‌خواد ببینی کلیک کن و کد تخفیفت رو بگیر!'}
+        </Typography>
         <Grid container spacing={2}>
           {isLoading &&
             [1, 2, 3].map((index) => (

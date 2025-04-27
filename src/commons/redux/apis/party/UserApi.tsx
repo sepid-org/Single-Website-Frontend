@@ -102,7 +102,6 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     logout: builder.mutation<{ detail: string }, { refreshToken: string }>({
       invalidatesTags: ['UserAuthentication'],
-      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ refreshToken }) => ({
         url: 'auth/accounts/logout/',
         method: 'POST',
@@ -126,6 +125,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     createAccount: builder.mutation<CreateAccountOutputType, CreateAccountInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode, firstName, lastName, ...body }) => ({
         url: 'auth/accounts/',
         method: 'POST',
@@ -144,6 +144,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
       invalidatesTags: tagGenerationWithErrorCheck(['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication']),
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/simple-login/',
         method: 'POST',
@@ -153,6 +154,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     otpLogin: builder.mutation<OTPLoginOutputType, OTPLoginInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/otp-login/',
         method: 'POST',
@@ -165,6 +167,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     uuidLogin: builder.mutation<UUIDLoginOutputType, UUIDLoginInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: ({ userId, landingId, ...props }) => ({
         url: 'auth/accounts/uuid-login/',
         method: 'POST',
@@ -188,6 +191,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
 
     googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
       invalidatesTags: ['player', 'registration-receipt', { type: 'Profile', id: 'MY' }, 'UserAuthentication'],
+      onQueryStarted: invalidateMyTagsAcrossApis(),
       query: (body) => ({
         url: 'auth/accounts/google-login/',
         method: 'POST',

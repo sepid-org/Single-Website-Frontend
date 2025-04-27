@@ -10,23 +10,22 @@ import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteS
 import ProfileImageUploader from 'commons/components/molecules/profile-inputs/ProfileImageUploader';
 import { useUpdateWebsiteMutation } from 'apps/website-factory/redux/features/website/WebsiteSlice';
 import { toast } from 'react-toastify';
+import { shallowEqual } from 'commons/utils/ObjectEqualityChecker';
 
 type WebsiteInfoTabPropsType = {}
 
-const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
-
-}) => {
+const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({ }) => {
   const { data: website } = useGetWebsiteQuery();
   const [title, setAcademyTitle] = useState(website.title);
   const [mobileLogo, setMobileAcademyLogo] = useState(website.logo?.mobile_image);
   const [desktopLogo, setDesktopAcademyLogo] = useState(website.logo?.desktop_image);
   const [updateWebsite, updateWebsiteResult] = useUpdateWebsiteMutation();
-  const [disableRegister, setDisableRegister] = useState(true);
+  const [disableSubmit, setDisableSubmit] = useState(true);
 
   const initialTitle = website.title;
   const initialMobileLogo = website.logo?.mobile_image;
   const initialDesktopLogo = website.logo?.desktop_image;
-  
+
   const handleClick = () => {
     updateWebsite({
       title,
@@ -36,14 +35,23 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
   }
 
   useEffect(() => {
-      if(
-        title != initialTitle || 
-        desktopLogo != initialDesktopLogo ||
-        mobileLogo != initialMobileLogo
-      ){
-        setDisableRegister(false);
+    if (shallowEqual(
+      {
+        a: title,
+        b: desktopLogo,
+        c: mobileLogo,
+      },
+      {
+        a: initialTitle,
+        b: initialDesktopLogo,
+        c: initialMobileLogo,
       }
-    }, [title, desktopLogo, mobileLogo])
+    )) {
+      setDisableSubmit(true);
+    } else {
+      setDisableSubmit(false);
+    }
+  }, [title, desktopLogo, mobileLogo, initialTitle, initialDesktopLogo, initialMobileLogo])
 
   useEffect(() => {
     if (updateWebsiteResult.isSuccess) {
@@ -65,10 +73,7 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         container
         xs={12}
         spacing={2}
-        sx={{
-          marginTop: 2,
-          justifyContent: 'space-between'
-        }}
+        justifyContent={'space-between'}
       >
         <Grid item>
           <Typography variant='h2' gutterBottom>{'مشخصات آموزشگاه'}</Typography>
@@ -76,7 +81,7 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         <Grid item>
           <Button
             variant='contained'
-            disabled={disableRegister}
+            disabled={disableSubmit}
             onClick={handleClick}
           >
             {'ثبت'}

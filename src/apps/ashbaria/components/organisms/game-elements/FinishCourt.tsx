@@ -44,7 +44,6 @@ type FinishCourtPropsType = {}
 const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const fsmId = parseInt(useParams().fsmId);
-  const [clickedButton, setClickedButton] = useState<'return-to-home' | 'go-to-next-court'>('return-to-home');
   const [finishCourt, finishCourtResult] = useFinishCourtMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM();
   const { data: courts } = useGetCourtsQuery();
@@ -54,15 +53,10 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
 
   useEffect(() => {
     finishCourt({ fsmId });
-    finishFSM();
+    finishFSM(false);
   }, [])
 
-  const handleGoToNextCourt = () => {
-    setClickedButton('go-to-next-court');
-  }
-
   const handleGoToHome = () => {
-    setClickedButton('return-to-home');
     localNavigate(`/`);
   }
 

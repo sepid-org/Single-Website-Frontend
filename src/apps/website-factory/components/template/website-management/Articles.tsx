@@ -35,7 +35,7 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
         justifyContent="center"
         direction="row">
 
-        <Grid item container justifyContent='space-between' xs={12} spacing={2} style={{ marginTop: 2 }}>
+        <Grid item container justifyContent='space-between' xs={12} spacing={2}>
           <Grid item>
             <Typography variant='h2'>
               {'مقاله‌ها'}

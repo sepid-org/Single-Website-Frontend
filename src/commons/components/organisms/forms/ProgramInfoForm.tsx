@@ -137,6 +137,7 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <FormControlLabel
+          disabled={true}
           name='show_scores'
           checked={data.show_scores}
           onChange={() => toggleValue('show_scores')}

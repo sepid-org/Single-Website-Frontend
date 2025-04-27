@@ -11,6 +11,7 @@ type UpdateWebsiteOutputType = {};
 export const AppearanceSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     updateWebsite: builder.mutation<UpdateWebsiteOutputType, UpdateWebsiteInputType>({
+      invalidatesTags: [{ type: 'Website' }],
       query: (body: UpdateWebsiteInputType) => ({
         url: 'website/website/update-info/',
         method: 'PATCH',

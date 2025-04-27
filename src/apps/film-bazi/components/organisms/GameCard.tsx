@@ -55,7 +55,7 @@ const StyledButton = styled(Button)(() => ({
 const ButtonContent = styled(Box)(() => ({
   justifyContent: 'center',
   alignItems: 'center',
-  fontFamily: 'IRANSansX, iranyekan',
+  fontFamily: 'IRANSansX, IRANYekan',
   fontSize: '24px',
   fontWeight: 700,
   lineHeight: '36px',

@@ -39,10 +39,10 @@ const DashboardSidebar: FC<DashboardSidebarPropsType> = ({
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
       <Stack spacing={2} justifyContent={'space-between'}>
         <MyInfoChip />
-        {tab === 'films' ?
+        {/* {tab === 'films' ?
           <DashboardButton2 label='بازی‌ها' icon={<CupIcon />} onClick={() => { localNavigate(`/games/`) }} /> :
           <DashboardButton2 label='فیلم‌ها' icon={<MovieIcon />} onClick={() => { localNavigate(`/films/`) }} />
-        }
+        } */}
         <DashboardButton label='سرمایه من' icon={<TicketIcon />} onClick={() => { localNavigate(`/capital/`) }} />
         <DashboardButton label='جدول امتیازات' icon={<RankingIcon />} onClick={() => { localNavigate(`/scoreboard/`) }} />
         {programPermissions?.is_manager &&
