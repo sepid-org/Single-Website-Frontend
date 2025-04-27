@@ -44,7 +44,7 @@ export const customTheme = createTheme({
   },
   typography: {
     allVariants: {
-      fontFamily: 'Pinar-FD, iranyekan',
+      fontFamily: 'Pinar-FD, IRANYekan',
     },
     h1: {
       fontWeight: 800,

@@ -61,7 +61,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     const { hasError, isNetworkError } = this.state;
     const FONT_COLOR = '#3b4573';
     const RELOAD_BUTTON_BORDER_COLOR = '#9fa9cf';
-    const FONT_FAMILY = 'iranyekan';
+    const FONT_FAMILY = 'IRANYekan';
 
     if (hasError) {
       return (

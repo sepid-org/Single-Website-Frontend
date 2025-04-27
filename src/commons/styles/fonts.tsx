@@ -72,10 +72,10 @@ const VazirFontFaceDeclarations = VazirFontVariants
 const IranyekanFontFaceDeclarations = IranyekanFontVariants
   .map(({ weight, name }) => `
     @font-face {
-      font-family: 'Iranyekan';
+      font-family: 'IRANYekan';
       font-style: normal;
       font-weight: ${weight};
-      src: local('Iranyekan'),
+      src: local('IRANYekan'),
            url('${staticBaseUrl}/fonts/Iranyekan-${name}.woff2') format('woff2');
       font-display: swap;
     }
@@ -100,6 +100,6 @@ export const fontsStyles = `
   ${IranyekanFontFaceDeclarations}
   ${PinarFontFaceDeclarations}
   * {
-    font-family: Iranyekan, Pinar-FD, Estedad, Vazir, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: IRANYekan, Pinar-FD, Estedad, Vazir, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;

@@ -229,7 +229,7 @@ export const addNewTextNodeAction = ({ uuid }) =>
         draggable: true,
         width: 200,
         align: 'right',
-        fontFamily: 'iranyekan'
+        fontFamily: 'IRANYekan'
       }
     }
   })

@@ -14,12 +14,12 @@ const FontSelector: React.FC<FontSelectorProps> = ({ selectedFont, setSelectedFo
 
   const fontMap = {
     'Pinar-FD': 'پینار',
-    'Iranyekan': 'ایران‌یکان',
+    'IRANYekan': 'ایران‌یکان',
     'Estedad': 'استعداد',
     'Vazir': 'وزیر',
   };
 
-  const fonts = ['Iranyekan', 'Pinar-FD', 'Estedad', 'Vazir'];
+  const fonts = ['IRANYekan', 'Pinar-FD', 'Estedad', 'Vazir'];
 
   return (
     <FormControl fullWidth>
