@@ -4,8 +4,6 @@ import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Board from 'commons/template/Board';
-import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
 export type BoardFSMStatePropsType = {
@@ -21,13 +19,11 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   boardHeight,
   mode,
 }) => {
-  const { fsmId } = useFSMContext();
   const { isMentor } = useFSMStateContext();
   const { data: fsmState, error: fsmStateError } = useGetFSMStateQuery(
     { fsmStateId },
     { skip: !fsmStateId }
   );
-  const { data: fsm, error: fsmError } = useGetFSMQuery({ fsmId });
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
     if (node) {
@@ -54,11 +50,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     };
   }, [appbarHeight]);
 
-  if (fsmStateError || fsmError) {
-    throw new Error("Error loading FSM data");
-  }
-
-  if (!fsmState || !fsm || containerHeight === 0 || containerWidth === 0) {
+  if (!fsmState || containerHeight === 0 || containerWidth === 0) {
     return;
   }
 
@@ -81,9 +73,6 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>
           <CollapsibleTitle title="راهنمای همیاران">
             <Fragment>
-              <Typography>
-                {`کارگاه ${fsm.id}: ${fsm.name}`}
-              </Typography>
               <Typography>
                 {`گام ${fsmState.id}: ${fsmState.title}`}
               </Typography>

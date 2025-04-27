@@ -49,6 +49,7 @@ export type ProgramType = {
   start_date: string | null;
   team_size: number;
   is_public: boolean;
+  menu_first_state: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
@@ -154,7 +155,6 @@ export type PaperType = ObjectType & {
 export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
-  fsm: string;
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;
