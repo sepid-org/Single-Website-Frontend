@@ -97,7 +97,8 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
         <Divider />
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Typography>{'لوگوی حالت موبایل:'}</Typography>
+        <Typography>{'لوگوی حالت موبایل و آیکون سایت:'}</Typography>
+        <br />
         <ProfileImageUploader
           file={mobileLogo}
           setFile={setMobileAcademyLogo}
@@ -106,6 +107,7 @@ const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({
       </Grid>
       <Grid item xs={12} sm={6}>
         <Typography>{'لوگوی حالت دسکتاپ:'}</Typography>
+        <br />
         <ProfileImageUploader
           file={desktopLogo}
           setFile={setDesktopAcademyLogo}
