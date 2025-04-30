@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
+import useWindowDimensions from 'commons/hooks/useWindowDimensions';
 
 type ProgramPropsType = {}
 
@@ -12,7 +13,15 @@ const Program: FC<ProgramPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
 
-  // TODO: a lot of TOF (just is config for OliveSchool)
+  // TODO: a lot of TOF (just is config for OliveSchool). It should be got from state dimensions
+  // Board dimensions (configurable)
+  const boardWidth = 900;
+  const boardHeight = 1600;
+
+  // Determine mode based on aspect ratio
+  const { width, height } = useWindowDimensions();
+  const mode = width > height ? 'fit-height' : 'fit-width';
+
   if (program?.menu_first_state) {
     return (
       <FSMStateProvider
@@ -20,9 +29,9 @@ const Program: FC<ProgramPropsType> = ({ }) => {
         fsmStateId={program.menu_first_state}
       >
         <BoardFSMState
-          mode='fit-width'
-          boardWidth={900}
-          boardHeight={1600}
+          mode={mode}
+          boardWidth={boardWidth}
+          boardHeight={boardHeight}
           fsmStateId={program.menu_first_state}
         />
       </FSMStateProvider>
@@ -33,7 +42,7 @@ const Program: FC<ProgramPropsType> = ({ }) => {
     <PrivateProgramPageWrapper>
       <EventProgram />
     </PrivateProgramPageWrapper>
-  )
-}
+  );
+};
 
 export default Program;
