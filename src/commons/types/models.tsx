@@ -112,7 +112,7 @@ export type FSMType = {
   object_id: number;
   id: number;
   name: string;
-  first_state: FSMStateType;
+  first_state_id: string;
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';

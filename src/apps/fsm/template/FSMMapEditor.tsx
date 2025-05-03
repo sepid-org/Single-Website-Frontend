@@ -13,8 +13,8 @@ const FSMMapEditor = () => {
   const [firstState, setFirstState] = useState('')
 
   useEffect(() => {
-    if (fsm?.first_state) {
-      setFirstState(fsm.first_state.id);
+    if (fsm?.first_state_id) {
+      setFirstState(fsm.first_state_id);
     }
   }, [fsm])
 

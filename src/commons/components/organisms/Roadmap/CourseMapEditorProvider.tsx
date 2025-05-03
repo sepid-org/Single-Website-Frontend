@@ -61,7 +61,7 @@ const CourseMapEditor = () => {
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const { data: initialFsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 	const { data: fsm } = useGetFSMQuery({ fsmId });
-	const firstState = initialFsmStates.find(fsmState => fsmState.id === fsm?.first_state.id);
+	const firstState = initialFsmStates.find(fsmState => fsmState.id === fsm?.first_state_id);
 	const [fsmStates, setFSMStates] = useState<Partial<FSMStateType>[]>([]);
 	const [fsmEdges, setFSMEdges] = useState<Partial<FSMEdgeType>[]>([]);
 	const [updatePositions] = useUpdatePositionsMutation();
