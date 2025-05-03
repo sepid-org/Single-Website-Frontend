@@ -1,26 +1,46 @@
-import { useEffect, useState } from "react";
-import { useFSMContext } from "commons/hooks/useFSMContext";
-import { useGetFSMAllPapersQuery } from "../redux/slices/fsm/FSMSlice";
-import { useGetPaperQuery } from "apps/website-display/redux/features/paper/PaperSlice";
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMAllPapersQuery } from '../redux/slices/fsm/FSMSlice';
+import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 
 type PropsType = {
   paperId: string;
 };
 
-// module‑level cache shared across all hook instances
+// Shared flag and subscribers for all hook instances
+let sharedUseFullPapers = false;
+const subscribers = new Set<() => void>();
+
+// Notify all subscribers of flag change
+const notifySubscribers = () => {
+  Array.from(subscribers).forEach((callback) => callback());
+};
+
+// After 3 seconds, flip the flag and notify
+setTimeout(() => {
+  sharedUseFullPapers = true;
+  notifySubscribers();
+}, 3_000);
+
+// Hook to subscribe to the shared flag
+function useSharedUseFullPapers() {
+  return useSyncExternalStore(
+    (callback) => {
+      subscribers.add(callback);
+      return () => { subscribers.delete(callback); };
+    },
+    () => sharedUseFullPapers
+  );
+}
+
+// Module‑level cache shared across all hook instances
 const paperCache = new Map<string, any>();
 
 const useGetPaper = ({ paperId }: PropsType) => {
   const { fsmId } = useFSMContext();
-  const [useFullPapers, setUseFullPapers] = useState(false);
+  const useFullPapers = useSharedUseFullPapers();
 
-  // after 3 s switch from single‐item to full‐list
-  useEffect(() => {
-    const timer = setTimeout(() => setUseFullPapers(true), 3_000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // fire single‐paper query until useFullPapers flips
+  // Query single paper until shared flag is true
   const {
     data: singlePaper,
     isLoading: isSingleLoading,
@@ -31,7 +51,7 @@ const useGetPaper = ({ paperId }: PropsType) => {
     { skip: useFullPapers }
   );
 
-  // fire full‐papers query once useFullPapers is true
+  // Query full papers list once shared flag is true
   const {
     data: fullPapersData,
     isLoading: isFullLoading,
@@ -42,14 +62,12 @@ const useGetPaper = ({ paperId }: PropsType) => {
     { skip: !useFullPapers }
   );
 
-  // populate cache on single‐paper success
+  // Populate cache on single–paper success
   useEffect(() => {
-    if (singlePaper) {
-      paperCache.set(singlePaper.id, singlePaper);
-    }
+    if (singlePaper) paperCache.set(singlePaper.id, singlePaper);
   }, [singlePaper]);
 
-  // populate cache on full‐papers success
+  // Populate cache on full–papers success
   useEffect(() => {
     if (fullPapersData?.papers) {
       for (const p of fullPapersData.papers) {
@@ -60,14 +78,14 @@ const useGetPaper = ({ paperId }: PropsType) => {
 
   const isCached = paperCache.has(paperId);
 
-  // final paper: cache first, then whichever query is active
+  // Final paper comes from cache first, then active query
   const paper = paperCache.get(paperId)
     ?? (useFullPapers
       ? fullPapersData?.papers.find((p) => p.id === paperId)
       : singlePaper
     );
 
-  // mirror loading/success/error from the “live” query unless we’re already cached
+  // Mirror loading/success/error from active query unless cached
   const isLoading = isCached
     ? false
     : useFullPapers

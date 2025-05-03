@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useFSMContext } from "commons/hooks/useFSMContext";
 import { useGetFSMAllStatesQuery } from "../redux/slices/fsm/FSMSlice";
 import { useGetFSMStateQuery } from "../redux/slices/fsm/FSMStateSlice";
@@ -7,19 +7,37 @@ type PropsType = {
   fsmStateId: string;
 };
 
-// module‑level cache shared across all hook instances
+// shared flag and subscribers
+let sharedUseFullStates = false;
+const subscribers = new Set<() => void>();
+
+const notifySubscribers = () => {
+  Array.from(subscribers).forEach(cb => cb());
+};
+
+// switch flag after 3s
+setTimeout(() => {
+  sharedUseFullStates = true;
+  notifySubscribers();
+}, 3000);
+
+// subscribe to shared flag
+function useSharedUseFullStates() {
+  return useSyncExternalStore(
+    (callback) => {
+      subscribers.add(callback);
+      return () => subscribers.delete(callback);
+    },
+    () => sharedUseFullStates
+  );
+}
+
+// module-level cache
 const stateCache = new Map<string, any>();
 
 const useGetFSMState = ({ fsmStateId }: PropsType) => {
   const { fsmId } = useFSMContext();
-  const [useFullStates, setUseFullStates] = useState(false);
-
-  // after 3s switch from single‐item to full‐list
-  useEffect(() => {
-    const timer = setTimeout(() => setUseFullStates(true), 3_000);
-    return () => clearTimeout(timer);
-  }, []);
-
+  const useFullStates = useSharedUseFullStates();
   // always fire the single‐item query until `useFullStates` flips true
   const {
     data: singleState,
@@ -42,14 +60,14 @@ const useGetFSMState = ({ fsmStateId }: PropsType) => {
     { skip: !useFullStates }
   );
 
-  // update cache when single‐item comes back
+  // cache from single-state query
   useEffect(() => {
     if (singleState) {
       stateCache.set(singleState.id, singleState);
     }
   }, [singleState]);
 
-  // update cache when full‐list comes back
+  // cache from full list
   useEffect(() => {
     if (fullStatesData?.states) {
       for (const s of fullStatesData.states) {
@@ -59,33 +77,30 @@ const useGetFSMState = ({ fsmStateId }: PropsType) => {
   }, [fullStatesData]);
 
   // final value is always “cache first,” then whichever query is active
-  const cached = stateCache.has(fsmStateId);
+  const isCached = stateCache.has(fsmStateId);
   const fsmState = stateCache.get(fsmStateId)
     ?? (useFullStates
       ? fullStatesData?.states.find((s) => s.id === fsmStateId)
       : singleState
     );
 
-  // mirror loading/success/error from the “live” query unless we’re already cached
-  const isLoading = cached
+  const isLoading = isCached
     ? false
     : useFullStates
       ? isFullLoading
       : isSingleLoading;
 
-  const isSuccess = cached
+  const isSuccess = isCached
     ? true
     : useFullStates
       ? isFullSuccess
       : isSingleSuccess;
 
-  const error = cached
+  const error = isCached
     ? undefined
     : useFullStates
       ? fullError
       : singleError;
-
-  console.log(fsmStateId, stateCache.get(fsmStateId), fsmState)
 
   return { fsmState, isLoading, isSuccess, error };
 };
