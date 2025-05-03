@@ -13,14 +13,13 @@ import Layout from 'commons/template/Layout';
 import Timer from 'commons/components/molecules/Timer';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
-import useGetPaper from 'apps/fsm/hooks/useGetPaper';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
-  const { player, fsmId, useGetFSMState } = useFSMContext();
+  const { player, fsmId, useGetFSMState, useGetPaper } = useFSMContext();
   const { fsmState } = useGetFSMState({ fsmStateId })
   const paperId = fsmState?.papers[0];
   const { paper } = useGetPaper({ paperId });

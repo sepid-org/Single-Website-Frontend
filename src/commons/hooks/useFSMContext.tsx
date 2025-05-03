@@ -3,6 +3,7 @@ import { Dialog } from '@mui/material';
 import { PlayerMinimalType } from 'commons/types/models';
 import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useFSMStatesManager, { FSMStateResult } from 'apps/fsm/hooks/useFSMStatesManager';
+import useFSMPapersManager, { PaperResult } from 'apps/fsm/hooks/useFSMPapersManager';
 
 interface FSMContextType {
   fsmId: number;
@@ -12,6 +13,7 @@ interface FSMContextType {
   ) => void;
   closeDialog: () => void;
   useGetFSMState: ({ fsmStateId }: { fsmStateId: string }) => FSMStateResult;
+  useGetPaper: ({ paperId }: { paperId: string }) => PaperResult;
 }
 
 const FSMContext = createContext<FSMContextType | null>(null);
@@ -27,6 +29,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
 }) => {
   const { data: player } = useGetMyPlayerQuery({ fsmId: props.fsmId });
   const { useGetFSMState } = useFSMStatesManager({ fsmId: props.fsmId });
+  const { useGetPaper } = useFSMPapersManager({ fsmId: props.fsmId });
   const [open, setOpen] = useState(false);
   const [dialogProps, setDialogProps] = useState({
     children: null,
@@ -44,7 +47,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   };
 
   return (
-    <FSMContext.Provider value={{ ...props, player, openDialog, closeDialog, useGetFSMState }}>
+    <FSMContext.Provider value={{ ...props, player, openDialog, closeDialog, useGetFSMState, useGetPaper }}>
       {children}
       <Dialog open={open} onClose={closeDialog}>
         {dialogProps.children}
@@ -63,6 +66,7 @@ export const useFSMContext = (): FSMContextType => {
       openDialog: undefined,
       closeDialog: undefined,
       useGetFSMState: undefined,
+      useGetPaper: undefined,
     };
   }
   return context;

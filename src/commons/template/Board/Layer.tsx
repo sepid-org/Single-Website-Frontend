@@ -1,15 +1,16 @@
 import React, { FC, useMemo, useEffect } from 'react';
-import useGetPaper from 'apps/fsm/hooks/useGetPaper';
+import useGetPaper from 'apps/fsm/hooks/useFSMPapersManager';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 export type LayerProps = {
   paperId: string;
   widgetsMode: WidgetModes;
-  /** if true, we mount hidden (to pre-load data) */
+  /* if true, we mount hidden (to pre-load data) */
   hidden?: boolean;
-  /** called once when this paper’s data has arrived */
+  /* called once when this paper’s data has arrived */
   onLoaded?: () => void;
 };
 
@@ -19,6 +20,7 @@ const Layer: FC<LayerProps> = ({
   hidden = false,
   onLoaded,
 }) => {
+  const { useGetPaper } = useFSMContext();
   const { paper, isSuccess } = useGetPaper({ paperId });
   const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
