@@ -43,7 +43,7 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
   function useGetPaper({ paperId }: { paperId: number }): PaperResult {
     // single-paper query until full-list enabled
     const singleQuery = useGetPaperQuery(
-      { paperId: paperId.toString() },
+      { paperId: paperId?.toString() },
       { skip: useFullPapers || !paperId }
     );
 

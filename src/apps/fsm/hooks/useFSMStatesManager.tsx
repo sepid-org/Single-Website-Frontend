@@ -47,7 +47,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
   function useGetFSMState({ fsmStateId }: { fsmStateId: number }): FSMStateResult {
     // Single-item query
     const singleQuery = useGetFSMStateQuery(
-      { fsmStateId: fsmStateId.toString() },
+      { fsmStateId: fsmStateId?.toString() },
       { skip: useFullStates || !fsmStateId }
     );
 
