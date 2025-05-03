@@ -1,5 +1,5 @@
 import React, { useState, useEffect, FC, Fragment } from 'react';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
 import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -20,10 +20,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   mode,
 }) => {
   const { isMentor } = useFSMStateContext();
-  const { data: fsmState, error: fsmStateError } = useGetFSMStateQuery(
-    { fsmStateId },
-    { skip: !fsmStateId }
-  );
+  const { fsmState } = useGetFSMState({ fsmStateId });
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
     if (node) {

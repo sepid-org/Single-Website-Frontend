@@ -131,6 +131,10 @@ export type FSMFullStatesType = {
   states: FSMStateType[];
 }
 
+export type FSMFullPapersType = {
+  papers: PaperType[];
+}
+
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
 export type FormType = ObjectType & {

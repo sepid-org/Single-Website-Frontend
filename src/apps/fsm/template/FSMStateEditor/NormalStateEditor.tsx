@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { PaperEditor } from '../../../../commons/template/Paper';
+import { PaperEditor } from 'commons/template/Paper';
 import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 
 type NormalStateEditorPropsType = {

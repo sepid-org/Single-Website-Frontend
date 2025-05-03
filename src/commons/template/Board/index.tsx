@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
 import Frame from 'commons/template/Board/Frame';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
 
 export type PropsType = {
   fsmStateId: string;
@@ -28,11 +28,10 @@ const Board: FC<PropsType> = ({
   mode,
 }) => {
   const {
-    data: fsmState,
-    isFetching: isStateFetching,
+    fsmState,
     isSuccess: isStateSuccess,
     error: stateError,
-  } = useGetFSMStateQuery({ fsmStateId });
+  } = useGetFSMState({ fsmStateId });
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],

@@ -1,4 +1,4 @@
-import { FSMEdgeType, FSMPublicListType, FSMStateType, FSMType } from 'commons/types/models';
+import { FSMEdgeType, FSMPublicListType, FSMStateType, FSMType, FSMFullStatesType, FSMFullPapersType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
@@ -64,6 +64,16 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/`,
     }),
 
+    getFSMAllStates: builder.query<FSMFullStatesType, { fsmId: number }>({
+      providesTags: ['FSM'],
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/all-states/`,
+    }),
+
+    getFSMAllPapers: builder.query<FSMFullPapersType, { fsmId: number }>({
+      providesTags: ['FSM'],
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/all-papers/`,
+    }),
+
     getFSMs: builder.query<GetFSMsOutputType, GetFSMsInputType>({
       providesTags: [{ type: 'FSM', id: 'ALL' }],
       query: ({ programSlug, pageNumber = 1 }) => `fsm/fsm/?program=${programSlug}&page=${pageNumber}`,
@@ -114,6 +124,8 @@ export const {
   useCreateFSMMutation,
   useGetFSMQuery,
   useGetFSMsQuery,
+  useGetFSMAllStatesQuery,
+  useGetFSMAllPapersQuery,
   useSoftDeleteFSMMutation,
   useGetFSMStatesQuery,
   useGetFSMEdgesQuery,

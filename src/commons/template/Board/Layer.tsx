@@ -1,5 +1,5 @@
 import React, { FC, useMemo, useEffect } from 'react';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
+import useGetPaper from 'apps/fsm/hooks/useGetPaper';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -19,7 +19,7 @@ const Layer: FC<LayerProps> = ({
   hidden = false,
   onLoaded,
 }) => {
-  const { data: paper, isSuccess } = useGetPaperQuery({ paperId });
+  const { paper, isSuccess } = useGetPaper({ paperId });
   const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
 

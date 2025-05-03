@@ -5,8 +5,7 @@ import FSMBackStateButton from 'commons/components/atoms/FSMBackStateButton';
 import FSMNextStateButton from 'commons/components/atoms/FSMNextStateButton';
 import FSMStateRoadMap from 'commons/components/organisms/FSMStateRoadMap';
 import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHints';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
-import { useGetFSMStateInwardEdgesQuery, useGetFSMStateOutwardEdgesQuery, useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useGetFSMStateInwardEdgesQuery, useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -14,16 +13,18 @@ import Layout from 'commons/template/Layout';
 import Timer from 'commons/components/molecules/Timer';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
+import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
+import useGetPaper from 'apps/fsm/hooks/useGetPaper';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
-  const { data: state } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
-  const paperId = state?.papers[0];
+  const { fsmState } = useGetFSMState({ fsmStateId })
+  const paperId = fsmState?.papers[0];
   const { player, fsmId } = useFSMContext();
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !Boolean(paperId) });
+  const { paper } = useGetPaper({ paperId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [finishFSM] = useFinishFSM();
   // todo:
@@ -65,7 +66,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   }
 
   return (
-    <Layout appbarMode={state.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : null}>
+    <Layout appbarMode={fsmState?.show_appbar ? (isMentor ? 'MENTOR_FSM' : 'FSM') : null}>
       <Grid container spacing={2} justifyContent="center" alignItems='flex-start' sx={{ paddingBottom: { xs: 6, md: 0 } }}>
         <Grid
           item xs={12}
@@ -78,7 +79,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                 <FSMStateHintsButton fsmStateId={fsmStateId} />
               </Box>
               <Typography component="h2" variant="h3" textAlign={'center'} mb={2}>
-                {state?.title}
+                {fsmState?.title}
               </Typography>
               {fsm?.duration > 0 &&
                 <Box position={'absolute'} right={8} top={8}>
@@ -96,7 +97,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                       <FSMBackStateButton />
                     </Grid>
                     <Grid item xs={6}>
-                      {state?.is_end ?
+                      {fsmState?.is_end ?
                         <FinishFSMButton /> :
                         <FSMNextStateButton />
                       }
@@ -105,8 +106,8 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                 </Stack>
               </Stack>
             </Stack>
-            {(state && fsm?.show_roadmap) &&
-              <FSMStateRoadMap currentNodeName={state?.title} />
+            {(fsmState && fsm?.show_roadmap) &&
+              <FSMStateRoadMap currentNodeName={fsmState?.title} />
             }
             {notQuestions.length === 0 &&
               <Stack sx={{ display: { xs: 'inherit', md: 'none' } }} >
@@ -115,7 +116,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                     <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
-                    {state?.is_end ?
+                    {fsmState?.is_end ?
                       <FinishFSMButton /> :
                       <FSMNextStateButton />
                     }
@@ -164,7 +165,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
                     <FSMBackStateButton />
                   </Grid>
                   <Grid item xs={6}>
-                    {state?.is_end ?
+                    {fsmState?.is_end ?
                       <FinishFSMButton /> :
                       <FSMNextStateButton />
                     }
