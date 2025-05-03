@@ -6,6 +6,7 @@ import { useGetProgramQuery } from 'apps/website-display/redux/features/program/
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import useWindowDimensions from 'commons/hooks/useWindowDimensions';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 type ProgramPropsType = {}
 
@@ -22,19 +23,21 @@ const Program: FC<ProgramPropsType> = ({ }) => {
   const { width, height } = useWindowDimensions();
   const mode = width > height ? 'fit-height' : 'fit-width';
 
-  if (program?.menu_first_state) {
+  if (program?.menu_first_state_id) {
     return (
-      <FSMStateProvider
-        isMentor={false}
-        fsmStateId={program.menu_first_state}
-      >
-        <BoardFSMState
-          mode={mode}
-          boardWidth={boardWidth}
-          boardHeight={boardHeight}
-          fsmStateId={program.menu_first_state}
-        />
-      </FSMStateProvider>
+      <FSMProvider fsmId={program.menu}>
+        <FSMStateProvider
+          isMentor={false}
+          fsmStateId={program.menu_first_state_id}
+        >
+          <BoardFSMState
+            mode={mode}
+            boardWidth={boardWidth}
+            boardHeight={boardHeight}
+            fsmStateId={program.menu_first_state_id}
+          />
+        </FSMStateProvider>
+      </FSMProvider>
     );
   }
 

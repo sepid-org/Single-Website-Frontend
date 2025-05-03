@@ -49,7 +49,8 @@ export type ProgramType = {
   start_date: string | null;
   team_size: number;
   is_public: boolean;
-  menu_first_state: string;
+  menu: number;
+  menu_first_state_id: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
