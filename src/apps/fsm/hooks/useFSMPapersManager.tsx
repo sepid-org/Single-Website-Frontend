@@ -35,28 +35,29 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
     fullQuery.data?.papers.forEach(p => {
       paperCache.set(parseInt(p.id), p);
     });
-  }, [fullQuery.data, paperCache]);
+  }, [fullQuery.data]);
 
   /**
    * Hook to fetch a single paper by ID, falling back to cache or full list.
    */
   function useGetPaper({ paperId }: { paperId: number }): PaperResult {
+    const isCached = paperCache.has(paperId);
+
     // single-paper query until full-list enabled
     const singleQuery = useGetPaperQuery(
       { paperId: paperId?.toString() },
-      { skip: useFullPapers || !paperId }
+      { skip: isCached || !paperId }
     );
 
     useEffect(() => {
       if (singleQuery.data) {
         paperCache.set(parseInt(singleQuery.data.id), singleQuery.data);
       }
-    }, [singleQuery.data, paperCache]);
+    }, [singleQuery.data]);
 
     const { data: singlePaper, isLoading: isSingleLoading, isSuccess: isSingleSuccess, error: singleError } = singleQuery;
     const { data: fullData, isLoading: isFullLoading, isSuccess: isFullSuccess, error: fullError } = fullQuery;
 
-    const isCached = paperCache.has(paperId);
     const paper = isCached
       ? paperCache.get(paperId)
       : useFullPapers

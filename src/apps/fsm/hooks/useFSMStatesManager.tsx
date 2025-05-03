@@ -45,10 +45,12 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
    * automatically uses single or full queries based on switch.
    */
   function useGetFSMState({ fsmStateId }: { fsmStateId: number }): FSMStateResult {
+    const isCached = stateCache.has(fsmStateId);
+
     // Single-item query
     const singleQuery = useGetFSMStateQuery(
       { fsmStateId: fsmStateId?.toString() },
-      { skip: useFullStates || !fsmStateId }
+      { skip: isCached || !fsmStateId }
     );
 
     useEffect(() => {
@@ -63,7 +65,6 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
     const { data: singleState, isLoading: isSingleLoading, isSuccess: isSingleSuccess, error: singleError } = singleQuery;
     const { data: fullStatesData, isLoading: isFullLoading, isSuccess: isFullSuccess, error: fullError } = fullQuery;
 
-    const isCached = stateCache.has(fsmStateId);
     const fsmState = isCached
       ? stateCache.get(fsmStateId)
       : useFullStates
