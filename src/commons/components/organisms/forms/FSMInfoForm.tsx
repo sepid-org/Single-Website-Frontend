@@ -93,7 +93,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           </Select>
         </FormControl>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      {/* <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
           value={data.order}
@@ -103,7 +103,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           onChange={putData}
           helperText={'کارگاه با اولویت نمایش کوچک‌تر، زودتر در صفحه‌ی اصلیِ دوره نمایش داده می‌شود.'}
         />
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>نوع کارت</InputLabel>
