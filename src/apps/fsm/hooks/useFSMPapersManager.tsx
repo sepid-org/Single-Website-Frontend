@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
 import { useGetFSMAllPapersQuery } from '../redux/slices/fsm/FSMSlice';
 import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
+import { PaperType } from 'commons/types/models';
 
 export type PaperResult = {
   paper: any;
@@ -24,16 +24,23 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
   }, []);
 
   // shared cache for all papers
-  const [paperCache] = useState<Map<number, any>>(() => new Map());
+  const [paperCache] = useState<Map<number, PaperType>>(() => new Map());
 
   // preload full list when flag flips
   const fullQuery = useGetFSMAllPapersQuery(
     { fsmId },
     { skip: !useFullPapers }
   );
+
+  const updateCache = (paperId: number, paper: PaperType) => {
+    if (!paperCache.has(paperId)) {
+      paperCache.set(paperId, paper);
+    }
+  }
+
   useEffect(() => {
     fullQuery.data?.papers.forEach(p => {
-      paperCache.set(parseInt(p.id), p);
+      updateCache(parseInt(p.id), p);
     });
   }, [fullQuery.data]);
 
@@ -51,7 +58,7 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
 
     useEffect(() => {
       if (singleQuery.data) {
-        paperCache.set(parseInt(singleQuery.data.id), singleQuery.data);
+        updateCache(parseInt(singleQuery.data.id), singleQuery.data);
       }
     }, [singleQuery.data]);
 

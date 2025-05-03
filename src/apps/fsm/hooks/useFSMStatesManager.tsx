@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGetFSMAllStatesQuery } from "../redux/slices/fsm/FSMSlice";
 import { useGetFSMStateQuery } from "../redux/slices/fsm/FSMStateSlice";
+import { FSMStateType } from "commons/types/models";
 
 export type FSMStateResult = {
   fsmState: any;
@@ -26,7 +27,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
   }, []);
 
   // Cache for FSM states
-  const [stateCache] = useState<Map<number, any>>(() => new Map());
+  const [stateCache] = useState<Map<number, FSMStateType>>(() => new Map());
 
   // Update cache from full-list query
   const fullQuery = useGetFSMAllStatesQuery(
@@ -34,9 +35,15 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
     { skip: !useFullStates }
   );
 
+  const updateCache = (fsmStateId: number, fsmState: FSMStateType) => {
+    if (!stateCache.has(fsmStateId)) {
+      stateCache.set(fsmStateId, fsmState);
+    }
+  }
+
   useEffect(() => {
     fullQuery.data?.states.forEach((s) => {
-      stateCache.set(parseInt(s.id), s);
+      updateCache(parseInt(s.id), s);
     });
   }, [fullQuery.data]);
 
@@ -55,10 +62,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
 
     useEffect(() => {
       if (singleQuery.data) {
-        const fsmStateId = parseInt(singleQuery.data.id);
-        if (!stateCache.has(fsmStateId)) {
-          stateCache.set(fsmStateId, singleQuery.data);
-        }
+        updateCache(parseInt(singleQuery.data.id), singleQuery.data);
       }
     }, [singleQuery.data]);
 
