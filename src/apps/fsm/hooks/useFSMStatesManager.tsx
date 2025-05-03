@@ -44,7 +44,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
     // Single-item query
     const singleQuery = useGetFSMStateQuery(
       { fsmStateId },
-      { skip: useFullStates }
+      { skip: useFullStates || !fsmStateId }
     );
     useEffect(() => {
       if (singleQuery.data) {

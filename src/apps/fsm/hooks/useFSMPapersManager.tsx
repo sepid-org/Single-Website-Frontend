@@ -44,7 +44,7 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
     // single-paper query until full-list enabled
     const singleQuery = useGetPaperQuery(
       { paperId },
-      { skip: useFullPapers }
+      { skip: useFullPapers || !paperId }
     );
     useEffect(() => {
       if (singleQuery.data) {
