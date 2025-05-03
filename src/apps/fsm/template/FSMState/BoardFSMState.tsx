@@ -21,7 +21,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
 }) => {
   const { isMentor } = useFSMStateContext();
   const { useGetFSMState } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId });
+  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) });
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
     if (node) {

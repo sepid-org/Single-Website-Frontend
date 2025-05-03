@@ -21,7 +21,7 @@ const Layer: FC<LayerProps> = ({
   onLoaded,
 }) => {
   const { useGetPaper } = useFSMContext();
-  const { paper, isSuccess } = useGetPaper({ paperId });
+  const { paper, isSuccess } = useGetPaper({ paperId: parseInt(paperId) });
   const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
 

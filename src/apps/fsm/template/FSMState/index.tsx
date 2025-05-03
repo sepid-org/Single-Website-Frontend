@@ -9,7 +9,7 @@ const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
   const { useGetFSMState } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId })
+  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) })
 
   if (fsmState?.template === 'board') {
     return (

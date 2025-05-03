@@ -12,8 +12,8 @@ interface FSMContextType {
     children: ReactNode,
   ) => void;
   closeDialog: () => void;
-  useGetFSMState: ({ fsmStateId }: { fsmStateId: string }) => FSMStateResult;
-  useGetPaper: ({ paperId }: { paperId: string }) => PaperResult;
+  useGetFSMState: ({ fsmStateId }: { fsmStateId: number }) => FSMStateResult;
+  useGetPaper: ({ paperId }: { paperId: number }) => PaperResult;
 }
 
 const FSMContext = createContext<FSMContextType | null>(null);

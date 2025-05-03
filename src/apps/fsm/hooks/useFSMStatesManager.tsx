@@ -17,6 +17,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
 
   // Flag to switch from single-item to full-list fetch
   const [useFullStates, setUseFullStates] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setUseFullStates(true);
@@ -25,32 +26,39 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
   }, []);
 
   // Cache for FSM states
-  const [stateCache] = useState<Map<string, any>>(() => new Map());
+  const [stateCache] = useState<Map<number, any>>(() => new Map());
 
   // Update cache from full-list query
   const fullQuery = useGetFSMAllStatesQuery(
     { fsmId },
     { skip: !useFullStates }
   );
+
   useEffect(() => {
-    fullQuery.data?.states.forEach((s) => stateCache.set(s.id, s));
-  }, [fullQuery.data, stateCache]);
+    fullQuery.data?.states.forEach((s) => {
+      stateCache.set(parseInt(s.id), s);
+    });
+  }, [fullQuery.data]);
 
   /**
    * Retrieves FSM state by ID, with cache-first;
    * automatically uses single or full queries based on switch.
    */
-  function useGetFSMState({ fsmStateId }: { fsmStateId: string }): FSMStateResult {
+  function useGetFSMState({ fsmStateId }: { fsmStateId: number }): FSMStateResult {
     // Single-item query
     const singleQuery = useGetFSMStateQuery(
-      { fsmStateId },
+      { fsmStateId: fsmStateId.toString() },
       { skip: useFullStates || !fsmStateId }
     );
+
     useEffect(() => {
       if (singleQuery.data) {
-        stateCache.set(singleQuery.data.id, singleQuery.data);
+        const fsmStateId = parseInt(singleQuery.data.id);
+        if (!stateCache.has(fsmStateId)) {
+          stateCache.set(fsmStateId, singleQuery.data);
+        }
       }
-    }, [singleQuery.data, stateCache]);
+    }, [singleQuery.data]);
 
     const { data: singleState, isLoading: isSingleLoading, isSuccess: isSingleSuccess, error: singleError } = singleQuery;
     const { data: fullStatesData, isLoading: isFullLoading, isSuccess: isFullSuccess, error: fullError } = fullQuery;
@@ -59,7 +67,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
     const fsmState = isCached
       ? stateCache.get(fsmStateId)
       : useFullStates
-        ? fullStatesData?.states.find((s) => s.id === fsmStateId)
+        ? fullStatesData?.states.find((s) => parseInt(s.id) === fsmStateId)
         : singleState;
 
     const isLoading = isCached

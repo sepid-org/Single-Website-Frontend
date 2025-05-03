@@ -20,7 +20,7 @@ export type WorkshopFSMStatePropsType = {
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { player, fsmId, useGetFSMState, useGetPaper } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId })
+  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) })
   const paperId = fsmState?.papers[0];
   const { paper } = useGetPaper({ paperId });
   const { data: fsm } = useGetFSMQuery({ fsmId });

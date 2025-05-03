@@ -32,7 +32,7 @@ const Board: FC<PropsType> = ({
     fsmState,
     isSuccess: isStateSuccess,
     error: stateError,
-  } = useGetFSMState({ fsmStateId });
+  } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) });
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],
