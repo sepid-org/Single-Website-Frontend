@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
 import Frame from 'commons/template/Board/Frame';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 export type PropsType = {
   fsmStateId: string;
@@ -27,6 +27,7 @@ const Board: FC<PropsType> = ({
   boardHeight,
   mode,
 }) => {
+  const { useGetFSMState } = useFSMContext();
   const {
     fsmState,
     isSuccess: isStateSuccess,

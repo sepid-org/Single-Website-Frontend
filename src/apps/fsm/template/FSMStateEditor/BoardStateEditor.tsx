@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardEditor from 'commons/template/BoardEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type BoardStateEditorPropsType = {
   fsmStateId: string;
@@ -12,6 +12,7 @@ type BoardStateEditorPropsType = {
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { useGetFSMState } = useFSMContext();
   const { fsmState } = useGetFSMState({ fsmStateId });
 
   if (isMobile) {

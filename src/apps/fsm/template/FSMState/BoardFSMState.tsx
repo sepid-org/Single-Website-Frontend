@@ -1,10 +1,10 @@
 import React, { useState, useEffect, FC, Fragment } from 'react';
-import useGetFSMState from 'apps/fsm/hooks/useGetFSMState';
 import { Box, Paper, Typography } from '@mui/material';
 import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Board from 'commons/template/Board';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -20,6 +20,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   mode,
 }) => {
   const { isMentor } = useFSMStateContext();
+  const { useGetFSMState } = useFSMContext();
   const { fsmState } = useGetFSMState({ fsmStateId });
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
