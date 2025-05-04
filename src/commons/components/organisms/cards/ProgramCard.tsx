@@ -78,7 +78,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({ program }) => {
                 variant="h4"
                 component="h2"
                 gutterBottom
-                color={(theme) => theme.palette.primary.dark}
+                color={(theme) => theme.palette.secondary.main}
                 sx={{
                   wordWrap: 'break-word',
                   whiteSpace: 'normal',
