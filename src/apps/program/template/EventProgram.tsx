@@ -31,10 +31,10 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
       }
       <Layout appbarMode='PROGRAM'>
         <Grid container spacing={4} alignItems='flex-start'>
-          <Grid item xs={12} sm={3} position={{ xs: null, sm: 'sticky' }} top={0}>
+          <Grid item xs={12} sm={4} lg={3} position={{ xs: null, sm: 'sticky' }} top={0}>
             <ProgramPageSidebar />
           </Grid>
-          <Grid item xs={12} sm={9}>
+          <Grid item xs={12} sm={8} lg={9}>
             {/* <Banner banners={pageMetadata?.banners} /> */}
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'کارگاه‌ها'}

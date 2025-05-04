@@ -1,49 +1,39 @@
 import {
   Card,
-  Chip,
   Grid,
   Stack,
   Typography,
-  Tooltip,
   ButtonBase,
   Box,
 } from '@mui/material';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import React, { FC } from 'react';
-import { useTranslate } from 'react-redux-multilingual/lib/context';
 import { useNavigate } from 'react-router-dom';
-import { toPersianNumber } from 'commons/utils/translateNumber';
 import { ProgramType } from 'commons/types/models';
-import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 
 type ProgramCardPropsType = {
   program: Partial<ProgramType>;
-}
+};
 
-const ProgramCard: FC<ProgramCardPropsType> = ({
-  program
-}) => {
-  const t = useTranslate();
+const ProgramCard: FC<ProgramCardPropsType> = ({ program }) => {
   const navigate = useNavigate();
 
   if (!program) return null;
 
-  const MAX_DESCRIPTION_LENGTH = 90;
-
   return (
     <ButtonBase
+      sx={{ width: '100%' }}
       disableRipple
       onClick={() => program.is_active && navigate(`/program/${program.slug}/registration/`)}>
       <Card
         sx={{
           position: 'relative',
-          height: { xs: 480, md: 240 },
+          height: { xs: 400, md: 240 },
           width: '100%',
-          padding: '0px !important',
-          textDecoration: 'none',
+          padding: 0,
           overflow: 'hidden',
-          boxShadow: '0 0 1px 0rem rgba(0, 0, 0, 0.5)',
-          transition: 'all 0.1s ease-in-out',
+          border: '1px solid rgba(0, 0, 0, 0.12)',
+          boxShadow: '0 0.125rem 0.25rem rgb(0, 0, 0, 0.1)',
+          transition: '0.1s ease-in-out',
           filter: program.is_active ? 'none' : 'grayscale(100%)',
           opacity: program.is_active ? 1 : 0.6,
           cursor: program.is_active ? 'pointer' : 'not-allowed',
@@ -60,76 +50,58 @@ const ProgramCard: FC<ProgramCardPropsType> = ({
           }}>
           <Grid
             item
-            xs={12} md={5}
-            sx={{
-              padding: 0,
-              width: '100%',
-              height: { xs: 300, md: 240 },
-            }}
-            position={'relative'}
-            justifyContent="center" alignItems="center">
-            <img
-              alt=""
+            xs={12}
+            md={5}
+            sx={{ height: { xs: 240, md: 240 } }}
+            position="relative"
+          >
+            <Box
+              component="img"
+              alt={program.name}
               src={program.cover_image}
-              style={{
-                height: '100%',
+              sx={{
                 width: '100%',
+                height: '100%',
                 objectFit: 'cover',
-              }} />
+              }}
+            />
           </Grid>
           <Grid
             item
-            xs={12} md={7}
-            sx={{
-              padding: 2,
-              width: '100%',
-              height: { xs: 180, md: 240 },
-            }}>
-            <Stack height={'100%'} justifyContent="space-between" spacing={1}>
-
-              <Stack direction={'row'} justifyContent={'space-between'} alignItems={'start'}>
-                <Typography
-                  sx={{
-                    color: '#4d4a70',
-                    wordWrap: 'break-word',
-                    whiteSpace: 'normal',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                  }}
-                  textAlign={'start'}
-                  variant="h3">
-                  {program.name}
-                </Typography>
-              </Stack>
-
-              <Typography textAlign={'start'} variant="body2" color="textSecondary">
-                {program.description.length > MAX_DESCRIPTION_LENGTH
-                  ? `${program.description.slice(0, program.description.slice(0, MAX_DESCRIPTION_LENGTH).lastIndexOf(' '))}...`
-                  : program.description}
+            xs={12}
+            md={7}
+            sx={{ p: 2, height: { xs: 160, md: 240 } }}
+          >
+            <Stack spacing={1}>
+              <Typography
+                textAlign={'left'}
+                variant="h4"
+                component="h2"
+                gutterBottom
+                color={(theme) => theme.palette.primary.dark}
+                sx={{
+                  wordWrap: 'break-word',
+                  whiteSpace: 'normal',
+                }}
+              >
+                {program.name}
               </Typography>
 
-              <Box display="flex" flexWrap="wrap" gap={0.5}>
-                <Chip
-                  variant='outlined'
-                  color='info'
-                  sx={{ userSelect: 'none' }}
-                  icon={<PeopleAltIcon />}
-                  label={
-                    program.participation_type === 'Individual'
-                      ? 'انفرادی'
-                      : `${toPersianNumber(program.team_size)} ${t('person')}`
-                  }
-                />
-                {program.is_free &&
-                  <Chip
-                    variant='outlined'
-                    color='success'
-                    sx={{ userSelect: 'none', color: '#36CF8D', borderColor: '#36CF8D' }}
-                    icon={<InsertEmoticonIcon />}
-                    label={'رایگان'}
-                  />
-                }
-              </Box>
+              <Typography
+                textAlign={'left'}
+                variant="body2"
+                color="textSecondary"
+                sx={{
+                  display: '-webkit-box',
+                  WebkitLineClamp: { xs: 3, md: 4, lg: 5 },
+                  WebkitBoxOrient: 'vertical',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                }}
+              >
+                {program.description}
+              </Typography>
+
             </Stack>
           </Grid>
         </Grid>
