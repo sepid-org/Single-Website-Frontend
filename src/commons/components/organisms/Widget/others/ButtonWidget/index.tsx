@@ -7,6 +7,16 @@ import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 import extractSvgPath from 'commons/utils/extractSVGPath';
+import { keyframes } from '@emotion/react';
+
+const wave = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
+  }
+`;
 
 type ButtonWidgetPropsType = {
   label: string;
@@ -128,7 +138,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     });
   };
 
-  const ButtonComponent = has_hover_effect ? Button : ButtonBase;
+  const ButtonComponent = Button;
 
   return (
     <Fragment>
@@ -161,6 +171,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               zIndex: 0,
               clipPath,
               transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
+              animation: has_hover_effect ? `${wave} 2s infinite` : 'none',
             }}
           /> :
           <ButtonComponent
@@ -172,6 +183,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              animation: has_hover_effect ? `${wave} 2s infinite` : 'none',
             }}
           >
             <TinyPreview
