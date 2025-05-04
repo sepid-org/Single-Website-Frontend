@@ -28,7 +28,7 @@ const Registration: FC<PropsType> = () => {
 
   useEffect(() => {
     if (registrationReceipt?.is_participating === true) {
-      navigate(`/program/${programSlug}/`);
+      navigate(`/program/${programSlug}/`, { replace: true });
     }
   }, [registrationReceipt, programSlug, navigate]);
 
