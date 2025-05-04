@@ -42,6 +42,10 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
 
   if (!program || !registrationForm) return null;
 
+  // decide whether toggle is needed: more than 3 lines or long text
+  const lineCount = program.description.split('\n').length;
+  const showToggle = lineCount > 3 || program.description.length > 250;
+
   const doGetCertificate = () => {
     getCertificate({ receiptId: registrationReceipt.id }).then((action) => {
       if (action.meta.requestStatus === 'fulfilled') {
@@ -68,30 +72,38 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
           {program.name}
         </Typography>
 
-        {/* توضیحات با انیمیشن باز/بسته */}
-        <Collapse in={expanded} collapsedSize="4.5em" timeout="auto">
+        {/* توضیحات با انیمیشن باز/بسته یا ساده */}
+        {showToggle ? (
+          <Collapse in={expanded} collapsedSize="4.5em" timeout="auto">
+            <Typography variant="body1" gutterBottom>
+              {program.description}
+            </Typography>
+          </Collapse>
+        ) : (
           <Typography variant="body1" gutterBottom>
             {program.description}
           </Typography>
-        </Collapse>
+        )}
 
-        {/* دکمه مطالعه بیشتر با آیکون و فاصله کمتر */}
-        <Button
-          size="small"
-          onClick={() => setExpanded(!expanded)}
-          startIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          sx={{
-            textTransform: 'none',
-            p: 0,
-            minWidth: 0,
-            width: 'fit-content',
-            '& .MuiButton-startIcon': {
-              marginRight: '0px'
-            }
-          }}
-        >
-          {expanded ? 'بستن' : 'مطالعه بیشتر'}
-        </Button>
+        {/* دکمه مطالعه بیشتر */}
+        {showToggle && (
+          <Button
+            size="small"
+            onClick={() => setExpanded(!expanded)}
+            startIcon={expanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            sx={{
+              textTransform: 'none',
+              p: 0,
+              minWidth: 0,
+              width: 'fit-content',
+              '& .MuiButton-startIcon': {
+                marginRight: '4px'
+              }
+            }}
+          >
+            {expanded ? 'بستن' : 'مطالعه بیشتر'}
+          </Button>
+        )}
       </Stack>
 
       <ProgramContactInfo programContactInfo={program.program_contact_info} />
