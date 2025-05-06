@@ -4,7 +4,7 @@ import { useGetFSMStateQuery } from "../redux/slices/fsm/FSMStateSlice";
 import { FSMStateType } from "commons/types/models";
 
 export type FSMStateResult = {
-  fsmState: any;
+  fsmState: FSMStateType;
   isLoading: boolean;
   isSuccess: boolean;
   error: any;

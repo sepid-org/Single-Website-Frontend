@@ -22,7 +22,7 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const { player, fsmId, useGetFSMState, useGetPaper } = useFSMContext();
   const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) })
   const paperId = fsmState?.papers[0];
-  const { paper } = useGetPaper({ paperId });
+  const { paper } = useGetPaper({ paperId: parseInt(paperId) });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [finishFSM] = useFinishFSM();
   // todo:
@@ -33,8 +33,6 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden) || []
   const { data: inwardEdges = [] } = useGetFSMStateInwardEdgesQuery({ fsmStateId })
   const { data: outward_edges = [] } = useGetFSMStateOutwardEdgesQuery({ fsmStateId })
-
-  visibleWidgets.sort((a, b) => parseInt(a.id) - parseInt(b.id));
 
   const questions = visibleWidgets.filter((widget) =>
     widget.widget_type.includes('Problem')

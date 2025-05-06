@@ -4,7 +4,7 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 import { PaperType } from 'commons/types/models';
 
 export type PaperResult = {
-  paper: any;
+  paper: PaperType;
   isLoading: boolean;
   isSuccess: boolean;
   error: any;
