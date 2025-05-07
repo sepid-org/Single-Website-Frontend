@@ -64,8 +64,8 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         mode={mode}
         boardWidth={boardWidth}
         boardHeight={boardHeight}
-        parentHeight={containerHeight}
-        parentWidth={containerWidth}
+        frameHeight={containerHeight}
+        frameWidth={containerWidth}
       />
       {isMentor && (
         <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>

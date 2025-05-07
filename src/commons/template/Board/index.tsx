@@ -6,8 +6,8 @@ import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 export type PropsType = {
   fsmStateId: string;
-  parentWidth?: number;
-  parentHeight?: number;
+  frameWidth?: number;
+  frameHeight?: number;
   boardWidth?: number;
   boardHeight?: number;
   mode?: 'fit-height' | 'fit-width';
@@ -21,8 +21,8 @@ type BoardState = {
 
 const Board: FC<PropsType> = ({
   fsmStateId,
-  parentWidth,
-  parentHeight,
+  frameWidth: parentWidth,
+  frameHeight: parentHeight,
   boardWidth,
   boardHeight,
   mode,
