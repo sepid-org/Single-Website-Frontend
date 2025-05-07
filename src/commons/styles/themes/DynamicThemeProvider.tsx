@@ -15,13 +15,6 @@ const DynamicThemeProvider = ({ children }) => {
 				MuiCssBaseline: {
 					styleOverrides: fontsStyles,
 				},
-				MuiBackdrop: {
-					styleOverrides: {
-						root: {
-							backgroundColor: 'transparent',
-						},
-					},
-				},
 			},
 			...website?.theme,
 			...pageMetadata?.theme,

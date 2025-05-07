@@ -1,5 +1,6 @@
-import { Backdrop, Button, CircularProgress, Container, Grid, Stack, Typography } from '@mui/material';
+import { Button, Container, Grid, Stack, Typography } from '@mui/material';
 import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import TransparentLoadingBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
 import Paper from 'commons/template/Paper';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import React from 'react';
@@ -16,9 +17,7 @@ const PurchaseResult = () => {
 
   if (isLoading) {
     return (
-      <Backdrop open={isLoading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <TransparentLoadingBackdrop open={isLoading} />
     )
   }
 

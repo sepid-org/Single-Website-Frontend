@@ -1,4 +1,4 @@
-import { Stack, Grid, Backdrop, CircularProgress } from '@mui/material';
+import { Stack, Grid } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -8,6 +8,7 @@ import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
+import TransparentLoadingBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
 
 type PropsType = {}
 
@@ -61,9 +62,7 @@ const Registration: FC<PropsType> = () => {
   }
 
   return (
-    <Backdrop open={true}>
-      <CircularProgress color="inherit" />
-    </Backdrop>
+    <TransparentLoadingBackdrop open={true} />
   )
 
 };

@@ -1,5 +1,5 @@
-import { Backdrop, CircularProgress } from '@mui/material';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import TransparentLoadingBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import React from 'react';
 
@@ -13,9 +13,7 @@ const InitialApiCalls = ({ children }) => {
 
   if (isWebsiteLoading || isUserAuthenticatedLoading) {
     return (
-      <Backdrop open={true}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <TransparentLoadingBackdrop open={true} />
     );
   }
 

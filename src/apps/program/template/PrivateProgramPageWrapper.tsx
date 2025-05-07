@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
-import { Backdrop, CircularProgress } from '@mui/material';
+import TransparentBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
 
 interface Props {
   children: React.ReactNode;
@@ -36,9 +36,7 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
 
   if (isProgramLoading || isReceiptLoading) {
     return (
-      <Backdrop open>
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      <TransparentBackdrop open />
     );
   }
 
