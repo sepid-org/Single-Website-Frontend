@@ -68,7 +68,7 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
           style={{ borderRadius: 8 }}
         />
 
-        <Typography variant="h2" component="h1" gutterBottom>
+        <Typography variant="h2" component="h1" gutterBottom textAlign={'center'}>
           {program.name}
         </Typography>
 
@@ -176,9 +176,9 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
         ))}
       </Stack>
 
-      <Stack alignItems="center">
+      {/* <Stack alignItems="center">
         <ShareProgramButton />
-      </Stack>
+      </Stack> */}
     </Stack>
   );
 };
