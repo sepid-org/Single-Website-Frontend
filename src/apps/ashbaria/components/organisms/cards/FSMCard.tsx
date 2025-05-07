@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   IconButton,
-  Tooltip,
   Skeleton,
   Chip,
 } from '@mui/material';
@@ -83,15 +82,13 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                   {fsm.name}
                 </Typography>
                 {userFSMStatus?.is_user_mentor &&
-                  <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton
-                      component={Link}
-                      to={`/program/ashbaria/court/${fsm?.id}/manage/`}
-                      size='small'
-                    >
-                      <ModeEditTwoToneIcon />
-                    </IconButton>
-                  </Tooltip>
+                  <IconButton
+                    component={Link}
+                    to={`/program/ashbaria/court/${fsm?.id}/manage/`}
+                    size='small'
+                  >
+                    <ModeEditTwoToneIcon />
+                  </IconButton>
                 }
               </Stack>
             </Stack>

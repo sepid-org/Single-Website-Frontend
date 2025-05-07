@@ -5,7 +5,6 @@ import {
   Typography,
   Stack,
   IconButton,
-  Tooltip,
   Skeleton,
   Chip,
 } from '@mui/material';
@@ -90,16 +89,14 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
                   {fsm.name}
                 </Typography>
                 {userStatus?.is_user_mentor &&
-                  <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton
-                      component={Link}
-                      to={`/fsm/${fsm?.id}/manage/`}
-                      onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
-                      size="small"
-                    >
-                      <ModeEditTwoToneIcon />
-                    </IconButton>
-                  </Tooltip>
+                  <IconButton
+                    component={Link}
+                    to={`/fsm/${fsm?.id}/manage/`}
+                    onClick={(e) => e.stopPropagation()} // Prevent card click when clicking the button
+                    size="small"
+                  >
+                    <ModeEditTwoToneIcon />
+                  </IconButton>
                 }
               </Stack>
             </Stack>
