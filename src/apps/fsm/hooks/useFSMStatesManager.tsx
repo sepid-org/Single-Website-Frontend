@@ -51,7 +51,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
    * Retrieves FSM state by ID, with cache-first;
    * automatically uses single or full queries based on switch.
    */
-  function useGetFSMState({ fsmStateId }: { fsmStateId: number }): FSMStateResult {
+  function useCachedFSMState({ fsmStateId }: { fsmStateId: number }): FSMStateResult {
     const isCached = stateCache.has(fsmStateId);
 
     // Single-item query
@@ -94,7 +94,7 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
     return { fsmState, isLoading, isSuccess, error };
   }
 
-  return { useGetFSMState };
+  return { useCachedFSMState };
 }
 
 export default useFSMStatesManager;

@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
 import Frame from 'commons/template/Board/Frame';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 export type PropsType = {
   fsmStateId: string;
@@ -27,12 +27,11 @@ const Board: FC<PropsType> = ({
   boardHeight,
   mode,
 }) => {
-  const { useGetFSMState } = useFSMContext();
   const {
     fsmState,
     isSuccess: isStateSuccess,
     error: stateError,
-  } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) });
+  } = useFSMState(parseInt(fsmStateId));
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],

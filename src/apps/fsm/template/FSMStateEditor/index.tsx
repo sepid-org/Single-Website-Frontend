@@ -1,5 +1,4 @@
 import React, { FC, Fragment } from 'react';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
 import NormalStateEditor from './NormalStateEditor';
@@ -9,6 +8,7 @@ import StateInfoEditor from './StateInfoEditor';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -18,7 +18,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
   fsmStateId,
 }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);

@@ -3,7 +3,7 @@ import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/materia
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardEditor from 'commons/template/BoardEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type BoardStateEditorPropsType = {
   fsmStateId: string;
@@ -13,7 +13,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
   const [activePaperId, setActivePaperId] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   useEffect(() => {
     if (fsmState.papers && !fsmState.papers.includes(activePaperId)) {

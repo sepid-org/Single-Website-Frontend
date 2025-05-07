@@ -3,13 +3,16 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 
 function usePaper(paperId: number) {
   const fsmContext = useFSMContext();
-  const fsmResult = fsmContext?.useGetPaper?.({ paperId }) ?? { paper: null, isSuccess: false };
-  const queryResult = useGetPaperQuery({ paperId: paperId.toString() }, { skip: Boolean(fsmContext.useGetPaper) });
+  const fsmResult = fsmContext?.useCachedPaper?.({ paperId }) ?? { paper: null, isSuccess: false };
+  const queryResult = useGetPaperQuery(
+    { paperId: paperId?.toString() },
+    { skip: Boolean(fsmContext.useCachedPaper) || !paperId }
+  );
 
   if (fsmContext && fsmResult.isSuccess) {
-    return { paper: fsmResult.paper, isSuccess: fsmResult.isSuccess };
+    return { paper: fsmResult.paper, isSuccess: fsmResult.isSuccess, error: fsmResult.error };
   } else {
-    return { paper: queryResult.data, isSuccess: queryResult.isSuccess };
+    return { paper: queryResult.data, isSuccess: queryResult.isSuccess, error: queryResult.error };
   }
 }
 

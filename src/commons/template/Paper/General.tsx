@@ -2,8 +2,8 @@ import React, { FC, Fragment } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import Widget from 'commons/components/organisms/Widget';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type GeneralPaperPropsType = {
   mode: 'general';
@@ -15,7 +15,7 @@ const GeneralPaper: FC<GeneralPaperPropsType> = ({
   paperId,
   widgets_type = 'all',
 }) => {
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
+  const { paper } = usePaper(parseInt(paperId));
 
   let widgets: WidgetType[];
   if (widgets_type === 'all') {

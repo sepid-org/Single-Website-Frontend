@@ -47,7 +47,7 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
   /**
    * Hook to fetch a single paper by ID, falling back to cache or full list.
    */
-  function useGetPaper({ paperId }: { paperId: number }): PaperResult {
+  function useCachedPaper({ paperId }: { paperId: number }): PaperResult {
     const isCached = paperCache.has(paperId);
 
     // single-paper query until full-list enabled
@@ -78,7 +78,7 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
     return { paper, isLoading, isSuccess, error };
   }
 
-  return { useGetPaper };
+  return { useCachedPaper };
 }
 
 export default useFSMPapersManager;

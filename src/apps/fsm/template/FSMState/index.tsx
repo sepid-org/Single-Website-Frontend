@@ -1,15 +1,14 @@
 import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 
 const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
-  const { useGetFSMState } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) })
+  const { fsmState } = useFSMState(parseInt(fsmStateId))
 
   if (fsmState?.template === 'board') {
     return (

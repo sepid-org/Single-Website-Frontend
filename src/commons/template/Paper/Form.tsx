@@ -2,10 +2,10 @@ import React, { FC, Fragment } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import Widget from 'commons/components/organisms/Widget';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { AnswerType } from 'commons/types/models';
 import { GetAnswerCollectorType } from 'commons/hooks/useCollectWidgetsAnswers';
 import { WidgetType } from 'commons/types/widgets/widget';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type FormPaperPropsType = {
   mode: 'form';
@@ -21,7 +21,7 @@ const FormPaper: FC<FormPaperPropsType> = ({
   answers = [],
   getAnswerCollector,
 }) => {
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
+  const { paper } = usePaper(parseInt(paperId));
 
   let widgets: WidgetType[];
   if (widgets_type === 'all') {

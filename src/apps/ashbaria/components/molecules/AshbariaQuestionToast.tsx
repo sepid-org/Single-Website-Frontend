@@ -1,15 +1,15 @@
 import { useEffect, useState, useRef } from "react";
-import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import { PaperSlice } from "apps/website-display/redux/features/paper/PaperSlice";
 import useAnswerSheet from "commons/hooks/useAnswerSheet";
 import { useFSMStateContext } from "commons/hooks/useFSMStateContext";
 import { WidgetType } from "commons/types/widgets/widget";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import useFSMState from "apps/fsm/hooks/useFSMState";
 
-const AshbariaQuestionToast = ({ ...props }) => {
+const AshbariaQuestionToast = ({ }) => {
   const { fsmStateId } = useFSMStateContext();
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
   const [allMultiChoiceQuestions, setAllMultiChoiceQuestions] = useState<WidgetType[]>([]);
   const dispatch = useDispatch();
   const hasToastBeenShown = useRef(false);

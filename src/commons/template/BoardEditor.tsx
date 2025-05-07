@@ -2,23 +2,17 @@ import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Rnd } from 'react-rnd';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { Box, Stack, IconButton } from '@mui/material';
 import ZoomInIcon from '@mui/icons-material/ZoomIn';
 import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Layer from './Board/Layer';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 const BoardEditor = ({ activePaperId, allPaperIds = [] }) => {
   // Fetch paper data with widget positions
-  const { data: paper } = useGetPaperQuery(
-    { paperId: activePaperId },
-    {
-      skip: !activePaperId,
-      selectFromResult: (result) => ({ ...result, data: activePaperId ? result.data : null }),
-    }
-  );
+  const { paper } = usePaper(activePaperId);
 
   // Mutation hook to persist position updates
   const [updatePositions] = useUpdatePositionsMutation();

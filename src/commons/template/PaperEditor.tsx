@@ -3,9 +3,9 @@ import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { WidgetType } from 'commons/types/widgets/widget';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 type NormalPaperEditorPropsType = {
   paperId: string;
@@ -17,7 +17,7 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
   mode = 'all',
 }) => {
   const t = useTranslate();
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
+  const { paper } = usePaper(parseInt(paperId));
 
   let widgets: WidgetType[];
   if (mode === 'all') {

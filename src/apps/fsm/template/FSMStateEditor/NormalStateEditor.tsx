@@ -6,14 +6,14 @@ import {
 } from '@mui/material';
 import React, { FC } from 'react';
 import { PaperEditor } from 'commons/template/Paper';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type NormalStateEditorPropsType = {
   fsmStateId: string;
 }
 
 const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ fsmStateId }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState.papers[0];
 
   return (

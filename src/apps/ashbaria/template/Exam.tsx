@@ -1,6 +1,5 @@
 import { Box, Button, Stack } from "@mui/material";
 import React, { FC, useEffect } from "react";
-import { useGetFSMStateQuery } from "apps/fsm/redux/slices/fsm/FSMStateSlice";
 import useTransitionBackward from "commons/hooks/fsm/useTransitionBackward";
 import useFinishFSM from "commons/hooks/fsm/useFinishFSM";
 import Paper from "commons/template/Paper";
@@ -9,6 +8,7 @@ import { useFSMContext } from "commons/hooks/useFSMContext";
 import Timer from "commons/components/molecules/Timer";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import useLocalNavigate from "../hooks/useLocalNavigate";
+import useFSMState from "apps/fsm/hooks/useFSMState";
 
 type PropsType = {};
 
@@ -16,7 +16,7 @@ const ExamTemplate: FC<PropsType> = () => {
   const { fsmId } = useFSMContext();
   const { player } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
-  const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
+  const { fsmState: currentFSMState } = useFSMState(parseInt(player?.current_state))
   const paperId = currentFSMState?.papers?.[0];
   const { transitForward, result: transitForwardResult, canTransitForward } = useTransitionForward({ player })
   const { transitBackward, result: transitBackwardResult, canTransitBack } = useTransitionBackward({ player });

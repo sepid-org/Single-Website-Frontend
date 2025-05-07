@@ -13,16 +13,18 @@ import Layout from 'commons/template/Layout';
 import Timer from 'commons/components/molecules/Timer';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type WorkshopFSMStatePropsType = {
   fsmStateId: string;
 }
 
 const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
-  const { player, fsmId, useGetFSMState, useGetPaper } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) })
+  const { player, fsmId } = useFSMContext();
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState?.papers[0];
-  const { paper } = useGetPaper({ paperId: parseInt(paperId) });
+  const { paper } = usePaper(parseInt(paperId));
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [finishFSM] = useFinishFSM();
   // todo:

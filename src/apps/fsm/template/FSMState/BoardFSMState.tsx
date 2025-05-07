@@ -4,7 +4,7 @@ import Appbar from 'commons/components/organisms/Appbar';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Board from 'commons/template/Board';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
@@ -20,8 +20,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   mode,
 }) => {
   const { isMentor } = useFSMStateContext();
-  const { useGetFSMState } = useFSMContext();
-  const { fsmState } = useGetFSMState({ fsmStateId: parseInt(fsmStateId) });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
     if (node) {

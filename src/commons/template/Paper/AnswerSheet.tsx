@@ -2,8 +2,8 @@ import React, { FC, Fragment } from 'react';
 
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import Widget from 'commons/components/organisms/Widget';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { AnswerType } from 'commons/types/models';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type AnswerSheetPaperPropsType = {
   mode: 'answer_sheet';
@@ -15,7 +15,7 @@ const AnswerSheetPaper: FC<AnswerSheetPaperPropsType> = ({
   paperId,
   answers,
 }) => {
-  const { data: paper } = useGetPaperQuery({ paperId }, { skip: !paperId });
+  const { paper } = usePaper(parseInt(paperId));
   const visibleWidgets = paper?.widgets.filter(widget => !widget.is_hidden)
 
   return (
