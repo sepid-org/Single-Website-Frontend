@@ -10,14 +10,14 @@ import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import Layer from './Board/Layer';
 
-const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
+const BoardEditor = ({ activePaperId, backgroundPaperIds = [] }) => {
   const { data: paper } = useGetPaperQuery(
-    { paperId },
+    { paperId: activePaperId },
     {
-      skip: !paperId,
+      skip: !activePaperId,
       selectFromResult: (result) => ({
         ...result,
-        data: paperId ? result.data : null,
+        data: activePaperId ? result.data : null,
       }),
     }
   );
@@ -35,7 +35,7 @@ const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
   const handleDragStop = useCallback((id, d) => {
     const updatedWidget = widgets.find(widget => widget.id === id);
     updatePositions({
-      paperId,
+      paperId: activePaperId,
       positions: [
         {
           ...updatedWidget.position,
@@ -44,12 +44,12 @@ const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
         },
       ],
     });
-  }, [widgets, updatePositions, paperId]);
+  }, [widgets, updatePositions, activePaperId]);
 
   const handleResize = useCallback((id, ref, position) => {
     const updatedWidget = widgets.find(widget => widget.id === id);
     updatePositions({
-      paperId,
+      paperId: activePaperId,
       positions: [
         {
           ...updatedWidget.position,
@@ -60,7 +60,7 @@ const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
         },
       ],
     });
-  }, [widgets, updatePositions, paperId]);
+  }, [widgets, updatePositions, activePaperId]);
 
   const handleZoom = useCallback((delta) => {
     setScale(prevScale => {
@@ -159,7 +159,7 @@ const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
         <IconButton onClick={handleResetView}>
           <RestartAltIcon />
         </IconButton>
-        <CreateWidgetButton paperId={paperId} />
+        <CreateWidgetButton paperId={activePaperId} />
       </Stack>
       <Box
         sx={{
@@ -208,7 +208,7 @@ const BoardEditor = ({ paperId, backgroundPaperIds = [] }) => {
             <Widget
               coveredWithPaper={false}
               widget={widget}
-              paperId={paperId}
+              paperId={activePaperId}
               mode={WidgetModes.Edit}
             />
           </Rnd>

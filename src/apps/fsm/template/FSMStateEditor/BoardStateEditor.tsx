@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardEditor from 'commons/template/BoardEditor';
@@ -11,6 +11,7 @@ type BoardStateEditorPropsType = {
 
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
+  const [activePaperId, setActivePaperId] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
 
@@ -26,11 +27,19 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
     <Grid container overflow={'hidden'} alignItems={'start'} style={{ flexWrap: 'nowrap' }}>
       <Grid item md={3}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
-        <FSMStatePapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
+        <FSMStatePapersList
+          activePaperId={activePaperId}
+          setActivePaperId={setActivePaperId}
+          paperIds={fsmState?.papers}
+          fsmStateId={fsmStateId}
+        />
       </Grid>
       <Divider orientation='vertical' flexItem />
       <Grid item md={9}>
-        <BoardEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
+        <BoardEditor
+          activePaperId={activePaperId}
+          backgroundPaperIds={fsmState?.papers.filter((paperId) => paperId !== activePaperId)}
+        />
       </Grid>
     </Grid>
   );
