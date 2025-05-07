@@ -22,9 +22,9 @@ function AreYouSure({ open, handleClose, callBackFunction, text = '' }) {
       <DialogActions>
         <ButtonGroup variant="contained" color="primary" fullWidth>
           <Button
-            onClick={() => {
-              callBackFunction();
-              handleClose();
+            onClick={(e) => {
+              callBackFunction(e);
+              handleClose(e);
             }}>
             بله
           </Button>

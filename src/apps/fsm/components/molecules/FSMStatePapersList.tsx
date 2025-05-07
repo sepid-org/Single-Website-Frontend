@@ -36,8 +36,14 @@ const FSMStatePapersList: FC<FSMStatePapersListPropsType> = ({
   activePaperId,
   setActivePaperId,
 }) => {
-  const [paperIds, setPaperIds] = useState<string[]>(initialPaperIds);
+  const [paperIds, setPaperIds] = useState<string[]>([]);
   const [updatePapersOrder] = useUpdatePaperOrderMutation();
+
+  useEffect(() => {
+    if (initialPaperIds) {
+      setPaperIds(initialPaperIds);
+    }
+  }, [initialPaperIds])
 
   const onDragEnd = (result) => {
     // dropped outside the list

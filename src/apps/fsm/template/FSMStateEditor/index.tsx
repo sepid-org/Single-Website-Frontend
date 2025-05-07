@@ -9,8 +9,6 @@ import StateInfoEditor from './StateInfoEditor';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
-import { FSMProvider } from 'commons/hooks/useFSMContext';
-import { useParams } from 'react-router-dom';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -19,7 +17,6 @@ type FSMStateEditorPropsType = {
 const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
   fsmStateId,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
   const [tabIndex, setTabIndex] = React.useState(0);
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
 
@@ -68,11 +65,9 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
           <Tab key={tab.slug} label={tab.label} />
         )}
       </Tabs>
-      <FSMProvider fsmId={fsmId}>
-        <FSMStateProvider fsmStateId={fsmStateId}>
-          {selectedTab.component}
-        </FSMStateProvider>
-      </FSMProvider>
+      <FSMStateProvider fsmStateId={fsmStateId}>
+        {selectedTab.component}
+      </FSMStateProvider>
     </Fragment>
   )
 }

@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardEditor from 'commons/template/BoardEditor';
@@ -14,6 +14,12 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const [activePaperId, setActivePaperId] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { data: fsmState } = useGetFSMStateQuery({ fsmStateId });
+
+  useEffect(() => {
+    if (fsmState.papers && !fsmState.papers.includes(activePaperId)) {
+      setActivePaperId(null);
+    }
+  }, [fsmState])
 
   if (isMobile) {
     return (
@@ -38,7 +44,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
       <Grid item md={9}>
         <BoardEditor
           activePaperId={activePaperId}
-          backgroundPaperIds={fsmState?.papers.filter((paperId) => paperId !== activePaperId)}
+          allPaperIds={fsmState?.papers}
         />
       </Grid>
     </Grid>

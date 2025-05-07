@@ -1,9 +1,8 @@
 import React, { FC, useMemo, useEffect } from 'react';
-import useGetPaper from 'apps/fsm/hooks/useFSMPapersManager';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
-import { useFSMContext } from 'commons/hooks/useFSMContext';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type LayerProps = {
   paperId: string;
@@ -20,8 +19,7 @@ const Layer: FC<LayerProps> = ({
   hidden = false,
   onLoaded,
 }) => {
-  const { useGetPaper } = useFSMContext();
-  const { paper, isSuccess } = useGetPaper({ paperId: parseInt(paperId) });
+  const { paper, isSuccess } = usePaper(parseInt(paperId));
   const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
 
