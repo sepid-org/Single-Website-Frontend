@@ -16,8 +16,19 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   useEffect(() => {
-    if (fsmState.papers && !fsmState.papers.includes(activePaperId)) {
-      setActivePaperId(null);
+    if (!fsmState.papers) return;
+    if (activePaperId) {
+      if (!fsmState.papers.includes(activePaperId)) {
+        if (fsmState.papers.length > 0) {
+          setActivePaperId(fsmState.papers[0]);
+        } else {
+          setActivePaperId(null);
+        }
+      }
+    } else {
+      if (fsmState.papers.length > 0) {
+        setActivePaperId(fsmState.papers[0]);
+      }
     }
   }, [fsmState])
 
