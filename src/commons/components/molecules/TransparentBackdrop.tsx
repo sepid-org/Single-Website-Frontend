@@ -8,7 +8,6 @@ const TransparentBackdrop = ({ open }) => {
     <Backdrop
       open={open}
       sx={{
-        color: '#fff',
         backgroundColor: 'transparent',
         zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
