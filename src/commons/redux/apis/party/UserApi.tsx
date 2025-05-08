@@ -111,7 +111,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    checkUserRegistration: builder.query<{ is_registered: boolean }, { username: string }>({
+    checkUserRegistration: builder.query<{ is_registered: boolean, has_password: boolean }, { username: string }>({
       query: ({ username }) => ({
         url: 'auth/accounts/check-user-registration/',
         params: { username },
