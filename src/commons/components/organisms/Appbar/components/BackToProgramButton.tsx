@@ -1,4 +1,4 @@
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton } from '@mui/material';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import React, { FC } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -18,11 +18,9 @@ const BackToProgramButton: FC<BackToProgramButtonPropsType> = ({ }) => {
   };
 
   return (
-    <Tooltip title='بازگشت به دوره' arrow>
-      <IconButton onClick={handleOnClick}>
-        <ExitToAppIcon color='primary' />
-      </IconButton>
-    </Tooltip>
+    <IconButton onClick={handleOnClick}>
+      <ExitToAppIcon color='primary' />
+    </IconButton>
   );
 }
 
