@@ -15,12 +15,13 @@ function useFSMState(fsmStateId: number | null | undefined) {
   );
 
   if (!fsmStateId) {
-    return { fsmState: null, isSuccess: false, error: null };
+    return { fsmState: null, isLoading: false, isSuccess: false, error: null };
   }
 
   if (cachedFSMState?.isSuccess) {
     return {
       fsmState: cachedFSMState.fsmState,
+      isLoading: false,
       isSuccess: true,
       error: null,
     };
@@ -28,6 +29,7 @@ function useFSMState(fsmStateId: number | null | undefined) {
 
   return {
     fsmState: queryResult.data ?? null,
+    isLoading: queryResult.isLoading,
     isSuccess: queryResult.isSuccess,
     error: queryResult.error ?? null,
   };

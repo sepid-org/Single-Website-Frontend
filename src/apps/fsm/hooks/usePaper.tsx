@@ -15,12 +15,13 @@ function usePaper(paperId: number | null | undefined) {
   );
 
   if (!paperId) {
-    return { paper: null, isSuccess: false, error: null };
+    return { paper: null, isLoading: false, isSuccess: false, error: null };
   }
 
   if (cachedPaper?.isSuccess) {
     return {
       paper: cachedPaper.paper,
+      isLoading: false,
       isSuccess: true,
       error: null,
     };
@@ -28,6 +29,7 @@ function usePaper(paperId: number | null | undefined) {
 
   return {
     paper: queryResult.data ?? null,
+    isLoading: queryResult.isLoading,
     isSuccess: queryResult.isSuccess,
     error: queryResult.error ?? null,
   };
