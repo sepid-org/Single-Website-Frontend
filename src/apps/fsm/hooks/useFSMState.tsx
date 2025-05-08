@@ -1,19 +1,36 @@
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import { useGetFSMStateQuery } from '../redux/slices/fsm/FSMStateSlice';
 
-function useFSMState(fsmStateId: number) {
+function useFSMState(fsmStateId: number | null | undefined) {
   const fsmContext = useFSMContext();
-  const fsmResult = fsmContext?.useCachedFSMState?.({ fsmStateId }) ?? { fsmState: null, isSuccess: false };
+  const useCache = !!fsmContext?.useCachedFSMState;
+
+  // Try to get FSM state from cache if available
+  const fsmResult = useCache ? fsmContext.useCachedFSMState({ fsmStateId }) : null;
+
+  // Fallback to Redux query if cache is not used
   const queryResult = useGetFSMStateQuery(
     { fsmStateId: fsmStateId?.toString() },
-    { skip: Boolean(fsmContext.useCachedFSMState) || !fsmStateId }
+    { skip: useCache || !fsmStateId }
   );
 
-  if (fsmContext && fsmResult.isSuccess) {
-    return { fsmState: fsmResult.fsmState, isSuccess: fsmResult.isSuccess, error: fsmResult.error };
-  } else {
-    return { fsmState: queryResult.data, isSuccess: queryResult.isSuccess, error: queryResult.error };
+  if (!fsmStateId) {
+    return { fsmState: null, isSuccess: true, error: null };
   }
+
+  if (useCache && fsmResult?.isSuccess) {
+    return {
+      fsmState: fsmResult.fsmState,
+      isSuccess: true,
+      error: null,
+    };
+  }
+
+  return {
+    fsmState: queryResult.data ?? null,
+    isSuccess: queryResult.isSuccess,
+    error: queryResult.error ?? null,
+  };
 }
 
 export default useFSMState;

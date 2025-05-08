@@ -1,5 +1,5 @@
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
-import TransparentLoadingBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
+import TransparentBackdrop from 'commons/components/molecules/TransparentBackdrop';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import React from 'react';
 
@@ -13,7 +13,7 @@ const InitialApiCalls = ({ children }) => {
 
   if (isWebsiteLoading || isUserAuthenticatedLoading) {
     return (
-      <TransparentLoadingBackdrop open={true} />
+      <TransparentBackdrop open={true} />
     );
   }
 

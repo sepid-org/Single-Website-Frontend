@@ -8,7 +8,7 @@ import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
-import TransparentLoadingBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
+import TransparentBackdrop from 'commons/components/molecules/TransparentBackdrop';
 
 type PropsType = {}
 
@@ -62,7 +62,7 @@ const Registration: FC<PropsType> = () => {
   }
 
   return (
-    <TransparentLoadingBackdrop open={true} />
+    <TransparentBackdrop open={true} />
   )
 
 };

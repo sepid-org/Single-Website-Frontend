@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
-import TransparentBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
+import TransparentBackdrop from 'commons/components/molecules/TransparentBackdrop';
 
 interface Props {
   children: React.ReactNode;

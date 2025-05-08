@@ -15,7 +15,7 @@ import InitialApiCalls from 'commons/utils/InitialApiCalls';
 import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
 import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
 import DynamicThemeProvider from 'commons/styles/themes/DynamicThemeProvider';
-import TransparentBackdrop from 'commons/components/molecules/TransparentLoadingBackdrop';
+import TransparentBackdrop from 'commons/components/molecules/TransparentBackdrop';
 
 const App = ({ }) => {
   const locale = useSelector((state: any) => state.Intl.locale);
