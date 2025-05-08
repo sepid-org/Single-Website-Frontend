@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useGetFSMAllPapersQuery } from '../redux/slices/fsm/FSMSlice';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import { PaperType } from 'commons/types/models';
 
 export type PaperResult = {
@@ -44,41 +43,14 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
     });
   }, [fullQuery.data]);
 
-  /**
-   * Hook to fetch a single paper by ID, falling back to cache or full list.
-   */
-  function useCachedPaper({ paperId }: { paperId: number }): PaperResult {
+  const getCachedPaper = ({ paperId }: { paperId: number }): PaperResult => {
     const isCached = paperCache.has(paperId);
-
-    // single-paper query until full-list enabled
-    const singleQuery = useGetPaperQuery(
-      { paperId: paperId?.toString() },
-      { skip: isCached || !paperId }
-    );
-
-    useEffect(() => {
-      if (singleQuery.data) {
-        updateCache(parseInt(singleQuery.data.id), singleQuery.data);
-      }
-    }, [singleQuery.data]);
-
-    const { data: singlePaper, isLoading: isSingleLoading, isSuccess: isSingleSuccess, error: singleError } = singleQuery;
-    const { data: fullData, isLoading: isFullLoading, isSuccess: isFullSuccess, error: fullError } = fullQuery;
-
-    const paper = isCached
-      ? paperCache.get(paperId)
-      : useFullPapers
-        ? fullData?.papers.find(p => parseInt(p.id) === paperId)
-        : singlePaper;
-
-    const isLoading = isCached ? false : useFullPapers ? isFullLoading : isSingleLoading;
-    const isSuccess = isCached ? true : useFullPapers ? isFullSuccess : isSingleSuccess;
-    const error = isCached ? undefined : useFullPapers ? fullError : singleError;
-
-    return { paper, isLoading, isSuccess, error };
+    const paper = isCached ? paperCache.get(paperId) : null;
+    const isSuccess = isCached ? true : false;
+    return { paper, isLoading: false, isSuccess, error: undefined };
   }
 
-  return { useCachedPaper };
+  return { getCachedPaper };
 }
 
 export default useFSMPapersManager;

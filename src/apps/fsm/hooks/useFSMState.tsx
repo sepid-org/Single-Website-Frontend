@@ -3,24 +3,24 @@ import { useGetFSMStateQuery } from '../redux/slices/fsm/FSMStateSlice';
 
 function useFSMState(fsmStateId: number | null | undefined) {
   const fsmContext = useFSMContext();
-  const useCache = !!fsmContext?.useCachedFSMState;
+  const getCachedFSMState = fsmContext?.getCachedFSMState;
 
   // Try to get FSM state from cache if available
-  const fsmResult = useCache ? fsmContext.useCachedFSMState({ fsmStateId }) : null;
+  const cachedFSMState = getCachedFSMState ? getCachedFSMState({ fsmStateId }) : null;
 
   // Fallback to Redux query if cache is not used
   const queryResult = useGetFSMStateQuery(
     { fsmStateId: fsmStateId?.toString() },
-    { skip: useCache || !fsmStateId }
+    { skip: cachedFSMState?.isSuccess || !fsmStateId }
   );
 
   if (!fsmStateId) {
-    return { fsmState: null, isSuccess: true, error: null };
+    return { fsmState: null, isSuccess: false, error: null };
   }
 
-  if (useCache && fsmResult?.isSuccess) {
+  if (cachedFSMState?.isSuccess) {
     return {
-      fsmState: fsmResult.fsmState,
+      fsmState: cachedFSMState.fsmState,
       isSuccess: true,
       error: null,
     };

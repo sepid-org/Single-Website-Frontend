@@ -3,24 +3,24 @@ import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/Pape
 
 function usePaper(paperId: number | null | undefined) {
   const fsmContext = useFSMContext();
-  const useCache = !!fsmContext?.useCachedPaper;
+  const getCachedPaper = fsmContext?.getCachedPaper;
 
   // Get result from FSM cache if available
-  const fsmResult = useCache ? fsmContext.useCachedPaper({ paperId }) : null;
+  const cachedPaper = getCachedPaper ? getCachedPaper({ paperId }) : null;
 
   // Get result from Redux query if needed
   const queryResult = useGetPaperQuery(
     { paperId: paperId?.toString() },
-    { skip: useCache || !paperId }
+    { skip: cachedPaper?.isSuccess || !paperId }
   );
 
   if (!paperId) {
-    return { paper: null, isSuccess: true, error: null };
+    return { paper: null, isSuccess: false, error: null };
   }
 
-  if (useCache && fsmResult?.isSuccess) {
+  if (cachedPaper?.isSuccess) {
     return {
-      paper: fsmResult.paper,
+      paper: cachedPaper.paper,
       isSuccess: true,
       error: null,
     };
