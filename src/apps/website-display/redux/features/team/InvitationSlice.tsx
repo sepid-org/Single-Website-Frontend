@@ -47,7 +47,7 @@ export const InvitationSlice = ContentManagementServiceApi.injectEndpoints({
 
     getMyInvitations: builder.query<GetMyInvitationsOutputType, GetMyInvitationsInputType>({
       providesTags: ['my-invitations'],
-      query: ({ registrationFormId }) => `fsm/registration/${registrationFormId}/my_invitations/`,
+      query: ({ registrationFormId }) => `program/registration/${registrationFormId}/my_invitations/`,
       transformResponse: (response: any): GetMyInvitationsOutputType => {
         return response;
       },

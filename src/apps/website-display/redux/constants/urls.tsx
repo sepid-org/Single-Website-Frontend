@@ -9,7 +9,7 @@ export const getCertificateUrl = ({ receiptId }) => `/fsm/receipts/${receiptId}/
 export const allRegistrationReceiptsUrl = ({ registrationFormId, pageNumber }) => `fsm/form/${registrationFormId}/receipts/?page=${pageNumber}`;
 
 // Team:
-export const registerUsersViaCSVUrl = ({ registrationFormId }) => `fsm/registration_form_admin/${registrationFormId}/register_participants_via_list/`;
+export const registerUsersViaCSVUrl = ({ registrationFormId }) => `program/registration_form_admin/${registrationFormId}/register_participants_via_list/`;
 
 // workshop:
 export const reviewAnswersUrl = ({ fsmId }) => `fsm/fsm/${fsmId}/review/`;

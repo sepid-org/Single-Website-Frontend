@@ -30,7 +30,7 @@ export const ProgramAdminsSlice = ContentManagementServiceApi.injectEndpoints({
 
     getProgramAdmins: builder.query<GetProgramAdminsOutputType, ProgramInputType>({
       providesTags: ['program-admins'],
-      query: ({ programSlug }) => `fsm/program/${programSlug}/get_admins/`,
+      query: ({ programSlug }) => `/program/program/${programSlug}/get_admins/`,
       transformResponse: (response: any): GetProgramAdminsOutputType => {
         return response;
       },
@@ -39,7 +39,7 @@ export const ProgramAdminsSlice = ContentManagementServiceApi.injectEndpoints({
     addAdminToProgram: builder.mutation<AddAdminToProgramOutputType, AddAdminToProgramInputType>({
       invalidatesTags: ['program-admins'],
       query: ({ programSlug, ...body }) => ({
-        url: `/fsm/program/${programSlug}/add_admin/`,
+        url: `/program/program/${programSlug}/add_admin/`,
         method: 'POST',
         body,
       }),
@@ -51,7 +51,7 @@ export const ProgramAdminsSlice = ContentManagementServiceApi.injectEndpoints({
     removeAdminFromProgram: builder.mutation<RemoveAdminFromProgramOutputType, RemoveAdminFromProgramInputType>({
       invalidatesTags: ['program-admins'],
       query: ({ programSlug, ...body }) => ({
-        url: `/fsm/program/${programSlug}/remove_admin/`,
+        url: `/program/program/${programSlug}/remove_admin/`,
         method: 'POST',
         body,
       }),
