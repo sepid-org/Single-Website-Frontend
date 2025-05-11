@@ -1,35 +1,38 @@
-import { createTheme, ThemeProvider } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, ReactNode } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useGetPageMetadataQuery, useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
 import { fontsStyles } from "../fonts";
 
-const DynamicThemeProvider = ({ children }) => {
-	const [theme, setTheme] = useState(null);
+interface DynamicThemeProviderProps {
+	children: ReactNode;
+}
+
+const DynamicThemeProvider = ({ children }: DynamicThemeProviderProps) => {
+	const [theme, setTheme] = useState<ReturnType<typeof createTheme> | null>(null);
 	const { data: website } = useGetWebsiteQuery();
-	const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+	const { data: pageMetadata } = useGetPageMetadataQuery({
+		pageAddress: window.location.pathname,
+	});
 
 	useEffect(() => {
-		const themeConfig = createTheme({
-			direction: 'rtl',
-			components: {
-				MuiCssBaseline: {
-					styleOverrides: fontsStyles,
+		const mergedTheme = createTheme(
+			website?.theme ?? {},
+			pageMetadata?.theme ?? {},
+			{
+				direction: "rtl",
+				components: {
+					MuiCssBaseline: {
+						styleOverrides: fontsStyles,
+					},
 				},
-			},
-			...website?.theme,
-			...pageMetadata?.theme,
-		});
-		setTheme(themeConfig);
-
+			}
+		);
+		setTheme(mergedTheme);
 	}, [website, pageMetadata]);
 
-	if (theme) {
-		return (
-			<ThemeProvider theme={theme}>
-				{children}
-			</ThemeProvider>
-		);
-	}
+	if (!theme) return null;
+
+	return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 export default DynamicThemeProvider;
