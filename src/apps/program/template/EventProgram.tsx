@@ -3,11 +3,12 @@ import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 
-import FSMsGrid from 'commons/components/organisms/FSMsGrid';
+import FSMsGrid from 'apps/program/template/FSMsGrid';
 import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSidebar';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Layout from 'commons/template/Layout';
+import Meetings from './Meetings';
 
 type EventProgramPropsType = {}
 
@@ -36,6 +37,10 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
           </Grid>
           <Grid item xs={12} sm={8} lg={9}>
             {/* <Banner banners={pageMetadata?.banners} /> */}
+            <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
+              {'جلسه‌ها'}
+            </Typography>
+            <Meetings />
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'کارگاه‌ها'}
             </Typography>

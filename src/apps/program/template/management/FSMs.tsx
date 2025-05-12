@@ -5,19 +5,18 @@ import {
 } from '@mui/material';
 import { Pagination } from '@mui/material';
 import React, { useState, Fragment, FC } from 'react';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import MentorFSMCard from 'commons/components/organisms/cards/MentorFSMCard';
-import CreateFSMDialog from 'commons/components/organisms/dialogs/CreateFSMDialog';
+import CreateFSMDialog from 'apps/program/components/organisms/dialogs/CreateFSMDialog';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetFSMsQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 
-type ProgramManagementFsmTabPropsType = {}
+type PropsType = {}
 
-const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
+const FSMsManagement: FC<PropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const [openCreateFSMDialog, setOpenCreateFSMDialog] = useState(false);
@@ -29,11 +28,11 @@ const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
       <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
 
         <Stack padding={2} spacing={2}>
-          <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
+          <Stack direction={'row'} justifyContent={'space-between'} alignItems={'start'}>
             <Typography variant='h2' gutterBottom>
               {'کارگاه‌ها'}
             </Typography>
-            <AddNewThingButton label={'افزودن کارگاه جدید'} onClick={() => setOpenCreateFSMDialog(true)} />
+            <AddNewThingButton label={'ایجاد کارگاه جدید'} onClick={() => setOpenCreateFSMDialog(true)} />
           </Stack>
           <Stack spacing={2}>
             {(!isLoading && fsmsData?.fsms?.length > 0) &&
@@ -79,4 +78,4 @@ const ProgramManagementFsmTab: FC<ProgramManagementFsmTabPropsType> = ({ }) => {
   );
 }
 
-export default ProgramManagementFsmTab;
+export default FSMsManagement;
