@@ -54,13 +54,20 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
       ],
     }),
 
-    joinMeeting: builder.query<JoinResponse, { meetingId: string, asModerator?: boolean }>({
+    getJoinMeetingLink: builder.query<JoinResponse, { meetingId: string, asModerator?: boolean }>({
       query: ({ meetingId, asModerator }) => ({
-        url: `/meeting/meetings/${meetingId}/join/`,
+        url: `/meeting/meetings/${meetingId}/join-link/`,
         method: 'GET',
         params: {
           as_moderator: asModerator,
         }
+      }),
+    }),
+
+    joinMeeting: builder.query<JoinResponse, { meetingId: string }>({
+      query: ({ meetingId }) => ({
+        url: `/meeting/meetings/${meetingId}/join/`,
+        method: 'GET',
       }),
     }),
 
@@ -87,6 +94,7 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
 export const {
   useCreateMeetingMutation,
   useUpdateMeetingMutation,
+  useLazyGetJoinMeetingLinkQuery,
   useJoinMeetingQuery,
   useLazyJoinMeetingQuery,
   useGetMeetingQuery,

@@ -7,7 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { CopyAll as CopyIcon } from '@mui/icons-material';
-import { useLazyJoinMeetingQuery } from 'apps/program/redux/slices/MeetingSlice';
+import { useLazyGetJoinMeetingLinkQuery } from 'apps/program/redux/slices/MeetingSlice';
 import { Button } from '@mui/material';
 import { MeetingType } from 'apps/program/template/types';
 
@@ -34,7 +34,7 @@ const MeetingEditorCard: FC<PropsType> = ({ meeting }) => {
     return moment(`${dummyDate}T${time}`).format('HH:mm');
   };
 
-  const [trigger, { data: joinData, isFetching }] = useLazyJoinMeetingQuery();
+  const [trigger, { data: joinData, isFetching }] = useLazyGetJoinMeetingLinkQuery();
 
   const handleCopyLink = async (asModerator: boolean) => {
     try {
