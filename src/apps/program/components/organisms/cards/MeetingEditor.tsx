@@ -10,6 +10,7 @@ import { CopyAll as CopyIcon } from '@mui/icons-material';
 import { useLazyGetJoinMeetingLinkQuery } from 'apps/program/redux/slices/MeetingSlice';
 import { Button } from '@mui/material';
 import { MeetingType } from 'apps/program/template/types';
+import copyToClipboard from 'commons/utils/CopyToClipboard';
 
 type PropsType = {
   meeting: MeetingType;
@@ -41,7 +42,7 @@ const MeetingEditorCard: FC<PropsType> = ({ meeting }) => {
       const result = await trigger({ meetingId: meeting_id, asModerator });
       const url = result.data?.join_url;
       if (url) {
-        navigator.clipboard.writeText(url);
+        copyToClipboard(url, 'پیوند جلسه با موفقیت کپی شد')
       }
     } catch (err) {
       console.error('Error fetching join link', err);
@@ -78,13 +79,13 @@ const MeetingEditorCard: FC<PropsType> = ({ meeting }) => {
             onClick={() => handleCopyLink(true)}
             startIcon={<CopyIcon />}
           >
-            لینک ارائه‌دهنده
+            پیوند ارائه‌دهنده
           </Button>
           <Button
             onClick={() => handleCopyLink(false)}
             startIcon={<CopyIcon />}
           >
-            لینک شرکت‌کننده
+            پیوند شرکت‌کننده
           </Button>
         </Stack>
       </CardActions>
