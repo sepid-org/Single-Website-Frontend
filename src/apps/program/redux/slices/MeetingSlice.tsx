@@ -8,7 +8,7 @@ export interface CreateMeetingDto {
   description?: string;
   program: number;
   start_time: string;
-  end_time: string;
+  duration: string;
   location_type?: 'online' | 'physical' | 'hybrid';
 }
 
@@ -17,7 +17,7 @@ export interface UpdateMeetingDto {
   description?: string;
   program?: number;
   start_time?: string;
-  end_time?: string;
+  duration?: string;
   status?: 'scheduled' | 'ongoing' | 'ended' | 'canceled';
   location_type?: 'online' | 'physical' | 'hybrid';
   recording_url?: string;
@@ -49,6 +49,14 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
         url: `/meeting/meetings/${meeting_id}/`,
         method: 'PATCH',
         body: changes,
+      }),
+    }),
+
+    deleteMeeting: builder.mutation<void, { meetingId: string; programId: number }>({
+      invalidatesTags: (result, error, { programId }) => [{ type: 'Meetings', id: programId }],
+      query: ({ meetingId }) => ({
+        url: `/meeting/meetings/${meetingId}/`,
+        method: 'DELETE',
       }),
     }),
 
@@ -90,6 +98,7 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
+  useDeleteMeetingMutation,
   useCreateMeetingMutation,
   useUpdateMeetingMutation,
   useLazyGetJoinMeetingLinkQuery,

@@ -14,8 +14,8 @@ import NoDataFound from 'commons/components/molecules/NoDataFound';
 
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMeetingsByProgramQuery } from 'apps/program/redux/slices/MeetingSlice';
-import CreateMeetingDialog from 'apps/program/components/organisms/dialogs/CreateMeetingDialog';
 import MeetingEditorCard from 'apps/program/components/organisms/cards/MeetingEditor';
+import MeetingDialog from 'apps/program/components/organisms/dialogs/MeetingDialog';
 
 type PropsType = {};
 
@@ -83,7 +83,7 @@ const MeetingsManagement: FC<PropsType> = () => {
         )}
       </Stack>
 
-      <CreateMeetingDialog
+      <MeetingDialog
         open={openCreateDialog}
         handleClose={() => setOpenCreateDialog(false)}
       />

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import moment from 'moment-jalaali';
 import {
   Grid,
@@ -9,12 +9,12 @@ import {
   MenuItem,
   SelectChangeEvent,
 } from '@mui/material';
-import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
+import { AdapterMomentJalaali } from '@mui/x-date-pickers/AdapterMomentJalaali';
 import 'moment/locale/fa';
 
 import { MeetingType } from 'apps/program/template/types';
-import { toEnglishNumber } from 'commons/utils/translateNumber';
+import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
 
 type MeetingInfoFormProps = {
   data: Partial<MeetingType>;
@@ -23,9 +23,18 @@ type MeetingInfoFormProps = {
   ) => void;
 };
 
+const MAX_MEETING_DURATION = 180;
+
 const MeetingInfo: FC<MeetingInfoFormProps> = ({ data, setData }) => {
   moment.loadPersian({ dialect: 'persian-modern', usePersianDigits: true });
   moment.locale('fa');
+  const [durationError, setDurationError] = useState(false);
+
+  // Convert HH:mm:ss to total minutes
+  const durationToMinutes = (timeString: string) => {
+    const [hours = '0', minutes = '0'] = timeString.split(':');
+    return parseInt(hours, 10) * 60 + parseInt(minutes, 10);
+  };
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,11 +50,24 @@ const MeetingInfo: FC<MeetingInfoFormProps> = ({ data, setData }) => {
     setData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleTimeChange = (field: 'start_time' | 'end_time') =>
-    (value: moment.Moment | null) => {
-      const timeString = value ? value.format('HH:mm:ss') : '';
-      setData((prev) => ({ ...prev, [field]: toEnglishNumber(timeString) }));
-    };
+  const handleStartTimeChange = (value: moment.Moment | null) => {
+    if (!value) return;
+    const formatted = value.format('YYYY-MM-DDTHH:mm:ss');
+    setData((prev) => ({ ...prev, start_time: toEnglishNumber(formatted) }));
+  };
+
+  const handleDurationChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const rawMinutes = parseInt(e.target.value, 10) || 0;
+    const minutes = Math.min(rawMinutes, MAX_MEETING_DURATION);
+
+    setDurationError(rawMinutes > MAX_MEETING_DURATION);
+
+    const dur = moment.duration(minutes, 'minutes');
+    const timeString = `${String(dur.hours()).padStart(2, '0')}:${String(dur.minutes()).padStart(2, '0')}:00`;
+    setData((prev) => ({ ...prev, duration: timeString }));
+  };
 
   return (
     <Grid container spacing={2} dir="rtl">
@@ -73,32 +95,41 @@ const MeetingInfo: FC<MeetingInfoFormProps> = ({ data, setData }) => {
         />
       </Grid>
 
-      {/* Start Time (Jalali TimePicker with seconds) */}
+      {/* Jalali DateTimePicker */}
       <Grid item xs={12} md={6}>
-        <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="fa">
-          <TimePicker
-            label="زمان شروع"
-            value={data.start_time ? moment(data.start_time, 'HH:mm:ss') : null}
-            onChange={handleTimeChange('start_time')}
+        <LocalizationProvider
+          dateAdapter={AdapterMomentJalaali}
+          adapterLocale="fa"
+        >
+          <DateTimePicker
+            label="زمان و تاریخ شروع"
+            value={data.start_time ? moment(data.start_time, 'YYYY-MM-DDTHH:mm:ss') : null}
+            onChange={handleStartTimeChange}
+            format="jYYYY/jMM/jDD HH:mm:ss"
             ampm={false}
-            views={['hours', 'minutes']}
-            slotProps={{ textField: { fullWidth: true, inputProps: { placeholder: 'HH:mm:ss' } } }}
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                placeholder: '۱۳۸۰/۰۱/۰۱ ۱۲:۰۰:۰۰',
+              },
+            }}
           />
         </LocalizationProvider>
       </Grid>
 
-      {/* End Time (Jalali TimePicker with seconds) */}
+      {/* Duration in minutes */}
       <Grid item xs={12} md={6}>
-        <LocalizationProvider dateAdapter={AdapterMoment} adapterLocale="fa">
-          <TimePicker
-            label="زمان پایان"
-            value={data.end_time ? moment(data.end_time, 'HH:mm:ss') : null}
-            onChange={handleTimeChange('end_time')}
-            ampm={false}
-            views={['hours', 'minutes']}
-            slotProps={{ textField: { fullWidth: true, inputProps: { placeholder: 'HH:mm:ss' } } }}
-          />
-        </LocalizationProvider>
+        <TextField
+          fullWidth
+          type="number"
+          label="مدت زمان (دقیقه)"
+          name="duration"
+          inputProps={{ min: 1, max: MAX_MEETING_DURATION }}
+          value={data.duration ? durationToMinutes(data.duration) : ''}
+          onChange={handleDurationChange}
+          error={durationError}
+          helperText={durationError && `حداکثر مدت زمان جلسه ${toPersianNumber(MAX_MEETING_DURATION)} دقیقه می‌باشد!`}
+        />
       </Grid>
 
       {/* Location Type */}
