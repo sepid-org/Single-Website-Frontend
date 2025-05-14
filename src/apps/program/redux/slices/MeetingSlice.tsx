@@ -35,23 +35,21 @@ type GetProgramMeetingsOutputType = {
 export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createMeeting: builder.mutation<MeetingType, CreateMeetingDto>({
+      invalidatesTags: (result, error, item) => [{ type: 'Meetings', id: result.program }],
       query: newMeeting => ({
         url: `/meeting/meetings/`,
         method: 'POST',
         body: newMeeting,
       }),
-      invalidatesTags: ['Meetings'],
     }),
 
     updateMeeting: builder.mutation<MeetingType, { meeting_id: string; changes: UpdateMeetingDto }>({
+      invalidatesTags: (result, error, item) => [{ type: 'Meetings', id: result.program }],
       query: ({ meeting_id, changes }) => ({
         url: `/meeting/meetings/${meeting_id}/`,
         method: 'PATCH',
         body: changes,
       }),
-      invalidatesTags: (result, error, { meeting_id }) => [
-        { type: 'Meetings' as const, id: meeting_id }
-      ],
     }),
 
     getJoinMeetingLink: builder.query<JoinResponse, { meetingId: string, asModerator?: boolean }>({
@@ -74,10 +72,10 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
     // (optional) fetch a single meeting
     getMeeting: builder.query<MeetingType, { meetingId: string }>({
       query: meeting_id => `/meeting/meetings/${meeting_id}/`,
-      providesTags: (result, error, { meetingId }) => [{ type: 'Meetings' as const, id: meetingId }],
     }),
 
     getMeetingsByProgram: builder.query<GetProgramMeetingsOutputType, { programId: number, pageNumber: number }>({
+      providesTags: (result, error, item) => [{ type: 'Meetings', id: item.programId }],
       query: ({ programId, pageNumber }) => ({
         url: `/meeting/meetings/`,
         method: 'GET',
