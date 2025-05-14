@@ -82,14 +82,14 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
       query: meeting_id => `/meeting/meetings/${meeting_id}/`,
     }),
 
-    getMeetingsByProgram: builder.query<GetProgramMeetingsOutputType, { programId: number, pageNumber: number }>({
+    getMeetingsByProgram: builder.query<GetProgramMeetingsOutputType, { programId: number, startDate: string }>({
       providesTags: (result, error, item) => [{ type: 'Meetings', id: item.programId }],
-      query: ({ programId, pageNumber }) => ({
+      query: ({ programId, startDate }) => ({
         url: `/meeting/meetings/`,
         method: 'GET',
         params: {
           program: programId,
-          page: pageNumber,
+          start_date: startDate,
         },
       }),
     }),
