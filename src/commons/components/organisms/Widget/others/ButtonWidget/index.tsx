@@ -26,7 +26,7 @@ type ButtonWidgetPropsType = {
   mode: WidgetModes;
   id: string;
   has_ripple_on_click: boolean;
-  has_hover_effect: boolean;
+  has_wave_effect: boolean;
 };
 
 const ButtonWidget: FC<ButtonWidgetPropsType> = ({
@@ -35,7 +35,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   destination_page_url,
   destination_states = [],
   has_ripple_on_click,
-  has_hover_effect,
+  has_wave_effect,
   mode,
   id: widgetId,
 }) => {
@@ -171,7 +171,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               zIndex: 0,
               clipPath,
               transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
-              animation: has_hover_effect ? `${wave} 2s infinite` : 'none',
+              animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
             }}
           /> :
           <ButtonComponent
@@ -183,7 +183,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              animation: has_hover_effect ? `${wave} 2s infinite` : 'none',
+              animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
             }}
           >
             <TinyPreview
