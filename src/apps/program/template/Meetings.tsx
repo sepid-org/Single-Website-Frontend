@@ -1,14 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   Grid,
   Stack,
-  Pagination,
   CircularProgress,
+  Typography,
 } from '@mui/material';
-
-import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
-import NoDataFound from 'commons/components/molecules/NoDataFound';
 
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMeetingsByProgramQuery } from 'apps/program/redux/slices/MeetingSlice';
@@ -19,9 +16,6 @@ type PropsType = {};
 const Meetings: FC<PropsType> = () => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-
-  const [pageNumber, setPageNumber] = useState(1);
-  const [openCreateDialog, setOpenCreateDialog] = useState(false);
 
   const {
     data: meetingsData,
@@ -36,37 +30,31 @@ const Meetings: FC<PropsType> = () => {
   );
 
   const meetings = meetingsData?.results || [];
-  const totalCount = meetingsData?.count || 0;
-  const pageCount = Math.ceil(totalCount / ITEMS_PER_PAGE_NUMBER);
 
-  return (
-    <>
-      {isLoading || isFetching ? (
-        <CircularProgress />
-      ) : meetings.length > 0 ? (
-        <Stack spacing={2}>
-          <Stack>
-            <Grid container spacing={2}>
-              {meetings.map((meeting) => (
-                <Grid item xs={12} sm={6} md={4} key={meeting.meeting_id}>
-                  <MeetingCard meeting={meeting} />
-                </Grid>
-              ))}
-            </Grid>
-          </Stack>
-          <Pagination
-            variant="outlined"
-            shape="rounded"
-            count={pageCount}
-            page={pageNumber}
-            onChange={(_, v) => setPageNumber(v)}
-          />
+  if (isLoading || isFetching) {
+    return (
+      <CircularProgress />
+    )
+  }
+
+  if (meetings.length > 0) {
+    return (
+      <Stack spacing={2} mb={2}>
+        <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
+          {'جلسه‌ها'}
+        </Typography>
+        <Stack>
+          <Grid container spacing={2}>
+            {meetings.map((meeting) => (
+              <Grid item xs={12} sm={6} md={4} key={meeting.meeting_id}>
+                <MeetingCard meeting={meeting} />
+              </Grid>
+            ))}
+          </Grid>
         </Stack>
-      ) : (
-        <NoDataFound variant={3} />
-      )}
-    </>
-  );
+      </Stack>
+    );
+  }
 };
 
 export default Meetings;
