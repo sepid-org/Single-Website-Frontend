@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Grid, Button, Dialog, DialogTitle, DialogActions, Typography, Stack, useTheme } from '@mui/material';
 import { ChromePicker } from 'react-color';
 import { useGetThemeTemplatesQuery } from 'apps/website-factory/redux/features/appearance/AppearanceSlice';
- 
+
 
 const colorTranslations = {
   primary: 'اصلی',
@@ -29,7 +29,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
     setOpenDialog(true);
   };
 
-  const handleColorChange  = (color) => {
+  const handleColorChange = (color) => {
     setCurrentColor(color.hex);
   };
 
@@ -48,6 +48,33 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
   const handlePaletteSelect = (palette) => {
     setSelectedColors(palette);
   };
+
+  function getOppositeColor(color) {
+    color = color.replace('#', '');
+
+    // Convert 3-digit HEX to 6-digit
+    if (color.length === 3) {
+      color = color.split('').map(c => c + c).join('');
+    }
+
+    // Convert to RGB
+    const r = parseInt(color.substring(0, 2), 16);
+    const g = parseInt(color.substring(2, 4), 16);
+    const b = parseInt(color.substring(4, 6), 16);
+
+    // Calculate inverse RGB
+    const invR = 255 - r;
+    const invG = 255 - g;
+    const invB = 255 - b;
+
+    // Convert back to HEX
+    const invColor =
+      invR.toString(16).padStart(2, '0') +
+      invG.toString(16).padStart(2, '0') +
+      invB.toString(16).padStart(2, '0');
+
+    return `#${invColor.toUpperCase()}`;
+  }
 
   return (
     <Grid container item xs={12}>
@@ -83,6 +110,7 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
               overflow="hidden"
               textOverflow="ellipsis"
               whiteSpace="nowrap"
+              sx={{ textShadow: 'rgba(255, 255, 255, 0.8)' }}
             >
               {colorTranslations[key]}
             </Typography>
@@ -103,46 +131,46 @@ const ColorPaletteSelector: React.FC<ColorPaletteSelectorProps> = ({ selectedCol
           spacing={1}
         >
           {data?.results
-          .map((palette, index) => (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              md={4}
-              display={'flex'}
-              justifyContent={{ xs: 'center', sm: 'space-between' }}
-            >
-              <Button
-                key={index}
-                onClick={() => handlePaletteSelect(palette.body)}
-                sx={{
-                  padding: 0,
-                  textTransform: 'none',
-                  width: '100%',
-                  maxWidth: 200,
-                }}
+            .map((palette, index) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                display={'flex'}
+                justifyContent={{ xs: 'center', sm: 'space-between' }}
               >
-                <Stack
-                  width={'100%'}
-                  display={'flex'}
-                  direction={'row'}
+                <Button
+                  key={index}
+                  onClick={() => handlePaletteSelect(palette.body)}
+                  sx={{
+                    padding: 0,
+                    textTransform: 'none',
+                    width: '100%',
+                    maxWidth: 200,
+                  }}
                 >
-                  {Object.entries(palette.body).map(([key, value]) => (
-                    <Box
-                      key={key}
-                      sx={{
-                        width: '20%',
-                        maxWidth: 40,
-                        height: 40,
-                        backgroundColor: value,
-                        border: '1px solid #ccc',
-                      }}
-                    />
-                  ))}
-                </Stack>
-              </Button>
-            </Grid>
-          ))}
+                  <Stack
+                    width={'100%'}
+                    display={'flex'}
+                    direction={'row'}
+                  >
+                    {Object.entries(palette.body).map(([key, value]) => (
+                      <Box
+                        key={key}
+                        sx={{
+                          width: '20%',
+                          maxWidth: 40,
+                          height: 40,
+                          backgroundColor: value,
+                          border: '1px solid #ccc',
+                        }}
+                      />
+                    ))}
+                  </Stack>
+                </Button>
+              </Grid>
+            ))}
         </Grid>
       </Grid>
 
