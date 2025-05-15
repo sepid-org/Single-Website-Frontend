@@ -34,13 +34,13 @@ const LoginOrRegistration: FC<PropsType> = ({
     }
   }
 
-  const isRegistered = result.data?.is_registered;
+  const hasPassword = result.data?.has_password;
 
   useEffect(() => {
-    if (isRegistered === false) {
+    if (hasPassword === false) {
       getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: website.title, codeType: 'create-user-account' });
     }
-  }, [isRegistered])
+  }, [hasPassword])
 
   useEffect(() => {
     if (getVerificationCodeResult.isSuccess) {
@@ -90,7 +90,7 @@ const LoginOrRegistration: FC<PropsType> = ({
             {hasSubmittedUsername ? 'اصلاح شماره' : 'ثبت'}
           </Button>
         </Stack>
-        {hasSubmittedUsername && isRegistered === true &&
+        {hasSubmittedUsername && hasPassword === true &&
           <>
             <PasswordField onChange={(event) => setPassword(event.target.value)} />
             <Button
@@ -102,7 +102,7 @@ const LoginOrRegistration: FC<PropsType> = ({
             </Button>
           </>
         }
-        {hasSubmittedUsername && isRegistered === false &&
+        {hasSubmittedUsername && hasPassword === false &&
           <>
             <VerificationCodeField
               onChange={(event) => setVerificationCode(event.target.value)}

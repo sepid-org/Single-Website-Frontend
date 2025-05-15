@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Divider, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import FSMStatePapersList from 'apps/fsm/components/molecules/FSMStatePapersList';
 import BoardEditor from 'commons/template/BoardEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type BoardStateEditorPropsType = {
   fsmStateId: string;
@@ -11,8 +11,26 @@ type BoardStateEditorPropsType = {
 
 const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
+  const [activePaperId, setActivePaperId] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
+
+  useEffect(() => {
+    if (!fsmState.papers) return;
+    if (activePaperId) {
+      if (!fsmState.papers.includes(activePaperId)) {
+        if (fsmState.papers.length > 0) {
+          setActivePaperId(fsmState.papers[0]);
+        } else {
+          setActivePaperId(null);
+        }
+      }
+    } else {
+      if (fsmState.papers.length > 0) {
+        setActivePaperId(fsmState.papers[0]);
+      }
+    }
+  }, [fsmState])
 
   if (isMobile) {
     return (
@@ -26,11 +44,19 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
     <Grid container overflow={'hidden'} alignItems={'start'} style={{ flexWrap: 'nowrap' }}>
       <Grid item md={3}>
         <AddPaperToFSMState fsmStateId={fsmStateId} />
-        <FSMStatePapersList paperIds={fsmState?.papers} fsmStateId={fsmStateId} />
+        <FSMStatePapersList
+          activePaperId={activePaperId}
+          setActivePaperId={setActivePaperId}
+          paperIds={fsmState?.papers}
+          fsmStateId={fsmStateId}
+        />
       </Grid>
       <Divider orientation='vertical' flexItem />
       <Grid item md={9}>
-        <BoardEditor paperId={fsmState?.papers[fsmState?.papers.length - 1]} backgroundPaperIds={fsmState?.papers.slice(0, -1)} />
+        <BoardEditor
+          activePaperId={activePaperId}
+          allPaperIds={fsmState?.papers}
+        />
       </Grid>
     </Grid>
   );

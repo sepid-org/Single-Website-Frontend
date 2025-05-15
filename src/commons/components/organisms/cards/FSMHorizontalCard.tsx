@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Tooltip, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
+import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
 import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
@@ -55,11 +55,9 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
               {fsm.name}
             </Typography>
             {userStatus?.is_mentor && (
-              <Tooltip title="ورود به بخش همیاران" arrow>
-                <IconButton component={Link} to={`/fsm/${fsm?.id}/manage/`} size='small'>
-                  <ModeEditTwoToneIcon />
-                </IconButton>
-              </Tooltip>
+              <IconButton component={Link} to={`/fsm/${fsm?.id}/manage/`} size='small'>
+                <ModeEditTwoToneIcon />
+              </IconButton>
             )}
           </Stack>
           <Typography

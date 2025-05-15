@@ -1,4 +1,4 @@
-import { FSMEdgeType, FSMStateType, FSMType } from 'commons/types/models';
+import { FSMEdgeType, FSMPublicListType, FSMStateType, FSMType, FSMFullStatesType, FSMFullPapersType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 type UpdateFSMInputType = {
@@ -23,15 +23,9 @@ type GetFSMsInputType = {
 };
 
 type GetFSMsOutputType = {
-  fsms: FSMType[];
+  fsms: FSMPublicListType[];
   count: number;
 }
-
-type GetFSMInputType = {
-  fsmId: number;
-};
-
-type GetFSMOutputType = FSMType;
 
 type GetFSMStatesOutputType = FSMStateType[];
 
@@ -65,12 +59,19 @@ export const FSMSlice = ContentManagementServiceApi.injectEndpoints({
       },
     }),
 
-    getFSM: builder.query<GetFSMOutputType, GetFSMInputType>({
+    getFSM: builder.query<FSMType, { fsmId: number }>({
       providesTags: ['FSM'],
       query: ({ fsmId }) => `fsm/fsm/${fsmId}/`,
-      transformResponse: (response: any): GetFSMOutputType => {
-        return response;
-      },
+    }),
+
+    getFSMAllStates: builder.query<FSMFullStatesType, { fsmId: number }>({
+      providesTags: ['FSM'],
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/all-states/`,
+    }),
+
+    getFSMAllPapers: builder.query<FSMFullPapersType, { fsmId: number }>({
+      providesTags: ['FSM'],
+      query: ({ fsmId }) => `fsm/fsm/${fsmId}/all-papers/`,
     }),
 
     getFSMs: builder.query<GetFSMsOutputType, GetFSMsInputType>({
@@ -123,6 +124,8 @@ export const {
   useCreateFSMMutation,
   useGetFSMQuery,
   useGetFSMsQuery,
+  useGetFSMAllStatesQuery,
+  useGetFSMAllPapersQuery,
   useSoftDeleteFSMMutation,
   useGetFSMStatesQuery,
   useGetFSMEdgesQuery,

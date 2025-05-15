@@ -4,7 +4,7 @@ import {
   Typography,
 } from '@mui/material';
 import SoftDeleteFSMButton from 'commons/components/atoms/SoftDeleteFSMButton';
-import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
+import FSMInfoForm from 'apps/program/components/organisms/forms/FSMInfo';
 import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';

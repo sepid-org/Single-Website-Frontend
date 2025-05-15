@@ -26,11 +26,15 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 type FSMStatePapersListPropsType = {
   paperIds: string[];
   fsmStateId: string;
+  activePaperId: number;
+  setActivePaperId: any;
 }
 
 const FSMStatePapersList: FC<FSMStatePapersListPropsType> = ({
   paperIds: initialPaperIds,
   fsmStateId,
+  activePaperId,
+  setActivePaperId,
 }) => {
   const [paperIds, setPaperIds] = useState<string[]>([]);
   const [updatePapersOrder] = useUpdatePaperOrderMutation();
@@ -71,9 +75,14 @@ const FSMStatePapersList: FC<FSMStatePapersListPropsType> = ({
               }}
             >
               {paperIds.map((paperId, index) => (
-                <Draggable key={paperId} draggableId={`paper-${paperId}`} index={index}>
+                <Draggable
+                  key={paperId}
+                  draggableId={`paper-${paperId}`}
+                  index={index}
+                >
                   {(provided, snapshot) => (
                     <div
+                      onClick={() => setActivePaperId(paperId)}
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
@@ -83,7 +92,7 @@ const FSMStatePapersList: FC<FSMStatePapersListPropsType> = ({
                       )}
                     >
                       <FSMStatePapersListItem
-                        isSelected={index === paperIds.length - 1}
+                        isSelected={parseInt(paperId) === activePaperId}
                         fsmStateId={fsmStateId}
                         paperId={paperId}
                       />

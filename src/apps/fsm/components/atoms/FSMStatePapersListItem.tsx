@@ -24,22 +24,25 @@ const FSMStatePapersListItem: FC<PaperListItemPropsType> = ({
   const handleRemovePaperFromFSMState = () => {
     if (openRemovePaperDialog) {
       removePaperFromFSMState({ paperId, fsmStateId });
-      setOpenRemovePaperDialog(null);
+      setOpenRemovePaperDialog(false);
     }
   };
 
-  const handleDuplicatePaperFromFSMState = () => {
+  const handleDuplicatePaperFromFSMState = (e) => {
+    e.stopPropagation();
     duplicateAndAddPaperToFSMState({ paperId, fsmStateId });
   };
 
   // Open the dialog for a specific paper
-  const handleOpenRemovePaperDialog = (paperId) => {
-    setOpenRemovePaperDialog(paperId);
+  const handleOpenRemovePaperDialog = (e) => {
+    e.stopPropagation();
+    setOpenRemovePaperDialog(true);
   };
 
   // Close dialog
-  const handleCloseRemovePaperDialog = () => {
-    setOpenRemovePaperDialog(null);
+  const handleCloseRemovePaperDialog = (e) => {
+    e.stopPropagation();
+    setOpenRemovePaperDialog(false);
   };
 
   return (

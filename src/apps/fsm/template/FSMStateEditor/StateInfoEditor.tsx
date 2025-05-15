@@ -1,5 +1,5 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { useDeleteFSMStateMutation, useGetFSMStateQuery, useUpdateFSMStateMutation } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useDeleteFSMStateMutation, useUpdateFSMStateMutation } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import {
   Button,
   FormControlLabel,
@@ -21,12 +21,13 @@ import { Delete as DeleteIcon } from '@mui/icons-material';
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import { toast } from 'react-toastify';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type StateInfoEditorPropsType = {}
 
 const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
   const { fsmStateId } = useFSMStateContext();
-  const { data: initialFsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) });
+  const { fsmState: initialFsmState } = useFSMState(parseInt(fsmStateId));
   const [fsmState, setFsmState] = useState<FSMStateType>(null);
   const [updateFSMState, { isSuccess, isLoading }] = useUpdateFSMStateMutation();
 

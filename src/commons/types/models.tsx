@@ -49,6 +49,8 @@ export type ProgramType = {
   start_date: string | null;
   team_size: number;
   is_public: boolean;
+  menu: number;
+  menu_first_state_id: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
@@ -95,12 +97,23 @@ type AudienceTypes = 'Student' | 'Academic' | 'All';
 type FSMLearningTypes = 'Supervised' | 'Unsupervised';
 type FSMPTypes = 'Individual' | 'Team' | 'Hybrid';
 
-export type FSMType = ObjectType & {
+export type FSMPublicListType = {
+  id: number;
+  object: ObjectType;
   players_count: number;
-  is_mentor: boolean;
+  card_type: 'vertical1' | 'horizontal1';
+  is_active: boolean;
+  is_visible: boolean;
+  cover_image: string;
+  name: string;
+  description: string;
+}
+
+export type FSMType = {
+  object_id: number;
   id: number;
   name: string;
-  first_state: string;
+  first_state_id: string;
   description: string;
   fsm_learning_type: FSMLearningTypes | '';
   fsm_p_type: FSMPTypes | '';
@@ -114,6 +127,14 @@ export type FSMType = ObjectType & {
   participant_limit: number;
   duration: number;
 };
+
+export type FSMFullStatesType = {
+  states: FSMStateType[];
+}
+
+export type FSMFullPapersType = {
+  papers: PaperType[];
+}
 
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
@@ -154,7 +175,6 @@ export type PaperType = ObjectType & {
 export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
-  fsm: string;
   template: StateTemplateTypes;
   show_appbar: boolean;
   is_end: boolean;

@@ -1,15 +1,15 @@
 import React, { FC, useMemo, useEffect } from 'react';
-import { useGetPaperQuery } from 'apps/website-display/redux/features/paper/PaperSlice';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
 import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
+import usePaper from 'apps/fsm/hooks/usePaper';
 
 export type LayerProps = {
   paperId: string;
   widgetsMode: WidgetModes;
-  /** if true, we mount hidden (to pre-load data) */
+  /* if true, we mount hidden (to pre-load data) */
   hidden?: boolean;
-  /** called once when this paper’s data has arrived */
+  /* called once when this paper’s data has arrived */
   onLoaded?: () => void;
 };
 
@@ -19,7 +19,7 @@ const Layer: FC<LayerProps> = ({
   hidden = false,
   onLoaded,
 }) => {
-  const { data: paper, isSuccess } = useGetPaperQuery({ paperId });
+  const { paper, isSuccess } = usePaper(parseInt(paperId));
   const { complementaryObjects } = useFSMStateContext();
   const widgets = paper?.widgets || [];
 

@@ -17,7 +17,7 @@ import Info from 'apps/program/template/management/Info';
 import Registration from 'apps/program/template/management/Registration';
 import RegistrationReceipts from 'apps/program/template/management/RegistrationReceipts';
 import Teams from 'apps/program/template/management/Teams';
-import FSMs from 'apps/program/template/management/FSMs';
+import FSMsManagement from 'apps/program/template/management/FSMs';
 import StatisticsTab from 'apps/program/template/management/Statistics';
 import Certificates from 'apps/program/template/management/Certificates';
 import { DashboardTabType } from 'commons/types/global';
@@ -25,6 +25,8 @@ import Admins from 'apps/program/template/management/Admins';
 import Dashboard from 'commons/components/organisms/Dashboard';
 import ProgramManagementBreadcrumbs from 'commons/components/organisms/breadcrumbs/ProgramManagement';
 import { Grid } from '@mui/material';
+import MeetingsManagement from '../template/management/Meetings';
+import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 
 const tabs: DashboardTabType[] = [
   {
@@ -71,10 +73,16 @@ const tabs: DashboardTabType[] = [
     component: <Teams />,
   },
   {
+    slug: 'meetings',
+    label: 'جلسه‌ها',
+    icon: MeetingRoomIcon,
+    component: <MeetingsManagement />,
+  },
+  {
     slug: 'fsms',
     label: 'کارگاه‌ها',
     icon: ClassIcon,
-    component: <FSMs />,
+    component: <FSMsManagement />,
   },
   {
     slug: 'statistics',

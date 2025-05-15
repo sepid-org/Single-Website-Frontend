@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 
 const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
-  const { data: fsmState } = useGetFSMStateQuery({ fsmStateId }, { skip: !Boolean(fsmStateId) })
+  const { fsmState } = useFSMState(parseInt(fsmStateId))
 
   if (fsmState?.template === 'board') {
     return (

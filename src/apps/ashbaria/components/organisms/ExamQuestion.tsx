@@ -1,14 +1,13 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Grid, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
-import { WidgetModes } from 'commons/components/organisms/Widget';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 import IsRequired from 'commons/components/atoms/IsRequired';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
 import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
 import MessageIcon from '../atoms/icons/Message';
 import QuestionChoice from '../atoms/QuestionChoice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 
 const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
@@ -44,7 +43,7 @@ const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   });
 
   const { player } = useFSMContext();
-  const { data: currentFSMState } = useGetFSMStateQuery({ fsmStateId: player?.current_state }, { skip: !Boolean(player?.current_state) })
+  const { fsmState: currentFSMState } = useFSMState(parseInt(player?.current_state));
 
   const [selectedChoice, setSelectedChoice] = useState(null);
   useEffect(() => {

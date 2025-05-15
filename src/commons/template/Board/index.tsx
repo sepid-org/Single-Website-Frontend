@@ -2,12 +2,12 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
 import Frame from 'commons/template/Board/Frame';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import { useGetFSMStateQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 export type PropsType = {
   fsmStateId: string;
-  parentWidth?: number;
-  parentHeight?: number;
+  frameWidth?: number;
+  frameHeight?: number;
   boardWidth?: number;
   boardHeight?: number;
   mode?: 'fit-height' | 'fit-width';
@@ -21,18 +21,17 @@ type BoardState = {
 
 const Board: FC<PropsType> = ({
   fsmStateId,
-  parentWidth,
-  parentHeight,
+  frameWidth: parentWidth,
+  frameHeight: parentHeight,
   boardWidth,
   boardHeight,
   mode,
 }) => {
   const {
-    data: fsmState,
-    isFetching: isStateFetching,
+    fsmState,
     isSuccess: isStateSuccess,
     error: stateError,
-  } = useGetFSMStateQuery({ fsmStateId });
+  } = useFSMState(parseInt(fsmStateId));
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],

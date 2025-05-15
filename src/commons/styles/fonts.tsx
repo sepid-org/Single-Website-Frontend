@@ -95,11 +95,23 @@ const PinarFontFaceDeclarations = PinarFontVariants
   .join('');
 
 export const fontsStyles = `
+  /* — your existing @font-face declarations — */
   ${EstedadFontFaceDeclarations}
   ${VazirFontFaceDeclarations}
   ${IranyekanFontFaceDeclarations}
   ${PinarFontFaceDeclarations}
+
+  /* — your universal font-stack — */
   * {
-    font-family: IRANYekan, Pinar-FD, Estedad, Vazir, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: IRANYekan, Pinar-FD, Estedad, Vazir,
+                 -apple-system, BlinkMacSystemFont, 'Segoe UI',
+                 Roboto, Oxygen, Ubuntu, Cantarell,
+                 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  /* — zero-out all <p> margins (and padding, if you like) — */
+  p {
+    margin: 0;
+    padding: 0;
   }
 `;

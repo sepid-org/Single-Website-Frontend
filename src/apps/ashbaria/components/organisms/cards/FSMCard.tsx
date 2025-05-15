@@ -5,17 +5,14 @@ import {
   Typography,
   Stack,
   IconButton,
-  Tooltip,
   Skeleton,
   Chip,
 } from '@mui/material';
-import { Lock, Group, Person } from '@mui/icons-material';
+import { Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import React, { useState, Fragment, FC, useEffect } from 'react';
+import React, { Fragment, FC } from 'react';
 
-import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatusType } from 'commons/types/models';
-import useLocalNavigate from 'apps/ashbaria/hooks/useLocalNavigate';
 import { Link } from 'react-router-dom';
 import useStartFSM from 'commons/hooks/fsm/useStartFSM';
 
@@ -85,15 +82,13 @@ export const FSMCard: FC<FSMCardPropsType> = ({
                   {fsm.name}
                 </Typography>
                 {userFSMStatus?.is_user_mentor &&
-                  <Tooltip title='ورود به بخش همیاران' arrow>
-                    <IconButton
-                      component={Link}
-                      to={`/program/ashbaria/court/${fsm?.id}/manage/`}
-                      size='small'
-                    >
-                      <ModeEditTwoToneIcon />
-                    </IconButton>
-                  </Tooltip>
+                  <IconButton
+                    component={Link}
+                    to={`/program/ashbaria/court/${fsm?.id}/manage/`}
+                    size='small'
+                  >
+                    <ModeEditTwoToneIcon />
+                  </IconButton>
                 }
               </Stack>
             </Stack>

@@ -40,7 +40,7 @@ const ButtonWidgetEditor = ({
     destination_page_url: widgetProps.destination_page_url || '',
     destination_states: widgetProps.destination_states || [],
     has_ripple_on_click: widgetProps.has_ripple_on_click,
-    has_hover_effect: widgetProps.has_hover_effect,
+    has_wave_effect: widgetProps.has_wave_effect,
   });
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({ ...widgetProps });
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId });
@@ -143,13 +143,13 @@ const ButtonWidgetEditor = ({
           />
           <FormControlLabel
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            control={<Switch checked={buttonFields.has_hover_effect} />}
-            label={'نمایش افکت هنگام عبور موس'}
+            control={<Switch checked={buttonFields.has_wave_effect} />}
+            label={'انتشار موج برای جلب توجه'}
             labelPlacement='start'
             onChange={(e) => {
               setButtonFields({
                 ...buttonFields,
-                has_hover_effect: !buttonFields.has_hover_effect,
+                has_wave_effect: !buttonFields.has_wave_effect,
               })
             }}
           />

@@ -44,10 +44,7 @@ export const FormSlice = ContentManagementServiceApi.injectEndpoints({
       query: ({ formId, ...body }) => ({
         url: `fsm/form/${formId}/submit/`,
         method: 'POST',
-        body: {
-          answer_sheet_type: 'General',
-          ...body,
-        },
+        body,
       }),
     }),
   })

@@ -1,4 +1,5 @@
 import { BannerType } from "./redux/WebSiteAppearance";
+import type { ThemeOptions } from '@mui/material/styles';
 
 export type DashboardTabType = {
   slug: string;
@@ -67,7 +68,7 @@ export type WebsiteType = {
   header: HeaderMetaData;
   open_graph: OpenGraphMetaData;
   has_login_with_google: boolean;
-  theme: JSON;
+  theme: ThemeOptions;
 }
 
 export type PartyType = {
@@ -85,7 +86,7 @@ export type PageMetadataType = {
   banners?: BannerType[];
   appbar?: { body: BackendAppbarType };
   paper_id: number;
-  theme: JSON;
+  theme: ThemeOptions;
 }
 
 export type BackendAppbarType = {

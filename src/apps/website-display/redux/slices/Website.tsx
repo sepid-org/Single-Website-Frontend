@@ -19,7 +19,7 @@ const Slice = createSlice({
     builder.addMatcher(
       WebsiteSlice.endpoints.getWebsite.matchFulfilled,
       (state, { payload }) => {
-        state.website = payload;
+        state.website = payload as any;
       }
     );
 
