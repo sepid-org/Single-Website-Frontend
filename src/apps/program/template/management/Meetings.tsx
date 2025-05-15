@@ -33,7 +33,6 @@ const MeetingsManagement: FC<PropsType> = () => {
   } = useGetMeetingsByProgramQuery(
     {
       programId: program ? parseInt(program.id, 10) : undefined,
-      startDate: new Date().toISOString().split('T')[0], // YYYY-MM-DD format
     },
     { skip: !program?.id }
   );
