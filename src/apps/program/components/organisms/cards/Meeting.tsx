@@ -1,21 +1,19 @@
 import React, { FC } from 'react';
 import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
 import { useLazyJoinMeetingQuery } from 'apps/program/redux/slices/MeetingSlice';
-import { Button } from '@mui/material';
+import { Button, CardHeader } from '@mui/material';
 import { MeetingType } from 'apps/program/template/types';
+import { styled, keyframes } from '@mui/system';
 import LoginIcon from '@mui/icons-material/Login';
-import { formatDuration, formatStart } from 'apps/program/utils';
+import { formatStart } from 'apps/program/utils';
 
 type PropsType = {
   meeting: MeetingType;
 }
 
-const MeetingCard: FC<PropsType> = ({ meeting }) => {
+const MeetingCard = ({ meeting }) => {
   const {
     title,
     description,
@@ -38,32 +36,74 @@ const MeetingCard: FC<PropsType> = ({ meeting }) => {
     }
   };
 
+  const now = new Date();
+
+  const start = new Date(start_time);
+  const end = new Date(start.getTime() + Number(duration) * 60000);
+  const active = now >= start && now <= end;
+
+  const pulseBorder = keyframes`
+  0% {
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(25, 118, 210, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0);
+  }
+`;
+
+  const AnimatedCard = styled(Card)(({ theme }) => ({
+    animation: `${pulseBorder} 2s infinite`,
+    border: `2px solid ${theme.palette.primary.main}`
+  }));
+
+  const EnhancedCard = styled(Card)(({ theme }) => ({
+    border: `1.5px solid #e0e0e0`,
+    borderRadius: 12,
+  }));
+
+  const CardComponent = active ? AnimatedCard : EnhancedCard;
+
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 2, boxShadow: 3 }}>
+    <CardComponent
+      key={meeting_id}
+      sx={{ flexShrink: 0, borderRadius: 2, boxShadow: 3, width: 200, }}
+    >
       <CardHeader
-        title={title || 'بدون عنوان'}
-        subheader={`آغاز: ${formatStart(start_time)}`}
-        titleTypographyProps={{ variant: 'h4' }}
-        subheaderTypographyProps={{ variant: 'subtitle2' }}
+        title={
+          <Typography
+            sx={{
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+            }}
+            variant='h4'
+          >
+            {title || 'بدون عنوان'}
+          </Typography>
+        }
+        whiteSpace={'nowrap'}
+        overflow={'hidden'}
+        textOverflow={'ellipsis'}
       />
-
       <CardContent>
-        <Stack spacing={1}>
-          <Typography variant="body2">
-            <strong>توضیحات:</strong> {description || 'بدون توضیحات'}
-          </Typography>
-          <Typography variant="body2">
-            <strong>مدت:</strong> {formatDuration(duration)}
-          </Typography>
-        </Stack>
-      </CardContent>
+        <Typography variant="body1">
+          {`آغاز: ${formatStart(start_time)}`}
+        </Typography>
 
-      <CardActions sx={{ justifyContent: 'space-between', px: 2, pb: 2 }}>
-        <Button onClick={handleEnter} startIcon={<LoginIcon />}>
-          ورود به جلسه
+        <Button
+          color="primary"
+          disabled={!active}
+          onClick={handleEnter}
+          sx={{ mt: 2, }}
+          startIcon={<LoginIcon />}
+        >
+          {'ورود به جلسه'}
         </Button>
-      </CardActions>
-    </Card>
+      </CardContent>
+    </CardComponent>
   );
 };
 
