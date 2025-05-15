@@ -13,7 +13,7 @@ import { useParams } from 'react-router';
 
 import VerticalFSMCard from 'commons/components/organisms/cards/FSMVerticalCard';
 import { toast } from 'react-toastify';
-import FSMInfoForm from 'commons/components/organisms/forms/FSMInfoForm';
+import FSMInfoForm from 'apps/program/components/organisms/forms/FSMInfo';
 import { FSMType } from 'commons/types/models';
 import { useCreateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
@@ -82,7 +82,7 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
   }, [result])
 
   return (
-    <Dialog disableScrollLock open={open} maxWidth="md">
+    <Dialog open={open} maxWidth="md">
       <DialogTitle>{'ایجاد کارگاه جدید'}</DialogTitle>
       <DialogContent>
         <Grid container spacing={6} alignItems={'start'}>
