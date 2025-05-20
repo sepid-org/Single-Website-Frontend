@@ -4,10 +4,6 @@ import { WMS_URL } from 'commons/constants/Constants';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import { UserPublicInfoType } from 'commons/types/models';
 
-type GetUserProfileInputType = {
-  userId: string;
-}
-
 type UpdateUserProfileInputType = {
   userId: string;
 } & Partial<UserInfoType>;
@@ -26,10 +22,10 @@ type GetWebsiteProfileOutputType = Partial<WebsiteType>;
 
 export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getUserProfile: builder.query<GetUserProfileOutputType, GetUserProfileInputType>({
+    getCurrentUserProfile: builder.query<GetUserProfileOutputType, void>({
       providesTags: [{ type: 'Profile', id: 'MY' }],
-      query: ({ userId }) => ({
-        url: `auth/profile/${userId}/`,
+      query: () => ({
+        url: `/auth/profile/current/`,
         method: 'GET',
       }),
     }),
@@ -52,7 +48,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    getUserProfileSummary: builder.query<GetUserProfileSummaryOutputType, GetUserProfileInputType>({
+    getUserProfileSummary: builder.query<GetUserProfileSummaryOutputType, { userId: string }>({
       providesTags: [{ type: 'Profile', id: 'MY' }],
       query: ({ userId: partyId }) => ({
         url: `auth/profile/${partyId}/profile_summary/`,
@@ -74,7 +70,7 @@ export const ProfileSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useGetUserProfileQuery,
+  useGetCurrentUserProfileQuery,
   useGetUserProfileSummaryQuery,
   useGetWebsiteProfileSummaryQuery,
   useUpdateUserProfileMutation,

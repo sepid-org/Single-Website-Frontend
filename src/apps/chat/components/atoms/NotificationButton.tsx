@@ -20,15 +20,11 @@ type NotificationButtonPropsType = {
 const NotificationButton: FC<NotificationButtonPropsType> = ({
 }) => {
   const t = useTranslate();
-  const { data: website } = useGetWebsiteProfileSummaryQuery({});
-  const userInfo = useSelector((state: any) => state.account.userInfo);
-  const { data: userProfileSummary } = useGetUserProfileSummaryQuery({ userId: userInfo?.id }, { skip: !userInfo?.id });
-  const room = (website?.name && userProfileSummary?.user_id) ? `sepid-${website.name}-${userProfileSummary?.user_id}` : null;
+  // const room = (website?.name && userProfileSummary?.user_id) ? `sepid-${website.name}-${userProfileSummary?.user_id}` : null;
   // const sendMessage = useWebSocket({ room });
   const [message, setMessage] = useState('');
   const messages = useSelector((state: any) => state.websocket.messages);
   const status = useSelector((state: any) => state.websocket.status);
-
 
   const [anchorEl, setAnchorEl] = useState(null);
 

@@ -1,17 +1,14 @@
-import { useGetUserProfileQuery } from "commons/redux/apis/party/ProfileSlice";
-import { useSelector } from "react-redux";
+import { useGetCurrentUserProfileQuery } from "commons/redux/apis/party/ProfileSlice";
 import { useMemo } from "react";
 
 const useUserProfile = () => {
-  const userInfo = useSelector((state: any) => state.account.userInfo);
-
   const {
     data,
     isSuccess,
     isError,
     isLoading,
     isFetching,
-  } = useGetUserProfileQuery({ userId: userInfo?.id }, { skip: !Boolean(userInfo) });
+  } = useGetCurrentUserProfileQuery();
 
   const fullName = useMemo(() => {
     return data?.first_name && data?.last_name ? `${data.first_name} ${data.last_name}` : '';

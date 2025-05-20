@@ -11,7 +11,6 @@ type CreateAccountInputType = {
 }
 
 type CreateAccountOutputType = {
-  user: any;
   access: string;
   refresh: string;
 };
@@ -23,7 +22,6 @@ type GoogleLoginUserInputType = {
 }
 
 type GoogleLoginUserOutputType = {
-  user: any;
   access: string;
   refresh: string;
 };
@@ -56,7 +54,6 @@ type SimpleLoginInput = {
 type SimpleLoginOutputType = {
   access: string;
   refresh: string;
-  user: any;
 }
 
 type OTPLoginInputType = {
@@ -67,7 +64,6 @@ type OTPLoginInputType = {
 type OTPLoginOutputType = {
   access: string;
   refresh: string;
-  user: any;
 }
 
 type UUIDLoginInputType = {
@@ -79,7 +75,6 @@ type UUIDLoginInputType = {
 type UUIDLoginOutputType = {
   access: string;
   refresh: string;
-  user: any;
 }
 
 type ChangeUserPasswordInputType = {

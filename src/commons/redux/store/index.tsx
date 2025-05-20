@@ -11,7 +11,6 @@ export const getPersistedState = (): {
   return state
     ? JSON.parse(state)
     : {
-      userInfo: null,
       accessToken: '',
       refreshToken: ''
     };
@@ -25,7 +24,6 @@ reduxStore.subscribe(() => {
     'sepid-state',
     JSON.stringify({
       account: {
-        userInfo: state.account.userInfo,
         accessToken: state.account.accessToken,
         refreshToken: state.account.refreshToken,
       },
