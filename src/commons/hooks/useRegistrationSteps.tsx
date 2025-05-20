@@ -72,8 +72,8 @@ const useRegistrationSteps = () => {
   ): RegistrationStepType[] => {
     const steps: RegistrationStepType[] = [
       {
-        name: 'login | registration',
-        label: 'ورود | ثبت‌نام',
+        name: 'login',
+        label: 'ورود',
         component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
         disabled: true,
         onClick: () => { },

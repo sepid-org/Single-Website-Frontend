@@ -67,7 +67,7 @@ const LoginOrRegistration: FC<PropsType> = ({
 
   return (
     <Stack spacing={2} alignItems={'center'}>
-      <Typography textAlign={'start'} variant='h2' paddingBottom={2}>{'ورود | ثبت‌نام'}</Typography>
+      <Typography textAlign={'start'} variant='h2' paddingBottom={2}>{'ورود'}</Typography>
       <Stack width={'100%'} maxWidth={440} spacing={2}>
         <Stack direction={'row'}>
           <UsernameField
@@ -92,7 +92,10 @@ const LoginOrRegistration: FC<PropsType> = ({
         </Stack>
         {hasSubmittedUsername && hasPassword === true &&
           <>
-            <PasswordField onChange={(event) => setPassword(event.target.value)} />
+            <PasswordField
+              resetPasswordLink='/reset-password/'
+              onChange={(event) => setPassword(event.target.value)}
+            />
             <Button
               fullWidth
               variant='contained'
