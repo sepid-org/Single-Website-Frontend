@@ -3,10 +3,11 @@ import React from 'react';
 import useLogout from 'commons/hooks/useLogout';
 
 function LogoutButton({ }) {
-  const { logout } = useLogout();
+  const { logout, isLoading } = useLogout();
   return (
     <Button
       variant="outlined"
+      disabled={isLoading}
       onClick={logout}
       endIcon={
         <Icon>

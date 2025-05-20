@@ -12,7 +12,7 @@ import useUserProfile from 'commons/hooks/useUserProfile';
 type UserAvatarPropsType = {}
 
 const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
-  const { logout } = useLogout();
+  const { logout, isLoading: isLogoutLoading } = useLogout();
   const { data: { fullName, profile_image: profilePicture } } = useUserProfile();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -63,7 +63,7 @@ const UserAvatar: FC<UserAvatarPropsType> = ({ }) => {
             </Stack>
           </MenuItem>
         }
-        <MenuItem onClick={logout}>
+        <MenuItem disabled={isLogoutLoading} onClick={logout}>
           <Stack direction='row' spacing={1} alignItems={'center'}>
             <LogoutIcon />
             <Typography>

@@ -22,7 +22,7 @@ const GameMenuPanel: FC<PropsType> = () => {
   const { data: myAshbariaProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
   const { data: myFriendshipNetwork, isLoading: isGetMyFriendshipNetworkLoading } = useGetMyFriendshipNetworkQuery()
   const { data: myRank, isLoading: isGetMyRankLoading } = useGetMyRankQuery({ currencyName: ASHBARIA_COIN });
-  const { logout } = useLogout();
+  const { logout, isLoading: isLogoutLoading } = useLogout();
 
   return (
     <Stack
@@ -122,7 +122,7 @@ const GameMenuPanel: FC<PropsType> = () => {
         </Stack>
       </Button>
 
-      <Button variant='outlined' onClick={() => logout()}>
+      <Button disabled={isLogoutLoading} variant='outlined' onClick={() => logout()}>
         {'خروج'}
       </Button>
     </Stack >

@@ -10,7 +10,7 @@ import { SHAD_ORIGIN } from "apps/film-bazi/constants/game";
 const AccountBadge = () => {
   const localNavigate = useLocalNavigate();
   const { data: userProfile, isLoading } = useUserProfile();
-  const { logout } = useLogout();
+  const { logout, isLoading: isLogoutLoading } = useLogout();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
@@ -88,7 +88,7 @@ const AccountBadge = () => {
           horizontal: 'center',
         }}
       >
-        <MenuItem onClick={handleLogoutClick}>خروج</MenuItem>
+        <MenuItem disabled={isLogoutLoading} onClick={handleLogoutClick}>خروج</MenuItem>
       </Menu>
     </Fragment >
   );
