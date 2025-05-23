@@ -3,7 +3,6 @@ import { updateToken } from 'commons/configs/axios';
 import createStore from './createStore';
 
 export const getPersistedState = (): {
-  userInfo: UserInfoType;
   accessToken: string;
   refreshToken: string;
 } => {

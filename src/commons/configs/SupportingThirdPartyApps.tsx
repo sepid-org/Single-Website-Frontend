@@ -1,15 +1,8 @@
 import * as Sentry from "@sentry/react";
 import TagManager from 'react-gtm-module'
 import ReactGA from "react-ga4";
-import { getPersistedState } from 'commons/redux/store';
 
 const initSentry = () => {
-  const userInfo = getPersistedState().userInfo;
-  if (userInfo) {
-    Sentry.setUser({ id: userInfo.id, username: userInfo.username, email: userInfo.email });
-  } else {
-    Sentry.setUser(null);
-  }
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DNS,
     tracesSampleRate: 1.0,
