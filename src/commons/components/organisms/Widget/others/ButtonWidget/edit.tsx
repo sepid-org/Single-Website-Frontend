@@ -7,7 +7,6 @@ import {
   Stack,
   TextField,
   FormLabel,
-  Autocomplete,
   FormControlLabel,
   Switch,
 } from '@mui/material';
@@ -96,26 +95,6 @@ const ButtonWidgetEditor = ({
               })}
             />
           </Stack>
-
-          <Autocomplete
-            multiple
-            fullWidth
-            getOptionLabel={(option) => option.title}
-            onChange={(event, selectedOptions) => {
-              setButtonFields({
-                ...buttonFields,
-                destination_states: selectedOptions.map(selectedOption => selectedOption.id),
-              });
-            }}
-            value={fsmStates.filter(state => buttonFields.destination_states.includes(state.id))}
-            renderInput={(params) =>
-              <TextField
-                {...params}
-                label='گام‌های مقصد'
-              />
-            }
-            options={fsmStates}
-          />
 
           <TextField
             fullWidth
