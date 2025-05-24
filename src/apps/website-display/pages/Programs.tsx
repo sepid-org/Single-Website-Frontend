@@ -1,13 +1,14 @@
-import { Grid, Typography, Stack, Pagination, Box } from '@mui/material';
+import { Grid, Typography, Stack, Pagination, Box, Button } from '@mui/material';
 import React, { useState } from 'react';
 import ProgramCard from 'commons/components/organisms/cards/ProgramCard';
 import Layout from 'commons/template/Layout';
 import ProgramCardSkeleton from 'commons/components/organisms/cards/ProgramCardSkeleton';
 import Banner from 'commons/components/molecules/Banner';
 import { useGetProgramsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetPageMetadataQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetPageMetadataQuery, useGetWebsitePermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
+import { Link } from 'react-router-dom';
 
 const Programs = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -18,12 +19,21 @@ const Programs = ({ }) => {
     isSuccess,
   } = useGetProgramsQuery({ pageNumber, isVisible: true });
   const programs = programsData?.programs || [];
+  const { data: websitePermissions } = useGetWebsitePermissionQuery();
+
 
   const programsElement = (
     <Grid item container spacing={2} xs={12}>
       {(isSuccess && programs.length === 0) ?
         <Grid container justifyContent={'center'}>
-          <NoDataFound />
+          <Stack alignItems={'center'} spacing={1}>
+            <NoDataFound message='هنوز دوره‌ای وجود ندارد' />
+            {websitePermissions.isAdmin &&
+              <Button component={Link} to='/management/?tab=programs&openCreateDialog=true'>
+                یک دوره جدید بسازید!
+              </Button>
+            }
+          </Stack>
         </Grid> :
         programs.map((program, index) => (
           <Grid key={index} container item xs={12} sm={6} md={4} justifyContent='center' alignItems='flex-start' >
@@ -53,7 +63,7 @@ const Programs = ({ }) => {
           </Box>
         }
         <Typography variant="h1" align='center'>
-          {'دوره‌‌ها'}
+          {'دوره‌ها'}
         </Typography>
         <Grid container>
           {isLoading ? skeletonElements : programsElement}

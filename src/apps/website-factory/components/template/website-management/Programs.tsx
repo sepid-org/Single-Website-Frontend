@@ -11,14 +11,18 @@ import { useGetProgramsQuery } from 'apps/website-display/redux/features/program
 import ManageProgramCard from 'commons/components/organisms/cards/ManageProgramCard';
 import CreateProgramDialog from 'commons/components/organisms/dialogs/CreateProgramDialog';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
+import { useSearchParams } from 'react-router-dom';
 
 type ProgramsTabPropsType = {}
 
 const ProgramsTab: FC<ProgramsTabPropsType> = ({
 }) => {
-  const [openCreateProgramDialog, setOpenCreateProgramDialog] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const openCreateDialog = searchParams.get('openCreateDialog');
+  const [openCreateProgramDialog, setOpenCreateProgramDialog] = useState(false || openCreateDialog === 'true');
   const [pageNumber, setPageNumber] = useState(1);
   const { data, isLoading } = useGetProgramsQuery({ pageNumber });
+
 
   const programs = data?.programs;
   const count = data?.count || 0;
@@ -40,7 +44,7 @@ const ProgramsTab: FC<ProgramsTabPropsType> = ({
             </Typography>
           </Grid>
           <Grid item>
-            <AddNewThingButton label={'افزودن دوره جدید'} onClick={() => setOpenCreateProgramDialog(true)} />
+            <AddNewThingButton label={'ایجاد دوره جدید'} onClick={() => setOpenCreateProgramDialog(true)} />
           </Grid>
         </Grid>
 
@@ -83,7 +87,12 @@ const ProgramsTab: FC<ProgramsTabPropsType> = ({
       </Grid>
       <CreateProgramDialog
         open={openCreateProgramDialog}
-        handleClose={() => setOpenCreateProgramDialog(!openCreateProgramDialog)} />
+        handleClose={() => {
+          setOpenCreateProgramDialog(!openCreateProgramDialog);
+          setSearchParams({
+            tab: 'programs',
+          });
+        }} />
     </Fragment>
   );
 }

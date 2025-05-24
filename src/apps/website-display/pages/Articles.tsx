@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material';
+import { Button, Grid, Stack, Typography } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
 import React, { FC, useState } from 'react';
 import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
@@ -6,6 +6,8 @@ import Layout from 'commons/template/Layout';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
+import { Link } from 'react-router-dom';
+import { useGetWebsitePermissionQuery } from '../redux/features/WebsiteSlice';
 
 type ArticlesPropsType = {}
 
@@ -13,6 +15,7 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const { data: articlesData, isSuccess } = useGetArticlesQuery({ pageNumber, isHidden: false });
   const articles = articlesData?.articles || [];
+  const { data: websitePermissions } = useGetWebsitePermissionQuery();
 
   return (
     <Layout appbarMode='DASHBOARD'>
@@ -30,7 +33,14 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
           ))}
           {(isSuccess && articles.length === 0) &&
             <Grid container justifyContent={'center'}>
-              <NoDataFound variant={4} />
+              <Stack alignItems={'center'} spacing={1}>
+                <NoDataFound message='هنوز مقاله‌ای وجود ندارد' variant={4} />
+                {websitePermissions.isAdmin &&
+                  <Button component={Link} to='/management/?tab=articles&openCreateDialog=true'>
+                    یک مقاله جدید بسازید!
+                  </Button>
+                }
+              </Stack>
             </Grid>
           }
         </Grid>

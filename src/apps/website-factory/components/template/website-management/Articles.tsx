@@ -8,17 +8,19 @@ import React, { useState, Fragment, FC } from 'react';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import AddNewThingButton from 'commons/components/atoms/AddNewThingButton';
 import { useGetArticlesQuery } from 'apps/website-display/redux/features/article/ArticleSlice';
-import ArticleCard from 'commons/components/organisms/cards/ArticleCard';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import CreateArticleDialog from 'commons/components/organisms/dialogs/CreateArticleDialog';
 import EditArticleCard from 'commons/components/organisms/cards/EridArticleCard';
+import { useSearchParams } from 'react-router-dom';
 
 type ArticlesTabPropsType = {
 }
 
 const ArticlesTab: FC<ArticlesTabPropsType> = ({
 }) => {
-  const [openCreateArticleDialog, setOpenCreateArticleDialog] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const openCreateDialog = searchParams.get('openCreateDialog');
+  const [openCreateArticleDialog, setOpenCreateArticleDialog] = useState(false || openCreateDialog === 'true');
   const [pageNumber, setPageNumber] = useState(1);
   const { data, isLoading } = useGetArticlesQuery({ pageNumber });
 
@@ -43,7 +45,7 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
           </Grid>
           <Grid item>
             <AddNewThingButton
-              label={'افزودن مقاله جدید'}
+              label={'ایجاد مقاله جدید'}
               onClick={() => {
                 setOpenCreateArticleDialog(true);
               }} />
@@ -89,7 +91,12 @@ const ArticlesTab: FC<ArticlesTabPropsType> = ({
       </Grid>
       <CreateArticleDialog
         open={openCreateArticleDialog}
-        handleClose={() => setOpenCreateArticleDialog(!openCreateArticleDialog)}
+        handleClose={() => {
+          setOpenCreateArticleDialog(false);
+          setSearchParams({
+            tab: 'articles',
+          });
+        }}
       />
     </Fragment>
   );
