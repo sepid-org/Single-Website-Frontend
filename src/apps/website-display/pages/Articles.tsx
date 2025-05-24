@@ -35,7 +35,7 @@ const Articles: FC<ArticlesPropsType> = ({ }) => {
             <Grid container justifyContent={'center'}>
               <Stack alignItems={'center'} spacing={1}>
                 <NoDataFound message='هنوز مقاله‌ای وجود ندارد' variant={4} />
-                {websitePermissions.isAdmin &&
+                {websitePermissions?.isAdmin &&
                   <Button component={Link} to='/management/?tab=articles&openCreateDialog=true'>
                     یک مقاله جدید بسازید!
                   </Button>

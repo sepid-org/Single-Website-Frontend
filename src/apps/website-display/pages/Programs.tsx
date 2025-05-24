@@ -28,7 +28,7 @@ const Programs = ({ }) => {
         <Grid container justifyContent={'center'}>
           <Stack alignItems={'center'} spacing={1}>
             <NoDataFound message='هنوز دوره‌ای وجود ندارد' />
-            {websitePermissions.isAdmin &&
+            {websitePermissions?.isAdmin &&
               <Button component={Link} to='/management/?tab=programs&openCreateDialog=true'>
                 یک دوره جدید بسازید!
               </Button>
