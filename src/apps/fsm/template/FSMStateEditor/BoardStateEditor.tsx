@@ -54,6 +54,7 @@ const BoardStateEditor: FC<BoardStateEditorPropsType> = ({ fsmStateId }) => {
       <Divider orientation='vertical' flexItem />
       <Grid item md={9}>
         <BoardEditor
+          fsmStateId={fsmStateId}
           activePaperId={activePaperId}
           allPaperIds={fsmState?.papers}
         />

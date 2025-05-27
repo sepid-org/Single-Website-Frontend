@@ -9,10 +9,12 @@ import ZoomOutIcon from '@mui/icons-material/ZoomOut';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import Layer from './Board/Layer';
 import usePaper from 'apps/fsm/hooks/usePaper';
+import useFSMState from 'apps/fsm/hooks/useFSMState';
 
-const BoardEditor = ({ activePaperId, allPaperIds = [] }) => {
+const BoardEditor = ({ activePaperId, allPaperIds = [], fsmStateId }) => {
   // Fetch paper data with widget positions
   const { paper } = usePaper(activePaperId);
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   // Mutation hook to persist position updates
   const [updatePositions] = useUpdatePositionsMutation();
@@ -23,8 +25,8 @@ const BoardEditor = ({ activePaperId, allPaperIds = [] }) => {
   const containerRef = useRef(null);
 
   // Canvas dimensions from active paper
-  const plateWidth = paper?.position?.width || 1600;
-  const plateHeight = paper?.position?.height || 900;
+  const plateWidth = fsmState.position.width;
+  const plateHeight = fsmState.position.height;
 
   // Split backgroundPaperIds into before/after around activePaperId
   const activeIndex = allPaperIds.indexOf(activePaperId);
