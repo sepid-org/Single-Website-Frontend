@@ -1,19 +1,16 @@
 import React, { FC } from 'react';
+import { ViewportType } from '../types';
 
-export type PropsType = {
-  parentWidth: number;
-  parentHeight: number;
-  boardWidth: number;
-  boardHeight: number;
+export type PropsType = ViewportType & {
   children: React.ReactNode;
   scale: number;
 }
 
-const NoScrollContainer: FC<PropsType> = ({
-  parentWidth,
-  parentHeight,
-  boardWidth,
-  boardHeight,
+const NoScrollViewport: FC<PropsType> = ({
+  viewportWidth,
+  viewportHeight,
+  defaultSceneWidth,
+  defaultSceneHeight,
   scale,
   children,
 }) => {
@@ -22,8 +19,8 @@ const NoScrollContainer: FC<PropsType> = ({
     <div
       style={{
         position: 'relative',
-        width: parentWidth,
-        height: parentHeight,
+        width: viewportWidth,
+        height: viewportHeight,
         overflow: 'hidden',
       }}
     >
@@ -34,8 +31,8 @@ const NoScrollContainer: FC<PropsType> = ({
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: `${boardWidth}px`,
-          height: `${boardHeight}px`,
+          width: `${defaultSceneWidth}px`,
+          height: `${defaultSceneHeight}px`,
         }}
       >
         {/* inner div just for scaling */}
@@ -54,4 +51,4 @@ const NoScrollContainer: FC<PropsType> = ({
   );
 };
 
-export default NoScrollContainer;
+export default NoScrollViewport;

@@ -1,15 +1,12 @@
 import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
-import Frame from 'commons/template/Board/Frame';
+import Viewport from 'commons/template/Board/Viewport';
 import { WidgetModes } from 'commons/components/organisms/Widget';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
+import { ViewportType } from './types';
 
-export type PropsType = {
+export type PropsType = ViewportType & {
   fsmStateId: string;
-  frameWidth?: number;
-  frameHeight?: number;
-  boardWidth?: number;
-  boardHeight?: number;
   mode?: 'fit-height' | 'fit-width';
 };
 
@@ -21,10 +18,10 @@ type BoardState = {
 
 const Board: FC<PropsType> = ({
   fsmStateId,
-  frameWidth: parentWidth,
-  frameHeight: parentHeight,
-  boardWidth,
-  boardHeight,
+  viewportWidth,
+  viewportHeight,
+  defaultSceneWidth,
+  defaultSceneHeight,
   mode,
 }) => {
   const {
@@ -76,12 +73,12 @@ const Board: FC<PropsType> = ({
   }, [boardState.loadedSet, boardState.pendingPapers]);
 
   return (
-    <Frame
+    <Viewport
       mode={mode}
-      boardHeight={boardHeight}
-      boardWidth={boardWidth}
-      parentHeight={parentHeight}
-      parentWidth={parentWidth}
+      viewportWidth={viewportWidth}
+      viewportHeight={viewportHeight}
+      defaultSceneWidth={defaultSceneWidth}
+      defaultSceneHeight={defaultSceneHeight}
     >
       {/* show the old/displayed papers */}
       {boardState.displayPapers.map((paperId) => (
@@ -115,7 +112,7 @@ const Board: FC<PropsType> = ({
           خطایی در بارگیری گام رخ داد!
         </div>
       )}
-    </Frame>
+    </Viewport>
   );
 };
 
