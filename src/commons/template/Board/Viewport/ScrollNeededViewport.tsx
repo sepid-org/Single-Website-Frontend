@@ -14,6 +14,7 @@ const ScrollNeededViewport: FC<PropsType> = ({
   defaultSceneWidth,
   defaultSceneHeight,
   scale,
+  mode,
   children,
 }) => {
   const scaledW = defaultSceneWidth * scale;
@@ -25,8 +26,8 @@ const ScrollNeededViewport: FC<PropsType> = ({
         width: `${viewportWidth}px`,
         height: `${viewportHeight}px`,
         position: 'relative',
-        overflowX: 'auto',
-        overflowY: 'auto',
+        overflowX: mode === 'fit-height' ? 'auto' : 'hidden',
+        overflowY: mode === 'fit-width' ? 'auto' : 'hidden',
       }}
     >
       <NoScrollViewport
