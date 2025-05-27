@@ -8,13 +8,11 @@ type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
-  const { fsmState } = useFSMState(parseInt(fsmStateId))
+  const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   if (fsmState?.template === 'board') {
     return (
       <BoardFSMState
-        defaultSceneWidth={1600}
-        defaultSceneHeight={900}
         fsmStateId={fsmStateId}
         mode='fit-height'
       />

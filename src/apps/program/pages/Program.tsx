@@ -14,11 +14,6 @@ const Program: FC<ProgramPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
 
-  // TODO: a lot of TOF (just is config for OliveSchool). It should be got from state dimensions
-  // Board dimensions (configurable)
-  const boardWidth = 900;
-  const boardHeight = 1600;
-
   // Determine mode based on aspect ratio
   const { width, height } = useWindowDimensions();
   const mode = width > height ? 'fit-height' : 'fit-width';
@@ -32,8 +27,6 @@ const Program: FC<ProgramPropsType> = ({ }) => {
         >
           <BoardFSMState
             mode={mode}
-            defaultSceneWidth={boardWidth}
-            defaultSceneHeight={boardHeight}
             fsmStateId={program.menu_first_state_id}
           />
         </FSMStateProvider>

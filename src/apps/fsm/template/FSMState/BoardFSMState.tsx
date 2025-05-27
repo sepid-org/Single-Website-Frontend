@@ -8,15 +8,11 @@ import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
-  defaultSceneWidth: number;
-  defaultSceneHeight: number;
   mode: 'fit-height' | 'fit-width';
 };
 
 const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   fsmStateId,
-  defaultSceneWidth,
-  defaultSceneHeight,
   mode,
 }) => {
   const { isMentor } = useFSMStateContext();
@@ -63,8 +59,8 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
       <Board
         fsmStateId={fsmState.id}
         mode={mode}
-        defaultSceneWidth={defaultSceneWidth}
-        defaultSceneHeight={defaultSceneHeight}
+        defaultSceneWidth={fsmState.position.width}
+        defaultSceneHeight={fsmState.position.height}
         viewportHeight={viewportHeight}
         viewportWidth={viewportWidth}
       />
