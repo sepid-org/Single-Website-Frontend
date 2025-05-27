@@ -12,7 +12,12 @@ const FSMState: FC<FSMStatePropsType> = ({
 
   if (fsmState?.template === 'board') {
     return (
-      <BoardFSMState fsmStateId={fsmStateId} />
+      <BoardFSMState
+        defaultSceneWidth={1600}
+        defaultSceneHeight={900}
+        fsmStateId={fsmStateId}
+        mode='fit-height'
+      />
     );
   }
 

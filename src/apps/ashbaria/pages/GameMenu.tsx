@@ -42,8 +42,8 @@ const GameMenu: FC<GameMenuPropsType> = () => {
         >
           <BoardFSMState
             mode='fit-width'
-            boardWidth={900}
-            boardHeight={2080}
+            defaultSceneWidth={900}
+            defaultSceneHeight={2080}
             fsmStateId={fsmStateId}
           />
         </FSMStateProvider>

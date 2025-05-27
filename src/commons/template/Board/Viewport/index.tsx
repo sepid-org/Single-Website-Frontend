@@ -11,8 +11,8 @@ export type PropsType = ViewportType & {
 const Viewport: FC<PropsType> = ({
   viewportWidth = window.innerWidth,
   viewportHeight = window.innerHeight,
-  defaultSceneWidth = 1600,
-  defaultSceneHeight = 900,
+  defaultSceneWidth,
+  defaultSceneHeight,
   mode = 'fit-height',
   children,
 }) => {

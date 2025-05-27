@@ -8,19 +8,21 @@ import useFSMState from 'apps/fsm/hooks/useFSMState';
 
 export type BoardFSMStatePropsType = {
   fsmStateId: string;
-  boardWidth?: number;
-  boardHeight?: number;
-  mode?: 'fit-height' | 'fit-width';
+  defaultSceneWidth: number;
+  defaultSceneHeight: number;
+  mode: 'fit-height' | 'fit-width';
 };
 
 const BoardFSMState: FC<BoardFSMStatePropsType> = ({
   fsmStateId,
-  boardWidth,
-  boardHeight,
+  defaultSceneWidth,
+  defaultSceneHeight,
   mode,
 }) => {
   const { isMentor } = useFSMStateContext();
   const { fsmState } = useFSMState(parseInt(fsmStateId));
+  // todo: should get scene width and height from fsmState
+
   const [appbarHeight, setAppbarHeight] = useState(0);
   const handleAppbarRef = (node: HTMLDivElement | null) => {
     if (node) {
@@ -28,15 +30,15 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     }
   };
 
-  const [containerHeight, setContainerHeight] = useState<number>(0);
-  const [containerWidth, setContainerWidth] = useState<number>(0);
+  const [viewportHeight, setViewportHeight] = useState<number>(0);
+  const [viewportWidth, setViewportWidth] = useState<number>(0);
 
   useEffect(() => {
     const handleResize = () => {
       const calculatedHeight = window.innerHeight - appbarHeight;
       const calculatedWidth = window.innerWidth;
-      setContainerHeight(calculatedHeight);
-      setContainerWidth(calculatedWidth);
+      setViewportHeight(calculatedHeight);
+      setViewportWidth(calculatedWidth);
     };
 
     handleResize();
@@ -47,7 +49,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
     };
   }, [appbarHeight]);
 
-  if (!fsmState || containerHeight === 0 || containerWidth === 0) {
+  if (!fsmState || viewportHeight === 0 || viewportWidth === 0) {
     return;
   }
 
@@ -61,10 +63,10 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
       <Board
         fsmStateId={fsmState.id}
         mode={mode}
-        defaultSceneWidth={boardWidth}
-        defaultSceneHeight={boardHeight}
-        viewportHeight={containerHeight}
-        viewportWidth={containerWidth}
+        defaultSceneWidth={defaultSceneWidth}
+        defaultSceneHeight={defaultSceneHeight}
+        viewportHeight={viewportHeight}
+        viewportWidth={viewportWidth}
       />
       {isMentor && (
         <Box position="absolute" top={10} left={10} component={Paper} paddingX={1}>

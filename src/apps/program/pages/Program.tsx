@@ -32,8 +32,8 @@ const Program: FC<ProgramPropsType> = ({ }) => {
         >
           <BoardFSMState
             mode={mode}
-            boardWidth={boardWidth}
-            boardHeight={boardHeight}
+            defaultSceneWidth={boardWidth}
+            defaultSceneHeight={boardHeight}
             fsmStateId={program.menu_first_state_id}
           />
         </FSMStateProvider>
