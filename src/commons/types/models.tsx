@@ -42,7 +42,6 @@ export type ProgramType = {
   id: string;
   is_active: boolean;
   is_approved: boolean;
-  maximum_participant: number | null;
   name: string;
   initial_participants_count: number;
   final_participants_count: number;
@@ -163,6 +162,7 @@ export type RegistrationFormType = FormType & {
   min_grade: number;
   paper_type: PaperTypes;
   widgets: WidgetType[];
+  max_registrants: number | null;
 }
 export type Article = any
 export type Problem = any

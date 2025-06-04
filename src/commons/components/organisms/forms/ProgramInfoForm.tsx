@@ -95,16 +95,6 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           />
         }
       </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          value={data.maximum_participant}
-          fullWidth
-          variant='outlined'
-          label={'حداکثر ظرفیت دوره'}
-          name='maximum_participant'
-          onChange={putData} />
-      </Grid>
-      <Grid item md={6} display={{ xs: 'none', md: 'inline' }} />
       <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_active'

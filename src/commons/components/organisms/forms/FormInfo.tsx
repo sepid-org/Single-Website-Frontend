@@ -4,6 +4,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  TextField,
 } from '@mui/material';
 import JalaliDataTimePicker from 'commons/components/molecules/JalaliDataTimePicker';
 import moment from 'moment';
@@ -110,14 +111,23 @@ const FormInfo: FC<FormInfoPropsType> = ({
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='شروع ثبت‌نام'
-          value={data?.start_date}
+          value={data?.start_date || ''}
           setValue={setSinceField} />
       </Grid>
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='پایان ثبت‌نام'
-          value={data?.end_date}
+          value={data?.end_date || ''}
           setValue={setTillField} />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          value={data?.max_registrants || ''}
+          fullWidth
+          variant='outlined'
+          label={'ظرفیت دوره'}
+          name='max_registrants'
+          onChange={putData} />
       </Grid>
     </Grid>
   );
