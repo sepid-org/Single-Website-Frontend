@@ -10,6 +10,7 @@ import ShadIcon from "../atoms/icons/Shad";
 import TelegramIcon from "../atoms/icons/Telegram";
 import BaleIcon from "../atoms/icons/Bale";
 import EitaaIcon from "../atoms/icons/Eitaa";
+import WhatsappIcon from "../atoms/icons/Whatsapp";
 
 type ProgramContactInfoPropsType = {
   programContactInfo: ProgramContactInfoType
@@ -30,9 +31,10 @@ const ProgramContactInfo: FC<ProgramContactInfoPropsType> = ({
     phone_number,
     shad_link,
     telegram_link,
+    whatsapp_link,
   } = programContactInfo;
 
-  if (!bale_link && !eitaa_link && !instagram_link && !phone_number && !shad_link && !telegram_link) {
+  if (!bale_link && !eitaa_link && !instagram_link && !phone_number && !shad_link && !telegram_link && !whatsapp_link) {
     return null;
   }
 
@@ -60,6 +62,10 @@ const ProgramContactInfo: FC<ProgramContactInfoPropsType> = ({
     {
       icon: RubikaIcon,
       href: programContactInfo.rubika_link,
+    },
+    {
+      icon: WhatsappIcon,
+      href: programContactInfo.whatsapp_link,
     },
   ]
 

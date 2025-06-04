@@ -17,6 +17,7 @@ export type ProgramContactInfoType = {
   shad_link: string;
   telegram_link: string;
   rubika_link: string;
+  whatsapp_link: string;
 }
 
 type AudienceTypeType = "All" | "Student" | "Academic";

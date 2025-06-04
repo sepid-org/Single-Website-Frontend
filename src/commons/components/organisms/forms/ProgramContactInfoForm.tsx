@@ -12,6 +12,7 @@ import BaleIcon from 'commons/components/atoms/icons/Bale';
 import InstagramIcon from 'commons/components/atoms/icons/Instagram';
 import ShadIcon from 'commons/components/atoms/icons/Shad';
 import TelegramIcon from 'commons/components/atoms/icons/Telegram';
+import WhatsappIcon from 'commons/components/atoms/icons/Whatsapp';
 
 type ProgramContactInfoFormPropsType = {
   data: ProgramContactInfoType | null;
@@ -47,23 +48,6 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <EitaaIcon />
-              </InputAdornment>
-            ),
-          }}
-          value={data?.eitaa_link || ''}
-          fullWidth
-          variant='outlined'
-          label={'ایتا'}
-          name='eitaa_link'
-          onChange={putData}
-        />
-      </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
                 <BaleIcon />
               </InputAdornment>
             ),
@@ -81,15 +65,15 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <InstagramIcon />
+                <EitaaIcon />
               </InputAdornment>
             ),
           }}
-          value={data?.instagram_link || ''}
+          value={data?.eitaa_link || ''}
           fullWidth
           variant='outlined'
-          label={'اینستاگرام'}
-          name='instagram_link'
+          label={'ایتا'}
+          name='eitaa_link'
           onChange={putData}
         />
       </Grid>
@@ -115,6 +99,23 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
+                <RubikaIcon />
+              </InputAdornment>
+            ),
+          }}
+          value={data?.rubika_link || ''}
+          fullWidth
+          variant='outlined'
+          label={'روبیکا'}
+          name='rubika_link'
+          onChange={putData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
                 <TelegramIcon />
               </InputAdornment>
             ),
@@ -132,15 +133,32 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <RubikaIcon />
+                <InstagramIcon />
               </InputAdornment>
             ),
           }}
-          value={data?.rubika_link || ''}
+          value={data?.instagram_link || ''}
           fullWidth
           variant='outlined'
-          label={'روبیکا'}
-          name='rubika_link'
+          label={'اینستاگرام'}
+          name='instagram_link'
+          onChange={putData}
+        />
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <TextField
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <WhatsappIcon />
+              </InputAdornment>
+            ),
+          }}
+          value={data?.whatsapp_link || ''}
+          fullWidth
+          variant='outlined'
+          label={'واتس‌اپ'}
+          name='whatsapp_link'
           onChange={putData}
         />
       </Grid>
