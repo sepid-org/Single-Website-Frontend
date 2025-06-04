@@ -31,12 +31,12 @@ const initialTabs: DashboardTabType[] = [
     icon: InfoIcon,
     component: <Info />,
   },
-  {
-    slug: 'fsm-map',
-    label: 'نقشه',
-    icon: MapIcon,
-    component: <FSMMapEditor />,
-  },
+  // {
+  //   slug: 'fsm-map',
+  //   label: 'نقشه',
+  //   icon: MapIcon,
+  //   component: <FSMMapEditor />,
+  // },
   {
     slug: 'states',
     label: 'گام‌ها',

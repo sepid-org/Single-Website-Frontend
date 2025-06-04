@@ -13,6 +13,7 @@ import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import FullScreenDialog from 'commons/components/atoms/FullScreenDialog';
+import FSMFirstStateSetter from '../components/organisms/FSMFirstStateSetter';
 
 type StatesPropsType = {}
 
@@ -39,6 +40,7 @@ const States: FC<StatesPropsType> = ({ }) => {
 
   return (
     <Stack padding={2} spacing={2} alignItems={'stretch'} justifyContent={'center'}>
+      <FSMFirstStateSetter />
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Typography variant='h2'>
           {'گام‌ها'}

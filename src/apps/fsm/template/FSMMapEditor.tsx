@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useGetFSMQuery, useGetFSMStatesQuery, useSetFSMFirstStateMutation } from "../redux/slices/fsm/FSMSlice";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import FSMFirstStateSetter from "../components/organisms/FSMFirstStateSetter";
 
 const FSMMapEditor = () => {
   const fsmId = parseInt(useParams().fsmId);
@@ -33,35 +34,8 @@ const FSMMapEditor = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={6}>
-        <Stack direction={'row'}>
-          <FormControl fullWidth>
-            <InputLabel>گام آغازین</InputLabel>
-            <Select
-              sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
-              value={firstState || ''}
-              onChange={(e) => setFirstState(e.target.value)}
-              name="first_state"
-              label="گام آغازین">
-              {fsmStates?.map((fsmState) => (
-                <MenuItem key={fsmState.id} value={fsmState.id}>
-                  {fsmState.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button
-            disableElevation
-            sx={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
-            variant='contained' onClick={handleSetFSMFirstState}>
-            {'ذخیره'}
-          </Button>
-        </Stack>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Typography variant='caption'>
-          {'توجه کنید که با تغییر گام آغازین کارگاه، گامِ فعلیِ کاربرانی که پیش از این وارد کارگاه شده‌اند، تغییر نخواهد کرد.'}
-        </Typography>
+      <Grid item xs={12}>
+        <FSMFirstStateSetter />
       </Grid>
       <Grid item xs={12}>
         <CourseMapEditorProvider />
