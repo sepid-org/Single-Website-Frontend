@@ -43,8 +43,6 @@ export type ProgramType = {
   is_active: boolean;
   is_approved: boolean;
   name: string;
-  initial_participants_count: number;
-  final_participants_count: number;
   registration_form: string;
   start_date: string | null;
   team_size: number;
