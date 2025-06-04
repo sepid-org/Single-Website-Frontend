@@ -25,10 +25,18 @@ const FormInfo: FC<FormInfoPropsType> = ({
 }) => {
 
   const putData = (event) => {
-    setData({
+    const { name, value } = event.target;
+    let newData = {
       ...data,
-      [event.target.name]: event.target.value,
-    })
+      [name]: value,
+    };
+
+    if (name === 'audience_type' && value !== 'Student') {
+      newData.min_grade = undefined;
+      newData.max_grade = undefined;
+    }
+
+    setData(newData);
   }
 
   const setSinceField = (newValue: string) => {
@@ -38,14 +46,14 @@ const FormInfo: FC<FormInfoPropsType> = ({
         setData({
           ...data,
           'start_date': data.end_date,
-        })
+        });
         return;
       }
     }
     setData({
       ...data,
       'start_date': newValue,
-    })
+    });
   }
 
   const setTillField = (newValue: string) => {
@@ -55,15 +63,30 @@ const FormInfo: FC<FormInfoPropsType> = ({
         setData({
           ...data,
           'end_date': data.start_date,
-        })
+        });
         return;
       }
     }
     setData({
       ...data,
       'end_date': newValue,
-    })
+    });
   }
+
+  const grades = [
+    { value: '1', label: 'پایه اول' },
+    { value: '2', label: 'پایه دوم' },
+    { value: '3', label: 'پایه سوم' },
+    { value: '4', label: 'پایه چهارم' },
+    { value: '5', label: 'پایه پنجم' },
+    { value: '6', label: 'پایه ششم' },
+    { value: '7', label: 'پایه هفتم' },
+    { value: '8', label: 'پایه هشتم' },
+    { value: '9', label: 'پایه نهم' },
+    { value: '10', label: 'پایه دهم' },
+    { value: '11', label: 'پایه یازدهم' },
+    { value: '12', label: 'پایه دوازدهم' },
+  ];
 
   return (
     <Grid container spacing={2}>
@@ -80,6 +103,7 @@ const FormInfo: FC<FormInfoPropsType> = ({
           </Select>
         </FormControl>
       </Grid>
+
       <Grid item xs={12} md={4}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>{'وضعیت تحصیلی مخاطبین'}</InputLabel>
@@ -94,6 +118,7 @@ const FormInfo: FC<FormInfoPropsType> = ({
           </Select>
         </FormControl>
       </Grid>
+
       <Grid item xs={12} md={4}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>{'جنسیت مخاطبین'}</InputLabel>
@@ -108,18 +133,59 @@ const FormInfo: FC<FormInfoPropsType> = ({
           </Select>
         </FormControl>
       </Grid>
+
+      {data?.audience_type === 'Student' && (
+        <>
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>{'حداقل پایه'}</InputLabel>
+              <Select
+                value={data?.min_grade || ''}
+                onChange={putData}
+                name='min_grade'
+                label='حداقل پایه'>
+                {grades.map((g) => (
+                  <MenuItem key={g.value} value={g.value}>
+                    {g.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <FormControl fullWidth variant="outlined">
+              <InputLabel>{'حداکثر پایه'}</InputLabel>
+              <Select
+                value={data?.max_grade || ''}
+                onChange={putData}
+                name='max_grade'
+                label='حداکثر پایه'>
+                {grades.map((g) => (
+                  <MenuItem key={g.value} value={g.value}>
+                    {g.label}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+        </>
+      )}
+
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='شروع ثبت‌نام'
           value={data?.start_date || ''}
           setValue={setSinceField} />
       </Grid>
+
       <Grid item xs={12} md={6}>
         <JalaliDataTimePicker
           label='پایان ثبت‌نام'
           value={data?.end_date || ''}
           setValue={setTillField} />
       </Grid>
+
       <Grid item xs={12} md={6}>
         <TextField
           value={data?.max_registrants || ''}
