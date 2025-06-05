@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import { PaperEditor } from 'commons/template/Paper';
 import { Button, Divider, Stack, Typography } from '@mui/material';
-import FormInfo from 'commons/components/organisms/forms/FormInfo';
+import RegistrationInfo from 'commons/components/organisms/forms/RegistrationInfo';
 import { useGetFormQuery, useUpdateFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
 import { toast } from 'react-toastify';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
@@ -62,7 +62,7 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
           </Button>
         </Stack>
         <Stack>
-          <FormInfo data={form} setData={setForm} />
+          <RegistrationInfo data={form} setData={setForm} />
         </Stack>
       </Stack>
 

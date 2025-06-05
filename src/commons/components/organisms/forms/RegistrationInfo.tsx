@@ -13,13 +13,13 @@ import { toast } from 'react-toastify';
 
 import { RegistrationFormType } from 'commons/types/models';
 
-type FormInfoPropsType = {
+type RegistrationPropsType = {
   data: Partial<RegistrationFormType>;
   setData: any;
   showCoverImage?: boolean;
 }
 
-const FormInfo: FC<FormInfoPropsType> = ({
+const RegistrationInfo: FC<RegistrationPropsType> = ({
   data,
   setData,
 }) => {
@@ -199,4 +199,4 @@ const FormInfo: FC<FormInfoPropsType> = ({
   );
 }
 
-export default FormInfo;
+export default RegistrationInfo;
