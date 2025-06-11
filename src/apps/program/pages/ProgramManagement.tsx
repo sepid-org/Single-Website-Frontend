@@ -58,7 +58,7 @@ const tabs: DashboardTabType[] = [
     label: 'گواهی‌ها',
     icon: WorkspacePremiumIcon,
     component: <Certificates />,
-    disabled: true,
+    disabled: false,
   },
   {
     slug: 'mentors',
@@ -86,7 +86,7 @@ const tabs: DashboardTabType[] = [
   },
   {
     slug: 'statistics',
-    label: 'آمارها',
+    label: 'آمار',
     icon: BarChartIcon,
     component: <StatisticsTab />,
   },

@@ -10,10 +10,14 @@ const CertificatesTab: FC<CertificatesTabPropsType> = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
 
   return (
-    <Stack spacing={3} alignItems={'start'} justifyContent={'center'} paddingTop={2}>
+    <Stack padding={2} spacing={3} alignItems={'start'} justifyContent={'center'} paddingTop={2}>
 
       <Typography variant='h2' gutterBottom>
         {'گواهی‌ها'}
+      </Typography>
+
+      <Typography>
+        {'به زودی...'}
       </Typography>
 
     </Stack>
