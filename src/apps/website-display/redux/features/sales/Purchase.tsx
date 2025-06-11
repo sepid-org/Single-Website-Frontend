@@ -3,7 +3,7 @@ import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type ApplyDiscountCodeInputType = {
-  merchandiseId: string;
+  merchandiseId: number;
   discountCode: string;
 }
 
@@ -12,7 +12,7 @@ type ApplyDiscountCodeOutputType = {
 };
 
 type PurchaseInputType = {
-  merchandiseId: string;
+  merchandiseId: number;
   discountCode: string;
 }
 

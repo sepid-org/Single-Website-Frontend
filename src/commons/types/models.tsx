@@ -235,7 +235,7 @@ export type UniversityType = InstituteType & {
 
 
 export type MerchandiseType = {
-  id: string;
+  id: number;
   name: string;
   price: number;
   discounted_price: number;
@@ -251,8 +251,18 @@ export type DiscountCodeType = {
   remaining: number;
   user?: UserPublicInfoType;
   merchandises: MerchandiseType[];
-  discount_code_limit?: number;
+  max_discount_amount?: number;
 }
+
+export type CreateDiscountCodeDto = {
+  code: string;
+  value: number;
+  username?: string;
+  expiration_date?: string;
+  remaining: number;
+  max_discount_amount?: number;
+  merchandise_ids: number[];
+};
 
 export type VoucherType = any;
 

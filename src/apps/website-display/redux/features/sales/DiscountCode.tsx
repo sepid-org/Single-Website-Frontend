@@ -1,7 +1,5 @@
-import { DiscountCodeType } from 'commons/types/models';
+import { CreateDiscountCodeDto, DiscountCodeType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
-
-type CreateDiscountCodeInputType = Partial<DiscountCodeType>
 
 type CreateDiscountCodeOutputType = DiscountCodeType;
 
@@ -19,7 +17,7 @@ type GetProgramDiscountCodesOutputType = DiscountCodeType[];
 
 export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    createDiscountCode: builder.mutation<CreateDiscountCodeOutputType, CreateDiscountCodeInputType>({
+    createDiscountCode: builder.mutation<CreateDiscountCodeOutputType, CreateDiscountCodeDto>({
       invalidatesTags: ['discount-codes'],
       query: ({ ...body }) => ({
         url: `sale/discount_code/`,

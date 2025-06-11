@@ -1,13 +1,12 @@
 import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, IconButton, InputAdornment, Stack, TextField, Tooltip, Typography } from "@mui/material";
 import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import { useCreateDiscountCodeMutation } from "apps/website-display/redux/features/sales/DiscountCode";
 import { useGetProgramMerchandisesQuery } from "apps/website-display/redux/features/sales/Merchandise";
-import { DiscountCodeType, MerchandiseType } from "commons/types/models";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useGetProgramQuery } from "apps/website-display/redux/features/program/ProgramSlice";
+import { CreateDiscountCodeDto } from "commons/types/models";
 
 type CreateDiscountCodeDialogType = {
   open: boolean;
@@ -20,16 +19,15 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
 }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const [discountCode, setDiscountCode] = useState<DiscountCodeType>(null);
+  const [discountCode, setDiscountCode] = useState<CreateDiscountCodeDto>(null);
   const [createDiscountCode, result] = useCreateDiscountCodeMutation();
-  const { data: programMerchandises = [] } = useGetProgramMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
+  const { data: allMerchandises = [] } = useGetProgramMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
 
 
   const handleCreateDiscountCode = () => {
     createDiscountCode({
       ...discountCode,
       value: discountCode.value / 100,
-      merchandises: (discountCode.merchandises?.map(merchandise => merchandise.id) as any)
     });
   }
 
@@ -54,22 +52,21 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
                 sx: { padding: 0 },
                 endAdornment: (
                   <InputAdornment position="start">
-                    <Tooltip arrow title={'چنانچه می‌خواهید کد تخفیف مختص کاربر خاصی باشد، نام کاربری او را وارد کنید. در غیر این صورت، کد تخفیف به‌صورت عام خواهد بود.'}>
+                    <Tooltip title={'چنانچه می‌خواهید کد تخفیف مختص کاربر خاصی باشد، نام کاربری او را وارد کنید. در غیر این صورت، کد تخفیف به‌صورت عام خواهد بود.'}>
                       <ErrorOutlineIcon />
                     </Tooltip>
                   </InputAdornment>
                 ),
               }}
-              value={discountCode?.user || ''}
+              value={discountCode?.username || ''}
               onChange={(e) =>
                 setDiscountCode({
                   ...discountCode,
-                  user: (e.target.value as any),
+                  username: (e.target.value as any),
                 })} />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              fullWidth
               required
               variant='outlined'
               label='درصد تخفیف'
@@ -82,50 +79,56 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              required
-              label='تعداد دفعات استفاده'
-              variant='outlined'
-              fullWidth
-              onChange={(event) => {
-                let value = parseInt(event.target.value);
-                if (isNaN(value)) {
-                  value = 1;
-                }
-                if (value < 1) {
-                  value = 1;
-                }
-                setDiscountCode({
-                  ...discountCode,
-                  remaining: value,
-                });
-              }}
-              type='number'
-              inputMode='numeric'
+              label="دفعات استفاده"
+              variant="outlined"
+              type="number"
+              inputMode="numeric"
               inputProps={{ min: 1, step: 1 }}
-              value={discountCode?.remaining || ''}
+              value={discountCode?.remaining ?? ''}
+              onChange={(event) => {
+                const rawValue = event.target.value;
+                const parsed = parseInt(rawValue, 10);
+
+                const value = isNaN(parsed) || parsed < 1 ? 1 : parsed;
+
+                setDiscountCode((prev) => ({
+                  ...prev,
+                  remaining: rawValue === '' ? null : value,
+                }));
+              }}
+              InputProps={{
+                sx: { padding: 0 },
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <Tooltip title={'اگر خالی بماند، کد به‌صورت نامحدود قابل استفاده خواهد بود'}>
+                      <ErrorOutlineIcon />
+                    </Tooltip>
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
-              label='حداکثر میزان تخفیف (تومان)'
-              fullWidth
-              value={discountCode?.discount_code_limit || ''}
+              label='سقف تخفیف (تومان)'
+              value={discountCode?.max_discount_amount || ''}
               onChange={(event) =>
-                setDiscountCode({ ...discountCode, discount_code_limit: parseInt(event.target.value) })
-              } />
+                setDiscountCode({ ...discountCode, max_discount_amount: parseInt(event.target.value) })
+              }
+            />
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
               multiple
               fullWidth
               getOptionLabel={(option) => option.name}
-              onChange={(event, newValue) => {
+              onChange={(event, newMerchandises) => {
                 setDiscountCode({
                   ...discountCode,
-                  merchandises: newValue,
+                  merchandise_ids: newMerchandises.map(merchandise => merchandise.id),
                 });
               }}
-              value={discountCode?.merchandises || []}
+              value={allMerchandises.filter(merchandise => discountCode?.merchandise_ids?.includes(merchandise.id)) || []}
               renderInput={(params) =>
                 <TextField
                   required
@@ -133,7 +136,7 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
                   label="بلیط‌ها"
                 />
               }
-              options={programMerchandises}
+              options={allMerchandises}
             />
           </Grid>
         </Grid>

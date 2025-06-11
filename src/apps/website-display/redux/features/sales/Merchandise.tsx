@@ -8,7 +8,7 @@ type GetProgramMerchandisesInputType = {
 type GetProgramMerchandisesOutputType = MerchandiseType[];
 
 type GetMerchandiseInputType = {
-  merchandiseId: string;
+  merchandiseId: number;
 }
 
 type GetMerchandiseOutputType = MerchandiseType;
@@ -24,7 +24,7 @@ type UpdateMerchandiseInputType = Partial<MerchandiseType>
 type UpdateMerchandiseOutputType = MerchandiseType;
 
 type SoftDeleteInputType = {
-  merchandiseId: string;
+  merchandiseId: number;
 }
 
 type SoftDeleteOutputType = void;

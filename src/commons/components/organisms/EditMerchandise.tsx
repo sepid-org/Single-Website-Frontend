@@ -14,7 +14,7 @@ import { deepEqual } from "commons/utils/ObjectEqualityChecker";
 import AreYouSure from "./dialogs/AreYouSure";
 
 type EditMerchandisePropsType = {
-  merchandiseId?: string;
+  merchandiseId?: number;
   merchandise?: MerchandiseType;
 };
 

@@ -133,7 +133,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
                 {discountCode?.merchandises.map(merchandise => <Chip key={merchandise.id} label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
               </Stack>,
             remaining: toPersianNumber(discountCode?.remaining),
-            limit: discountCode?.discount_code_limit ? toPersianNumber(discountCode.discount_code_limit) : '-',
+            limit: discountCode?.max_discount_amount ? toPersianNumber(discountCode.max_discount_amount) : '-',
             operation:
               <IconButton size='small'
                 onClick={() => { handleDeleteDiscountCode(discountCode?.id) }}>
