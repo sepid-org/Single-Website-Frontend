@@ -12,7 +12,7 @@ import Payment from 'apps/program/template/Payment';
 import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';
-import useUserAuthentication from './useUserAuthentication';
+import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import LoginOrRegistration from 'apps/program/template/LoginOrRegistration';
 
 const useRegistrationSteps = () => {

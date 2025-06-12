@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import MyStepper from 'commons/components/organisms/MyStepper';
 import Layout from 'commons/template/Layout';
-import useRegistrationSteps from 'commons/hooks/useRegistrationSteps';
+import useRegistrationSteps from 'apps/program/hooks/useRegistrationSteps';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetMyReceiptQuery } from 'apps/website-display/redux/features/form/ReceiptSlice';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
