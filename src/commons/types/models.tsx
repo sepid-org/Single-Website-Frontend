@@ -27,7 +27,6 @@ type ProgramTypeType = 'Campaign' | 'Event' | 'Class' | 'Course' | 'Game';
 export type ProgramType = {
   type: ProgramTypeType;
   slug: string;
-  is_free: boolean;
   site_help_paper_id: string;
   FAQs_paper_id: string;
   show_scores: boolean;

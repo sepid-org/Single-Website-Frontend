@@ -12,7 +12,7 @@ import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useParams } from 'react-router-dom';
 import EditMerchandise from 'commons/components/organisms/EditMerchandise';
 import CreateMerchandiseDialog from 'commons/components/organisms/dialogs/CreateMerchandiseDialog';
-import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
+import { useGetMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
 import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
@@ -30,7 +30,10 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const [isCreateMerchandiseDialogOpen, setCreateMerchandiseDialogOpen] = useState(false);
   const [isCreateDiscountCodeDialogOpen, setCreateDiscountCodeDialogOpen] = useState(false);
-  const { data: merchandises } = useGetProgramMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
+  const { data } = useGetMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
+  const merchandises = data?.results;
+  const count = data?.count;
+
   const { data: discountCodes } = useGetProgramDiscountCodesQuery({ programSlug }, { skip: !Boolean(program) });
   const [deleteDiscountCode] = useDeleteDiscountCodeMutation();
 
@@ -74,7 +77,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
               <EditMerchandise merchandise={merchandise} />
             </Stack>
           )}
-          {merchandises && merchandises.length === 0 &&
+          {merchandises && count === 0 &&
             <Typography>{'بلیطی وجود ندارد.'}</Typography>
           }
         </Stack>

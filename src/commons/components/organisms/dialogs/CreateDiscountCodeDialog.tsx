@@ -2,7 +2,7 @@ import { Autocomplete, Button, Dialog, DialogActions, DialogContent, DialogTitle
 import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useCreateDiscountCodeMutation } from "apps/website-display/redux/features/sales/DiscountCode";
-import { useGetProgramMerchandisesQuery } from "apps/website-display/redux/features/sales/Merchandise";
+import { useGetMerchandisesQuery } from "apps/website-display/redux/features/sales/Merchandise";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useGetProgramQuery } from "apps/website-display/redux/features/program/ProgramSlice";
@@ -21,8 +21,8 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
   const { data: program } = useGetProgramQuery({ programSlug });
   const [discountCode, setDiscountCode] = useState<CreateDiscountCodeDto>(null);
   const [createDiscountCode, result] = useCreateDiscountCodeMutation();
-  const { data: allMerchandises = [] } = useGetProgramMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
-
+  const { data } = useGetMerchandisesQuery({ programSlug }, { skip: !Boolean(program) });
+  const allMerchandises = data?.results || [];
 
   const handleCreateDiscountCode = () => {
     createDiscountCode({

@@ -14,6 +14,7 @@ import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import LoginOrRegistration from 'apps/program/template/LoginOrRegistration';
+import { useGetMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 
 const useRegistrationSteps = () => {
   const { programSlug } = useParams();
@@ -33,6 +34,8 @@ const useRegistrationSteps = () => {
     currentStepIndex: 0,
     lastActiveStepIndex: 0,
   });
+  const { data } = useGetMerchandisesQuery({ programSlug, isActive: true });
+  const merchandisesCount = data?.count;
 
   const getStepNavigationHandlers = () => {
     const goToStep = (destinationStepIndex: number) => {
@@ -67,7 +70,7 @@ const useRegistrationSteps = () => {
 
   const buildRegistrationSteps = (
     form: any,
-    programDetails: any,
+    merchandisesCount: number,
     { goToStep, goToNextStep }: ReturnType<typeof getStepNavigationHandlers>
   ): RegistrationStepType[] => {
     const steps: RegistrationStepType[] = [
@@ -121,7 +124,7 @@ const useRegistrationSteps = () => {
       });
     }
 
-    if (!programDetails.is_free) {
+    if (merchandisesCount > 0) {
       steps.push({
         name: 'payment',
         label: 'پرداخت هزینه',
@@ -177,7 +180,11 @@ const useRegistrationSteps = () => {
   useEffect(() => {
     if (!program || !registrationForm) return;
     const navigationHandlers = getStepNavigationHandlers();
-    const steps = buildRegistrationSteps(registrationForm, program, navigationHandlers);
+    const steps = buildRegistrationSteps(
+      registrationForm,
+      merchandisesCount,
+      navigationHandlers,
+    );
     determineInitialStep(
       steps,
       navigationHandlers,
@@ -188,7 +195,7 @@ const useRegistrationSteps = () => {
       }
     );
     setSteps(steps);
-  }, [program, registrationForm, registrationReceipt, isUserAuthenticated]);
+  }, [program, registrationForm, merchandisesCount, registrationReceipt, isUserAuthenticated]);
 
   return {
     ...stepIndexes,

@@ -3,14 +3,15 @@ import PurchaseMerchandise from 'apps/program/components/organisms/PurchaseMerch
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetProgramMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
+import { useGetMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 
 type PaymentPropsType = {}
 
 const Payment: FC<PaymentPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: merchandises } = useGetProgramMerchandisesQuery({ programSlug }, { skip: !Boolean(program) })
+  const { data } = useGetMerchandisesQuery({ programSlug, isActive: true }, { skip: !Boolean(program) })
+  const merchandises = data?.results;
 
   return (
     <Stack spacing={4}  >

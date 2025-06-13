@@ -1,11 +1,17 @@
 import { MerchandiseType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 
-type GetProgramMerchandisesInputType = {
+type GetMerchandisesInputType = {
   programSlug: string;
+  isActive?: boolean;
 }
 
-type GetProgramMerchandisesOutputType = MerchandiseType[];
+type GetMerchandisesOutputType = {
+  count: number;
+  previous: string;
+  next: string;
+  results: MerchandiseType[];
+};
 
 type GetMerchandiseInputType = {
   merchandiseId: number;
@@ -32,12 +38,14 @@ type SoftDeleteOutputType = void;
 
 export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getProgramMerchandises: builder.query<GetProgramMerchandisesOutputType, GetProgramMerchandisesInputType>({
-      providesTags: ['merchandises'],
-      query: ({ programSlug }) => `sale/merchandise/program_merchandises/?program=${programSlug}`,
-      transformResponse: (response: any): GetProgramMerchandisesOutputType => {
-        return response;
-      },
+    getMerchandises: builder.query<GetMerchandisesOutputType, GetMerchandisesInputType>({
+      query: ({ programSlug, isActive }) => ({
+        url: `sale/merchandise/`,
+        params: {
+          program__slug: programSlug,
+          is_active: isActive,
+        },
+      }),
     }),
 
     getMerchandise: builder.query<GetMerchandiseOutputType, GetMerchandiseInputType>({
@@ -78,7 +86,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
 });
 
 export const {
-  useGetProgramMerchandisesQuery,
+  useGetMerchandisesQuery,
   useGetMerchandiseQuery,
   useCreateMerchandiseMutation,
   useUpdateMerchandiseMutation,
