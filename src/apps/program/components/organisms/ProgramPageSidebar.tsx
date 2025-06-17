@@ -64,8 +64,12 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
         <img
           src={program.cover_image}
           alt="program-cover-page"
-          width="100%"
-          style={{ borderRadius: 8 }}
+          style={{
+            width: '100%',
+            aspectRatio: '1 / 1',
+            objectFit: 'cover',
+            borderRadius: 8,
+          }}
         />
 
         <Typography variant="h2" component="h1" gutterBottom textAlign={'center'}>

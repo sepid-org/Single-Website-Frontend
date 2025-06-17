@@ -13,12 +13,11 @@ type ProgramPropsType = {}
 const Program: FC<ProgramPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-
-  // Determine mode based on aspect ratio
   const { width, height } = useWindowDimensions();
-  const mode = width > height ? 'fit-height' : 'fit-width';
 
   if (program?.menu_first_state_id) {
+    // Determine mode based on aspect ratio
+    const mode = width > height ? 'fit-height' : 'fit-width';
     return (
       <FSMProvider fsmId={program.menu}>
         <FSMStateProvider
