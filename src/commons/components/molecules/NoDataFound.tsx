@@ -12,7 +12,7 @@ const NoDataFound: FC<NoDataFoundPropsType> = ({
 }) => {
   return (
     <Stack justifyContent={'center'} alignItems={'center'}>
-      <img width={'100%'} style={{ maxWidth: 400 }} src={process.env.PUBLIC_URL + `/images/no-data-${variant}.jpg`} />
+      <img width={'100%'} style={{ maxWidth: 400 }} src={process.env.PUBLIC_URL + `/images/no-data/no-data_v${variant}.svg`} />
       <Typography variant='h3' textAlign={'center'}>
         {message}
       </Typography>
