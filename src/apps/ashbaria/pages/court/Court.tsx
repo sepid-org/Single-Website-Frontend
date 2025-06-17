@@ -2,7 +2,7 @@ import React, { FC, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import {
-  useGetMyPlayerQuery,
+  useGetCurrentUserPlayerQuery,
   useGetPlayerPerformanceQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
@@ -20,7 +20,7 @@ type CourtPagePropsType = {}
 const CourtPage: FC<CourtPagePropsType> = ({ }) => {
   const { programSlug } = useParams();
   const fsmId = parseInt(useParams().fsmId);
-  const { data: player } = useGetMyPlayerQuery({ fsmId });
+  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId });
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const currentUserFSMStatus = userFSMsStatus?.find(status => status.fsm_id === fsmId);

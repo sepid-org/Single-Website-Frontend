@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { useParams } from "react-router-dom";
-import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import Hint from "../components/organisms/hint/Hint";
 import NoHintFound from "../components/organisms/hint/NoHintFound";
 import Hints from "../components/organisms/hint/Hints";

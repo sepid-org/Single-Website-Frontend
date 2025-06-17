@@ -15,8 +15,8 @@ const FSMStart: FC<PropsType> = () => {
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !fsm?.program_slug });
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
-  const remainingParticipation = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
-  const canStartFSM = fsm?.participant_limit === 0 || remainingParticipation > 0;
+  const remainingParticipations = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
+  const canStartFSM = fsm?.participant_limit === 0 || remainingParticipations > 0;
   const isLoading = isUserFSMsLoading || isFSMLoading;
 
   if (!fsm) {

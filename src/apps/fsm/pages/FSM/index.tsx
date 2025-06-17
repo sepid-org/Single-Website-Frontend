@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  useGetMyPlayerQuery,
+  useGetCurrentUserPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMStart from './FSMStart';
 import FSMBody from './Body';
@@ -11,7 +11,7 @@ type PropsType = {}
 
 const FSM: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
-  const { data: player, isLoading } = useGetMyPlayerQuery({ fsmId });
+  const { data: player, isLoading } = useGetCurrentUserPlayerQuery({ fsmId });
 
   if (isLoading) {
     return null;

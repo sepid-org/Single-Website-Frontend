@@ -1,6 +1,6 @@
 import { Paper, Stack } from "@mui/material";
 import React, { FC } from "react";
-import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
+import { useGetCurrentUserPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import { FSMStateProvider } from "commons/hooks/useFSMStateContext";
 import WIDGET_REGISTRY, { WidgetRegistryType } from "commons/components/organisms/Widget/useWidgetFactory/WidgetTypeMapper";
 import ExamQuestion from "apps/ashbaria/components/organisms/ExamQuestion";
@@ -13,7 +13,7 @@ type ExamPagePropsType = {};
 
 const ExamPage: FC<ExamPagePropsType> = () => {
   const fsmId = process.env.NODE_ENV === 'development' ? 213 : 213;
-  const { data: player } = useGetMyPlayerQuery({ fsmId });
+  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId });
 
   const CUSTOM_WIDGET_REGISTRY: WidgetRegistryType = {
     ...WIDGET_REGISTRY,

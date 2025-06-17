@@ -10,7 +10,7 @@ import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { useGetMyPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
+import { useGetCurrentUserPlayerQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
 import usePlayerPerformance from "commons/hooks/fsm/useGetPlayerPerformance";
 import { ASHBARIA_EXAM_QUESTION_COIN_REWARD } from "apps/ashbaria/constants/game-info";
@@ -23,7 +23,7 @@ type ExamResultPagePropsType = {};
 const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
-  const { data: player, isLoading: isLoadingPlayer } = useGetMyPlayerQuery({ fsmId });
+  const { data: player, isLoading: isLoadingPlayer } = useGetCurrentUserPlayerQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isLoadingUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });

@@ -38,11 +38,11 @@ type EnterFSMInputType = {
 
 type EnterFSMOutputType = PlayerType;
 
-type GetMyPlayerInputType = {
+type GetCurrentUserPlayerInputType = {
   fsmId: number;
 }
 
-type GetMyPlayerOutputType = PlayerMinimalType;
+type GetCurrentUserPlayerOutputType = PlayerMinimalType;
 
 type FinishFSMInputType = {
   playerId: string;
@@ -94,7 +94,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    getMyPlayer: builder.query<GetMyPlayerOutputType, GetMyPlayerInputType>({
+    getCurrentUserPlayer: builder.query<GetCurrentUserPlayerOutputType, GetCurrentUserPlayerInputType>({
       providesTags: ['player'],
       query: ({ fsmId }) => ({
         url: `/fsm/fsm/${fsmId}/current-user-player/`,
@@ -136,7 +136,7 @@ export const {
   useMentorMoveForwardMutation,
   useMentorMoveBackwardMutation,
   useGetPlayerQuery,
-  useGetMyPlayerQuery,
+  useGetCurrentUserPlayerQuery,
   useEnterFSMMutation,
   useTransitToStateMutation,
   useFinishFSMMutation,

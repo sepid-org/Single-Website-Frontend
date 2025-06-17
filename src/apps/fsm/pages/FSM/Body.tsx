@@ -2,7 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import {
-  useGetMyPlayerQuery,
+  useGetCurrentUserPlayerQuery,
 } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from 'apps/fsm/template/FSMState';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
@@ -13,7 +13,7 @@ type PropsType = {}
 const FSMBody: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
-  const { data: player } = useGetMyPlayerQuery({ fsmId });
+  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId });
 
   useEffect(() => {
     document.body.scrollTop = document.documentElement.scrollTop = 0;

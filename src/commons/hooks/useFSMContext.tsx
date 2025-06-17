@@ -1,7 +1,7 @@
 import React, { useState, createContext, FC, useContext, ReactNode } from 'react';
 import { Dialog } from '@mui/material';
 import { PlayerMinimalType } from 'commons/types/models';
-import { useGetMyPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useGetCurrentUserPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useFSMStatesManager, { FSMStateResult } from 'apps/fsm/hooks/useFSMStatesManager';
 import useFSMPapersManager, { PaperResult } from 'apps/fsm/hooks/useFSMPapersManager';
 
@@ -27,7 +27,7 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   children,
   ...props
 }) => {
-  const { data: player } = useGetMyPlayerQuery({ fsmId: props.fsmId });
+  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId: props.fsmId });
   const { getCachedFSMState } = useFSMStatesManager({ fsmId: props.fsmId });
   const { getCachedPaper } = useFSMPapersManager({ fsmId: props.fsmId });
   const [open, setOpen] = useState(false);
