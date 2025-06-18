@@ -39,21 +39,19 @@ const tabs: DashboardTabType[] = [
     label: 'تنظیمات ظاهری',
     icon: VisibilityIcon,
     component: <AppearanceTab />,
-    disabled: false,
   },
-  {
-    slug: 'third-parties',
-    label: 'افزونه‌ها',
-    icon: ExtensionIcon,
-    component: <ThirdPartiesTab />,
-    disabled: true,
-  },
+  // {
+  //   slug: 'third-parties',
+  //   label: 'افزونه‌ها',
+  //   icon: ExtensionIcon,
+  //   component: <ThirdPartiesTab />,
+  //   disabled: true,
+  // },
   {
     slug: 'statistics',
     label: 'آمارها',
     icon: BarChartIcon,
     component: <StatisticsTab />,
-    disabled: true,
   },
 ];
 

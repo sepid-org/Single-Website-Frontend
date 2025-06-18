@@ -149,7 +149,8 @@ const CreateAccount: FC<CreateAccountPropsType> = ({ }) => {
               color="primary"
               disabled={isLoading}
               size='large'
-              fullWidth>
+              fullWidth
+            >
               <Typography fontWeight={700} color={DarkSecondary}>
                 {'ثبت'}
               </Typography>

@@ -24,6 +24,7 @@ const StatisticsTab: FC<StatisticsTabPropsType> = ({
         <Typography variant='h3' gutterBottom>
           {'آمار کاربران'}
         </Typography>
+        {'به زودی...'}
 
       </Stack>
 
@@ -31,6 +32,7 @@ const StatisticsTab: FC<StatisticsTabPropsType> = ({
         <Typography variant='h3' gutterBottom>
           {'آمار دوره‌ها'}
         </Typography>
+        {'به زودی...'}
 
       </Stack>
     </Stack>
