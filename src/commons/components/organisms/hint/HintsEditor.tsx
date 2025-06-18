@@ -59,7 +59,7 @@ const HintsEditor: FC<HintsEditorPropsType> = ({
             </Grid>
           </Stack>
           :
-          <NoDataFound variant={6} message='راهنمایی‌ای وجود ندارد' />
+          <NoDataFound variant={4} message='راهنمایی‌ای وجود ندارد' />
         }
         <Button
           fullWidth
