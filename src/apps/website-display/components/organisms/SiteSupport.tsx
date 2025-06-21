@@ -8,12 +8,12 @@ import {
   Typography,
   Stack
 } from '@mui/material';
-import ChatIcon from '@mui/icons-material/Chat';
+import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import CloseIcon from '@mui/icons-material/Close';
 import Paper from 'commons/template/Paper';
 import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/ThirdPartySlice';
 
-export default function SupportChat() {
+export default function SiteSupport() {
   const [anchorEl, setAnchorEl] = useState(null);
   const { data: thirdParties } = useGetThirdPartiesQuery();
   const fabRef = useRef(null);
@@ -47,7 +47,7 @@ export default function SupportChat() {
           onClick={handleToggle}
           sx={{ opacity: open ? 0 : 1 }}
         >
-          <ChatIcon />
+          <LiveHelpIcon />
         </Fab>
       </Box>
 

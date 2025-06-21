@@ -10,7 +10,7 @@ import NotFoundPage from 'commons/pages/NotFoundPage';
 import { retryImport } from 'commons/utils/retryImport';
 import Articles from './pages/Articles';
 import Programs from './pages/Programs';
-import SiteHelp from './components/organisms/SiteHelp';
+import SiteSupport from './components/organisms/SiteSupport';
 
 const Profile = React.lazy(() =>
   retryImport(() => import('apps/website-display/pages/Profile'))
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <Fragment>
-      <SiteHelp />
+      <SiteSupport />
       <Routes>
         <Route index element={<Navigate to={'/programs/'} />} />
         <Route path="/articles/" element={<Articles />} />
