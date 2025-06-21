@@ -10,6 +10,7 @@ interface BaseQueryArgs {
   url: string;
   method?: string;
   body?: any;
+  isSimpleRequest?: boolean;
   onSuccess?: (result: any) => void;
   onFailure?: (error: any) => void;
 }
@@ -80,20 +81,23 @@ const refreshAccessToken = async (baseQuery: any, api: any, extraOptions: any) =
   }
 };
 
-const customBaseQuery = ({ baseUrl }: { baseUrl: string }) =>
+const customBaseQuery = ({ baseUrl }: { baseUrl: string; }) =>
   async (args: BaseQueryArgs | string, api, extraOptions) => {
+    const isSimpleRequest =
+      typeof args !== 'string' && !!args.isSimpleRequest;
+
     const baseQuery = fetchBaseQuery({
       baseUrl,
       prepareHeaders: (headers, { getState }) => {
-        const state = getState() as any;
-        const accessToken = state.account?.accessToken;
-        const website = state.website?.website;
-        const fsm = state.fsm?.fsm;
-
-        if (accessToken) headers.set('Authorization', `JWT ${accessToken}`);
-        if (website) headers.set('Website', website?.name);
-        if (fsm) headers.set('FSM', fsm.id);
-
+        if (!isSimpleRequest) {
+          const state = getState() as any;
+          const token = state.account?.accessToken;
+          if (token) headers.set('Authorization', `JWT ${token}`);
+          const website = state.website?.website;
+          if (website) headers.set('Website', website.name);
+          const fsm = state.fsm?.fsm;
+          if (fsm) headers.set('FSM', fsm.id);
+        }
         return headers;
       },
     });

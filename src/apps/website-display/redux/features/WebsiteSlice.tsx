@@ -9,8 +9,12 @@ export const WebsiteSlice = WebsiteManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getWebsite: builder.query<WebsiteType, void>({
       providesTags: [{ type: 'Website' }],
-      query: () => `website/get-website/`,
+      query: () => ({
+        url: `website/get-website/`,
+        isSimpleRequest: true,
+      })
     }),
+
     getWebsitePermission: builder.query<WebsitePermissionsType, void>({
       providesTags: [{ type: 'Website', id: 'MY' }],
       query: () => `website/permissions/`,
@@ -20,8 +24,12 @@ export const WebsiteSlice = WebsiteManagementServiceApi.injectEndpoints({
         };
       },
     }),
+
     getPageMetadata: builder.query<PageMetadataType, { pageAddress: string }>({
-      query: ({ pageAddress }) => `appearance/get-page-metadata/?page_address=${pageAddress}`,
+      query: ({ pageAddress }) => ({
+        url: `appearance/get-page-metadata/?page_address=${pageAddress}`,
+        isSimpleRequest: true,
+      })
     })
   })
 })
