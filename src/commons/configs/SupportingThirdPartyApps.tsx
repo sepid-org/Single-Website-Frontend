@@ -55,8 +55,8 @@ export const initSupportingThirdPartyApps = (thirdParties: any[]) => {
     const GoftinoSiteSupports = thirdParties.filter(thirdParty => thirdParty.third_party_type == 'SiteSupportService' && thirdParty.type === 'Goftino')
     initGoftino(GoftinoSiteSupports[0]?.token);
     initSentry();
-    initGoogleAnalytics();
-    initGoogleTagManager();
-    initClarity();
+    // initGoogleAnalytics();
+    // initGoogleTagManager();
+    // initClarity();
   }
 }
