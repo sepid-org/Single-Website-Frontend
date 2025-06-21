@@ -59,7 +59,7 @@ function IframeEditWidget({
             fullWidth
             label='لینک'
             value={link}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             onChange={(e) => setLink(e.target.value)} />
         </Stack>
       </DialogContent>

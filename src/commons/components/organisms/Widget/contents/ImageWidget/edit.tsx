@@ -58,7 +58,7 @@ const ImageEditWidget = ({
             fullWidth
             label="آدرس تصویر"
             value={link}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             placeholder="http://example.com/example.png"
             onChange={(e) => setLink(e.target.value)}
           />

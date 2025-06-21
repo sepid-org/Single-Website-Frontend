@@ -61,7 +61,7 @@ const RandomWidgetEditor = ({
             fullWidth
             label="شناسه برگه (به‌عنوان جعبه)"
             value={boxPaperId}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             onChange={(e) => { setBoxPaperId(parseInt(e.target.value)) }}
           />
           <FormControlLabel

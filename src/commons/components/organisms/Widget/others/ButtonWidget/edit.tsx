@@ -81,7 +81,7 @@ const ButtonWidgetEditor = ({
               fullWidth
               label={'پیوند تصویر دکمه'}
               value={buttonFields.background_image}
-              inputProps={{ className: 'ltr-input' }}
+              inputProps={{ dir: 'ltr' }}
               placeholder="https://..."
               onChange={(e) => setButtonFields({
                 ...buttonFields,
@@ -101,7 +101,7 @@ const ButtonWidgetEditor = ({
             label="پیوند مقصد"
             disabled={buttonFields.destination_states.length > 0}
             value={buttonFields.destination_page_url}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             placeholder="https://..."
             onChange={(e) => setButtonFields({
               ...buttonFields,

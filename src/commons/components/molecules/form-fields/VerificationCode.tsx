@@ -23,7 +23,7 @@ const VerificationCodeField: FC<PropsType> = ({
       }}
       name="verificationCode"
       label="کد تایید پیامک‌شده"
-      inputProps={{ className: 'ltr-input' }}
+      inputProps={{ dir: 'ltr' }}
       autoComplete='false'
       type='number'
       inputMode='numeric'

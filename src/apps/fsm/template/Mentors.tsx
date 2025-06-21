@@ -68,7 +68,7 @@ const Mentors: FC<MentorsPropsType> = ({ }) => {
                 variant="outlined"
                 label="نام کاربری"
                 name="username"
-                inputProps={{ className: 'ltr-input' }}
+                inputProps={{ dir: 'ltr' }}
                 onChange={(e) => setUsername(e.target.value)}
               />
             </Grid>

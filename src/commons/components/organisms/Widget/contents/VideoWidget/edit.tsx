@@ -58,7 +58,7 @@ const VideoEditWidget = ({
             fullWidth
             label="آدرس فیلم"
             value={link}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             placeholder="http://example.com/example.mp4"
             onChange={(e) => { setLink(e.target.value) }}
           />

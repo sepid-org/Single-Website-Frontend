@@ -69,7 +69,7 @@ const AudioEditWidget = ({
             fullWidth
             label="آدرس صوت"
             value={link}
-            inputProps={{ className: 'ltr-input' }}
+            inputProps={{ dir: 'ltr' }}
             placeholder="http://example.com/example.mp3"
             onChange={(e) => setLink(e.target.value)}
           />

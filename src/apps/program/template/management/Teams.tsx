@@ -129,7 +129,7 @@ function Teams({ }) {
                 fullWidth
                 variant="outlined"
                 label="نام کاربری"
-                inputProps={{ className: 'ltr-input' }}
+                inputProps={{ dir: 'ltr' }}
                 onChange={(e) => { setUserName(e.target.value) }}
               />
             </Grid>

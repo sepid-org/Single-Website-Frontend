@@ -25,7 +25,7 @@ const UsernameField: React.FC<UsernameFieldProps> = ({
 			placeholder={placeHolder}
 			variant={variant}
 			inputProps={{
-				className: 'ltr-input',
+				dir: 'ltr',
 				...props.inputProps
 			}}
 			type='text'

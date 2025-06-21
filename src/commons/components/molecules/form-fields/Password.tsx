@@ -34,7 +34,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
       label={label}
       name="password"
       inputProps={{
-        className: 'ltr-input',
+        dir: 'ltr',
         ...props.inputProps
       }}
       type={showPassword ? "text" : "password"}
