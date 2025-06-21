@@ -8,13 +8,13 @@ import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPar
 const WebsiteMetadataSetter = ({ }) => {
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const { data: websiteData } = useGetWebsiteQuery();
-  const { data: thirdPartiesTokens } = useGetThirdPartiesQuery()
+  const { data: thirdParties } = useGetThirdPartiesQuery()
 
   useEffect(() => {
-    if (thirdPartiesTokens) {
-      initSupportingThirdPartyApps(thirdPartiesTokens);
+    if (thirdParties) {
+      initSupportingThirdPartyApps(thirdParties);
     }
-  }, [thirdPartiesTokens])
+  }, [thirdParties])
 
   return (
     <Fragment>

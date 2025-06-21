@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
 import ResetPassword from 'apps/website-display/pages/ResetPassword';
@@ -10,6 +10,7 @@ import NotFoundPage from 'commons/pages/NotFoundPage';
 import { retryImport } from 'commons/utils/retryImport';
 import Articles from './pages/Articles';
 import Programs from './pages/Programs';
+import SiteHelp from './components/organisms/SiteHelp';
 
 const Profile = React.lazy(() =>
   retryImport(() => import('apps/website-display/pages/Profile'))
@@ -42,27 +43,30 @@ const App = () => {
   }, [navigate]);
 
   return (
-    <Routes>
-      <Route index element={<Navigate to={'/programs/'} />} />
-      <Route path="/articles/" element={<Articles />} />
-      <Route path="/programs/" element={<Programs />} />
-      <Route path="/profile/:partyType/:partyId/" element={<Profile />} />
+    <Fragment>
+      <SiteHelp />
+      <Routes>
+        <Route index element={<Navigate to={'/programs/'} />} />
+        <Route path="/articles/" element={<Articles />} />
+        <Route path="/programs/" element={<Programs />} />
+        <Route path="/profile/:partyType/:partyId/" element={<Profile />} />
 
-      <Route path="/" element={<PrivateRoute />}>
-        <Route path="/notifications/" element={<Notifications />} />
-        <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
-        <Route path="/setting/" element={<Setting />} />
-      </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/notifications/" element={<Notifications />} />
+          <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
+          <Route path="/setting/" element={<Setting />} />
+        </Route>
 
-      <Route path="/" element={<AnonymousRoute />}>
-        <Route path="/login/" element={<Login />} />
-        <Route path="/token-expiration/" element={<Login />} />
-        <Route path="/reset-password/" element={<ResetPassword />} />
-        <Route path="/create-account/" element={<CreateAccount />} />
-      </Route>
+        <Route path="/" element={<AnonymousRoute />}>
+          <Route path="/login/" element={<Login />} />
+          <Route path="/token-expiration/" element={<Login />} />
+          <Route path="/reset-password/" element={<ResetPassword />} />
+          <Route path="/create-account/" element={<CreateAccount />} />
+        </Route>
 
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </Fragment>
   );
 };
 

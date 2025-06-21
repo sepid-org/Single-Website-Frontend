@@ -50,9 +50,10 @@ const initGoftino = (token: string) => {
   })();
 }
 
-export const initSupportingThirdPartyApps = (thridPartiesTokens: any[]) => {
+export const initSupportingThirdPartyApps = (thirdParties: any[]) => {
   if (process.env.NODE_ENV === 'production') {
-    initGoftino(thridPartiesTokens.find(thirdParty => thirdParty.third_party_type == 'SiteSupportService')?.token);
+    const GoftinoSiteSupports = thirdParties.filter(thirdParty => thirdParty.third_party_type == 'SiteSupportService' && thirdParty.type === 'Goftino')
+    initGoftino(GoftinoSiteSupports[0]?.token);
     initSentry();
     initGoogleAnalytics();
     initGoogleTagManager();

@@ -24,6 +24,12 @@ type AudienceTypeType = "All" | "Student" | "Academic";
 type ProgramParticipationType = "Team" | "Individual";
 type ProgramTypeType = 'Campaign' | 'Event' | 'Class' | 'Course' | 'Game';
 
+export type ThirdPartyType = {
+  third_party_type: 'SiteSupportService' | 'SMSServiceType';
+  type: string;
+  token: string;
+}
+
 export type ProgramType = {
   type: ProgramTypeType;
   slug: string;
