@@ -98,7 +98,7 @@ const ProfileImageUploader = ({ file, setFile, id }) => {
             src={file}
             width="100%"
             height="100%"
-            sx={{ borderRadius: 1, objectFit: "cover" }}
+            sx={{ borderRadius: 1, objectFit: 'contain' }}
           />
           <Box
             sx={{

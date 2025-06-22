@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { IconButton, Skeleton } from "@mui/material";
+import { IconButton, Skeleton, useMediaQuery, useTheme } from "@mui/material";
 import { useGetWebsiteQuery } from "apps/website-display/redux/features/WebsiteSlice";
 import { Link } from "react-router-dom";
 
@@ -39,13 +39,16 @@ const WebsiteLogo: FC<WebsiteLogoPropsType> = ({
     isSuccess,
   } = useGetWebsiteQuery();
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  
   if (!isSuccess) {
     return <Skeleton variant="circular" width={logoSize.width} height={logoSize.height} />
   }
 
   return (
     <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to='/'>
-      <img alt="website-logo" unselectable="on" src={website.logo.desktop_image}
+      <img alt="website-logo" unselectable="on" src={isMobile ? website.logo.mobile_image : website.logo.desktop_image}
         style={{
           minWidth: logoSize.width,
           minHeight: logoSize.height,
