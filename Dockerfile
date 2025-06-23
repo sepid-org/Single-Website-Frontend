@@ -28,8 +28,12 @@ ENV PATH="./node_modules/.bin:$PATH"
 COPY . .
 RUN yarn build
 
-FROM nginx:alpine as production
-ENV SERVER_NAME = _
-ENV NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
-COPY ./nginx.conf.template /etc/nginx/templates/
-COPY --from=build /app/build /var/www/public
+# Stage 2: Serve with default nginx config
+FROM nginx:alpine AS production
+
+# Copy built assets to nginx's default html directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 and run nginx in foreground
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
