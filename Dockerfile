@@ -29,11 +29,17 @@ COPY . .
 RUN yarn build
 
 # Stage 2: Serve with default nginx config
-FROM nginx:alpine AS production
+FROM nginx:stable-alpine
 
-# Copy built assets to nginx's default html directory
+# Remove default Nginx static assets
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy built React app from the build stage
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expose port 80 and run nginx in foreground
+# Copy the custom nginx.conf (for HTML5 routing (e.g. React Router))
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expose port and start Nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
