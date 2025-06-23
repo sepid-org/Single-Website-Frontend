@@ -2,10 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { retryImport } from 'commons/utils/retryImport';
 import { BrowserRouter } from 'react-router-dom';
-
-const WebsiteDisplayApp = React.lazy(() =>
-  retryImport(() => import('apps/website-display/App'))
-);
+import WebsiteDisplayApp from 'apps/website-display/App';
 
 const WebsiteFactoryApp = React.lazy(() =>
   retryImport(() => import('apps/website-factory/App'))
