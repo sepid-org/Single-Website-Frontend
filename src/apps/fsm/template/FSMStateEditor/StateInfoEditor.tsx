@@ -120,7 +120,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControlLabel
               labelPlacement='start'
               label={'نمایش نوار ابزار بالای صفحه:'}
@@ -137,7 +137,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
                 />
               }
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} sm={6}>
             <FormControlLabel
               labelPlacement='start'
