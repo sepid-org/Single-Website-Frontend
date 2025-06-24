@@ -19,10 +19,6 @@ const FSMStart: FC<PropsType> = () => {
   const canStartFSM = fsm?.participant_limit === 0 || remainingParticipations > 0;
   const isLoading = isUserFSMsLoading || isFSMLoading;
 
-  if (!fsm) {
-    return null;
-  }
-
   return (
     <FullScreenBackgroundImage styles={{ padding: 2 }}>
       <Stack
@@ -31,11 +27,8 @@ const FSMStart: FC<PropsType> = () => {
         padding={2}
         paddingX={4}
         spacing={1}
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+        alignItems={'center'}
+        justifyContent={'center'}
       >
         {isLoading ? (
           <Stack spacing={2} width="100%" alignItems={'center'} justifyContent={'center'}>
@@ -47,14 +40,14 @@ const FSMStart: FC<PropsType> = () => {
         ) : (
           <>
             <Typography fontWeight={600} fontSize={24}>
-              {fsm.name}
+              {fsm?.name}
             </Typography>
             <Typography
               align="center"
               fontWeight={400}
               fontSize={16}
             >
-              {fsm.description}
+              {fsm?.description}
             </Typography>
             {!canStartFSM &&
               <Typography
@@ -63,7 +56,7 @@ const FSMStart: FC<PropsType> = () => {
                 fontWeight={400}
                 fontSize={12}
               >
-                {`تعداد دفعات مجاز شما برای شرکت در ${fsm.name} به پایان رسیده است 😔`}
+                {`تعداد دفعات مجاز شما برای شرکت در ${fsm?.name} به پایان رسیده است 😔`}
               </Typography>
             }
             <Button
@@ -74,7 +67,7 @@ const FSMStart: FC<PropsType> = () => {
             >
               {'شروع'}
             </Button>
-            {fsm.program_slug ?
+            {fsm?.program_slug ?
               <Button
                 fullWidth
                 variant="outlined"

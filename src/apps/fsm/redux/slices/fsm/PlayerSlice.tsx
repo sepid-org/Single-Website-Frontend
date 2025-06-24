@@ -1,5 +1,6 @@
 import { PlayerMinimalType, PlayerType } from 'commons/types/models';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type TransitToStateInputType = {
   stateId: string;
@@ -53,7 +54,7 @@ type FinishFSMOutputType = void;
 export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     transitToState: builder.mutation<TransitToStateOutputType, TransitToStateInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: tagGenerationWithErrorCheck(['player']),
       query: ({ stateId }) => ({
         url: `/fsm/player/transit-to-state/`,
         method: 'POST',
@@ -64,7 +65,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     goBackward: builder.mutation<GoBackwardOutputType, GoBackwardInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: tagGenerationWithErrorCheck(['player']),
       query: ({ playerId }) => ({
         url: `/fsm/player/${playerId}/go_backward/`,
         method: 'POST',
@@ -72,7 +73,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     mentorMoveForward: builder.mutation<MentorMoveForwardOutputType, MentorMoveForwardInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: tagGenerationWithErrorCheck(['player']),
       query: ({ edgeId }) => ({
         url: `/fsm/edge/${edgeId}/mentor_move_forward/`,
         method: 'POST',
@@ -80,7 +81,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     mentorMoveBackward: builder.mutation<MentorMoveBackwardOutputType, MentorMoveBackwardInputType>({
-      invalidatesTags: ['player'],
+      invalidatesTags: tagGenerationWithErrorCheck(['player']),
       query: ({ playerId }) => ({
         url: `/fsm/player/${playerId}/mentor_move_backward/`,
         method: 'POST',
@@ -103,7 +104,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     enterFSM: builder.mutation<EnterFSMOutputType, EnterFSMInputType>({
-      invalidatesTags: ['player', { type: 'FSM', id: 'MY' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
       query: ({ fsmId, password }) => ({
         url: `/fsm/fsm/${fsmId}/enter_fsm/`,
         method: 'POST',
@@ -114,7 +115,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     finishFSM: builder.mutation<FinishFSMOutputType, FinishFSMInputType>({
-      invalidatesTags: ['player', { type: 'FSM', id: 'MY' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
       query: ({ playerId }) => ({
         url: `/fsm/player/${playerId}/finish-fsm/`,
         method: 'GET',
