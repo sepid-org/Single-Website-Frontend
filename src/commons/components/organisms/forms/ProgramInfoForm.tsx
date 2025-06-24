@@ -64,7 +64,7 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           onChange={putData}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>وضعیت دوره</InputLabel>
           <Select
@@ -94,8 +94,8 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
             onChange={putData}
           />
         }
-      </Grid>
-      <Grid item xs={12} sm={6}>
+      </Grid> */}
+      {/* <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_active'
           checked={data.is_active}
@@ -104,7 +104,7 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           label="فعال بودن ورود به دوره:"
           labelPlacement='start'
         />
-      </Grid>
+      </Grid> */}
       {/* <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='accessible_after_closure'
@@ -121,11 +121,11 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           checked={data.is_visible}
           onChange={() => toggleValue('is_visible')}
           control={<Switch color="primary" />}
-          label="قابل مشاهده برای شرکت‌کنندگان:"
+          label="نمایش در لیست دوره‌ها:"
           labelPlacement='start'
         />
       </Grid>
-      <Grid item xs={12} sm={6}>
+      {/* <Grid item xs={12} sm={6}>
         <FormControlLabel
           disabled={true}
           name='show_scores'
@@ -135,7 +135,7 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           label="نمایش جدول امتیازات"
           labelPlacement='start'
         />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

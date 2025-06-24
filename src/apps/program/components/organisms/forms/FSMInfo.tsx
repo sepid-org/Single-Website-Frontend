@@ -60,7 +60,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           fullWidth
           value={data.description}
           variant='outlined'
-          label={'توضیحات کارگاه'}
+          label={'توضیحات'}
           name='description'
           onChange={putData}
         />
@@ -123,7 +123,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           checked={data.is_active}
           onChange={() => toggleValue('is_active')}
           control={<Switch color="primary" />}
-          label="فعال بودن ورود به کارگاه:"
+          label="دسترسی به کارگاه فعال است:"
           labelPlacement='start'
         />
       </Grid>
@@ -133,7 +133,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           checked={data.is_visible}
           onChange={() => toggleValue('is_visible')}
           control={<Switch color="primary" />}
-          label="قابل مشاهده برای شرکت‌کنندگان:"
+          label="نمایش در لیست کارگاه‌ها:"
           labelPlacement='start'
         />
       </Grid>

@@ -79,7 +79,7 @@ const ArticleInfoForm: FC<ArticleInfoFormPropsType> = ({
           checked={!data.is_hidden}
           onChange={() => toggleValue('is_hidden')}
           control={<Switch color="primary" />}
-          label="قابل مشاهده برای مخاطبان:"
+          label="نمایش در لیست مقالات:"
           labelPlacement='start'
         />
       </Grid>
