@@ -4,7 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Grid,
+  Stack,
   Typography,
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
@@ -82,31 +82,15 @@ const CreateFSMDialog: FC<CreateFSMDialog> = ({
   }, [result])
 
   return (
-    <Dialog open={open} maxWidth="md">
+    <Dialog open={open} maxWidth="sm">
       <DialogTitle>{'ایجاد کارگاه جدید'}</DialogTitle>
       <DialogContent>
-        <Grid container spacing={6} alignItems={'start'}>
-          <Grid item container xs={12} md={8} spacing={2}>
-            <Grid item>
-              <Typography gutterBottom>
-                {'مشخصات کارگاه را وارد کنید:'}
-              </Typography>
-            </Grid>
-            <Grid item>
-              <FSMInfoForm data={properties} setData={setProperties} />
-            </Grid>
-          </Grid>
-          <Grid item container xs={12} md={4} spacing={2}
-            sx={{ display: { xs: 'none', md: 'inline' } }}
-          >
-            <Grid item xs={12}>
-              <Typography gutterBottom>{'خروجی کار:'}</Typography>
-            </Grid>
-            <Grid item xs={12} sx={{ opacity: properties.is_visible ? 1 : 0.2 }}>
-              <VerticalFSMCard fsm={properties} />
-            </Grid>
-          </Grid>
-        </Grid>
+        <Stack>
+          <Typography gutterBottom>
+            {'مشخصات کارگاه را وارد کنید:'}
+          </Typography>
+          <FSMInfoForm data={properties} setData={setProperties} />
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button

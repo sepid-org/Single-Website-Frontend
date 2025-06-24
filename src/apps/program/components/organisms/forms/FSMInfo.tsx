@@ -65,7 +65,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           onChange={putData}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>نوع آموزش</InputLabel>
           <Select
@@ -78,8 +78,8 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           </Select>
           <FormHelperText>{'همیار می‌تواند در محیط سامانه، به‌صورت در لحظه، به سوالات شرکت‌کنندگان پاسخ دهد و با آن‌ها گفتگو کند.'}</FormHelperText>
         </FormControl>
-      </Grid>
-      <Grid item xs={12} md={6}>
+      </Grid> */}
+      {/* <Grid item xs={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>وضعیت کارگاه</InputLabel>
           <Select
@@ -92,7 +92,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
             <MenuItem disabled value={'Hybrid'}>{'هیبرید'}</MenuItem>
           </Select>
         </FormControl>
-      </Grid>
+      </Grid> */}
       {/* <Grid item xs={12} sm={6}>
         <TextField
           fullWidth
@@ -104,7 +104,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           helperText={'کارگاه با اولویت نمایش کوچک‌تر، زودتر در صفحه‌ی اصلیِ دوره نمایش داده می‌شود.'}
         />
       </Grid> */}
-      <Grid item xs={12} md={6}>
+      {/* <Grid item xs={12} md={6}>
         <FormControl fullWidth variant="outlined">
           <InputLabel>نوع کارت</InputLabel>
           <Select
@@ -116,7 +116,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
             <MenuItem disabled value={'horizontal1'}>{'افقی ۱'}</MenuItem>
           </Select>
         </FormControl>
-      </Grid>
+      </Grid> */}
       <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_active'
