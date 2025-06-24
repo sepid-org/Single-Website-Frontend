@@ -145,23 +145,6 @@ const ProgramContactInfoForm: FC<ProgramContactInfoFormPropsType> = ({
           onChange={putData}
         />
       </Grid>
-      <Grid item xs={12} md={6}>
-        <TextField
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <WhatsappIcon />
-              </InputAdornment>
-            ),
-          }}
-          value={data?.whatsapp_link || ''}
-          fullWidth
-          variant='outlined'
-          label={'واتس‌اپ'}
-          name='whatsapp_link'
-          onChange={putData}
-        />
-      </Grid>
     </Grid>
   );
 }
