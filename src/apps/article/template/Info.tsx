@@ -69,7 +69,7 @@ const Info: FC<InfoPropsType> = ({ }) => {
         </Typography>
         {/* دکمه‌های سوالات متداول + راهنمای سایت + اپ‌بار و هدر و اوپن‌گراف سایت */}
         <Typography>
-          {'todo'}
+          {'به زودی...'}
         </Typography>
       </Stack>
 
