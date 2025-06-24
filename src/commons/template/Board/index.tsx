@@ -2,12 +2,11 @@ import React, { FC, useState, useEffect, useCallback } from 'react';
 import Layer from './Layer';
 import Viewport from 'commons/template/Board/Viewport';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import useFSMState from 'apps/fsm/hooks/useFSMState';
 import { ViewportType } from './types';
 
 export type PropsType = ViewportType & {
-  fsmStateId: string;
   mode?: 'fit-height' | 'fit-width';
+  papers: string[],
 };
 
 type BoardState = {
@@ -17,18 +16,13 @@ type BoardState = {
 };
 
 const Board: FC<PropsType> = ({
-  fsmStateId,
   viewportWidth,
   viewportHeight,
   defaultSceneWidth,
   defaultSceneHeight,
+  papers,
   mode,
 }) => {
-  const {
-    fsmState,
-    isSuccess: isStateSuccess,
-    error: stateError,
-  } = useFSMState(parseInt(fsmStateId));
 
   const [boardState, setBoardState] = useState<BoardState>({
     displayPapers: [],
@@ -36,16 +30,14 @@ const Board: FC<PropsType> = ({
     loadedSet: new Set(),
   });
 
-  // whenever FSM query returns new paper IDs, start “pending” phase
+  // whenever new paper IDs arrives, start “pending” phase
   useEffect(() => {
-    if (isStateSuccess && fsmState?.papers) {
-      setBoardState((prev) => ({
-        ...prev,
-        pendingPapers: fsmState.papers,
-        loadedSet: new Set(),
-      }));
-    }
-  }, [isStateSuccess, fsmState?.papers]);
+    setBoardState((prev) => ({
+      ...prev,
+      pendingPapers: papers,
+      loadedSet: new Set(),
+    }));
+  }, [papers]);
 
   // callback we hand down to each hidden Layer
   const handleLoaded = useCallback(
@@ -99,19 +91,6 @@ const Board: FC<PropsType> = ({
           onLoaded={() => handleLoaded(paperId)}
         />
       ))}
-
-      {stateError && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 10,
-            left: 10,
-            color: 'red',
-          }}
-        >
-          خطایی در بارگیری گام رخ داد!
-        </div>
-      )}
     </Viewport>
   );
 };

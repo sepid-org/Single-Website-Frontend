@@ -57,7 +57,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({
         </Box>
       )}
       <Board
-        fsmStateId={fsmState.id}
+        papers={fsmState.papers}
         mode={mode}
         defaultSceneWidth={fsmState.position.width}
         defaultSceneHeight={fsmState.position.height}
