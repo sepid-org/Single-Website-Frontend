@@ -31,7 +31,7 @@ const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({ }) => {
         </IconButton>
       </Tooltip>
       <AreYouSure
-        text='آیا مطمئنید؟ با پاک‌کردن کارگاه، تمام گام‌ها و پاسخ‌های شرکت‌کنندگان برای همیشه حذف خواهد شد.'
+        text='آیا از پاک‌کردن کارگاه مطمئنید؟ با پاک‌کردن کارگاه، تمام گام‌ها و پاسخ‌های شرکت‌کنندگان حذف خواهد شد.'
         open={openDialog}
         callBackFunction={() => softDelete({ fsmId })}
         handleClose={() => setOpenDialog(openDialog => !openDialog)} />
