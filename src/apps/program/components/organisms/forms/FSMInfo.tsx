@@ -123,7 +123,7 @@ const FSMInfoForm: FC<FSMInfoFormPropsType> = ({
           checked={data.is_active}
           onChange={() => toggleValue('is_active')}
           control={<Switch color="primary" />}
-          label="دسترسی به کارگاه فعال است:"
+          label="فعال‌بودن ورود به کارگاه:"
           labelPlacement='start'
         />
       </Grid>
