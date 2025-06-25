@@ -6,7 +6,7 @@ import { ViewportType } from './types';
 
 export type PropsType = ViewportType & {
   mode?: 'fit-height' | 'fit-width';
-  papers: string[],
+  paperIds: string[],
 };
 
 type BoardState = {
@@ -20,7 +20,7 @@ const Board: FC<PropsType> = ({
   viewportHeight,
   defaultSceneWidth,
   defaultSceneHeight,
-  papers,
+  paperIds,
   mode,
 }) => {
 
@@ -34,10 +34,10 @@ const Board: FC<PropsType> = ({
   useEffect(() => {
     setBoardState((prev) => ({
       ...prev,
-      pendingPapers: papers,
+      pendingPapers: paperIds,
       loadedSet: new Set(),
     }));
-  }, [papers]);
+  }, [paperIds]);
 
   // callback we hand down to each hidden Layer
   const handleLoaded = useCallback(

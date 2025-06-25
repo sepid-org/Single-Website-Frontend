@@ -2,15 +2,18 @@ import React, { FC } from 'react';
 import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
 type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
 
 const FSMState: FC<FSMStatePropsType> = ({
   fsmStateId,
 }) => {
-  const { fsmState } = useFSMState(parseInt(fsmStateId));
+  const { fsmId } = useFSMContext();
+  const { data: fsm } = useGetFSMQuery({ fsmId });
 
-  if (fsmState?.template === 'board') {
+  if (fsm?.scene.mode === 'board') {
     return (
       <BoardFSMState
         fsmStateId={fsmStateId}
@@ -19,7 +22,7 @@ const FSMState: FC<FSMStatePropsType> = ({
     );
   }
 
-  if (fsmState?.template === 'normal') {
+  if (fsm?.scene.mode === 'normal') {
     return (
       <WorkshopFSMState fsmStateId={fsmStateId} />
     );

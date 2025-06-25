@@ -98,7 +98,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
               fullWidth variant='outlined'
             />
           </Grid>
-          <Grid item xs={12} sm={6}>
+          {/* <Grid item xs={12} sm={6}>
             <FormControl fullWidth>
               <InputLabel>قالب گام</InputLabel>
               <Select
@@ -119,7 +119,7 @@ const StateInfoEditor: FC<StateInfoEditorPropsType> = ({ }) => {
                 </MenuItem>
               </Select>
             </FormControl>
-          </Grid>
+          </Grid> */}
           {/* <Grid item xs={12} sm={6}>
             <FormControlLabel
               labelPlacement='start'

@@ -8,11 +8,11 @@ import React, { FC } from 'react';
 import { PaperEditor } from 'commons/template/Paper';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 
-type NormalStateEditorPropsType = {
+type PropsType = {
   fsmStateId: string;
 }
 
-const NormalStateEditor: FC<NormalStateEditorPropsType> = ({ fsmStateId }) => {
+const NormalStateEditor: FC<PropsType> = ({ fsmStateId }) => {
   const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState.papers[0];
 

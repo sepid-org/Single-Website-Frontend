@@ -25,7 +25,6 @@ const States: FC<StatesPropsType> = ({ }) => {
   const headers = [
     { label: 'شناسه', name: 'id' },
     { label: 'عنوان', name: 'title' },
-    { label: 'قالب', name: 'template' },
     { label: 'تنظیمات', name: 'settings' },
   ];
 

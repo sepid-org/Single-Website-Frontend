@@ -11,10 +11,14 @@ import Layer from './Board/Layer';
 import usePaper from 'apps/fsm/hooks/usePaper';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 
-const BoardEditor = ({ activePaperId, allPaperIds = [], fsmStateId }) => {
+const BoardEditor = ({
+  activePaperId,
+  allPaperIds = [],
+  defaultSceneWidth,
+  defaultSceneHeight,
+}) => {
   // Fetch paper data with widget positions
   const { paper } = usePaper(activePaperId);
-  const { fsmState } = useFSMState(parseInt(fsmStateId));
 
   // Mutation hook to persist position updates
   const [updatePositions] = useUpdatePositionsMutation();
@@ -23,10 +27,6 @@ const BoardEditor = ({ activePaperId, allPaperIds = [], fsmStateId }) => {
   const [scale, setScale] = useState(0.6);
   const [pan, setPan] = useState({ x: 0, y: 0 });
   const containerRef = useRef(null);
-
-  // Canvas dimensions from active paper
-  const plateWidth = fsmState.position.width;
-  const plateHeight = fsmState.position.height;
 
   // Split backgroundPaperIds into before/after around activePaperId
   const activeIndex = allPaperIds.indexOf(activePaperId);
@@ -149,13 +149,13 @@ const BoardEditor = ({ activePaperId, allPaperIds = [], fsmStateId }) => {
           transform: `translate(${pan.x}px, ${pan.y}px) scale(${scale})`,
           transformOrigin: 'center center',
           transition: 'transform 0.1s ease',
-          width: plateWidth,
-          height: plateHeight,
+          width: defaultSceneWidth,
+          height: defaultSceneHeight,
           backgroundColor: 'orange',
         }}
       >
         {/* Base background layer */}
-        <Box sx={{ width: plateWidth, height: plateHeight, background: '#f0f0f0' }} />
+        <Box sx={{ width: defaultSceneWidth, height: defaultSceneHeight, background: '#f0f0f0' }} />
 
         {/* Render layers before the active one in disabled mode */}
         {beforeActive.map((pid) => (

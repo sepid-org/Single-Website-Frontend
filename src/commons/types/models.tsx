@@ -112,7 +112,14 @@ export type FSMPublicListType = {
   description: string;
 }
 
+export type SceneType = {
+  mode: 'normal' | 'board';
+  width: number;
+  height: number;
+}
+
 export type FSMType = {
+  scene: SceneType;
   object_id: number;
   id: number;
   name: string;

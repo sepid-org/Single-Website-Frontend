@@ -18,8 +18,6 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId, mode }) => {
   const { fsmId } = useFSMContext();
   const { isMentor } = useFSMStateContext();
   const { fsmState } = useFSMState(parseInt(fsmStateId, 10));
-
-  // todo: get scene width and height from fsm
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   // Use custom hook for responsive viewport
@@ -33,10 +31,10 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId, mode }) => {
   return (
     <Box position="relative">
       <Board
-        papers={fsmState.papers}
+        paperIds={fsmState.papers}
         mode={mode}
-        defaultSceneWidth={fsmState.position.width}
-        defaultSceneHeight={fsmState.position.height}
+        defaultSceneWidth={fsm.scene.width}
+        defaultSceneHeight={fsm.scene.height}
         viewportHeight={viewportHeight}
         viewportWidth={viewportWidth}
       />
