@@ -17,7 +17,7 @@ const SoftDeleteArticleButton: FC<SoftDeleteArticleButtonPropsType> = ({ }) => {
   useEffect(() => {
     if (result?.isSuccess) {
       toast.success('مقاله با موفقیت حذف شد.');
-      navigate(`/management/?tab=articles/`);
+      navigate(`/management/?tab=articles`);
     }
   }, [result])
 
