@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
-import React, { FC, Fragment, useEffect, useState } from 'react';
+import React, { FC, Fragment, useState } from 'react';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useParams } from 'react-router-dom';
 import EditMerchandise from 'commons/components/organisms/EditMerchandise';
@@ -15,13 +15,11 @@ import CreateMerchandiseDialog from 'commons/components/organisms/dialogs/Create
 import { useGetMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 import { useDeleteDiscountCodeMutation, useGetProgramDiscountCodesQuery } from 'apps/website-display/redux/features/sales/DiscountCode';
 import CreateDiscountCodeDialog from 'commons/components/organisms/dialogs/CreateDiscountCodeDialog';
-import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import { CMS_URL } from 'commons/constants/Constants';
-import isValidURL from 'commons/utils/validators/urlValidator';
-import downloadFromURL from 'commons/utils/downloadFromURL';
+import { useLazyGetProgramMerchandisesPurchasesFileQuery } from 'commons/redux/apis/reporting-service/ReportingServiceSlice';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
+import downloadBlob from 'commons/utils/downloadBlob';
 
 type TicketsTabPropsType = {}
 
@@ -41,21 +39,17 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
     deleteDiscountCode({ discountCodeId })
   }
 
-  const [trigger, result] = useLazyGetProgramMerchandisesPurchasesFileQuery();
+  const [triggerExport, result] = useLazyGetProgramMerchandisesPurchasesFileQuery();
 
-  const downloadExcelExport = () => {
-    trigger({ programSlug: program.registration_form })
-  }
-
-  useEffect(() => {
-    if (result.isSuccess) {
-      let url = result.data.file;
-      if (!isValidURL(url)) {
-        url = `${CMS_URL}${result.data.file}`;
-      }
-      downloadFromURL(url, `purchases.xlsx`);
+  const downloadExcelExport = async () => {
+    if (!program || !programSlug) return;
+    try {
+      const blob = await triggerExport({ programSlug: program.registration_form }).unwrap();
+      downloadBlob(blob, `purchased_tickets_${programSlug}.xlsx`);
+    } catch (e) {
+      console.error('Export failed', e);
     }
-  }, [result.data])
+  };
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>

@@ -7,10 +7,8 @@ import { toast } from 'react-toastify';
 import { deepEqual } from 'commons/utils/ObjectEqualityChecker';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import isValidURL from 'commons/utils/validators/urlValidator';
-import { CMS_URL } from 'commons/constants/Constants';
-import downloadFromURL from 'commons/utils/downloadFromURL';
+import { useLazyGetAnswerSheetsFileQuery } from 'commons/redux/apis/reporting-service/ReportingServiceSlice';
+import downloadBlob from 'commons/utils/downloadBlob';
 
 type RegistrationPropsType = {}
 
@@ -20,21 +18,16 @@ const Registration: FC<RegistrationPropsType> = ({ }) => {
   const { data: registrationForm, isSuccess } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program) });
   const [form, setForm] = useState(registrationForm)
   const [updateForm, result] = useUpdateFormMutation();
-  const [trigger, getAnswerSheetsFileResult] = useLazyGetAnswerSheetsFileQuery();
+  const [trigger] = useLazyGetAnswerSheetsFileQuery();
 
-  const downloadExcelExport = () => {
-    trigger({ formId: parseInt(program.registration_form) })
-  }
-
-  useEffect(() => {
-    if (getAnswerSheetsFileResult.isSuccess) {
-      let url = getAnswerSheetsFileResult.data.file;
-      if (!isValidURL(url)) {
-        url = `${CMS_URL}${getAnswerSheetsFileResult.data.file}`;
-      }
-      downloadFromURL(url, `answer-sheets.xlsx`);
+  const downloadExcelExport = async () => {
+    try {
+      const blob = await trigger({ formId: parseInt(program.registration_form) }).unwrap();
+      downloadBlob(blob, `answer_sheets_${programSlug}.xlsx`);
+    } catch (e) {
+      console.error('Export failed', e);
     }
-  }, [getAnswerSheetsFileResult.data])
+  }
 
   useEffect(() => {
     setForm(registrationForm);

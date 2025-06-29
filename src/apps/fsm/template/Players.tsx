@@ -6,14 +6,11 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import React, { useEffect, FC } from 'react';
+import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import InfoIcon from '@mui/icons-material/Info';
-import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
-import { useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import isValidURL from 'commons/utils/validators/urlValidator';
-import downloadFromURL from 'commons/utils/downloadFromURL';
-import { CMS_URL } from 'commons/constants/Constants';
+import { useLazyGetAnswerSheetsFileQuery } from 'commons/redux/apis/reporting-service/ReportingServiceSlice';
+import downloadBlob from 'commons/utils/downloadBlob';
 
 type PropsType = {}
 
@@ -21,18 +18,14 @@ const Players: FC<PropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const [trigger, result] = useLazyGetAnswerSheetsFileQuery();
 
-  const downloadExcelExport = () => {
-    trigger({ fsmId })
-  }
-  useEffect(() => {
-    if (result.isSuccess) {
-      let url = result.data.file;
-      if (!isValidURL(url)) {
-        url = `${CMS_URL}${result.data.file}`;
-      }
-      downloadFromURL(url, `answer-sheets.xlsx`);
+  const downloadExcelExport = async () => {
+    try {
+      const blob = await trigger({ fsmId }).unwrap();
+      downloadBlob(blob, `answer_sheets_${fsmId}.xlsx`);
+    } catch (e) {
+      console.error('Export failed', e);
     }
-  }, [result.data])
+  }
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>

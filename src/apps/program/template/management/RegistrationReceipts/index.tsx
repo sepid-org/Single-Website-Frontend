@@ -5,57 +5,37 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import RegisterUsersViaExcelInProgram from './RegisterUsersViaExcelInProgram';
 import RegisterUserInProgram from './RegisterUserInProgram';
 import RegistrationReceiptsTable from 'commons/components/organisms/tables/RegistrationReceipts';
-import { useLazyGetParticipantsFileQuery, useLazyGetAnswerSheetsFileQuery } from 'apps/website-display/redux/features/report/ReportSlice';
-import downloadFromURL from 'commons/utils/downloadFromURL';
-import { CMS_URL } from 'commons/constants/Constants';
-import isValidURL from 'commons/utils/validators/urlValidator';
+import { useLazyGetParticipantsFileQuery, useLazyGetAnswerSheetsFileQuery } from 'commons/redux/apis/reporting-service/ReportingServiceSlice';
 import { useParams } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import downloadBlob from 'commons/utils/downloadBlob';
 
 type RegistrationReceiptsPropsType = {}
 
 const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const [triggerGetParticipants, getParticipantsResult] = useLazyGetParticipantsFileQuery();
-  const [triggerGetAnswerSheets, getAnswerSheetsResult] = useLazyGetAnswerSheetsFileQuery();
+  const [triggerGetParticipants, { isFetching: participantsLoading }] =
+    useLazyGetParticipantsFileQuery();
+  const [triggerGetAnswerSheets, { isFetching: answersLoading }] =
+    useLazyGetAnswerSheetsFileQuery();
 
-  const downloadParticipantsExcel = () => {
-    if (program) {
-      triggerGetParticipants({ formId: program?.registration_form });
-    }
-  }
+  const downloadParticipantsExcel = async () => {
+    if (!program) return;
+    const participantsBlob = await triggerGetParticipants({ formId: program.registration_form }).unwrap();
+    downloadBlob(participantsBlob, `participants_${programSlug}.xlsx`);
+  };
 
-  const downloadAnswerSheetsExcel = () => {
-    if (program) {
-      triggerGetAnswerSheets({ formId: parseInt(program?.registration_form) });
-    }
-  }
-
-  useEffect(() => {
-    if (getParticipantsResult?.isSuccess) {
-      let url = getParticipantsResult.data.file;
-      if (!isValidURL(url)) {
-        url = `${CMS_URL}${getParticipantsResult.data.file}`;
-      }
-      downloadFromURL(url, `participants.xlsx`);
-    }
-  }, [getParticipantsResult.data])
-
-  useEffect(() => {
-    if (getAnswerSheetsResult?.isSuccess) {
-      let url = getAnswerSheetsResult.data.file;
-      if (!isValidURL(url)) {
-        url = `${CMS_URL}${getAnswerSheetsResult.data.file}`;
-      }
-      downloadFromURL(url, `answer-sheets.xlsx`);
-    }
-  }, [getAnswerSheetsResult.data])
+  const downloadAnswerSheetsExcel = async () => {
+    if (!program) return;
+    const answerSheetsBlob = await triggerGetAnswerSheets({ formId: parseInt(program.registration_form, 10) }).unwrap();
+    downloadBlob(answerSheetsBlob, `answer_sheets_${programSlug}.xlsx`);
+  };
 
   return (
     <Stack spacing={2} alignItems={'stretch'} justifyContent={'center'}>
@@ -75,10 +55,10 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
             {'شرکت‌کنندگان'}
           </Typography>
           <ButtonGroup variant='contained' >
-            <Button endIcon={<FileDownloadIcon />} onClick={downloadParticipantsExcel} disabled={getParticipantsResult?.isLoading}>
+            <Button endIcon={<FileDownloadIcon />} onClick={downloadParticipantsExcel} disabled={participantsLoading}>
               {'افراد'}
             </Button>
-            <Button endIcon={<FileDownloadIcon />} onClick={downloadAnswerSheetsExcel} disabled={getAnswerSheetsResult?.isLoading}>
+            <Button endIcon={<FileDownloadIcon />} onClick={downloadAnswerSheetsExcel} disabled={answersLoading}>
               {'پاسخ‌ها'}
             </Button>
           </ButtonGroup>
@@ -89,4 +69,4 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
   );
 }
 
-export default RegistrationReceipts;
+export default RegistrationReceipts;  
