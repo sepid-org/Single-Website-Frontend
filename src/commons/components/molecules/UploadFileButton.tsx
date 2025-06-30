@@ -19,7 +19,6 @@ type PropsType = {
 const FileUploadButton: FC<PropsType> = ({
   setFileLink,
   id = Math.ceil(Math.random() * 1000),
-  acceptableFileFormats = "video/* ,image/*, audio/mp3, application/pdf",
 }) => {
   const { uploadFile, result, progress } = useUploadFileWithProgress();
 
@@ -30,8 +29,8 @@ const FileUploadButton: FC<PropsType> = ({
       toast.error('حداکثر طول نام فایل حداکثر ۱۰۰ کاراکتر است.');
       return;
     }
-    if (file.size >= 50e6) {
-      toast.error('حداکثر حجم فایل ۵۰ مگابایت است.');
+    if (file.size >= 100e6) {
+      toast.error('حداکثر حجم فایل ۱۰۰ مگابایت است.');
       return;
     }
     uploadFile({ file });
@@ -63,7 +62,6 @@ const FileUploadButton: FC<PropsType> = ({
         </Typography>
       </Button>
       <input
-        accept={acceptableFileFormats}
         style={{ display: 'none' }}
         id={`upload-widget-file-${id}`}
         type="file"
