@@ -24,7 +24,7 @@ const BoardFSMState: FC<BoardFSMStatePropsType> = ({ fsmStateId, mode }) => {
   const { width: viewportWidth, height: viewportHeight } = useWindowDimensions();
 
   // If data isn't ready yet, render nothing
-  if (!fsmState || !viewportWidth || !viewportHeight) {
+  if (!fsm || !fsmState || !viewportWidth || !viewportHeight) {
     return null;
   }
 
