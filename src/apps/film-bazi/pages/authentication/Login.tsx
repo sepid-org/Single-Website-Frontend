@@ -81,8 +81,9 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
             paddingBottom={2}
             component="h1"
             variant="h3"
-            textAlign={'center'}>
-            {`ورود به ${website?.title}`}
+            textAlign="center"
+          >
+            {`ورود به ${website?.title?.replaceAll('-', ' ')}`}
           </Typography>
 
           <Stack width={'100%'} spacing={2.5}>
