@@ -1,32 +1,40 @@
 import React, { FC } from 'react';
-import WorkshopFSMState, { WorkshopFSMStatePropsType } from './WorkshopFSMState';
+import ColumnsFSMState, { ColumnsFSMStatePropsType } from './ColumnsFSMState';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
-import useFSMState from 'apps/fsm/hooks/useFSMState';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 
-type FSMStatePropsType = WorkshopFSMStatePropsType | BoardFSMStatePropsType;
+type FSMStatePropsType = ColumnsFSMStatePropsType | BoardFSMStatePropsType;
 
-const FSMState: FC<FSMStatePropsType> = ({
-  fsmStateId,
-}) => {
+const FSMState: FC<FSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
-  if (fsm?.scene.mode === 'board') {
+  if (!fsm) return null;
+
+  const { width, height, mode } = fsm.scene;
+
+  // if height > width, we want to fit to width; otherwise fit to height
+  const fitMode = height > width ? 'fit-width' : 'fit-height';
+
+  if (mode === 'board') {
     return (
       <BoardFSMState
         fsmStateId={fsmStateId}
-        mode='fit-height'
+        mode={fitMode}
       />
     );
   }
 
-  if (fsm?.scene.mode === 'normal') {
+  if (mode === 'normal') {
     return (
-      <WorkshopFSMState fsmStateId={fsmStateId} />
+      <ColumnsFSMState
+        fsmStateId={fsmStateId}
+      />
     );
   }
-}
+
+  return null;
+};
 
 export default FSMState;

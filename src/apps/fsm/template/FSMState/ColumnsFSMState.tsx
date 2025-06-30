@@ -8,7 +8,6 @@ import FSMStateHintsButton from 'commons/components/molecules/buttons/FSMStateHi
 import { useGetFSMStateInwardEdgesQuery, useGetFSMStateOutwardEdgesQuery } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import FinishFSMButton from 'commons/components/atoms/FinishFSMButton';
-import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import Layout from '../Layout';
 import Timer from 'commons/components/molecules/Timer';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
@@ -16,18 +15,17 @@ import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 import usePaper from 'apps/fsm/hooks/usePaper';
 
-export type WorkshopFSMStatePropsType = {
+export type ColumnsFSMStatePropsType = {
   fsmStateId: string;
 }
 
-const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
+const ColumnsFSMState: FC<ColumnsFSMStatePropsType> = ({ fsmStateId }) => {
   const { player, fsmId } = useFSMContext();
   const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState?.papers[0];
   const { paper } = usePaper(parseInt(paperId));
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [finishFSM] = useFinishFSM();
-  const { isMentor } = useFSMStateContext();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -161,4 +159,4 @@ const WorkshopFSMState: FC<WorkshopFSMStatePropsType> = ({ fsmStateId }) => {
   );
 }
 
-export default WorkshopFSMState;
+export default ColumnsFSMState;
