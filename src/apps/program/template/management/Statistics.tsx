@@ -9,6 +9,10 @@ const StatisticsTab: FC<PropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
 
+  if (!program) {
+    return;
+  }
+
   return (
     <MetabaseDashboard dashboard_id={5} params={{ program_id: program.id }} />
   );
