@@ -74,6 +74,7 @@ export const ProgramSlice = ContentManagementServiceApi.injectEndpoints({
           page: pageNumber,
           is_visible: isVisible,
         },
+        isSimpleRequest: true,
       }),
       transformResponse: (response: any): GetProgramsOutputType => ({
         programs: response.results,

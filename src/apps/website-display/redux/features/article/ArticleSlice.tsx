@@ -32,10 +32,10 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
       providesTags: tagGenerationWithErrorCheck((result, error, item) =>
         [{ type: 'article', id: result.id }]
       ),
-      query: ({ articleId }) => `fsm/article/${articleId}/`,
-      transformResponse: (response: any): GetArticleOutputType => {
-        return response;
-      },
+      query: ({ articleId }) => ({
+        url: `fsm/article/${articleId}/`,
+        isSimpleRequest: true,
+      }),
     }),
 
     getArticles: builder.query<GetArticlesOutputType, GetArticlesInputType>({
@@ -46,6 +46,7 @@ export const ArticleSlice = ContentManagementServiceApi.injectEndpoints({
           page: pageNumber,
           is_hidden: isHidden,
         },
+        isSimpleRequest: true,
       }),
       transformResponse: (response: any): GetArticlesOutputType => {
         return {

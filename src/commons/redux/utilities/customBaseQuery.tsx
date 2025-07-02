@@ -93,8 +93,6 @@ const customBaseQuery = ({ baseUrl }: { baseUrl: string; }) =>
           const state = getState() as any;
           const token = state.account?.accessToken;
           if (token) headers.set('Authorization', `JWT ${token}`);
-          const website = state.website?.website;
-          if (website) headers.set('Website', website.name);
           const fsm = state.fsm?.fsm;
           if (fsm) headers.set('FSM', fsm.id);
         }
