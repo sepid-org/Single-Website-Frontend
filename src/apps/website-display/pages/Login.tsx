@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import React, { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import GoogleLogin from 'commons/components/molecules/GoogleLogin';
 import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
@@ -109,9 +108,6 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 fullWidth>
                 ورود
               </Button>
-              {(website?.has_login_with_google && process.env.REACT_APP_GOOGLE_CLIENT_ID) &&
-                <GoogleLogin />
-              }
             </Stack>
           </Stack>
 

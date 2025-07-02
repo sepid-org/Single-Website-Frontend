@@ -9,7 +9,6 @@
     "@mui/icons-material": "^5.15.11",
     "@mui/material": "^5.15.11",
     "@mui/x-date-pickers": "^7.11.1",
-    "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^1.6.1",
     "@sentry/cli": "^2.32.2",
     "@sentry/react": "^7.104.0",
