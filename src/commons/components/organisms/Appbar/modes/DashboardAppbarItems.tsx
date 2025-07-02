@@ -26,7 +26,7 @@ const DashboardAppbarItems = ({ }) => {
         <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
       );
     });
-  } else {
+  } else if (websiteData?.appbar?.body) {
     websiteData.appbar.body.desktopLeftItems.filter(item => item.position === 'left').forEach((item, index) => {
       desktopLeftItems.push(
         <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
