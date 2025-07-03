@@ -48,7 +48,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
       return;
     }
     createProgram({
-      website: website.name,
+      website: website?.name,
       ...properties
     });
   }

@@ -54,7 +54,7 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
     getVerificationCode({
       phoneNumber: normalizePhoneNumber(data.phoneNumber),
       codeType: verificationType,
-      websiteDisplayName: website.title,
+      websiteDisplayName: website?.title,
     }).then(() => {
       setTimeout(() => {
         setIsButtonDisable(false);

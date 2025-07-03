@@ -46,7 +46,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
       return;
     }
     createArticle({
-      website: website.name,
+      website: website?.name,
       ...properties
     });
   }

@@ -38,7 +38,7 @@ const LoginOrRegistration: FC<PropsType> = ({
 
   useEffect(() => {
     if (hasPassword === false) {
-      getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: website.title, codeType: 'create-user-account' });
+      getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: website?.title, codeType: 'create-user-account' });
     }
   }, [hasPassword])
 

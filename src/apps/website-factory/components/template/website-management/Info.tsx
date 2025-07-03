@@ -16,15 +16,15 @@ type WebsiteInfoTabPropsType = {}
 
 const WebsiteInfoTab: FC<WebsiteInfoTabPropsType> = ({ }) => {
   const { data: website } = useGetWebsiteQuery();
-  const [title, setAcademyTitle] = useState(website.title);
-  const [mobileLogo, setMobileAcademyLogo] = useState(website.logo?.mobile_image);
-  const [desktopLogo, setDesktopAcademyLogo] = useState(website.logo?.desktop_image);
+  const [title, setAcademyTitle] = useState(website?.title);
+  const [mobileLogo, setMobileAcademyLogo] = useState(website?.logo?.mobile_image);
+  const [desktopLogo, setDesktopAcademyLogo] = useState(website?.logo?.desktop_image);
   const [updateWebsite, updateWebsiteResult] = useUpdateWebsiteMutation();
   const [disableSubmit, setDisableSubmit] = useState(true);
 
-  const initialTitle = website.title;
-  const initialMobileLogo = website.logo?.mobile_image;
-  const initialDesktopLogo = website.logo?.desktop_image;
+  const initialTitle = website?.title;
+  const initialMobileLogo = website?.logo?.mobile_image;
+  const initialDesktopLogo = website?.logo?.desktop_image;
 
   const handleClick = () => {
     updateWebsite({
