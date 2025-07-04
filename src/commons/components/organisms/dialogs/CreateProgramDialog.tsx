@@ -15,7 +15,6 @@ import { ProgramType } from 'commons/types/models';
 import ProgramInfoForm from 'commons/components/organisms/forms/ProgramInfoForm';
 import { useCreateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { StaticFiles } from 'commons/constants/mediaUrls';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type CreateProgramDialogPropsType = {
   open: boolean;
@@ -27,7 +26,6 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
   handleClose,
 }) => {
   const t = useTranslate();
-  const { data: website } = useGetWebsiteQuery();
   const [createProgram, result] = useCreateProgramMutation()
   const [properties, setProperties] = useState<Partial<ProgramType>>({
     name: '',
@@ -47,10 +45,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
       toast.error('لطفاً توضیحات دوره را بنویسید.');
       return;
     }
-    createProgram({
-      website: website?.name,
-      ...properties
-    });
+    createProgram(properties);
   }
 
   useEffect(() => {

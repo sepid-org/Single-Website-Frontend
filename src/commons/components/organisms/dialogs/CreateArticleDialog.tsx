@@ -26,7 +26,6 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
   handleClose,
 }) => {
   const t = useTranslate();
-  const { data: website } = useGetWebsiteQuery();
   const [createArticle, result] = useCreateArticleMutation()
   const [properties, setProperties] = useState<Partial<ArticleType>>({
     name: '',
@@ -45,10 +44,7 @@ const CreateArticleDialog: FC<CreateArticleDialogPropsType> = ({
       toast.error('لطفاً توضیحات مقاله را بنویسید.');
       return;
     }
-    createArticle({
-      website: website?.name,
-      ...properties
-    });
+    createArticle(properties);
   }
 
   useEffect(() => {

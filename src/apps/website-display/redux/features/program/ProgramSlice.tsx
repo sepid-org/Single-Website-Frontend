@@ -38,9 +38,7 @@ type UpdateProgramOutputType = {
 
 }
 
-type CreateProgramInputType = {
-  website: string;
-} & Partial<ProgramType>;
+type CreateProgramInputType = Partial<ProgramType>;
 
 type CreateProgramOutputType = {
 

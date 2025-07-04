@@ -9,7 +9,7 @@ import Root from 'commons/routes';
 import translations from 'commons/translations';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
 import { DialogProvider } from 'commons/components/organisms/PortalDialog/DialogContext';
-import WebsiteProviders from 'commons/components/molecules/WebsiteProviders';
+import WebsiteProvider from 'commons/components/molecules/WebsiteProvider';
 import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
 import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
 
@@ -40,10 +40,10 @@ const App = ({ }) => {
           />
           <DialogProvider />
           <ConfettiContainer />
-          <WebsiteProviders>
+          <WebsiteProvider>
             <WebsiteMetadataSetter />
             <Root />
-          </WebsiteProviders>
+          </WebsiteProvider>
         </CacheProvider>
       </IntlProvider>
     </ErrorBoundary>

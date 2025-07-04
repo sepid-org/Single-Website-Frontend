@@ -7,7 +7,6 @@ import { useGetVerificationCodeMutation, useOtpLoginMutation } from "commons/red
 import { LoginTabs } from ".";
 import ProgramLogo from "commons/components/atoms/logos/ProgramLogo";
 import { Golden } from "apps/ashbaria/constants/colors";
-import formatPhoneNumber from "commons/utils/formatPhoneNumber";
 
 const TIMER_KEY = 'verification_timer_end';
 
@@ -55,7 +54,7 @@ const EnterVerificationCode: FC = () => {
   }, [countdown]);
 
   const handleGetVerificationCode = () => {
-    getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: 'آشباریا', codeType: 'create-user-account' });
+    getVerificationCode({ phoneNumber, verificationType: 'create-user-account' });
   };
 
   const handleChangeVerificationCode = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +80,7 @@ const EnterVerificationCode: FC = () => {
   };
 
   const handleLogin = (verificationCode) => {
-    otpLogin({ phoneNumber: formatPhoneNumber(phoneNumber), verificationCode: verificationCode.join("") });
+    otpLogin({ phoneNumber, verificationCode: verificationCode.join("") });
   };
 
   const formatTime = (seconds: number): string => {
@@ -95,7 +94,7 @@ const EnterVerificationCode: FC = () => {
       <ProgramLogo />
       <Stack width={'100%'} spacing={1}>
         <Typography textAlign="center" gutterBottom>
-          {`کد پنج‌رقمی رو برای شماره ${toPersianNumber(formatPhoneNumber(phoneNumber))} فرستادیم. این پایین واردش کن:`}
+          {`کد پنج‌رقمی رو برای شماره ${toPersianNumber(phoneNumber)} فرستادیم. این پایین واردش کن:`}
         </Typography>
         <Stack direction='row-reverse' spacing={1} justifyContent="center">
           {verificationCode.map((digit, index) => (

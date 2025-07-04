@@ -1,10 +1,7 @@
 import { Dialog, IconButton, Tooltip } from '@mui/material';
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { FC, Fragment, useState } from 'react';
 import SportsScoreIcon from '@mui/icons-material/SportsScore';
 import UserCurrentScores from 'commons/components/organisms/lists/UserCurrentScores';
-import { useGetCurrenciesQuery } from 'apps/website-display/redux/features/attributes/AttributesSlice';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type ScoresDialogButtonPropsType = {
 }
@@ -12,8 +9,6 @@ type ScoresDialogButtonPropsType = {
 const ScoresDialogButton: FC<ScoresDialogButtonPropsType> = ({
 }) => {
   const [openScoresDialog, setOpenScoresDialog] = useState(false);
-  const { programSlug } = useParams();
-  const { data: website } = useGetWebsiteQuery();
 
   return (
     <Fragment>

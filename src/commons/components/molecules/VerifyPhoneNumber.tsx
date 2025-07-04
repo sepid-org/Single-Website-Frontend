@@ -5,12 +5,9 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
-import isNumber from 'commons/utils/validators/isNumber';
 import isPhoneNumber from 'commons/utils/validators/isPhoneNumber';
 import { useGetVerificationCodeMutation } from 'commons/redux/apis/party/UserApi';
 import PhoneNumberInput from './profile-inputs/PhoneNumberInput';
-import { normalizePhoneNumber } from 'commons/utils/NormalizePhoneNumber';
 import VerificationCodeField from './form-fields/VerificationCode';
 
 type VerificationCodeType = 'create-user-account' | 'change-user-password' | 'change-user-phone-number';
@@ -32,7 +29,6 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
   verificationType,
 }) => {
   const [isButtonDisabled, setIsButtonDisable] = useState(false);
-  const { data: website } = useGetWebsiteQuery();
   const [
     getVerificationCode,
     {
@@ -46,15 +42,10 @@ const VerifyPhoneNumber: FC<VerifyPhoneNumberPropsType> = ({
       toast.error('شماره تلفن وارد‌شده معتبر نیست');
       return;
     }
-    if (!website) {
-      toast.error('نام سایت معتبر نیست.');
-      return;
-    }
     setIsButtonDisable(true);
     getVerificationCode({
-      phoneNumber: normalizePhoneNumber(data.phoneNumber),
-      codeType: verificationType,
-      websiteDisplayName: website?.title,
+      phoneNumber: data.phoneNumber,
+      verificationType,
     }).then(() => {
       setTimeout(() => {
         setIsButtonDisable(false);

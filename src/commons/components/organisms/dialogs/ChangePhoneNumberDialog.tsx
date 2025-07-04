@@ -35,7 +35,7 @@ const ChangePhoneNumberDialog: FC<ChangePhoneNumberDialogPropsType> = ({
   }, [result])
 
   const onClick = () => {
-    changePhoneNumber({ phone_number: data.phoneNumber, code: data.verificationCode });
+    changePhoneNumber({ phoneNumber: data.phoneNumber, verificationCode: data.verificationCode });
   }
 
   return (

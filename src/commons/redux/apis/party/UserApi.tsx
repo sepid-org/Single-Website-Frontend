@@ -1,6 +1,7 @@
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 import { invalidateMyTagsAcrossApis } from 'commons/redux/utilities/tagInvalidation';
+import formatPhoneNumber from 'commons/utils/formatPhoneNumber';
 
 type CreateAccountInputType = {
   phoneNumber: string;
@@ -38,12 +39,12 @@ type GetGoogleUserProfileOutput = {
   locale: string;
   name: string;
   picture: string;
-  verified_email: boolean
+  verified_email: boolean;
 }
 
 type ChangePhoneNumberInput = {
-  phone_number: string;
-  code: string;
+  phoneNumber: string;
+  verificationCode: string;
 }
 
 type SimpleLoginInput = {
@@ -87,8 +88,7 @@ type ChangeUserPasswordOutputType = void;
 
 type GetVerificationCodeInputType = {
   phoneNumber: string;
-  codeType: string;
-  websiteDisplayName: string;
+  verificationType: string;
 }
 
 type GetVerificationCodeOutputType = void;
@@ -100,13 +100,11 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
       query: ({ refreshToken }) => ({
         url: 'auth/accounts/logout/',
         method: 'POST',
-        body: {
-          refresh: refreshToken
-        }
+        body: { refresh: refreshToken }
       }),
     }),
 
-    checkUserRegistration: builder.query<{ is_registered: boolean, has_password: boolean }, { username: string }>({
+    checkUserRegistration: builder.query<{ is_registered: boolean; has_password: boolean }, { username: string }>({
       query: ({ username }) => ({
         url: 'auth/accounts/check-user-registration/',
         params: { username },
@@ -125,16 +123,13 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
         url: 'auth/accounts/',
         method: 'POST',
         body: {
-          phone_number: phoneNumber,
+          phone_number: formatPhoneNumber(phoneNumber),
           code: verificationCode,
           first_name: firstName,
           last_name: lastName,
           ...body
         },
       }),
-      transformResponse: (response: any): CreateAccountOutputType => {
-        return response;
-      },
     }),
 
     simpleLogin: builder.mutation<SimpleLoginOutputType, SimpleLoginInput>({
@@ -154,7 +149,7 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
         url: 'auth/accounts/otp-login/',
         method: 'POST',
         body: {
-          phone_number: phoneNumber,
+          phone_number: formatPhoneNumber(phoneNumber),
           code: verificationCode,
         },
       }),
@@ -175,13 +170,14 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
     }),
 
     getGoogleUserProfile: builder.query<GetGoogleUserProfileOutput, GetGoogleUserProfileInput>({
-      query: (body) => ({
-        url: `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${body.accessToken}`,
+      query: ({ accessToken }) => ({
+        url: `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accessToken}`,
         headers: {
-          Authorization: `Bearer ${body.accessToken}`,
-          Accept: 'application/json'
-        }
-      })
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+        isSimpleRequest: true,
+      }),
     }),
 
     googleLogin: builder.mutation<GoogleLoginUserOutputType, GoogleLoginUserInputType>({
@@ -192,17 +188,17 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
         method: 'POST',
         body,
       }),
-      transformResponse: (response: any): GoogleLoginUserOutputType => {
-        return response;
-      },
     }),
 
     changePhoneNumber: builder.mutation<any, ChangePhoneNumberInput>({
       invalidatesTags: [{ type: 'Profile', id: 'MY' }],
-      query: (body) => ({
+      query: ({ phoneNumber, verificationCode }) => ({
         url: 'auth/accounts/change-phone-number/',
         method: 'POST',
-        body,
+        body: {
+          phone_number: formatPhoneNumber(phoneNumber),
+          code: verificationCode,
+        },
       }),
     }),
 
@@ -211,31 +207,24 @@ export const UserApi = ContentManagementServiceApi.injectEndpoints({
         url: 'auth/accounts/change-password/',
         method: 'POST',
         body: {
-          phone_number: phoneNumber,
+          phone_number: formatPhoneNumber(phoneNumber),
           code: verificationCode,
           ...body,
         },
       }),
-      transformResponse: (response: any): ChangeUserPasswordOutputType => {
-        return response;
-      },
     }),
 
     getVerificationCode: builder.mutation<GetVerificationCodeOutputType, GetVerificationCodeInputType>({
-      query: ({ phoneNumber, codeType, websiteDisplayName }) => ({
+      query: ({ phoneNumber, verificationType }) => ({
         url: 'auth/accounts/verification-code/',
         method: 'POST',
         body: {
-          phone_number: phoneNumber,
-          code_type: codeType,
-          website_display_name: websiteDisplayName,
+          phone_number: formatPhoneNumber(phoneNumber),
+          verification_type: verificationType,
         },
       }),
-      transformResponse: (response: any): GetVerificationCodeOutputType => {
-        return response;
-      },
     }),
-  })
+  }),
 });
 
 export const {

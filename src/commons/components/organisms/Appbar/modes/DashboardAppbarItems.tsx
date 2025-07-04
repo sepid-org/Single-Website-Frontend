@@ -9,11 +9,24 @@ import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 const DashboardAppbarItems = ({ }) => {
 
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
-  const { data: websiteData } = useGetWebsiteQuery();
+  const { data: website } = useGetWebsiteQuery();
   const { isUserAuthenticated } = useUserAuthentication();
 
   const desktopLeftItems = [];
   const desktopRightItems = [];
+
+  if (website?.appbar?.body) {
+    website.appbar.body.desktopLeftItems.filter(item => item.position === 'left').forEach((item, index) => {
+      desktopLeftItems.push(
+        <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
+      );
+    });
+    website.appbar.body.desktopLeftItems.filter(item => item.position === 'right').forEach((item, index) => {
+      desktopRightItems.push(
+        <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
+      );
+    });
+  }
 
   if (pageMetadata?.appbar?.body) {
     pageMetadata.appbar.body.desktopLeftItems.filter(item => item.position === 'left').forEach((item, index) => {
@@ -22,17 +35,6 @@ const DashboardAppbarItems = ({ }) => {
       );
     });
     pageMetadata.appbar.body.desktopLeftItems.filter(item => item.position === 'right').forEach((item, index) => {
-      desktopRightItems.push(
-        <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
-      );
-    });
-  } else if (websiteData?.appbar?.body) {
-    websiteData.appbar.body.desktopLeftItems.filter(item => item.position === 'left').forEach((item, index) => {
-      desktopLeftItems.push(
-        <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
-      );
-    });
-    websiteData.appbar.body.desktopLeftItems.filter(item => item.position === 'right').forEach((item, index) => {
       desktopRightItems.push(
         <DashboardButton key={index} label={item.label} to={item.to} items={item.items} />
       );

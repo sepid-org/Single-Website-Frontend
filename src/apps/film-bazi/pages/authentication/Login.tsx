@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
 import { DarkSecondary } from '../../constants/colors';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import { MediaUrls } from 'apps/film-bazi/constants/mediaUrls';
 import UsernameField from 'commons/components/molecules/form-fields/UsernameField';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
@@ -24,7 +23,6 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
     username: '',
   });
   const [login, { isLoading }] = useSimpleLoginMutation();
-  const { data: website } = useGetWebsiteQuery();
 
   const collectData = (event) => {
     setData({
@@ -83,7 +81,7 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
             variant="h3"
             textAlign="center"
           >
-            {`ورود به ${website?.title?.replaceAll('-', ' ')}`}
+            {`ورود به فیلم‌بازی`}
           </Typography>
 
           <Stack width={'100%'} spacing={2.5}>

@@ -8,7 +8,7 @@ import {
 } from 'apps/website-display/redux/features/WebsiteSlice';
 import { fontsStyles } from 'commons/styles/fonts';
 
-interface WebsiteProvidersProps {
+interface WebsiteProviderProps {
   children: ReactNode;
 }
 
@@ -21,7 +21,7 @@ const baseOverrides = {
   }
 };
 
-export default function WebsiteProviders({ children }: WebsiteProvidersProps) {
+export default function WebsiteProvider({ children }: WebsiteProviderProps) {
 
   const { data: website, isLoading: loadingWebsite } = useGetWebsiteQuery();
   const { data: pageMetadata, isLoading: loadingPage } =

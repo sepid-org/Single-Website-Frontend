@@ -2,11 +2,9 @@ import React, { FC, useEffect, useState } from 'react';
 import UsernameField from 'commons/components/molecules/form-fields/UsernameField';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
 import { useGetVerificationCodeMutation, useLazyCheckUserRegistrationQuery, useOtpLoginMutation, useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
-import { Button, Container, Grid, Stack, Typography } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import VerificationCodeField from 'commons/components/molecules/form-fields/VerificationCode';
 import { toast } from 'react-toastify';
-import formatPhoneNumber from 'commons/utils/formatPhoneNumber';
-import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 type PropsType = {
   onSuccessfulSubmission: any;
@@ -20,7 +18,6 @@ const LoginOrRegistration: FC<PropsType> = ({
   const [verificationCode, setVerificationCode] = useState<string>(null);
   const [hasSubmittedUsername, setHasSubmittedUsername] = useState(false);
   const [trigger, result] = useLazyCheckUserRegistrationQuery();
-  const { data: website } = useGetWebsiteQuery();
   const [getVerificationCode, getVerificationCodeResult] = useGetVerificationCodeMutation();
   const [simpleLogin, simpleLoginResult] = useSimpleLoginMutation();
   const [otpLogin, otpLoginResult] = useOtpLoginMutation();
@@ -38,7 +35,7 @@ const LoginOrRegistration: FC<PropsType> = ({
 
   useEffect(() => {
     if (hasPassword === false) {
-      getVerificationCode({ phoneNumber: formatPhoneNumber(phoneNumber), websiteDisplayName: website?.title, codeType: 'create-user-account' });
+      getVerificationCode({ phoneNumber, verificationType: 'create-user-account' });
     }
   }, [hasPassword])
 
@@ -62,7 +59,7 @@ const LoginOrRegistration: FC<PropsType> = ({
   }, [simpleLoginResult.isSuccess, otpLoginResult.isSuccess])
 
   const handleOtpLogin = () => {
-    otpLogin({ phoneNumber: formatPhoneNumber(phoneNumber), verificationCode });
+    otpLogin({ phoneNumber, verificationCode });
   }
 
   return (
