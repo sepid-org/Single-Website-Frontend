@@ -1,5 +1,5 @@
 import 'commons/styles/App.css';
-import React, { ReactNode, useMemo } from 'react';
+import React, { ReactNode, useEffect, useMemo } from 'react';
 import { Backdrop, CircularProgress, CssBaseline } from '@mui/material';
 import { ThemeProvider, createTheme, Theme } from '@mui/material/styles';
 import { Helmet } from "react-helmet";
@@ -26,7 +26,11 @@ const baseOverrides = {
 export default function WebsiteProvider({ children }: WebsiteProviderProps) {
   const { data: website, isLoading } = useGetWebsiteQuery();
 
-  initSupportingThirdPartyApps(website?.third_parties);
+  useEffect(() => {
+    if (website?.third_parties) {
+      initSupportingThirdPartyApps(website.third_parties);
+    }
+  }, [website?.third_parties])
 
   const theme: Theme = useMemo(() => {
     return createTheme(
