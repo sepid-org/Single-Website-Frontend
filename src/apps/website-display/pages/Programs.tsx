@@ -1,18 +1,16 @@
-import { Grid, Typography, Stack, Pagination, Box, Button } from '@mui/material';
+import { Grid, Typography, Stack, Pagination, Button } from '@mui/material';
 import React, { useState } from 'react';
 import ProgramCard from 'commons/components/organisms/cards/ProgramCard';
 import Layout from 'commons/template/Layout';
 import ProgramCardSkeleton from 'commons/components/organisms/cards/ProgramCardSkeleton';
-import Banner from 'commons/components/molecules/Banner';
 import { useGetProgramsQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
-import { useGetPageMetadataQuery, useGetWebsitePermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
+import { useGetWebsitePermissionQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { Link } from 'react-router-dom';
 
 const Programs = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
-  const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const {
     data: programsData,
     isLoading,
@@ -57,11 +55,6 @@ const Programs = ({ }) => {
   return (
     <Layout appbarMode='DASHBOARD'>
       <Stack width={'100%'} spacing={4} alignItems={'center'} justifyContent='center'>
-        {pageMetadata?.banners?.length > 0 &&
-          <Box width={'100%'}>
-            <Banner banners={pageMetadata.banners} />
-          </Box>
-        }
         <Typography variant="h1" align='center'>
           {'دوره‌ها'}
         </Typography>

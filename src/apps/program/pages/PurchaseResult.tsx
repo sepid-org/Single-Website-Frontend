@@ -10,7 +10,7 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 const PurchaseResult = () => {
   const navigate = useNavigate();
   const { programSlug } = useParams();
-  const { data: websiteMetadata, isLoading } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
+  const { data: pageMetadata, isLoading } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
   const [searchParams] = useSearchParams();
   const status = searchParams.get('status');
   const refId = searchParams.get('ref_id');
@@ -21,7 +21,7 @@ const PurchaseResult = () => {
     )
   }
 
-  if (websiteMetadata?.paper_id && status === 'success') {
+  if (pageMetadata?.paper_id && status === 'success') {
 
     return (
       <Container
@@ -35,7 +35,7 @@ const PurchaseResult = () => {
           minHeight: '100vh',
         }}>
         <Stack spacing={2} maxWidth='sm' sx={{ width: '100%', paddingBottom: 2 }}>
-          <Paper mode='general' paperId={websiteMetadata.paper_id.toString()} />
+          <Paper mode='general' paperId={pageMetadata.paper_id.toString()} />
         </Stack>
       </Container>
     )

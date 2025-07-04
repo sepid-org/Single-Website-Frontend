@@ -10,7 +10,6 @@ import translations from 'commons/translations';
 import { ConfettiContainer } from 'commons/components/molecules/confetti';
 import { DialogProvider } from 'commons/components/organisms/PortalDialog/DialogContext';
 import WebsiteProvider from 'commons/components/molecules/WebsiteProvider';
-import WebsiteMetadataSetter from 'commons/components/organisms/WebsiteMetadataSetter';
 import ErrorBoundary from 'commons/components/organisms/ErrorBoundary';
 
 const App = ({ }) => {
@@ -41,7 +40,6 @@ const App = ({ }) => {
           <DialogProvider />
           <ConfettiContainer />
           <WebsiteProvider>
-            <WebsiteMetadataSetter />
             <Root />
           </WebsiteProvider>
         </CacheProvider>
