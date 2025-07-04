@@ -8,6 +8,7 @@ import {
   useGetWebsiteQuery,
 } from 'apps/website-display/redux/features/WebsiteSlice';
 import { fontsStyles } from 'commons/styles/fonts';
+import { initSupportingThirdPartyApps } from 'commons/configs/SupportingThirdPartyApps';
 
 interface WebsiteProviderProps {
   children: ReactNode;
@@ -23,8 +24,9 @@ const baseOverrides = {
 };
 
 export default function WebsiteProvider({ children }: WebsiteProviderProps) {
-
   const { data: website, isLoading } = useGetWebsiteQuery();
+
+  initSupportingThirdPartyApps(website?.third_parties);
 
   const theme: Theme = useMemo(() => {
     return createTheme(

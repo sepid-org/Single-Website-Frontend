@@ -1,3 +1,4 @@
+import { ThirdPartyType } from "./models";
 import { BannerType } from "./redux/WebSiteAppearance";
 import type { ThemeOptions } from '@mui/material/styles';
 
@@ -69,6 +70,7 @@ export type WebsiteType = {
   open_graph: OpenGraphMetaData;
   has_login_with_google: boolean;
   theme: ThemeOptions;
+  third_parties: ThirdPartyType[];
 }
 
 export type PartyType = {

@@ -11,11 +11,12 @@ import {
 import LiveHelpIcon from '@mui/icons-material/LiveHelp';
 import CloseIcon from '@mui/icons-material/Close';
 import Paper from 'commons/template/Paper';
-import { useGetThirdPartiesQuery } from 'apps/website-display/redux/features/ThirdPartySlice';
+import { useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 
 export default function SiteSupport() {
   const [anchorEl, setAnchorEl] = useState(null);
-  const { data: thirdParties } = useGetThirdPartiesQuery();
+  const { data: website } = useGetWebsiteQuery();
+  const thirdParties = website?.third_parties;
   const fabRef = useRef(null);
 
   const handleToggle = event => {

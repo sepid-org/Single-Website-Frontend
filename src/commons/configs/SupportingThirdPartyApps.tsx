@@ -1,6 +1,7 @@
 import * as Sentry from "@sentry/react";
 import TagManager from 'react-gtm-module'
 import ReactGA from "react-ga4";
+import { ThirdPartyType } from "commons/types/models";
 
 const initSentry = () => {
   Sentry.init({
@@ -50,7 +51,7 @@ const initGoftino = (token: string) => {
   })();
 }
 
-export const initSupportingThirdPartyApps = (thirdParties: any[]) => {
+export const initSupportingThirdPartyApps = (thirdParties: ThirdPartyType[]) => {
   if (process.env.NODE_ENV === 'production') {
     const GoftinoSiteSupports = thirdParties.filter(thirdParty => thirdParty.third_party_type == 'SiteSupportService' && thirdParty.type === 'Goftino')
     initGoftino(GoftinoSiteSupports[0]?.token);
