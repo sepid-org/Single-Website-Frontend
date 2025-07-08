@@ -1,12 +1,12 @@
 import React from 'react';
-import hintsSvg from "../../../assets/hints.svg";
+import verify from "./verify.svg";
 import { Box } from '@mui/material';
 
-const HintsIcon = ({ size = 90 }) => {
+const VerifyIcon = ({ size = 40 }) => {
   return (
     <Box
       component="img"
-      src={hintsSvg}
+      src={verify}
       sx={{
         width: size,
       }}
@@ -14,4 +14,4 @@ const HintsIcon = ({ size = 90 }) => {
   );
 };
 
-export default HintsIcon;
+export default VerifyIcon;

@@ -1,9 +1,7 @@
-import { AshbariaApi } from "apps/ashbaria/redux/AshbariaApi";
 import { ContentManagementServiceApi } from "apps/website-display/redux/features/ManageContentServiceApiSlice";
 import { PartyManagementServiceApi } from "apps/website-display/redux/features/ManagePartyServiceApiSlice";
 import { WebsiteManagementServiceApi } from "apps/website-display/redux/features/ManageWebsiteServiceApiSlice";
 import { BankApi } from "../apis/bank/BankApi";
-import { FilmbaziApi } from "apps/film-bazi/redux/FilmbaziApi";
 import { tagTypes } from "./tagGenerationWithErrorCheck";
 
 // Define the API slices array once
@@ -11,8 +9,6 @@ const apiSlices = [
   PartyManagementServiceApi,
   ContentManagementServiceApi,
   WebsiteManagementServiceApi,
-  AshbariaApi,
-  FilmbaziApi,
   BankApi
 ] as const;
 

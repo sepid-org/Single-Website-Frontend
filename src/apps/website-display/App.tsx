@@ -29,19 +29,7 @@ const Setting = React.lazy(() =>
 );
 
 const App = () => {
-  const navigate = useNavigate();
-
-  // todo: TOF
-  useEffect(() => {
-    const hostname = window.location.hostname;
-
-    if (hostname === "ashbaria.ir") {
-      navigate("/program/ashbaria/");
-    } else if (hostname === "platform.filmbazi.ir") {
-      navigate("/program/filmbazi/");
-    }
-  }, [navigate]);
-
+  
   return (
     <Fragment>
       <SiteSupport />

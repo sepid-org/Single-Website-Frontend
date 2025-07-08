@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from "react";
 import { Paper, Skeleton, Stack, Typography } from "@mui/material";
-import VerifyIcon from "apps/ashbaria/components/atoms/icons/Verify";
 import { toPersianNumber } from "commons/utils/translateNumber";
+import VerifyIcon from "../icons/Verify";
 
 type ScoreChipPropsType = {
   value: number;

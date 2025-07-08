@@ -47,24 +47,6 @@ export const tagTypes = [
   'Position',
   // Bank
   'Balances',
-  // Ashbaria
-  'question',
-  'questions',
-  'Scenarios',
-  'Profile',
-  'Network',
-  'Missions',
-  'MissionProgress',
-  'BookCode',
-  'RewardCode',
-  // Filmbazi
-  'Game',
-  'CardsGame-Mission',
-  'CardsGame-Card',
-  'filmbazi-discount-code',
-  'filmbazi-film',
-  'filmbazi-seat',
-  'filmbazi-seat-selection',
 ]
 
 // Define a type for the tag types used in your app
