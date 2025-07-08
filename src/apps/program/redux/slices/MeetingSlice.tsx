@@ -1,4 +1,4 @@
-import { MeetingType } from 'apps/program/template/types';
+import { MeetingType } from 'apps/program/types';
 import { ContentManagementServiceApi } from 'apps/website-display/redux/features/ManageContentServiceApiSlice';
 
 
