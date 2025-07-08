@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Link,
   TextField,
   TextFieldProps,
   IconButton,
@@ -7,23 +8,27 @@ import {
   Typography
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
 
 type PasswordFieldProps = TextFieldProps & {
   resetPasswordLink?: string;
+  onTabChange?: (tab: 'login' | 'create-account' | 'reset-password') => void;
   label?: string;
 };
 
 const PasswordField: React.FC<PasswordFieldProps> = ({
   onChange,
   label = 'گذرواژه',
-  resetPasswordLink = '',
+  onTabChange,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleForgot = () => {
+    onTabChange?.('reset-password');
   };
 
   return (
@@ -33,11 +38,11 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
       onChange={onChange}
       label={label}
       name="password"
+      type={showPassword ? 'text' : 'password'}
       inputProps={{
         dir: 'ltr',
-        ...props.inputProps
+        ...props.inputProps,
       }}
-      type={showPassword ? "text" : "password"}
       InputProps={{
         ...props.InputProps,
         endAdornment: (
@@ -46,20 +51,23 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
               {showPassword ? <VisibilityOff /> : <Visibility />}
             </IconButton>
           </InputAdornment>
-        )
+        ),
       }}
       helperText={
-        resetPasswordLink && (
-          <Typography component="span">
-            <Link style={{ textDecoration: 'none' }} to={resetPasswordLink}>
-              {'رمز عبور را فراموش کرده‌ام'}
-            </Link>
-          </Typography>
-        )
+        <Typography component="span">
+          <Link
+            component="button"
+            underline="none"
+            sx={{ fontWeight: 600 }}
+            onClick={handleForgot}
+          >
+            {'رمز عبور را فراموش کرده‌ام'}
+          </Link>
+        </Typography>
       }
       {...props}
     />
   );
-}
+};
 
 export default PasswordField;

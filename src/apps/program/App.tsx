@@ -1,10 +1,12 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useParams } from 'react-router-dom';
 
 import { retryImport } from 'commons/utils/retryImport';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
 import PurchaseResult from './pages/PurchaseResult';
+import Authentication from './pages/Authentication';
+import AnonymousRoute from 'commons/routes/AnonymousRoute';
 
 const Registration = React.lazy(() =>
   retryImport(() => import('apps/program/pages/Registration'))
@@ -27,13 +29,17 @@ const ScoreBoard = React.lazy(() =>
 );
 
 const App = () => {
+  const { programSlug } = useParams();
+
   return (
     <Routes>
+      <Route element={<AnonymousRoute base={`/program/${programSlug}/`} />}>
+        <Route path="/auth/:tabName?" element={<Authentication />} />
+      </Route>
 
-      <Route path="/registration/" element={<Registration />} />
-
-      <Route path="" element={<PrivateRoute />}>
+      <Route element={<PrivateRoute loginUrl={`/program/${programSlug}/auth/`} />}>
         <Route index element={<Program />} />
+        <Route path="/registration/" element={<Registration />} />
         <Route path="/team-setting/" element={<TeamSetting />} />
         <Route path="/manage/" element={<ProgramManagement />} />
         <Route path="/purchase/" element={<PurchaseResult />} />
