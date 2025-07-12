@@ -13,10 +13,11 @@ import {
   CircularProgress,
 } from '@mui/material';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import { useJoinMeetingMutation } from '../redux/slices/MeetingSlice';
+import { useGetMeetingQuery, useJoinMeetingMutation } from '../redux/slices/MeetingSlice';
 
 const JoinMeeting: FC = () => {
   const { programSlug, meetingId } = useParams<{ programSlug: string; meetingId: string }>();
+  const { data: meeting } = useGetMeetingQuery({ meetingId });
   const [mode, setMode] = useState<'guest' | 'admin'>('guest');
   const [fullName, setFullName] = useState('');
   const [password, setPassword] = useState('');
@@ -66,9 +67,13 @@ const JoinMeeting: FC = () => {
         </Box>
 
         <Paper sx={{ width: '100%', p: 3 }}>
+          <Typography textAlign={'center'} variant='h2' component='h1' gutterBottom>
+            {`ورود به ${meeting?.title}`}
+          </Typography>
+
           <Tabs value={mode === 'guest' ? 0 : 1} onChange={handleTabChange} centered>
-            <Tab label="ورود مهمان" />
-            <Tab label="ورود مدیر" />
+            <Tab label="به‌عنوان مهمان" />
+            <Tab label="به‌عنوان مدیر" />
           </Tabs>
 
           <Box component="form" mt={2} onSubmit={handleSubmit}>

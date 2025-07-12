@@ -83,7 +83,7 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
 
     // (optional) fetch a single meeting
     getMeeting: builder.query<MeetingType, { meetingId: string }>({
-      query: meeting_id => `/meeting/meetings/${meeting_id}/`,
+      query: ({ meetingId }) => `/meeting/meetings/${meetingId}/`,
     }),
 
     getMeetingsByProgram: builder.query<GetProgramMeetingsOutputType, { programId: number, startDate?: string }>({
