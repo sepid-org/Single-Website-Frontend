@@ -67,9 +67,11 @@ const JoinMeeting: FC = () => {
         </Box>
 
         <Paper sx={{ width: '100%', p: 3 }}>
-          <Typography textAlign={'center'} variant='h2' component='h1' gutterBottom>
-            {`ورود به ${meeting?.title}`}
-          </Typography>
+          {meeting?.title &&
+            <Typography textAlign={'center'} variant='h2' component='h1' gutterBottom>
+              {`ورود به ${meeting.title}`}
+            </Typography>
+          }
 
           <Tabs value={mode === 'guest' ? 0 : 1} onChange={handleTabChange} centered>
             <Tab label="به‌عنوان مهمان" />
