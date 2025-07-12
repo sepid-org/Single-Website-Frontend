@@ -8,6 +8,10 @@ import PurchaseResult from './pages/PurchaseResult';
 import Authentication from './pages/Authentication';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 
+const JoinMeeting = React.lazy(() =>
+  retryImport(() => import('apps/program/pages/JoinMeeting'))
+);
+
 const Registration = React.lazy(() =>
   retryImport(() => import('apps/program/pages/Registration'))
 );
@@ -33,6 +37,8 @@ const App = () => {
 
   return (
     <Routes>
+      <Route path="/meeting/:meetingId/" element={<JoinMeeting />} />
+
       <Route element={<AnonymousRoute base={`/program/${programSlug}/`} />}>
         <Route path="/auth/:tabName?" element={<Authentication />} />
       </Route>
