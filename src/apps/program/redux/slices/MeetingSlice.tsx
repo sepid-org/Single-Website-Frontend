@@ -70,10 +70,14 @@ export const MeetingSlice = ContentManagementServiceApi.injectEndpoints({
       }),
     }),
 
-    joinMeeting: builder.query<JoinResponse, { meetingId: string }>({
-      query: ({ meetingId }) => ({
+    joinMeeting: builder.mutation<JoinResponse, { meetingId: string; fullName?: string; password?: string; }>({
+      query: ({ meetingId, fullName, password }) => ({
         url: `/meeting/meetings/${meetingId}/join/`,
-        method: 'GET',
+        method: 'POST',
+        body: {
+          full_name: fullName,
+          password,
+        },
       }),
     }),
 
@@ -102,8 +106,7 @@ export const {
   useCreateMeetingMutation,
   useUpdateMeetingMutation,
   useLazyGetJoinMeetingLinkQuery,
-  useJoinMeetingQuery,
-  useLazyJoinMeetingQuery,
+  useJoinMeetingMutation,
   useGetMeetingQuery,
   useGetMeetingsByProgramQuery,
 } = MeetingSlice;

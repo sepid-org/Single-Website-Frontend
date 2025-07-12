@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
-import { useLazyJoinMeetingQuery } from 'apps/program/redux/slices/MeetingSlice';
+import { useJoinMeetingMutation } from 'apps/program/redux/slices/MeetingSlice';
 import { Button } from '@mui/material';
 import { MeetingType } from 'apps/program/types';
 import LoginIcon from '@mui/icons-material/Login';
@@ -24,18 +24,16 @@ const MeetingCard: FC<PropsType> = ({ meeting }) => {
     meeting_id,
   } = meeting;
 
-  const [trigger, { isFetching }] = useLazyJoinMeetingQuery();
+  const [joinMeeting, { data }] = useJoinMeetingMutation();
+
+  useEffect(() => {
+    if (data?.join_url) {
+      window.open(data.join_url, '_blank')
+    }
+  }, [data?.join_url])
 
   const handleEnter = async () => {
-    try {
-      const result = await trigger({ meetingId: meeting_id });
-      const url = result.data?.join_url;
-      if (url && result.isSuccess) {
-        window.open(url, '_blank');
-      }
-    } catch (err) {
-      console.error('Error fetching join link', err);
-    }
+    joinMeeting({ meetingId: meeting_id });
   };
 
   return (
