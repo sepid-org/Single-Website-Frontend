@@ -41,7 +41,6 @@ export type RegistrationStepType = {
 };
 
 export type RegistrationStepLabelType =
-  'ورود' |
   'تکمیل اطلاعات شخصی' |
   'تکمیل اطلاعات دانش‌آموزی' |
   'تکمیل اطلاعات دانشجویی' |
@@ -51,7 +50,6 @@ export type RegistrationStepLabelType =
   'ورود به دوره'
 
 export type RegistrationStepNameType =
-  'login' |
   'user-setting' |
   'school-setting' |
   'university-setting' |

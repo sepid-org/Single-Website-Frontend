@@ -13,7 +13,6 @@ import UserSetting from 'commons/template/Setting/UserSetting';
 import SchoolSetting from 'commons/template/Setting/SchoolSetting';
 import UniversitySetting from 'commons/template/Setting/UniversitySetting';
 import useUserAuthentication from 'commons/hooks/useUserAuthentication';
-import LoginOrRegistration from 'apps/program/template/LoginOrRegistration';
 import { useGetMerchandisesQuery } from 'apps/website-display/redux/features/sales/Merchandise';
 
 const useRegistrationSteps = () => {
@@ -74,13 +73,6 @@ const useRegistrationSteps = () => {
     { goToStep, goToNextStep }: ReturnType<typeof getStepNavigationHandlers>
   ): RegistrationStepType[] => {
     const steps: RegistrationStepType[] = [
-      {
-        name: 'login',
-        label: 'ورود',
-        component: <LoginOrRegistration onSuccessfulSubmission={goToNextStep} />,
-        disabled: true,
-        onClick: () => { },
-      },
       {
         name: 'user-setting',
         label: 'تکمیل اطلاعات شخصی',

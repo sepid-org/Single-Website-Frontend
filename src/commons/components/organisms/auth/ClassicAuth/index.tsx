@@ -19,7 +19,7 @@ type PropsType = {
   basePath?: string;
 }
 
-const AuthTabs: FC<PropsType> = ({
+const ClassicAuthTabs: FC<PropsType> = ({
   basePath = '/',
 }) => {
   const { tabName } = useParams<{ tabName?: string }>();
@@ -52,4 +52,4 @@ const AuthTabs: FC<PropsType> = ({
   );
 };
 
-export default AuthTabs;
+export default ClassicAuthTabs;

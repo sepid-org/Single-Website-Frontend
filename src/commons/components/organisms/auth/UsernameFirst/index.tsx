@@ -6,13 +6,9 @@ import { Button, Stack, Typography } from '@mui/material';
 import VerificationCodeField from 'commons/components/molecules/form-fields/VerificationCode';
 import { toast } from 'react-toastify';
 
-type PropsType = {
-  onSuccessfulSubmission: any;
-}
+type PropsType = {}
 
-const LoginOrRegistration: FC<PropsType> = ({
-  onSuccessfulSubmission,
-}) => {
+const UsernameFirstAuthTabs: FC<PropsType> = ({ }) => {
   const [phoneNumber, setPhoneNumber] = useState<string>(null);
   const [password, setPassword] = useState<string>(null);
   const [verificationCode, setVerificationCode] = useState<string>(null);
@@ -52,12 +48,6 @@ const LoginOrRegistration: FC<PropsType> = ({
     simpleLogin({ username: phoneNumber, password });
   }
 
-  useEffect(() => {
-    if (simpleLoginResult.isSuccess || otpLoginResult.isSuccess) {
-      onSuccessfulSubmission()
-    }
-  }, [simpleLoginResult.isSuccess, otpLoginResult.isSuccess])
-
   const handleOtpLogin = () => {
     otpLogin({ phoneNumber, verificationCode });
   }
@@ -84,12 +74,13 @@ const LoginOrRegistration: FC<PropsType> = ({
             variant='contained'
             onClick={handleCheckUserRegistration}
           >
-            {hasSubmittedUsername ? 'اصلاح شماره' : 'ثبت'}
+            {hasSubmittedUsername ? 'اصلاح شماره' : 'ادامه'}
           </Button>
         </Stack>
         {hasSubmittedUsername && hasPassword === true &&
           <>
             <PasswordField
+              // todo: remove resetPasswordLink
               resetPasswordLink='/reset-password/'
               onChange={(event) => setPassword(event.target.value)}
             />
@@ -121,4 +112,4 @@ const LoginOrRegistration: FC<PropsType> = ({
   );
 }
 
-export default LoginOrRegistration;
+export default UsernameFirstAuthTabs;
