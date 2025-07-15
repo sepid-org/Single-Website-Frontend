@@ -127,7 +127,7 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
             value: toPersianNumber(discountCode?.value),
             merchandises:
               <Stack spacing={1} alignItems={'center'}>
-                {discountCode?.merchandises.map(merchandise => <Chip key={merchandise.id} label={`${merchandise.name}${merchandise.is_deleted ? ' (حذف‌شده)' : ''}`} />)}
+                {merchandises?.filter(merchandise => discountCode?.merchandises?.includes(merchandise.id)).map(merchandise => <Chip key={merchandise.id} label={merchandise.title} />)}
               </Stack>,
             remaining: toPersianNumber(discountCode?.remaining),
             limit: discountCode?.max_discount_amount ? toPersianNumber(discountCode.max_discount_amount) : '-',

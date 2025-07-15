@@ -121,14 +121,14 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
             <Autocomplete
               multiple
               fullWidth
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={(option) => option.title}
               onChange={(event, newMerchandises) => {
                 setDiscountCode({
                   ...discountCode,
-                  merchandise_ids: newMerchandises.map(merchandise => merchandise.id),
+                  merchandises: newMerchandises.map(merchandise => merchandise.id),
                 });
               }}
-              value={allMerchandises.filter(merchandise => discountCode?.merchandise_ids?.includes(merchandise.id)) || []}
+              value={allMerchandises.filter(merchandise => discountCode?.merchandises?.includes(merchandise.id)) || []}
               renderInput={(params) =>
                 <TextField
                   required

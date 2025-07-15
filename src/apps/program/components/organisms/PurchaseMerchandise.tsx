@@ -1,7 +1,6 @@
 import {
   Button,
   Grid,
-  Paper,
   Stack,
   TextField,
   Typography,
@@ -63,64 +62,60 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({ merchandise }) 
   };
 
   return (
-    <Stack component={Paper}>
-      <Grid padding={2} container spacing={2} alignItems={'center'}>
-        <Grid item xs={12} sm={3}>
+    <Grid container spacing={1} alignItems={'end'}>
+      <Grid item xs={12} sm={4} md={5} alignSelf={'center'}>
+        <Stack spacing={1}>
           <Typography variant="h3">
-            {merchandise.name}
+            {merchandise.title}
           </Typography>
-        </Grid>
-        <Grid
-          xs={12} sm={9}
-          container
-          item
-          justifyContent="center"
-          alignItems='end'
-          spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Stack spacing={1}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                label="کد تخفیف"
-                onChange={(e) => setDiscountCode(e.target.value)}
-              />
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={submitDiscount}>
-                {'اعمال'}
-              </Button>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Stack alignItems="center">
-              <Typography gutterBottom sx={{ fontSize: 14 }}>
-                {'مبلغ قابل پرداخت:'}
-              </Typography>
-              <Stack direction="row" spacing={1} alignItems="center" mb={1}>
-                {hasInitialDiscount && (
-                  <Typography noWrap sx={{ fontSize: 14, textDecoration: 'line-through', color: 'text.disabled' }}>
-                    {toPersianNumber(originalPrice)} تومان
-                  </Typography>
-                )}
-                <Typography noWrap sx={{ fontSize: 24, fontWeight: 400 }}>
-                  {price === 0 ? 'رایگان!' : `${toPersianNumber(price)} تومان`}
-                </Typography>
-              </Stack>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={handlePurchase}>
-                {'پرداخت'}
-              </Button>
-            </Stack>
-          </Grid>
-        </Grid>
+          <Typography variant="body2" color="text.secondary">
+            {merchandise.description}
+          </Typography>
+        </Stack>
       </Grid>
-    </Stack>
+
+      <Grid item xs={12} sm={4} md={3}>
+        <Stack spacing={1}>
+          <TextField
+            fullWidth
+            variant='standard'
+            label="کد تخفیف"
+            onChange={(e) => setDiscountCode(e.target.value)}
+          />
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={submitDiscount}>
+            {'اعمال'}
+          </Button>
+        </Stack>
+      </Grid>
+      <Grid item xs={12} sm={4} md={4}>
+        <Stack alignItems="center">
+          <Typography gutterBottom sx={{ fontSize: 14 }}>
+            {'مبلغ قابل پرداخت:'}
+          </Typography>
+          <Stack direction="row" spacing={1} alignItems="center" mb={1}>
+            {hasInitialDiscount && (
+              <Typography noWrap sx={{ fontSize: 14, textDecoration: 'line-through', color: 'text.disabled' }}>
+                {toPersianNumber(originalPrice)} تومان
+              </Typography>
+            )}
+            <Typography noWrap sx={{ fontSize: 24, fontWeight: 500 }}>
+              {price === 0 ? 'رایگان!' : `${toPersianNumber(price)} تومان`}
+            </Typography>
+          </Stack>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            onClick={handlePurchase}>
+            {'پرداخت'}
+          </Button>
+        </Stack>
+      </Grid>
+    </Grid>
   );
 };
 

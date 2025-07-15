@@ -15,29 +15,22 @@ const Payment: FC<PaymentPropsType> = ({ }) => {
 
   return (
     <Stack spacing={4}  >
-      <Typography align="center"
-        sx={{
-          fontSize: 40,
-          fontWeight: 600,
-          textShadow: '1px 1px #dbd9d9',
-        }}>
+      <Typography align="center" fontSize={40} fontWeight={600} sx={{ textShadow: '1px 1px #dbd9d9' }}>
         {'پرداخت هزینه'}
       </Typography>
       <Stack component={Paper} padding={2}>
         <Grid container spacing={2}>
           <Grid item justifyContent="center" alignItems="center">
-            <Typography variant='h6' align="center">
+            <Typography variant='h6'>
               {'شما برای شرکت در این دوره پذیرفته‌شده‌اید! توجه کنید تا پرداخت خود را انجام ندهید، ثبت‌نامتان قطعی نشده است.'}
             </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Grid container spacing={2}>
-              {merchandises?.filter(merchandise => merchandise.is_active).map(merchandise =>
-                <Grid item xs={12} key={merchandise.id}>
-                  <PurchaseMerchandise merchandise={merchandise} />
-                </Grid>
-              )}
-            </Grid>
+          <Grid container item xs={12} spacing={4}>
+            {merchandises?.filter(merchandise => merchandise.is_active).map(merchandise =>
+              <Grid item xs={12} key={merchandise.id}>
+                <PurchaseMerchandise merchandise={merchandise} />
+              </Grid>
+            )}
           </Grid>
         </Grid>
       </Stack>

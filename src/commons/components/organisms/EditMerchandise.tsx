@@ -66,14 +66,30 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
       <Grid container item xs={12} md={9} spacing={1.5}>
         <Grid item xs={12}>
           <TextField
-            label='نام بلیط'
+            label='عنوان بلیط'
             size="small"
             fullWidth
             required
-            value={merchandise?.name || ''}
+            value={merchandise?.title || ''}
+            inputProps={{ maxLength: 40 }}
             onChange={(event) =>
-              setMerchandise({ ...merchandise, name: event.target.value })
-            } />
+              setMerchandise({ ...merchandise, title: event.target.value })
+            }
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label='توضیحات'
+            multiline
+            rows={2}
+            size="small"
+            fullWidth
+            required
+            value={merchandise?.description || ''}
+            onChange={(event) =>
+              setMerchandise({ ...merchandise, description: event.target.value })
+            }
+          />
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -82,7 +98,8 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
             fullWidth
             required
             defaultValue={merchandise?.price}
-            onChange={(event) => setData({ fieldName: 'price', newValue: parseInt(event.target.value) })} />
+            onChange={(event) => setData({ fieldName: 'price', newValue: parseInt(event.target.value) })}
+          />
         </Grid>
         <Grid item xs={6}>
           <TextField
@@ -90,10 +107,11 @@ const EditMerchandise: FC<EditMerchandisePropsType> = ({
             label='قیمت تخفیف‌خورده (تومان)'
             fullWidth
             defaultValue={merchandise?.discounted_price}
-            onChange={(event) => setData({ fieldName: 'discounted_price', newValue: parseInt(event.target.value) })} />
+            onChange={(event) => setData({ fieldName: 'discounted_price', newValue: parseInt(event.target.value) })}
+          />
         </Grid>
       </Grid>
-      <Grid container item xs={12} md={3} spacing={1.5}>
+      <Grid container item xs={12} md={3} spacing={1.5} alignContent={'start'}>
         <Grid item xs={6} md={12}>
           <FormControlLabel
             name='is_active'

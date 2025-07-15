@@ -10,7 +10,6 @@ import {
 import React, { FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useGetProgramQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import { useCreateMerchandiseMutation } from "apps/website-display/redux/features/sales/Merchandise";
 import { MerchandiseType } from "commons/types/models";
 
@@ -57,9 +56,21 @@ const CreateMerchandiseDialog: FC<CreateMerchandiseDialogPropsType> = ({
               size="small"
               fullWidth
               required
-              value={merchandise?.name || ''}
+              value={merchandise?.title || ''}
               onChange={(event) =>
-                setMerchandise({ ...merchandise, name: event.target.value })
+                setMerchandise({ ...merchandise, title: event.target.value })
+              } />
+          </Grid>
+          <Grid item xs={12} sm={12}>
+            <TextField
+              multiline
+              rows={2}
+              label='توضیحات'
+              size="small"
+              fullWidth
+              value={merchandise?.description || ''}
+              onChange={(event) =>
+                setMerchandise({ ...merchandise, description: event.target.value })
               } />
           </Grid>
           <Grid item xs={12} sm={6}>

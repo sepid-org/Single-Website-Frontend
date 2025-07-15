@@ -1,5 +1,6 @@
 import { MerchandiseType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type GetMerchandisesInputType = {
   programSlug: string;
@@ -39,6 +40,7 @@ type SoftDeleteOutputType = void;
 export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     getMerchandises: builder.query<GetMerchandisesOutputType, GetMerchandisesInputType>({
+      providesTags: ['merchandises'],
       query: ({ programSlug, isActive }) => ({
         url: `sale/merchandise/`,
         params: {
@@ -57,7 +59,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     createMerchandise: builder.mutation<AddMerchandiseToProgramOutputType, AddMerchandiseToProgramInputType>({
-      invalidatesTags: ['merchandises', { type: 'Program', id: 'ALL' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['merchandises']),
       query: ({ programSlug, ...body }) => ({
         url: `sale/merchandise/`,
         method: 'POST',
@@ -69,7 +71,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     updateMerchandise: builder.mutation<UpdateMerchandiseOutputType, UpdateMerchandiseInputType>({
-      invalidatesTags: ['merchandises', 'merchandise', { type: 'Program', id: 'ALL' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['merchandises', 'merchandise']),
       query: ({ id, ...body }) => ({
         url: `sale/merchandise/${id}/`,
         method: 'PATCH',
@@ -78,7 +80,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     softDeleteMerchandise: builder.mutation<SoftDeleteOutputType, SoftDeleteInputType>({
-      invalidatesTags: ['merchandises', 'merchandise', { type: 'Program', id: 'ALL' }],
+      invalidatesTags: tagGenerationWithErrorCheck(['merchandises', 'merchandise']),
       query: ({ merchandiseId }) => `sale/merchandise/${merchandiseId}/delete/`,
     }),
 
