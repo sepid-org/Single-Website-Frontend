@@ -31,9 +31,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
     name: '',
     description: '',
     cover_image: StaticFiles.TemplateImage,
-    is_active: true,
     is_visible: true,
-    accessible_after_closure: true,
   });
 
   const handleCreateProgram = () => {
@@ -56,9 +54,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
         name: '',
         description: '',
         cover_image: StaticFiles.TemplateImage,
-        is_active: true,
         is_visible: true,
-        accessible_after_closure: true,
       });
     }
   }, [result])
@@ -89,9 +85,7 @@ const CreateProgramDialog: FC<CreateProgramDialogPropsType> = ({
               name: '',
               description: '',
               cover_image: StaticFiles.TemplateImage,
-              is_active: true,
               is_visible: true,
-              accessible_after_closure: true,
             });
           }}>
           {'انصراف'}

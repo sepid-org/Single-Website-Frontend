@@ -31,6 +31,7 @@ export type ThirdPartyType = {
 }
 
 export type ProgramType = {
+  id: string;
   type: ProgramTypeType;
   slug: string;
   site_help_paper_id: string;
@@ -38,22 +39,17 @@ export type ProgramType = {
   show_scores: boolean;
   program_contact_info: ProgramContactInfoType;
   is_visible: boolean;
-  accessible_after_closure: boolean;
   cover_image: string;
   creator: string;
   description: string;
   end_date: string | null;
   participation_type: ProgramParticipationType;
-  id: string;
-  is_active: boolean;
-  is_approved: boolean;
   name: string;
   registration_form: string;
   start_date: string | null;
   team_size: number;
   is_public: boolean;
   menu: number;
-  menu_first_state_id: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
@@ -228,7 +224,6 @@ export type InstituteType = {
   contact_info?: string;
   description?: string;
   created_at?: string;
-  is_approved?: boolean;
   owner?: string;
   creator?: string;
   admins?: string[];
@@ -248,11 +243,11 @@ export type UniversityType = InstituteType & {
 
 export type MerchandiseType = {
   id: number;
-  name: string;
+  title: string;
+  description: string;
   price: number;
   discounted_price: number;
   is_active: boolean;
-  is_deleted: boolean;
 }
 
 export type DiscountCodeType = {
@@ -262,7 +257,7 @@ export type DiscountCodeType = {
   expiration_date?: string;
   remaining: number;
   user?: UserPublicInfoType;
-  merchandises: MerchandiseType[];
+  merchandises: number[];
   max_discount_amount?: number;
 }
 
@@ -273,7 +268,7 @@ export type CreateDiscountCodeDto = {
   expiration_date?: string;
   remaining: number;
   max_discount_amount?: number;
-  merchandise_ids: number[];
+  merchandises: number[];
 };
 
 export type VoucherType = any;

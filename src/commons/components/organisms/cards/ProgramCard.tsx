@@ -23,7 +23,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({ program }) => {
     <ButtonBase
       sx={{ width: '100%' }}
       disableRipple
-      onClick={() => program.is_active && navigate(`/program/${program.slug}/registration/`)}>
+      onClick={() => navigate(`/program/${program.slug}/registration/`)}>
       <Card
         sx={{
           position: 'relative',
@@ -34,10 +34,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({ program }) => {
           border: '1px solid rgba(0, 0, 0, 0.12)',
           boxShadow: '0 0.125rem 0.25rem rgb(0, 0, 0, 0.1)',
           transition: '0.1s ease-in-out',
-          filter: program.is_active ? 'none' : 'grayscale(100%)',
-          opacity: program.is_active ? 1 : 0.6,
-          cursor: program.is_active ? 'pointer' : 'not-allowed',
-          '&:hover': program.is_active && {
+          '&:hover': {
             transform: 'translateY(-0.1rem) scale(1.02)',
             boxShadow: '0 0.5em 2rem -1rem rgba(0, 0, 0, 0.5)',
           },

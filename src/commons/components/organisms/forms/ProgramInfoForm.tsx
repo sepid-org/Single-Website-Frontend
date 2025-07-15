@@ -105,16 +105,6 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           labelPlacement='start'
         />
       </Grid> */}
-      {/* <Grid item xs={12} sm={6}>
-        <FormControlLabel
-          name='accessible_after_closure'
-          checked={data.accessible_after_closure}
-          onChange={() => toggleValue('accessible_after_closure')}
-          control={<Switch color="primary" />}
-          label="قابل مشاهده بودن محتواها بعد از اتمام دوره:"
-          labelPlacement='start'
-        />
-      </Grid> */}
       <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_visible'
