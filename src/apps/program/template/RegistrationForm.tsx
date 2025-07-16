@@ -61,7 +61,7 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
           color="primary"
           onClick={() => setDialogStatus(true)}
         >
-          {'ثبت‌نام'}
+          {'ثبت'}
         </Button>
       </Stack >
       <AreYouSure

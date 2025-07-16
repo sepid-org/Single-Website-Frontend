@@ -21,9 +21,9 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import downloadBlob from 'commons/utils/downloadBlob';
 
-type TicketsTabPropsType = {}
+type PropsType = {}
 
-const Tickets: FC<TicketsTabPropsType> = ({ }) => {
+const Sales: FC<PropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const [isCreateMerchandiseDialogOpen, setCreateMerchandiseDialogOpen] = useState(false);
@@ -144,4 +144,4 @@ const Tickets: FC<TicketsTabPropsType> = ({ }) => {
   );
 }
 
-export default Tickets;
+export default Sales;

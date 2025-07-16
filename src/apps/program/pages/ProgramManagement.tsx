@@ -12,7 +12,7 @@ import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Layout from 'commons/template/Layout';
-import Tickets from 'apps/program/template/management/Tickets';
+import Sales from 'apps/program/template/management/Sales';
 import Info from 'apps/program/template/management/Info';
 import Registration from 'apps/program/template/management/Registration';
 import RegistrationReceipts from 'apps/program/template/management/RegistrationReceipts';
@@ -42,10 +42,10 @@ const tabs: DashboardTabType[] = [
     component: <Registration />,
   },
   {
-    slug: 'tickets',
-    label: 'بلیط‌ها',
+    slug: 'sales',
+    label: 'فروش',
     icon: PaymentsIcon,
-    component: <Tickets />,
+    component: <Sales />,
   },
   {
     slug: 'registration-receipts',
