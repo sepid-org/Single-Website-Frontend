@@ -23,7 +23,7 @@ const ProgramCard: FC<ProgramCardPropsType> = ({ program }) => {
     <ButtonBase
       sx={{ width: '100%' }}
       disableRipple
-      onClick={() => navigate(`/program/${program.slug}/registration/`)}>
+      onClick={() => navigate(`/program/${program.slug}/`)}>
       <Card
         sx={{
           position: 'relative',

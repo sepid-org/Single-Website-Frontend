@@ -8,11 +8,11 @@ import ProgramPageSidebar from 'apps/program/components/organisms/ProgramPageSid
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetPageMetadataQuery, useGetWebsiteQuery } from 'apps/website-display/redux/features/WebsiteSlice';
 import Layout from 'commons/template/Layout';
-import Meetings from './Meetings';
+import Meetings from '../template/Meetings';
 
-type EventProgramPropsType = {}
+type PropsType = {}
 
-const EventProgram: FC<EventProgramPropsType> = ({ }) => {
+const SimpleMenu: FC<PropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: pageMetadata } = useGetPageMetadataQuery({ pageAddress: window.location.pathname });
@@ -49,4 +49,4 @@ const EventProgram: FC<EventProgramPropsType> = ({ }) => {
   );
 }
 
-export default EventProgram;
+export default SimpleMenu;

@@ -8,13 +8,13 @@ interface Props {
   children: React.ReactNode;
 }
 
-const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
+const ProgramAccessGuard: React.FC<Props> = ({ children }) => {
   const { programSlug } = useParams();
   const navigate = useNavigate();
 
   const {
     data: program,
-    isLoading: isProgramLoading
+    isLoading: isProgramLoading,
   } = useGetProgramQuery({ programSlug });
 
   const {
@@ -28,21 +28,22 @@ const PrivateProgramPageWrapper: React.FC<Props> = ({ children }) => {
   );
 
   useEffect(() => {
-    const shouldRedirectToRegistrationForm = isReceiptError || (isReceiptSuccess && !receipt.is_participating);
+    if (!program || program.is_public) return;
+    const shouldRedirectToRegistrationForm = isReceiptError || (isReceiptSuccess && !receipt?.is_participating);
     if (shouldRedirectToRegistrationForm) {
-      navigate(`/program/${programSlug}/registration/`);
+      navigate(`/program/${programSlug}/registration/`, { replace: true });
     }
-  }, [isReceiptError, isReceiptSuccess, receipt]);
+  }, [isReceiptError, isReceiptSuccess, receipt, navigate, programSlug, program]);
 
   if (isProgramLoading || isReceiptLoading) {
-    return (
-      <TransparentBackdrop open />
-    );
+    return <TransparentBackdrop open />;
   }
 
-  const hasAccess = receipt?.is_participating;
+  if (program?.is_public || receipt?.is_participating) {
+    return children;
+  }
 
-  return hasAccess ? children : null;
+  return null;
 };
 
-export default PrivateProgramPageWrapper;
+export default ProgramAccessGuard;

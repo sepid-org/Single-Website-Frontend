@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { Outlet, Route, Routes, useParams } from 'react-router-dom';
 
 import { retryImport } from 'commons/utils/retryImport';
 import PrivateRoute from 'commons/routes/PrivateRoute';
@@ -7,6 +7,8 @@ import NotFoundPage from 'commons/pages/NotFoundPage';
 import PurchaseResult from './pages/PurchaseResult';
 import Authentication from './pages/Authentication';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
+import ProgramAccessGuard from './template/ProgramAccessGuard';
+import Menu from './pages/Menu';
 
 const JoinMeeting = React.lazy(() =>
   retryImport(() => import('apps/program/pages/JoinMeeting'))
@@ -14,10 +16,6 @@ const JoinMeeting = React.lazy(() =>
 
 const Registration = React.lazy(() =>
   retryImport(() => import('apps/program/pages/Registration'))
-);
-
-const Program = React.lazy(() =>
-  retryImport(() => import('apps/program/pages/Program'))
 );
 
 const ProgramManagement = React.lazy(() =>
@@ -44,12 +42,19 @@ const App = () => {
       </Route>
 
       <Route element={<PrivateRoute loginUrl={`/program/${programSlug}/auth/`} />}>
-        <Route index element={<Program />} />
         <Route path="/registration/" element={<Registration />} />
-        <Route path="/team-setting/" element={<TeamSetting />} />
-        <Route path="/manage/" element={<ProgramManagement />} />
         <Route path="/purchase/" element={<PurchaseResult />} />
         <Route path="/scoreboard/" element={<ScoreBoard />} />
+        <Route path="/manage/" element={<ProgramManagement />} />
+
+        <Route element={
+          <ProgramAccessGuard>
+            <Outlet />
+          </ProgramAccessGuard>
+        }>
+          <Route index element={<Menu />} />
+          <Route path="/team-setting/" element={<TeamSetting />} />
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />

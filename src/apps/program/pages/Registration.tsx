@@ -28,10 +28,10 @@ const Registration: FC<PropsType> = () => {
   } = useRegistrationSteps();
 
   useEffect(() => {
-    if (registrationReceipt?.is_participating === true) {
+    if (program?.is_public || registrationReceipt?.is_participating) {
       navigate(`/program/${programSlug}/`, { replace: true });
     }
-  }, [registrationReceipt, programSlug, navigate]);
+  }, [registrationReceipt]);
 
   if (!isUserAuthenticated || getMyReceiptError || registrationReceipt?.is_participating === false) {
     return (
