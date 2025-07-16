@@ -36,8 +36,8 @@ const tabs: DashboardTabType[] = [
     component: <Info />,
   },
   {
-    slug: 'registration-form',
-    label: 'فرایند ثبت‌نام',
+    slug: 'registration',
+    label: 'ثبت‌نام',
     icon: ArticleIcon,
     component: <Registration />,
   },
