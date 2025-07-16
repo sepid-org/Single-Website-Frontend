@@ -7,35 +7,51 @@ import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import BoardFSMState from 'apps/fsm/template/FSMState/BoardFSMState';
 import useWindowDimensions from 'commons/hooks/useWindowDimensions';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
+import { useGetCurrentUserPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 
-type ProgramPropsType = {}
+type ProgramPropsType = {};
 
-const Program: FC<ProgramPropsType> = ({ }) => {
-  const { programSlug } = useParams();
-  const { data: program } = useGetProgramQuery({ programSlug });
+const Program: FC<ProgramPropsType> = () => {
+  const { programSlug } = useParams<{ programSlug: string }>();
   const { width, height } = useWindowDimensions();
 
-  if (program?.menu_first_state_id) {
-    // Determine mode based on aspect ratio
-    const mode = width > height ? 'fit-height' : 'fit-width';
-    return (
-      <FSMProvider fsmId={program.menu}>
-        <FSMStateProvider
-          isMentor={false}
-          fsmStateId={program.menu_first_state_id}
-        >
-          <BoardFSMState
-            mode={mode}
-            fsmStateId={program.menu_first_state_id}
-          />
-        </FSMStateProvider>
-      </FSMProvider>
-    );
-  }
+  const {
+    data: program,
+    isLoading: isGetProgramLoading,
+  } = useGetProgramQuery({ programSlug });
+
+  const {
+    data: player,
+    isLoading: isGetCurrentUserPlayerLoading,
+  } = useGetCurrentUserPlayerQuery(
+    { fsmId: program?.menu },
+    { skip: !Boolean(program?.menu) }
+  );
+
+  const isLoading = isGetProgramLoading || isGetCurrentUserPlayerLoading;
+
+  // Determine mode based on aspect ratio
+  const mode = width > height ? 'fit-height' : 'fit-width';
 
   return (
     <PrivateProgramPageWrapper>
-      <EventProgram />
+      {isLoading ? null :
+        program?.menu && player?.current_state ? (
+          <FSMProvider fsmId={program.menu}>
+            <FSMStateProvider
+              isMentor={false}
+              fsmStateId={player.current_state}
+            >
+              <BoardFSMState
+                mode={mode}
+                fsmStateId={player.current_state}
+              />
+            </FSMStateProvider>
+          </FSMProvider>
+        ) : (
+          <EventProgram />
+        )
+      }
     </PrivateProgramPageWrapper>
   );
 };

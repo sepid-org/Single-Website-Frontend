@@ -50,7 +50,6 @@ export type ProgramType = {
   team_size: number;
   is_public: boolean;
   menu: number;
-  menu_first_state_id?: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
