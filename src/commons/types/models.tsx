@@ -50,6 +50,7 @@ export type ProgramType = {
   team_size: number;
   is_public: boolean;
   menu: number;
+  menu_first_state_id?: string;
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
@@ -227,6 +228,7 @@ export type InstituteType = {
   owner?: string;
   creator?: string;
   admins?: string[];
+  is_approved?: boolean;
 }
 
 export type SchoolType = InstituteType & {
