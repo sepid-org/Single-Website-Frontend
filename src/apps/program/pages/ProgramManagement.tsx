@@ -66,15 +66,15 @@ const tabs: DashboardTabType[] = [
     icon: PersonIcon,
     component: <Admins />,
   },
-  {
-    slug: 'teams',
-    label: 'تیم‌ها',
-    icon: GroupsIcon,
-    component: <Teams />,
-  },
+  // {
+  //   slug: 'teams',
+  //   label: 'تیم‌ها',
+  //   icon: GroupsIcon,
+  //   component: <Teams />,
+  // },
   {
     slug: 'meetings',
-    label: 'جلسه‌ها',
+    label: 'کلاس مجازی',
     icon: MeetingRoomIcon,
     component: <MeetingsManagement />,
   },

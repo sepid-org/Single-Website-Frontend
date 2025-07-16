@@ -17,7 +17,7 @@ const CertificatesTab: FC<CertificatesTabPropsType> = ({ }) => {
       </Typography>
 
       <Typography>
-        {'به زودی...'}
+        {'برای ثبت گواهی به پشتیبانی سامانه پیام دهید.'}
       </Typography>
 
     </Stack>
