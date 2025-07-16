@@ -106,7 +106,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
     enterFSM: builder.mutation<EnterFSMOutputType, EnterFSMInputType>({
       invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
       query: ({ fsmId, password }) => ({
-        url: `/fsm/fsm/${fsmId}/enter_fsm/`,
+        url: `/fsm/fsm/${fsmId}/enter/`,
         method: 'POST',
         body: {
           password,
