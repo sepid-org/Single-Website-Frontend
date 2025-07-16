@@ -21,8 +21,11 @@ const Payment: FC<PaymentPropsType> = ({ }) => {
       <Stack component={Paper} padding={2}>
         <Grid container spacing={2}>
           <Grid item justifyContent="center" alignItems="center">
-            <Typography variant='h6'>
-              {'شما برای شرکت در این دوره پذیرفته‌شده‌اید! توجه کنید تا پرداخت خود را انجام ندهید، ثبت‌نامتان قطعی نشده است.'}
+            <Typography>
+              شما برای شرکت در این دوره پذیرفته‌شده‌اید!
+            </Typography>
+            <Typography>
+              توجه کنید تا پرداخت خود را انجام ندهید، ثبت‌نامتان قطعی نخواهد شد.
             </Typography>
           </Grid>
           <Grid container item xs={12} spacing={4}>
