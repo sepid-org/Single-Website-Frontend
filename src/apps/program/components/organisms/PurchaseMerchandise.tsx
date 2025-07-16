@@ -68,7 +68,7 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({ merchandise }) 
           <Typography variant="h3">
             {merchandise.title}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography color="text.secondary">
             {merchandise.description}
           </Typography>
         </Stack>
