@@ -7,6 +7,7 @@ import { toEnglishNumber } from "commons/utils/translateNumber";
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import { useGetProgramQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import { CreateDiscountCodeDto } from "commons/types/models";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type CreateDiscountCodeDialogType = {
   open: boolean;
@@ -153,8 +154,10 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
         <Button
           variant='contained'
           color='primary'
-          disabled={!discountCode}
-          onClick={handleCreateDiscountCode}>
+          disabled={!discountCode || result.isLoading}
+          onClick={handleCreateDiscountCode}
+          startIcon={result.isLoading && <CircularProgress size={16} color="inherit" />}
+        >
           {'افزودن'}
         </Button>
       </DialogActions>
