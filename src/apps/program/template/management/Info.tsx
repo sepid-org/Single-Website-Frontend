@@ -12,12 +12,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetProgramQuery, useUpdateProgramMutation } from 'apps/website-display/redux/features/program/ProgramSlice';
-
+import CircularProgress from "@mui/material/CircularProgress";
 import { ProgramType } from 'commons/types/models';
 
-type InfoTabPropsType = {}
+type PropsType = {}
 
-const InfoTab: FC<InfoTabPropsType> = ({ }) => {
+const InfoTab: FC<PropsType> = ({ }) => {
   const { programSlug } = useParams();
   const [properties, setProperties] = useState<ProgramType>();
   const [updateProgram, result] = useUpdateProgramMutation();
@@ -85,7 +85,10 @@ const InfoTab: FC<InfoTabPropsType> = ({ }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={handleUpdateProgram}>
+          disabled={result.isLoading}
+          onClick={handleUpdateProgram}
+          startIcon={result.isLoading && <CircularProgress size={16} color="inherit" />}
+        >
           {'به‌روز‌رسانی'}
         </Button>
       </Stack>
