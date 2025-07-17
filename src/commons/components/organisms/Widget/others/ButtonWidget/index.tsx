@@ -1,12 +1,10 @@
-import React, { FC, Fragment, useState, useEffect, useRef, useLayoutEffect } from 'react';
-import { Box, Button, ButtonBase } from '@mui/material';
+import React, { FC, Fragment } from 'react';
+import { Box, Button } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
-import ChangeStateDialog from 'commons/components/organisms/dialogs/ChangeStateDialog';
 import { WidgetModes } from '../..';
 import ButtonWidgetEditor from './edit';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
-import extractSvgPath from 'commons/utils/extractSVGPath';
 import { keyframes } from '@emotion/react';
 
 const wave = keyframes`
@@ -22,7 +20,6 @@ type ButtonWidgetPropsType = {
   label: string;
   background_image: string;
   destination_page_url: string;
-  destination_states: string[];
   mode: WidgetModes;
   id: string;
   has_ripple_on_click: boolean;
@@ -33,100 +30,16 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   label,
   background_image,
   destination_page_url,
-  destination_states = [],
   has_ripple_on_click,
   has_wave_effect,
   mode,
   id: widgetId,
 }) => {
-  const [openChangeStateDialog, setOpenChangeStateDialog] = useState(false);
-  const [changeState, changeStateResult] = useChangeState();
-  const [submitButton, submitButtonResult] = useSubmitButton();
-  const [clipPath, setClipPath] = useState<string>('');
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-  const [scale, setScale] = useState({ widthScale: 0, heightScale: 0 });
-  const outerBoxRef = useRef(null);
-
-  useEffect(() => {
-    /*if (background_image.endsWith('.svg')) {
-      extractSvgPath(background_image).then((pathData) => {
-        if (pathData) {
-          setClipPath(`path('${pathData}')`);
-        }
-      }).catch((error) => {
-        console.error('Error loading SVG:', error);
-      });
-      fetch(background_image)
-        .then(response => response.text())
-        .then(svgContent => {
-          const parser = new DOMParser();
-          const svgDoc = parser.parseFromString(svgContent, "image/svg+xml");
-          const svgElement = svgDoc.documentElement;
-
-          const width = svgElement.getAttribute('width') || 0;
-          const height = svgElement.getAttribute('height') || 0;
-
-          if (!width || !height) {
-            const viewBox = svgElement.getAttribute('viewBox');
-            if (viewBox) {
-              const viewBoxValues = viewBox.split(' ');
-              setDimensions({
-                width: parseFloat(viewBoxValues[2]),
-                height: parseFloat(viewBoxValues[3]),
-              });
-            }
-          } else {
-            setDimensions({ width: parseFloat(width), height: parseFloat(height) });
-          }
-        })
-        .catch(error => { });
-    }
-    else {*/
-    const img = new Image();
-    img.src = background_image;
-    img.onload = function () {
-      setDimensions({ width: img.naturalWidth, height: img.naturalHeight });
-      setClipPath('none');
-    }
-    //}
-  }, [background_image]);
-
-  useLayoutEffect(() => {
-    const updateScale = () => {
-      if (outerBoxRef.current) {
-        setScale({
-          widthScale: outerBoxRef.current.offsetWidth,
-          heightScale: outerBoxRef.current.offsetHeight,
-        });
-      }
-    };
-    updateScale();
-    const resizeObserver = new ResizeObserver(updateScale);
-    if (outerBoxRef.current) {
-      resizeObserver.observe(outerBoxRef.current);
-    }
-
-    return () => {
-      if (outerBoxRef.current) {
-        resizeObserver.unobserve(outerBoxRef.current);
-      }
-      resizeObserver.disconnect();
-    };
-  }, []);
+  const [changeState] = useChangeState();
+  const [submitButton] = useSubmitButton();
 
   const handleClick = () => {
     if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
-      return;
-    }
-    if (destination_states.length === 1) {
-      changeState({
-        destinationStateId: destination_states[0],
-        clickedButtonId: widgetId,
-      });
-      return;
-    }
-    if (destination_states.length > 1) {
-      setOpenChangeStateDialog(true);
       return;
     }
     if (destination_page_url) {
@@ -138,73 +51,62 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     });
   };
 
-  const ButtonComponent = Button;
-
   return (
     <Fragment>
       <Box
-        ref={outerBoxRef}
-        alignItems={'center'}
-        justifyContent={'center'}
         sx={{
+          position: 'relative',           // <-- make this relative
           display: 'flex',
-          minHeight: background_image ? 40 : 60,
+          alignItems: 'center',
+          justifyContent: 'center',
           width: '100%',
           height: '100%',
+          minHeight: background_image ? 40 : 60,
         }}
       >
-        {background_image ?
-          <ButtonComponent
-            onClick={handleClick}
-            disableRipple={!has_ripple_on_click}
+        {background_image && (
+          <Box
             sx={{
               position: 'absolute',
-              borderRadius: 2,
-              width: dimensions.width,
-              height: dimensions.height,
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
               backgroundImage: `url(${background_image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              padding: 0,
-              textTransform: 'none',
+              borderRadius: 2,              // match your button’s border radius
               zIndex: 0,
-              clipPath,
-              transform: `scaleX(${scale.widthScale / dimensions.width}) scaleY(${scale.heightScale / dimensions.height})`,
-              animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
             }}
-          /> :
-          <ButtonComponent
-            onClick={handleClick}
-            disableRipple={!has_ripple_on_click}
-            sx={{
+          />
+        )}
+
+        <Button
+          onClick={handleClick}
+          disableRipple={!has_ripple_on_click}
+          sx={{
+            position: 'relative',         // sit above the bg‑Box
+            width: '100%',
+            height: '100%',
+            padding: 0,
+            backgroundColor: background_image ? 'transparent' : undefined,
+            borderRadius: 2,
+            overflow: 'hidden',
+            animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
+          }}
+        >
+          <TinyPreview
+            styles={{
               width: '100%',
               height: '100%',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
             }}
-          >
-            <TinyPreview
-              styles={{
-                width: '100%',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-              content={label}
-            />
-          </ButtonComponent>
-        }
+            content={label}
+          />
+        </Button>
       </Box>
-      <ChangeStateDialog
-        open={openChangeStateDialog}
-        handleClose={() => setOpenChangeStateDialog(false)}
-        stateIds={destination_states}
-        widgetId={widgetId}
-      />
     </Fragment>
   );
 };

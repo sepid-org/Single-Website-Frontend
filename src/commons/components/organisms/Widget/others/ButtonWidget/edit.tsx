@@ -37,7 +37,6 @@ const ButtonWidgetEditor = ({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',
     destination_page_url: widgetProps.destination_page_url || '',
-    destination_states: widgetProps.destination_states || [],
     has_ripple_on_click: widgetProps.has_ripple_on_click,
     has_wave_effect: widgetProps.has_wave_effect,
   });
@@ -99,7 +98,6 @@ const ButtonWidgetEditor = ({
           <TextField
             fullWidth
             label="پیوند مقصد"
-            disabled={buttonFields.destination_states.length > 0}
             value={buttonFields.destination_page_url}
             inputProps={{ dir: 'ltr' }}
             placeholder="https://..."
@@ -108,6 +106,7 @@ const ButtonWidgetEditor = ({
               destination_page_url: e.target.value
             })}
           />
+
           <FormControlLabel
             sx={{ display: 'flex', justifyContent: 'flex-end' }}
             control={<Switch checked={buttonFields.has_ripple_on_click} />}
