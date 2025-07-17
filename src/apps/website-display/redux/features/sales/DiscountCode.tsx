@@ -1,5 +1,6 @@
 import { CreateDiscountCodeDto, DiscountCodeType } from 'commons/types/models';
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
+import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
 type CreateDiscountCodeOutputType = DiscountCodeType;
 
@@ -18,7 +19,7 @@ type GetProgramDiscountCodesOutputType = DiscountCodeType[];
 export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
     createDiscountCode: builder.mutation<CreateDiscountCodeOutputType, CreateDiscountCodeDto>({
-      invalidatesTags: ['discount-codes'],
+      invalidatesTags: tagGenerationWithErrorCheck(['discount-codes']),
       query: ({ ...body }) => ({
         url: `sale/discount_code/`,
         method: 'POST',
@@ -29,7 +30,7 @@ export const MerchandiseSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     deleteDiscountCode: builder.mutation<DeleteDiscountCodeOutputType, DeleteDiscountCodeInputType>({
-      invalidatesTags: ['discount-codes'],
+      invalidatesTags: tagGenerationWithErrorCheck(['discount-codes']),
       query: ({ discountCodeId }) => ({
         url: `sale/discount_code/${discountCodeId}/`,
         method: 'DELETE',
