@@ -81,18 +81,6 @@ const InfoTab: FC<InfoTabPropsType> = ({ }) => {
         </Box>
       </Stack>
 
-      <Divider />
-
-      <Stack padding={2} spacing={2}>
-        <Typography variant='h2' gutterBottom>
-          {'تنظیمات ظاهری'}
-        </Typography>
-        {/* دکمه‌های سوالات متداول + راهنمای سایت + اپ‌بار و هدر و اوپن‌گراف سایت */}
-        <Typography>
-          {'به زودی...'}
-        </Typography>
-      </Stack>
-
       <Stack padding={2} direction={'row'} justifyContent={'end'}>
         <Button
           variant="contained"
