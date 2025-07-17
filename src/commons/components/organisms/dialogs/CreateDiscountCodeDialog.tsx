@@ -53,7 +53,9 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
                 endAdornment: (
                   <InputAdornment position="start">
                     <Tooltip title={'چنانچه می‌خواهید کد تخفیف مختص کاربر خاصی باشد، نام کاربری او را وارد کنید. در غیر این صورت، کد تخفیف به‌صورت عام خواهد بود.'}>
-                      <ErrorOutlineIcon />
+                      <IconButton size="small">
+                        <ErrorOutlineIcon />
+                      </IconButton>
                     </Tooltip>
                   </InputAdornment>
                 ),
@@ -67,6 +69,7 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              fullWidth
               required
               variant='outlined'
               label='درصد تخفیف'
@@ -79,6 +82,7 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              fullWidth
               label="دفعات استفاده"
               variant="outlined"
               type="number"
@@ -101,7 +105,9 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
                 endAdornment: (
                   <InputAdornment position="start">
                     <Tooltip title={'اگر خالی بماند، کد به‌صورت نامحدود قابل استفاده خواهد بود'}>
-                      <ErrorOutlineIcon />
+                      <IconButton size="small">
+                        <ErrorOutlineIcon />
+                      </IconButton>
                     </Tooltip>
                   </InputAdornment>
                 ),
@@ -110,6 +116,7 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
           </Grid>
           <Grid item xs={12} sm={6}>
             <TextField
+              fullWidth
               label='سقف تخفیف (تومان)'
               value={discountCode?.max_discount_amount || ''}
               onChange={(event) =>
@@ -119,8 +126,8 @@ const CreateDiscountCodeDialog: FC<CreateDiscountCodeDialogType> = ({
           </Grid>
           <Grid item xs={12}>
             <Autocomplete
-              multiple
               fullWidth
+              multiple
               getOptionLabel={(option) => option.title}
               onChange={(event, newMerchandises) => {
                 setDiscountCode({
