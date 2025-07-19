@@ -24,6 +24,22 @@ const EnterVerificationCode: FC = () => {
   const phoneNumber = searchParams.get("phoneNumber");
   const [getVerificationCode, getVerificationCodeResult] = useGetVerificationCodeMutation();
 
+  const handleKeyDownVerificationCode =
+    (index: number) => (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key !== "Backspace") return;
+
+      if (verificationCode[index]) return;
+
+      if (index > 0) {
+        const prevInput = document.getElementById(`code-input-${index - 1}`) as HTMLInputElement | null;
+        if (prevInput) prevInput.focus();
+
+        const newCode = [...verificationCode];
+        newCode[index - 1] = "";
+        setVerificationCode(newCode);
+      }
+    };
+
   useEffect(() => {
     if (getVerificationCodeResult.isSuccess) {
       setVerificationCode(Array(5).fill(""));
@@ -80,7 +96,7 @@ const EnterVerificationCode: FC = () => {
     setSearchParams({ tab: LoginTabs.EnterPhoneNumber });
   };
 
-  const handleLogin = (verificationCode) => {
+  const handleLogin = (verificationCode: string[]) => {
     otpLogin({ phoneNumber, verificationCode: verificationCode.join("") });
   };
 
@@ -105,6 +121,7 @@ const EnterVerificationCode: FC = () => {
             id={`code-input-${index}`}
             value={digit}
             onChange={handleChangeVerificationCode(index)}
+            onKeyDown={handleKeyDownVerificationCode(index)}
             variant="outlined"
             inputProps={{
               dir: "ltr",
