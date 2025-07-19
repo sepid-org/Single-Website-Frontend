@@ -6,15 +6,19 @@ import {
   Stack,
   TextField,
   Typography,
+  Autocomplete,
 } from "@mui/material";
+import { useGetFSMStatesQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import {
   useCreateAttributeMutation,
   useDeleteAttributeMutation,
   useGetAttributeQuery,
   useUpdateAttributeMutation,
 } from "apps/website-display/redux/features/object/AttributeSlice";
+import { FSMStateType } from "commons/types/models";
 import { TransitionType } from "commons/types/object/attribute";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 interface Props {
   objectId: number;
@@ -22,9 +26,12 @@ interface Props {
 }
 
 function TransitionForm({ objectId, transitionId }: Props) {
+  const fsmId = parseInt(useParams().fsmId);
+  const { data: fsmStates } = useGetFSMStatesQuery({ fsmId });
+
   const [order, setOrder] = useState<number | "">("");
-  const [destinationStateId, setDestinationStateId] = useState<number | "">("");
   const [isBackward, setIsBackward] = useState(false);
+  const [selectedState, setSelectedState] = useState<FSMStateType | null>(null);
 
   const { data: initialData, isFetching } = useGetAttributeQuery(transitionId!, {
     skip: !transitionId,
@@ -35,9 +42,10 @@ function TransitionForm({ objectId, transitionId }: Props) {
     if (transition) {
       setOrder(transition.order ?? "");
       setIsBackward(transition.is_backward || false);
-      setDestinationStateId(transition.destination_state_id ?? "");
+      const st = fsmStates.find((s) => parseInt(s.id) === transition.destination_state_id) || null;
+      setSelectedState(st);
     }
-  }, [transition]);
+  }, [transition, fsmStates]);
 
   const [createAttr, createState] = useCreateAttributeMutation();
   const [updateAttr, updateState] = useUpdateAttributeMutation();
@@ -47,13 +55,13 @@ function TransitionForm({ objectId, transitionId }: Props) {
     const payload = {
       objectId,
       type: "Transition",
-      title: `Transition to state ${destinationStateId}`,
+      title: `Transition to state ${selectedState.id}`,
       order: order === "" ? undefined : Number(order),
       is_backward: isBackward,
       destination_state_id:
-        isBackward || destinationStateId === ""
+        isBackward || selectedState.id === ""
           ? undefined
-          : Number(destinationStateId),
+          : Number(selectedState.id),
     };
 
     try {
@@ -74,7 +82,7 @@ function TransitionForm({ objectId, transitionId }: Props) {
       await deleteAttr({ id: transitionId, objectId }).unwrap();
       setOrder("");
       setIsBackward(false);
-      setDestinationStateId("");
+      setSelectedState(null);
     } catch (_) {
     }
   };
@@ -116,16 +124,18 @@ function TransitionForm({ objectId, transitionId }: Props) {
         />
 
         {!isBackward && (
-          <TextField
-            label="شناسه مقصد"
-            type="number"
-            value={destinationStateId}
-            onChange={(e) =>
-              setDestinationStateId(
-                e.target.value === "" ? "" : Number(e.target.value)
-              )
-            }
-            required
+          <Autocomplete
+            options={fsmStates}
+            getOptionLabel={(option) => option.title ?? `State ${option.id}`}
+            value={selectedState}
+            onChange={(_, newValue) => {
+              setSelectedState(newValue);
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="گام مقصد" placeholder="یک گام را انتخاب کنید" required />
+            )}
+            sx={{ minWidth: 250 }}
+            disableClearable
           />
         )}
 

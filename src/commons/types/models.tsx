@@ -179,6 +179,7 @@ export type PaperType = ObjectType & {
   paper_type: string;
   widgets: WidgetType[]
 }
+
 export type FSMStateType = ObjectType & {
   papers: string[];
   name: string;
@@ -189,6 +190,7 @@ export type FSMStateType = ObjectType & {
   draggable: boolean;
   data: Object;
 };
+
 export type Answer = any
 export type WorkshopEdge = any
 export type Token = any

@@ -40,7 +40,7 @@ const ObjectFieldsEditor: FC<PropsType> = ({
         </Stack>
         <Stack component={Paper} padding={2}>
           <Typography variant="h6" gutterBottom>
-            {'همه ویژگی‌ها:'}
+            {'همه اتریبیوت‌ها:'}
           </Typography>
           <CollapsibleJsonViewer data={attributes} />
         </Stack>
