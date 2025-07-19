@@ -20,20 +20,32 @@ const ObjectFieldsEditor: FC<PropsType> = ({
   setFields,
 }) => {
 
-  const { data: attributes = [] } = useGetObjectAttributesQuery({ objectId: fields?.object_id }, { skip: !Boolean(fields?.object_id) });
+  const objectId = fields?.object_id;
+  const { data: attributes = [] } = useGetObjectAttributesQuery({ objectId }, { skip: !Boolean(objectId) });
   const transitionAttribute = attributes.find(attribute => attribute.type === 'Transition');
+
+  if (!objectId) {
+    return (
+      <Typography>
+        {'برای تنظیم پیشرفته‌تر ویجت، ابتدا ویجت را کامل بسازید و سپس مجدداً به این بخش مراجعه کنید.'}
+      </Typography>
+    )
+  }
 
   return (
     <Stack alignItems={'start'} spacing={2}>
-      {attributes &&
-        <Stack width={'100%'} spacing={2}>
+      <Stack width={'100%'} spacing={2}>
+        <Stack component={Paper} padding={2}>
           <TransitionForm objectId={fields.object_id} transitionId={transitionAttribute?.id} />
+        </Stack>
+        <Stack component={Paper} padding={2}>
           <Typography variant="h6" gutterBottom>
             {'همه ویژگی‌ها:'}
           </Typography>
           <CollapsibleJsonViewer data={attributes} />
         </Stack>
-      }
+      </Stack>
+
       <TextField
         fullWidth
         value={fields.name || ''}
@@ -47,6 +59,7 @@ const ObjectFieldsEditor: FC<PropsType> = ({
         label='شناسه'
         helperText={'شناسه‌ی هر ویجت باید یکتا باشد. این شناسه برای ارجاع‌دادن به ویجت استفاده می‌شود.'}
       />
+
       <TextField
         fullWidth
         value={fields.order || ''}
