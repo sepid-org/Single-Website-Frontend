@@ -7,6 +7,7 @@ import {
   MobileStepper,
   useTheme,
   DialogTitle,
+  Stack,
 } from '@mui/material';
 import React, { Fragment, useState } from 'react';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
@@ -70,19 +71,21 @@ const DetailBoxEditDialog = ({
       </DialogTitle>
       <DialogContent>
         {activeStep === 0 &&
-          <Fragment>
+          <Stack spacing={2}>
+            <Stack spacing={1}>
+              <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
+              <TinyEditorComponent
+                content={title}
+                onChange={(text) => setTitle(text)}
+              />
+            </Stack>
             <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
               <ObjectFieldsEditor
                 fields={widgetFields}
                 setFields={setWidgetFields}
               />
             </CollapsibleTitle>
-            <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
-            <TinyEditorComponent
-              content={title}
-              onChange={(text) => setTitle(text)}
-            />
-          </Fragment>
+          </Stack>
         }
         {activeStep === 1 &&
           <Fragment>

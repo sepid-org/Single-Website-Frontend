@@ -59,32 +59,34 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
     <Dialog disableScrollLock open={open} maxWidth='md'>
       <DialogTitle>{`سوال ارسال فایل ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
-        <Stack spacing={1} alignItems={'start'}>
-          <Typography>
-            متن درخواستی را که برای ارسال فایل دارید، در قسمت زیر وارد کنید.
-          </Typography>
-          <TextField
-            autoFocus
-            fullWidth
-            value={text}
-            placeholder="مثال: لطفا فایل جواب را ارسال کنید."
-            onChange={(e) => setText(e.target.value)}
-          />
-          <label>{'راه‌حل'}</label>
-          <TinyEditorComponent
-            content={solution}
-            onChange={(val: string) => setSolution(val)}
-          />
-          <EditQuestionFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <Typography>
+              متن درخواستی را که برای ارسال فایل دارید، در قسمت زیر وارد کنید.
+            </Typography>
+            <TextField
+              autoFocus
+              fullWidth
+              value={text}
+              placeholder="مثال: لطفا فایل جواب را ارسال کنید."
+              onChange={(e) => setText(e.target.value)}
+            />
+            <label>{'راه‌حل'}</label>
+            <TinyEditorComponent
+              content={solution}
+              onChange={(val: string) => setSolution(val)}
+            />
+            <EditQuestionFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </Stack>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

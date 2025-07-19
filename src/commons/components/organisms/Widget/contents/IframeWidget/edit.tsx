@@ -44,23 +44,25 @@ function IframeEditWidget({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{'لینک'}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
-        <Stack spacing={1}>
-          <Typography>
-            {'لطفاً لینک مورد نظر خود را قرار دهید. '}
-          </Typography>
-          <TextField
-            autoFocus
-            fullWidth
-            label='لینک'
-            value={link}
-            inputProps={{ dir: 'ltr' }}
-            onChange={(e) => setLink(e.target.value)} />
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <Typography>
+              {'لطفاً لینک مورد نظر خود را قرار دهید. '}
+            </Typography>
+            <TextField
+              autoFocus
+              fullWidth
+              label='لینک'
+              value={link}
+              inputProps={{ dir: 'ltr' }}
+              onChange={(e) => setLink(e.target.value)} />
+          </Stack>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

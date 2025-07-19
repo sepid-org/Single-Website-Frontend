@@ -57,73 +57,75 @@ const ButtonWidgetEditor = ({
       <DialogTitle>{`دکمه ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <Stack>
-            <Typography gutterBottom>{'متن دکمه'}</Typography>
-            <TinyEditorComponent
-              content={buttonFields.label}
-              onChange={(text) => setButtonFields({
-                ...buttonFields,
-                label: text,
-              })}
-            />
-          </Stack>
+          <Stack spacing={1}>
+            <Stack>
+              <Typography gutterBottom>{'متن دکمه'}</Typography>
+              <TinyEditorComponent
+                content={buttonFields.label}
+                onChange={(text) => setButtonFields({
+                  ...buttonFields,
+                  label: text,
+                })}
+              />
+            </Stack>
 
-          <Stack direction={'row'} spacing={2} alignItems={'start'}>
+            <Stack direction={'row'} spacing={2} alignItems={'start'}>
+              <TextField
+                fullWidth
+                label={'پیوند تصویر دکمه'}
+                value={buttonFields.background_image}
+                inputProps={{ dir: 'ltr' }}
+                placeholder="https://..."
+                onChange={(e) => setButtonFields({
+                  ...buttonFields,
+                  background_image: e.target.value
+                })}
+              />
+              <FileUploadButton
+                setFileLink={(link) => setButtonFields({
+                  ...buttonFields,
+                  background_image: link,
+                })}
+              />
+            </Stack>
+
             <TextField
               fullWidth
-              label={'پیوند تصویر دکمه'}
-              value={buttonFields.background_image}
+              label="پیوند مقصد"
+              value={buttonFields.destination_page_url}
               inputProps={{ dir: 'ltr' }}
               placeholder="https://..."
               onChange={(e) => setButtonFields({
                 ...buttonFields,
-                background_image: e.target.value
+                destination_page_url: e.target.value
               })}
             />
-            <FileUploadButton
-              setFileLink={(link) => setButtonFields({
-                ...buttonFields,
-                background_image: link,
-              })}
+
+            <FormControlLabel
+              sx={{ display: 'flex', justifyContent: 'flex-end' }}
+              control={<Switch checked={buttonFields.has_ripple_on_click} />}
+              label={'نمایش موج در هنگام کلیک'}
+              labelPlacement='start'
+              onChange={(e) => {
+                setButtonFields({
+                  ...buttonFields,
+                  has_ripple_on_click: !buttonFields.has_ripple_on_click,
+                })
+              }}
+            />
+            <FormControlLabel
+              sx={{ display: 'flex', justifyContent: 'flex-end' }}
+              control={<Switch checked={buttonFields.has_wave_effect} />}
+              label={'انتشار موج برای جلب توجه'}
+              labelPlacement='start'
+              onChange={(e) => {
+                setButtonFields({
+                  ...buttonFields,
+                  has_wave_effect: !buttonFields.has_wave_effect,
+                })
+              }}
             />
           </Stack>
-
-          <TextField
-            fullWidth
-            label="پیوند مقصد"
-            value={buttonFields.destination_page_url}
-            inputProps={{ dir: 'ltr' }}
-            placeholder="https://..."
-            onChange={(e) => setButtonFields({
-              ...buttonFields,
-              destination_page_url: e.target.value
-            })}
-          />
-
-          <FormControlLabel
-            sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            control={<Switch checked={buttonFields.has_ripple_on_click} />}
-            label={'نمایش موج در هنگام کلیک'}
-            labelPlacement='start'
-            onChange={(e) => {
-              setButtonFields({
-                ...buttonFields,
-                has_ripple_on_click: !buttonFields.has_ripple_on_click,
-              })
-            }}
-          />
-          <FormControlLabel
-            sx={{ display: 'flex', justifyContent: 'flex-end' }}
-            control={<Switch checked={buttonFields.has_wave_effect} />}
-            label={'انتشار موج برای جلب توجه'}
-            labelPlacement='start'
-            onChange={(e) => {
-              setButtonFields({
-                ...buttonFields,
-                has_wave_effect: !buttonFields.has_wave_effect,
-              })
-            }}
-          />
           <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}

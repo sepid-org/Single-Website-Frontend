@@ -140,125 +140,127 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
       disableEnforceFocus>
       <DialogTitle>{`سوال چندگزینه‌ای${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
-        <Stack spacing={4} alignItems={'start'}>
-          <Stack width={'100%'}>
-            <label>{'صورت سوال:'}</label>
-            <TinyEditorComponent content={questionText} onChange={(val) => setQuestionText(val)} />
-          </Stack>
-
-          <Stack width={'100%'}>
-            <Typography gutterBottom>
-              {'گزینه‌ها:'}
-            </Typography>
-            <Stack spacing={2}>
-              {questionChoices.map((choice, index) => (
-                <Choice
-                  key={index}
-                  isSelected={choice.is_correct}
-                  onSelectionChange={() => changeIsCorrect(index)}
-                  variant={maximumChoicesCouldBeChosen > 1 ? 'checkbox' : 'radio'}
-                  choice={choice}
-                  onDelete={() => deleteChoice(index)}
-                  onTextChange={(event) => changeText(event.target.value, index)}
-                  mode={WidgetModes.Edit}
-                />
-              ))}
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <Stack width={'100%'}>
+              <label>{'صورت سوال:'}</label>
+              <TinyEditorComponent content={questionText} onChange={(val) => setQuestionText(val)} />
             </Stack>
-            <IconButton color="primary" onClick={addNewChoice} sx={{ alignSelf: 'start', padding: 0, marginTop: 1 }}>
-              <AddCircleIcon fontSize='large' />
-            </IconButton>
+
+            <Stack width={'100%'}>
+              <Typography gutterBottom>
+                {'گزینه‌ها:'}
+              </Typography>
+              <Stack spacing={2}>
+                {questionChoices.map((choice, index) => (
+                  <Choice
+                    key={index}
+                    isSelected={choice.is_correct}
+                    onSelectionChange={() => changeIsCorrect(index)}
+                    variant={maximumChoicesCouldBeChosen > 1 ? 'checkbox' : 'radio'}
+                    choice={choice}
+                    onDelete={() => deleteChoice(index)}
+                    onTextChange={(event) => changeText(event.target.value, index)}
+                    mode={WidgetModes.Edit}
+                  />
+                ))}
+              </Stack>
+              <IconButton color="primary" onClick={addNewChoice} sx={{ alignSelf: 'start', padding: 0, marginTop: 1 }}>
+                <AddCircleIcon fontSize='large' />
+              </IconButton>
+            </Stack>
+
+            <TextField
+              label='حداقل تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
+              variant='outlined'
+              fullWidth
+              autoComplete="off"
+              onChange={(event) => {
+                let value = parseInt(event.target.value);
+                if (isNaN(value)) {
+                  value = 1;
+                }
+                if (value < 1) {
+                  value = 1;
+                }
+                if (value >= maximumChoicesCouldBeChosen) {
+                  value = maximumChoicesCouldBeChosen;
+                }
+                setMinimumChoicesCouldBeChosen(value);
+              }}
+              type='number'
+              inputMode='numeric'
+              inputProps={{
+                min: 1,
+                max: maximumChoicesCouldBeChosen,
+                step: 1,
+                autoComplete: "off",
+              }}
+              error={!minimumChoicesCouldBeChosen}
+              value={minimumChoicesCouldBeChosen}
+            />
+
+            <TextField
+              label='حداکثر تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
+              variant='outlined'
+              fullWidth
+              autoComplete="off"
+              onChange={(event) => {
+                let value = parseInt(event.target.value);
+                if (isNaN(value)) {
+                  value = 1;
+                }
+                if (value < minimumChoicesCouldBeChosen) {
+                  value = minimumChoicesCouldBeChosen;
+                }
+                if (value >= questionChoices.length) {
+                  value = questionChoices.length;
+                }
+                setMaximumChoicesCouldBeChosen(value);
+              }}
+              type='number'
+              inputMode='numeric'
+              inputProps={{
+                min: minimumChoicesCouldBeChosen,
+                max: questionChoices.length,
+                step: 1,
+                autoComplete: "off",
+              }}
+              error={!maximumChoicesCouldBeChosen}
+              value={maximumChoicesCouldBeChosen}
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={lockAfterAnswer}
+                  onChange={(e) => setLockAfterAnswer(e.target.checked)}
+                />
+              }
+              label="غیرفعال شدن گزینه‌ها بعد از جواب‌دادن"
+            />
+
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={randomizeChoices}
+                  onChange={(e) => setRandomizeChoices(e.target.checked)}
+                />
+              }
+              label="ترتیب تصادفی گزینه‌ها"
+            />
+
+            <EditQuestionFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
           </Stack>
-
-          <TextField
-            label='حداقل تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
-            variant='outlined'
-            fullWidth
-            autoComplete="off"
-            onChange={(event) => {
-              let value = parseInt(event.target.value);
-              if (isNaN(value)) {
-                value = 1;
-              }
-              if (value < 1) {
-                value = 1;
-              }
-              if (value >= maximumChoicesCouldBeChosen) {
-                value = maximumChoicesCouldBeChosen;
-              }
-              setMinimumChoicesCouldBeChosen(value);
-            }}
-            type='number'
-            inputMode='numeric'
-            inputProps={{
-              min: 1,
-              max: maximumChoicesCouldBeChosen,
-              step: 1,
-              autoComplete: "off",
-            }}
-            error={!minimumChoicesCouldBeChosen}
-            value={minimumChoicesCouldBeChosen}
-          />
-
-          <TextField
-            label='حداکثر تعداد گزینه‌هایی که کاربر بتواند انتخاب کند'
-            variant='outlined'
-            fullWidth
-            autoComplete="off"
-            onChange={(event) => {
-              let value = parseInt(event.target.value);
-              if (isNaN(value)) {
-                value = 1;
-              }
-              if (value < minimumChoicesCouldBeChosen) {
-                value = minimumChoicesCouldBeChosen;
-              }
-              if (value >= questionChoices.length) {
-                value = questionChoices.length;
-              }
-              setMaximumChoicesCouldBeChosen(value);
-            }}
-            type='number'
-            inputMode='numeric'
-            inputProps={{
-              min: minimumChoicesCouldBeChosen,
-              max: questionChoices.length,
-              step: 1,
-              autoComplete: "off",
-            }}
-            error={!maximumChoicesCouldBeChosen}
-            value={maximumChoicesCouldBeChosen}
-          />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={lockAfterAnswer}
-                onChange={(e) => setLockAfterAnswer(e.target.checked)}
-              />
-            }
-            label="غیرفعال شدن گزینه‌ها بعد از جواب‌دادن"
-          />
-
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={randomizeChoices}
-                onChange={(e) => setRandomizeChoices(e.target.checked)}
-              />
-            }
-            label="ترتیب تصادفی گزینه‌ها"
-          />
-
-          <EditQuestionFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

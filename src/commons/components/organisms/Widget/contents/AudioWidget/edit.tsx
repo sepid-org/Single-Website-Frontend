@@ -55,52 +55,54 @@ const AudioEditWidget = ({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>صوت</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
         <Stack spacing={2}>
-          <FileUploadButton setFileLink={setLink} />
-          <Divider>یا</Divider>
-          <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>
-          <TextField
-            fullWidth
-            label="آدرس صوت"
-            value={link}
-            inputProps={{ dir: 'ltr' }}
-            placeholder="http://example.com/example.mp3"
-            onChange={(e) => setLink(e.target.value)}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={autoplay}
-                onChange={(e) => setAutoplay(e.target.checked)}
-              />
-            }
-            label="پخش خودکار"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={repeat}
-                onChange={(e) => setRepeat(e.target.checked)}
-              />
-            }
-            label="تکرار"
-          />
-          <Stack direction="row" spacing={2} alignItems="center">
-            <DialogContentText>Volume</DialogContentText>
-            <Slider
-              value={volume}
-              onChange={(e, newValue) => setVolume(newValue as number)}
-              min={0}
-              max={100}
-              valueLabelDisplay="auto"
+          <Stack spacing={1}>
+            <FileUploadButton setFileLink={setLink} />
+            <Divider>یا</Divider>
+            <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>
+            <TextField
+              fullWidth
+              label="آدرس صوت"
+              value={link}
+              inputProps={{ dir: 'ltr' }}
+              placeholder="http://example.com/example.mp3"
+              onChange={(e) => setLink(e.target.value)}
             />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={autoplay}
+                  onChange={(e) => setAutoplay(e.target.checked)}
+                />
+              }
+              label="پخش خودکار"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={repeat}
+                  onChange={(e) => setRepeat(e.target.checked)}
+                />
+              }
+              label="تکرار"
+            />
+            <Stack direction="row" spacing={2} alignItems="center">
+              <DialogContentText>Volume</DialogContentText>
+              <Slider
+                value={volume}
+                onChange={(e, newValue) => setVolume(newValue as number)}
+                min={0}
+                max={100}
+                valueLabelDisplay="auto"
+              />
+            </Stack>
           </Stack>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

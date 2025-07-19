@@ -43,7 +43,7 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
   BigAnswerProblem: {
     WidgetComponent: BigAnswerProblemWidget,
     EditWidgetDialog: BigAnswerQuestionEditWidget,
-    label: 'سوال تشریحی',
+    label: 'سوال بلند‌پاسخ',
     backendType: 'BigAnswerProblem',
     useSubmitAnswerMutation: useSubmitLongAnswerMutation,
   },
@@ -57,7 +57,7 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
   UploadFileProblem: {
     WidgetComponent: UploadFileProblemWidget,
     EditWidgetDialog: UploadFileProblemEditWidget,
-    label: 'ارسال فایل',
+    label: 'سوال ارسال فایل',
     backendType: 'UploadFileProblem',
     useSubmitAnswerMutation: useSubmitUploadFileAnswerMutation,
   },
@@ -66,18 +66,6 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
     EditWidgetDialog: TextEditWidget,
     label: 'متن',
     backendType: 'TextWidget',
-  },
-  Placeholder: {
-    WidgetComponent: Placeholder,
-    EditWidgetDialog: EditablePlaceholder,
-    label: 'جانگهدار',
-    backendType: 'Placeholder',
-  },
-  DetailBoxWidget: {
-    WidgetComponent: DetailBoxWidget,
-    EditWidgetDialog: DetailBoxEditDialog,
-    label: 'نکته',
-    backendType: 'DetailBoxWidget',
   },
   Image: {
     WidgetComponent: ImageWidget,
@@ -97,17 +85,29 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
     label: 'صوت',
     backendType: 'Audio',
   },
+  ButtonWidget: {
+    WidgetComponent: ButtonWidget,
+    EditWidgetDialog: ButtonWidgetEditor,
+    label: 'دکمه',
+    backendType: 'ButtonWidget',
+  },
   Iframe: {
     WidgetComponent: IframeWidget,
     EditWidgetDialog: IframeEditWidget,
     label: 'آی‌فریم',
     backendType: 'Iframe',
   },
-  ButtonWidget: {
-    WidgetComponent: ButtonWidget,
-    EditWidgetDialog: ButtonWidgetEditor,
-    label: 'دکمه',
-    backendType: 'ButtonWidget',
+  Placeholder: {
+    WidgetComponent: Placeholder,
+    EditWidgetDialog: EditablePlaceholder,
+    label: 'جانگهدار',
+    backendType: 'Placeholder',
+  },
+  DetailBoxWidget: {
+    WidgetComponent: DetailBoxWidget,
+    EditWidgetDialog: DetailBoxEditDialog,
+    label: 'نکته',
+    backendType: 'DetailBoxWidget',
   },
   RandomWidget: {
     WidgetComponent: RandomWidget,

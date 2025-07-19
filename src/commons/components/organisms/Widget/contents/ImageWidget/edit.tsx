@@ -45,23 +45,25 @@ const ImageEditWidget = ({
       <DialogTitle>{t('image')}</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
+          <Stack spacing={1}>
+            <FileUploadButton setFileLink={setLink} />
+            <Divider>یا</Divider>
+            <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>
+            <TextField
+              fullWidth
+              label="آدرس تصویر"
+              value={link}
+              inputProps={{ dir: 'ltr' }}
+              placeholder="http://example.com/example.png"
+              onChange={(e) => setLink(e.target.value)}
+            />
+          </Stack>
           <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />
           </CollapsibleTitle>
-          <FileUploadButton setFileLink={setLink} />
-          <Divider>یا</Divider>
-          <DialogContentText>{t('uploadFileFillUrl')}</DialogContentText>
-          <TextField
-            fullWidth
-            label="آدرس تصویر"
-            value={link}
-            inputProps={{ dir: 'ltr' }}
-            placeholder="http://example.com/example.png"
-            onChange={(e) => setLink(e.target.value)}
-          />
         </Stack>
       </DialogContent>
       <DialogActions>

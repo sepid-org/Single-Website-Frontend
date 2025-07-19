@@ -51,28 +51,30 @@ const RandomWidgetEditor = ({
       <DialogTitle>تصادفی</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
+          <Stack spacing={1}>
+            <TextField
+              fullWidth
+              label="شناسه برگه (به‌عنوان جعبه)"
+              value={boxPaperId}
+              inputProps={{ dir: 'ltr' }}
+              onChange={(e) => { setBoxPaperId(parseInt(e.target.value)) }}
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={uniqueWidgetsOnly}
+                  onChange={(e) => setUniqueWidgetsOnly(e.target.checked)}
+                />
+              }
+              label="فقط ویجت‌های یکتا نمایش بده"
+            />
+          </Stack>
           <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />
           </CollapsibleTitle>
-          <TextField
-            fullWidth
-            label="شناسه برگه (به‌عنوان جعبه)"
-            value={boxPaperId}
-            inputProps={{ dir: 'ltr' }}
-            onChange={(e) => { setBoxPaperId(parseInt(e.target.value)) }}
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={uniqueWidgetsOnly}
-                onChange={(e) => setUniqueWidgetsOnly(e.target.checked)}
-              />
-            }
-            label="فقط ویجت‌های یکتا نمایش بده"
-          />
         </Stack>
       </DialogContent>
       <DialogActions>

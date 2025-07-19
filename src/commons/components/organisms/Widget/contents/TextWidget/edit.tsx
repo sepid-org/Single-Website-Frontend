@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Stack,
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
@@ -47,17 +48,21 @@ function TextEditWidget({
     >
       <DialogTitle>{t('text')}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
-        <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
-        <TinyEditorComponent
-          content={text}
-          onChange={(text) => setText(text)}
-        />
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <DialogContentText gutterBottom>متن مورد نظر خود را وارد کنید.</DialogContentText>
+            <TinyEditorComponent
+              content={text}
+              onChange={(text) => setText(text)}
+            />
+          </Stack>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
+        </Stack>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose} color="primary" variant="outlined">

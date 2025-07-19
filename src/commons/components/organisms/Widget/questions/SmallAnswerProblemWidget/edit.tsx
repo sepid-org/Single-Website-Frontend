@@ -62,34 +62,36 @@ function SmallAnswerProblemEditWidget({
       disableEnforceFocus>
       <DialogTitle>{`سوال کوتاه‌پاسخ ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
-          <ObjectFieldsEditor
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
-        </CollapsibleTitle>
-        <Stack spacing={1} alignItems={'start'}>
-          <label>{'صورت سوال'}</label>
-          <TinyEditorComponent
-            content={text}
-            onChange={(text) => setText(text)}
-          />
-          <label>{'پاسخ صحیح'}</label>
-          <TextField
-            variant='outlined'
-            fullWidth
-            value={correctAnswer}
-            onChange={(e) => setCorrectAnswer(e.target.value)}
-          />
-          <label>{'راه‌حل'}</label>
-          <TinyEditorComponent
-            content={solution}
-            onChange={(val: string) => setSolution(val)}
-          />
-          <EditQuestionFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <label>{'صورت سوال'}</label>
+            <TinyEditorComponent
+              content={text}
+              onChange={(text) => setText(text)}
+            />
+            <label>{'پاسخ صحیح'}</label>
+            <TextField
+              variant='outlined'
+              fullWidth
+              value={correctAnswer}
+              onChange={(e) => setCorrectAnswer(e.target.value)}
+            />
+            <label>{'راه‌حل'}</label>
+            <TinyEditorComponent
+              content={solution}
+              onChange={(val: string) => setSolution(val)}
+            />
+            <EditQuestionFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </Stack>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

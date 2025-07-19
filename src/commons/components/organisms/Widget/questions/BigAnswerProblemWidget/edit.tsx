@@ -65,29 +65,31 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       scroll="body"
       disableAutoFocus
       disableEnforceFocus>
-      <DialogTitle>{`سوال تشریحی ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
+      <DialogTitle>{`سوال بلند‌پاسخ ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <Stack alignItems={'start'} spacing={1}>
+        <Stack spacing={2}>
+          <Stack spacing={1}>
+            <label>{'صورت سوال'}</label>
+            <TinyEditorComponent
+              content={text}
+              onChange={(val: string) => setText(val)}
+            />
+            <label>{'راه‌حل'}</label>
+            <TinyEditorComponent
+              content={solution}
+              onChange={(val: string) => setSolution(val)}
+            />
+            <EditQuestionFields
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </Stack>
           <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />
           </CollapsibleTitle>
-          <label>{'صورت سوال'}</label>
-          <TinyEditorComponent
-            content={text}
-            onChange={(val: string) => setText(val)}
-          />
-          <label>{'راه‌حل'}</label>
-          <TinyEditorComponent
-            content={solution}
-            onChange={(val: string) => setSolution(val)}
-          />
-          <EditQuestionFields
-            fields={widgetFields}
-            setFields={setWidgetFields}
-          />
         </Stack>
       </DialogContent>
       <DialogActions>
