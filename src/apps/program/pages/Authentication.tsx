@@ -1,4 +1,4 @@
-import { Box, Container, Paper, Stack } from '@mui/material';
+import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import OtpAuthTabs from 'commons/components/organisms/auth/OtpAuth';
 import React, { FC } from 'react';
@@ -26,6 +26,9 @@ const Authentication: FC<PropsType> = () => {
           <ProgramLogo size='large' />
         </Box>
 
+        <Typography variant='h2' gutterBottom>
+          {'ورود'}
+        </Typography>
         <Stack
           width={'100%'}
           component={Paper}
