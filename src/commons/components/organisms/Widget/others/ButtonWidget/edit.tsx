@@ -6,7 +6,7 @@ import {
   DialogTitle,
   Stack,
   TextField,
-  FormLabel,
+  Typography,
   FormControlLabel,
   Switch,
 } from '@mui/material';
@@ -26,7 +26,6 @@ const ButtonWidgetEditor = ({
   handleClose,
 
   paperId,
-  object_id: objectId,
   open,
   id: widgetId,
   ...widgetProps
@@ -57,15 +56,9 @@ const ButtonWidgetEditor = ({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{`دکمه ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <Stack spacing={3}>
-          <CollapsibleTitle title='مشخصات شئ'>
-            <ObjectFieldsEditor
-              fields={widgetFields}
-              setFields={setWidgetFields}
-            />
-          </CollapsibleTitle>
+        <Stack spacing={2}>
           <Stack>
-            <FormLabel>{'متن دکمه'}</FormLabel>
+            <Typography gutterBottom>{'متن دکمه'}</Typography>
             <TinyEditorComponent
               content={buttonFields.label}
               onChange={(text) => setButtonFields({
@@ -131,6 +124,12 @@ const ButtonWidgetEditor = ({
               })
             }}
           />
+          <CollapsibleTitle title='مشخصات شئ'>
+            <ObjectFieldsEditor
+              fields={widgetFields}
+              setFields={setWidgetFields}
+            />
+          </CollapsibleTitle>
         </Stack>
       </DialogContent>
       <DialogActions>

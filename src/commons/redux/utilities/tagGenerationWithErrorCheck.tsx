@@ -46,6 +46,9 @@ export const tagTypes = [
   'team-invitations',
   // Bank
   'Balances',
+  // Attributes
+  'ObjectAttributes',
+  'Attribute',
 ]
 
 // Define a type for the tag types used in your app

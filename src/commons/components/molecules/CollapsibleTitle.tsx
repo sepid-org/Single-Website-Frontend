@@ -1,5 +1,5 @@
 import React, { FC, Fragment, ReactNode, useState } from 'react';
-import { Button, Collapse, IconButton, Stack, Typography } from '@mui/material';
+import { Button, Collapse, IconButton, Paper, Stack, Typography } from '@mui/material';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 
 type CollapsibleTitlePropsType = {
@@ -11,14 +11,15 @@ type CollapsibleTitlePropsType = {
 const CollapsibleTitle: FC<CollapsibleTitlePropsType> = ({
   title,
   children,
-  defaultOpen = true,
+  defaultOpen = false,
 }) => {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <Stack>
+    <Stack component={Paper} padding={2}>
       <Typography variant='h4'>
         <Button
+          sx={{ padding: 0 }}
           startIcon={<ArrowDropDownCircleIcon sx={{ transform: open ? 'rotate(-180deg)' : null }} />}
           onClick={() => setOpen(open => !open)}
           disableRipple

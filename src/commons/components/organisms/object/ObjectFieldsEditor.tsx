@@ -7,6 +7,8 @@ import {
 import { ObjectType } from 'commons/types/object/object';
 import CollapsibleJsonViewer from 'commons/utils/CollapsibleJsonViewer';
 import React, { FC } from 'react';
+import TransitionForm from '../attributes/Transition';
+import { useGetObjectAttributesQuery } from 'apps/website-display/redux/features/object/ObjectSlice';
 
 type PropsType = {
   fields: Partial<ObjectType>;
@@ -18,14 +20,18 @@ const ObjectFieldsEditor: FC<PropsType> = ({
   setFields,
 }) => {
 
+  const { data: attributes = [] } = useGetObjectAttributesQuery({ objectId: fields?.object_id }, { skip: !Boolean(fields?.object_id) });
+  const transitionAttribute = attributes.find(attribute => attribute.type === 'Transition');
+
   return (
     <Stack alignItems={'start'} spacing={2}>
-      {fields?.attributes &&
-        <Stack width={'100%'} component={Paper} padding={2}>
-          <Typography gutterBottom>
-            {'ویژگی‌ها'}
+      {attributes &&
+        <Stack width={'100%'} spacing={2}>
+          <TransitionForm objectId={fields.object_id} transitionId={transitionAttribute?.id} />
+          <Typography variant="h6" gutterBottom>
+            {'همه ویژگی‌ها:'}
           </Typography>
-          <CollapsibleJsonViewer data={fields.attributes} />
+          <CollapsibleJsonViewer data={attributes} />
         </Stack>
       }
       <TextField

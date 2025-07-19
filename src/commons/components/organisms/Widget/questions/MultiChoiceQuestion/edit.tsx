@@ -38,7 +38,7 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   choices: any[];
   paperId: any;
   id: string;
-  object_id: string;
+  object_id: number;
   max_selections: number;
   min_selections: number;
   disable_after_answer: boolean;
@@ -52,7 +52,6 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   choices: previousQuestionChoices,
   paperId,
   id: widgetId,
-  object_id: objectId,
   handleClose,
   open,
   max_selections,
@@ -82,7 +81,7 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
     }
   }, [previousQuestionChoices])
 
-  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>({ ...widgetProps });
+  const [widgetFields, setWidgetFields] = useState<Partial<QuestionWidgetType>>(widgetProps);
 
   const handleSubmit = () => {
     onMutate({

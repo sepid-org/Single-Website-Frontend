@@ -46,20 +46,15 @@ const FileUploadButton: FC<PropsType> = ({
     <Fragment>
       <Button
         startIcon={<CloudUploadIcon />}
-        endIcon={
-          progress ?
-            <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={progress} /> :
-            null
-        }
+        endIcon={progress && <CircularProgress color='secondary' thickness={4} size={24} variant="determinate" value={progress} />}
         disabled={result.isLoading}
         component="label"
         htmlFor={`upload-widget-file-${id}`}
         variant="contained"
         color="primary"
+        sx={{ whiteSpace: 'normal', textAlign: 'center' }}
       >
-        <Typography textAlign={'center'} noWrap variant='button'>
-          {'بارگذاری فایل'}
-        </Typography>
+        {'بارگذاری فایل'}
       </Button>
       <input
         style={{ display: 'none' }}
@@ -67,7 +62,7 @@ const FileUploadButton: FC<PropsType> = ({
         type="file"
         onChange={handleUploadFile}
       />
-    </Fragment>
+    </Fragment >
   );
 }
 
