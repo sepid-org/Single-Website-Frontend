@@ -30,8 +30,24 @@ const ScoreBoard = React.lazy(() =>
   retryImport(() => import('apps/scoreboard/pages/ScoreBoard'))
 );
 
+const AshbariaApp = React.lazy(() =>
+  retryImport(() => import('apps/ashbaria/App'))
+);
+
+const FilmBaziApp = React.lazy(() =>
+  retryImport(() => import('apps/film-bazi/App'))
+);
+
 const App = () => {
   const { programSlug } = useParams();
+
+  if (programSlug === 'filmbazi') {
+    return <FilmBaziApp />
+  }
+
+  if (programSlug === 'ashbaria') {
+    return <AshbariaApp />
+  }
 
   return (
     <Routes>

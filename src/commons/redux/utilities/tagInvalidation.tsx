@@ -3,12 +3,16 @@ import { PartyManagementServiceApi } from "apps/website-display/redux/features/M
 import { WebsiteManagementServiceApi } from "apps/website-display/redux/features/ManageWebsiteServiceApiSlice";
 import { BankApi } from "../apis/bank/BankApi";
 import { tagTypes } from "./tagGenerationWithErrorCheck";
+import { AshbariaApi } from "apps/ashbaria/redux/AshbariaApi";
+import { FilmbaziApi } from "apps/film-bazi/redux/FilmbaziApi";
 
 // Define the API slices array once
 const apiSlices = [
   PartyManagementServiceApi,
   ContentManagementServiceApi,
   WebsiteManagementServiceApi,
+  AshbariaApi,
+  FilmbaziApi,
   BankApi
 ] as const;
 

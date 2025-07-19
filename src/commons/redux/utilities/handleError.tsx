@@ -43,6 +43,8 @@ const FIELD_TRANSLATIONS: Record<string, string> = {
 };
 
 const DOMAIN_TO_PATH_MAP: Record<string, string> = {
+  'filmbazi.ir': '/program/filmbazi/token-expiration/',
+  'ashbaria.ir': '/program/ashbaria/token-expiration/',
   'default': '/token-expiration/',
 };
 

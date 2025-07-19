@@ -1,0 +1,10 @@
+export const Primary = '#ff7a38';
+export const DarkPrimary = '#ff6b21';
+export const Secondary = '#484369E5';
+export const DarkSecondary = '#2B1A42';
+export const Golden = '#FFA800';
+export const Black = 'black';
+export const Gray = '#ACACAC';
+export const Green = '#00D387';
+export const Yellow = '#FFCD20';
+export const Orange = '#FFA95A';
