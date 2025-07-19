@@ -1,8 +1,8 @@
 import React, { FC, useMemo, useEffect } from 'react';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
-import ObjectWrapper from 'commons/components/organisms/ObjectWrapper';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
 import usePaper from 'apps/fsm/hooks/usePaper';
+import ObjectWrapper from 'commons/components/organisms/object/ObjectWrapper';
 
 export type LayerProps = {
   paperId: string;

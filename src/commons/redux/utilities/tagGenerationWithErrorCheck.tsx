@@ -44,7 +44,6 @@ export const tagTypes = [
   'team',
   'my-invitations',
   'team-invitations',
-  'Position',
   // Bank
   'Balances',
 ]

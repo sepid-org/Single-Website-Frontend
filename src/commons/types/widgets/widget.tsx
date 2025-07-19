@@ -13,14 +13,6 @@ export type WidgetTypes =
   'MultiChoiceProblem' |
   'UploadFileProblem';
 
-export type PositionType = {
-  id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-}
-
 export type WidgetType = ObjectType & {
   id: number;
   mode: WidgetModes;

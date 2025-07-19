@@ -1,5 +1,12 @@
-import { PositionType } from "../widgets/widget";
 import { AttributeType } from "./attribute";
+
+export type PositionType = {
+  id: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
 
 export type ObjectType = {
   attributes: AttributeType[];

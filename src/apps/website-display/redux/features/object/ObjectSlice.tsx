@@ -1,5 +1,6 @@
-import { PositionType } from "commons/types/widgets/widget";
+import { PositionType } from "commons/types/object/object";
 import { ContentManagementServiceApi } from "../ManageContentServiceApiSlice";
+import tagGenerationWithErrorCheck from "commons/redux/utilities/tagGenerationWithErrorCheck";
 
 
 interface UpdatePositionsRequest {
@@ -10,11 +11,9 @@ interface UpdatePositionsRequest {
 export const PositionSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
     updatePositions: builder.mutation<void, UpdatePositionsRequest>({
-      invalidatesTags: (result, error, item) => [
-        { type: 'Position', id: 'LIST' },
-        // todo: TOF
-        item.paperId && { type: 'paper', id: item.paperId },
-      ],
+      invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => [
+        { type: 'paper', id: item.paperId },
+      ]),
       query: ({ positions }) => ({
         url: '/fsm/objects/update-positions/',
         method: 'POST',
