@@ -1,6 +1,6 @@
 import { Box, Container, Paper, Stack } from '@mui/material';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import ClassicAuthTabs from 'commons/components/organisms/auth/ClassicAuth';
+import OtpAuthTabs from 'commons/components/organisms/auth/OtpAuth';
 import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
@@ -32,7 +32,7 @@ const Authentication: FC<PropsType> = () => {
           spacing={2}
           padding={2}
           alignItems={'center'}>
-          <ClassicAuthTabs basePath={`/program/${programSlug}/auth`} />
+          <OtpAuthTabs />
         </Stack>
 
       </Stack>

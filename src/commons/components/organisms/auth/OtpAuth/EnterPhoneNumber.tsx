@@ -8,11 +8,12 @@ import { toEnglishNumber } from "commons/utils/translateNumber";
 import PhoneNumberInput from "commons/components/molecules/profile-inputs/PhoneNumberInput";
 import { LoginTabs } from ".";
 
-type EnterPhoneNumberPropsType = {}
+type EnterPhoneNumberPropsType = {};
 
-const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
+const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [getVerificationCode, getVerificationCodeResult] = useGetVerificationCodeMutation();
+  const [getVerificationCode, getVerificationCodeResult] =
+    useGetVerificationCodeMutation();
 
   useEffect(() => {
     if (getVerificationCodeResult.isSuccess) {
@@ -25,23 +26,27 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
 
   const handleGetVerificationCode = () => {
     if (!isPhoneNumber(phoneNumber)) {
-      toast.error('بی‌خیال، یه شماره تلفن معتبر وارد کن')
+      toast.error("لطفاً یک شماره تلفن همراه معتبر وارد نمایید");
       return;
     }
-    getVerificationCode({ phoneNumber, verificationType: 'create-user-account' });
+    getVerificationCode({
+      phoneNumber,
+      verificationType: "create-user-account",
+    });
   };
 
   const handleChangePhoneNumber = (value) => {
-    setSearchParams({ phoneNumber: toEnglishNumber(value) })
-  }
+    setSearchParams({ phoneNumber: toEnglishNumber(value) });
+  };
 
-  const phoneNumber = searchParams.get('phoneNumber') || '';
+  const phoneNumber = searchParams.get("phoneNumber") || "";
 
   return (
-    <Stack spacing={1} width={'100%'}>
-      <Typography textAlign={'center'}>
-        {'بی‌زحمت شماره موبایلتو بزن:'}
+    <Stack spacing={1} width="100%">
+      <Typography textAlign="center">
+        {"لطفاً شماره تلفن همراه خود را وارد نمایید:"}
       </Typography>
+
       <PhoneNumberInput
         phoneNumber={phoneNumber}
         setPhoneNumber={handleChangePhoneNumber}
@@ -50,8 +55,14 @@ const EnterPhoneNumber: FC<EnterPhoneNumberPropsType> = ({ }) => {
         textDir="ltr"
         isRequired={false}
       />
-      <Button fullWidth variant='contained' onClick={handleGetVerificationCode}>
-        {'دریافت کد تایید'}
+
+      <Button
+        disabled={getVerificationCodeResult.isLoading}
+        fullWidth
+        variant="contained"
+        onClick={handleGetVerificationCode}
+      >
+        {"درخواست کد تأیید"}
       </Button>
     </Stack>
   );
