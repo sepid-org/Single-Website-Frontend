@@ -23,13 +23,11 @@ import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import {
-  deleteRequestMentorAction,
   getPlayerFromTeamAction,
 } from 'apps/website-display/redux/slices/programs';
 import { useParams } from 'react-router-dom'
 import { UserPublicInfoType, RegistrationReceiptType } from 'commons/types/models';
 import { stringToColor } from 'commons/utils/stringToColor'
-import { getTeamStateSubscription, getTeamState } from 'apps/website-display/parse/team';
 import { e2p } from 'commons/utils/translateNumber';
 var moment = require('moment');
 
@@ -115,39 +113,39 @@ const TeamWorkshopInfo: FC<TeamWorkshopInfoPropsType> = ({
   //   })
   // }, [mentorsInRoom])
 
-  useEffect(() => {
-    const subscribeOnStateChange = async () => {
-      const state = await getTeamState(teamId);
-      if (!state) {
-        return
-      }
-      setCurrentStateName(state.get('currentStateName'))
-      setTeamEnterTimeToState(state.get('teamEnterTimeToState'))
-      const subscriber = await getTeamStateSubscription();
-      subscriber.on('create', (newState) => {
-        if (newState.get('uuid') === teamId) {
-          const currentStageNameTmp = newState.get('currentStateName');
-          const teamEnterTimeToStateTmp = moment()
-          setCurrentStateName(currentStageNameTmp)
-          setTeamEnterTimeToState(teamEnterTimeToStateTmp)
-        }
-      });
-      subscriber.on('update', (newState) => {
-        if (newState.get('uuid') === teamId) {
-          const currentStageNameTmp = newState.get('currentStateName');
-          const teamEnterTimeToStateTmp = moment()
-          setCurrentStateName(currentStageNameTmp)
-          setTeamEnterTimeToState(teamEnterTimeToStateTmp)
-        }
-      });
-      stateChangeSubscriberRef.current = subscriber;
-    }
-    subscribeOnStateChange()
+  // useEffect(() => {
+  //   const subscribeOnStateChange = async () => {
+  //     const state = await getTeamState(teamId);
+  //     if (!state) {
+  //       return
+  //     }
+  //     setCurrentStateName(state.get('currentStateName'))
+  //     setTeamEnterTimeToState(state.get('teamEnterTimeToState'))
+  //     const subscriber = await getTeamStateSubscription();
+  //     subscriber.on('create', (newState) => {
+  //       if (newState.get('uuid') === teamId) {
+  //         const currentStageNameTmp = newState.get('currentStateName');
+  //         const teamEnterTimeToStateTmp = moment()
+  //         setCurrentStateName(currentStageNameTmp)
+  //         setTeamEnterTimeToState(teamEnterTimeToStateTmp)
+  //       }
+  //     });
+  //     subscriber.on('update', (newState) => {
+  //       if (newState.get('uuid') === teamId) {
+  //         const currentStageNameTmp = newState.get('currentStateName');
+  //         const teamEnterTimeToStateTmp = moment()
+  //         setCurrentStateName(currentStageNameTmp)
+  //         setTeamEnterTimeToState(teamEnterTimeToStateTmp)
+  //       }
+  //     });
+  //     stateChangeSubscriberRef.current = subscriber;
+  //   }
+  //   subscribeOnStateChange()
 
-    return () => {
-      stateChangeSubscriberRef.current?.unsubscribe();
-    };
-  }, [teamId]);
+  //   return () => {
+  //     stateChangeSubscriberRef.current?.unsubscribe();
+  //   };
+  // }, [teamId]);
 
   {/* this function redirects mentor to a teams page, this team could have requested mentor or not, if so, we use the
 available playerId field, otherwise we fetch one team members Id and use it to access their page */}
@@ -351,6 +349,5 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 export default connect(mapStateToProps, {
-  deleteRequestMentor: deleteRequestMentorAction,
   getPlayerFromTeam: getPlayerFromTeamAction,
 })(TeamWorkshopInfo);

@@ -11,9 +11,7 @@ import Layout from 'commons/template/Layout';
 import States from 'apps/fsm/template/States';
 import Edges from 'apps/fsm/template/Edges';
 import Statistics from 'apps/fsm/template/Statistics';
-import IndividualRequests from 'apps/fsm/template/IndividualRequests';
 import Info from 'apps/fsm/template/Info';
-import TeamRequests from 'apps/fsm/template/TeamRequests';
 import Mentors from 'apps/fsm/template/Mentors';
 import { DashboardTabType } from 'commons/types/global';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
@@ -24,7 +22,7 @@ import FSMMapEditor from '../template/FSMMapEditor';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import Players from '../template/Players';
 
-const initialTabs: DashboardTabType[] = [
+const tabs: DashboardTabType[] = [
   {
     slug: 'info',
     label: 'اطلاعات کلی',
@@ -82,31 +80,6 @@ type FSMManagementPropsType = {}
 const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: fsm } = useGetFSMQuery({ fsmId });
-
-  const tabs: DashboardTabType[] =
-    (fsm && fsm.id == fsmId && fsm.fsm_learning_type == 'Supervised') ?
-      (fsm.fsm_p_type == 'Team') ?
-        [
-          ...initialTabs,
-          {
-            slug: 'requests',
-            label: 'درخواست‌ها',
-            icon: QuestionAnswerIcon,
-            component: <TeamRequests />,
-          },
-        ] :
-        (fsm.fsm_p_type == 'Individual') ?
-          [
-            ...initialTabs,
-            {
-              slug: 'requests',
-              label: 'درخواست‌ها',
-              icon: QuestionAnswerIcon,
-              component: <IndividualRequests />,
-            },
-          ] :
-          initialTabs :
-      initialTabs
 
   return (
     <Layout appbarMode='GENERAL'>

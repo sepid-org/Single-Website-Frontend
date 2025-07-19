@@ -8,8 +8,8 @@ import {
 import { Brush as BrushIcon } from '@mui/icons-material';
 import React, { Fragment, useEffect, useState } from 'react';
 
-import CustomDraggable from 'commons/components/organisms/Whiteboard/CustomDraggable';
-import Whiteboard from 'commons/components/organisms/Whiteboard';
+// import CustomDraggable from 'commons/components/organisms/Whiteboard/CustomDraggable';
+// import Whiteboard from 'commons/components/organisms/Whiteboard';
 import useWidth from 'commons/utils/UseWidth';
 
 function WhiteboardButton() {
@@ -47,7 +47,8 @@ function WhiteboardButton() {
         hideBackdrop
         disableEnforceFocus
         style={{ pointerEvents: isDraggable ? 'none' : 'auto' }}
-        PaperComponent={isDraggable ? CustomDraggable : Paper}>
+      // PaperComponent={isDraggable ? CustomDraggable : Paper}
+      >
         {isDraggable &&
           <Box sx={{
             width: '100%',
@@ -56,13 +57,13 @@ function WhiteboardButton() {
             cursor: 'move',
           }} />}
         <div className="not-draggable">
-          <Whiteboard
+          {/* <Whiteboard
             width={isDraggable ? 1000 : width}
             height={isDraggable ? 500 : height}
             handleClose={() => setOpen(false)}
             isFullScreen={isFullScreen}
             setIsFullScreen={setIsFullScreen}
-          />
+          /> */}
         </div>
       </Dialog>
     </Fragment>

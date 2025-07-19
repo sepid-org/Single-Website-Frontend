@@ -7,7 +7,6 @@ import {
   registerUsersViaCSVUrl,
   getPlayerFromTeamUrl,
 } from '../constants/urls';
-import { getRequests, deleteRequest } from 'apps/website-display/parse/mentor'
 import { InitialState } from 'commons/types/redux/program'
 
 const initialState: InitialState = {
@@ -67,40 +66,6 @@ export const getPlayerFromTeamAction = createAsyncThunkApi(
   }
 );
 
-export const getRequestMentorAction = createAsyncThunk(
-  'requestMentor/getAll',
-  async (arg, { rejectWithValue }) => {
-    try {
-      const requests = await getRequests();
-      const teamsRequests = {};
-      requests.forEach((request) => {
-        const teamId = request.get('teamId');
-        const playerId = request.get('playerId');
-        const fsmId = request.get('fsmId');
-        teamsRequests[teamId + '.' + fsmId] = playerId;
-      });
-      return { teamsRequests };
-    } catch (err) {
-      return rejectWithValue({
-        message: 'مشکلی در دریافت درخواست‌‌های همیار وجود داشت.',
-      });
-    }
-  }
-);
-
-export const deleteRequestMentorAction = createAsyncThunk<any, { teamId: string, fsmId: number }>(
-  'requestMentor/delete',
-  async ({ teamId, fsmId }, { rejectWithValue }) => {
-    try {
-      await deleteRequest({ teamId, fsmId });
-    } catch (err) {
-      return rejectWithValue({
-        message: 'مشکلی در پاک‌کردن درخواست وجود دارد.',
-      });
-    }
-  }
-);
-
 // end of mentor programs
 
 const isFetching = (state) => {
@@ -145,14 +110,6 @@ const programSlice = createSlice({
       // window.open(
       //   `https://kamva.academy/join/${payload?.response?.id}/${meta?.arg?.accessToken}/`
       // );
-    },
-
-    [getRequestMentorAction.fulfilled.toString()]: (state, { payload: { teamsRequests } }) => {
-      state.teamsRequests = teamsRequests;
-    },
-
-    [deleteRequestMentorAction.fulfilled.toString()]: (state, { meta: { arg } }) => {
-      delete state.teamsRequests[arg.teamId + '.' + arg.fsmId];
     },
 
     [registerUsersViaCSVAction.pending.toString()]: isFetching,

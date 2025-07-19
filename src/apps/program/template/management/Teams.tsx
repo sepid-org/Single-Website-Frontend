@@ -18,7 +18,6 @@ import Pagination from '@mui/material/Pagination';
 import TeamInfoCard from 'commons/components/organisms/cards/TeamInfoCard';
 import {
   createRequestMentorAction,
-  getRequestMentorAction,
   removeRequestMentorAction,
 } from 'apps/website-display/redux/slices/programs';
 import NoDataFound from 'commons/components/molecules/NoDataFound';
@@ -205,7 +204,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getRequestMentor: getRequestMentorAction,
   createRequestMentor: createRequestMentorAction,
   removeRequestMentor: removeRequestMentorAction,
 })(Teams);

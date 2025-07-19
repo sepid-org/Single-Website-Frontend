@@ -6,7 +6,6 @@ import {
   Help as HelpIcon,
 } from '@mui/icons-material';
 import React, { useEffect, useRef, useState } from 'react';
-import CustomJitsiMeeting from './CustomJitsiMeeting';
 import MeetingCustomSpinner from 'commons/components/atoms/MeetingCustomSpinner';
 import useUserProfile from 'commons/hooks/useUserProfile';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -98,10 +97,13 @@ function Meeting({ handleClose }) {
             width='100%'
             style={{ border: 'none' }} />
           : teamId
-            ? <CustomJitsiMeeting
-              key={random}
-              appId={teamId}
-              userDisplayName={displayName} userEmail={''} roomName={`تیم ${myTeam?.name}`} />
+            ?
+            <Box id='meeting window should be placed here' />
+            // <CustomJitsiMeeting
+            //   key={random}
+            //   appId={teamId}
+            //   userDisplayName={displayName} userEmail={''} roomName={`تیم ${myTeam?.name}`}
+            // />
             : <MeetingCustomSpinner />
         }
       </Box>

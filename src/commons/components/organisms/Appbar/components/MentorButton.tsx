@@ -2,7 +2,6 @@ import { Button } from '@mui/material';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { requestMentorAction } from 'apps/website-display/redux/slices/currentState';
 import useWidth from 'commons/utils/UseWidth';
 import { toast } from 'react-toastify';
 import { useFSMStateContext } from 'commons/hooks/useFSMStateContext';
@@ -38,4 +37,4 @@ function MentorButton({ callMentor }) {
   );
 }
 
-export default connect(null, { callMentor: requestMentorAction })(MentorButton);
+export default connect(null)(MentorButton);

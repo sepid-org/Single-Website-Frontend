@@ -1,21 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { requestMentor } from 'apps/website-display/parse/mentor'
-
-export const requestMentorAction = createAsyncThunk(
-  'requestMentor',
-  async ({ playerId, teamId, fsmId }, { rejectWithValue }) => {
-    try {
-      await requestMentor({ playerId, teamId, fsmId })
-      return {
-        message: 'درخواست شما ارسال شد.'
-      }
-    } catch (err) {
-      return rejectWithValue({
-        message: 'یه مشکلی وجود داره. یه چند لحظه دیگه دوباره تلاش کن!'
-      })
-    }
-  }
-)
+import { createSlice } from '@reduxjs/toolkit'
 
 const currentStateSlice = createSlice({
   name: 'currentState',
