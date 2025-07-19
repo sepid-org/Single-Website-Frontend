@@ -59,7 +59,7 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
     <Dialog disableScrollLock open={open} maxWidth='md'>
       <DialogTitle>{`سوال ارسال فایل ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='مشخصات شئ'>
+        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
           <ObjectFieldsEditor
             fields={widgetFields}
             setFields={setWidgetFields}

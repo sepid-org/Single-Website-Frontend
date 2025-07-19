@@ -124,7 +124,7 @@ const ButtonWidgetEditor = ({
               })
             }}
           />
-          <CollapsibleTitle title='مشخصات شئ'>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}

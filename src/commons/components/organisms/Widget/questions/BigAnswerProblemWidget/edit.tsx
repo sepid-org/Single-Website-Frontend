@@ -68,7 +68,7 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       <DialogTitle>{`سوال تشریحی ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <Stack alignItems={'start'} spacing={1}>
-          <CollapsibleTitle title='مشخصات شئ'>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}

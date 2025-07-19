@@ -45,7 +45,7 @@ const VideoEditWidget = ({
       <DialogTitle>فیلم</DialogTitle>
       <DialogContent>
         <Stack spacing={2}>
-          <CollapsibleTitle title='مشخصات شئ'>
+          <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
             <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}

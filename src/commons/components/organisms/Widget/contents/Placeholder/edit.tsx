@@ -37,7 +37,7 @@ const EditablePlaceholder = ({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>جانگهدار</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='مشخصات شئ'>
+        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
           <ObjectFieldsEditor
             fields={widgetFields}
             setFields={setWidgetFields}

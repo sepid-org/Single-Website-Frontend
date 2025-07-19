@@ -44,7 +44,7 @@ function IframeEditWidget({
     <Dialog disableScrollLock open={open}>
       <DialogTitle>{'لینک'}</DialogTitle>
       <DialogContent>
-        <CollapsibleTitle title='مشخصات شئ'>
+        <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
           <ObjectFieldsEditor
             fields={widgetFields}
             setFields={setWidgetFields}

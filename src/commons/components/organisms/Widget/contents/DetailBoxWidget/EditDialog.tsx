@@ -71,7 +71,7 @@ const DetailBoxEditDialog = ({
       <DialogContent>
         {activeStep === 0 &&
           <Fragment>
-            <CollapsibleTitle title='مشخصات شئ'>
+            <CollapsibleTitle title='تنظیمات پیشرفته‌تر'>
               <ObjectFieldsEditor
                 fields={widgetFields}
                 setFields={setWidgetFields}
