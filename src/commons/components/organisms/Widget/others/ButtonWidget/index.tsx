@@ -55,7 +55,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
     <Fragment>
       <Box
         sx={{
-          position: 'relative',           // <-- make this relative
+          position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -76,7 +76,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
-              borderRadius: 2,              // match your button’s border radius
+              borderRadius: 1,
               zIndex: 0,
             }}
           />
@@ -86,12 +86,11 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
           onClick={handleClick}
           disableRipple={!has_ripple_on_click}
           sx={{
-            position: 'relative',         // sit above the bg‑Box
+            position: 'relative',
             width: '100%',
             height: '100%',
             padding: 0,
             backgroundColor: background_image ? 'transparent' : undefined,
-            borderRadius: 2,
             overflow: 'hidden',
             animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
           }}
@@ -102,6 +101,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
               height: '100%',
               display: 'flex',
               alignItems: 'center',
+              justifyContent: 'center',
             }}
             content={label}
           />
