@@ -13,7 +13,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
-import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 
@@ -69,7 +69,7 @@ const BigAnswerProblemEditWidget: FC<BigAnswerProblemEditWidgetPropsType> = ({
       <DialogContent>
         <Stack alignItems={'start'} spacing={1}>
           <CollapsibleTitle title='مشخصات شئ'>
-            <EditObjectFields
+            <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />

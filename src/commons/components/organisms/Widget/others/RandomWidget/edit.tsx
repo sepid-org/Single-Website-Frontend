@@ -14,7 +14,7 @@ import {
 import React, { useState } from 'react'
 import { useTranslate } from 'react-redux-multilingual/lib/context'
 import FileUploadButton from 'commons/components/molecules/UploadFileButton'
-import EditObjectFields from 'commons/components/organisms/forms/EditObject'
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor'
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget'
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle'
 
@@ -52,7 +52,7 @@ const RandomWidgetEditor = ({
       <DialogContent>
         <Stack spacing={2}>
           <CollapsibleTitle title='مشخصات شئ'>
-            <EditObjectFields
+            <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />

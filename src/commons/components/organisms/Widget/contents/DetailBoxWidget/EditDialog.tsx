@@ -13,7 +13,7 @@ import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEdi
 import { PaperEditor } from 'commons/template/Paper';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
@@ -72,7 +72,7 @@ const DetailBoxEditDialog = ({
         {activeStep === 0 &&
           <Fragment>
             <CollapsibleTitle title='مشخصات شئ'>
-              <EditObjectFields
+              <ObjectFieldsEditor
                 fields={widgetFields}
                 setFields={setWidgetFields}
               />

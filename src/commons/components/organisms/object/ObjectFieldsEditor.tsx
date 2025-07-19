@@ -8,12 +8,12 @@ import { ObjectType } from 'commons/types/object/object';
 import CollapsibleJsonViewer from 'commons/utils/CollapsibleJsonViewer';
 import React, { FC } from 'react';
 
-type EditObjectFieldsPropsType = {
+type PropsType = {
   fields: Partial<ObjectType>;
   setFields: any;
 }
 
-const EditObjectFields: FC<EditObjectFieldsPropsType> = ({
+const ObjectFieldsEditor: FC<PropsType> = ({
   fields,
   setFields,
 }) => {
@@ -59,4 +59,4 @@ const EditObjectFields: FC<EditObjectFieldsPropsType> = ({
   );
 }
 
-export default EditObjectFields;
+export default ObjectFieldsEditor;

@@ -13,7 +13,7 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
-import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 
@@ -60,7 +60,7 @@ const UploadFileProblemEditWidget: FC<UploadFileProblemEditWidgetPropsType> = ({
       <DialogTitle>{`سوال ارسال فایل ${widgetId ? ` ${toPersianNumber(widgetId)}#` : ''}`}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>
-          <EditObjectFields
+          <ObjectFieldsEditor
             fields={widgetFields}
             setFields={setWidgetFields}
           />

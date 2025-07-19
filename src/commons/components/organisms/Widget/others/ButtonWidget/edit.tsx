@@ -13,7 +13,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import FileUploadButton from 'commons/components/molecules/UploadFileButton';
-import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
@@ -59,7 +59,7 @@ const ButtonWidgetEditor = ({
       <DialogContent>
         <Stack spacing={3}>
           <CollapsibleTitle title='مشخصات شئ'>
-            <EditObjectFields
+            <ObjectFieldsEditor
               fields={widgetFields}
               setFields={setWidgetFields}
             />

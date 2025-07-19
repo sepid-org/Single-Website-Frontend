@@ -9,7 +9,7 @@ import {
 import React, { useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
-import EditObjectFields from 'commons/components/organisms/forms/EditObject';
+import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
 
@@ -48,7 +48,7 @@ function TextEditWidget({
       <DialogTitle>{t('text')}</DialogTitle>
       <DialogContent>
         <CollapsibleTitle title='مشخصات شئ'>
-          <EditObjectFields
+          <ObjectFieldsEditor
             fields={widgetFields}
             setFields={setWidgetFields}
           />
