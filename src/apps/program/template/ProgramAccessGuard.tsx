@@ -35,12 +35,12 @@ const ProgramAccessGuard: React.FC<Props> = ({ children }) => {
     }
   }, [isReceiptError, isReceiptSuccess, receipt, navigate, programSlug, program]);
 
-  if (isProgramLoading || isReceiptLoading) {
-    return <TransparentBackdrop open />;
-  }
-
   if (program?.is_public || receipt?.is_participating) {
     return children;
+  }
+
+  if (isProgramLoading || isReceiptLoading) {
+    return <TransparentBackdrop open />;
   }
 
   return null;
