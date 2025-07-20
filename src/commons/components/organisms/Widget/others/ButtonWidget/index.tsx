@@ -3,17 +3,13 @@ import { Box, Button } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from '../..';
 import ButtonWidgetEditor from './edit';
-import useChangeState from 'commons/hooks/fsm/useChangeState';
 import useSubmitButton from 'commons/hooks/useSubmitButton';
 import { keyframes } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 const wave = keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
-  }
+  0%   { box-shadow: 0 0 0 0   rgba(0,0,0,0.3); }
+  100% { box-shadow: 0 0 0 20px rgba(0,0,0,0); }
 `;
 
 type ButtonWidgetPropsType = {
@@ -35,20 +31,24 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   mode,
   id: widgetId,
 }) => {
-  const [changeState] = useChangeState();
+  const navigate = useNavigate();
   const [submitButton] = useSubmitButton();
 
   const handleClick = () => {
-    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) {
-      return;
-    }
+    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) return;
+
     if (destination_page_url) {
-      window.location.href = destination_page_url;
+      // اگر URL داخلی است، مسیردهی کلاینتی انجام بده
+      const urlObj = new URL(destination_page_url, window.location.origin);
+      if (urlObj.origin === window.location.origin) {
+        navigate(`${urlObj.pathname}${urlObj.search}${urlObj.hash}`);
+      } else {
+        window.location.href = destination_page_url;
+      }
       return;
     }
-    submitButton({
-      clickedButtonId: widgetId,
-    });
+
+    submitButton({ clickedButtonId: widgetId });
   };
 
   return (
@@ -89,7 +89,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
             position: 'relative',
             width: '100%',
             height: '100%',
-            padding: 0,
+            p: 0,
             backgroundColor: background_image ? 'transparent' : undefined,
             overflow: 'hidden',
             animation: has_wave_effect ? `${wave} 2s infinite` : 'none',
