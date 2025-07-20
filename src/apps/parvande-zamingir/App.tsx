@@ -4,7 +4,7 @@ import { Outlet, Route, Routes, useParams } from 'react-router-dom';
 import { retryImport } from 'commons/utils/retryImport';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
-import Authentication from '../program/pages/Authentication';
+import Authentication from './pages/Authentication';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import ProgramAccessGuard from '../program/template/ProgramAccessGuard';
 import Menu from '../program/pages/Menu';
