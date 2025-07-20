@@ -25,6 +25,10 @@ const FormApp = React.lazy(() =>
   retryImport(() => import('apps/form/App'))
 );
 
+const MeetingApp = React.lazy(() =>
+  retryImport(() => import('apps/meeting/App'))
+);
+
 const Root = () => {
   return (
     <Suspense
@@ -34,6 +38,7 @@ const Root = () => {
     >
       <BrowserRouter>
         <Routes>
+          <Route path="/meeting/:meetingId/" element={<MeetingApp />} />
           <Route path="/form/:formId/*" element={<FormApp />} />
           <Route path="/article/:articleId/*" element={<ArticleApp />} />
           <Route path="/fsm/:fsmId/*" element={<FSMApp />} />

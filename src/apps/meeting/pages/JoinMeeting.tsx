@@ -12,11 +12,14 @@ import {
   Typography,
   CircularProgress,
 } from '@mui/material';
-import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import { useGetMeetingQuery, useJoinMeetingMutation } from '../redux/slices/MeetingSlice';
+import {
+  useGetMeetingQuery,
+  useJoinMeetingMutation,
+} from 'apps/program/redux/slices/MeetingSlice';
+import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
 
 const JoinMeeting: FC = () => {
-  const { programSlug, meetingId } = useParams<{ programSlug: string; meetingId: string }>();
+  const { meetingId } = useParams<{ programSlug: string; meetingId: string }>();
   const { data: meeting } = useGetMeetingQuery({ meetingId });
   const [mode, setMode] = useState<'guest' | 'admin'>('guest');
   const [fullName, setFullName] = useState('');
@@ -63,7 +66,7 @@ const JoinMeeting: FC = () => {
     >
       <Stack spacing={4} alignItems="center" width={400}>
         <Box pb={2}>
-          <ProgramLogo size="large" />
+          <WebsiteLogo size="large" />
         </Box>
 
         <Paper sx={{ width: '100%', p: 3 }}>

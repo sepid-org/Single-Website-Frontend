@@ -10,10 +10,6 @@ import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import ProgramAccessGuard from './template/ProgramAccessGuard';
 import Menu from './pages/Menu';
 
-const JoinMeeting = React.lazy(() =>
-  retryImport(() => import('apps/program/pages/JoinMeeting'))
-);
-
 const Registration = React.lazy(() =>
   retryImport(() => import('apps/program/pages/Registration'))
 );
@@ -60,8 +56,6 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/meeting/:meetingId/" element={<JoinMeeting />} />
-
       <Route element={<AnonymousRoute base={`/program/${programSlug}/`} />}>
         <Route path="/auth/:tabName?" element={<Authentication />} />
       </Route>
