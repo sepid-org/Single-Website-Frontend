@@ -122,7 +122,7 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
       invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
       query: ({ playerId }) => ({
         url: `/fsm/player/${playerId}/finish-fsm/`,
-        method: 'GET',
+        method: 'POST',
       }),
     }),
 
