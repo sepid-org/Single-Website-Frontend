@@ -18,8 +18,8 @@ type Props = { name: string };
 
 const Placeholder: React.FC<Props> = ({ name }) => {
   /* الگوهای داینامیک */
-  const amountMatch = name.match(/^user\.resources\.([^.]+)\.amount$/);
-  const rankMatch = name.match(/^user\.resources\.([^.]+)\.rank$/);
+  const amountMatch = name?.match(/^user\.resources\.([^.]+)\.amount$/);
+  const rankMatch = name?.match(/^user\.resources\.([^.]+)\.rank$/);
 
   let finalComponent = null;
 
