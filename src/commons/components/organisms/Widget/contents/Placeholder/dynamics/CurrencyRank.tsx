@@ -1,6 +1,7 @@
 import React from 'react';
 import { Skeleton, Typography } from '@mui/material';
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 interface Props { currency: string }
 
@@ -10,14 +11,22 @@ const CurrencyRank: React.FC<Props> = ({ currency }) => {
     { skip: !currency }
   );
 
-  if (isLoading || isError) {
+  if (isError) {
     return (
-      <Skeleton width="100%" height="100%" />
+      <Typography>
+        خطا
+      </Typography>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <Skeleton width={100} height={80} />
     );
   }
 
   return (
-    <Typography>{data?.rank ?? '--'}</Typography>
+    <Typography>{toPersianNumber(data?.rank) ?? '-'}</Typography>
   );
 };
 

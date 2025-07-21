@@ -7,7 +7,7 @@ const UserFullName = () => {
 
   if (isLoading || isError) {
     return (
-      <Skeleton width="100%" height="100%" />
+      <Skeleton width={120} height={60} />
     );
   }
 

@@ -7,7 +7,7 @@ const UserAvatar = () => {
 
   if (isLoading || isError) {
     return (
-      <Skeleton variant="circular" width="60%" height="60%" />
+      <Skeleton variant="circular" width={100} height={100} />
     );
   }
 
