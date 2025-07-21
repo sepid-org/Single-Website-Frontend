@@ -4,7 +4,7 @@ import { Golden } from "apps/film-bazi/constants/colors";
 import React, { FC } from "react";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import VerifyIcon from "../../../atoms/icons/Verify";
-import useStartFSM from "commons/hooks/fsm/useStartFSM";
+import useEnterFSM from "commons/hooks/fsm/useEnterFSM";
 import { ASHBARIA_SURVEY_CORRESPONDING_FSM_ID } from "apps/ashbaria/constants/game-info";
 
 type PropsType = {
@@ -14,14 +14,14 @@ type PropsType = {
 const ActiveCourtCard: FC<PropsType> = ({
   court,
 }) => {
-  const [startFSM1] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
-  const [startFSM2] = useStartFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/survey/` });
+  const [enterFSM1] = useEnterFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/court/${court.corresponding_fsm}/` });
+  const [enterFSM2] = useEnterFSM({ fsmId: court.corresponding_fsm, redirectPath: `/program/ashbaria/survey/` });
 
   const handleEnter = () => {
     if (court.corresponding_fsm === ASHBARIA_SURVEY_CORRESPONDING_FSM_ID) {
-      startFSM2({});
+      enterFSM2();
     } else {
-      startFSM1({})
+      enterFSM1()
     }
   }
 

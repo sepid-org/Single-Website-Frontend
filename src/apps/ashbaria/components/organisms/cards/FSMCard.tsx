@@ -14,7 +14,7 @@ import React, { Fragment, FC } from 'react';
 
 import { FSMType, UserFSMStatusType } from 'commons/types/models';
 import { Link } from 'react-router-dom';
-import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import useEnterFSM from 'commons/hooks/fsm/useEnterFSM';
 
 type FSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -27,10 +27,10 @@ export const FSMCard: FC<FSMCardPropsType> = ({
   isLoading = false,
   userFSMStatus,
 }) => {
-  const [_startFSM, result] = useStartFSM({ fsmId: fsm?.id, redirectPath: `/program/ashbaria/court/${fsm.id}/` });
+  const [_enterFSM, result] = useEnterFSM({ fsmId: fsm?.id, redirectPath: `/program/ashbaria/court/${fsm.id}/` });
 
-  const startFSM = () => {
-    _startFSM({})
+  const enterFSM = () => {
+    _enterFSM()
   }
 
   return (
@@ -48,7 +48,7 @@ export const FSMCard: FC<FSMCardPropsType> = ({
           boxShadow: fsm?.is_active ? 6 : 3,
         },
       }}
-      onClick={startFSM}
+      onClick={enterFSM}
     >
       {isLoading ? (
         <Skeleton

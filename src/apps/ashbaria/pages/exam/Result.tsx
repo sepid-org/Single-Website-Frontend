@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
-import useStartFSM from "commons/hooks/fsm/useStartFSM";
+import useEnterFSM from "commons/hooks/fsm/useEnterFSM";
 import TickCircleIcon from "apps/ashbaria/components/atoms/icons/TickCircle";
 import CrossCircleIcon from "apps/ashbaria/components/atoms/icons/CrossCircle";
 import ScoreChip from "apps/ashbaria/components/molecules/chips/Score";
@@ -25,7 +25,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { programSlug } = useParams();
   const { data: player, isLoading: isLoadingPlayer } = useGetCurrentUserPlayerQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isLoadingUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
+  const [enterFSM] = useEnterFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
   const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
 
@@ -98,7 +98,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         <Button
           fullWidth
           variant="contained"
-          onClick={() => startFSM({})}
+          onClick={() => enterFSM()}
           disabled={fsm?.participant_limit - userCurrentFSM?.finished_players_count <= 0 || isLoading}
           startIcon={<RefreshIcon />}
         >

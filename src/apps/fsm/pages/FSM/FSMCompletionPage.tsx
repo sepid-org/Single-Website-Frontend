@@ -3,14 +3,17 @@ import React, { FC } from "react";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import PlayerPerformance from "../template/PlayerPerformance";
+import PlayerPerformance from "../../template/PlayerPerformance";
 import Confetti from 'react-confetti'
 
-type PropsType = {};
+type PropsType = {
+  playerId: number;
+};
 
-const FSMCompletionPage: FC<PropsType> = ({ }) => {
+const FSMCompletionPage: FC<PropsType> = ({
+  playerId,
+}) => {
   const fsmId = parseInt(useParams().fsmId);
-  const playerId = parseInt(useParams().playerId);
   const navigate = useNavigate();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 

@@ -53,7 +53,7 @@ const FinishCourt: FC<FinishCourtPropsType> = ({ }) => {
 
   useEffect(() => {
     finishCourt({ fsmId });
-    finishFSM(false);
+    finishFSM();
   }, [])
 
   const handleGoToHome = () => {

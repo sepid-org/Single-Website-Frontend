@@ -4,36 +4,26 @@ import { PlayerType } from "commons/types/models";
 import { MutationResult } from "commons/types/rtk";
 import { useEffect, useCallback } from "react";
 
-interface UseStartFSMParams {
+interface UseEnterFSMParams {
   fsmId: number;
   redirectPath?: string;
   reloadOnRedirect?: boolean;
 }
 
-interface StartFSMParams {
-  password?: string;
-}
-
-const useStartFSM = ({
+const useEnterFSM = ({
   fsmId,
   redirectPath,
   reloadOnRedirect,
-}: UseStartFSMParams): [
-    ({ password }: StartFSMParams) => Promise<PlayerType>,
+}: UseEnterFSMParams): [
+    () => Promise<PlayerType>,
     MutationResult<PlayerType>
   ] => {
   const navigate = useNavigate();
   const [_enterFSM, enterFSMResult] = useEnterFSMMutation();
 
-  const startFSM = useCallback(async ({ password }: StartFSMParams) => {
+  const enterFSM = useCallback(async () => {
     try {
-      // Include password in the mutation payload if provided
-      const payload = {
-        fsmId,
-        ...(password && { password })
-      };
-
-      const result = await _enterFSM(payload).unwrap();
+      const result = await _enterFSM({ fsmId }).unwrap();
       return result;
     } catch (error) {
 
@@ -51,7 +41,7 @@ const useStartFSM = ({
   }, [enterFSMResult.isSuccess]);
 
   return [
-    startFSM,
+    enterFSM,
     {
       data: enterFSMResult.data,
       error: enterFSMResult.error,
@@ -63,4 +53,4 @@ const useStartFSM = ({
   ];
 };
 
-export default useStartFSM;
+export default useEnterFSM;

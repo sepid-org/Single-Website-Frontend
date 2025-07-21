@@ -3,19 +3,17 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Typography, Button, Stack, Box, IconButton, Skeleton, useTheme, useMediaQuery, Chip } from '@mui/material';
 import { Lock, Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
-import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import useEnterFSM from 'commons/hooks/fsm/useEnterFSM';
 
 const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
-  const [openPassword, setOpenPassword] = useState(false);
-  const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
+  const [enterFSM, result] = useEnterFSM({ fsmId: fsm?.id });
 
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const isTablet = useMediaQuery(theme.breakpoints.up('sm'))
 
-  const handleStartFSM = () => {
-    startFSM({});
+  const handleEnterFSM = () => {
+    enterFSM();
   };
 
   const cardWidth = '100%';
@@ -87,7 +85,7 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
             variant='outlined'
             color="primary"
             disabled={!fsm?.is_active}
-            onClick={handleStartFSM}
+            onClick={handleEnterFSM}
             // startIcon={fsm?.has_entrance_lock ? <Lock fontSize="small" /> : null}
             size={isDesktop ? 'medium' : 'small'}
           >
@@ -95,11 +93,6 @@ const FSMHorizontalCard = ({ fsm, isLoading = false, userStatus }) => {
           </Button>
         </Box>
       </Box>
-      <EnterFSMPasswordDialog
-        open={openPassword}
-        handleClose={() => setOpenPassword(false)}
-        fsmId={fsm?.id}
-      />
     </Card>
   );
 };

@@ -327,7 +327,6 @@ export type UserFSMStatusType = {
   fsm_id: number;
   is_user_mentor: boolean;
   finished_players_count: number;
-  has_active_player: boolean;
   is_enabled_for_user: boolean;
 }
 

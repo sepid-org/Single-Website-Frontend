@@ -2,14 +2,14 @@ import { Button, Stack, Typography } from '@mui/material';
 import React, { FC, useEffect, useState } from 'react';
 
 import InfoIcon from '../../atoms/icons/Info';
-import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import useEnterFSM from 'commons/hooks/fsm/useEnterFSM';
 
 type PropsType = {}
 
 const GAME_HELP_FSM_ID = 217;
 
 const HelpButton: FC<PropsType> = () => {
-  const [startFSM, startFSMResult] = useStartFSM({ fsmId: GAME_HELP_FSM_ID, redirectPath: `/program/ashbaria/court/${GAME_HELP_FSM_ID}/` });
+  const [enterFSM] = useEnterFSM({ fsmId: GAME_HELP_FSM_ID, redirectPath: `/program/ashbaria/court/${GAME_HELP_FSM_ID}/` });
 
   const [isBlinking, setIsBlinking] = useState<boolean>(false);
 
@@ -22,7 +22,7 @@ const HelpButton: FC<PropsType> = () => {
   }, []);
 
   const handleClick = () => {
-    startFSM({});
+    enterFSM();
     setIsBlinking(false);
     localStorage.setItem('helpButtonClicked', 'true');
   };

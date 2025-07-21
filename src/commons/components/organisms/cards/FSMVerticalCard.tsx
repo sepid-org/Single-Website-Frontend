@@ -10,12 +10,11 @@ import {
 } from '@mui/material';
 import { Group, Person } from '@mui/icons-material';
 import ModeEditTwoToneIcon from '@mui/icons-material/ModeEditTwoTone';
-import React, { useState, Fragment, FC } from 'react';
+import React, { Fragment, FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import EnterFSMPasswordDialog from 'commons/components/organisms/dialogs/EnterFSMPasswordDialog';
 import { FSMType, UserFSMStatusType } from 'commons/types/models';
-import useStartFSM from 'commons/hooks/fsm/useStartFSM';
+import useEnterFSM from 'commons/hooks/fsm/useEnterFSM';
 
 type VerticalFSMCardPropsType = {
   fsm: Partial<FSMType>;
@@ -28,15 +27,14 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
   isLoading = false,
   userStatus,
 }) => {
-  const [openPassword, setOpenPassword] = useState(false);
-  const [startFSM, result] = useStartFSM({ fsmId: fsm?.id });
+  const [enterFSM, result] = useEnterFSM({ fsmId: fsm?.id });
 
   // todo: temporarily ignore is_enabled_for_user, until enabling conditions are sat
   const isCardEnabled = fsm?.is_active; // fsm?.is_active && userStatus?.is_enabled_for_user;
 
   const handleCardClick = () => {
     if (isCardEnabled) {
-      startFSM({});
+      enterFSM();
     }
   };
 
@@ -128,11 +126,6 @@ export const FSMVerticalCard: FC<VerticalFSMCardPropsType> = ({
           </CardContent>
         </Fragment>
       )}
-      <EnterFSMPasswordDialog
-        open={openPassword}
-        handleClose={() => setOpenPassword(false)}
-        fsmId={fsm?.id}
-      />
     </Card>
   );
 };

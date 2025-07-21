@@ -34,7 +34,6 @@ type GetPlayerOutputType = PlayerType;
 
 type EnterFSMInputType = {
   fsmId: number;
-  password?: string;
 }
 
 type EnterFSMOutputType = PlayerType;
@@ -105,12 +104,17 @@ export const PlayerSlice = ContentManagementServiceApi.injectEndpoints({
 
     enterFSM: builder.mutation<EnterFSMOutputType, EnterFSMInputType>({
       invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
-      query: ({ fsmId, password }) => ({
+      query: ({ fsmId }) => ({
         url: `/fsm/fsm/${fsmId}/enter/`,
         method: 'POST',
-        body: {
-          password,
-        }
+      }),
+    }),
+
+    startFSM: builder.mutation<PlayerType, { fsmId: number; }>({
+      invalidatesTags: tagGenerationWithErrorCheck(['player', { type: 'FSM', id: 'MY' }]),
+      query: ({ fsmId }) => ({
+        url: `/fsm/fsm/${fsmId}/start/`,
+        method: 'POST',
       }),
     }),
 
@@ -139,6 +143,7 @@ export const {
   useGetPlayerQuery,
   useGetCurrentUserPlayerQuery,
   useEnterFSMMutation,
+  useStartFSMMutation,
   useTransitToStateMutation,
   useFinishFSMMutation,
   useGetPlayerPerformanceQuery,

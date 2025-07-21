@@ -1,17 +1,17 @@
 import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
-import useStartFSM from "commons/hooks/fsm/useStartFSM";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
+import { useStartFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
 
 type PropsType = {};
 
-const FSMStart: FC<PropsType> = () => {
+const FSMStartPage: FC<PropsType> = () => {
   const fsmId = parseInt(useParams().fsmId);
   const navigate = useNavigate();
-  const [startFSM, startFSMResult] = useStartFSM({ fsmId });
+  const [startFSM] = useStartFSMMutation();
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
   const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !fsm?.program_slug });
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
@@ -63,7 +63,7 @@ const FSMStart: FC<PropsType> = () => {
               fullWidth
               variant="contained"
               disabled={isLoading || !canStartFSM}
-              onClick={() => startFSM({})}
+              onClick={() => startFSM({ fsmId })}
             >
               {'شروع'}
             </Button>
@@ -90,4 +90,4 @@ const FSMStart: FC<PropsType> = () => {
   );
 };
 
-export default FSMStart;
+export default FSMStartPage;

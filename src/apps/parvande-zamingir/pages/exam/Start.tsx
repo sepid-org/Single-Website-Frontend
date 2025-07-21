@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
-import useStartFSM from "commons/hooks/fsm/useStartFSM";
+import useEnterFSM from "commons/hooks/fsm/useEnterFSM";
 import WhiteCupIcon from "apps/ashbaria/components/atoms/icons/WhiteCup";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { toPersianNumber } from "commons/utils/translateNumber";
@@ -18,7 +18,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: userFSMsStatus, isLoading: isUserFSMsLoading } = useGetProgramUserFSMsStatusQuery({ programSlug });
-  const [startFSM] = useStartFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
+  const [enterFSM] = useEnterFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
@@ -75,7 +75,7 @@ const StartExamPage: FC<StartExamPagePropsType> = () => {
               fullWidth
               variant="contained"
               disabled={isLoading || remainingParticipations === 0}
-              onClick={() => startFSM({})}
+              onClick={() => enterFSM()}
             >
               برو که بریم!
             </Button>
