@@ -12,7 +12,7 @@ const UserLastName = () => {
   }
 
   return (
-    <Typography>{data?.last_name ?? '---'}</Typography>
+    <Typography color={'white'}>{data?.last_name ?? '---'}</Typography>
   );
 };
 

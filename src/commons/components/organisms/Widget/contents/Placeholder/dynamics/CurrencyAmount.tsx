@@ -24,7 +24,7 @@ const CurrencyAmount: React.FC<Props> = ({ currency }) => {
   }
 
   return (
-    <Typography>{toPersianNumber(amount)}</Typography>
+    <Typography color={'white'}>{toPersianNumber(amount)}</Typography>
   );
 };
 

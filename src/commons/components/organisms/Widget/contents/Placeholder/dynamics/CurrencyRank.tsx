@@ -26,7 +26,7 @@ const CurrencyRank: React.FC<Props> = ({ currency }) => {
   }
 
   return (
-    <Typography>{toPersianNumber(data?.rank ?? '-')}</Typography>
+    <Typography color={'white'}>{toPersianNumber(data?.rank ?? '-')}</Typography>
   );
 };
 

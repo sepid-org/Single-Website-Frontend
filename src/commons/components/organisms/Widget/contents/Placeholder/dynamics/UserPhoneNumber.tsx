@@ -13,7 +13,7 @@ const UserPhoneNumber = () => {
   }
 
   return (
-    <Typography>{toPersianNumber(data?.phone_number) ?? '---'}</Typography>
+    <Typography color={'white'}>{toPersianNumber(data?.phone_number) ?? '---'}</Typography>
   );
 };
 
