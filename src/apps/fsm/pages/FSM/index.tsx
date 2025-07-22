@@ -65,7 +65,7 @@ const FSM: FC<PropsType> = () => {
     return <FSMStartPage />;
   }
 
-  if (!player.finished_at) {
+  if (!player.finished_at || (player.finished_at && fsm.scene.mode === 'board')) {
     return <FSMBody />;
   }
 
