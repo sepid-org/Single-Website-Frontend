@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import PlayerPerformance from "../../template/PlayerPerformance";
 import Confetti from 'react-confetti'
+import useEnterFSM from "commons/hooks/fsm/useEnterFSM";
 
 type PropsType = {
   playerId: number;
@@ -16,6 +17,7 @@ const FSMCompletionPage: FC<PropsType> = ({
   const fsmId = parseInt(useParams().fsmId);
   const navigate = useNavigate();
   const { data: fsm } = useGetFSMQuery({ fsmId });
+  const [enterFSM, { isLoading: isEntering }] = useEnterFSM({ fsmId });
 
   if (!fsm) {
     return null;
@@ -39,6 +41,16 @@ const FSMCompletionPage: FC<PropsType> = ({
         {fsm.show_player_performance_on_end &&
           <PlayerPerformance playerId={playerId} />
         }
+
+        {/* دکمهٔ ورود مجدد */}
+        <Button
+          fullWidth
+          variant="contained"
+          disabled={isEntering}
+          onClick={enterFSM}
+        >
+          {'ورود مجدد'}
+        </Button>
 
         {fsm.program_slug ?
           <Button
