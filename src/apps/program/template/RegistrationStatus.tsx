@@ -26,17 +26,17 @@ const RegistrationStatus: FC<RegistrationStatusPropsType> = ({
         {'وضعیت ثبت‌نام'}
       </Typography>
       <Stack component={Paper} padding={2} spacing={2}>
-        {registrationReceipt.status == 'Waiting' && (
+        {registrationReceipt?.status == 'Waiting' && (
           <Typography align="center">
             {'شما فرم‌ثبت‌نام در این دوره را پر کرده‌اید! منتظر نتیجه‌ی بررسی از جانب ما باشید.'}
           </Typography>
         )}
-        {registrationReceipt.status == 'Accepted' && (
+        {registrationReceipt?.status == 'Accepted' && (
           <Typography align="center">
             {'شما برای شرکت در این دوره پذیرفته شده‌اید! :)'}
           </Typography>
         )}
-        {registrationReceipt.status == 'Rejected' && (
+        {registrationReceipt?.status == 'Rejected' && (
           <Typography align="center">
             {'متاسفانه شما برای شرکت در این دوره پذیرفته‌نشده‌اید :('}
           </Typography>
