@@ -11,9 +11,10 @@ const FSMState: FC<FSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { width, height } = useWindowDimensions();
-  const { mode } = fsm.scene;
 
   if (!fsm) return null;
+
+  const { mode } = fsm?.scene;
 
   // if height > width, we want to fit to width; otherwise fit to height
   const fitMode = height > width ? 'fit-width' : 'fit-height';
