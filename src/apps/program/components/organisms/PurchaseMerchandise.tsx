@@ -12,6 +12,9 @@ import { MerchandiseType } from "commons/types/models";
 import { toPersianNumber } from "commons/utils/translateNumber";
 import { useParams } from "react-router-dom";
 
+const formatPrice = (value: number) =>
+  value.toLocaleString("fa-IR");   // مثل ۱٬۲۳۴٬۵۶۷
+
 type PurchaseMerchandisePropsType = {
   merchandise: MerchandiseType;
 };
@@ -99,11 +102,11 @@ const PurchaseMerchandise: FC<PurchaseMerchandisePropsType> = ({ merchandise }) 
           <Stack direction="row" spacing={1} alignItems="center" mb={1}>
             {hasInitialDiscount && (
               <Typography noWrap sx={{ fontSize: 14, textDecoration: 'line-through', color: 'text.disabled' }}>
-                {toPersianNumber(originalPrice)} تومان
+                {formatPrice(originalPrice)} تومان
               </Typography>
             )}
             <Typography noWrap sx={{ fontSize: 24, fontWeight: 500 }}>
-              {price === 0 ? 'رایگان!' : `${toPersianNumber(price)} تومان`}
+              {price === 0 ? 'رایگان!' : `${formatPrice(price)} تومان`}
             </Typography>
           </Stack>
           <Button
