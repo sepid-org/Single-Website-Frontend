@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import MetabaseDashboard from 'commons/template/MetabaseDashboard';
 
 const Statistics = () => {
-  const { formId } = useParams();
+  const { formSlug } = useParams();
 
   return (
     <>todo</>
