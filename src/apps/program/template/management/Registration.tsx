@@ -15,7 +15,7 @@ type RegistrationPropsType = {}
 const Registration: FC<RegistrationPropsType> = ({ }) => {
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: registrationForm, isSuccess } = useGetFormQuery({ formId: program?.registration_form }, { skip: !Boolean(program) });
+  const { data: registrationForm, isSuccess } = useGetFormQuery({ formSlug: program?.registration_form_slug }, { skip: !Boolean(program) });
   const [form, setForm] = useState(registrationForm)
   const [updateForm, result] = useUpdateFormMutation();
   const [trigger] = useLazyGetAnswerSheetsFileQuery();

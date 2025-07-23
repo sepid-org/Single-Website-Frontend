@@ -39,7 +39,7 @@ const Root = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/meeting/:meetingId/" element={<MeetingApp />} />
-          <Route path="/form/:formId/*" element={<FormApp />} />
+          <Route path="/form/:formSlug/*" element={<FormApp />} />
           <Route path="/article/:articleId/*" element={<ArticleApp />} />
           <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
           <Route path="/program/:programSlug/*" element={<ProgramApp />} />

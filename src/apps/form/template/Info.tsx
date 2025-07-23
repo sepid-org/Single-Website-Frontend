@@ -11,9 +11,9 @@ import { FormType } from 'commons/types/models';
 type InfoPropsType = {}
 
 const Info: FC<InfoPropsType> = ({ }) => {
-  const { formId } = useParams();
+  const { formSlug } = useParams();
   const [properties, setProperties] = useState<FormType>();
-  const { data: form } = useGetFormQuery({ formId });
+  const { data: form } = useGetFormQuery({ formSlug });
 
   useEffect(() => {
     if (form) {

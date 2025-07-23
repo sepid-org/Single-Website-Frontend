@@ -33,7 +33,7 @@ const RegistrationReceipts: FC<RegistrationReceiptsPropsType> = ({ }) => {
 
   const downloadAnswerSheetsExcel = async () => {
     if (!program) return;
-    const answerSheetsBlob = await triggerGetAnswerSheets({ formId: parseInt(program.registration_form, 10) }).unwrap();
+    const answerSheetsBlob = await triggerGetAnswerSheets({ formId: parseInt(program.registration_form) }).unwrap();
     downloadBlob(answerSheetsBlob, `answer_sheets_${programSlug}.xlsx`);
   };
 

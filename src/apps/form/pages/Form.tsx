@@ -10,15 +10,15 @@ import ReplayIcon from '@mui/icons-material/Replay';
 type PropsType = {}
 
 const Form: FC<PropsType> = ({ }) => {
-  const { formId } = useParams();
+  const { formSlug } = useParams();
   const [isUserSubmittedForm, setIsUserSubmittedForm] = useState(false);
   const { answers, getAnswerCollector, reset } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
-  const { data: form } = useGetFormQuery({ formId });
+  const { data: form } = useGetFormQuery({ formSlug });
 
   const submit = () => {
     submitForm({
-      formId,
+      formId: form.id,
       answers,
     });
   };

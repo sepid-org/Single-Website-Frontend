@@ -16,9 +16,9 @@ type UpdateFormOutputType = any;
 
 export const FormSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: builder => ({
-    getForm: builder.query<GetFormOutputType, { formId: string }>({
-      providesTags: (result) => [{ type: 'form', id: result?.id }],
-      query: ({ formId }) => `fsm/form/${formId}/`,
+    getForm: builder.query<GetFormOutputType, { formSlug: string }>({
+      providesTags: (result) => [{ type: 'form', id: result?.slug }],
+      query: ({ formSlug }) => `fsm/form/${formSlug}/`,
       transformResponse: (response: any): GetFormOutputType => {
         return response;
       },

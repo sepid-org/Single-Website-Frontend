@@ -46,6 +46,7 @@ export type ProgramType = {
   participation_type: ProgramParticipationType;
   name: string;
   registration_form: string;
+  registration_form_slug: string;
   start_date: string | null;
   team_size: number;
   is_public: boolean;
@@ -145,6 +146,7 @@ export type FSMFullPapersType = {
 type GenderPartitionType = 'OnlyMale' | 'OnlyFemale' | 'BothPartitioned' | 'BothNonPartitioned';
 
 export type FormType = ObjectType & {
+  slug: string;
   audience_type: AudienceTypes;
   start_date: string;
   end_date: string;
