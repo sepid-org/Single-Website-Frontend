@@ -20,7 +20,7 @@ const useRegistrationSteps = () => {
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: registrationForm } = useGetFormQuery(
     { formSlug: program?.registration_form_slug },
-    { skip: !Boolean(program?.registration_form) }
+    { skip: !Boolean(program?.registration_form_slug) }
   );
   const { isUserAuthenticated } = useUserAuthentication();
   const { data: registrationReceipt } = useGetMyReceiptQuery(

@@ -24,7 +24,10 @@ const RegistrationForm: FC<RegistrationFormPropsType> = ({
   const [isDialogOpen, setDialogStatus] = useState(false);
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const { data: program } = useGetProgramQuery({ programSlug });
-  const { data: registrationForm } = useGetFormQuery({ formSlug: program?.registration_form_slug }, { skip: !Boolean(program?.registration_form) });
+  const { data: registrationForm } = useGetFormQuery(
+    { formSlug: program?.registration_form_slug },
+    { skip: !Boolean(program?.registration_form_slug) }
+  );
   const [submitRegistrationForm, submitRegistrationFormResult] = useSubmitRegistrationFormMutation();
 
   const submit = () => {

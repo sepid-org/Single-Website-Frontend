@@ -30,7 +30,7 @@ const ProgramPageSidebar: FC<ProgramPageSidebarPropsType> = ({
   const { data: program } = useGetProgramQuery({ programSlug });
   const { data: registrationForm } = useGetFormQuery<{ data: RegistrationFormType }>(
     { formSlug: program?.registration_form_slug },
-    { skip: !Boolean(program?.registration_form) }
+    { skip: !Boolean(program?.registration_form_slug) }
   );
   const { data: registrationReceipt } = useGetMyReceiptQuery(
     { formId: program?.registration_form },
