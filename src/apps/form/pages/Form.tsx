@@ -67,7 +67,7 @@ const Form: FC<PropsType> = ({ }) => {
               :
               <Fragment>
                 <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
-                  <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
+                  <FormPaper mode='form' paperId={form.id} getAnswerCollector={getAnswerCollector} />
                 </Stack>
                 <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
                   <Typography fontWeight={700} fontSize={18}>
