@@ -36,10 +36,10 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     mode,
   })
   return (
-    <Stack 
+    <Stack
       spacing={1}
       visibility={widgetProps.is_hidden && mode === 1 ? 'hidden' : 'visible'}
-      sx={{opacity: (widgetProps.is_hidden && mode === 2 ? 0.2 : 1)}}
+      sx={{ opacity: (widgetProps.is_hidden && mode === 2 ? 0.2 : 1) }}
     >
       <IsRequired hidden={!is_required}>
         <TinyPreview
@@ -71,18 +71,10 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
           {t('submitAnswer')}
         </Button>
       }
-      {mode === WidgetModes.Review &&
-        <Fragment>
-          {answer ?
-            <TinyPreview
-              styles={{ width: '100%' }}
-              content={answer}
-            /> :
-            <Typography color='red' variant='caption'>
-              {'پاسخی برای این سوال ثبت نشده است.'}
-            </Typography>
-          }
-        </Fragment>
+      {mode === WidgetModes.Review && !answer &&
+        <Typography color='red' variant='caption'>
+          {'پاسخی برای این سوال ثبت نشده است.'}
+        </Typography>
       }
     </Stack>
   );
