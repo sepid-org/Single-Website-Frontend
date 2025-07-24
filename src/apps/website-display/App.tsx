@@ -20,10 +20,6 @@ const Notifications = React.lazy(() =>
   retryImport(() => import('apps/chat/pages/Notifications'))
 );
 
-const RegistrationReceipt = React.lazy(() =>
-  retryImport(() => import('apps/website-display/pages/RegistrationReceipt'))
-);
-
 const Setting = React.lazy(() =>
   retryImport(() => import('apps/website-display/pages/Setting'))
 );
@@ -51,7 +47,6 @@ const App = () => {
 
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/notifications/" element={<Notifications />} />
-          <Route path="/receipt/:receiptId/" element={<RegistrationReceipt />} />
           <Route path="/setting/" element={<Setting />} />
         </Route>
 

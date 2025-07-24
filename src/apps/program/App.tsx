@@ -10,6 +10,10 @@ import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import ProgramAccessGuard from './template/ProgramAccessGuard';
 import Menu from './pages/Menu';
 
+const RegistrationReceipt = React.lazy(() =>
+  retryImport(() => import('apps/program/pages/RegistrationReceipt'))
+);
+
 const Registration = React.lazy(() =>
   retryImport(() => import('apps/program/pages/Registration'))
 );
@@ -65,6 +69,7 @@ const App = () => {
         <Route path="/purchase/" element={<PurchaseResult />} />
         <Route path="/scoreboard/" element={<ScoreBoard />} />
         <Route path="/manage/" element={<ProgramManagement />} />
+        <Route path="/registration-receipt/:receiptId/" element={<RegistrationReceipt />} />
 
         <Route element={
           <ProgramAccessGuard>

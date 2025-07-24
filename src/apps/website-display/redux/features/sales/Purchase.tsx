@@ -45,10 +45,29 @@ export const PurchaseSlice = ContentManagementServiceApi.injectEndpoints({
         },
       }),
     }),
-  })
+
+    getUserPurchases: builder.query<PurchaseType[], { userId: string; programSlug: string }>({
+      providesTags: (result) =>
+        result
+          ? [
+            ...result.map(({ id }) => ({ type: 'Purchase' as const, id })),
+            { type: 'Purchase', id: 'LIST' },
+          ]
+          : [{ type: 'Purchase', id: 'LIST' }],
+      query: ({ userId, programSlug }) => ({
+        url: 'sale/purchases/by-user-program/',
+        params: {
+          user_id: userId,
+          program_slug: programSlug,
+        },
+      }),
+    }),
+
+  }),
 });
 
 export const {
+  useGetUserPurchasesQuery,
   useApplyDiscountCodeMutation,
   usePurchaseMutation,
 } = PurchaseSlice;

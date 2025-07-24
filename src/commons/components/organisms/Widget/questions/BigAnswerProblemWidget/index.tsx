@@ -1,5 +1,5 @@
 import { Button, Stack, TextField, Typography } from '@mui/material';
-import React, { FC, Fragment } from 'react';
+import React, { FC } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
@@ -34,7 +34,8 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
     onAnswerChange,
     questionId,
     mode,
-  })
+  });
+
   return (
     <Stack
       spacing={1}
@@ -47,15 +48,10 @@ const BigAnswerProblemWidget: FC<BigAnswerProblemWidgetPropsType> = ({
           content={questionText}
         />
       </IsRequired>
-      {/*(mode === WidgetModes.View || mode === WidgetModes.InForm) &&
-        <TinyEditorComponent
-          content={answer}
-          onChange={changeAnswer}
-        />
-      */}
       <TextField
         multiline
         rows={3}
+        disabled={mode === WidgetModes.Review}
         placeholder={'پاسخ خود را وارد کنید.'}
         value={answer || ''}
         onChange={(e) => changeAnswer(e.target.value)}

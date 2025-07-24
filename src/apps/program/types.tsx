@@ -15,3 +15,28 @@ export interface MeetingType {
   created_at: string;
   updated_at: string;
 }
+
+export interface MerchandiseType {
+  id: string;
+  title: string;
+  description?: string | null;
+  price: number;
+  discounted_price?: number | null;
+  is_active: boolean;
+  program: string;
+}
+
+export interface DiscountCodeType {
+  id: number;
+  code: string;
+  value: number; // 0-1 (e.g. 0.3 means 30 %)
+  max_discount_amount?: number | null;
+}
+
+export interface PurchaseType {
+  amount: number;
+  created_at: string; // ISO
+  status: "Success" | "Started" | "Failed" | "Repetitious";
+  merchandise: MerchandiseType;
+  discount_code?: DiscountCodeType | null;
+}

@@ -9,11 +9,8 @@ import React, { FC, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useApplyDiscountCodeMutation, usePurchaseMutation } from "apps/website-display/redux/features/sales/Purchase";
 import { MerchandiseType } from "commons/types/models";
-import { toPersianNumber } from "commons/utils/translateNumber";
 import { useParams } from "react-router-dom";
-
-const formatPrice = (value: number) =>
-  value.toLocaleString("fa-IR");   // مثل ۱٬۲۳۴٬۵۶۷
+import { formatPrice } from "commons/utils/formatPrice";
 
 type PurchaseMerchandisePropsType = {
   merchandise: MerchandiseType;

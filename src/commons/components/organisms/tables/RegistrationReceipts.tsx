@@ -9,6 +9,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AreYouSure from '../dialogs/AreYouSure';
 import { useGetRegistrationFormAnswerSheetsQuery } from 'apps/website-display/redux/features/form/RegistrationFormSlice';
 import convertToPersianDate from 'commons/utils/convertToPersianDate';
+import { useParams } from 'react-router-dom';
 
 const STATUS = {
   Waiting: 'منتظر',
@@ -23,6 +24,7 @@ type RegistrationReceiptsTablePropsType = {
 const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
   registrationFormId,
 }) => {
+  const { programSlug } = useParams();
   const [page, setPage] = React.useState(1);
   const [selectedReceiptId, setSelectedReceiptId] = useState<number>(null);
   const { data: allRegistrationReceipts } = useGetRegistrationFormAnswerSheetsQuery({
@@ -40,14 +42,14 @@ const RegistrationReceiptsTable: FC<RegistrationReceiptsTablePropsType> = ({
         reverseRowNumber={true}
         headers={[
           { name: 'name', label: 'نام' },
-          { name: 'registrationDate', label: 'تاریخ ثبت'},
+          { name: 'registrationDate', label: 'تاریخ ثبت' },
           { name: 'status', label: 'وضعیت' },
           { name: 'operation', label: 'عملیات' },
         ]}
         rows={allRegistrationReceipts?.results?.map((registrationReceipt) => ({
           name:
             <Button
-              href={`/receipt/${registrationReceipt.id}/`}
+              href={`/program/${programSlug}/registration-receipt/${registrationReceipt.id}/`}
               component="a" target="_blank">
               {(registrationReceipt.user.first_name && registrationReceipt.user.last_name) ? `${registrationReceipt.user.first_name} ${registrationReceipt.user.last_name}` : 'بی‌نام'}
             </Button>,

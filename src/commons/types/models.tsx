@@ -283,9 +283,9 @@ export type PurchaseType = {
   authority?: string;
   callback_domain: string;
   created_at: string;
-  discount_code: string;
+  discount_code: DiscountCodeType;
   id: string;
-  merchandise: string;
+  merchandise: MerchandiseType;
   ref_id?: string;
   status: 'Started' | 'Success' | 'Repetitious' | 'Failed';
   uniq_code: string;
