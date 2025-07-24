@@ -4,7 +4,7 @@ import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice';
 type GetFormOutputType = FormType;
 
 type SubmitFormInputType = {
-  formId: string;
+  formSlug: string;
   answers: AnswerType[];
 }
 
@@ -41,8 +41,8 @@ export const FormSlice = ContentManagementServiceApi.injectEndpoints({
           ]
         }
       },
-      query: ({ formId, ...body }) => ({
-        url: `fsm/form/${formId}/submit/`,
+      query: ({ formSlug, ...body }) => ({
+        url: `fsm/form/${formSlug}/submit/`,
         method: 'POST',
         body,
       }),

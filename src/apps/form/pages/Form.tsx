@@ -18,7 +18,7 @@ const Form: FC<PropsType> = ({ }) => {
 
   const submit = () => {
     submitForm({
-      formId: form.id,
+      formSlug,
       answers,
     });
   };

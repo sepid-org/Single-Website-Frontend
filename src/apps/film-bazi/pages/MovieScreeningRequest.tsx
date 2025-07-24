@@ -2,9 +2,8 @@ import React, { FC, Fragment, useEffect, useState } from 'react';
 import { Box, Button, Container, Paper, Skeleton, Stack, Typography } from '@mui/material';
 import FormPaper from 'commons/template/Paper/Form';
 import useCollectWidgetsAnswers from 'commons/hooks/useCollectWidgetsAnswers';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSubmitFormMutation } from 'apps/website-display/redux/features/form/FormSlice';
-import useLocalNavigate from '../hooks/useLocalNavigate';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FullScreenBackgroundImage from 'commons/components/molecules/FullScreenBackgroundImage';
 import { MediaUrls } from '../constants/mediaUrls';
@@ -13,17 +12,14 @@ type MovieScreeningRequestPropsType = {}
 
 const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
   const [isUserSubmittedForm, setIsUserSubmittedForm] = useState(false);
-  const localNavigate = useLocalNavigate();
-  const navigate = useNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading }] = useSubmitFormMutation();
 
   const submit = () => {
     submitForm({
-      formId,
+      formSlug: program.registration_form_slug,
       answers,
     });
   };
@@ -74,7 +70,7 @@ const MovieScreeningRequest: FC<MovieScreeningRequestPropsType> = ({ }) => {
                   {'برای درخواست اکران فیلم در شهرهای بدون سینما یا در مدرسه، مسجد، دانشگاه و ... اطلاعات زیر رو تکمیل کنید تا درخواست‌تون ثبت بشه. ما خیلی زود برای هماهنگی باهاتون تماس می‌گیریم.'}
                 </Typography>
                 <Stack component={Paper} sx={{ padding: 2, marginTop: 4 }} spacing={2}>
-                  <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
+                  <FormPaper mode='form' paperId={program?.registration_form} getAnswerCollector={getAnswerCollector} />
                 </Stack>
                 <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
                   <Typography fontWeight={700} fontSize={18}>

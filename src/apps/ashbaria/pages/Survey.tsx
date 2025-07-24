@@ -28,14 +28,13 @@ const Survey: FC<PropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
   const { programSlug } = useParams();
   const { data: program } = useGetProgramQuery({ programSlug });
-  const formId = program?.registration_form;
   const { answers, getAnswerCollector } = useCollectWidgetsAnswers([]);
   const [submitForm, { isSuccess, isLoading, isError, error }] = useSubmitFormMutation();
   const [finishFSM, finishFSMResult] = useFinishFSM();
 
   const submit = () => {
     submitForm({
-      formId,
+      formSlug: program?.registration_form_slug,
       answers,
     });
   };
@@ -87,7 +86,7 @@ const Survey: FC<PropsType> = ({ }) => {
             :
             <Fragment>
               <Stack width={'100%'} padding={2} spacing={2}>
-                <FormPaper mode='form' paperId={formId} getAnswerCollector={getAnswerCollector} />
+                <FormPaper mode='form' paperId={program.registration_form} getAnswerCollector={getAnswerCollector} />
               </Stack>
               <Button disabled={isLoading} size='large' variant='contained' onClick={submit} sx={{ alignSelf: 'end', marginTop: 2 }}>
                 <Typography fontWeight={700} fontSize={18}>
