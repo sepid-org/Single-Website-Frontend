@@ -12,7 +12,7 @@ type PropsType = {
 const PlayerPerformance: FC<PropsType> = ({ playerId }) => {
   const fsmId = parseInt(useParams().fsmId);
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
-  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId });
+  const { correct, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId });
   const isLoading = isLoadingFSM || isLoadingPlayerPerformance;
 
   if (!fsm) {
@@ -29,7 +29,7 @@ const PlayerPerformance: FC<PropsType> = ({ playerId }) => {
       <Typography fontSize={24} fontWeight={600}>
         {'تعداد پاسخ‌های صحیح شما: '}
       </Typography>
-      <ScoreChip value={correctAnswersCount} isLoading={isLoading} />
+      <ScoreChip value={correct} isLoading={isLoading} />
     </Stack>
   );
 };

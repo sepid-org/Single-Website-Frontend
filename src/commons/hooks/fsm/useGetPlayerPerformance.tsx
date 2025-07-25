@@ -1,22 +1,33 @@
-import { useGetPlayerPerformanceQuery } from "apps/fsm/redux/slices/fsm/PlayerSlice";
+import { useGetPlayerPerformanceQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
+import { useMemo } from 'react';
 
-interface UsePlayerPerformanceParams {
-  playerId: number;
+interface Params { playerId: number }
+
+interface Counts {
+  correct: number;
+  wrong: number;
+  unknown: number;
 }
 
-const usePlayerPerformance = ({ playerId }: UsePlayerPerformanceParams) => {
-  const { data: playerPerformance, isLoading } = useGetPlayerPerformanceQuery({ playerId }, { skip: !Boolean(playerId) });
+const usePlayerPerformance = ({ playerId }: Params) => {
+  const { data: performance, isLoading } =
+    useGetPlayerPerformanceQuery({ playerId }, { skip: !playerId });
 
-  // Calculate the number of correct answers
-  const correctAnswersCount = playerPerformance
-    ? Object.values(playerPerformance).reduce((count, answer) => count + (answer.score === 100 ? 1 : 0), 0)
-    : null;
+  const { correct, wrong, unknown } = useMemo<Counts>(() => {
+    if (!performance) return { correct: 0, wrong: 0, unknown: 0 };
 
-  return {
-    isLoading,
-    playerPerformance,
-    correctAnswersCount,
-  };
+    return Object.values(performance).reduce<Counts>(
+      (acc, ans: any) => {
+        if (ans.score === 100) acc.correct += 1;
+        else if (ans.score === 0) acc.wrong += 1;
+        else acc.unknown += 1;
+        return acc;
+      },
+      { correct: 0, wrong: 0, unknown: 0 }
+    );
+  }, [performance]);
+
+  return { isLoading, correct, wrong, unknown };
 };
 
 export default usePlayerPerformance;

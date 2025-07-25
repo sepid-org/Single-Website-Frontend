@@ -27,7 +27,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
   const { data: userFSMsStatus, isLoading: isLoadingUserFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug });
   const [enterFSM] = useEnterFSM({ fsmId, redirectPath: '/program/ashbaria/exam/', reloadOnRedirect: true });
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
-  const { correctAnswersCount, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
+  const { correct, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId: parseInt(player?.id) });
 
   const userCurrentFSM = userFSMsStatus?.filter(userFSM => userFSM.fsm_id === fsmId)[0];
   const remainingParticipations = fsm?.participant_limit - userCurrentFSM?.finished_players_count;
@@ -53,7 +53,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
             isLoading ? (
               <Skeleton variant='rounded' width={100} height={30} />
             ) : (
-              correctAnswersCount > 3 ? "آفرین!" : "حیف شد که!"
+              correct > 3 ? "آفرین!" : "حیف شد که!"
             )
           }
         </Typography>
@@ -61,7 +61,7 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
         <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} spacing={isLoading ? 1 : 0}>
           {isLoading ? (
             <Skeleton width={40} height={40} variant="circular" />
-          ) : correctAnswersCount > 3 ? (
+          ) : correct > 3 ? (
             <TickCircleIcon />
           ) : (
             <CrossCircleIcon />
@@ -69,21 +69,21 @@ const ExamResultPage: FC<ExamResultPagePropsType> = () => {
           {isLoading ? (
             <Skeleton variant='rounded' width={100} height={40} />
           ) : (
-            correctAnswersCount !== null ? (
+            correct !== null ? (
               <Typography
                 fontSize={24}
                 fontWeight={600}
-                color={correctAnswersCount > 3 ? "#00D387" : "#E22D79"}
+                color={correct > 3 ? "#00D387" : "#E22D79"}
               >
-                {correctAnswersCount > 3 ?
-                  `${correctAnswersCount} پاسخ درست دادی` :
-                  `${6 - correctAnswersCount} جواب غلط داشتی`}
+                {correct > 3 ?
+                  `${correct} پاسخ درست دادی` :
+                  `${6 - correct} جواب غلط داشتی`}
               </Typography>
             ) : null
           )}
         </Stack>
 
-        <ScoreChip value={correctAnswersCount * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoading} />
+        <ScoreChip value={correct * ASHBARIA_EXAM_QUESTION_COIN_REWARD} isLoading={isLoading} />
 
         {isLoading ? (
           <Skeleton variant='rounded' width={'100%'} height={40} />
