@@ -26,8 +26,7 @@ const FSMCompletionPage: FC<PropsType> = ({
   return (
     <FullScreenBackgroundImage styles={{ padding: 2 }}>
       <Stack
-        maxWidth={'sm'}
-        component={Paper}
+        width={{ xs: '100%', sm: 400 }}
         padding={2}
         paddingX={4}
         spacing={2}
@@ -42,32 +41,34 @@ const FSMCompletionPage: FC<PropsType> = ({
           <PlayerPerformance playerId={playerId} />
         }
 
-        {/* دکمهٔ ورود مجدد */}
-        <Button
-          fullWidth
-          variant="contained"
-          disabled={isEntering}
-          onClick={enterFSM}
-        >
-          {'ورود مجدد'}
-        </Button>
-
-        {fsm.program_slug ?
+        <Stack spacing={1} width={'100%'}>
+          {/* دکمهٔ ورود مجدد */}
           <Button
             fullWidth
-            variant="outlined"
-            onClick={() => navigate(`/program/${fsm.program_slug}/`)}
+            variant="contained"
+            disabled={isEntering}
+            onClick={enterFSM}
           >
-            {'بازگشت به دوره'}
-          </Button> :
-          <Button
-            fullWidth
-            variant="outlined"
-            onClick={() => navigate('/')}
-          >
-            {'بازگشت به خانه'}
+            {'ورود مجدد'}
           </Button>
-        }
+
+          {fsm.program_slug ?
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={() => navigate(`/program/${fsm.program_slug}/`)}
+            >
+              {'بازگشت به دوره'}
+            </Button> :
+            <Button
+              fullWidth
+              variant="outlined"
+              onClick={() => navigate('/')}
+            >
+              {'بازگشت به خانه'}
+            </Button>
+          }
+        </Stack>
       </Stack>
       <Confetti
         width={window.innerWidth}

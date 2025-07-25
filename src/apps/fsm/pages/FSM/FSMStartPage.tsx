@@ -1,4 +1,4 @@
-import { Button, Paper, Skeleton, Stack, Typography } from "@mui/material";
+import { Button, Skeleton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
@@ -22,8 +22,7 @@ const FSMStartPage: FC<PropsType> = () => {
   return (
     <FullScreenBackgroundImage styles={{ padding: 2 }}>
       <Stack
-        maxWidth={'sm'}
-        component={Paper}
+        width={{ xs: '100%', sm: 400 }}
         padding={2}
         paddingX={4}
         spacing={1}
