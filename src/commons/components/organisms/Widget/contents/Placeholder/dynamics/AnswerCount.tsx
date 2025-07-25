@@ -13,7 +13,7 @@ const AnswerCount: React.FC<Props> = ({ variant }) => {
   const { player } = useFSMContext();
 
   const { isLoading, correct, wrong, unknown } =
-    usePlayerPerformance({ playerId: parseInt(player.id) });
+    usePlayerPerformance({ playerId: parseInt(player?.id) });
 
   const value =
     variant === 'correct' ? correct
