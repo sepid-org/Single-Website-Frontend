@@ -3,6 +3,7 @@ import { Skeleton, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import usePlayerPerformance from 'commons/hooks/fsm/useGetPlayerPerformance';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { toPersianNumber } from 'commons/utils/translateNumber';
 
 type Variant = 'correct' | 'wrong' | 'unknown';
 
@@ -26,7 +27,7 @@ const AnswerCount: React.FC<Props> = ({ variant }) => {
   }
 
   return (
-    <Typography color={'white'}>{value}</Typography>
+    <Typography color={'white'}>{toPersianNumber(value)}</Typography>
   );
 };
 
