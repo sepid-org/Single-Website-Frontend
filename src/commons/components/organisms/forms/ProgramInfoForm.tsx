@@ -41,15 +41,31 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={6}>
-        <TextField
-          value={data.name}
-          fullWidth
-          variant='outlined'
-          label={'نام'}
-          name='name'
-          onChange={putData}
-        />
+      <Grid container item xs={12} md={6} spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            value={data.name}
+            fullWidth
+            variant='outlined'
+            label={'نام'}
+            name='name'
+            onChange={putData}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            value={data.slug}
+            fullWidth
+            variant='outlined'
+            label={'اسلاگ'}
+            helperText={'اسلاگ یک شناسه یکتا و کوتاه برای دوره است که معمولاً به صورت انگلیسی، بدون فاصله و فقط با حروف، اعداد یا خط تیره نوشته می‌شود. مثال: my-program'}
+            placeholder={'مثال: my-program'}
+            inputProps={{ pattern: '[a-zA-Z0-9-_]+' }}
+            error={!!data.slug && !/^[a-zA-Z0-9-_]+$/.test(data.slug)}
+            name='slug'
+            onChange={putData}
+          />
+        </Grid>
       </Grid>
       <Grid item xs={12} md={6} alignItems={'stretch'} justifyContent={'stretch'}>
         <UploadImage showImageSelf={showCoverImage} file={data.cover_image} setFile={(file) => setData(properties => ({ ...properties, cover_image: file }))} />
