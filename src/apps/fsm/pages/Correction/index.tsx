@@ -56,7 +56,7 @@ const Correction: FC<CorrectionPropsType> = ({
           <Paper sx={{ width: '100%', padding: 2 }}>
             {problemWithAnswer &&
               // todo: bug: answer should not use <Widget/> component
-              <Widget paperId={null} coveredWithPaper={false} mode={WidgetModes.Review} widget={problemWithAnswer} />
+              <Widget paperId={null} mode={WidgetModes.Review} widget={problemWithAnswer} />
             }
           </Paper>
         </Grid>

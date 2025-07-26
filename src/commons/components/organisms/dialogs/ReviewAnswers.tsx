@@ -52,7 +52,6 @@ const ReviewAnswers: FC<ReviewAnswersPropsType> = ({
           {answers?.map((widget) => (
             <Grid item key={widget.id} xs={12}>
               <Widget
-                coveredWithPaper={false}
                 paperId={widget.paper}
                 mode={WidgetModes.Review}
                 widget={widget}

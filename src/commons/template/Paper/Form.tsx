@@ -46,7 +46,7 @@ const FormPaper: FC<FormPaperPropsType> = ({
           key={widget.id}
           paperId={paper?.id}
           mode={WidgetModes.InForm}
-          coveredWithPaper={false} widget={widget} />
+          widget={widget} />
       ))}
     </Fragment>
   );

@@ -33,7 +33,6 @@ type WidgetPropsType = {
   widget: WidgetType;
   mode?: WidgetModes;
   paperId: string;
-  coveredWithPaper?: boolean;
   collectAnswer?: any;
   submittedAnswer?: AnswerType;
 }
@@ -42,7 +41,6 @@ const Widget: FC<WidgetPropsType> = ({
   widget,
   mode = WidgetModes.View,
   paperId,
-  coveredWithPaper = true,
   collectAnswer,
   submittedAnswer,
 }) => {
@@ -58,20 +56,8 @@ const Widget: FC<WidgetPropsType> = ({
     collectAnswer,
   });
 
-  const Cover = useMemo(() =>
-    coveredWithPaper
-      ? ({ children }) =>
-        <Paper elevation={2} sx={{ padding: 1, width: '100%', height: '100%', position: 'relative' }}>
-          {children}
-        </Paper>
-      : ({ children }) =>
-        <Box width={'100%'} height={'100%'} position={'relative'}>
-          {children}
-        </Box>
-    , [coveredWithPaper])
-
   return (
-    <Cover>
+    <Box width={'100%'} height={'100%'} position={'relative'}>
       {mode === WidgetModes.Edit && <CollapseWidgetEditMenu widget={widget} paperId={paperId} />}
       {mode === WidgetModes.View && widget?.hints?.length > 0 && <WidgetHintsButton widgetId={widget.id} />}
       <WidgetComponent
@@ -82,7 +68,7 @@ const Widget: FC<WidgetPropsType> = ({
         useSubmitAnswerMutation={useSubmitAnswerMutation}
         onAnswerChange={onAnswerChange}
       />
-    </Cover>
+    </Box>
   );
 };
 

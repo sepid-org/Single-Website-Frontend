@@ -26,8 +26,8 @@ const AnswerSheetPaper: FC<AnswerSheetPaperPropsType> = ({
           key={widget.id}
           paperId={paper?.id}
           mode={WidgetModes.Review}
-          coveredWithPaper={false}
-          widget={widget} />
+          widget={widget}
+        />
       ))}
     </Fragment>
   );

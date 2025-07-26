@@ -41,7 +41,7 @@ const ColumnsFSMState: FC<ColumnsFSMStatePropsType> = ({ fsmStateId }) => {
     questions.map((widget) => (
       <Stack key={widget.id}>
         <Divider sx={{ mb: theme.spacing(2) }} />
-        <Widget paperId={paperId} coveredWithPaper={false} widget={widget} />
+        <Widget paperId={paperId} widget={widget} />
       </Stack>
     )), [questions]);
 
@@ -52,7 +52,7 @@ const ColumnsFSMState: FC<ColumnsFSMStatePropsType> = ({ fsmStateId }) => {
   const notQuestionWidgets = useMemo(() =>
     notQuestions.map(widget => (
       <Stack key={widget.id}>
-        <Widget paperId={paperId} coveredWithPaper={false} widget={widget} />
+        <Widget paperId={paperId} widget={widget} />
       </Stack>
     )), [notQuestions]);
 

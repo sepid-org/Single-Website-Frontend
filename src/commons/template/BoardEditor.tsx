@@ -176,7 +176,6 @@ const BoardEditor = ({
             resizeGrid={[5, 5]}
           >
             <Widget
-              coveredWithPaper={false}
               widget={widget}
               paperId={activePaperId}
               mode={WidgetModes.Edit}

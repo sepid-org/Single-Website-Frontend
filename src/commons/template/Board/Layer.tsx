@@ -49,12 +49,7 @@ const Layer: FC<LayerProps> = ({
           >
             <ObjectWrapper complementaryObject={complementaryObject}>
               {complementaryObject?.substituteComponent || (
-                <Widget
-                  coveredWithPaper={false}
-                  widget={widget}
-                  paperId={paperId}
-                  mode={widgetsMode}
-                />
+                <Widget widget={widget} paperId={paperId} mode={widgetsMode} />
               )}
             </ObjectWrapper>
           </div>
