@@ -18,4 +18,5 @@ export type WidgetType = ObjectType & {
   mode: WidgetModes;
   widget_type: WidgetTypes;
   hints: HintType[];
+  fontScale: number;
 }

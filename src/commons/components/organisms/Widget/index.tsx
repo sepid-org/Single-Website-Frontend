@@ -1,11 +1,12 @@
-import { Box, Paper } from '@mui/material';
-import React, { FC, useMemo } from 'react';
+import { Box } from '@mui/material';
+import React, { FC } from 'react';
 
 import WidgetHintsButton from 'commons/components/molecules/buttons/WidgetHints';
 import useWidgetFactory from './useWidgetFactory';
 import { AnswerType } from 'commons/types/models';
 import { WidgetType } from 'commons/types/widgets/widget';
 import CollapseWidgetEditMenu from './CollapseWidgetEditMenu';
+import ScaleFont from './ScaleFont';
 
 export enum WidgetModes {
   Create,
@@ -35,7 +36,7 @@ type WidgetPropsType = {
   paperId: string;
   collectAnswer?: any;
   submittedAnswer?: AnswerType;
-}
+};
 
 const Widget: FC<WidgetPropsType> = ({
   widget,
@@ -57,17 +58,28 @@ const Widget: FC<WidgetPropsType> = ({
   });
 
   return (
-    <Box width={'100%'} height={'100%'} position={'relative'}>
-      {mode === WidgetModes.Edit && <CollapseWidgetEditMenu widget={widget} paperId={paperId} />}
-      {mode === WidgetModes.View && widget?.hints?.length > 0 && <WidgetHintsButton widgetId={widget.id} />}
-      <WidgetComponent
-        {...widget}
-        mode={mode}
-        paperId={paperId}
-        submittedAnswer={submittedAnswer}
-        useSubmitAnswerMutation={useSubmitAnswerMutation}
-        onAnswerChange={onAnswerChange}
-      />
+    <Box
+      width="100%"
+      height="100%"
+      position="relative"
+    >
+      {mode === WidgetModes.Edit && (
+        <CollapseWidgetEditMenu widget={widget} paperId={paperId} />
+      )}
+
+      {mode === WidgetModes.View && widget?.hints?.length > 0 && (
+        <WidgetHintsButton widgetId={widget.id} />
+      )}
+      <ScaleFont fontScale={widget.fontScale || 1}>
+        <WidgetComponent
+          {...widget}
+          mode={mode}
+          paperId={paperId}
+          submittedAnswer={submittedAnswer}
+          useSubmitAnswerMutation={useSubmitAnswerMutation}
+          onAnswerChange={onAnswerChange}
+        />
+      </ScaleFont>
     </Box>
   );
 };

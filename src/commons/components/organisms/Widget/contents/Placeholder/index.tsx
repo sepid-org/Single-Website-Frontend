@@ -11,7 +11,7 @@ import UserPhoneNumber from './dynamics/UserPhoneNumber';
 import UserAvatar from './dynamics/UserAvatar';
 import CurrencyAmount from './dynamics/CurrencyAmount';
 import CurrencyRank from './dynamics/CurrencyRank';
-import AnswerCount from './dynamics/AnswerCount';   // <— تازه
+import AnswerCount from './dynamics/AnswerCount';
 
 export { EditablePlaceholder };
 
