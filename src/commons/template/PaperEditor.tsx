@@ -1,4 +1,4 @@
-import { Stack } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
 import React, { FC, Fragment } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
 import Widget, { WidgetModes } from 'commons/components/organisms/Widget';
@@ -39,12 +39,14 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
           <NoDataFound variant={4} message={'ویجتی وجود ندارد'} /> :
           <Fragment>
             {widgets?.map((widget, index) => (
-              <Widget
-                key={widget.id}
-                paperId={paperId}
-                widget={widget}
-                mode={WidgetModes.Edit}
-              />
+              <Paper sx={{ padding: 1 }} key={widget.id}>
+                <Widget
+                  key={widget.id}
+                  paperId={paperId}
+                  widget={widget}
+                  mode={WidgetModes.Edit}
+                />
+              </Paper>
             ))}
           </Fragment>
         }
