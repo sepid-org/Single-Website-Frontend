@@ -2,7 +2,7 @@ import { FC } from 'react';
 import BigAnswerProblemWidget, { BigAnswerQuestionEditWidget } from '../questions/BigAnswerProblemWidget';
 import ImageWidget, { ImageEditWidget } from '../contents/ImageWidget';
 import IframeWidget, { IframeEditWidget } from '../contents/IframeWidget';
-import MultiChoiceQuestionWidget, { MultiChoiceQuestionEditWidget } from '../questions/MultiChoiceQuestion';
+import MultiChoiceQuestionWidget, { MultiChoiceQuestionEditor } from '../questions/MultiChoiceQuestion';
 import SmallAnswerProblemWidget, { SmallAnswerProblemEditWidget } from '../questions/SmallAnswerProblemWidget';
 import TextWidget, { TextEditWidget } from '../contents/TextWidget';
 import UploadFileProblemWidget, { UploadFileProblemEditWidget } from '../questions/UploadFileProblemWidget';
@@ -49,7 +49,7 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
   },
   MultiChoiceProblem: {
     WidgetComponent: MultiChoiceQuestionWidget,
-    EditWidgetDialog: MultiChoiceQuestionEditWidget,
+    EditWidgetDialog: MultiChoiceQuestionEditor,
     label: 'سوال چند‌گزینه‌ای',
     backendType: 'MultiChoiceProblem',
     useSubmitAnswerMutation: useSubmitMultiChoiceAnswerMutation,

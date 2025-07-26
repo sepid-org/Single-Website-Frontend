@@ -1,6 +1,6 @@
 import { Paper, Stack, styled, Typography } from '@mui/material';
+import { ChoicePropsType } from 'commons/components/organisms/Widget/questions/Choice/types';
 import React, { FC } from 'react';
-import { ChoicePropsType } from 'commons/components/molecules/Choice';
 
 const ChoicePaper = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'disabled',

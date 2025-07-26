@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import { ChoiceType } from 'commons/types/widgets';
 import useAnswerSheet from 'commons/hooks/useAnswerSheet';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { ChoiceType } from '../../Choice/types';
 
 const seededRandom = (seed: string) => {
   // Create a simple hash from the seed string

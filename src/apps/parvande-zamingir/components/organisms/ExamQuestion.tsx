@@ -3,11 +3,11 @@ import { Box, Grid, Stack, Typography } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 import IsRequired from 'commons/components/atoms/IsRequired';
-import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/useMultiChoiceQuestionProperties';
-import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion';
+import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/hooks/useMultiChoiceQuestionProperties';
 import MessageIcon from '../atoms/icons/Message';
 import QuestionChoice from '../atoms/QuestionChoice';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
+import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/types';
 
 const ExamQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,

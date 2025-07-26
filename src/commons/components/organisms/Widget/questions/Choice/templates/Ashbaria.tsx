@@ -1,6 +1,6 @@
 import { Paper, Stack, styled, Typography } from '@mui/material';
-import { ChoicePropsType } from 'commons/components/organisms/Widget/questions/Choice/types';
 import React, { FC } from 'react';
+import { ChoicePropsType } from '../types';
 
 const ChoicePaper = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'isSelected' && prop !== 'disabled',
@@ -40,7 +40,7 @@ const ChoicePaper = styled(Paper, {
   },
 }));
 
-const CourtMultiChoiceQuestionChoice: FC<Partial<ChoicePropsType>> = ({
+const Choice: FC<Partial<ChoicePropsType>> = ({
   choice,
   isSelected,
   onSelectionChange,
@@ -76,4 +76,4 @@ const CourtMultiChoiceQuestionChoice: FC<Partial<ChoicePropsType>> = ({
   );
 };
 
-export default CourtMultiChoiceQuestionChoice;
+export default Choice;

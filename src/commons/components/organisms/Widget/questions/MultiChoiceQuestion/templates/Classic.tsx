@@ -3,14 +3,14 @@ import { Button, Stack, Typography } from '@mui/material';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import CourtMultiChoiceQuestionChoice from '../molecules/CourtMultiChoiceQuestionChoice';
-import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/hooks/useMultiChoiceQuestionProperties';
-import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/types';
+import IsRequired from 'commons/components/atoms/IsRequired';
+import useMultiChoiceQuestionProperties from '../hooks/useMultiChoiceQuestionProperties';
+import { MultiChoiceQuestionWidgetPropsType } from '../types';
+import Choice from '../../Choice';
 
-const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
+const Classic: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
-
   id: questionId,
   text: questionText,
   choices: questionChoices,
@@ -19,21 +19,22 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   min_selections: minSelections,
   disable_after_answer: disableAfterAnswer,
   randomize_choices: randomizeChoices,
+  is_required,
+  ...widgetProps
 }) => {
 
   const {
     selectedChoiceIds,
     displayChoices,
-
     onChoiceSelect,
     submitAnswer,
-    errorMessage,
     submitAnswerResult,
+    errorMessage,
     isQuestionLoading,
   } = useMultiChoiceQuestionProperties({
-    questionId,
     useSubmitAnswerMutation,
     onAnswerChange,
+    questionId,
     choices: questionChoices,
     mode,
     minSelections,
@@ -43,30 +44,38 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   });
 
   return (
-    <Stack spacing={1}>
-      <TinyPreview
-        styles={{ width: '100%' }}
-        content={questionText}
-      />
-      <Stack spacing={1.5}>
-        {displayChoices.map((choice) =>
-          <CourtMultiChoiceQuestionChoice
-            inactive={maxSelections === 1 && isQuestionLoading}
+    <Stack
+      spacing={1}
+      visibility={widgetProps.is_hidden && mode === 1 ? 'hidden' : 'visible'}
+      sx={{ opacity: (widgetProps.is_hidden && mode === 2 ? 0.2 : 1) }}
+    >
+      <IsRequired hidden={!is_required}>
+        <TinyPreview
+          styles={{ width: '100%' }}
+          content={questionText}
+        />
+      </IsRequired>
+      <Stack spacing={1}>
+        {displayChoices.map((choice) => (
+          <Choice
+            template='classic'
+            inactive={(maxSelections === 1 && isQuestionLoading) || mode === WidgetModes.Review}
             key={choice.id}
             choice={choice}
             isSelected={selectedChoiceIds.includes(choice.id)}
             onSelectionChange={() => onChoiceSelect(choice)}
+            variant={maxSelections > 1 ? 'checkbox' : 'radio'}
           />
-        )}
+        ))}
       </Stack>
-      {
-        mode === WidgetModes.View && maxSelections > 1 &&
+      {mode === WidgetModes.View && maxSelections > 1 && (
         <Stack alignItems={'end'}>
           <Button
             disabled={isQuestionLoading || Boolean(errorMessage)}
             sx={{ width: 80, alignSelf: 'end' }}
             variant='contained'
-            onClick={() => submitAnswer(selectedChoiceIds)}>
+            onClick={() => submitAnswer(selectedChoiceIds)}
+          >
             <Typography fontWeight={400}>
               {'ثبت'}
             </Typography>
@@ -75,9 +84,9 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
             {errorMessage}
           </Typography>
         </Stack>
-      }
-    </Stack >
+      )}
+    </Stack>
   );
 };
 
-export default CourtMultiChoiceQuestion;
+export default Classic;

@@ -3,11 +3,11 @@ import { Button, Stack, Typography } from '@mui/material';
 
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from 'commons/components/organisms/Widget';
-import CourtMultiChoiceQuestionChoice from '../molecules/CourtMultiChoiceQuestionChoice';
 import useMultiChoiceQuestionProperties from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/hooks/useMultiChoiceQuestionProperties';
-import { MultiChoiceQuestionWidgetPropsType } from 'commons/components/organisms/Widget/questions/MultiChoiceQuestion/types';
+import Choice from '../../Choice';
+import { MultiChoiceQuestionWidgetPropsType } from '../types';
 
-const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
+const Ashbaria: FC<MultiChoiceQuestionWidgetPropsType> = ({
   useSubmitAnswerMutation,
   onAnswerChange,
 
@@ -50,7 +50,8 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
       />
       <Stack spacing={1.5}>
         {displayChoices.map((choice) =>
-          <CourtMultiChoiceQuestionChoice
+          <Choice
+            template='ashbaria'
             inactive={maxSelections === 1 && isQuestionLoading}
             key={choice.id}
             choice={choice}
@@ -80,4 +81,4 @@ const CourtMultiChoiceQuestion: FC<MultiChoiceQuestionWidgetPropsType> = ({
   );
 };
 
-export default CourtMultiChoiceQuestion;
+export default Ashbaria;

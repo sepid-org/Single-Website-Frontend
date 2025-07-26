@@ -1,16 +1,8 @@
 import { Checkbox, Radio, Stack, Typography } from '@mui/material';
 import React, { FC } from 'react';
-import { ChoiceType, ChoiceVariantType } from 'commons/types/widgets';
+import { ChoicePropsType } from '../types';
 
-type ChoiceViewPropsType = {
-  choice: ChoiceType;
-  isSelected: boolean;
-  onSelectionChange: any;
-  variant: ChoiceVariantType;
-  inactive: boolean;
-}
-
-const ChoiceView: FC<ChoiceViewPropsType> = ({
+const Classic: FC<ChoicePropsType> = ({
   choice,
   isSelected,
   onSelectionChange,
@@ -37,4 +29,4 @@ const ChoiceView: FC<ChoiceViewPropsType> = ({
   );
 };
 
-export default ChoiceView;
+export default Classic;

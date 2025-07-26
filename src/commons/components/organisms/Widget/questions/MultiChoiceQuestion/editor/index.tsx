@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   IconButton,
   Stack,
-  Switch,
   TextField,
   Typography,
 } from '@mui/material';
@@ -20,16 +19,15 @@ import { useTranslate } from 'react-redux-multilingual/lib/context';
 
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { toPersianNumber } from 'commons/utils/translateNumber';
-import { ChoiceType } from 'commons/types/widgets';
-import Choice from 'commons/components/molecules/Choice';
 import { toast } from 'react-toastify';
-import { WidgetModes } from '../..';
 import { QuestionWidgetType } from 'commons/types/widgets/QuestionWidget';
 import EditQuestionFields from 'commons/components/organisms/forms/EditQuestionFields';
 import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFieldsEditor';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { ChoiceType } from '../../Choice/types';
+import ChoiceEditor from '../../Choice/editor';
 
-type MultiChoiceQuestionEditWidgetPropsType = {
+type MultiChoiceQuestionEditorPropsType = {
   onMutate: any;
 
   text: string;
@@ -45,7 +43,7 @@ type MultiChoiceQuestionEditWidgetPropsType = {
   randomize_choices: boolean;
 }
 
-const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> = ({
+const MultiChoiceQuestionEditor: FC<MultiChoiceQuestionEditorPropsType> = ({
   onMutate,
 
   text: previousQuestionText,
@@ -153,15 +151,12 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
               </Typography>
               <Stack spacing={2}>
                 {questionChoices.map((choice, index) => (
-                  <Choice
+                  <ChoiceEditor
                     key={index}
-                    isSelected={choice.is_correct}
                     onSelectionChange={() => changeIsCorrect(index)}
-                    variant={maximumChoicesCouldBeChosen > 1 ? 'checkbox' : 'radio'}
                     choice={choice}
                     onDelete={() => deleteChoice(index)}
                     onTextChange={(event) => changeText(event.target.value, index)}
-                    mode={WidgetModes.Edit}
                   />
                 ))}
               </Stack>
@@ -278,4 +273,4 @@ const MultiChoiceQuestionEditWidget: FC<MultiChoiceQuestionEditWidgetPropsType> 
   );
 }
 
-export default MultiChoiceQuestionEditWidget;
+export default MultiChoiceQuestionEditor;

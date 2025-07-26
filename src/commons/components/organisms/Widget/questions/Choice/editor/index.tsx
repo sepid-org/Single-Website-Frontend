@@ -1,16 +1,9 @@
 import { TextField, InputAdornment, Tooltip, IconButton, Checkbox, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { ChoiceType } from 'commons/types/widgets';
+import { ChoiceEditorPropsType } from '../types';
 
-type ChoiceEditPropsType = {
-  choice: ChoiceType;
-  onTextChange: any;
-  onDelete: any;
-  onSelectionChange: any;
-}
-
-const ChoiceEdit: FC<ChoiceEditPropsType> = ({
+const ChoiceEditor: FC<ChoiceEditorPropsType> = ({
   choice,
   onTextChange,
   onDelete,
@@ -49,4 +42,4 @@ const ChoiceEdit: FC<ChoiceEditPropsType> = ({
   );
 };
 
-export default ChoiceEdit;
+export default ChoiceEditor;
