@@ -1,7 +1,7 @@
 import React, { FC, Fragment } from 'react';
 import InfoIcon from '@mui/icons-material/Info';
 import { DashboardTabType } from 'commons/types/global';
-import NormalStateEditor from './NormalStateEditor';
+import ColumnStateEditor from './ColumnStateEditor';
 import BoardStateEditor from './BoardStateEditor';
 import { Tab, Tabs } from '@mui/material';
 import StateInfoEditor from './StateInfoEditor';
@@ -45,7 +45,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
       icon: InfoIcon,
       component:
         fsm?.scene.mode === 'normal' ?
-          <NormalStateEditor fsmStateId={fsmStateId} /> :
+          <ColumnStateEditor fsmStateId={fsmStateId} /> :
           <BoardStateEditor fsmStateId={fsmStateId} />,
     },
     {

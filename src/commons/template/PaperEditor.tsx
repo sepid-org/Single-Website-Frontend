@@ -7,12 +7,12 @@ import { WidgetType } from 'commons/types/widgets/widget';
 import CreateWidgetButton from 'commons/components/molecules/CreateWidgetButton';
 import usePaper from 'apps/fsm/hooks/usePaper';
 
-type NormalPaperEditorPropsType = {
+type PropsType = {
   paperId: string;
   mode?: 'contents' | 'problems' | 'all';
 }
 
-const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
+const ColumnPaperEditor: FC<PropsType> = ({
   paperId,
   mode = 'all',
 }) => {
@@ -56,4 +56,4 @@ const NormalPaperEditor: FC<NormalPaperEditorPropsType> = ({
   );
 }
 
-export default NormalPaperEditor;
+export default ColumnPaperEditor;

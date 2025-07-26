@@ -12,7 +12,7 @@ type PropsType = {
   fsmStateId: string;
 }
 
-const NormalStateEditor: FC<PropsType> = ({ fsmStateId }) => {
+const ColumnStateEditor: FC<PropsType> = ({ fsmStateId }) => {
   const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState.papers[0];
 
@@ -34,4 +34,4 @@ const NormalStateEditor: FC<PropsType> = ({ fsmStateId }) => {
   );
 }
 
-export default NormalStateEditor;
+export default ColumnStateEditor;

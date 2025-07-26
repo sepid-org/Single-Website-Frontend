@@ -15,11 +15,11 @@ import useFinishFSM from 'commons/hooks/fsm/useFinishFSM';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 import usePaper from 'apps/fsm/hooks/usePaper';
 
-export type ColumnsFSMStatePropsType = {
+export type PropsType = {
   fsmStateId: string;
 }
 
-const ColumnsFSMState: FC<ColumnsFSMStatePropsType> = ({ fsmStateId }) => {
+const ColumnFSMState: FC<PropsType> = ({ fsmStateId }) => {
   const { player, fsmId } = useFSMContext();
   const { fsmState } = useFSMState(parseInt(fsmStateId));
   const paperId = fsmState?.papers[0];
@@ -159,4 +159,4 @@ const ColumnsFSMState: FC<ColumnsFSMStatePropsType> = ({ fsmStateId }) => {
   );
 }
 
-export default ColumnsFSMState;
+export default ColumnFSMState;

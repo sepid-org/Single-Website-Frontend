@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import ColumnsFSMState, { ColumnsFSMStatePropsType } from './ColumnsFSMState';
+import ColumnFSMState, { PropsType } from './ColumnFSMState';
 import BoardFSMState, { BoardFSMStatePropsType } from './BoardFSMState';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useWindowDimensions from 'commons/hooks/useWindowDimensions';
 
-type FSMStatePropsType = ColumnsFSMStatePropsType | BoardFSMStatePropsType;
+type FSMStatePropsType = PropsType | BoardFSMStatePropsType;
 
 const FSMState: FC<FSMStatePropsType> = ({ fsmStateId }) => {
   const { fsmId } = useFSMContext();
@@ -30,7 +30,7 @@ const FSMState: FC<FSMStatePropsType> = ({ fsmStateId }) => {
 
   if (mode === 'normal') {
     return (
-      <ColumnsFSMState
+      <ColumnFSMState
         fsmStateId={fsmStateId}
       />
     );
