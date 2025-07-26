@@ -17,10 +17,10 @@ const Classic: FC<ChoicePropsType> = ({
   }
 
   return (
-    <Stack direction={'row'} alignItems={'start'}>
+    <Stack direction={'row'} alignItems={'center'} onClick={onSelectionChangeWrapper} sx={{ cursor: inactive || choice.disabled ? 'not-allowed' : 'pointer' }}>
       {variant === 'radio' ?
-        <Radio disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={onSelectionChangeWrapper} /> :
-        <Checkbox disabled={choice.disabled} sx={{ marginTop: -1 }} size='small' checked={isSelected} onClick={onSelectionChangeWrapper} />
+        <Radio disableRipple disabled={choice.disabled} size='small' checked={isSelected} /> :
+        <Checkbox disableRipple disabled={choice.disabled} size='small' checked={isSelected} />
       }
       <Typography>
         {choice.text}
