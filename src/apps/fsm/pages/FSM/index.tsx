@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import {
   useEnterFSMMutation,
@@ -16,6 +16,9 @@ type PropsType = {};
 const FSM: FC<PropsType> = () => {
   const { fsmId: fsmIdParam } = useParams<{ fsmId: string }>();
   const fsmId = Number(fsmIdParam);
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const forceEnter = query.get('forceEnter') === 'true';
 
   const { data: fsm, isLoading: isFsmLoading, error: fsmError } = useGetFSMQuery(
     { fsmId },
@@ -44,10 +47,13 @@ const FSM: FC<PropsType> = () => {
     const notFound =
       playerError && 'status' in playerError && playerError.status === 404;
 
-    if (notFound && !isEntering && !isEnterSuccess) {
+    const shouldForceEnter = forceEnter && !isEntering && !isEnterSuccess;
+    const shouldAutoEnter = notFound && !isEntering && !isEnterSuccess;
+
+    if (shouldForceEnter || shouldAutoEnter) {
       enterFSM({ fsmId });
     }
-  }, [fsmId, playerError, isEntering, isEnterSuccess, enterFSM]);
+  }, [fsmId, playerError, isEntering, isEnterSuccess, enterFSM, forceEnter]);
 
   const player = useMemo(
     () => existingPlayer ?? enteredPlayer,
