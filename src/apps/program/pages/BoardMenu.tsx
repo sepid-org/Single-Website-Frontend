@@ -32,13 +32,11 @@ const BoardMenu: FC<ProgramProps> = ({ menuId }) => {
   ] = useEnterFSMMutation();
 
   useEffect(() => {
-    const notFound =
-      playerError && 'status' in playerError && playerError.status === 404;
-
+    const notFound = playerError && 'status' in playerError && playerError.status === 404;
     if (menuId && notFound && !isEntering && !isEnterSuccess) {
       enterFSM({ fsmId: menuId });
     }
-  }, [menuId, playerError, isEntering, isEnterSuccess, enterFSM]);
+  }, [menuId, playerError]);
 
   const player = useMemo(() => existingPlayer ?? enteredPlayer, [
     existingPlayer,
