@@ -46,7 +46,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         if (urlObj.origin === window.location.origin) {
           navigate(`${urlObj.pathname}${urlObj.search}${urlObj.hash}`);
         } else {
-          window.location.href = destination_page_url;
+          window.open(destination_page_url, '_blank');
         }
       }
     } catch (err) {
