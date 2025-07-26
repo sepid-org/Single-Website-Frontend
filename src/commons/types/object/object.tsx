@@ -17,6 +17,7 @@ export type ObjectType = {
   position: PositionType;
   order: string;
   is_hidden: boolean;
+  font_scale: number;
 }
 
 export type ComplementaryObjectType = {

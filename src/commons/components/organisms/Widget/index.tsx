@@ -70,7 +70,7 @@ const Widget: FC<WidgetPropsType> = ({
       {mode === WidgetModes.View && widget?.hints?.length > 0 && (
         <WidgetHintsButton widgetId={widget.id} />
       )}
-      <ScaleFont fontScale={widget.fontScale || 1}>
+      <ScaleFont fontScale={widget.font_scale || 1}>
         <WidgetComponent
           {...widget}
           mode={mode}
