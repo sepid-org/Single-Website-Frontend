@@ -3,9 +3,9 @@ import { Box, Button } from '@mui/material';
 import TinyPreview from 'commons/components/organisms/TinyEditor/Preview';
 import { WidgetModes } from '../..';
 import ButtonWidgetEditor from './edit';
-import useSubmitButton from 'commons/hooks/useSubmitButton';
 import { keyframes } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
+import useSubmitButton from 'commons/hooks/useSubmitButton';
 
 const wave = keyframes`
   0%   { box-shadow: 0 0 0 0   rgba(0,0,0,0.3); }
@@ -32,23 +32,25 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
   id: widgetId,
 }) => {
   const navigate = useNavigate();
-  const [submitButton] = useSubmitButton();
 
-  const handleClick = () => {
-    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable) return;
+  const [submitButton, { isLoading }] = useSubmitButton();
 
-    if (destination_page_url) {
-      // اگر URL داخلی است، مسیردهی کلاینتی انجام بده
-      const urlObj = new URL(destination_page_url, window.location.origin);
-      if (urlObj.origin === window.location.origin) {
-        navigate(`${urlObj.pathname}${urlObj.search}${urlObj.hash}`);
-      } else {
-        window.location.href = destination_page_url;
+  const handleClick = async () => {
+    if (mode === WidgetModes.Edit || mode === WidgetModes.Disable || isLoading) return;
+
+    try {
+      await submitButton({ clickedButtonId: widgetId });
+
+      if (destination_page_url) {
+        const urlObj = new URL(destination_page_url, window.location.origin);
+        if (urlObj.origin === window.location.origin) {
+          navigate(`${urlObj.pathname}${urlObj.search}${urlObj.hash}`);
+        } else {
+          window.location.href = destination_page_url;
+        }
       }
-      return;
+    } catch (err) {
     }
-
-    submitButton({ clickedButtonId: widgetId });
   };
 
   return (
@@ -85,6 +87,7 @@ const ButtonWidget: FC<ButtonWidgetPropsType> = ({
         <Button
           onClick={handleClick}
           disableRipple={!has_ripple_on_click}
+          disabled={isLoading}
           sx={{
             position: 'relative',
             width: '100%',
