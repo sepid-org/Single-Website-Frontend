@@ -18,6 +18,8 @@ import {
 import Placeholder, { EditablePlaceholder } from '../contents/Placeholder';
 import ButtonWidget, { ButtonWidgetEditor } from '../others/ButtonWidget';
 import RandomWidget, { RandomWidgetEditor } from '../others/RandomWidget';
+import ChatbotWidget from '../others/ChatbotWidget';
+import ChatbotWidgetEditor from '../others/ChatbotWidget/editor';
 
 // Define types for widget configuration
 interface WidgetConfig {
@@ -114,6 +116,12 @@ const WIDGET_REGISTRY: WidgetRegistryType = {
     EditWidgetDialog: RandomWidgetEditor,
     label: 'تصادفی',
     backendType: 'RandomWidget',
+  },
+  ChatbotWidget: {
+    WidgetComponent: ChatbotWidget,
+    EditWidgetDialog: ChatbotWidgetEditor,
+    label: 'چت‌بات',
+    backendType: 'ChatbotWidget',
   },
 };
 
