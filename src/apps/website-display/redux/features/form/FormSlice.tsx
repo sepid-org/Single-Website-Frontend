@@ -26,8 +26,8 @@ export const FormSlice = ContentManagementServiceApi.injectEndpoints({
 
     updateForm: builder.mutation<UpdateFormOutputType, UpdateFormInputType>({
       invalidatesTags: (result, error, item) => [{ type: 'form', id: item.id }],
-      query: ({ id, ...body }) => ({
-        url: `fsm/form/${id}/`,
+      query: ({ slug, ...body }) => ({
+        url: `fsm/form/${slug}/`,
         method: 'PATCH',
         body,
       }),
