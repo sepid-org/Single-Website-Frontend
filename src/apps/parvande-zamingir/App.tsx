@@ -8,22 +8,14 @@ import Authentication from './pages/Authentication';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import ProgramAccessGuard from '../program/template/ProgramAccessGuard';
 import Menu from '../program/pages/Menu';
-
-const Registration = React.lazy(() =>
-  retryImport(() => import('apps/program/pages/Registration'))
-);
+import Profile from './pages/Profile';
+import CodesPage from './pages/Codes';
+import ScoreBoard from './pages/ScoreBoard';
 
 const ProgramManagement = React.lazy(() =>
   retryImport(() => import('apps/program/pages/ProgramManagement'))
 );
 
-const TeamSetting = React.lazy(() =>
-  retryImport(() => import('apps/program/pages/TeamSetting'))
-);
-
-const ScoreBoard = React.lazy(() =>
-  retryImport(() => import('apps/scoreboard/pages/ScoreBoard'))
-);
 
 const App = () => {
   const { programSlug } = useParams();
@@ -36,7 +28,8 @@ const App = () => {
       </Route>
 
       <Route element={<PrivateRoute loginUrl={`/program/${programSlug}/auth/`} />}>
-        <Route path="/registration/" element={<Registration />} />
+        <Route path="/profile/" element={<Profile />} />
+        <Route path="/codes/" element={<CodesPage />} />
         <Route path="/scoreboard/" element={<ScoreBoard />} />
         <Route path="/manage/" element={<ProgramManagement />} />
 

@@ -1,13 +1,13 @@
 import React from "react";
-import UserInfo from "../template/UserInfo";
-import FullScreenBackgroundImage from "../../../commons/components/molecules/FullScreenBackgroundImage";
+import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { MediaUrls } from "../constants/mediaUrls";
+import UserInfo from "../templates/UserInfo";
 
 
 export default function Profile() {
 
 	return (
-		<FullScreenBackgroundImage image={MediaUrls.WALL}>
+		<FullScreenBackgroundImage image={MediaUrls.BACKGROUND2}>
 			<UserInfo />
 		</FullScreenBackgroundImage>
 	);

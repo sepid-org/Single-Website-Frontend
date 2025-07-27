@@ -1,5 +1,5 @@
 import { CodeType, CompletedMissionType, FollowType, FriendshipNetworkType, MissionType } from 'apps/ashbaria/types';
-import { AshbariaApi } from '../AshbariaApi';
+import { ParvandeZamingirApi } from '../ParvandeZamingirApi';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWithErrorCheck';
 
@@ -8,7 +8,7 @@ type GetMyFriendshipNetworkOutputType = {
   code: CodeType;
 }
 
-export const FriendshipNetworkSlice = AshbariaApi.injectEndpoints({
+export const CodesSlice = ParvandeZamingirApi.injectEndpoints({
   endpoints: (builder) => ({
 
     getMyFriendshipNetwork: builder.query<GetMyFriendshipNetworkOutputType, void>({
@@ -75,4 +75,4 @@ export const {
   useGetMyCompletedMissionsQuery,
   useCompleteMissionMutation,
   useSubmitRewardCodeMutation,
-} = FriendshipNetworkSlice;
+} = CodesSlice;

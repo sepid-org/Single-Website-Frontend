@@ -11,62 +11,25 @@ import {
   Stack,
 } from '@mui/material';
 import BackButton from '../components/molecules/buttons/Back';
-import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
+import { useFollowMutation, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
-import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
-import HeartIcon from '../components/atoms/icons/Heart';
-import FriendshipNetworkPoints from '../components/molecules/friendship-network/FriendshipNetworkPoint';
-import CopyIcon from '../components/atoms/icons/Copy';
-import CompletedMission from '../components/molecules/friendship-network/CompletedMission';
-import UncompletedMission from '../components/molecules/friendship-network/UncompletedMission';
-import FullScreenBackgroundImage from '../../../commons/components/molecules/FullScreenBackgroundImage';
-import SendInvitation from '../components/molecules/friendship-network/SendInvitation';
-import { Golden } from '../constants/colors';
+import { toEnglishNumber } from 'commons/utils/translateNumber';
+import HeartIcon from '../../ashbaria/components/atoms/icons/Heart';
+import FriendshipNetworkPoints from '../../ashbaria/components/molecules/friendship-network/FriendshipNetworkPoint';
+import CopyIcon from '../../ashbaria/components/atoms/icons/Copy';
+import FullScreenBackgroundImage from 'commons/components/molecules/FullScreenBackgroundImage';
+import SendInvitation from '../../ashbaria/components/molecules/friendship-network/SendInvitation';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
-import RewardCodeMission from '../components/molecules/friendship-network/RewardCodeMission';
-import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
+import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../../ashbaria/constants/game-info';
 import { MediaUrls } from '../constants/mediaUrls';
-import ScrollableStack from 'commons/components/organisms/ScrollableStack';
+import { Golden } from '../constants/colors';
 
-const FriendshipNetworkPage = () => {
+const CodesPage = () => {
   const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
-  const { data: missions } = useGetMissionsQuery()
-  const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
   const [follow, followResult] = useFollowMutation();
-  const [completeMission, completeMissionResult] = useCompleteMissionMutation();
   const [inputCode, setInputCode] = useState('');
-
-  const unCompletedMissions = missions?.filter(mission => !myCompletedMissions?.some(completedMission => completedMission.id === mission.id));
-
-  useEffect(() => {
-    if (completeMissionResult.isError) {
-      if (completeMissionResult.error?.['data']?.error) {
-        dialogService.open({
-          component:
-            <CustomDialogContent
-              title={completeMissionResult.error['data'].error}
-              onClick={() => {
-                dialogService.close();
-              }}
-            />
-        })
-      }
-    }
-    if (completeMissionResult.isSuccess) {
-      dialogService.open({
-        component:
-          <CustomDialogContent
-            image={<ScoreAnnouncement />}
-            title={`تبریک! این ماموریت رو با موفقیت انجام دادی. ${toPersianNumber(completeMissionResult.data.mission.reward_score)} امتیاز بهت اضافه شد`}
-            onClick={() => {
-              dialogService.close();
-            }}
-          />
-      })
-    }
-  }, [completeMissionResult.isSuccess, completeMissionResult.isError])
 
   useEffect(() => {
     if (followResult.isSuccess) {
@@ -103,7 +66,7 @@ const FriendshipNetworkPage = () => {
   };
 
   return (
-    <FullScreenBackgroundImage image={MediaUrls.WALL}>
+    <FullScreenBackgroundImage image={MediaUrls.BACKGROUND2}>
       <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
         <Grid container spacing={2}>
           <Grid container item alignItems={'center'} justifyContent={'center'}>
@@ -204,39 +167,10 @@ const FriendshipNetworkPage = () => {
               </Stack>
             </Grid>
           </Grid>
-
-          {/* Missions Section */}
-          <Grid item xs={12}>
-            <Typography fontSize={16} fontWeight={600} gutterBottom>
-              {'ماموریت‌های اشتراک‌گذاری کد'}
-            </Typography>
-            <Stack direction={'row-reverse'} spacing={2}>
-              <RewardCodeMission />
-
-              <ScrollableStack>
-                {myCompletedMissions?.map(record => (
-                  <CompletedMission
-                    key={record.id}
-                    requiredFollows={record.required_follows}
-                    rewardScore={record.reward_score}
-                  />
-                ))}
-                {unCompletedMissions?.map(record => (
-                  <UncompletedMission
-                    key={record.id}
-                    requiredFollows={record.required_follows}
-                    rewardScore={record.reward_score}
-                    completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
-                    handleClick={completeMission} id={record.id}
-                  />
-                ))}
-              </ScrollableStack>
-            </Stack>
-          </Grid>
         </Grid>
       </Container>
     </FullScreenBackgroundImage>
   );
 };
 
-export default FriendshipNetworkPage;
+export default CodesPage;

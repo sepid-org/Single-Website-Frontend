@@ -146,7 +146,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             نام
@@ -165,7 +165,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               paddingBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             نام خانوادگی
@@ -184,7 +184,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             کد ملی
@@ -203,7 +203,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             تاریخ تولد
@@ -221,7 +221,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             جنسیت
@@ -253,7 +253,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             استان
@@ -271,7 +271,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             شهر
@@ -289,7 +289,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               paddingBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             مدرسه
@@ -307,7 +307,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             تلفن
@@ -326,7 +326,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             کد پستی
@@ -345,7 +345,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             آدرس

@@ -23,7 +23,7 @@ export default function ProfileImageSelector({
         sx={{
           marginBottom: '4px',
           fontSize: 14,
-          fonWeight: 400,
+          fontWeight: 400,
         }}
       >
         تصویر نمایه

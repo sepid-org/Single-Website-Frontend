@@ -36,7 +36,7 @@ export default function ({ handleChange, referral_method, isRequired, onValidati
         sx={{
           marginBottom: '4px',
           fontSize: 14,
-          fonWeight: 400,
+          fontWeight: 400,
         }}
       >
         نحوه‌ی آشنایی

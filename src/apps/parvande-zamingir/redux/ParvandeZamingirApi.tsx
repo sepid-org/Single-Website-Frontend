@@ -1,12 +1,12 @@
 import { createApi } from '@reduxjs/toolkit/query/react'
 import customBaseQuery from 'commons/redux/utilities/customBaseQuery';
 import { tagTypes } from 'commons/redux/utilities/tagGenerationWithErrorCheck';
-import { AshbariaApiUrl } from '../constants/urls';
+import { ParvandeZamingirApiUrl } from '../constants/urls';
 
-export const AshbariaApi = createApi({
-  reducerPath: 'ashbaria',
+export const ParvandeZamingirApi = createApi({
+  reducerPath: 'parvande-zamingir',
   tagTypes,
-  baseQuery: customBaseQuery({ baseUrl: AshbariaApiUrl }),
+  baseQuery: customBaseQuery({ baseUrl: ParvandeZamingirApiUrl }),
   endpoints: build => ({
   })
 })

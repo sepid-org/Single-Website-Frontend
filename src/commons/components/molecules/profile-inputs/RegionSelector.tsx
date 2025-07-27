@@ -10,7 +10,7 @@ export default function RegionSelector({ data, setData }) {
           sx={{
             marginBottom: '4px',
             fontSize: 14,
-            fonWeight: 400,
+            fontWeight: 400,
           }}
         >
           استان
@@ -36,7 +36,7 @@ export default function RegionSelector({ data, setData }) {
           sx={{
             marginBottom: '4px',
             fontSize: 14,
-            fonWeight: 400,
+            fontWeight: 400,
           }}
         >
           شهر

@@ -1,24 +1,13 @@
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import OtpAuthTabs from 'commons/components/organisms/auth/OtpAuth';
 import React from 'react';
+import { MediaUrls } from '../constants/mediaUrls';
+import FullScreenBackgroundImage from 'commons/components/molecules/FullScreenBackgroundImage';
 
 const Authentication: React.FC = () => {
 
   return (
-    <Container
-      maxWidth={false}
-      disableGutters
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundImage:
-          'url(https://cdn.sepid.org/cms/files/login-page-background.webp)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
+    <FullScreenBackgroundImage image={MediaUrls.LOGIN_PAGE_BACKGROUND}>
       <Stack
         spacing={4}
         alignItems="center"
@@ -33,7 +22,7 @@ const Authentication: React.FC = () => {
       >
         <OtpAuthTabs />
       </Stack>
-    </Container>
+    </FullScreenBackgroundImage>
   );
 };
 

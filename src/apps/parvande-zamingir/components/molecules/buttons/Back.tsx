@@ -1,9 +1,9 @@
 import React from "react";
 import { IconButton } from "@mui/material";
 import ArrowRightIcon from "../../atoms/icons/ArrowRight";
-import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
+import useLocalNavigate from "apps/parvande-zamingir/hooks/useLocalNavigate";
 
-const BackButton = ({ onClick = null, destination = '/menu/' }) => {
+const BackButton = ({ onClick = null, destination = '/' }) => {
   const localNavigate = useLocalNavigate();
   return (
     <IconButton onClick={onClick || (() => { localNavigate(destination) })}>

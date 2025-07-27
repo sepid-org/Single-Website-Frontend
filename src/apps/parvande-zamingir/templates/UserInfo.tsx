@@ -2,14 +2,14 @@ import React, { FC, useEffect, useState } from "react";
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
-import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
-import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
-import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
+import IntroductionSelector from "../../ashbaria/components/molecules/profile-inputs/IntroductionSelector";
+import ProfileImageSelector from "../../ashbaria/components/molecules/profile-inputs/ProfileImageSelector";
+import { useGetProfileQuery, useUpdateProfileMutation } from "../../ashbaria/redux/slices/Profile";
 import BackButton from "../components/molecules/buttons/Back";
-import PersonIcon from "../components/atoms/icons/Person";
-import ScoreChip from "../components/molecules/chips/Score";
-import useLocalNavigate from "../hooks/useLocalNavigate";
-import { AshbariaProfileType } from "../types";
+import PersonIcon from "../../ashbaria/components/atoms/icons/Person";
+import ScoreChip from "../../ashbaria/components/molecules/chips/Score";
+import useLocalNavigate from "../../ashbaria/hooks/useLocalNavigate";
+import { AshbariaProfileType } from "../../ashbaria/types";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
@@ -26,7 +26,7 @@ import NationalCodeField from "commons/components/molecules/profile-inputs/Natio
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
-import { Golden } from "../constants/colors";
+import { Golden } from "../../ashbaria/constants/colors";
 
 type UserSettingPropsType = {}
 
@@ -133,7 +133,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <Stack direction={'row'}>
             <PersonIcon />
             <Typography variant="h6" fontSize={24} fontWeight={800}>
-              {'نمایه'}
+              {'نمایه من'}
             </Typography>
           </Stack>
           <Box position={'absolute'} right={10} top={10}>
@@ -146,7 +146,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             نام
@@ -165,7 +165,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               paddingBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             نام خانوادگی
@@ -184,7 +184,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             کد ملی
@@ -203,7 +203,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             تاریخ تولد
@@ -221,7 +221,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             جنسیت
@@ -253,7 +253,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             استان
@@ -271,7 +271,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             شهر
@@ -289,7 +289,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               paddingBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             مدرسه
@@ -307,7 +307,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             تلفن
@@ -326,7 +326,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             کد پستی
@@ -345,7 +345,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             sx={{
               marginBottom: '4px',
               fontSize: 14,
-              fonWeight: 400,
+              fontWeight: 400,
             }}
           >
             آدرس

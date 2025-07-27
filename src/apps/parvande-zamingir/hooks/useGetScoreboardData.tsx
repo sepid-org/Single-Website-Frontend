@@ -3,7 +3,7 @@ import { useGetScoreboardQuery } from 'apps/scoreboard/redux/ScoreboardSlice';
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
 import { useGetMyBalancesQuery } from 'commons/redux/apis/bank/MyInfo';
 import useUserProfile from 'commons/hooks/useUserProfile';
-import useGetUsersNames from './useGetUsersNames';
+import useGetUsersNames from 'apps/scoreboard/hooks/useGetUsersNames';
 
 const useGetScoreBoardData = (currencyName) => {
   // Fetch data from API
