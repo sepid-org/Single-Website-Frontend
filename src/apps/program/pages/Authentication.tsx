@@ -1,13 +1,25 @@
+import React, { FC, Suspense } from 'react';
 import { Box, Container, Paper, Stack, Typography } from '@mui/material';
-import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import OtpAuthTabs from 'commons/components/organisms/auth/OtpAuth';
-import React, { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
-type PropsType = {}
+import { CircularProgress } from '@mui/material';
+import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
+import { templates, AuthKey } from 'commons/components/organisms/auth/registery';
+import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+
+type PropsType = {};
 
 const Authentication: FC<PropsType> = () => {
   const { programSlug } = useParams();
+  const { data: program, isLoading } = useGetProgramQuery({ programSlug });
+
+  if (isLoading) return null;
+
+  const authMethod: AuthKey =
+    (program?.auth_method?.toUpperCase() as AuthKey) ?? 'OTP';
+
+  const AuthComponent = templates[authMethod] ?? templates.OTP;
+
   return (
     <Container
       sx={{
@@ -17,27 +29,26 @@ const Authentication: FC<PropsType> = () => {
         justifyContent: 'center',
       }}
     >
-      <Stack
-        spacing={4}
-        alignItems={'center'}
-        width={400}>
-
+      <Stack spacing={4} alignItems="center" width={400}>
         <Box pb={2}>
-          <ProgramLogo size='large' />
+          <ProgramLogo size="large" />
         </Box>
 
-        <Typography variant='h2' gutterBottom>
-          {'ورود'}
+        <Typography variant="h2" gutterBottom>
+          ورود
         </Typography>
+
         <Stack
-          width={'100%'}
+          width="100%"
           component={Paper}
           spacing={2}
-          padding={2}
-          alignItems={'center'}>
-          <OtpAuthTabs />
+          p={2}
+          alignItems="center"
+        >
+          <Suspense fallback={<CircularProgress size={18} />}>
+            <AuthComponent />
+          </Suspense>
         </Stack>
-
       </Stack>
     </Container>
   );

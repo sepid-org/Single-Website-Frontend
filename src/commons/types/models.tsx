@@ -1,6 +1,7 @@
 import { AcademicStudentshipType, SchoolStudentshipType, UserInfoType } from "./profile";
 import { WidgetType } from "./widgets/widget";
 import { ObjectType } from "./object/object";
+import { AuthKey } from "commons/components/organisms/auth/registery";
 
 export type PlayerRequestType = any;
 
@@ -51,6 +52,7 @@ export type ProgramType = {
   team_size: number;
   is_public: boolean;
   menu: number;
+  auth_method : AuthKey
 }
 
 export type AnswerSheetTypeType = 'General' | 'RegistrationReceipt' | 'StateAnswerSheet';
