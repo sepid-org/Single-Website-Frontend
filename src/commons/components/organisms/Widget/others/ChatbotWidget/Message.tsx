@@ -7,14 +7,10 @@ const Message: React.FC<ChatbotMessageType> = ({ sender, content }) => {
   const isRtl = theme.direction === 'rtl';
   const isUser = sender === 'USER';
 
-  console.log(sender, content);
-
   const alignSelf =
     isUser
       ? (isRtl ? 'flex-start' : 'flex-end')
       : (isRtl ? 'flex-end' : 'flex-start');
-
-  console.log(isRtl, alignSelf)
 
   return (
     <Box
