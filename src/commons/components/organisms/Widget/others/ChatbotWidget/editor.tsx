@@ -30,24 +30,24 @@ interface ChatbotWidgetEditorProps extends Partial<ContentWidgetType> {
 
 const ChatbotWidgetEditor: React.FC<ChatbotWidgetEditorProps> = ({
   onMutate,
+  handleClose,
   paperId,
   open,
-  handleClose,
   id: widgetId,
 
   bot_id: previousBotId,
   api_key: previousApiKey,
+  title: previousTitle,
   stream_response: previousStreamResponse = false,
 
   ...widgetProps
 }) => {
   const t = useTranslate()
 
+  const [title, setTitle] = useState<string>(previousTitle ?? '')
   const [botId, setBotId] = useState<string>(previousBotId ?? '')
   const [apiKey, setApiKey] = useState<string>(previousApiKey ?? '')
-  const [streamResponse, setStreamResponse] = useState<boolean>(
-    !!previousStreamResponse
-  )
+  const [streamResponse, setStreamResponse] = useState<boolean>(!!previousStreamResponse)
 
   const [widgetFields, setWidgetFields] = useState<Partial<ContentWidgetType>>({
     ...widgetProps
@@ -58,6 +58,7 @@ const ChatbotWidgetEditor: React.FC<ChatbotWidgetEditorProps> = ({
       paper: paperId,
       widgetId,
 
+      title,
       bot_id: botId,
       api_key: apiKey,
       stream_response: streamResponse,
@@ -68,15 +69,21 @@ const ChatbotWidgetEditor: React.FC<ChatbotWidgetEditorProps> = ({
   }
 
   return (
-    <Dialog disableScrollLock open={open} onClose={handleClose}>
+    <Dialog open={open} maxWidth="sm" fullWidth>
       <DialogTitle>ویرایش چت‌بات</DialogTitle>
-
       <DialogContent>
-        <Stack spacing={2}>
-
+        <Stack spacing={1} sx={{ mt: 1 }}>
           <Stack spacing={1}>
             <TextField
               fullWidth
+              label="عنوان"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+            />
+
+            <TextField
+              fullWidth
+              required
               label="Metis Bot-ID"
               inputProps={{ dir: 'ltr' }}
               value={botId}
@@ -85,6 +92,7 @@ const ChatbotWidgetEditor: React.FC<ChatbotWidgetEditorProps> = ({
 
             <TextField
               fullWidth
+              required
               type="password"
               label="Metis API-Key"
               inputProps={{ dir: 'ltr' }}
@@ -95,6 +103,7 @@ const ChatbotWidgetEditor: React.FC<ChatbotWidgetEditorProps> = ({
             <FormControlLabel
               control={
                 <Checkbox
+                  disabled // todo: temporarily disabled until stream response is fully implemented
                   checked={streamResponse}
                   onChange={e => setStreamResponse(e.target.checked)}
                 />

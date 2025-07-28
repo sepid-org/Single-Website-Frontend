@@ -1,7 +1,8 @@
 import { ContentManagementServiceApi } from '../ManageContentServiceApiSlice'
 
-export interface MetisMessage {
-  type: 'USER' | 'AI'
+export interface ChatbotMessageType {
+  id: number;
+  sender: 'USER' | 'AI'
   content: string
   attachments?: any | null
 }
@@ -9,7 +10,7 @@ export interface MetisMessage {
 export interface StartChatSessionArgs {
   widgetId: number
   playerId: number;
-  initialMessages?: MetisMessage[]
+  initialMessages?: ChatbotMessageType[]
 }
 export interface SendChatMessageArgs {
   sessionId: string
@@ -38,7 +39,7 @@ export const ChatbotSlice = ContentManagementServiceApi.injectEndpoints({
     }),
 
     /* 2) ارسال پیام */
-    sendChatMessage: builder.mutation<MetisMessage, SendChatMessageArgs>({
+    sendChatMessage: builder.mutation<ChatbotMessageType, SendChatMessageArgs>({
       query: ({ sessionId, content }) => ({
         url: `/widgets/chat/session/${sessionId}/message/`,
         method: 'POST',
@@ -49,7 +50,7 @@ export const ChatbotSlice = ContentManagementServiceApi.injectEndpoints({
       ]
     }),
 
-    getChatSession: builder.query<{ id: string; messages: MetisMessage[] }, GetChatSessionArgs>({
+    getChatSession: builder.query<{ id: string; messages: ChatbotMessageType[] }, GetChatSessionArgs>({
       query: ({ sessionId }) => `/widgets/chat/session/${sessionId}/`,
       providesTags: result =>
         result ? [{ type: 'ChatSession', id: result.id }] : []
