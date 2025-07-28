@@ -122,6 +122,28 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
         />
       </Grid> */}
       <Grid item xs={12} sm={6}>
+        <FormControl fullWidth>
+          <InputLabel id="auth-method-label">روش احراز هویت</InputLabel>
+          <Select
+            labelId="auth-method-label"
+            id="auth-method-select"
+            value={data?.auth_method ?? 'otp'}
+            label="روش احراز هویت"
+            onChange={(e) =>
+              setData((prev) => ({
+                ...prev!,
+                auth_method: e.target.value as ProgramType['auth_method'],
+              }))
+            }
+          >
+            <MenuItem value="otp">OTP</MenuItem>
+            <MenuItem value="classic">Username & Password</MenuItem>
+            <MenuItem value="username_first">Username First</MenuItem>
+            {/* <MenuItem value="OAuth">OAuth</MenuItem> */}
+          </Select>
+        </FormControl>
+      </Grid>
+      <Grid item xs={12} sm={6}>
         <FormControlLabel
           name='is_visible'
           checked={data.is_visible}
