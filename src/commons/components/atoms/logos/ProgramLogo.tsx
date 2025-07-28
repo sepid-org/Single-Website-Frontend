@@ -45,6 +45,7 @@ const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small', destination: in
       <img alt="website-logo" unselectable="on" src={program.cover_image}
         style={{
           borderRadius: 16,
+          objectFit: 'cover',
           minWidth: logoSize.width,
           minHeight: logoSize.height,
           maxWidth: logoSize.maxWidth,
