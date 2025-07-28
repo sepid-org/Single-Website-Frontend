@@ -6,6 +6,7 @@ import { CircularProgress } from '@mui/material';
 import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
 import { templates, AuthKey } from 'commons/components/organisms/auth/registery';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import ClassicAuthTabs from 'commons/components/organisms/auth/ClassicAuth';
 
 type PropsType = {};
 
@@ -34,10 +35,6 @@ const Authentication: FC<PropsType> = () => {
           <ProgramLogo size="large" />
         </Box>
 
-        <Typography variant="h2" gutterBottom>
-          ورود
-        </Typography>
-
         <Stack
           width="100%"
           component={Paper}
@@ -46,7 +43,11 @@ const Authentication: FC<PropsType> = () => {
           alignItems="center"
         >
           <Suspense fallback={<CircularProgress size={18} />}>
-            <AuthComponent />
+            {/* todo: fix classic mode */}
+            {program.auth_method === 'classic' ?
+              <ClassicAuthTabs basePath={`/program/${programSlug}/auth`} /> :
+              <AuthComponent />
+            }
           </Suspense>
         </Stack>
       </Stack>
