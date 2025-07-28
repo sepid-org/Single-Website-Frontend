@@ -38,7 +38,6 @@ export const ChatbotSlice = ContentManagementServiceApi.injectEndpoints({
       })
     }),
 
-    /* 2) ارسال پیام */
     sendChatMessage: builder.mutation<ChatbotMessageType, SendChatMessageArgs>({
       query: ({ sessionId, content }) => ({
         url: `/widgets/chat/session/${sessionId}/message/`,

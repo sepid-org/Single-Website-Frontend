@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   IconButton,
   Paper,
   Stack,
   TextField,
   Typography,
-  CircularProgress
+  CircularProgress,
+  Tooltip
 } from '@mui/material'
 import SendIcon from '@mui/icons-material/Send'
 import RestartAltIcon from '@mui/icons-material/RestartAlt'
@@ -21,7 +22,6 @@ import { WidgetModes } from '../..'
 import { useFSMContext } from 'commons/hooks/useFSMContext'
 import Message from './Message'
 
-
 type ChatbotWidgetProps = {
   mode: WidgetModes;
   id: string;
@@ -36,6 +36,8 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [input, setInput] = useState<string>('');
   const { player } = useFSMContext();
+  const hasStartedRef = useRef(false);
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   /* RTK hooks */
   const [startSession, { isLoading: starting }] = useStartChatSessionMutation()
@@ -50,20 +52,28 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
   )
   const [resetChat, { isLoading: resetting }] = useResetChatSessionMutation()
 
-  /* build a session on first mount */
   useEffect(() => {
-    if (!sessionId && !starting && player && widgetId) {
-      startSession({
-        widgetId: parseInt(widgetId),
-        playerId: parseInt(player.id),
-      })
-        .unwrap()
-        .then(res => setSessionId(res.id))
-        .catch(console.error)
-    }
-  }, [sessionId, starting])
+    if (hasStartedRef.current) return;
+    if (sessionId || starting || !player || !widgetId) return
+    hasStartedRef.current = true;
 
-  /* handlers */
+    startSession({
+      widgetId: parseInt(widgetId),
+      playerId: parseInt(player.id),
+    })
+      .unwrap()
+      .then(res => setSessionId(res.id))
+      .catch(console.error)
+
+  }, [player, widgetId, starting])
+
+  useEffect(() => {
+    const el = listRef.current;
+    if (el) {
+      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    }
+  }, [session?.messages?.length]);
+
   const handleSend = () => {
     if (!input.trim() || !sessionId || sending) return
     sendMessage({ sessionId, content: input.trim() })
@@ -73,12 +83,15 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
   }
 
   const handleReset = () => {
-    if (!sessionId || resetting) return
+    if (!sessionId) return;
     resetChat({ sessionId })
       .unwrap()
-      .then(() => setSessionId(null))      // triggers new session on next render
-      .catch(console.error)
-  }
+      .then(() => {
+        setSessionId(null);
+        hasStartedRef.current = false;
+      })
+      .catch(console.error);
+  };
 
   if (mode !== WidgetModes.View) {
     return ("برای مشاهده چت‌بات، لطفاً از حالت ویرایش خارج و به حالت نمایش بروید.");
@@ -98,26 +111,41 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Typography variant="h6">{`گفتگو با ${title}`}</Typography>
         <Stack direction="row" spacing={1}>
-          <IconButton size="small" onClick={() => refetch()}>
-            {isFetching ? <CircularProgress size={18} /> : <RefreshIcon />}
-          </IconButton>
-          <IconButton size="small" onClick={handleReset}>
-            {resetting ? <CircularProgress size={18} /> : <RestartAltIcon />}
-          </IconButton>
+          <Tooltip title="بارگذاری مجدد گفتگو">
+            <IconButton size="small" onClick={() => refetch()}>
+              {isFetching ? <CircularProgress size={18} /> : <RefreshIcon />}
+            </IconButton>
+          </Tooltip>
+          {/* <Tooltip title="بازنشانی گفتگو">
+            <IconButton size="small" onClick={handleReset}>
+              {resetting ? <CircularProgress size={18} /> : <RestartAltIcon />}
+            </IconButton>
+          </Tooltip> */}
         </Stack>
       </Stack>
 
       {/* messages list */}
       <Stack
+        ref={listRef}
         spacing={1}
-        sx={{
-          mt: 2,
-          mb: 2,
-          flex: 1,
-          minHeight: 0,
-          overflowY: 'auto'
-        }}
+        sx={{ mt: 2, mb: 2, flex: 1, minHeight: 0, overflowY: 'auto' }}
       >
+        {(starting || !sessionId) && (
+          <Typography variant="body2" color="text.secondary">
+            در حال آماده‌سازی...
+          </Typography>
+        )}
+
+        {!starting && session?.messages?.length === 0 && (
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ mx: 'auto', mt: 1 }}
+          >
+            هنوز پیامی ثبت نشده است.
+          </Typography>
+        )}
+
         {session?.messages?.map((m) => (
           <Message
             key={m.id}
@@ -126,11 +154,6 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
             content={m.content}
           />
         ))}
-        {(starting || !sessionId) && (
-          <Typography variant="body2" color="text.secondary">
-            در حال آماده‌سازی...
-          </Typography>
-        )}
       </Stack>
 
       {/* input box */}
