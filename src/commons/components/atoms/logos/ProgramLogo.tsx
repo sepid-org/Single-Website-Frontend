@@ -32,7 +32,7 @@ const sizes = {
 
 const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small', destination: inputDestination }) => {
   const { programSlug } = useParams();
-  const { data: program, isSuccess } = useGetProgramQuery({ programSlug: programSlug });
+  const { data: program, isSuccess } = useGetProgramQuery({ programSlug });
   const logoSize = sizes[size];
   const destination = inputDestination || `/program/${programSlug}/`;
 

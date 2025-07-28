@@ -38,7 +38,7 @@ const LargeLink = styled(RouterLink)(({ theme }) => ({
 
 const ProgramManagementBreadcrumbs = () => {
   const { programSlug } = useParams();
-  const { data: program } = useGetProgramQuery({ programSlug: programSlug });
+  const { data: program } = useGetProgramQuery({ programSlug });
 
   return (
     <StyledPaper elevation={0}>
