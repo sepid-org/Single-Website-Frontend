@@ -57,14 +57,17 @@ const ChatbotWidget: React.FC<ChatbotWidgetProps> = ({
     if (sessionId || starting || !player || !widgetId) return
     hasStartedRef.current = true;
 
-    startSession({
-      widgetId: parseInt(widgetId),
-      playerId: parseInt(player.id),
-    })
-      .unwrap()
-      .then(res => setSessionId(res.id))
-      .catch(console.error)
+    const timer = setTimeout(() => {
+      startSession({
+        widgetId: parseInt(widgetId),
+        playerId: parseInt(player.id),
+      })
+        .unwrap()
+        .then(res => setSessionId(res.id))
+        .catch(console.error);
+    }, 1000);
 
+    return () => clearTimeout(timer);
   }, [player, widgetId, starting])
 
   useEffect(() => {
