@@ -13,7 +13,7 @@ export type PaperResult = {
  * Manager hook that controls when to switch from single-paper fetch
  * to full-papers fetch, with cache-first retrieval.
  */
-const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
+const useFSMPapersManager = ({ fsmId, mode }: { fsmId: number; mode: 'view' | 'edit'; }) => {
 
   // control flag: after 3s, load full list
   const [useFullPapers, setUseFullPapers] = useState(false);
@@ -42,6 +42,16 @@ const useFSMPapersManager = ({ fsmId }: { fsmId: number }) => {
       updateCache(parseInt(p.id), p);
     });
   }, [fullQuery.data]);
+
+  if (mode === 'edit') {
+    const getCachedPaper = (): PaperResult => ({
+      paper: null,
+      isLoading: false,
+      isSuccess: false,
+      error: undefined,
+    });
+    return { getCachedPaper };
+  }
 
   const getCachedPaper = ({ paperId }: { paperId: number }): PaperResult => {
     const isCached = paperCache.has(paperId);

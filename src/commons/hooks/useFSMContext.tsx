@@ -29,8 +29,8 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   ...props
 }) => {
   const { data: player } = useGetCurrentUserPlayerQuery({ fsmId: props.fsmId }, { skip: props.mode === 'edit' });
-  const { getCachedFSMState } = useFSMStatesManager({ fsmId: props.fsmId });
-  const { getCachedPaper } = useFSMPapersManager({ fsmId: props.fsmId });
+  const { getCachedFSMState } = useFSMStatesManager({ fsmId: props.fsmId, mode: props.mode });
+  const { getCachedPaper } = useFSMPapersManager({ fsmId: props.fsmId, mode: props.mode });
   const [open, setOpen] = useState(false);
   const [dialogProps, setDialogProps] = useState({
     children: null,

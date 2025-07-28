@@ -13,7 +13,7 @@ export type FSMStateResult = {
  * Custom hook that manages a cache-first FSM state fetch strategy,
  * seamlessly switching from single-item to full-list queries.
  */
-const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
+const useFSMStatesManager = ({ fsmId, mode }: { fsmId: number; mode: 'view' | 'edit'; }) => {
 
   // Flag to switch from single-item to full-list fetch
   const [useFullStates, setUseFullStates] = useState(false);
@@ -45,6 +45,16 @@ const useFSMStatesManager = ({ fsmId }: { fsmId: number }) => {
       updateCache(parseInt(s.id), s);
     });
   }, [fullQuery.data]);
+
+  if (mode === "edit") {
+    const getCachedFSMState = (): FSMStateResult => ({
+      fsmState: null,
+      isLoading: false,
+      isSuccess: false,
+      error: undefined,
+    });
+    return { getCachedFSMState };
+  }
 
   const getCachedFSMState = ({ fsmStateId }: { fsmStateId: number }): FSMStateResult => {
     const isCached = stateCache.has(fsmStateId);
