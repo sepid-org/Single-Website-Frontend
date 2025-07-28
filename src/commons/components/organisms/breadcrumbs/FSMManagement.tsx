@@ -1,9 +1,10 @@
 import React from 'react';
 import { Breadcrumbs, Typography, Paper } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useParams, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -38,7 +39,7 @@ const LargeLink = styled(RouterLink)(({ theme }) => ({
 }));
 
 const FSMManagementBreadcrumbs = () => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: program } = useGetProgramQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
 

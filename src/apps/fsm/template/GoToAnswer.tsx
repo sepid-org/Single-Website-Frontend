@@ -7,12 +7,13 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import isNumber from 'commons/utils/validators/isNumber';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const GoToAnswer = () => {
   const navigate = useNavigate();
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [answerId, setAnswerId] = useState<string>('');
 
   return (

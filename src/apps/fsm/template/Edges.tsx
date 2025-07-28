@@ -16,15 +16,15 @@ import {
 } from '@mui/material';
 import ClearIcon from '@mui/icons-material/Clear';
 import React, { useState, FC, useEffect } from 'react';
-import { useParams } from 'react-router';
 import { useGetFSMEdgesQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useCreateFSMEdgeMutation, useDeleteFSMEdgeMutation, useUpdateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
 import EdgeEditorButton from 'commons/components/molecules/EdgeEditorButton';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type IndexPropsType = {}
 
 const Edges: FC<IndexPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const newEdgeInitialValue = {
     tail: '',
     head: '',

@@ -21,6 +21,7 @@ import MapIcon from '@mui/icons-material/Map';
 import FSMMapEditor from '../template/FSMMapEditor';
 import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import Players from '../template/Players';
+import { FSMProvider } from 'commons/hooks/useFSMContext';
 
 const tabs: DashboardTabType[] = [
   {
@@ -83,14 +84,16 @@ const FSMManagement: FC<FSMManagementPropsType> = ({ }) => {
 
   return (
     <Layout appbarMode='GENERAL'>
-      <Grid container spacing={2} justifyContent="center">
-        <Grid item xs={12} marginTop={-1}>
-          <FSMManagementBreadcrumbs />
+      <FSMProvider fsmId={fsmId} mode='edit'>
+        <Grid container spacing={2} justifyContent="center">
+          <Grid item xs={12} marginTop={-1}>
+            <FSMManagementBreadcrumbs />
+          </Grid>
+          <Grid item xs={12}>
+            <Dashboard tabs={tabs} returnDirection={fsm && `/program/${fsm.program_slug}/`} />
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          <Dashboard tabs={tabs} returnDirection={fsm && `/program/${fsm.program_slug}/`} />
-        </Grid>
-      </Grid>
+      </FSMProvider>
     </Layout>
   );
 };

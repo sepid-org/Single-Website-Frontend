@@ -1,16 +1,16 @@
 import { Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
-import { useParams } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import usePlayerPerformance from "commons/hooks/fsm/useGetPlayerPerformance";
 import ScoreChip from "commons/components/atoms/chips/Score";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 type PropsType = {
   playerId: number;
 };
 
 const PlayerPerformance: FC<PropsType> = ({ playerId }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm, isLoading: isLoadingFSM } = useGetFSMQuery({ fsmId });
   const { correct, isLoading: isLoadingPlayerPerformance } = usePlayerPerformance({ playerId });
   const isLoading = isLoadingFSM || isLoadingPlayerPerformance;

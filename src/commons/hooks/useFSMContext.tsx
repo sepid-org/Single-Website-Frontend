@@ -21,13 +21,14 @@ const FSMContext = createContext<FSMContextType | null>(null);
 interface FSMProviderPropsType {
   fsmId: number;
   children: ReactNode;
+  mode?: 'view' | 'edit';
 }
 
 export const FSMProvider: FC<FSMProviderPropsType> = ({
   children,
   ...props
 }) => {
-  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId: props.fsmId });
+  const { data: player } = useGetCurrentUserPlayerQuery({ fsmId: props.fsmId }, { skip: props.mode === 'edit' });
   const { getCachedFSMState } = useFSMStatesManager({ fsmId: props.fsmId });
   const { getCachedPaper } = useFSMPapersManager({ fsmId: props.fsmId });
   const [open, setOpen] = useState(false);

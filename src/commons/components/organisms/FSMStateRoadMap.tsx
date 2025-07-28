@@ -12,7 +12,6 @@ import RoadMapType1 from 'commons/components/organisms/Roadmap/RoadMapType1';
 import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
 import { Link } from 'commons/types/redux/Roadmap';
 import { useGetFSMRoadmapActionQuery, useGetPlayerTransitedPathQuery } from 'apps/website-display/redux/features/roadmap/RoadmapSlice';
-import { useParams } from 'react-router-dom';
 import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMStateRoadMapPropsType = {
@@ -22,7 +21,7 @@ type FSMStateRoadMapPropsType = {
 const FSMStateRoadMap: FC<FSMStateRoadMapPropsType> = ({
   currentNodeName,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { player } = useFSMContext();
   const [openRoadMap, setOpenRoadMap] = useState(true);
   const [lastTransitedNode, setLastTransitedNode] = useState<string>(currentNodeName);

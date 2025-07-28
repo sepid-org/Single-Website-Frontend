@@ -6,15 +6,15 @@ import {
 import SoftDeleteFSMButton from 'commons/components/atoms/SoftDeleteFSMButton';
 import FSMInfoForm from 'apps/program/components/organisms/forms/FSMInfo';
 import React, { FC, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetFSMQuery, useUpdateFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { FSMType } from 'commons/types/models';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type InfoPropsType = {}
 
 const Info: FC<InfoPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [properties, setProperties] = useState<FSMType>();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [updateFSM, result] = useUpdateFSMMutation();

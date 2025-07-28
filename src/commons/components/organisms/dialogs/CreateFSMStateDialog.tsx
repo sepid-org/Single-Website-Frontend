@@ -6,9 +6,9 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import { useCreateFSMStateMutation } from 'apps/fsm/redux/slices/fsm/FSMStateSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type CreateStateDialogPropsType = {
   open: boolean;
@@ -20,7 +20,7 @@ const CreateFSMStateDialog: FC<CreateStateDialogPropsType> = ({
   handleClose,
 }) => {
   const [title, setTitle] = useState('');
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const t = useTranslate();
   const [createFSMState, result] = useCreateFSMStateMutation();
 

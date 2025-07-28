@@ -1,13 +1,14 @@
 import { IconButton } from '@mui/material';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import React, { FC } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type BackToProgramButtonPropsType = {};
 
 const BackToProgramButton: FC<BackToProgramButtonPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const navigate = useNavigate();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 

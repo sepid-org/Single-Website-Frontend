@@ -9,16 +9,16 @@ import {
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState, FC } from 'react';
-import { useParams } from 'react-router-dom';
 import ClearIcon from '@mui/icons-material/Clear';
 import InfoIcon from '@mui/icons-material/Info';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import { useAddMentorToFSMMutation, useGetFSMMentorsQuery, useRemoveMentorFromFSMMutation } from 'apps/fsm/redux/slices/fsm/MentorSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type MentorsPropsType = {}
 
 const Mentors: FC<MentorsPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [username, setUsername] = useState<string>('');
   const [addMentorToFSM, addMentorToFSMResult] = useAddMentorToFSMMutation()
   const [removeMentorFromFSM] = useRemoveMentorFromFSMMutation()

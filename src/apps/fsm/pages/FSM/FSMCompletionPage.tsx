@@ -1,20 +1,17 @@
-import { Button, Paper, Stack, Typography } from "@mui/material";
+import { Button, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import PlayerPerformance from "../../template/PlayerPerformance";
 import Confetti from 'react-confetti'
 import useEnterFSM from "commons/hooks/fsm/useEnterFSM";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
-type PropsType = {
-  playerId: number;
-};
+type PropsType = {};
 
-const FSMCompletionPage: FC<PropsType> = ({
-  playerId,
-}) => {
-  const fsmId = parseInt(useParams().fsmId);
+const FSMCompletionPage: FC<PropsType> = ({ }) => {
+  const { player, fsmId } = useFSMContext();
   const navigate = useNavigate();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [enterFSM, { isLoading: isEntering }] = useEnterFSM({ fsmId });
@@ -38,7 +35,7 @@ const FSMCompletionPage: FC<PropsType> = ({
         </Typography>
 
         {fsm.show_player_performance_on_end &&
-          <PlayerPerformance playerId={playerId} />
+          <PlayerPerformance playerId={parseInt(player.id)} />
         }
 
         <Stack spacing={1} width={'100%'}>

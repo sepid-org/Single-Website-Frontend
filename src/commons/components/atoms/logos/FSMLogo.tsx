@@ -2,13 +2,13 @@ import { IconButton, Skeleton, Stack, Tooltip, Typography } from '@mui/material'
 import React, { FC } from 'react';
 import useWidth from 'commons/utils/UseWidth';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useParams } from 'react-router-dom';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMLogoPropsType = {}
 
 const FSMLogo: FC<FSMLogoPropsType> = ({ }) => {
   const width = useWidth();
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   if (!fsm) {

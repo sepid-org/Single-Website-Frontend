@@ -5,7 +5,7 @@ import BoardEditor from 'commons/template/BoardEditor';
 import AddPaperToFSMState from 'apps/fsm/components/molecules/AddPaperToFSMState';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useParams } from 'react-router-dom';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type PropsType = {
   fsmStateId: string;
@@ -13,8 +13,7 @@ type PropsType = {
 
 const BoardStateEditor: FC<PropsType> = ({ fsmStateId }) => {
   const theme = useTheme();
-  // todo: get fsmId from FSMContext
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const [activePaperId, setActivePaperId] = useState(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));

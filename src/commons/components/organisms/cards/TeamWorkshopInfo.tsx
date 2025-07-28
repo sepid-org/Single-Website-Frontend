@@ -25,10 +25,10 @@ import StarBorderIcon from '@mui/icons-material/StarBorder';
 import {
   getPlayerFromTeamAction,
 } from 'apps/website-display/redux/slices/programs';
-import { useParams } from 'react-router-dom'
 import { UserPublicInfoType, RegistrationReceiptType } from 'commons/types/models';
 import { stringToColor } from 'commons/utils/stringToColor'
 import { e2p } from 'commons/utils/translateNumber';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 var moment = require('moment');
 
 type TeamWorkshopInfoPropsType = {
@@ -57,7 +57,7 @@ const TeamWorkshopInfo: FC<TeamWorkshopInfoPropsType> = ({
   isStarred,
   toggleStar,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [click, setClick] = useState(false);
   const stateChangeSubscriberRef = useRef(null);
   const mentorsInRoomSubscriberRef = useRef(null);

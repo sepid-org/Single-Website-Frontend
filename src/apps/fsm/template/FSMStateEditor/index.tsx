@@ -9,8 +9,8 @@ import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
 import HelpCenterIcon from '@mui/icons-material/HelpCenter';
 import HintsEditor from 'commons/components/organisms/hint/HintsEditor';
 import useFSMState from 'apps/fsm/hooks/useFSMState';
-import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type FSMStateEditorPropsType = {
   fsmStateId: string;
@@ -20,8 +20,7 @@ const FSMStateEditor: FC<FSMStateEditorPropsType> = ({
   fsmStateId,
 }) => {
   const [tabIndex, setTabIndex] = React.useState(0);
-  // todo: get fsmId from FSMContext
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { fsmState } = useFSMState(parseInt(fsmStateId));
 

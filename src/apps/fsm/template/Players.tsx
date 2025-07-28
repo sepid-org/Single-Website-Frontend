@@ -7,15 +7,15 @@ import {
   Typography,
 } from '@mui/material';
 import React, { FC } from 'react';
-import { useParams } from 'react-router-dom';
 import InfoIcon from '@mui/icons-material/Info';
 import { useLazyGetAnswerSheetsFileQuery } from 'commons/redux/apis/reporting-service/ReportingServiceSlice';
 import downloadBlob from 'commons/utils/downloadBlob';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type PropsType = {}
 
 const Players: FC<PropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [trigger, result] = useLazyGetAnswerSheetsFileQuery();
 
   const downloadExcelExport = async () => {

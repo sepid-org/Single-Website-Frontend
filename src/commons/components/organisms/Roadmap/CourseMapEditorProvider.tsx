@@ -6,10 +6,10 @@ import { ReactFlow, Controls, Background, applyNodeChanges, ReactFlowProvider, u
 import StateNodeEditMode from 'commons/components/molecules/FSMMap/StateNodeEditMode';
 import { FloatingConnectionLine, FloatingCustomEdge } from 'commons/components/molecules/FSMMap/FloatingEdge';
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useParams } from 'react-router-dom';
 import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { useUpdatePositionsMutation } from 'apps/website-display/redux/features/object/ObjectSlice';
 import { useCreateFSMEdgeMutation } from 'apps/fsm/redux/slices/fsm/EdgeSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const FSM_MAP_WIDTH = 600;
 const FSM_MAP_HEIGHT = 600;
@@ -57,7 +57,7 @@ const convertGraphEdgeToFSMEdgeType = (graphEdge) => ({
 });
 
 const CourseMapEditor = () => {
-	const fsmId = parseInt(useParams().fsmId);
+	const { fsmId } = useFSMContext();
 	const { data: initialFsmEdges } = useGetFSMEdgesQuery({ fsmId });
 	const { data: initialFsmStates = [] } = useGetFSMStatesQuery({ fsmId });
 	const { data: fsm } = useGetFSMQuery({ fsmId });

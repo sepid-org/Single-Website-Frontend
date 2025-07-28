@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 import UserAvatar from '../components/UserAvatar';
 import DashboardButton from '../components/DashboardButton';
@@ -7,9 +7,10 @@ import ChatRoomButton from '../components/ChatRoomButton';
 import TeamAvatar from '../components/TeamAvatar';
 import WhiteboardButton from '../components/WhiteboardButton';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const MentorFSMAppbarItems = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const search = useLocation().search;

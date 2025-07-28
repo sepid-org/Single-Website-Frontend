@@ -5,7 +5,7 @@ import React, { FC, Fragment, useEffect, useState } from "react";
 import AreYouSure from "../organisms/dialogs/AreYouSure";
 import { Delete as DeleteIcon } from '@mui/icons-material';
 import { useGetFSMStatesQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
-import { useParams } from "react-router-dom";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 type EdgeEditorDialogPropsType = {
   id: string;
@@ -18,7 +18,7 @@ const EdgeEditorDialog: FC<EdgeEditorDialogPropsType> = ({
   open,
   onClose,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: initialEdge } = useGetFSMEdgeQuery({ edgeId: id }, { skip: !Boolean(id) || !Boolean(open) });
   const [createFSMEdge, createFSMEdgeResult] = useCreateFSMEdgeMutation();
   const [updateFSMEdge, updateFSMEdgeResult] = useUpdateFSMEdgeMutation();

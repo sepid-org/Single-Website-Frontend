@@ -8,12 +8,12 @@ import WhiteboardButton from '../components/WhiteboardButton';
 import ScoresDialogButton from '../components/ScoresDialogButton';
 import FSMLogo from '../../../atoms/logos/FSMLogo';
 import UserAvatar from '../components/UserAvatar';
-import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import BackToProgramButton from '../components/BackToProgramButton';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const FSMAppbarItems = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
 
   const reviewAnswers = <ReviewAnswersButton />

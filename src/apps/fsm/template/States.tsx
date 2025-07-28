@@ -5,18 +5,18 @@ import {
   IconButton,
   Typography,
 } from '@mui/material';
-import { useParams } from 'react-router';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import SimpleTable from 'commons/components/organisms/tables/SimpleTable';
 import SettingsIcon from '@mui/icons-material/Settings';
 import CreateStateButton from 'commons/components/atoms/CreateStateButton';
 import FSMFirstStateSetter from '../components/organisms/FSMFirstStateSetter';
 import FSMStateEditorDialog from './FSMStateEditorDialog';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type StatesPropsType = {}
 
 const States: FC<StatesPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [selectedStateId, setSelectedStateId] = useState<string>(null);
   const { data: fsmStates, isLoading } = useGetFSMStatesQuery({ fsmId });
 

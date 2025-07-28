@@ -15,10 +15,10 @@ import {
   useGetAttributeQuery,
   useUpdateAttributeMutation,
 } from "apps/website-display/redux/features/object/AttributeSlice";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 import { FSMStateType } from "commons/types/models";
 import { TransitionType } from "commons/types/object/attribute";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 interface Props {
   objectId: number;
@@ -26,7 +26,7 @@ interface Props {
 }
 
 function TransitionForm({ objectId, transitionId }: Props) {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsmStates } = useGetFSMStatesQuery({ fsmId });
 
   const [order, setOrder] = useState<number | "">("");

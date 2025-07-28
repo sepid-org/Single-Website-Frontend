@@ -1,11 +1,11 @@
 import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useGetFSMQuery, useGetFSMStatesQuery, useSetFSMFirstStateMutation } from "../../redux/slices/fsm/FSMSlice";
-import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 const FSMFirstStateSetter = () => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId })
   const { data: fsmStates } = useGetFSMStatesQuery({ fsmId })
   const [setFSMFirstState, result] = useSetFSMFirstStateMutation()

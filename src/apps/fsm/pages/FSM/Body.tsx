@@ -1,18 +1,18 @@
 import React, { FC, Fragment, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
 import { useGetFSMQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { useGetCurrentUserPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import FSMState from 'apps/fsm/template/FSMState';
 import { FSMStateProvider } from 'commons/hooks/useFSMStateContext';
-import { FSMProvider } from 'commons/hooks/useFSMContext';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
 import { useGetProgramUserFSMsStatusQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
 import FSMStateEditorDialog from 'apps/fsm/template/FSMStateEditorDialog';
 
+type FSMBodyProps = {};
 
-const FSMBody: FC = () => {
-  const fsmId = parseInt(useParams().fsmId || '', 10);
+const FSMBody: FC<FSMBodyProps> = ({ }) => {
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const { data: player } = useGetCurrentUserPlayerQuery({ fsmId });
   const { data: userFSMsStatus } = useGetProgramUserFSMsStatusQuery({ programSlug: fsm?.program_slug }, { skip: !Boolean(fsm?.program_slug) });
@@ -29,14 +29,12 @@ const FSMBody: FC = () => {
 
   return (
     <Fragment>
-      <FSMProvider fsmId={fsmId}>
-        <FSMStateProvider
-          fsmStateId={player?.current_state}
-          isMentor={isMentor}
-        >
-          <FSMState fsmStateId={player?.current_state} />
-        </FSMStateProvider>
-      </FSMProvider>
+      <FSMStateProvider
+        fsmStateId={player?.current_state}
+        isMentor={isMentor}
+      >
+        <FSMState fsmStateId={player?.current_state} />
+      </FSMStateProvider>
 
       {(isMentor && !dialogOpen) && (
         <Fab

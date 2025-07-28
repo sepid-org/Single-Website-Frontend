@@ -5,11 +5,11 @@ import { CourseViewMapNodeInfo } from "commons/types/global";
 import { Box, Button, Container, IconButton, Typography } from "@mui/material";
 import '@xyflow/react/dist/style.css';
 import { FloatingCustomEdge, FloatingConnectionLine } from "commons/components/molecules/FSMMap/FloatingEdge";
-import { useParams } from "react-router-dom";
 import { useGetFSMEdgesQuery, useGetFSMQuery, useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import { FSMEdgeType, FSMStateType } from 'commons/types/models';
 import { useGetPlayerTransitedPathQuery } from "apps/website-display/redux/features/roadmap/RoadmapSlice";
 import GpsFixedIcon from '@mui/icons-material/GpsFixed';
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 
 
@@ -87,7 +87,7 @@ function FlowCanvas({ fsmStates, fsmEdges, currentState }) {
 
 //useGetPlayerTransitedPathQuery
 export default function CourseMapViewMode({ currentStateTitle }) {
-	const fsmId = parseInt(useParams().fsmId);
+	const { fsmId } = useFSMContext();
 	const { data: fsm } = useGetFSMQuery({ fsmId });
 	const { data: initialFsmStates } = useGetFSMStatesQuery({ fsmId });
 	const [fsmStates, setFsmStates] = useState<Partial<FSMStateType>[]>([]);

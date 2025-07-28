@@ -10,13 +10,13 @@ import {
 } from '@mui/material';
 import React, { FC, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
 import Widget from '../Widget';
 import { WidgetModes } from '../Widget';
 import {
   getAnswersForReviewAction
 } from 'apps/website-display/redux/slices/workshop';
 import { Answer } from 'commons/types/models';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type ReviewAnswersPropsType = {
   open: boolean;
@@ -31,7 +31,7 @@ const ReviewAnswers: FC<ReviewAnswersPropsType> = ({
   getAnswersForReview,
   answers,
 }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();;
 
   useEffect(() => {
     if (open) {

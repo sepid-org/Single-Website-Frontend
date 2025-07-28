@@ -6,9 +6,9 @@ import {
 } from '@mui/material';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import useChangeState from 'commons/hooks/fsm/useChangeState';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 import React, { FC, useEffect } from 'react';
 import { useTranslate } from 'react-redux-multilingual/lib/context';
-import { useParams } from 'react-router-dom';
 
 type ChangeStateDialogPropsType = {
   open: boolean;
@@ -24,7 +24,7 @@ const ChangeStateDialog: FC<ChangeStateDialogPropsType> = ({
   widgetId,
 }) => {
   const t = useTranslate();
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   // todo: get just states with stateIds (not all the fsm state! users should not get it)
   const { data: fsmStates = [] } = useGetFSMStatesQuery({ fsmId }, { skip: !Boolean(open) });
   const [changeState, result] = useChangeState();

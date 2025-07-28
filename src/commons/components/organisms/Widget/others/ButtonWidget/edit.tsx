@@ -17,9 +17,9 @@ import ObjectFieldsEditor from 'commons/components/organisms/object/ObjectFields
 import { ContentWidgetType } from 'commons/types/widgets/ContentWidget';
 import TinyEditorComponent from 'commons/components/organisms/TinyEditor/TinyEditorComponent';
 import { useGetFSMStatesQuery } from 'apps/fsm/redux/slices/fsm/FSMSlice';
-import { useParams } from 'react-router-dom';
 import { toPersianNumber } from 'commons/utils/translateNumber';
 import CollapsibleTitle from 'commons/components/molecules/CollapsibleTitle';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 const ButtonWidgetEditor = ({
   onMutate,
@@ -31,7 +31,7 @@ const ButtonWidgetEditor = ({
   ...widgetProps
 }) => {
   const t = useTranslate();
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const [buttonFields, setButtonFields] = useState({
     label: widgetProps.label || '',
     background_image: widgetProps.background_image || '',

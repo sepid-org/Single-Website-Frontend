@@ -1,15 +1,16 @@
 import { Button, Skeleton, Stack, Typography } from "@mui/material";
 import React, { FC } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useGetProgramUserFSMsStatusQuery } from "apps/website-display/redux/features/program/ProgramSlice";
 import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
 import { useGetFSMQuery } from "apps/fsm/redux/slices/fsm/FSMSlice";
 import { useStartFSMMutation } from "apps/fsm/redux/slices/fsm/PlayerSlice";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 type PropsType = {};
 
 const FSMStartPage: FC<PropsType> = () => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const navigate = useNavigate();
   const [startFSM] = useStartFSMMutation();
   const { data: fsm, isLoading: isFSMLoading } = useGetFSMQuery({ fsmId });

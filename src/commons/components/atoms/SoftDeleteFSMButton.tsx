@@ -4,13 +4,14 @@ import React, { FC, Fragment, useEffect, useState } from 'react';
 import AreYouSure from 'commons/components/organisms/dialogs/AreYouSure';
 import { useGetFSMQuery, useSoftDeleteFSMMutation } from 'apps/fsm/redux/slices/fsm/FSMSlice';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 
 type SoftDeleteFSMButtonPropsType = {}
 
 const SoftDeleteFSMButton: FC<SoftDeleteFSMButtonPropsType> = ({ }) => {
-  const fsmId = parseInt(useParams().fsmId);
+  const { fsmId } = useFSMContext();
   const { data: fsm } = useGetFSMQuery({ fsmId });
   const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
