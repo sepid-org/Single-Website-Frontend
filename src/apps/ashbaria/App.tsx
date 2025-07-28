@@ -22,7 +22,6 @@ import ExamResultPage from './pages/exam/Result';
 import WhatHappenedPage from './pages/WhatHappened';
 import ScoreBoard from './pages/ScoreBoard';
 import Survey from './pages/Survey';
-import GameEnd from './pages/GameEnd';
 
 const App = () => {
 

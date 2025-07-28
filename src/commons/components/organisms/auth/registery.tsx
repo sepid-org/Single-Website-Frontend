@@ -1,10 +1,10 @@
 import { lazy } from 'react';
 
 export const templates = {
-  OTP: lazy(() => import('./OtpAuth')),
-  CLASSIC: lazy(() => import('./ClassicAuth')),
-  USERNAME_FIRST: lazy(() => import('./UsernameFirst')),
-  OAUTH: lazy(() => import('./OAuth')),
+  otp: lazy(() => import('./OtpAuth')),
+  classic: lazy(() => import('./ClassicAuth')),
+  username_first: lazy(() => import('./UsernameFirst')),
+  OAuth: lazy(() => import('./OAuth')),
 } as const;
 
 export type AuthKey = keyof typeof templates;
