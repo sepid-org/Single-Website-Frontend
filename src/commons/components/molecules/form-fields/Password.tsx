@@ -53,7 +53,7 @@ const PasswordField: React.FC<PasswordFieldProps> = ({
           </InputAdornment>
         ),
       }}
-      helperText={
+      helperText={onTabChange &&
         <Typography component="span">
           <Link
             component="button"
