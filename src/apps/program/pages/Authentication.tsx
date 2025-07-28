@@ -16,7 +16,7 @@ const Authentication: FC<PropsType> = () => {
   if (isLoading) return null;
 
   const authMethod: AuthKey =
-    (program?.auth_method?.toUpperCase() as AuthKey) ?? 'otp';
+    (program?.auth_method as AuthKey) ?? 'otp';
 
   const AuthComponent = templates[authMethod] ?? templates.otp;
 
