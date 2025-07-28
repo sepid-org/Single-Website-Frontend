@@ -44,6 +44,7 @@ const ProgramLogo: FC<ProgramLogoPropsType> = ({ size = 'small', destination: in
     <IconButton sx={{ padding: 0, paddingX: 1, userSelect: 'none' }} disableRipple component={Link} to={destination}>
       <img alt="website-logo" unselectable="on" src={program.cover_image}
         style={{
+          borderRadius: 16,
           minWidth: logoSize.width,
           minHeight: logoSize.height,
           maxWidth: logoSize.maxWidth,
