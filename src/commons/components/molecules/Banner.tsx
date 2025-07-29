@@ -1,43 +1,69 @@
-// https://swiperjs.com/react
-
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Virtual, Autoplay } from 'swiper/modules';
+import { Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/virtual';
 import 'swiper/css/autoplay';
-import { BannerType } from 'commons/types/redux/WebSiteAppearance';
+
 import useWidth from 'commons/utils/UseWidth';
+import {
+  useGetPageMetadataQuery,
+} from 'apps/website-display/redux/features/WebsiteSlice';
 
-type BannerPropsType = {
-  banners: BannerType[] | undefined;
-}
+import { Box } from '@mui/material';
+import { BannerType } from 'commons/types/redux/WebSiteAppearance';
 
-const Banner: FC<BannerPropsType> = ({ banners }) => {
+
+type BannerProps = {};
+
+
+const Banner: FC<BannerProps> = () => {
   const width = useWidth();
+  const { data: pageMetaData } = useGetPageMetadataQuery({
+    pageAddress: window.location.pathname,
+  });
 
-  if (!banners || banners.length === 0) {
-    return null;
-  }
+  // فقط بنرهای فعال
+  const banners: BannerType[] = useMemo(
+    () => pageMetaData?.banners ?? [],
+    [pageMetaData]
+  );
+
+  if (banners.length === 0) return null;
 
   return (
-    <Swiper
-      style={{ cursor: 'pointer' }}
-      loop={banners.length > 1}
-      speed={800}
-      spaceBetween={10}
-      slidesPerView={1}
-      modules={[Virtual, Autoplay]}
-      autoplay={{ delay: 6000, disableOnInteraction: false }}
-      virtual>
-      {banners.map((banner, index) => (
-        <SwiperSlide key={index} virtualIndex={index} onClick={() => window.location.href = banner.redirect_to}>
-          <img alt='' src={(width === 'xs' || width === 'sm') ? banner.mobile_image : banner.desktop_image} style={{ width: '100%', borderRadius: 10 }} />
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <Box width="100%" sx={{ overflow: 'hidden', borderRadius: 2 }}>
+      <Swiper
+        style={{ cursor: 'pointer' }}
+        loop={banners.length > 1}
+        speed={800}
+        spaceBetween={10}
+        slidesPerView={1}
+        modules={[Autoplay]}
+        autoplay={{ delay: 6000, disableOnInteraction: false }}
+      >
+        {banners.map((banner, idx) => {
+          const imgSrc =
+            (width === 'xs' || width === 'sm'
+              ? banner.mobile_image
+              : banner.desktop_image) || // fallback
+            banner.mobile_image ||
+            banner.desktop_image ||
+            '';
+
+          return (
+            <SwiperSlide key={`${banner.redirect_to}_${idx}`}>
+              <img
+                src={imgSrc}
+                alt=""
+                style={{ width: '100%', borderRadius: 10 }}
+                onClick={() => (window.location.href = banner.redirect_to)}
+              />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+    </Box>
   );
 };
 

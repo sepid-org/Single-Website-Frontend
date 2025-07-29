@@ -36,7 +36,6 @@ const SimpleMenu: FC<PropsType> = ({ }) => {
             <ProgramPageSidebar />
           </Grid>
           <Grid item xs={12} sm={8} lg={9}>
-            {/* <Banner banners={pageMetadata?.banners} /> */}
             <Meetings />
             <Typography component="h1" fontWeight={700} fontSize={28} gutterBottom>
               {'کارگاه‌ها'}

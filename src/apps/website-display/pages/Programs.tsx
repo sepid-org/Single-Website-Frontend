@@ -8,6 +8,7 @@ import { useGetWebsitePermissionQuery } from 'apps/website-display/redux/feature
 import NoDataFound from 'commons/components/molecules/NoDataFound';
 import { ITEMS_PER_PAGE_NUMBER } from 'commons/constants/Constants';
 import { Link } from 'react-router-dom';
+import Banner from 'commons/components/molecules/Banner';
 
 const Programs = ({ }) => {
   const [pageNumber, setPageNumber] = useState(1);
@@ -55,6 +56,7 @@ const Programs = ({ }) => {
   return (
     <Layout appbarMode='DASHBOARD'>
       <Stack width={'100%'} spacing={4} alignItems={'center'} justifyContent='center'>
+        <Banner />
         <Typography variant="h1" align='center'>
           {'دوره‌ها'}
         </Typography>
