@@ -4,6 +4,7 @@ import tagGenerationWithErrorCheck from "commons/redux/utilities/tagGenerationWi
 
 export interface BaseAttributePayload {
   objectId: number;
+  parentAttributeId?: number;
   title: string;
   description?: string;
   order?: number;
@@ -22,12 +23,13 @@ export const AttributeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
 
     createAttribute: builder.mutation<AttributeType, CreateAttributeRequest>({
-      query: ({ objectId, ...body }) => ({
+      query: ({ objectId, parentAttributeId, ...body }) => ({
         url: "/attribute/attributes/",
         method: "POST",
         body: {
           ...body,
           object_id: objectId,
+          parent_attribute_id: parentAttributeId,
         },
       }),
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => ([
