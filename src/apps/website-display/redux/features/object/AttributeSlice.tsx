@@ -22,12 +22,12 @@ export const AttributeSlice = ContentManagementServiceApi.injectEndpoints({
   endpoints: (builder) => ({
 
     createAttribute: builder.mutation<AttributeType, CreateAttributeRequest>({
-      query: (body) => ({
+      query: ({ objectId, ...body }) => ({
         url: "/attribute/attributes/",
         method: "POST",
         body: {
           ...body,
-          object_id: body.objectId,
+          object_id: objectId,
         },
       }),
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) => ([

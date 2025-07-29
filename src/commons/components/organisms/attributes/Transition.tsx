@@ -23,9 +23,10 @@ import React, { useEffect, useState } from "react";
 interface Props {
   objectId: number;
   transitionId?: number;
+  onSuccess?: () => void;
 }
 
-function TransitionForm({ objectId, transitionId }: Props) {
+function TransitionForm({ objectId, transitionId, onSuccess }: Props) {
   const { fsmId } = useFSMContext();
   const { data: fsmStates } = useGetFSMStatesQuery({ fsmId });
 
@@ -55,7 +56,7 @@ function TransitionForm({ objectId, transitionId }: Props) {
     const payload = {
       objectId,
       type: "Transition",
-      title: `Transition to state ${selectedState.id}`,
+      title: selectedState?.id ? `Transition to state ${selectedState.id}` : 'Backward Transition',
       order: order === "" ? undefined : Number(order),
       is_backward: isBackward,
       destination_state_id:
@@ -70,6 +71,7 @@ function TransitionForm({ objectId, transitionId }: Props) {
       } else {
         await createAttr(payload as any).unwrap();
       }
+      onSuccess?.();
     } catch (_) {
     }
   };
@@ -83,6 +85,7 @@ function TransitionForm({ objectId, transitionId }: Props) {
       setOrder("");
       setIsBackward(false);
       setSelectedState(null);
+      onSuccess?.();
     } catch (_) {
     }
   };
@@ -99,20 +102,7 @@ function TransitionForm({ objectId, transitionId }: Props) {
 
   return (
     <Stack spacing={2}>
-      <Typography variant="h6" gutterBottom>
-        {transitionId ? "ویرایش ترنزیشن:" : "ایجاد ترنزیشن:"}
-      </Typography>
-
       <Stack spacing={1}>
-        <TextField
-          label="ترتیب اجرا"
-          type="number"
-          value={order}
-          onChange={(e) =>
-            setOrder(e.target.value === "" ? "" : Number(e.target.value))
-          }
-        />
-
         <FormControlLabel
           control={
             <Checkbox
@@ -138,6 +128,15 @@ function TransitionForm({ objectId, transitionId }: Props) {
             disableClearable
           />
         )}
+
+        <TextField
+          label="ترتیب اجرا"
+          type="number"
+          value={order}
+          onChange={(e) =>
+            setOrder(e.target.value === "" ? "" : Number(e.target.value))
+          }
+        />
 
         {success && (
           <Typography color="success.main">
