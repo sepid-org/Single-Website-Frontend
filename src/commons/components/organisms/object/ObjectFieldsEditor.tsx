@@ -134,7 +134,7 @@ const ObjectFieldsEditor: FC<PropsType> = ({ fields, setFields }) => {
         <Slider
           value={Number(fields.font_scale ?? 1)}
           min={0.1}
-          max={10}
+          max={5}
           step={0.1}
           valueLabelDisplay="on"
           marks={[
