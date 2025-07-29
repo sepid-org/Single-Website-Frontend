@@ -96,13 +96,30 @@ export default function ConditionForm({
     return val;
   };
 
+  const buildTitle = (): string => {
+    switch (conditionKey) {
+      case 'expected_last_answer_text':
+        return `آخرین پاسخ = «${textValue.trim() || '...'}»`;
+      case 'expected_correct_choices_in_last_answer_count':
+        return `تعداد پاسخ درست = ${numberValue || 0}`;
+      case 'expected_choices':
+        return `شامل آیتم‌ها: ${idList || '...'}`;
+      case 'expected_choices_in_last_answer':
+        return `آیتم‌های انتخاب‌شده در آخرین پاسخ: ${idList || '...'}`;
+      case 'completed_fsms':
+        return `اتمام ${idList.split(',').filter(Boolean).length} FSM`;
+      default:
+        return 'شرط';
+    }
+  };
+
   /* ---------- submit ---------- */
   const handleSubmit = async () => {
     const payload = {
       objectId,                    // ممکن است undefined باشد
       parentAttributeId,           // یا این استفاده می‌شود
       type: 'Condition',
-      title: 'Condition',
+      title: buildTitle(),
       order: order === '' ? undefined : Number(order),
       value: buildValue(),
     };
