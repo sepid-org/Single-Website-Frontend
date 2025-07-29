@@ -145,7 +145,7 @@ const FriendshipNetworkPage = () => {
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${myMembership.next_follow_reward?.[ASHBARIA_COIN] || 0} تا اعتبار می‌ارزه`}
+                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${myMembership?.next_follow_reward?.[ASHBARIA_COIN] || 0} تا اعتبار می‌ارزه`}
                 </Typography>
                 <TextField
                   variant="outlined"
