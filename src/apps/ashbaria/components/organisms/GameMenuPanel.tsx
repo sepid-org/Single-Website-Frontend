@@ -12,15 +12,15 @@ import PurpleInfoIcon from '../atoms/icons/PurpleInfo';
 import { Golden } from 'apps/ashbaria/constants/colors';
 import { useGetProfileQuery } from 'apps/ashbaria/redux/slices/Profile';
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
-import { ASHBARIA_COIN } from 'apps/ashbaria/constants/game-info';
-import { useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
+import { ASHBARIA_COIN, ASHBARIA_NETWORK_ID } from 'apps/ashbaria/constants/game-info';
+import { useGetMyMembershipQuery } from 'commons/redux/apis/incentive-service/Network';
 
 type PropsType = {}
 
 const GameMenuPanel: FC<PropsType> = () => {
   const localNavigate = useLocalNavigate();
   const { data: myAshbariaProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
-  const { data: myFriendshipNetwork, isLoading: isGetMyFriendshipNetworkLoading } = useGetMyFriendshipNetworkQuery()
+  const { data: myMembership, isLoading: isGetMyMembershipLoading } = useGetMyMembershipQuery({ networkId: ASHBARIA_NETWORK_ID })
   const { data: myRank, isLoading: isGetMyRankLoading } = useGetMyRankQuery({ currencyName: ASHBARIA_COIN });
   const { logout, isLoading: isLogoutLoading } = useLogout();
 
@@ -85,9 +85,9 @@ const GameMenuPanel: FC<PropsType> = () => {
           </Stack>
           <Stack spacing={0.5} alignItems={'center'} justifyContent={'center'} direction={'row'} sx={{ background: '#0000001A', borderRadius: 2 }}>
             <Typography color={'white'}>
-              {isGetMyFriendshipNetworkLoading ?
+              {isGetMyMembershipLoading ?
                 <Skeleton width={10} height={20} /> :
-                <>{(myFriendshipNetwork?.network.user_followings_count || 0) + (myFriendshipNetwork?.network.user_followers_count || 0)}</>
+                <>{(myMembership?.user_followings_count || 0) + (myMembership?.user_followers_count || 0)}</>
               }
             </Typography>
             <Typography color={'white'}>

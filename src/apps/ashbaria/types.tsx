@@ -50,26 +50,49 @@ export type AshbariaDocumentType = {
   }
 }
 
-export type FriendshipNetworkType = {
-  user: string; // UUID string
-  follow_reward_score: number;
-  be_followed_reward_score: number;
-  user_followers_count: number;
-  user_followings_count: number;
-  is_huge: boolean;
+type ResourcesType = {
+  [resourceName: string]: number;
+}
+
+export type ResourcesTierType = {
+  max: number | null;
+  reward: ResourcesType;
 };
 
-export type CodeType = {
+export type NetworkConfigType = {
+  tiers: {
+    follow: ResourcesTierType[];
+    be_followed: ResourcesTierType[];
+  };
+  follow_limit: number;
+  be_followed_limit: number;
+};
+
+export type NetworkType = {
+  id: number;
+  name: string;
+  description: string;
+  configs: NetworkConfigType;
+};
+
+export type MembershipType = {
   user: string;
+  user_followers_count: number;
+  user_followings_count: number;
   code: string;
-  code_type: 'FRIENDSHIP' | 'REFERRAL';
   created_at: string;
+  resources: {
+    follow_rewards: ResourcesType;
+    be_followed_rewards: ResourcesType;
+  };
+  next_follow_reward: ResourcesType;
+  next_be_followed_reward: ResourcesType;
 };
 
 export type FollowType = {
   follower: string;
   following: string;
-  code?: CodeType | null;
+  code?: MembershipType | null;
   created_at: string;
 };
 

@@ -1,7 +1,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Golden } from "apps/ashbaria/constants/colors";
-import { useSubmitRewardCodeMutation } from "apps/ashbaria/redux/slices/FriendshipNetwork";
+import { useSubmitRewardCodeMutation } from "commons/redux/apis/incentive-service/RewardCode";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";

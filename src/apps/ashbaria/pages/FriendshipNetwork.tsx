@@ -11,7 +11,6 @@ import {
   Stack,
 } from '@mui/material';
 import BackButton from '../components/molecules/buttons/Back';
-import { useCompleteMissionMutation, useFollowMutation, useGetMissionsQuery, useGetMyCompletedMissionsQuery, useGetMyFriendshipNetworkQuery } from 'apps/ashbaria/redux/slices/FriendshipNetwork';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'commons/components/molecules/CustomDialogContent';
 import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
@@ -26,12 +25,14 @@ import SendInvitation from '../components/molecules/friendship-network/SendInvit
 import { Golden } from '../constants/colors';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
 import RewardCodeMission from '../components/molecules/friendship-network/RewardCodeMission';
-import { ASHBARIA_SUBMIT_FRIENDSHIP_CODE } from '../constants/game-info';
+import { ASHBARIA_COIN, ASHBARIA_NETWORK_ID } from '../constants/game-info';
 import { MediaUrls } from '../constants/mediaUrls';
 import ScrollableStack from 'commons/components/organisms/ScrollableStack';
+import { useGetMissionsQuery, useGetMyCompletedMissionsQuery, useCompleteMissionMutation } from 'commons/redux/apis/incentive-service/Mission';
+import { useGetMyMembershipQuery, useFollowMutation, useGetNetworkQuery } from 'commons/redux/apis/incentive-service/Network';
 
 const FriendshipNetworkPage = () => {
-  const { data: myFriendshipNetwork } = useGetMyFriendshipNetworkQuery()
+  const { data: myMembership } = useGetMyMembershipQuery({ networkId: ASHBARIA_NETWORK_ID });
   const { data: missions } = useGetMissionsQuery()
   const { data: myCompletedMissions } = useGetMyCompletedMissionsQuery()
   const [follow, followResult] = useFollowMutation();
@@ -97,8 +98,8 @@ const FriendshipNetworkPage = () => {
   }, [followResult.isSuccess, followResult.isError])
 
   const copyToClipboardWrapper = () => {
-    if (myFriendshipNetwork) {
-      copyToClipboard(myFriendshipNetwork.code.code, 'کد دعوت اختصاصیت با موفقیت کپی شد');
+    if (myMembership) {
+      copyToClipboard(myMembership.code, 'کد دعوت اختصاصیت با موفقیت کپی شد');
     }
   };
 
@@ -139,12 +140,12 @@ const FriendshipNetworkPage = () => {
                     {'کد دوستاتو بزن!'}
                   </Typography>
                   <FriendshipNetworkPoints
-                    points={myFriendshipNetwork?.network.follow_reward_score}
-                    numberOfFriends={myFriendshipNetwork?.network.user_followings_count}
+                    points={myMembership?.resources?.follow_rewards?.[ASHBARIA_COIN] || 0}
+                    numberOfFriends={myMembership?.user_followings_count}
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
-                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${ASHBARIA_SUBMIT_FRIENDSHIP_CODE(myFriendshipNetwork?.network.is_huge)} تا اعتبار می‌ارزه`}
+                  {`اگه از دوستات کد معرف گرفتی، بزنش اینجا. هر کدی ${myMembership.next_follow_reward?.[ASHBARIA_COIN] || 0} تا اعتبار می‌ارزه`}
                 </Typography>
                 <TextField
                   variant="outlined"
@@ -175,8 +176,8 @@ const FriendshipNetworkPage = () => {
                     {'به دوستات کد بده!'}
                   </Typography>
                   <FriendshipNetworkPoints
-                    numberOfFriends={myFriendshipNetwork?.network.user_followers_count}
-                    points={myFriendshipNetwork?.network.be_followed_reward_score}
+                    points={myMembership?.resources?.be_followed_rewards?.[ASHBARIA_COIN] || 0}
+                    numberOfFriends={myMembership?.user_followers_count}
                   />
                 </Stack>
                 <Typography fontSize={16} fontWeight={400}>
@@ -194,7 +195,7 @@ const FriendshipNetworkPage = () => {
                     {'کد اختصاصی تو:'}
                   </Typography>
                   <Stack direction={'row'} alignItems={'center'} justifyContent={'center'} padding={1} spacing={0.5}>
-                    <Typography>{myFriendshipNetwork?.code?.code}</Typography>
+                    <Typography>{myMembership?.code}</Typography>
                     <IconButton sx={{ padding: 0 }} onClick={copyToClipboardWrapper} color="inherit">
                       <CopyIcon />
                     </IconButton>
@@ -226,7 +227,7 @@ const FriendshipNetworkPage = () => {
                     key={record.id}
                     requiredFollows={record.required_follows}
                     rewardScore={record.reward_score}
-                    completable={record.required_follows <= myFriendshipNetwork?.network.user_followers_count}
+                    completable={record.required_follows <= myMembership?.user_followers_count}
                     handleClick={completeMission} id={record.id}
                   />
                 ))}
