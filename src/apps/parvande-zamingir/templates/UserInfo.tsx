@@ -5,7 +5,6 @@ import { toEnglishNumber } from "commons/utils/translateNumber";
 import IntroductionSelector from "../../ashbaria/components/molecules/profile-inputs/IntroductionSelector";
 import ProfileImageSelector from "../../ashbaria/components/molecules/profile-inputs/ProfileImageSelector";
 import { useGetProfileQuery, useUpdateProfileMutation } from "../../ashbaria/redux/slices/Profile";
-import BackButton from "../components/molecules/buttons/Back";
 import PersonIcon from "../../ashbaria/components/atoms/icons/Person";
 import ScoreChip from "../../ashbaria/components/molecules/chips/Score";
 import useLocalNavigate from "../../ashbaria/hooks/useLocalNavigate";
@@ -127,9 +126,6 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Box position={'absolute'} left={10} top={10}>
-            <BackButton destination="/" />
-          </Box>
           <Stack direction={'row'}>
             <PersonIcon />
             <Typography variant="h6" fontSize={24} fontWeight={800}>

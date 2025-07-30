@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useRef } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import ScoreRecord from "../molecules/ScoreRecord";
-import BackButton from "../molecules/buttons/Back";
 import CupIcon from "../atoms/icons/Cup";
 import { PARVANDE_ZAMINGIR_COIN } from '../../constants/game-info';
 import useGetScoreBoardData from "apps/ashbaria/hooks/useGetScoreboardData";
@@ -36,9 +35,6 @@ export default function Scores() {
 	return (
 		<Stack alignItems={'center'} justifyContent={'center'} padding={2} spacing={2} position={'relative'}>
 			<Stack direction={'row'}>
-				<Box position={'absolute'} left={4} top={4}>
-					<BackButton />
-				</Box>
 				<Stack direction={'row'} spacing={1} alignItems={'center'} justifyContent={'center'}>
 					<CupIcon size={32} />
 					<Typography fontSize={24} fontWeight={800}>
