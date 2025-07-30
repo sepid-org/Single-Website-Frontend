@@ -12,35 +12,32 @@ import { useFollowMutation, useGetMyMembershipQuery } from "commons/redux/apis/i
 import { PARVANDE_ZAMINGIR_NETWORK_ID } from "apps/parvande-zamingir/constants/game-info";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
-import dialogService from "commons/components/organisms/PortalDialog";
 import { toast } from "react-toastify";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 export default function ReferralCode() {
+  const { openDialog, closeDialog } = useFSMContext();
   const { data: myMembership } = useGetMyMembershipQuery({ networkId: PARVANDE_ZAMINGIR_NETWORK_ID });
   const [follow, followResult] = useFollowMutation();
   const [otherCode, setOtherCode] = useState("");
 
   useEffect(() => {
     if (followResult.isSuccess) {
-      dialogService.open({
-        component: (
-          <CustomDialogContent
-            image={<ScoreAnnouncement />}
-            title="تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا"
-            onClick={() => dialogService.close()}
-          />
-        ),
-      });
+      openDialog(
+        <CustomDialogContent
+          image={<ScoreAnnouncement />}
+          title="تبریک! تو کد معرفت رو زدی و ۵۰۰ امتیاز گرفتی. باریکلا"
+          onClick={() => closeDialog()}
+        />
+      );
     }
     if (followResult.isError && followResult.error?.data?.error) {
-      dialogService.open({
-        component: (
-          <CustomDialogContent
-            title={followResult.error.data.error}
-            onClick={() => dialogService.close()}
-          />
-        ),
-      });
+      openDialog(
+        <CustomDialogContent
+          title={followResult.error.data.error}
+          onClick={() => closeDialog()}
+        />
+      );
     }
   }, [followResult.isSuccess, followResult.isError]);
 
