@@ -94,7 +94,7 @@ export default function ReferralCode() {
                 variant="contained"
                 disabled={!otherCode.trim()}
                 onClick={handleSubmit}
-                sx={{ px: 3, fontSize: "1.5rem" }}   // ← سایز متن دکمه
+                sx={{ px: 3, fontSize: "1.5rem" }}
               >
                 ثبت
               </Button>

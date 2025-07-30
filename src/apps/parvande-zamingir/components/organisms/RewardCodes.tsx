@@ -1,13 +1,14 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { useSubmitRewardCodeMutation } from "commons/redux/apis/incentive-service/RewardCode";
 import { PARVANDE_ZAMINGIR_COIN, PARVANDE_ZAMINGIR_GIFT_CODE_NAME } from "apps/parvande-zamingir/constants/game-info";
+import { useFSMContext } from "commons/hooks/useFSMContext";
 
 const RewardCodes = ({ }) => {
+	const { openDialog, closeDialog } = useFSMContext();
 	const [rewardCode, setRewardCode] = useState<string>('');
 	const [submitRewardCode, result] = useSubmitRewardCodeMutation();
 
@@ -19,28 +20,26 @@ const RewardCodes = ({ }) => {
 		if (result.isSuccess) {
 			setRewardCode('');
 			const rewardCount = (result.data as any).reward[PARVANDE_ZAMINGIR_COIN]
-			dialogService.open({
-				component:
-					<CustomDialogContent
-						image={<ScoreAnnouncement />}
-						title={`تبریک! کد جایزه رو زدی و ${toPersianNumber(rewardCount)} سکه گرفتی. باریکلا`}
-						onClick={() => {
-							dialogService.close();
-						}}
-					/>
-			})
+			openDialog(
+				<CustomDialogContent
+					image={<ScoreAnnouncement />}
+					title={`تبریک! کد جایزه رو زدی و ${toPersianNumber(rewardCount)} سکه گرفتی. باریکلا`}
+					onClick={() => {
+						closeDialog();
+					}}
+				/>
+			);
 		}
 		if (result.isError) {
 			if (result.error?.['data']?.message) {
-				dialogService.open({
-					component:
-						<CustomDialogContent
-							title={result.error['data'].message}
-							onClick={() => {
-								dialogService.close();
-							}}
-						/>
-				})
+				openDialog(
+					<CustomDialogContent
+						title={result.error['data'].message}
+						onClick={() => {
+							closeDialog();
+						}}
+					/>
+				);
 			}
 		}
 	}, [result])
@@ -50,7 +49,6 @@ const RewardCodes = ({ }) => {
 			alignItems={'center'}
 			justifyContent={'space-between'}
 			borderRadius={2}
-			sx={{ background: 'rgba(0, 0, 0, 0.4)' }}
 			padding={1}
 			spacing={1}
 		>
@@ -58,14 +56,13 @@ const RewardCodes = ({ }) => {
 				inputProps={{
 					dir: 'ltr',
 					maxLength: 11,
-					inputMode: 'numeric',
-					type: 'tel',
+					style: { padding: 8, fontSize: "1rem", textAlign: 'center' }
 				}}
+				placeholder={'کد ویژه رو اینجا بنویس'}
 				value={rewardCode}
 				onChange={(e) => setRewardCode(toEnglishNumber(e.target.value))}
 				fullWidth
 				variant='outlined'
-				size='small'
 			/>
 			<Button
 				fullWidth
@@ -74,7 +71,7 @@ const RewardCodes = ({ }) => {
 				onClick={handleSubmitRewardCode}
 			>
 				<Typography noWrap color={'black'} fontSize={12} fontWeight={800}>
-					{`دریافت جایزه`}
+					{`ثبت کد ویژه`}
 				</Typography>
 			</Button>
 		</Stack >
