@@ -22,10 +22,10 @@ const Placeholder: FC<Props> = ({ name }) => {
   const { dynamicObjects } = useFSMContext();
 
   const builtIn: JSX.Element = useMemo(() => {
-    const amountMatch = name.match(/^user\.resources\.([^.]+)\.amount$/);
+    const amountMatch = name?.match(/^user\.resources\.([^.]+)\.amount$/);
     if (amountMatch) return <CurrencyAmount currency={amountMatch[1]} />;
 
-    const rankMatch = name.match(/^user\.resources\.([^.]+)\.rank$/);
+    const rankMatch = name?.match(/^user\.resources\.([^.]+)\.rank$/);
     if (rankMatch) return <CurrencyRank currency={rankMatch[1]} />;
 
     const staticMap: Record<string, JSX.Element> = {
