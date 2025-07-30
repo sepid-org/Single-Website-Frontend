@@ -148,7 +148,6 @@ const handleError = ({
   const handleStatusCodeErrors = (error: ErrorResponse) => {
     switch (error.status) {
       case 400:
-        toast.error('درخواست نامعتبر');
         break;
       case 401:
         break;
