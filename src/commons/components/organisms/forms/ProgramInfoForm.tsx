@@ -138,7 +138,7 @@ const ProgramInfoForm: FC<ProgramInfoFormPropsType> = ({
           >
             <MenuItem value="otp">OTP</MenuItem>
             <MenuItem value="classic">Username & Password</MenuItem>
-            <MenuItem value="username_first">Username First</MenuItem>
+            {/* <MenuItem value="username_first">Username First</MenuItem> */}
             <MenuItem value="just_login">Just Login</MenuItem>
             {/* <MenuItem value="OAuth">OAuth</MenuItem> */}
           </Select>

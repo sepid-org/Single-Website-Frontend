@@ -1,9 +1,8 @@
 import React, { FC, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import LoginTab from './LoginTab';
 import CreateAccountTab from './CreateAccountTab';
 import ResetPasswordTab from './ResetPasswordTab';
-import { Typography } from '@mui/material';
 import { toast } from 'react-toastify';
 
 const tabsMap = {
@@ -15,40 +14,22 @@ const tabsMap = {
 
 type TabName = keyof typeof tabsMap;
 
-type PropsType = {
-  basePath?: string;
-}
+type PropsType = {};
 
-const ClassicAuthTabs: FC<PropsType> = ({
-  basePath = '/',
-}) => {
-  const { tabName } = useParams<{ tabName?: string }>();
-  const navigate = useNavigate();
-  const currentTab = (tabName as TabName) || 'login';
-  const TabComponent = tabsMap[currentTab]!;
+const ClassicAuthTabs: FC<PropsType> = () => {
+  const [searchParams] = useSearchParams();
+  const currentTab = (searchParams.get('tab') as TabName);
+
+  const TabComponent = tabsMap[currentTab] ?? LoginTab;
 
   useEffect(() => {
-    const isUserTokenExpired = window.location.href.includes('token-expiration');
-    if (isUserTokenExpired) {
+    if (currentTab === 'token-expiration') {
       toast.info('نشست شما به پایان رسیده. لطفاً دوباره وارد سامانه شوید');
     }
-  }, [])
-
-  const setTabName = (next: TabName) => {
-    if (next !== currentTab) {
-      navigate(`${basePath}/${next}`, { replace: true });
-    }
-  };
+  }, []);
 
   return (
-    <>
-      {TabComponent ?
-        <TabComponent setTab={setTabName} /> :
-        <Typography variant="h6" color="error">
-          Invalid tab specified
-        </Typography>
-      }
-    </>
+    <TabComponent />
   );
 };
 

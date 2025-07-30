@@ -98,10 +98,16 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
                 username={data.username}
                 label={"شماره تلفن همراه"}
               />
-              <PasswordField
-                onChange={collectData}
-                resetPasswordLink='/program/filmbazi/reset-password/'
-              />
+              <Stack spacing={0.5}>
+                <PasswordField
+                  onChange={collectData}
+                />
+                <Typography component="span">
+                  <Link to={'/program/filmbazi/reset-password/'}>
+                    {'رمز عبور را فراموش کرده‌ام'}
+                  </Link>
+                </Typography>
+              </Stack>
             </Stack>
             <Stack width={'100%'} spacing={1.5}>
               <Button
@@ -120,7 +126,10 @@ const LoginPage: FC<LoginPagePropsType> = ({ }) => {
 
           <Typography align='center'>
             {'حساب کاربری ندارید؟'}
-            <Link style={{ textDecoration: 'none', marginRight: 4, fontWeight: 800, color: '#1361A4' }} to={'/program/filmbazi/create-account/'}>
+            <Link
+              style={{ textDecoration: 'none', marginRight: 4, fontWeight: 800, color: '#1361A4' }}
+              to={'/program/filmbazi/create-account/'}
+            >
               {'ثبت‌نام'}
             </Link>
           </Typography>

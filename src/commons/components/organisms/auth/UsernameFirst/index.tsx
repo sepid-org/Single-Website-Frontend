@@ -54,7 +54,9 @@ const UsernameFirstAuthTabs: FC<PropsType> = ({ }) => {
 
   return (
     <Stack spacing={2} alignItems={'center'}>
-      <Typography textAlign={'start'} variant='h2' paddingBottom={2}>{'ورود'}</Typography>
+      <Typography textAlign="center">
+        {"لطفاً شماره تلفن همراه خود را وارد نمایید:"}
+      </Typography>
       <Stack width={'100%'} maxWidth={440} spacing={2}>
         <Stack direction={'row'}>
           <UsernameField
@@ -80,8 +82,6 @@ const UsernameFirstAuthTabs: FC<PropsType> = ({ }) => {
         {hasSubmittedUsername && hasPassword === true &&
           <>
             <PasswordField
-              // todo: remove resetPasswordLink
-              resetPasswordLink='/reset-password/'
               onChange={(event) => setPassword(event.target.value)}
             />
             <Button

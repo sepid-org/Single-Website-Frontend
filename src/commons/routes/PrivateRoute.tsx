@@ -2,7 +2,7 @@ import useUserAuthentication from 'commons/hooks/useUserAuthentication';
 import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-const PrivateRoute = ({ loginUrl = '/login/' }) => {
+const PrivateRoute = ({ loginUrl = '/auth/' }) => {
   const location = useLocation();
   const { isUserAuthenticated } = useUserAuthentication();
 

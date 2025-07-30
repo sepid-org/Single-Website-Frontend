@@ -1,7 +1,7 @@
 import { AcademicStudentshipType, SchoolStudentshipType, UserInfoType } from "./profile";
 import { WidgetType } from "./widgets/widget";
 import { ObjectType } from "./object/object";
-import { AuthKey } from "commons/components/organisms/auth/registery";
+import { AuthKey } from "commons/components/organisms/auth/registry";
 
 export type PlayerRequestType = any;
 

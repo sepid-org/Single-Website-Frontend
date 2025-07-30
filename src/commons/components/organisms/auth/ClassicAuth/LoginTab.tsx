@@ -8,18 +8,16 @@ import React, { FC, useState } from 'react';
 import { useSimpleLoginMutation } from 'commons/redux/apis/party/UserApi';
 import UsernameField from 'commons/components/molecules/form-fields/UsernameField';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
+import { useSearchParams } from 'react-router-dom';
 
-type PropsType = {
-  setTab: (tab: 'login' | 'create-account' | 'reset-password') => void;
-};
+type PropsType = {};
 
-const LoginTab: FC<PropsType> = ({
-  setTab,
-}) => {
+const LoginTab: FC<PropsType> = () => {
   const [data, setData] = useState({
     password: '',
     username: '',
   });
+  const [searchParams, setSearchParams] = useSearchParams();
   const [simpleLogin, { isLoading }] = useSimpleLoginMutation();
 
   const collectData = (event) => {
@@ -55,17 +53,28 @@ const LoginTab: FC<PropsType> = ({
             handleSimpleLogin();
           }
         }}
-        spacing={1.5}>
+        spacing={1.5}
+      >
 
         <UsernameField
           onChange={collectData}
           username={data.username}
           label={"شماره تلفن همراه، ایمیل یا نام کاربری"}
         />
-        <PasswordField
-          onTabChange={setTab}
-          onChange={collectData}
-        />
+        <Stack spacing={0.5}>
+          <PasswordField onChange={collectData} />
+          <Typography component="span">
+            <Link
+              component="button"
+              underline="none"
+              sx={{ fontWeight: 600 }}
+              onClick={() => setSearchParams({ tab: 'reset-password' })}
+            >
+              {'رمز عبور را فراموش کرده‌ام'}
+            </Link>
+          </Typography>
+        </Stack>
+
       </Stack>
       <Stack width={'100%'} spacing={1.5}>
         <Button
@@ -85,10 +94,9 @@ const LoginTab: FC<PropsType> = ({
           underline="none"
           sx={{
             marginLeft: 0.5,
-            fontWeight: 800,
-            color: '#1361A4',
+            fontWeight: 700,
           }}
-          onClick={() => setTab('create-account')}
+          onClick={() => setSearchParams({ tab: 'create-account' })}
         >
           {'ثبت‌نام'}
         </Link>

@@ -9,7 +9,7 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<PrivateRoute loginUrl='/login/' />}>
+      <Route path="/" element={<PrivateRoute />}>
         <Route path="" element={<WebsiteManagement />} />
       </Route>
 

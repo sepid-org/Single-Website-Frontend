@@ -9,14 +9,13 @@ import { toast } from 'react-toastify';
 import { useChangeUserPasswordMutation } from 'commons/redux/apis/party/UserApi';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
+import { useSearchParams } from 'react-router-dom';
 
-type PropsType = {
-  setTab: (tab: 'login' | 'create-account' | 'reset-password') => void;
-}
+type PropsType = {}
 
-const ResetPasswordTab: FC<PropsType> = ({
-  setTab,
-}) => {
+const ResetPasswordTab: FC<PropsType> = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [data, setData] = useState({
     password: '',
     phoneNumber: '',
@@ -43,7 +42,7 @@ const ResetPasswordTab: FC<PropsType> = ({
   useEffect(() => {
     if (isSuccess) {
       toast.success('گذر‌واژه‌ی شما با موفقیت تغییر یافت.')
-      setTab('login');
+      setSearchParams({ tab: 'login' });
     }
   }, [isSuccess])
 
@@ -71,7 +70,6 @@ const ResetPasswordTab: FC<PropsType> = ({
       />
 
       <PasswordField
-        onTabChange={setTab}
         label='گذرواژه جدید'
         onChange={collectData}
       />
@@ -92,10 +90,9 @@ const ResetPasswordTab: FC<PropsType> = ({
           underline="none"
           sx={{
             marginLeft: 0.5,
-            fontWeight: 800,
-            color: '#1361A4',
+            fontWeight: 700,
           }}
-          onClick={() => setTab('login')}
+          onClick={() => setSearchParams({ tab: 'login' })}
         >
           {'ورود'}
         </Link>

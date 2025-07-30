@@ -121,7 +121,7 @@ const ProfileImageUploader = ({ file, setFile, id }) => {
           >
             <Button
               sx={{
-                fontWeight: 800,
+                fontWeight: 700,
                 width: "100%",
                 height: "100%",
                 color: theme.palette.primary.main,

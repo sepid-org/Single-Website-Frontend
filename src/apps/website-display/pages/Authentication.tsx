@@ -1,24 +1,15 @@
 import React, { FC, Suspense } from 'react';
 import { Box, Container, Paper, Stack, Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
 
 import { CircularProgress } from '@mui/material';
-import ProgramLogo from 'commons/components/atoms/logos/ProgramLogo';
-import { templates, AuthKey } from 'commons/components/organisms/auth/registry';
-import { useGetProgramQuery } from 'apps/website-display/redux/features/program/ProgramSlice';
+import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
+import { useGetWebsiteQuery } from '../redux/features/WebsiteSlice';
+import ClassicAuthTabs from 'commons/components/organisms/auth/ClassicAuth';
 
 type PropsType = {};
 
 const Authentication: FC<PropsType> = () => {
-  const { programSlug } = useParams();
-  const { data: program, isLoading } = useGetProgramQuery({ programSlug });
-
-  if (isLoading) return null;
-
-  const authMethod: AuthKey =
-    (program?.auth_method as AuthKey) ?? 'otp';
-
-  const AuthComponent = templates[authMethod] ?? templates.otp;
+  const { data: website } = useGetWebsiteQuery();
 
   return (
     <Container
@@ -31,7 +22,7 @@ const Authentication: FC<PropsType> = () => {
     >
       <Stack spacing={4} alignItems="center" width={400}>
         <Box pb={2}>
-          <ProgramLogo size="large" />
+          <WebsiteLogo size="large" />
         </Box>
 
         <Stack
@@ -42,7 +33,7 @@ const Authentication: FC<PropsType> = () => {
           alignItems="center"
         >
           <Suspense fallback={<CircularProgress size={18} />}>
-            <AuthComponent />
+            <ClassicAuthTabs />
           </Suspense>
         </Stack>
       </Stack>

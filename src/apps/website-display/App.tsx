@@ -1,9 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 
-import ResetPassword from 'apps/website-display/pages/ResetPassword';
-import CreateAccount from 'apps/website-display/pages/CreateAccount';
-import Login from 'apps/website-display/pages/Login';
 import PrivateRoute from 'commons/routes/PrivateRoute';
 import AnonymousRoute from 'commons/routes/AnonymousRoute';
 import NotFoundPage from 'commons/pages/NotFoundPage';
@@ -11,6 +8,7 @@ import { retryImport } from 'commons/utils/retryImport';
 import Articles from './pages/Articles';
 import Programs from './pages/Programs';
 import SiteSupport from './components/organisms/SiteSupport';
+import Authentication from './pages/Authentication';
 
 const Profile = React.lazy(() =>
   retryImport(() => import('apps/website-display/pages/Profile'))
@@ -51,10 +49,7 @@ const App = () => {
         </Route>
 
         <Route path="/" element={<AnonymousRoute />}>
-          <Route path="/login/" element={<Login />} />
-          <Route path="/token-expiration/" element={<Login />} />
-          <Route path="/reset-password/" element={<ResetPassword />} />
-          <Route path="/create-account/" element={<CreateAccount />} />
+          <Route path='/auth/' element={<Authentication />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

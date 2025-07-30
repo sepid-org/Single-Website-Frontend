@@ -10,14 +10,12 @@ import { toast } from 'react-toastify';
 import VerifyPhoneNumber from 'commons/components/molecules/VerifyPhoneNumber';
 import PasswordField from 'commons/components/molecules/form-fields/Password';
 import { useCreateAccountMutation } from 'commons/redux/apis/party/UserApi';
+import { useSearchParams } from 'react-router-dom';
 
-type PropsType = {
-  setTab: (tab: 'login' | 'create-account' | 'reset-password') => void;
-}
+type PropsType = {}
 
-const CreateAccountTab: FC<PropsType> = ({
-  setTab,
-}) => {
+const CreateAccountTab: FC<PropsType> = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [createAccount, { isLoading }] = useCreateAccountMutation();
   const [data, setData] = useState({
     firstName: '',
@@ -88,10 +86,7 @@ const CreateAccountTab: FC<PropsType> = ({
         verificationType='create-user-account'
       />
 
-      <PasswordField
-        onTabChange={setTab}
-        onChange={collectData}
-      />
+      <PasswordField onChange={collectData} />
 
       <Button
         onClick={handleCreateAccount}
@@ -109,10 +104,9 @@ const CreateAccountTab: FC<PropsType> = ({
           underline="none"
           sx={{
             marginLeft: 0.5,
-            fontWeight: 800,
-            color: '#1361A4',
+            fontWeight: 700,
           }}
-          onClick={() => setTab('login')}
+          onClick={() => setSearchParams({ tab: 'login' })}
         >
           {'ورود'}
         </Link>

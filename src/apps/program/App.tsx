@@ -61,7 +61,7 @@ const App = () => {
   return (
     <Routes>
       <Route element={<AnonymousRoute base={`/program/${programSlug}/`} />}>
-        <Route path="/auth/:tabName?" element={<Authentication />} />
+        <Route path="/auth/" element={<Authentication />} />
       </Route>
 
       <Route element={<PrivateRoute loginUrl={`/program/${programSlug}/auth/`} />}>
