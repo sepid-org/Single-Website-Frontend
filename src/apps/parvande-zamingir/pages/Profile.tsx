@@ -1,14 +1,12 @@
-import React from "react";
-import FullScreenBackgroundImage from "commons/components/molecules/FullScreenBackgroundImage";
-import { MediaUrls } from "../constants/mediaUrls";
-import UserInfo from "../templates/UserInfo";
+import FSM from 'apps/fsm/pages/FSM';
+import React from 'react';
 
-
-export default function Profile() {
+const CodesPage = () => {
+	const fsmId = process.env.NODE_ENV === 'development' ? 26 : 123456;
 
 	return (
-		<FullScreenBackgroundImage image={MediaUrls.BACKGROUND2}>
-			<UserInfo />
-		</FullScreenBackgroundImage>
+		<FSM fsmId={fsmId} />
 	);
-}
+};
+
+export default CodesPage;

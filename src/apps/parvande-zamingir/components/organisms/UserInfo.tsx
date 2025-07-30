@@ -1,14 +1,14 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, Fragment, useEffect, useState } from "react";
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
-import IntroductionSelector from "../../ashbaria/components/molecules/profile-inputs/IntroductionSelector";
-import ProfileImageSelector from "../../ashbaria/components/molecules/profile-inputs/ProfileImageSelector";
-import { useGetProfileQuery, useUpdateProfileMutation } from "../../ashbaria/redux/slices/Profile";
-import PersonIcon from "../../ashbaria/components/atoms/icons/Person";
-import ScoreChip from "../../ashbaria/components/molecules/chips/Score";
-import useLocalNavigate from "../../ashbaria/hooks/useLocalNavigate";
-import { AshbariaProfileType } from "../../ashbaria/types";
+import IntroductionSelector from "../../../ashbaria/components/molecules/profile-inputs/IntroductionSelector";
+import ProfileImageSelector from "../../../ashbaria/components/molecules/profile-inputs/ProfileImageSelector";
+import { useGetProfileQuery, useUpdateProfileMutation } from "../../../ashbaria/redux/slices/Profile";
+import PersonIcon from "../../../ashbaria/components/atoms/icons/Person";
+import ScoreChip from "../../../ashbaria/components/molecules/chips/Score";
+import useLocalNavigate from "../../../ashbaria/hooks/useLocalNavigate";
+import { AshbariaProfileType } from "../../../ashbaria/types";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
@@ -25,7 +25,7 @@ import NationalCodeField from "commons/components/molecules/profile-inputs/Natio
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
-import { Golden } from "../../ashbaria/constants/colors";
+import { Golden } from "../../../ashbaria/constants/colors";
 
 type UserSettingPropsType = {}
 
@@ -118,7 +118,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   }
 
   return (
-    <Container maxWidth='md' component={Paper} sx={{ position: 'relative', paddingY: 2 }}>
+    <Fragment>
       <Grid container spacing={2}>
         <Grid
           item
@@ -397,8 +397,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         handleClose={() => setIsSubmitConfirmationOpen(false)}
         callBackFunction={() => updateProfile(AshbariaProfile)}
       />
-    </Container >
-
+    </Fragment>
   );
 }
 
