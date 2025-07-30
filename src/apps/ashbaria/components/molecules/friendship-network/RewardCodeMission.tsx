@@ -6,7 +6,7 @@ import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
-import { ASHBARIA_COIN } from "apps/ashbaria/constants/game-info";
+import { ASHBARIA_COIN, ASHBARIA_GIFT_CODE_NAME } from "apps/ashbaria/constants/game-info";
 import TooltipInfo from "commons/components/atoms/TooltipInfo";
 
 const RewardCodeMission = ({ }) => {
@@ -14,7 +14,7 @@ const RewardCodeMission = ({ }) => {
 	const [submitRewardCode, result] = useSubmitRewardCodeMutation();
 
 	const handleSubmitRewardCode = () => {
-		submitRewardCode({ rewardCode: rewardCode })
+		submitRewardCode({ rewardCode: rewardCode, giftCodeName: ASHBARIA_GIFT_CODE_NAME })
 	}
 
 	useEffect(() => {

@@ -5,16 +5,17 @@ import tagGenerationWithErrorCheck from 'commons/redux/utilities/tagGenerationWi
 export const RewardCodeSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    submitRewardCode: builder.mutation<void, { rewardCode: string }>({
+    submitRewardCode: builder.mutation<void, { rewardCode: string; giftCodeName?: string; }>({
       invalidatesTags: tagGenerationWithErrorCheck((result, error, item) =>
         [{ type: 'RewardCode', id: 'MY' }]
       ),
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
-      query: ({ rewardCode }) => ({
-        url: '/friendship-network/reward-code/submit/',
+      query: ({ rewardCode, giftCodeName }) => ({
+        url: '/friendship-network/reward-codes/submit/',
         method: 'POST',
         body: {
           code: rewardCode,
+          gift_code_name: giftCodeName,
         }
       }),
     }),
