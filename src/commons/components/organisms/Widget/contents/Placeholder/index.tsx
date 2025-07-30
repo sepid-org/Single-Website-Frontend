@@ -1,7 +1,8 @@
-import React, { JSX } from 'react';
-import EditablePlaceholder from './edit';
+import React, { FC, JSX, useMemo } from 'react';
 import { Skeleton } from '@mui/material';
+import { useFSMContext } from 'commons/hooks/useFSMContext';
 import ScaleToFit from './ScaleToFit';
+import EditablePlaceholder from './edit';
 
 import ExamTimer from './dynamics/ExamTimer';
 import UserFirstName from './dynamics/UserFirstName';
@@ -17,62 +18,45 @@ export { EditablePlaceholder };
 
 type Props = { name: string };
 
-const Placeholder: React.FC<Props> = ({ name }) => {
-  const amountMatch = name?.match(/^user\.resources\.([^.]+)\.amount$/);
-  const rankMatch = name?.match(/^user\.resources\.([^.]+)\.rank$/);
+const Placeholder: FC<Props> = ({ name }) => {
+  const { dynamicObjects } = useFSMContext();
 
-  let final: JSX.Element;
+  const builtIn: JSX.Element = useMemo(() => {
+    const amountMatch = name.match(/^user\.resources\.([^.]+)\.amount$/);
+    if (amountMatch) return <CurrencyAmount currency={amountMatch[1]} />;
 
-  switch (true) {
-    case name === 'exam.timer':
-      final = <ExamTimer />;
-      break;
+    const rankMatch = name.match(/^user\.resources\.([^.]+)\.rank$/);
+    if (rankMatch) return <CurrencyRank currency={rankMatch[1]} />;
 
-    case name === 'user.first_name':
-      final = <UserFirstName />;
-      break;
+    const staticMap: Record<string, JSX.Element> = {
+      'exam.timer': <ExamTimer />,
+      'user.first_name': <UserFirstName />,
+      'user.last_name': <UserLastName />,
+      'user.full_name': <UserFullName />,
+      'user.phone_number': <UserPhoneNumber />,
+      'user.avatar': <UserAvatar />,
+      'user.answer-sheet.correct': <AnswerCount variant="correct" />,
+      'user.answer-sheet.wrong': <AnswerCount variant="wrong" />,
+      'user.answer-sheet.unknown': <AnswerCount variant="unknown" />,
+    };
 
-    case name === 'user.last_name':
-      final = <UserLastName />;
-      break;
+    return (
+      staticMap[name] ?? (
+        <Skeleton width={160} height={90} variant="rounded" />
+      )
+    );
+  }, [name]);
 
-    case name === 'user.full_name':
-      final = <UserFullName />;
-      break;
-
-    case name === 'user.phone_number':
-      final = <UserPhoneNumber />;
-      break;
-
-    case name === 'user.avatar':
-      final = <UserAvatar />;
-      break;
-
-    case Boolean(amountMatch):
-      final = <CurrencyAmount currency={amountMatch![1]} />;
-      break;
-
-    case Boolean(rankMatch):
-      final = <CurrencyRank currency={rankMatch![1]} />;
-      break;
-
-    case name === 'user.answer-sheet.correct':
-      final = <AnswerCount variant="correct" />;
-      break;
-
-    case name === 'user.answer-sheet.wrong':
-      final = <AnswerCount variant="wrong" />;
-      break;
-
-    case name === 'user.answer-sheet.unknown':
-      final = <AnswerCount variant="unknown" />;
-      break;
-
-    default:
-      final = <Skeleton width={160} height={90} variant="rounded" />;
+  const DynamicComp = dynamicObjects?.[name];
+  if (DynamicComp) {
+    return (
+      <ScaleToFit>
+        <DynamicComp />
+      </ScaleToFit>
+    );
   }
 
-  return <ScaleToFit>{final}</ScaleToFit>;
+  return <ScaleToFit>{builtIn}</ScaleToFit>;
 };
 
 export default Placeholder;

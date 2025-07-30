@@ -155,7 +155,7 @@ const FriendshipNetworkPage = () => {
                   }}
                   onChange={(event) => setInputCode(toEnglishNumber(event.target.value))}
                 />
-                <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode })}>
+                <Button variant='outlined' size='large' onClick={() => follow({ code: inputCode, networkId: ASHBARIA_NETWORK_ID })}>
                   {'ثبتش کن'}
                 </Button>
               </Stack>

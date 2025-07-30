@@ -1,24 +1,17 @@
-import React from "react";
-import { ComplementaryObjectType } from "commons/types/object/object";
 import ReferralCode from "../components/organisms/ReferralCode";
 import RewardCodes from "../components/organisms/RewardCodes";
+import { DynamicObjectsType } from "commons/types/object/object";
 
-const useGetComplementaryWidgets = () => {
+const useGetDynamicsWidgets = () => {
 
-  const dynamicWidgets: ComplementaryObjectType[] = [
-    {
-      name: 'parvande-zamingir-referral-code',
-      substituteComponent: <ReferralCode />
-    },
-    {
-      name: 'parvande-zamingir-reward-codes',
-      substituteComponent: <RewardCodes />
-    },
-  ];
+  const dynamicWidgets: DynamicObjectsType = {
+    'parvande-zamingir-referral-code': ReferralCode,
+    'parvande-zamingir-reward-codes': RewardCodes,
+  };
 
   return {
-    complementaryObjects: dynamicWidgets,
+    dynamicWidgets,
   }
 }
 
-export default useGetComplementaryWidgets;
+export default useGetDynamicsWidgets;

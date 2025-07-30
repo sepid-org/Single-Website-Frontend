@@ -11,16 +11,21 @@ import FSMStartPage from './FSMStartPage';
 import FSMBody from './Body';
 import FSMCompletionPage from './FSMCompletionPage';
 import { FSMProvider } from 'commons/hooks/useFSMContext';
+import { DynamicObjectsType } from 'commons/types/object/object';
 
 export type FSMProps = {
   fsmId?: number;
+  dynamicObjects?: DynamicObjectsType;
 };
 
 const useQueryParam = (key: string): string | null => {
   return new URLSearchParams(useLocation().search).get(key);
 };
 
-const FSM: FC<FSMProps> = ({ fsmId: fsmIdProp }) => {
+const FSM: FC<FSMProps> = ({
+  fsmId: fsmIdProp,
+  dynamicObjects,
+}) => {
   const { fsmId: fsmIdParam } = useParams<{ fsmId?: string }>();
   const fsmId = useMemo(() => Number(fsmIdParam) || fsmIdProp, [fsmIdParam, fsmIdProp]);
 
@@ -76,7 +81,14 @@ const FSM: FC<FSMProps> = ({ fsmId: fsmIdProp }) => {
   const content = renderContent();
   if (!content) return null;
 
-  return <FSMProvider fsmId={fsmId}>{content}</FSMProvider>;
+  return (
+    <FSMProvider
+      fsmId={fsmId}
+      dynamicObjects={dynamicObjects}
+    >
+      {content}
+    </FSMProvider>
+  );
 };
 
 export default FSM;

@@ -4,16 +4,17 @@ import { PlayerMinimalType } from 'commons/types/models';
 import { useGetCurrentUserPlayerQuery } from 'apps/fsm/redux/slices/fsm/PlayerSlice';
 import useFSMStatesManager, { FSMStateResult } from 'apps/fsm/hooks/useFSMStatesManager';
 import useFSMPapersManager, { PaperResult } from 'apps/fsm/hooks/useFSMPapersManager';
+import { DynamicObjectsType } from 'commons/types/object/object';
 
 interface FSMContextType {
   fsmId: number;
-  player: PlayerMinimalType;
-  openDialog: (
-    children: ReactNode,
-  ) => void;
+  player: PlayerMinimalType | undefined;
+  openDialog: (children: ReactNode) => void;
   closeDialog: () => void;
-  getCachedFSMState: ({ fsmStateId }: { fsmStateId: number }) => FSMStateResult;
-  getCachedPaper: ({ paperId }: { paperId: number }) => PaperResult;
+  getCachedFSMState: (args: { fsmStateId: number }) => FSMStateResult;
+  getCachedPaper: (args: { paperId: number }) => PaperResult;
+  dynamicObjects: DynamicObjectsType;
+  getDynamicObject: <P = any>(name: string) => React.ComponentType<P> | undefined;
 }
 
 const FSMContext = createContext<FSMContextType | null>(null);
@@ -22,10 +23,12 @@ interface FSMProviderPropsType {
   fsmId: number;
   children: ReactNode;
   mode?: 'view' | 'edit';
+  dynamicObjects?: DynamicObjectsType;
 }
 
 export const FSMProvider: FC<FSMProviderPropsType> = ({
   children,
+  dynamicObjects = {},
   ...props
 }) => {
   const { data: player } = useGetCurrentUserPlayerQuery({ fsmId: props.fsmId }, { skip: props.mode === 'edit' });
@@ -35,6 +38,8 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
   const [dialogProps, setDialogProps] = useState({
     children: null,
   });
+  const getDynamicObject = (name: string) => (dynamicObjects[name] as React.ComponentType<any>) || undefined;
+
 
   const openDialog = (
     children: ReactNode,
@@ -47,8 +52,19 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
     setOpen(false);
   };
 
+  const ctx: FSMContextType = {
+    ...props,
+    player,
+    openDialog,
+    closeDialog,
+    getCachedFSMState,
+    getCachedPaper,
+    dynamicObjects,
+    getDynamicObject,
+  };
+
   return (
-    <FSMContext.Provider value={{ ...props, player, openDialog, closeDialog, getCachedFSMState, getCachedPaper }}>
+    <FSMContext.Provider value={ctx}>
       {children}
       <Dialog open={open} onClose={closeDialog}>
         {dialogProps.children}
@@ -59,16 +75,9 @@ export const FSMProvider: FC<FSMProviderPropsType> = ({
 
 // todo: add a loading state
 export const useFSMContext = (): FSMContextType => {
-  const context = useContext(FSMContext);
-  if (!context) {
-    return {
-      fsmId: undefined,
-      player: undefined,
-      openDialog: undefined,
-      closeDialog: undefined,
-      getCachedFSMState: undefined,
-      getCachedPaper: undefined,
-    };
+  const ctx = useContext(FSMContext);
+  if (!ctx) {
+    throw new Error('useFSMContext must be used inside an <FSMProvider>');
   }
-  return context;
+  return ctx;
 };

@@ -1,11 +1,12 @@
 import FSM from 'apps/fsm/pages/FSM';
 import React from 'react';
+import useGetDynamicsWidgets from '../hooks/useGetDynamicWidgets';
 
 const CodesPage = () => {
   const fsmId = process.env.NODE_ENV === 'development' ? 22 : 123456;
-
+  const { dynamicWidgets } = useGetDynamicsWidgets();
   return (
-    <FSM fsmId={fsmId} />
+    <FSM dynamicObjects={dynamicWidgets} fsmId={fsmId} />
   );
 };
 

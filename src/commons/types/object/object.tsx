@@ -31,3 +31,5 @@ export type ComplementaryObjectType = {
   sx?: any;
   substituteComponent?: any;
 }
+
+export type DynamicObjectsType = Record<string, React.ComponentType<any>>

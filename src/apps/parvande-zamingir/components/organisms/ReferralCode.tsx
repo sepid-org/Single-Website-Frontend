@@ -13,43 +13,41 @@ import { PARVANDE_ZAMINGIR_NETWORK_ID } from "apps/parvande-zamingir/constants/g
 import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import dialogService from "commons/components/organisms/PortalDialog";
+import { toast } from "react-toastify";
 
 export default function ReferralCode() {
-  const { data: myMembership } = useGetMyMembershipQuery({ networkId: PARVANDE_ZAMINGIR_NETWORK_ID })
+  const { data: myMembership } = useGetMyMembershipQuery({ networkId: PARVANDE_ZAMINGIR_NETWORK_ID });
   const [follow, followResult] = useFollowMutation();
   const [otherCode, setOtherCode] = useState("");
 
   useEffect(() => {
     if (followResult.isSuccess) {
       dialogService.open({
-        component:
+        component: (
           <CustomDialogContent
             image={<ScoreAnnouncement />}
-            title={`تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا`}
-            onClick={() => {
-              dialogService.close();
-            }}
+            title="تبریک! تو کد دوستت رو زدی و امتیازشو گرفتی. باریکلا"
+            onClick={() => dialogService.close()}
           />
-      })
+        ),
+      });
     }
-    if (followResult.isError) {
-      if (followResult.error?.['data']?.error) {
-        dialogService.open({
-          component:
-            <CustomDialogContent
-              title={followResult.error['data'].error}
-              onClick={() => {
-                dialogService.close();
-              }}
-            />
-        })
-      }
+    if (followResult.isError && followResult.error?.data?.error) {
+      dialogService.open({
+        component: (
+          <CustomDialogContent
+            title={followResult.error.data.error}
+            onClick={() => dialogService.close()}
+          />
+        ),
+      });
     }
-  }, [followResult.isSuccess, followResult.isError])
+  }, [followResult.isSuccess, followResult.isError]);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(myMembership.code);
+      toast.success('کد مخصوصت با موفقیت کپی شد')
     } catch {
       // مرورگر پشتیبانی نکرد
     }
@@ -57,33 +55,27 @@ export default function ReferralCode() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (otherCode.trim()) follow({ code: otherCode.trim() });
+    if (otherCode.trim()) follow({ code: otherCode.trim(), networkId: PARVANDE_ZAMINGIR_NETWORK_ID });
   };
 
-  if (!myMembership) return;
+  if (!myMembership) return null;
 
   return (
-    <Stack spacing={1}>
+    <Stack spacing={2}>
       <TextField
-        size="small"
         fullWidth
-        margin="dense"
         value={myMembership.code}
+        inputProps={{ style: { fontSize: "2.5rem", fontWeight: 700, textAlign: 'center' } }}
         InputProps={{
-          // توضیح کنار فیلد
           startAdornment: (
             <InputAdornment position="start">
-              <Typography variant="subtitle2" sx={{ mx: 0.5 }}>
-                کد مخصوصت
-              </Typography>
+              <Typography sx={{ fontSize: "1.5rem" }}>کد مخصوصت</Typography>
             </InputAdornment>
           ),
-
-          // دکمهٔ کپی
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton onClick={handleCopy} edge="end">
-                <ContentCopyIcon />
+              <IconButton onClick={handleCopy}>
+                <ContentCopyIcon fontSize="large" />
               </IconButton>
             </InputAdornment>
           ),
@@ -93,21 +85,19 @@ export default function ReferralCode() {
 
       <TextField
         fullWidth
-        size="small"
-        margin="dense"
         placeholder="کد معرف خود را وارد کنید"
         value={otherCode}
         onChange={(e) => setOtherCode(e.target.value)}
+        inputProps={{ style: { fontSize: "2rem" } }}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
               <Button
-                size="small"
                 type="submit"
                 variant="contained"
                 disabled={!otherCode.trim()}
                 onClick={handleSubmit}
-                sx={{ px: 3 }}
+                sx={{ px: 3, fontSize: "1.5rem" }}   // ← سایز متن دکمه
               >
                 ثبت
               </Button>
@@ -115,6 +105,6 @@ export default function ReferralCode() {
           ),
         }}
       />
-    </Stack >
+    </Stack>
   );
 }

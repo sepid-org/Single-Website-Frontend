@@ -23,14 +23,15 @@ export const NetworkSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    follow: builder.mutation<FollowType & { created: boolean }, { code: string; }>({
+    follow: builder.mutation<FollowType & { created: boolean }, { code: string; networkId: number; }>({
       invalidatesTags: [{ type: 'Network', id: 'MY' }],
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
-      query: ({ code }) => ({
+      query: ({ code, networkId }) => ({
         url: '/friendship-network/follows/',
         method: 'POST',
         body: {
           code,
+          network: networkId,
         }
       }),
     }),
