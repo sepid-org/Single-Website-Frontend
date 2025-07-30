@@ -38,7 +38,7 @@ const Root = () => {
     >
       <BrowserRouter>
         <Routes>
-          <Route path="/meeting/:meetingId/" element={<MeetingApp />} />
+          <Route path="/meeting/:meetingId/*" element={<MeetingApp />} />
           <Route path="/form/:formSlug/*" element={<FormApp />} />
           <Route path="/article/:articleId/*" element={<ArticleApp />} />
           <Route path="/fsm/:fsmId/*" element={<FSMApp />} />
