@@ -9,7 +9,6 @@ import ClassicAuthTabs from 'commons/components/organisms/auth/ClassicAuth';
 type PropsType = {};
 
 const Authentication: FC<PropsType> = () => {
-  const { data: website } = useGetWebsiteQuery();
 
   return (
     <Container
