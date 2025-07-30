@@ -12,7 +12,8 @@ const UserInfo = ({ }) => {
       {isUserAuthenticated ?
         <Avatar /> :
         <Stack direction={'row'} spacing={1}>
-          <DashboardButton variant='contained' label='ورود' to={'/auth/'} onClick={null} />
+          <DashboardButton variant='outlined' label='ثبت‌نام' to={'/auth/?tab=create-account'} />
+          <DashboardButton variant='contained' label='ورود' to={'/auth/'} />
         </Stack>
       }
     </Stack>

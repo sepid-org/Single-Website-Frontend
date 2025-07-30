@@ -3,12 +3,11 @@ import { Box, Container, Paper, Stack, Typography } from '@mui/material';
 
 import { CircularProgress } from '@mui/material';
 import WebsiteLogo from 'commons/components/atoms/logos/WebsiteLogo';
-import { useGetWebsiteQuery } from '../redux/features/WebsiteSlice';
-import ClassicAuthTabs from 'commons/components/organisms/auth/ClassicAuth';
+import OtpAuthTabs from 'commons/components/organisms/auth/OtpAuth';
 
 type PropsType = {};
 
-const Authentication: FC<PropsType> = () => {
+const OtpAuthentication: FC<PropsType> = () => {
 
   return (
     <Container
@@ -32,7 +31,7 @@ const Authentication: FC<PropsType> = () => {
           alignItems="center"
         >
           <Suspense fallback={<CircularProgress size={18} />}>
-            <ClassicAuthTabs />
+            <OtpAuthTabs />
           </Suspense>
         </Stack>
       </Stack>
@@ -40,4 +39,4 @@ const Authentication: FC<PropsType> = () => {
   );
 };
 
-export default Authentication;
+export default OtpAuthentication;

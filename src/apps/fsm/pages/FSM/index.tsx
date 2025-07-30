@@ -43,6 +43,7 @@ const FSM: FC<FSMProps> = ({ fsmId: fsmIdProp }) => {
       data: enteredPlayer,
       isLoading: isEntering,
       isSuccess: isEnterSuccess,
+      isError: isEnterError,
     },
   ] = useEnterFSMMutation();
 
@@ -52,7 +53,7 @@ const FSM: FC<FSMProps> = ({ fsmId: fsmIdProp }) => {
     const notFound =
       playerError && 'status' in playerError && playerError.status === 404;
 
-    const shouldEnter = (forceEnter || notFound) && !isEntering && !isEnterSuccess;
+    const shouldEnter = (forceEnter || notFound) && !isEntering && !isEnterSuccess && !isEnterError;
 
     if (shouldEnter) enterFSM({ fsmId });
   }, [fsmId, forceEnter, playerError, isEntering, isEnterSuccess, enterFSM]);
