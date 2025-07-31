@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { CopyAll as CopyIcon, Edit as EditIcon } from '@mui/icons-material';
 import copyToClipboard from 'commons/utils/CopyToClipboard';
-import { MeetingType } from 'apps/program/types';
+import { MeetingType } from 'apps/program/types/types';
 import { useLazyGetJoinMeetingLinkQuery } from 'apps/program/redux/slices/MeetingSlice';
 import MeetingDialog from '../dialogs/MeetingDialog';
 import { formatDuration, formatStart } from 'apps/program/utils';

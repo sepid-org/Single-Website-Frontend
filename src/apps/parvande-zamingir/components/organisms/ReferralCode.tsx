@@ -10,7 +10,7 @@ import {
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { useFollowMutation, useGetMyMembershipQuery } from "commons/redux/apis/incentive-service/Network";
 import { PARVANDE_ZAMINGIR_NETWORK_ID } from "apps/parvande-zamingir/constants/game-info";
-import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+import ScoreAnnouncement from "commons/components/atoms/icons/ScoreAnnouncement";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
 import { toast } from "react-toastify";
 import { useFSMContext } from "commons/hooks/useFSMContext";

@@ -4,7 +4,7 @@ import { Golden } from "apps/ashbaria/constants/colors";
 import { useSubmitRewardCodeMutation } from "commons/redux/apis/incentive-service/RewardCode";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
-import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+import ScoreAnnouncement from "commons/components/atoms/icons/ScoreAnnouncement";
 import { toEnglishNumber, toPersianNumber } from "commons/utils/translateNumber";
 import { ASHBARIA_COIN, ASHBARIA_GIFT_CODE_NAME } from "apps/ashbaria/constants/game-info";
 import TooltipInfo from "commons/components/atoms/TooltipInfo";

@@ -11,7 +11,7 @@ import {
 import { useParams } from 'react-router';
 import { toast } from 'react-toastify';
 import MeetingInfo from '../forms/MeetingInfo';
-import { MeetingType } from 'apps/program/types';
+import { MeetingType } from 'apps/program/types/types';
 import {
   useCreateMeetingMutation,
   useUpdateMeetingMutation,

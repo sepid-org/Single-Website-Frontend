@@ -1,5 +1,5 @@
 import React from 'react';
-import ProfileSVG from "../../../assets/profile.svg";
+import ProfileSVG from "./profile.svg";
 import { Box } from '@mui/material';
 
 const PersonIcon = (props) => {

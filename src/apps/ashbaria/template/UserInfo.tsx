@@ -4,15 +4,14 @@ import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
 import IntroductionSelector from "../components/molecules/profile-inputs/IntroductionSelector";
 import ProfileImageSelector from "../components/molecules/profile-inputs/ProfileImageSelector";
-import { useGetProfileQuery, useUpdateProfileMutation } from "../redux/slices/Profile";
+import { useGetProgramProfileQuery, useUpdateProgramProfileMutation } from "../redux/slices/Profile";
 import BackButton from "../components/molecules/buttons/Back";
-import PersonIcon from "../components/atoms/icons/Person";
+import PersonIcon from "../../../commons/components/atoms/icons/Person";
 import ScoreChip from "../components/molecules/chips/Score";
 import useLocalNavigate from "../hooks/useLocalNavigate";
-import { AshbariaProfileType } from "../types";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
-import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+import ScoreAnnouncement from "commons/components/atoms/icons/ScoreAnnouncement";
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
 import DateInputField from "commons/components/molecules/profile-inputs/DateInputField";
@@ -27,14 +26,15 @@ import PostalCodeField from "commons/components/molecules/profile-inputs/PostalC
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
 import { Golden } from "../constants/colors";
+import { ProgramProfileType } from "apps/program/types/profile";
 
 type UserSettingPropsType = {}
 
 const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
-  const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
-  const { data: initialAshbariaProfile } = useGetProfileQuery();
-  const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
+  const [updateProfile, updateProfileResult] = useUpdateProgramProfileMutation();
+  const { data: initialAshbariaProfile } = useGetProgramProfileQuery();
+  const [AshbariaProfile, setAshbariaProfile] = useState<ProgramProfileType>(null);
   const [isSubmitConfirmationOpen, setIsSubmitConfirmationOpen] = useState(false);
   const { data: userProfile } = useUserProfile();
   const {

@@ -10,7 +10,7 @@ import RankingIcon from '../atoms/icons/Ranking';
 import MyFirstName from '../atoms/MyFirstName';
 import PurpleInfoIcon from '../atoms/icons/PurpleInfo';
 import { Golden } from 'apps/ashbaria/constants/colors';
-import { useGetProfileQuery } from 'apps/ashbaria/redux/slices/Profile';
+import { useGetProgramProfileQuery } from 'apps/ashbaria/redux/slices/Profile';
 import { useGetMyRankQuery } from 'commons/redux/apis/bank/MyInfo';
 import { ASHBARIA_COIN, ASHBARIA_NETWORK_ID } from 'apps/ashbaria/constants/game-info';
 import { useGetMyMembershipQuery } from 'commons/redux/apis/incentive-service/Network';
@@ -19,7 +19,7 @@ type PropsType = {}
 
 const GameMenuPanel: FC<PropsType> = () => {
   const localNavigate = useLocalNavigate();
-  const { data: myAshbariaProfile, isLoading: isGetProfileLoading } = useGetProfileQuery();
+  const { data: myProgramProfile, isLoading: isGetProfileLoading } = useGetProgramProfileQuery();
   const { data: myMembership, isLoading: isGetMyMembershipLoading } = useGetMyMembershipQuery({ networkId: ASHBARIA_NETWORK_ID })
   const { data: myRank, isLoading: isGetMyRankLoading } = useGetMyRankQuery({ currencyName: ASHBARIA_COIN });
   const { logout, isLoading: isLogoutLoading } = useLogout();
@@ -50,7 +50,7 @@ const GameMenuPanel: FC<PropsType> = () => {
       {
         isGetProfileLoading ? (
           <Skeleton width={'80%'} height={60} />
-        ) : myAshbariaProfile?.has_received_reward ? (
+        ) : myProgramProfile?.has_received_reward ? (
           <MyFirstNameChip />
         ) : (
           <Button

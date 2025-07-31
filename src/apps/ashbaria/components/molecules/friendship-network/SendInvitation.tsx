@@ -1,5 +1,5 @@
 import { Button } from "@mui/material";
-import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
+import { useGetProgramProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import React from "react";
 import SMSIcon from "../../atoms/icons/SMS";
 import { toPersianNumber } from "commons/utils/translateNumber";
@@ -17,7 +17,7 @@ ashbaria.ir
 }
 
 const SendInvitation = () => {
-  const { data: profile } = useGetProfileQuery();
+  const { data: profile } = useGetProgramProfileQuery();
   const { data: myMembership } = useGetMyMembershipQuery({ networkId: ASHBARIA_NETWORK_ID });
   const { data: userProfile } = useUserProfile();
   const tempName = `دادبستان ${toPersianNumber(hashStringToNumber(userProfile.id).toString().padStart(4, '0'))}`

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useGetProfileQuery } from "apps/ashbaria/redux/slices/Profile";
+import { useGetProgramProfileQuery } from "apps/ashbaria/redux/slices/Profile";
 import { Box, ButtonBase, Skeleton, Stack } from "@mui/material";
 import MyFirstName from "../../atoms/MyFirstName";
 import useLocalNavigate from "apps/ashbaria/hooks/useLocalNavigate";
@@ -8,7 +8,7 @@ type PropsType = {};
 
 const MyFirstNameChip: FC<PropsType> = ({ }) => {
   const localNavigate = useLocalNavigate();
-  const { data: myAshbariaProfile, isLoading } = useGetProfileQuery();
+  const { data: myProgramProfile, isLoading } = useGetProgramProfileQuery();
 
   return (
     <ButtonBase onClick={() => localNavigate('/profile/')} sx={{ borderRadius: 2 }}>
@@ -28,7 +28,7 @@ const MyFirstNameChip: FC<PropsType> = ({ }) => {
         ) : (
           <Box
             component="img"
-            src={myAshbariaProfile?.profile_image}
+            src={myProgramProfile?.profile_image}
             width={44}
             height={44}
             borderRadius="50%"

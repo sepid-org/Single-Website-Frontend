@@ -13,7 +13,7 @@ import { LocalizationProvider, DateTimePicker } from '@mui/x-date-pickers';
 import { AdapterMomentJalaali } from '@mui/x-date-pickers/AdapterMomentJalaali';
 import 'moment/locale/fa';
 
-import { MeetingType } from 'apps/program/types';
+import { MeetingType } from 'apps/program/types/types';
 import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
 
 type MeetingInfoFormProps = {

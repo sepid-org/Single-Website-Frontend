@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import dialogService from "commons/components/organisms/PortalDialog";
 import CustomDialogContent from "../../../commons/components/molecules/CustomDialogContent";
 import { toPersianNumber } from "commons/utils/translateNumber";
-import ScoreAnnouncement from "../components/atoms/icons/ScoreAnnouncement";
+import ScoreAnnouncement from "../../../commons/components/atoms/icons/ScoreAnnouncement";
 import RedSeatAnnouncement from "../components/atoms/icons/RedSeatAnnouncement";
 import GraySeatAnnouncement from "../components/atoms/icons/GraySeatAnnouncement";
 import { Button } from "@mui/material";

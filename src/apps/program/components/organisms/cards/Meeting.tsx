@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import { useJoinMeetingMutation } from 'apps/program/redux/slices/MeetingSlice';
 import { Button } from '@mui/material';
-import { MeetingType } from 'apps/program/types';
+import { MeetingType } from 'apps/program/types/types';
 import LoginIcon from '@mui/icons-material/Login';
 import { formatDuration, formatStart } from 'apps/program/utils';
 

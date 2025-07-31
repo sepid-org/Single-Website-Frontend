@@ -1,17 +1,13 @@
 import React, { FC, Fragment, useEffect, useState } from "react";
-import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import { toast } from "react-toastify";
 import { toEnglishNumber } from "commons/utils/translateNumber";
-import IntroductionSelector from "../../../ashbaria/components/molecules/profile-inputs/IntroductionSelector";
-import ProfileImageSelector from "../../../ashbaria/components/molecules/profile-inputs/ProfileImageSelector";
-import { useGetProfileQuery, useUpdateProfileMutation } from "../../../ashbaria/redux/slices/Profile";
-import PersonIcon from "../../../ashbaria/components/atoms/icons/Person";
-import ScoreChip from "../../../ashbaria/components/molecules/chips/Score";
-import useLocalNavigate from "../../../ashbaria/hooks/useLocalNavigate";
-import { AshbariaProfileType } from "../../../ashbaria/types";
-import dialogService from "commons/components/organisms/PortalDialog";
+import { useGetProgramProfileQuery, useUpdateProgramProfileMutation, } from "apps/ashbaria/redux/slices/Profile";
 import CustomDialogContent from "commons/components/molecules/CustomDialogContent";
-import ScoreAnnouncement from "apps/film-bazi/components/atoms/icons/ScoreAnnouncement";
+
+import PersonIcon from "commons/components/atoms/icons/Person";
+import ScoreAnnouncement from "commons/components/atoms/icons/ScoreAnnouncement";
+
 import useUserProfile from "commons/hooks/useUserProfile";
 import AreYouSure from "commons/components/organisms/dialogs/AreYouSure";
 import DateInputField from "commons/components/molecules/profile-inputs/DateInputField";
@@ -25,17 +21,23 @@ import NationalCodeField from "commons/components/molecules/profile-inputs/Natio
 import PostalCodeField from "commons/components/molecules/profile-inputs/PostalCodeField";
 import AddressField from "commons/components/molecules/profile-inputs/AddressInput";
 import useUserProfileFormValidator from "commons/hooks/useUserProfileFormValidator";
-import { Golden } from "../../../ashbaria/constants/colors";
+import useLocalNavigate from "apps/parvande-zamingir/hooks/useLocalNavigate";
+import { useFSMContext } from "commons/hooks/useFSMContext";
+import IntroductionSelector from "../molecules/fields/IntroductionSelector";
+import AvatarSelector from "../molecules/fields/AvatarSelector";
+import { ProgramProfileType } from "apps/program/types/profile";
+import ScoreChip from "../molecules/Score";
 
-type UserSettingPropsType = {}
+type PropsType = {}
 
-const UserInfo: FC<UserSettingPropsType> = ({ }) => {
+const Profile: FC<PropsType> = ({ }) => {
+  const { openDialog, closeDialog } = useFSMContext();
   const localNavigate = useLocalNavigate();
-  const [updateProfile, updateProfileResult] = useUpdateProfileMutation();
-  const { data: initialAshbariaProfile } = useGetProfileQuery();
-  const [AshbariaProfile, setAshbariaProfile] = useState<AshbariaProfileType>(null);
+  const [updateProgramProfile, updateProgramProfileResult] = useUpdateProgramProfileMutation();
+  const { data: initialProgramProfile } = useGetProgramProfileQuery();
+  const [programProfile, setProgramProfile] = useState<ProgramProfileType>(null);
   const [isSubmitConfirmationOpen, setIsSubmitConfirmationOpen] = useState(false);
-  const { data: userProfile } = useUserProfile();
+  const { data: platformProfile } = useUserProfile();
   const {
     fieldValidationStatus,
     setFieldValidationStatus,
@@ -46,75 +48,86 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
   } = useUserProfileFormValidator(['first_name', 'last_name', 'national_code', 'birth_date', 'gender', 'referral_method', 'province', 'city', 'school', 'postal_code', 'address', 'profile_image'])
 
   useEffect(() => {
-    if (userProfile) {
-      setAshbariaProfile(prevProfile => ({
+    if (platformProfile) {
+      setProgramProfile(prevProfile => ({
         ...prevProfile,
-        phone_number: userProfile.phone_number,
+        phone_number: platformProfile.phone_number,
       }))
     }
-  }, [userProfile])
+  }, [platformProfile])
 
   useEffect(() => {
-    if (initialAshbariaProfile) {
-      setAshbariaProfile({
-        ...initialAshbariaProfile,
-        phone_number: initialAshbariaProfile.phone_number || userProfile?.phone_number
+    if (initialProgramProfile) {
+      setProgramProfile({
+        ...initialProgramProfile,
+        phone_number: initialProgramProfile.phone_number || platformProfile?.phone_number
       });
       setFieldValidationStatus({
-        first_name: initialAshbariaProfile?.first_name ? true : false,
-        last_name: initialAshbariaProfile?.last_name ? true : false,
-        national_code: initialAshbariaProfile?.national_code ? true : false,
-        birth_date: initialAshbariaProfile?.birth_date ? true : false,
-        postal_code: initialAshbariaProfile?.postal_code ? true : false,
-        address: initialAshbariaProfile?.address ? true : false,
-        province: initialAshbariaProfile?.province ? true : false,
-        city: initialAshbariaProfile?.city ? true : false,
-        referral_method: initialAshbariaProfile?.referral_method ? true : false,
-        gender: initialAshbariaProfile?.gender ? true : false,
-        profile_image: initialAshbariaProfile?.profile_image ? true : false,
+        first_name: initialProgramProfile?.first_name ? true : false,
+        last_name: initialProgramProfile?.last_name ? true : false,
+        national_code: initialProgramProfile?.national_code ? true : false,
+        birth_date: initialProgramProfile?.birth_date ? true : false,
+        postal_code: initialProgramProfile?.postal_code ? true : false,
+        address: initialProgramProfile?.address ? true : false,
+        province: initialProgramProfile?.province ? true : false,
+        city: initialProgramProfile?.city ? true : false,
+        referral_method: initialProgramProfile?.referral_method ? true : false,
+        gender: initialProgramProfile?.gender ? true : false,
+        profile_image: initialProgramProfile?.profile_image ? true : false,
       });
     }
-  }, [initialAshbariaProfile]);
+  }, [initialProgramProfile]);
 
   useEffect(() => {
-    if (updateProfileResult?.data?.reward_granted) {
-      dialogService.open({
-        component:
-          <CustomDialogContent
-            image={<ScoreAnnouncement />}
-            title={`تبریک! با تکمیل نمایه ۱۵۰ سکه به شما اضافه شد.`}
-            onClick={() => {
-              dialogService.close();
-              localNavigate('/');
-            }}
-          />
-      })
-    } else if (updateProfileResult?.isSuccess) {
+    if (updateProgramProfileResult?.data?.reward_granted) {
+      openDialog(
+        <CustomDialogContent
+          image={<ScoreAnnouncement />}
+          title={`تبریک! با تکمیل نمایه ۱۵۰ سکه به شما اضافه شد.`}
+          onClick={() => {
+            closeDialog();
+          }}
+        />
+      )
+    } else if (updateProgramProfileResult?.isSuccess) {
       toast.success('اطلاعات با موفقیت به‌روز شد');
-    } else if (updateProfileResult?.isError) {
+    } else if (updateProgramProfileResult?.isError) {
       toast.error('مشکلی در به‌روز‌رسانی نمایه وجود داشت');
     }
-  }, [updateProfileResult.isSuccess]);
+  }, [updateProgramProfileResult.isSuccess]);
 
   const handleChange = (event) => {
-    setAshbariaProfile({
-      ...AshbariaProfile,
+    setProgramProfile({
+      ...programProfile,
       [event.target.name]: toEnglishNumber(event.target.value),
     });
   }
 
   const handleGenderChange = (selectedGender) => {
-    setAshbariaProfile({
-      ...AshbariaProfile,
+    setProgramProfile({
+      ...programProfile,
       gender: selectedGender,
     })
   }
 
   const handleProfileImgChange = (selectedImg) => {
-    setAshbariaProfile({
-      ...AshbariaProfile,
+    setProgramProfile({
+      ...programProfile,
       profile_image: selectedImg,
     });
+  }
+
+  const handleSubmit = () => {
+    if (allFieldsValid) {
+      setIsSubmitConfirmationOpen(true)
+    } else {
+      for (const property in fieldValidationStatus) {
+        if (!fieldValidationStatus[property] && !programProfile[property]) {
+          setDisplayEmptyErrorMessages((prevState) => ({ ...prevState, [property]: true }));
+        }
+      }
+      toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
+    }
   }
 
   return (
@@ -126,18 +139,18 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <Stack direction={'row'}>
+          <Stack direction={'row'} mb={2}>
             <PersonIcon />
-            <Typography variant="h6" fontSize={24} fontWeight={800}>
+            <Typography variant="h6" fontSize={24} fontWeight={700}>
               {'نمایه من'}
             </Typography>
           </Stack>
-          <Box position={'absolute'} right={10} top={10}>
-            {AshbariaProfile?.has_received_reward === false && <ScoreChip value={150} />}
+          <Box position={'absolute'} right={0} top={0}>
+            {!programProfile?.has_received_reward && <ScoreChip value={150} />}
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -148,7 +161,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             نام
           </Typography>
           <FirstNameField
-            value={AshbariaProfile?.first_name}
+            value={programProfile?.first_name}
             onChange={handleChange}
             onValidationChange={(isValid) => handleValidationChange('first_name', isValid)}
             isRequired={true}
@@ -156,7 +169,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
             placeholder="نام خود را وارد کنید."
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               paddingBottom: '4px',
@@ -169,13 +182,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <LastNameField
             onValidationChange={(isValid) => handleValidationChange('last_name', isValid)}
             onChange={handleChange}
-            value={AshbariaProfile?.last_name}
+            value={programProfile?.last_name}
             isRequired={true}
             displayEmptyErrorMessage={displayEmptyErrorMessages['last_name']}
             placeholder="نام خانوادگی خود را وارد کنید."
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography fontWeight={400} fontSize={14}
             sx={{
               marginBottom: '4px',
@@ -187,14 +200,14 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <NationalCodeField
             onChange={handleChange}
-            value={AshbariaProfile?.national_code}
+            value={programProfile?.national_code}
             onValidationChange={(isValid) => handleValidationChange('national_code', isValid)}
             isRequired={true}
             displayEmptyErrorMessage={displayEmptyErrorMessages['national_code']}
             placeholder="کد ملی خود را وارد کنید."
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -206,13 +219,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <DateInputField
             isRequired={true}
-            date={AshbariaProfile?.birth_date}
-            setDate={(value) => setAshbariaProfile({ ...AshbariaProfile, birth_date: value })}
+            date={programProfile?.birth_date}
+            setDate={(value) => setProgramProfile({ ...programProfile, birth_date: value })}
             handleValidationChange={(isValid) => handleValidationChange('birth_date', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['birth_date']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -224,27 +237,23 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <GenderSelector
             handleValidationChange={(isValid) => handleValidationChange('gender', isValid)}
-            gender={AshbariaProfile?.gender}
+            gender={programProfile?.gender}
             handleChange={handleGenderChange}
-            primaryColor={Golden}
-            secondaryColor={"#60557E"}
-            primaryBGColor={"#FFC66F33"}
-            secondaryBGColor={"rgba(0, 0, 0, 0.5)"}
             maleGender="M"
             femaleGender="F"
             displayEmptyErrorMessage={displayEmptyErrorMessages['gender']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <IntroductionSelector
             handleChange={handleChange}
-            referral_method={AshbariaProfile?.referral_method}
+            referral_method={programProfile?.referral_method}
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('referral_method', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['referral_method']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -256,13 +265,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <ProvinceSelector
             isRequired={true}
-            data={AshbariaProfile}
-            setData={setAshbariaProfile}
+            data={programProfile}
+            setData={setProgramProfile}
             onValidationChange={(isValid) => handleValidationChange('province', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['province']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -274,13 +283,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <CitySelector
             isRequired={true}
-            data={AshbariaProfile}
-            setData={setAshbariaProfile}
+            data={programProfile}
+            setData={setProgramProfile}
             onValidationChange={(isValid) => handleValidationChange('city', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['city']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               paddingBottom: '4px',
@@ -293,12 +302,12 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <TextField
             fullWidth
             onChange={handleChange}
-            value={AshbariaProfile?.school || ''}
+            value={programProfile?.school || ''}
             name="school"
             placeholder="نام مدرسه خود را وارد کنید."
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -310,14 +319,14 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <PhoneNumberInput
             setPhoneNumber={handleChange}
-            phoneNumber={AshbariaProfile?.phone_number || ''}
+            phoneNumber={programProfile?.phone_number || ''}
             label={undefined}
             editable={true}
             placeHolder={"شماره تلفن خود را وارد کنید."}
             isRequired={true}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Typography
             sx={{
               marginBottom: '4px',
@@ -330,7 +339,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           <PostalCodeField
             isRequired={true}
             onChange={handleChange}
-            value={AshbariaProfile?.postal_code}
+            value={programProfile?.postal_code}
             onValidationChange={(isValid) => handleValidationChange('postal_code', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['postal_code']}
             placeholder="کد پستی خود را وارد کنید."
@@ -348,7 +357,7 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           </Typography>
           <AddressField
             onChange={handleChange}
-            value={AshbariaProfile?.address}
+            value={programProfile?.address}
             isRequired={true}
             onValidationChange={(isValid) => handleValidationChange('address', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['address']}
@@ -356,33 +365,22 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <ProfileImageSelector
-            profile_image={AshbariaProfile?.profile_image}
-            handleChange={handleProfileImgChange}
+          <AvatarSelector
+            profileImage={programProfile?.profile_image}
+            onChange={handleProfileImgChange}
             onValidationChange={(isValid) => handleValidationChange('profile_image', isValid)}
             displayEmptyErrorMessage={displayEmptyErrorMessages['profile_image']}
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Button onClick={() => localNavigate('/')} size="large" fullWidth={true} variant='outlined'>
             {'ولش کن'}
           </Button>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={6}>
           <Button
-            onClick={() => {
-              if (allFieldsValid) {
-                setIsSubmitConfirmationOpen(true)
-              } else {
-                for (const property in fieldValidationStatus) {
-                  if (!fieldValidationStatus[property] && !AshbariaProfile[property]) {
-                    setDisplayEmptyErrorMessages((prevState) => ({ ...prevState, [property]: true }));
-                  }
-                }
-                toast.error("لطفا اول موارد خواسته شده رو تکمیل کن.");
-              }
-            }}
-            disabled={Object.values(AshbariaProfile ?? {}).some(value => value === '' || value === null)}
+            onClick={handleSubmit}
+            disabled={Object.values(programProfile ?? {}).some(value => value === '' || value === null)}
             size="large"
             fullWidth={true}
             variant='contained'
@@ -392,13 +390,13 @@ const UserInfo: FC<UserSettingPropsType> = ({ }) => {
         </Grid>
       </Grid>
       <AreYouSure
-        text='آیا از صحیح بودن اطلاعات مطمئنی؟ جوایز تنها به دادبستان‌هایی تعلق می‌گیرد که نمایه‌شان را با اطلاعات صحیح تکمیل کرده باشند.'
+        text='آیا از صحیح بودن اطلاعات مطمئنی؟ جوایز تنها به کاراگاه‌هایی تعلق می‌گیرد که نمایه‌شان را با اطلاعات صحیح تکمیل کرده باشند.'
         open={isSubmitConfirmationOpen}
         handleClose={() => setIsSubmitConfirmationOpen(false)}
-        callBackFunction={() => updateProfile(AshbariaProfile)}
+        callBackFunction={() => updateProgramProfile(programProfile)}
       />
     </Fragment>
   );
 }
 
-export default UserInfo;
+export default Profile;

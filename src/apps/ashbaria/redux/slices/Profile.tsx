@@ -1,13 +1,13 @@
-import { AshbariaProfileType, UpdateProfileResponse } from 'apps/ashbaria/types';
+import { ProgramProfileType } from 'apps/program/types/profile';
 import { AshbariaApi } from '../AshbariaApi';
 import { invalidateMyTagsForTypes } from 'commons/redux/utilities/tagInvalidation';
 
-type UpdateProfileInput = Partial<Omit<AshbariaProfileType, 'created_at' | 'updated_at'>>;
+type UpdateProfileInput = Partial<Omit<ProgramProfileType, 'created_at' | 'updated_at'>>;
 
 export const ProfileSlice = AshbariaApi.injectEndpoints({
   endpoints: (builder) => ({
 
-    getProfile: builder.query<AshbariaProfileType, void>({
+    getProgramProfile: builder.query<ProgramProfileType, void>({
       providesTags: [{ type: 'Profile', id: 'MY' }],
       query: () => ({
         url: '/profile/profile/',
@@ -15,7 +15,7 @@ export const ProfileSlice = AshbariaApi.injectEndpoints({
       }),
     }),
 
-    updateProfile: builder.mutation<{ reward_granted: boolean }, UpdateProfileInput>({
+    updateProgramProfile: builder.mutation<{ reward_granted: boolean }, UpdateProfileInput>({
       invalidatesTags: [{ type: 'Profile', id: 'MY' }],
       onQueryStarted: invalidateMyTagsForTypes(['Balances']),
       query: (profileData) => ({
@@ -30,6 +30,6 @@ export const ProfileSlice = AshbariaApi.injectEndpoints({
 });
 
 export const {
-  useGetProfileQuery,
-  useUpdateProfileMutation,
+  useGetProgramProfileQuery,
+  useUpdateProgramProfileMutation,
 } = ProfileSlice;

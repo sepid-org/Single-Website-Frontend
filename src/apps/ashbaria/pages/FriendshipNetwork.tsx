@@ -13,7 +13,7 @@ import {
 import BackButton from '../components/molecules/buttons/Back';
 import dialogService from 'commons/components/organisms/PortalDialog';
 import CustomDialogContent from 'commons/components/molecules/CustomDialogContent';
-import ScoreAnnouncement from 'apps/film-bazi/components/atoms/icons/ScoreAnnouncement';
+import ScoreAnnouncement from 'commons/components/atoms/icons/ScoreAnnouncement';
 import { toEnglishNumber, toPersianNumber } from 'commons/utils/translateNumber';
 import HeartIcon from '../components/atoms/icons/Heart';
 import FriendshipNetworkPoints from '../components/molecules/friendship-network/FriendshipNetworkPoint';
